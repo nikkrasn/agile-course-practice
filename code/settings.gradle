@@ -1,0 +1,9 @@
+// Kirill Kornyakov
+include "kirill-kornyakov-lab3/Model"
+project(":kirill-kornyakov-lab3/Model").name = "kirill-kornyakov-Model"
+include "kirill-kornyakov-lab3/ViewModel"
+project(":kirill-kornyakov-lab3/ViewModel").name = "kirill-kornyakov-ViewModel"
+include "kirill-kornyakov-lab3/View"
+project(":kirill-kornyakov-lab3/View").name = "kirill-kornyakov-View"
+include "kirill-kornyakov-lab3/Infrastructure"
+project(":kirill-kornyakov-lab3/Infrastructure").name = "kirill-kornyakov-Infrastructure"

@@ -1,0 +1,4 @@
+language: java
+script: (cd code && TERM=dumb && gradle check)
+notifications:
+  email: false

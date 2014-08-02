@@ -1,5 +1,7 @@
 # Спецкурс "Agile Development"
 
+[![Build Status](https://travis-ci.org/UNN-VMK-Software/agile-course-practice.svg?branch=master)](https://travis-ci.org/UNN-VMK-Software/agile-course-practice)
+
 Нижегородский Государственный Университет им. Н.И. Лобачевского
 Факультет ВМК, каф. МО ЭВМ
 

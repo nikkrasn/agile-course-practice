@@ -25,4 +25,8 @@ subprojects {
             println "[${suiteName}]: ${result.resultType} in ${desc.name}"
         }
     }
+
+    checkstyle {
+       configFile = new File("config/checkstyle/", "checkstyle.xml")
+    }
 }

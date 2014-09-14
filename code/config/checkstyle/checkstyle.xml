@@ -39,21 +39,15 @@
         <property name="basedir" value="${basedir}"/>
     -->
 
-    <!-- Checks that a package-info.java file exists for each package.     -->
-    <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
-    <module name="JavadocPackage"/>
-
     <!-- Checks whether files end with a new line.                        -->
     <!-- See http://checkstyle.sf.net/config_misc.html#NewlineAtEndOfFile -->
     <module name="NewlineAtEndOfFile"/>
 
-    <!-- Checks that property files contain the same keys.         -->
-    <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
-    <module name="Translation"/>
-    
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
-    <module name="FileLength"/>
+    <module name="FileLength">
+        <property name="max" value="1000"/>
+    </module>
     
     <!-- Checks for whitespace                               -->
     <!-- See http://checkstyle.sf.net/config_whitespace.html -->
@@ -76,15 +70,6 @@
     <!-- </module> -->
 
     <module name="TreeWalker">
-
-        <!-- Checks for Javadoc comments.                     -->
-        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod"/>
-        <module name="JavadocType"/>
-        <module name="JavadocVariable"/>
-        <module name="JavadocStyle"/>
-
-
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
         <module name="ConstantName"/>
@@ -108,9 +93,9 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength"/>
-        <module name="MethodLength"/>
-        <module name="ParameterNumber"/>
+        <module name="LineLength"/> <!-- defaults to 80 symbols -->
+        <module name="MethodLength"/> <!-- defaults to 150 lines -->
+        <module name="ParameterNumber"/> <!-- defaults to 7 items -->
 
 
         <!-- Checks for whitespace                               -->
@@ -129,6 +114,15 @@
 
         <!-- Modifier Checks                                    -->
         <!-- See http://checkstyle.sf.net/config_modifiers.html -->
+        <!--
+            1. public
+            2. protected
+            3. private
+            4. abstract
+            5. static
+            6. final
+            ...
+        -->
         <module name="ModifierOrder"/>
         <module name="RedundantModifier"/>
 
@@ -144,7 +138,6 @@
 
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
-        <module name="AvoidInlineConditionals"/>
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="HiddenField"/>
@@ -152,6 +145,7 @@
         <module name="InnerAssignment"/>
         <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
+        <module name="ModifiedControlVariable"/>
         <module name="RedundantThrows"/>
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>

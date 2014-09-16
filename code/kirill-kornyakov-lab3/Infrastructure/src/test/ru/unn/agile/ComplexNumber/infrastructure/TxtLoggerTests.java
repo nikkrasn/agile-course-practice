@@ -15,12 +15,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class TxtLoggerTests {
-    private static final String filename = "./TxtLoggerTests.log";
+    private static final String FILENAME = "./TxtLoggerTests.log";
     private TxtLogger txtLogger;
 
     @Before
     public void setUp() {
-        txtLogger = new TxtLogger(filename);
+        txtLogger = new TxtLogger(FILENAME);
     }
 
     @Test
@@ -31,9 +31,9 @@ public class TxtLoggerTests {
     @Test
     public void canCreateLogFileOnDisk() {
         try {
-            new BufferedReader(new FileReader(filename));
+            new BufferedReader(new FileReader(FILENAME));
         } catch (FileNotFoundException e) {
-            fail("File " + filename + " wasn't found!");
+            fail("File " + FILENAME + " wasn't found!");
         }
     }
 
@@ -41,7 +41,7 @@ public class TxtLoggerTests {
     public void canWriteLogMessage() {
         String testMessage = "Test message";
 
-        txtLogger.Log(testMessage);
+        txtLogger.log(testMessage);
 
         String message = readLines().get(0);
         assertThat(message, matchesPattern(".*" + testMessage + "$"));
@@ -51,19 +51,20 @@ public class TxtLoggerTests {
     public void canWriteSeveralLogMessage() {
         String[] messages = {"Test message 1", "Test message 2"};
 
-        txtLogger.Log(messages[0]);
-        txtLogger.Log(messages[1]);
+        txtLogger.log(messages[0]);
+        txtLogger.log(messages[1]);
 
         List<String> actualMessages = readLines();
-        for (int i = 0; i < actualMessages.size(); i++)
+        for (int i = 0; i < actualMessages.size(); i++) {
             assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+        }
     }
 
     @Test
     public void doesLogContainDateAndTime() {
         String testMessage = "Test message";
 
-        txtLogger.Log(testMessage);
+        txtLogger.log(testMessage);
 
         String message = readLines().get(0);
         assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
@@ -73,7 +74,7 @@ public class TxtLoggerTests {
         BufferedReader reader;
         ArrayList<String> log = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(filename));
+            reader = new BufferedReader(new FileReader(FILENAME));
             String line = reader.readLine();
 
             while (line != null) {

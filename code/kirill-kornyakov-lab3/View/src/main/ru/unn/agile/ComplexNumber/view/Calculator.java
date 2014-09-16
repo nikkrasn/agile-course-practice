@@ -7,7 +7,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class Calculator {
+public final class Calculator {
+
     private JPanel mainPanel;
     private JButton btnCalc;
     private ViewModel viewModel;
@@ -21,7 +22,9 @@ public class Calculator {
     private JLabel lbStatus;
     private JList<String> lstLog;
 
-    public Calculator(ViewModel viewModel) {
+    private Calculator() { }
+
+    private Calculator(final ViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
 
@@ -29,7 +32,7 @@ public class Calculator {
 
         btnCalc.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
                 Calculator.this.viewModel.calculate();
                 backBind();
@@ -38,14 +41,14 @@ public class Calculator {
 
         cbOperation.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
                 backBind();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
-            public void keyReleased(KeyEvent e) {
+            public void keyReleased(final KeyEvent e) {
                 bind();
                 Calculator.this.viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
@@ -57,7 +60,7 @@ public class Calculator {
         txtZ2Im.addKeyListener(keyListener);
 
         FocusAdapter focusLostListener = new FocusAdapter() {
-            public void focusLost(FocusEvent e) {
+            public void focusLost(final FocusEvent e) {
                 bind();
                 Calculator.this.viewModel.focusLost();
                 backBind();
@@ -69,7 +72,7 @@ public class Calculator {
         txtZ2Im.addFocusListener(focusLostListener);
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         JFrame frame = new JFrame("Calculator");
 
         TxtLogger logger = new TxtLogger("./Calculator.log");

@@ -16,9 +16,10 @@ public class ViewModel {
     private boolean isInputChanged;
     private ILogger logger;
 
-    public ViewModel(ILogger logger) {
-        if(logger == null)
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
+        }
 
         this.logger = logger;
         re1 = "";
@@ -33,23 +34,28 @@ public class ViewModel {
         isInputChanged = true;
     }
 
-    public void processKeyInTextField(int keyCode) {
+    public void processKeyInTextField(final int keyCode) {
         parseInput();
 
-        if (keyCode == KeyboardKeys.ENTER) enterPressed();
+        if (keyCode == KeyboardKeys.ENTER) {
+            enterPressed();
+        }
     }
 
     private void enterPressed() {
         logInputParams();
 
-        if (isCalculateButtonEnabled())
+        if (isCalculateButtonEnabled()) {
             calculate();
+        }
     }
 
     private void logInputParams() {
-        if (!isInputChanged) return;
+        if (!isInputChanged) {
+            return;
+        }
 
-        logger.Log(editingFinishedLogMessage());
+        logger.log(editingFinishedLogMessage());
         isInputChanged = false;
     }
 
@@ -78,10 +84,18 @@ public class ViewModel {
 
     private boolean parseInput() {
         try {
-            if (!re1.isEmpty()) Double.parseDouble(re1);
-            if (!im1.isEmpty()) Double.parseDouble(im1);
-            if (!re2.isEmpty()) Double.parseDouble(re2);
-            if (!im2.isEmpty()) Double.parseDouble(im2);
+            if (!re1.isEmpty()) {
+                Double.parseDouble(re1);
+            }
+            if (!im1.isEmpty()) {
+                Double.parseDouble(im1);
+            }
+            if (!re2.isEmpty()) {
+                Double.parseDouble(re2);
+            }
+            if (!im2.isEmpty()) {
+                Double.parseDouble(im2);
+            }
         } catch (Exception e) {
             status = Status.BAD_FORMAT;
             isCalculateButtonEnabled = false;
@@ -99,9 +113,11 @@ public class ViewModel {
     }
 
     public void calculate() {
-        logger.Log(calculateLogMessage());
+        logger.log(calculateLogMessage());
 
-        if (!parseInput()) return;
+        if (!parseInput()) {
+            return;
+        }
 
         ComplexNumber z1 = new ComplexNumber(re1, im1);
         ComplexNumber z2 = new ComplexNumber(re2, im2);
@@ -114,6 +130,8 @@ public class ViewModel {
             case MULTIPLY:
                 z3 = z1.multiply(z2);
                 break;
+            default:
+                throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
         }
 
         result = z3.toString();
@@ -141,10 +159,9 @@ public class ViewModel {
         return operation;
     }
 
-    public void setOperation(Operation operation) {
-        if (this.operation != operation)
-        {
-            logger.Log(LogMessages.OPERATION_WAS_CHANGED + operation.toString());
+    public void setOperation(final Operation operation) {
+        if (this.operation != operation) {
+            logger.log(LogMessages.OPERATION_WAS_CHANGED + operation.toString());
             this.operation = operation;
         }
     }
@@ -161,8 +178,10 @@ public class ViewModel {
         return re1;
     }
 
-    public void setRe1(String re1) {
-        if (re1.equals(this.re1)) return;
+    public void setRe1(final String re1) {
+        if (re1.equals(this.re1)) {
+            return;
+        }
 
         this.re1 = re1;
         isInputChanged = true;
@@ -172,8 +191,10 @@ public class ViewModel {
         return im1;
     }
 
-    public void setIm1(String im1) {
-        if (im1.equals(this.im1)) return;
+    public void setIm1(final String im1) {
+        if (im1.equals(this.im1)) {
+            return;
+        }
 
         this.im1 = im1;
         isInputChanged = true;
@@ -183,8 +204,10 @@ public class ViewModel {
         return re2;
     }
 
-    public void setRe2(String re2) {
-        if (re2.equals(this.re2)) return;
+    public void setRe2(final String re2) {
+        if (re2.equals(this.re2)) {
+            return;
+        }
 
         this.re2 = re2;
         isInputChanged = true;
@@ -194,8 +217,10 @@ public class ViewModel {
         return im2;
     }
 
-    public void setIm2(String im2) {
-        if (im2.equals(this.im2)) return;
+    public void setIm2(final String im2) {
+        if (im2.equals(this.im2)) {
+            return;
+        }
 
         this.im2 = im2;
         isInputChanged = true;
@@ -206,7 +231,7 @@ public class ViewModel {
         MULTIPLY("Mul");
         private final String name;
 
-        private Operation(String name) {
+        private Operation(final String name) {
             this.name = name;
         }
 
@@ -215,16 +240,20 @@ public class ViewModel {
         }
     }
 
-    public class Status {
+    public final class Status {
         public static final String WAITING = "Please provide input data";
         public static final String READY = "Press 'Calculate' or Enter";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
+
+        private Status() { }
     }
 
-    public class LogMessages {
+    public final class LogMessages {
         public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
         public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
         public static final String EDITING_FINISHED = "Updated input. ";
+
+        private LogMessages() { }
     }
 }

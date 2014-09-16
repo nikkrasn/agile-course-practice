@@ -29,5 +29,6 @@ subprojects {
     checkstyle {
        checkstyleMain.configFile = new File("config/checkstyle/", "main.xml")
        checkstyleTest.configFile = new File("config/checkstyle/", "test.xml")
+       // ignoreFailures = true
     }
 }

@@ -1,8 +1,0 @@
-dependencies {
-    compile project(':kirill-kornyakov-ViewModel')
-    compile project(':kirill-kornyakov-Infrastructure')
-}
-
-sourceSets {
-    main.java.srcDir 'src/main'
-}

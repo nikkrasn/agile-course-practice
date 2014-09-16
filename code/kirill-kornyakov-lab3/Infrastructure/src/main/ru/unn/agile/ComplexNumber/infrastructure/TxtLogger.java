@@ -2,7 +2,10 @@ package ru.unn.agile.ComplexNumber.infrastructure;
 
 import ru.unn.agile.ComplexNumber.viewmodel.ILogger;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +22,7 @@ public class TxtLogger implements ILogger {
         return sdf.format(cal.getTime());
     }
 
-    public TxtLogger(String filename) {
+    public TxtLogger(final String filename) {
         this.filename = filename;
 
         try {
@@ -31,13 +34,12 @@ public class TxtLogger implements ILogger {
     }
 
     @Override
-    public void Log(String s) {
+    public void log(final String s) {
         try {
             writer.write(now() + " > " + s);
             writer.newLine();
             writer.flush();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -54,8 +56,7 @@ public class TxtLogger implements ILogger {
                 log.add(line);
                 line = reader.readLine();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 

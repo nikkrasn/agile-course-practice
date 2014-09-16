@@ -2,10 +2,13 @@ package ru.unn.agile.ComplexNumber.model;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class ComplexNumberTests {
-    public final double delta = 0.001;
+    private final double delta = 0.001;
 
     @Test
     public void canCreateComplexNumberWithInitialValues() {
@@ -83,7 +86,6 @@ public class ComplexNumberTests {
         ComplexNumber sum = z1.multiply(z2);
         assertEquals(new ComplexNumber(-5, 10), sum);
     }
-
 
     @Test
     public void canConvertStringToComplexNumber() {

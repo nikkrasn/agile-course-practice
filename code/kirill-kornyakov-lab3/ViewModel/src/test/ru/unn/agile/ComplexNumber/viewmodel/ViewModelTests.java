@@ -13,7 +13,11 @@ import static org.junit.Assert.*;
 import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class ViewModelTests {
-    protected ViewModel viewModel;
+    private ViewModel viewModel;
+
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
@@ -249,17 +253,12 @@ public class ViewModelTests {
 
     @Test
     public void viewModelConstructorThrowsExceptionWithNullLogger() {
-        try
-        {
+        try {
             new ViewModel(null);
             fail("Exception wasn't thrown");
-        }
-        catch(IllegalArgumentException ex)
-        {
+        } catch (IllegalArgumentException ex) {
             assertEquals("Logger parameter can't be null", ex.getMessage());
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             fail("Invalid exception type");
         }
     }

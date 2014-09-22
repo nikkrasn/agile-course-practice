@@ -5,6 +5,7 @@ subprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
 
     repositories {
        mavenCentral()
@@ -27,8 +28,31 @@ subprojects {
     }
 
     checkstyle {
-       checkstyleMain.configFile = new File("config/checkstyle/", "main.xml")
-       checkstyleTest.configFile = new File("config/checkstyle/", "test.xml")
-       // ignoreFailures = true
+        checkstyleMain.configFile = new File("config/checkstyle/", "main.xml")
+        checkstyleTest.configFile = new File("config/checkstyle/", "test.xml")
+        // ignoreFailures = true
+    }
+
+    pmd {
+        pmdMain.ruleSets = [ "java-basic", "java-braces", "java-design" ]
+        pmdTest.ruleSets = [ "java-basic", "java-braces" ]
+        ignoreFailures = true
+    }
+
+    gradle.taskGraph.afterTask { Task task, TaskState state ->
+        if ((task.name == 'pmdMain' || task.name == 'pmdTest') /*&& state.failure*/) {
+            def outFile = task.name == 'pmdMain' ? 'main.xml' : 'test.xml'
+            def reportFile = file("${buildDir}/reports/pmd/${outFile}")
+
+            def violationCount = 0
+            if (reportFile.exists()) {
+                def result = new XmlParser().parse(reportFile)
+                result.file.each { file ->
+                    file.violation.each { violation ->
+                        println "${file.'@name'}:${violation.'@beginline'}: ${violation.text()}"
+                    }
+                }
+            }
+        }
     }
 }

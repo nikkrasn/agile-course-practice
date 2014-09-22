@@ -1,61 +1,60 @@
 package ru.unn.agile.ComplexNumber.core;
 
-public class ComplexNumber
-{
-	private double m_real;
-	private double m_imaginary;
+public class ComplexNumber {
+    private double re;
+    private double im;
 
-	public ComplexNumber(double real, double imaginary)
-	{
-		this.setReal(real);
-		this.m_imaginary = imaginary;
-	}
+    public ComplexNumber(final double real, final double imaginary) {
+        this.re = real;
+        this.im = imaginary;
+    }
 
-	public boolean equals(Object object)
-	{
-		ComplexNumber number = (ComplexNumber) object;
-		if (number.getReal() == getReal()
-				&& number.getImaginary() == getImaginary())
-			return true;
-		else
-			return false;
-	}
+    @Override
+    public int hashCode() {
+        final int shift = 32;
 
-	public ComplexNumber add(ComplexNumber other)
-	{
-		return new ComplexNumber(other.getReal() + getReal(),
-				other.getImaginary() + getImaginary());
-	}
+        long temp = Double.doubleToLongBits(re);
+        int result = (int) (temp ^ (temp >>> shift));
+        temp = Double.doubleToLongBits(im);
+        result = (shift - 1) * result + (int) (temp ^ (temp >>> shift));
+        return result;
+    }
 
-	public ComplexNumber multiply(ComplexNumber other)
-	{
-		return new ComplexNumber(
-				other.getReal() * getReal() - other.getImaginary() * getImaginary(),
-				other.getReal() * getImaginary() + other.getImaginary() * getReal());
-	}
+    @Override
+    public boolean equals(final Object object) {
+        ComplexNumber number = (ComplexNumber) object;
+        return number.getReal() == getReal()
+                && number.getImaginary() == getImaginary();
+    }
 
-	public void setReal(double real)
-	{
-		this.m_real = real;
-	}
+    public ComplexNumber add(final ComplexNumber other) {
+        return new ComplexNumber(other.getReal() + getReal(),
+                other.getImaginary() + getImaginary());
+    }
 
-	public double getReal()
-	{
-		return m_real;
-	}
+    public ComplexNumber multiply(final ComplexNumber other) {
+        return new ComplexNumber(
+                other.getReal() * getReal() - other.getImaginary() * getImaginary(),
+                other.getReal() * getImaginary() + other.getImaginary() * getReal());
+    }
 
-	public void setImaginary(double imaginary)
-	{
-		this.m_imaginary = imaginary;
-	}
+    public void setReal(final double real) {
+        this.re = real;
+    }
 
-	public double getImaginary()
-	{
-		return m_imaginary;
-	}
+    public double getReal() {
+        return re;
+    }
 
-	public String toString()
-	{
-		return Formatter.getFormatted(this);
-	}
+    public void setImaginary(final double imaginary) {
+        this.im = imaginary;
+    }
+
+    public double getImaginary() {
+        return im;
+    }
+
+    public String toString() {
+        return Formatter.getFormatted(this);
+    }
 }

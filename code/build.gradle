@@ -1,4 +1,54 @@
+apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'cpd'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'de.aaschmid.gradle.plugins:gradle-cpd-plugin:0.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.sourceforge.pmd:pmd:5.1.0'
+}
+
+tasks.cpd {
+    doFirst {
+        println '[**************** Copy/paste analysis ****************]'
+    }
+
+    def reportName = 'cpd.xml'
+    reports {
+        xml.enabled = true
+        xml.destination = reportName
+    }
+
+    minimumTokenCount = 50
+
+    source files{ allprojects.findAll{ p -> p.hasProperty('sourceSets') }.collect { p -> p.sourceSets.collect { (it.java) } } }
+        .filter{ !it.path.contains('kornyakov-kirill-lab1') && !it.path.contains('kornyakov-kirill-lab2') }
+
+    doLast {
+        def copyPasted = new XmlParser().parse(reportName)
+        def rate = copyPasted.duplication.size()
+        println 'Copy-paste rate: '  + rate + ' times'
+        copyPasted.duplication.each { d -> println '[**************** Found in: ****************]'
+            d.file.each { f -> println f.'@path' + ', started @' + f.'@line' + ' line' }
+            println d.codefragment.text() }
+        if (rate == 0) {
+            println '[**************** WELL DONE! ****************]'
+        } else {
+            throw new RuntimeException("Cannot proceed with non zero copy-paste rate!")
+        }
+    }
+}
 
 subprojects {
     apply plugin: 'java'

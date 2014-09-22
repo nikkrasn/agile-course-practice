@@ -1,9 +1,11 @@
 language: java
-before_install:
-  - sudo apt-get update -qq
-install:
-  - sudo apt-get install -qq libgradle-code-quality-java
+# before_install:
+#   - sudo apt-get update -qq
+# install:
+#   - sudo apt-get install -qq libgradle-code-quality-java
 script:
-  - (cd code && TERM=dumb && gradle check)
+  - cd code
+  - TERM=dumb
+  - gradle check
 notifications:
   email: false

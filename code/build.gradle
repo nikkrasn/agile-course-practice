@@ -44,7 +44,9 @@ tasks.cpd {
             println d.codefragment.text() }
         if (rate == 0) {
             println '[**************** WELL DONE! ****************]'
+            println '[****************  ᕦ(ò‿ó)ᕤ  ****************]'
         } else {
+            println '[**************** (ノಠ益ಠ)ノ彡 ****************]'
             throw new RuntimeException("Cannot proceed with non zero copy-paste rate!")
         }
     }

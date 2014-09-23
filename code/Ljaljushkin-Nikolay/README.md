@@ -10,25 +10,32 @@
 Реализовать классы, позволяющие конвертировать одно цветовое пространство в другое. 
 
 Ссылки на математические формулы соответствующих преобразований цветовых пространств можно найти в таблице.
-
-+------+--------------------------------------------------------------------+
-| From |                                 TO                                 |
-+      +--------------------------------------------------------------------+
-|      |         RGB          |          LAB         |          HSV         |
-+------+----------------------+----------------------+----------------------+
-|  RGB |                      | RGB to XYZ [RGB2XYZ] | RGB to HSV [RGB2HSV] |
-|      |                      | XYZ to LAB [XYZ2LAB] |                      |
-+------+----------------------+----------------------+----------------------+
-|  LAB | LAB to XYZ [LAB2XYZ] |                      | LAB to XYZ [LAB2XYZ] |
-|      | XYZ to RGB [XYZ2RGB] |                      | XYZ to RGB [XYZ2RGB] |
-|      |                      |                      | RGB to HSV [RGB2HSV] |
-+------+----------------------+----------------------+----------------------+
-|  HSV | HSV to RGB [HSV2RGB] | HSV to RGB [HSV2RGB] |                      |
-|      |                      | RGB to XYZ [RGB2XYZ] |                      |
-|      |                      | XYZ to LAB [XYZ2LAB] |                      |
-+------+----------------------+----------------------+----------------------+
-
-
+<table>
+  <tr>
+    <th></th>
+    <th>RGB</th>
+    <th>LAB</th>
+    <th>HSV</th>
+  </tr>
+  <tr>
+    <td>RGB</td>
+    <td></td>
+    <td>[RGBtoXYZ][RGB2XYZ]<br>[XYZtoLAB][XYZ2LAB]</td>
+    <td>[RGBtoHSV][RGB2HSV]</td>
+  </tr>
+  <tr>
+    <td>LAB</td>
+    <td>[LABtoXYZ][LAB2XYZ] <br>[XYZtoRGB] [XYZ2RGB]</td>
+    <td></td>
+    <td>[LABtoXYZ][LAB2XYZ] <br>[XYZtoRGB] [XYZ2RGB] <br>[RGBtoHSV][RGB2HSV]</td>
+  </tr>
+  <tr>
+    <td>HSV</td>
+    <td>[HSVtoRGB][HSV2RGB]</td>
+    <td>[HSVtoRGB][HSV2RGB]<br>[RGBtoXYZ][RGB2XYZ]<br>[XYZtoLAB][XYZ2LAB]</td>
+    <td></td>
+  </tr>
+</table>
 
 ## Документация разработчика
 

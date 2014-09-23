@@ -9,33 +9,23 @@
 
 Реализовать классы, позволяющие конвертировать одно цветовое пространство в другое. 
 
-Ссылки на математические формулы соответствующих преобразований цветовых пространств можно найти в таблице.
-<table>
-  <tr>
-    <th></th>
-    <th>RGB</th>
-    <th>LAB</th>
-    <th>HSV</th>
-  </tr>
-  <tr>
-    <td>RGB</td>
-    <td></td>
-    <td>[RGBtoXYZ][RGB2XYZ]<br>[XYZtoLAB][XYZ2LAB]</td>
-    <td>[RGBtoHSV][RGB2HSV]</td>
-  </tr>
-  <tr>
-    <td>LAB</td>
-    <td>[LABtoXYZ][LAB2XYZ] <br>[XYZtoRGB] [XYZ2RGB]</td>
-    <td></td>
-    <td>[LABtoXYZ][LAB2XYZ] <br>[XYZtoRGB] [XYZ2RGB] <br>[RGBtoHSV][RGB2HSV]</td>
-  </tr>
-  <tr>
-    <td>HSV</td>
-    <td>[HSVtoRGB][HSV2RGB]</td>
-    <td>[HSVtoRGB][HSV2RGB]<br>[RGBtoXYZ][RGB2XYZ]<br>[XYZtoLAB][XYZ2LAB]</td>
-    <td></td>
-  </tr>
-</table>
+Ссылки на математические формулы соответствующих преобразований цветовых пространств можно найти ниже.
+* RGB to LAB: 
+ - [RGB->XYZ][RGB2XYZ]
+ - [XYZ->LAB][XYZ2LAB]
+* LAB to RGB:
+ - [LAB->XYZ][LAB2XYZ]
+ - [XYZ->RGB][XYZ2RGB]
+* RGB to HSV:
+ - [RGB->HSV][RGB2HSV]
+* HSV to RGB:
+ - [HSV->RGB][HSV2RGB]
+* LAB to HSV:
+ - LAB->RGB (see above)
+ - RGB->HSV (see above)
+* HSV to LAB:
+ - HSV->RGB (see above)
+ - RGB->LAB (see above)
 
 ## Документация разработчика
 

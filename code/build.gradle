@@ -36,15 +36,13 @@ subprojects {
     pmd {
         pmdMain.ruleSets = [ "java-basic", "java-braces", "java-design" ]
         pmdTest.ruleSets = [ "java-basic", "java-braces" ]
-        ignoreFailures = true
+        // ignoreFailures = true
     }
 
     gradle.taskGraph.afterTask { Task task, TaskState state ->
-        if ((task.name == 'pmdMain' || task.name == 'pmdTest') /*&& state.failure*/) {
+        if ((task.name == 'pmdMain' || task.name == 'pmdTest') && state.failure) {
             def outFile = task.name == 'pmdMain' ? 'main.xml' : 'test.xml'
             def reportFile = file("${buildDir}/reports/pmd/${outFile}")
-
-            def violationCount = 0
             if (reportFile.exists()) {
                 def result = new XmlParser().parse(reportFile)
                 result.file.each { file ->
@@ -52,6 +50,7 @@ subprojects {
                         println "${file.'@name'}:${violation.'@beginline'}: ${violation.text()}"
                     }
                 }
+                reportFile.delete()
             }
         }
     }

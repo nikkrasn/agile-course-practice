@@ -139,8 +139,7 @@ public class ViewModel {
     }
 
     public List<String> getLog() {
-        List<String> log = logger.getLog();
-        return log;
+        return logger.getLog();
     }
 
     private String calculateLogMessage() {

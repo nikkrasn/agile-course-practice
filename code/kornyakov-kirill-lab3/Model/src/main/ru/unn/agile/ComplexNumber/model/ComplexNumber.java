@@ -1,8 +1,8 @@
 package ru.unn.agile.ComplexNumber.model;
 
 public class ComplexNumber {
-    private double re;
-    private double im;
+    private final double re;
+    private final double im;
 
     public ComplexNumber(final double real, final double imaginary) {
         this.re = real;

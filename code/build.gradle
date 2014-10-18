@@ -91,7 +91,7 @@ subprojects {
     }
 
     pmd {
-        pmdMain.ruleSets = [ "java-basic", "java-braces", "java-design" ]
+        pmdMain.ruleSetFiles = files(rootDir.getAbsolutePath() + "/config/pmd/rules.xml")
         pmdTest.ruleSets = [ "java-basic", "java-braces" ]
         // ignoreFailures = true
     }

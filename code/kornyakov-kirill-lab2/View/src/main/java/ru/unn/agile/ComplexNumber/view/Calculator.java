@@ -2,11 +2,8 @@ package ru.unn.agile.ComplexNumber.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import ru.unn.agile.ComplexNumber.viewmodel.ILogger;
+import ru.unn.agile.ComplexNumber.viewmodel.MockLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Calculator {
     @FXML
@@ -30,7 +27,7 @@ public class Calculator {
 
     @FXML
     void initialize() {
-        ViewModel viewModel = new ViewModel(new ArrayLogger());
+        ViewModel viewModel = new ViewModel(new MockLogger());
         txtZ1Re.textProperty().bindBidirectional(viewModel.re1Property());
         txtZ1Re.focusedProperty().addListener(viewModel.getFocusChangeListener());
 
@@ -54,18 +51,5 @@ public class Calculator {
 
         lbResult.textProperty().bind(viewModel.resultProperty());
         lbStatus.textProperty().bind(viewModel.statusProperty());
-    }
-
-    private class ArrayLogger implements ILogger {
-        private final List<String> log = new ArrayList<>();
-        @Override
-        public void log(final String s) {
-            log.add(s);
-            System.out.println(s);
-        }
-        @Override
-        public final List<String> getLog() {
-            return log;
-        }
     }
 }

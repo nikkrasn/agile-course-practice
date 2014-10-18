@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,15 +16,9 @@ import static org.junit.Assert.*;
 public class ViewModelTests {
     private ViewModel viewModel;
 
-    public void setViewModel(final ViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
-
     @Before
     public void setUp() {
-        //FakeLogger logger = new FakeLogger();
-        //viewModel = new ViewModel(logger);
-        viewModel = new ViewModel(new ArrayLogger());
+        viewModel = new ViewModel(new MockLogger());
     }
 
     @After
@@ -329,18 +322,6 @@ public class ViewModelTests {
         viewModel.im1Property().set("2");
         viewModel.re2Property().set("3");
         viewModel.im2Property().set("4");
-    }
-
-    private class ArrayLogger implements ILogger {
-        private final List<String> log = new ArrayList<>();
-        @Override
-        public void log(final String s) {
-            log.add(s);
-        }
-        @Override
-        public final List<String> getLog() {
-            return log;
-        }
     }
 
     private final ObservableBooleanValue mockFocusChanged = new ObservableBooleanValue() {

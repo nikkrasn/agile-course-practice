@@ -42,12 +42,17 @@ public class ViewModel {
         im1.setValue("");
         re2.setValue("");
         im2.setValue("");
-        status.setValue(Status.WAITING);
+        status.setValue(Status.WAITING.toString());
         operation.setValue(Operation.ADD);
+        result.setValue("");
 
         calculationFired = new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
+                if (!calculationPossible.get()) {
+                    return;
+                }
+
                 ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
                 ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
 
@@ -61,7 +66,7 @@ public class ViewModel {
                     default:
                         throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
                 }
-                status.setValue(Status.SUCCESS);
+                status.setValue(Status.SUCCESS.toString());
 
                 StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
                 message.append("Arguments")
@@ -95,9 +100,9 @@ public class ViewModel {
                 if (isInputChanged && oldValue && !newValue) {
                     StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
                     message.append("Input arguments are: [")
-                            .append(re1.get()).append(";")
-                            .append(im1.get()).append(";")
-                            .append(re2.get()).append(";")
+                            .append(re1.get()).append("; ")
+                            .append(im1.get()).append("; ")
+                            .append(re2.get()).append("; ")
                             .append(im2.get()).append("]");
                     logger.log(message.toString());
                     updateLogs();
@@ -113,22 +118,10 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                try {
-                    Double.parseDouble(re1.get());
-                    Double.parseDouble(im1.get());
-                    Double.parseDouble(re2.get());
-                    Double.parseDouble(im2.get());
-                    status.setValue(Status.READY);
+                if (getInputStatus() == Status.READY) {
                     return true;
-                } catch (NumberFormatException nfe) {
-                    if (re1.get().isEmpty() || im1.get().isEmpty()
-                            || re2.get().isEmpty() || im2.get().isEmpty()) {
-                        status.setValue(Status.WAITING);
-                    } else {
-                        status.setValue(Status.BAD_FORMAT);
-                    }
-                    return false;
                 }
+                return false;
             }
         };
         calculationPossible.bind(couldCalculate);
@@ -141,6 +134,7 @@ public class ViewModel {
                     return;
                 }
                 isInputChanged = true;
+                status.setValue(getInputStatus().toString());
             }
         };
         re1.addListener(valueChangedListener);
@@ -163,7 +157,7 @@ public class ViewModel {
     public ObjectProperty operationsProperty() {
         return operations;
     }
-    public ObjectProperty operationProperty() {
+    public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
     public ReadOnlyBooleanProperty isCalculationPossibleProperty() {
@@ -186,6 +180,32 @@ public class ViewModel {
     }
     public final ChangeListener<Operation> getOperationChangedListener() {
         return operationChanged;
+    }
+
+    private Status getInputStatus() {
+        Status inputStatus = Status.READY;
+        if (re1.get().isEmpty() || im1.get().isEmpty()
+                || re2.get().isEmpty() || im2.get().isEmpty()) {
+            inputStatus = Status.WAITING;
+        }
+        try {
+            if (!re1.get().isEmpty()) {
+                Double.parseDouble(re1.get());
+            }
+            if (!im1.get().isEmpty()) {
+                Double.parseDouble(im1.get());
+            }
+            if (!re2.get().isEmpty()) {
+                Double.parseDouble(re2.get());
+            }
+            if (!im2.get().isEmpty()) {
+                Double.parseDouble(im2.get());
+            }
+        } catch (NumberFormatException nfe) {
+            inputStatus = Status.BAD_FORMAT;
+        }
+
+        return inputStatus;
     }
 
     private void updateLogs() {
@@ -216,13 +236,20 @@ public class ViewModel {
     }
 }
 
-final class Status {
-    public static final String WAITING = "Please provide input data";
-    public static final String READY = "Press 'Calculate' or Enter";
-    public static final String BAD_FORMAT = "Bad format";
-    public static final String SUCCESS = "Success";
+enum Status {
+    WAITING("Please provide input data"),
+    READY("Press 'Calculate' or Enter"),
+    BAD_FORMAT("Bad format"),
+    SUCCESS("Success");
+    private final String name;
 
-    private Status() { }
+    private Status(final String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return name;
+    }
 }
 
 final class LogMessages {

@@ -154,7 +154,7 @@ public class ViewModel {
     public StringProperty im2Property() {
         return im2;
     }
-    public ObjectProperty operationsProperty() {
+    public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
     }
     public ObjectProperty<Operation> operationProperty() {

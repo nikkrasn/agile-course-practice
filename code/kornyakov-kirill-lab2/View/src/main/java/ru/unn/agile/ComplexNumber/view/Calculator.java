@@ -18,7 +18,7 @@ public class Calculator {
     @FXML
     private TextField txtZ2Im;
     @FXML
-    private ComboBox cbOperation;
+    private ComboBox<ViewModel.Operation> cbOperation;
     @FXML
     private Button btnCalc;
     @FXML
@@ -29,7 +29,6 @@ public class Calculator {
     private TextArea areaLog;
 
     @FXML
-    @SuppressWarnings("unchecked") // FIXME
     void initialize() {
         ViewModel viewModel = new ViewModel(new ArrayLogger());
         txtZ1Re.textProperty().bindBidirectional(viewModel.re1Property());

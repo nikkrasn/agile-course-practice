@@ -1,11 +1,7 @@
 package ru.unn.agile.ComplexNumber.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import ru.unn.agile.ComplexNumber.viewmodel.ILogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
@@ -49,9 +45,16 @@ public class Calculator {
         txtZ2Im.focusedProperty().addListener(viewModel.getFocusChangeListener());
 
         cbOperation.itemsProperty().bind(viewModel.operationsProperty());
-        btnCalc.disableProperty().bind(viewModel.isCalculationPossibleProperty().not());
+        cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
+        cbOperation.valueProperty().addListener(viewModel.getOperationChangedListener());
 
-        areaLog.textProperty().bindBidirectional(viewModel.logsProperty());
+        btnCalc.disableProperty().bind(viewModel.isCalculationPossibleProperty().not());
+        btnCalc.setOnAction(viewModel.getCalculationFiredEventHandler());
+
+        areaLog.textProperty().bind(viewModel.logsProperty());
+
+        lbResult.textProperty().bind(viewModel.resultProperty());
+        lbStatus.textProperty().bind(viewModel.statusProperty());
     }
 
     private class ArrayLogger implements ILogger {

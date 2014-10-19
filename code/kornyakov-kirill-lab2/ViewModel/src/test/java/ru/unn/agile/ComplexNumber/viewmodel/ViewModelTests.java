@@ -1,10 +1,5 @@
 package ru.unn.agile.ComplexNumber.viewmodel;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +34,7 @@ public class ViewModelTests {
 
     @Test
     public void statusIsWaitingWhenCalculateWithEmptyFields() {
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
@@ -109,7 +104,7 @@ public class ViewModelTests {
         viewModel.re2Property().set("-2");
         viewModel.im2Property().set("-2.5");
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         assertEquals("-1.0 + 1.5i", viewModel.resultProperty().get());
     }
@@ -118,7 +113,7 @@ public class ViewModelTests {
     public void canSetSuccessMessage() {
         setInputData();
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
     }
@@ -145,7 +140,7 @@ public class ViewModelTests {
         viewModel.im2Property().set("2");
         viewModel.operationProperty().set(ViewModel.Operation.MULTIPLY);
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         assertEquals("-4.0 + 7.0i", viewModel.resultProperty().get());
     }
@@ -158,7 +153,7 @@ public class ViewModelTests {
         viewModel.im2Property().set("-20.5");
         viewModel.operationProperty().set(ViewModel.Operation.ADD);
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         assertEquals("-9.2 - 18.2i", viewModel.resultProperty().get());
     }
@@ -185,7 +180,7 @@ public class ViewModelTests {
     @Test
     public void logContainsProperMessageAfterCalculation() {
         setInputData();
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
         String message = viewModel.getLog().get(0);
 
         assertTrue(message.matches(".*" + LogMessages.CALCULATE_WAS_PRESSED + ".*"));
@@ -195,7 +190,7 @@ public class ViewModelTests {
     public void logContainsInputArgumentsAfterCalculation() {
         setInputData();
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*" + viewModel.re1Property().get()
@@ -208,7 +203,7 @@ public class ViewModelTests {
     public void argumentsInfoIssProperlyFormatted() {
         setInputData();
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*Arguments"
@@ -222,7 +217,7 @@ public class ViewModelTests {
     public void operationTypeIsMentionedInTheLog() {
         setInputData();
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*Add.*"));
@@ -232,9 +227,9 @@ public class ViewModelTests {
     public void canPutSeveralLogMessages() {
         setInputData();
 
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
+        viewModel.calculate();
+        viewModel.calculate();
 
         assertEquals(3, viewModel.getLog().size());
     }
@@ -243,8 +238,7 @@ public class ViewModelTests {
     public void canSeeOperationChangeInLog() {
         setInputData();
 
-        viewModel.getOperationChangedListener().changed(mockOperationChanged,
-                ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
+        viewModel.onOperationChanged(ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
@@ -252,32 +246,18 @@ public class ViewModelTests {
 
     @Test
     public void operationIsNotLoggedIfNotChanged() {
-        viewModel.getOperationChangedListener().changed(mockOperationChanged,
-                ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
+        viewModel.onOperationChanged(ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
 
-        viewModel.getOperationChangedListener().changed(mockOperationChanged,
-                ViewModel.Operation.MULTIPLY, ViewModel.Operation.MULTIPLY);
+        viewModel.onOperationChanged(ViewModel.Operation.MULTIPLY, ViewModel.Operation.MULTIPLY);
 
         assertEquals(1, viewModel.getLog().size());
     }
 
     @Test
-    public void editingFinishIsLogged() {
-        viewModel.re1Property().set("1.5");
-
-        viewModel.getFocusChangeListener().changed(mockFocusChanged,
-                Boolean.TRUE, Boolean.FALSE);
-
-        String message = viewModel.getLog().get(0);
-        assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED + ".*"));
-    }
-
-    @Test
-    public void argumentsAreCorrectlyLoggedOnEditingFinish() {
+    public void argumentsAreCorrectlyLogged() {
         setInputData();
 
-        viewModel.getFocusChangeListener().changed(mockFocusChanged,
-                Boolean.TRUE, Boolean.FALSE);
+        viewModel.logInput();
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
@@ -290,31 +270,9 @@ public class ViewModelTests {
 
     @Test
     public void calculateIsNotCalledWhenButtonIsDisabled() {
-        viewModel.getCalculationFiredEventHandler().handle(new ActionEvent());
+        viewModel.calculate();
 
         assertTrue(viewModel.getLog().isEmpty());
-    }
-
-    @Test
-    public void doNotLogSameParametersTwice() {
-        setInputData();
-
-        viewModel.getFocusChangeListener().changed(mockFocusChanged,
-                Boolean.TRUE, Boolean.FALSE);
-        viewModel.getFocusChangeListener().changed(mockFocusChanged,
-                Boolean.TRUE, Boolean.FALSE);
-
-        assertEquals(1, viewModel.getLog().size());
-    }
-
-    @Test
-    public void doNotLogSameParametersTwiceWithPartialInput() {
-        viewModel.re1Property().set("12");
-
-        viewModel.getFocusChangeListener().changed(mockFocusChanged,
-                Boolean.TRUE, Boolean.FALSE);
-
-        assertEquals(1, viewModel.getLog().size());
     }
 
     private void setInputData() {
@@ -323,64 +281,4 @@ public class ViewModelTests {
         viewModel.re2Property().set("3");
         viewModel.im2Property().set("4");
     }
-
-    private final ObservableBooleanValue mockFocusChanged = new ObservableBooleanValue() {
-        @Override
-        public boolean get() {
-            return false;
-        }
-
-        @Override
-        public void addListener(final ChangeListener<? super Boolean> listener) {
-
-        }
-
-        @Override
-        public void removeListener(final ChangeListener<? super Boolean> listener) {
-
-        }
-
-        @Override
-        public Boolean getValue() {
-            return null;
-        }
-
-        @Override
-        public void addListener(final InvalidationListener listener) {
-
-        }
-
-        @Override
-        public void removeListener(final InvalidationListener listener) {
-
-        }
-    };
-
-    private final ObservableValue<? extends ViewModel.Operation> mockOperationChanged
-            = new ObservableValue<ViewModel.Operation>() {
-        @Override
-        public void addListener(final ChangeListener<? super ViewModel.Operation> listener) {
-
-        }
-
-        @Override
-        public void removeListener(final ChangeListener<? super ViewModel.Operation> listener) {
-
-        }
-
-        @Override
-        public ViewModel.Operation getValue() {
-            return null;
-        }
-
-        @Override
-        public void addListener(final InvalidationListener listener) {
-
-        }
-
-        @Override
-        public void removeListener(final InvalidationListener listener) {
-
-        }
-    };
 }

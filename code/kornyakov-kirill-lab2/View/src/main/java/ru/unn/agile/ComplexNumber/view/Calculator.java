@@ -1,5 +1,9 @@
 package ru.unn.agile.ComplexNumber.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ru.unn.agile.ComplexNumber.viewmodel.MockLogger;
@@ -25,27 +29,69 @@ public class Calculator {
     @FXML
     private TextArea areaLog;
 
+    private boolean isInputChanged;
+
     @FXML
     void initialize() {
         ViewModel viewModel = new ViewModel(new MockLogger());
+
+        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(final ObservableValue<? extends Boolean> observable,
+                                final Boolean oldValue, final Boolean newValue) {
+                if (isInputChanged && oldValue && !newValue) {
+                    viewModel.logInput();
+                    isInputChanged = false;
+                }
+            }
+        };
+        final ChangeListener<String> valueChangeListener = new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue, final String newValue) {
+                if (oldValue.equals(newValue)) {
+                    return;
+                }
+                isInputChanged = true;
+            }
+        };
         txtZ1Re.textProperty().bindBidirectional(viewModel.re1Property());
-        txtZ1Re.focusedProperty().addListener(viewModel.getFocusChangeListener());
+        txtZ1Re.textProperty().addListener(valueChangeListener);
+        txtZ1Re.focusedProperty().addListener(focusChangeListener);
 
         txtZ1Im.textProperty().bindBidirectional(viewModel.im1Property());
-        txtZ1Im.focusedProperty().addListener(viewModel.getFocusChangeListener());
+        txtZ1Im.textProperty().addListener(valueChangeListener);
+        txtZ1Im.focusedProperty().addListener(focusChangeListener);
 
         txtZ2Re.textProperty().bindBidirectional(viewModel.re2Property());
-        txtZ2Re.focusedProperty().addListener(viewModel.getFocusChangeListener());
+        txtZ2Re.textProperty().addListener(valueChangeListener);
+        txtZ2Re.focusedProperty().addListener(focusChangeListener);
 
         txtZ2Im.textProperty().bindBidirectional(viewModel.im2Property());
-        txtZ2Im.focusedProperty().addListener(viewModel.getFocusChangeListener());
+        txtZ2Im.textProperty().addListener(valueChangeListener);
+        txtZ2Im.focusedProperty().addListener(focusChangeListener);
 
         cbOperation.itemsProperty().bind(viewModel.operationsProperty());
         cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
-        cbOperation.valueProperty().addListener(viewModel.getOperationChangedListener());
+        cbOperation.valueProperty().addListener(new ChangeListener<ViewModel.Operation>() {
+            @Override
+            public void changed(final ObservableValue<? extends ViewModel.Operation> observable,
+                                final ViewModel.Operation oldValue,
+                                final ViewModel.Operation newValue) {
+                if (oldValue.equals(newValue)) {
+                    return;
+                }
+                viewModel.onOperationChanged(oldValue, newValue);
+            }
+        });
 
         btnCalc.disableProperty().bind(viewModel.isCalculationPossibleProperty().not());
-        btnCalc.setOnAction(viewModel.getCalculationFiredEventHandler());
+        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.calculate();
+            }
+        });
 
         areaLog.textProperty().bind(viewModel.logsProperty());
 

@@ -6,8 +6,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
 import java.util.List;
@@ -25,12 +23,7 @@ public class ViewModel {
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
-    private final ChangeListener<Boolean> focusChangedListener;
-    private final EventHandler<ActionEvent> calculationFired;
-    private final ChangeListener<Operation> operationChanged;
-
     private final ILogger logger;
-    private boolean isInputChanged;
 
     public ViewModel(final ILogger logger) {
         if (logger == null) {
@@ -45,72 +38,6 @@ public class ViewModel {
         status.setValue(Status.WAITING.toString());
         operation.setValue(Operation.ADD);
         result.setValue("");
-
-        calculationFired = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                if (!calculationPossible.get()) {
-                    return;
-                }
-
-                ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
-                ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
-
-                switch (operation.get()) {
-                    case ADD:
-                        result.setValue(z1.add(z2).toString());
-                        break;
-                    case MULTIPLY:
-                        result.setValue(z1.multiply(z2).toString());
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
-                }
-                status.setValue(Status.SUCCESS.toString());
-
-                StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
-                message.append("Arguments")
-                        .append(": Re1 = ").append(re1.get())
-                        .append("; Im1 = ").append(im1.get())
-                        .append("; Re2 = ").append(re2.get())
-                        .append("; Im2 = ").append(im2.get())
-                        .append(" Operation: ").append(operation.get().toString()).append(".");
-                logger.log(message.toString());
-                updateLogs();
-            }
-        };
-
-        operationChanged = new ChangeListener<Operation>() {
-            @Override
-            public void changed(final ObservableValue<? extends Operation> observable,
-                                final Operation oldValue, final Operation newValue) {
-                if (!oldValue.equals(newValue)) {
-                    StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
-                    message.append(newValue.toString());
-                    logger.log(message.toString());
-                    updateLogs();
-                }
-            }
-        };
-
-        focusChangedListener = new ChangeListener<Boolean>() {
-            @Override
-            public void changed(final ObservableValue<? extends Boolean> observable,
-                                final Boolean oldValue, final Boolean newValue) {
-                if (isInputChanged && oldValue && !newValue) {
-                    StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
-                    message.append("Input arguments are: [")
-                            .append(re1.get()).append("; ")
-                            .append(im1.get()).append("; ")
-                            .append(re2.get()).append("; ")
-                            .append(im2.get()).append("]");
-                    logger.log(message.toString());
-                    updateLogs();
-
-                    isInputChanged = false;
-                }
-            }
-        };
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -133,7 +60,6 @@ public class ViewModel {
                 if (oldValue.equals(newValue)) {
                     return;
                 }
-                isInputChanged = true;
                 status.setValue(getInputStatus().toString());
             }
         };
@@ -172,14 +98,54 @@ public class ViewModel {
     public StringProperty statusProperty() {
         return status;
     }
-    public final ChangeListener<Boolean> getFocusChangeListener() {
-        return focusChangedListener;
+    public void calculate() {
+        if (!calculationPossible.get()) {
+            return;
+        }
+
+        ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
+        ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
+
+        switch (operation.get()) {
+            case ADD:
+                result.setValue(z1.add(z2).toString());
+                break;
+            case MULTIPLY:
+                result.setValue(z1.multiply(z2).toString());
+                break;
+            default:
+                throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
+        }
+        status.setValue(Status.SUCCESS.toString());
+
+        StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+        message.append("Arguments")
+                .append(": Re1 = ").append(re1.get())
+                .append("; Im1 = ").append(im1.get())
+                .append("; Re2 = ").append(re2.get())
+                .append("; Im2 = ").append(im2.get())
+                .append(" Operation: ").append(operation.get().toString()).append(".");
+        logger.log(message.toString());
+        updateLogs();
     }
-    public final EventHandler<ActionEvent> getCalculationFiredEventHandler() {
-        return calculationFired;
+    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
     }
-    public final ChangeListener<Operation> getOperationChangedListener() {
-        return operationChanged;
+    public void logInput() {
+        StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+        message.append("Input arguments are: [")
+                .append(re1.get()).append("; ")
+                .append(im1.get()).append("; ")
+                .append(re2.get()).append("; ")
+                .append(im2.get()).append("]");
+        logger.log(message.toString());
+        updateLogs();
     }
 
     private Status getInputStatus() {

@@ -74,8 +74,13 @@ subprojects {
 
     test {
         afterTest { desc, result ->
-            String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
-            println "[${suiteName}]: ${result.resultType} in ${desc.name}"
+            //if (result.resultType == TestResult.ResultType.SUCCESS) {
+            //    println "."
+            //}
+            //else {
+                String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
+                println "[${suiteName}]: ${result.resultType} in ${desc.name}"
+            //}
         }
     }
 

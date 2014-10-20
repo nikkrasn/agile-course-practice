@@ -18,26 +18,38 @@ public class ViewModel {
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
-    private final ReadOnlyBooleanWrapper calculationPossible = new ReadOnlyBooleanWrapper();
+    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
     private final StringProperty logs = new SimpleStringProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
-    private final ILogger logger;
+    private ILogger logger;
 
-    public ViewModel(final ILogger logger) {
+    public void setLogger(final ILogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
         }
         this.logger = logger;
+    }
 
-        re1.setValue("");
-        im1.setValue("");
-        re2.setValue("");
-        im2.setValue("");
-        status.setValue(Status.WAITING.toString());
-        operation.setValue(Operation.ADD);
-        result.setValue("");
+    // fxml needs default c-tor for binding
+    public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    private void init() {
+        re1.set("");
+        im1.set("");
+        re2.set("");
+        im2.set("");
+        status.set(Status.WAITING.toString());
+        operation.set(Operation.ADD);
+        result.set("");
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -51,7 +63,7 @@ public class ViewModel {
                 return false;
             }
         };
-        calculationPossible.bind(couldCalculate);
+        calculationDisabled.bind(couldCalculate.not());
 
         ChangeListener<String> valueChangedListener = new ChangeListener<String>() {
             @Override
@@ -60,7 +72,7 @@ public class ViewModel {
                 if (oldValue.equals(newValue)) {
                     return;
                 }
-                status.setValue(getInputStatus().toString());
+                status.set(getInputStatus().toString());
             }
         };
         re1.addListener(valueChangedListener);
@@ -68,6 +80,63 @@ public class ViewModel {
         re2.addListener(valueChangedListener);
         im2.addListener(valueChangedListener);
     }
+
+    public void calculate() {
+        if (calculationDisabled.get()) {
+            return;
+        }
+
+        ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
+        ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
+
+        switch (operation.get()) {
+            case ADD:
+                result.set(z1.add(z2).toString());
+                break;
+            case MULTIPLY:
+                result.set(z1.multiply(z2).toString());
+                break;
+            default:
+                throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
+        }
+        status.set(Status.SUCCESS.toString());
+
+        StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+        message.append("Arguments")
+                .append(": Re1 = ").append(re1.get())
+                .append("; Im1 = ").append(im1.get())
+                .append("; Re2 = ").append(re2.get())
+                .append("; Im2 = ").append(im2.get())
+                .append(" Operation: ").append(operation.get().toString()).append(".");
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void logInput() {
+        StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+        message.append("Input arguments are: [")
+                .append(re1.get()).append("; ")
+                .append(im1.get()).append("; ")
+                .append(re2.get()).append("; ")
+                .append(im2.get()).append("]");
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public final List<String> getLog() {
+        return logger.getLog();
+    }
+
     public StringProperty re1Property() {
         return re1;
     }
@@ -83,69 +152,35 @@ public class ViewModel {
     public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
     }
+    public final ObservableList<Operation> getOperations() {
+        return operations.get();
+    }
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
-    public ReadOnlyBooleanProperty isCalculationPossibleProperty() {
-        return calculationPossible.getReadOnlyProperty();
+    public BooleanProperty calculationDisabledProperty() {
+        return calculationDisabled;
+    }
+    public final boolean getCalculationDisabled() {
+        return calculationDisabled.get();
     }
     public StringProperty logsProperty() {
         return logs;
     }
+    public final String getLogs() {
+        return logs.get();
+    }
     public StringProperty resultProperty() {
         return result;
+    }
+    public final String getResult() {
+        return result.get();
     }
     public StringProperty statusProperty() {
         return status;
     }
-    public void calculate() {
-        if (!calculationPossible.get()) {
-            return;
-        }
-
-        ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
-        ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
-
-        switch (operation.get()) {
-            case ADD:
-                result.setValue(z1.add(z2).toString());
-                break;
-            case MULTIPLY:
-                result.setValue(z1.multiply(z2).toString());
-                break;
-            default:
-                throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
-        }
-        status.setValue(Status.SUCCESS.toString());
-
-        StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
-        message.append("Arguments")
-                .append(": Re1 = ").append(re1.get())
-                .append("; Im1 = ").append(im1.get())
-                .append("; Re2 = ").append(re2.get())
-                .append("; Im2 = ").append(im2.get())
-                .append(" Operation: ").append(operation.get().toString()).append(".");
-        logger.log(message.toString());
-        updateLogs();
-    }
-    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
-        if (oldValue.equals(newValue)) {
-            return;
-        }
-        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
-        message.append(newValue.toString());
-        logger.log(message.toString());
-        updateLogs();
-    }
-    public void logInput() {
-        StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
-        message.append("Input arguments are: [")
-                .append(re1.get()).append("; ")
-                .append(im1.get()).append("; ")
-                .append(re2.get()).append("; ")
-                .append(im2.get()).append("]");
-        logger.log(message.toString());
-        updateLogs();
+    public final String getStatus() {
+        return status.get();
     }
 
     private Status getInputStatus() {
@@ -180,7 +215,7 @@ public class ViewModel {
         for (String log : fullLog) {
             record += log + "\n";
         }
-        logs.setValue(record);
+        logs.set(record);
     }
 
     public enum Operation {
@@ -195,10 +230,6 @@ public class ViewModel {
         public String toString() {
             return name;
         }
-    }
-
-    public final List<String> getLog() {
-        return logger.getLog();
     }
 }
 

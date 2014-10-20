@@ -11,6 +11,8 @@ import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 public class Calculator {
     @FXML
+    private ViewModel viewModel;
+    @FXML
     private TextField txtZ1Re;
     @FXML
     private TextField txtZ1Im;
@@ -22,18 +24,12 @@ public class Calculator {
     private ComboBox<ViewModel.Operation> cbOperation;
     @FXML
     private Button btnCalc;
-    @FXML
-    private Label lbResult;
-    @FXML
-    private Label lbStatus;
-    @FXML
-    private TextArea areaLog;
 
     private boolean isInputChanged;
 
     @FXML
     void initialize() {
-        ViewModel viewModel = new ViewModel(new MockLogger());
+        viewModel.setLogger(new MockLogger());
 
         final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
             @Override
@@ -55,6 +51,7 @@ public class Calculator {
                 isInputChanged = true;
             }
         };
+        // two-way binding hasn't supported by fxml yet, so place it in code-behind
         txtZ1Re.textProperty().bindBidirectional(viewModel.re1Property());
         txtZ1Re.textProperty().addListener(valueChangeListener);
         txtZ1Re.focusedProperty().addListener(focusChangeListener);
@@ -71,7 +68,6 @@ public class Calculator {
         txtZ2Im.textProperty().addListener(valueChangeListener);
         txtZ2Im.focusedProperty().addListener(focusChangeListener);
 
-        cbOperation.itemsProperty().bind(viewModel.operationsProperty());
         cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
         cbOperation.valueProperty().addListener(new ChangeListener<ViewModel.Operation>() {
             @Override
@@ -85,17 +81,11 @@ public class Calculator {
             }
         });
 
-        btnCalc.disableProperty().bind(viewModel.isCalculationPossibleProperty().not());
         btnCalc.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.calculate();
             }
         });
-
-        areaLog.textProperty().bind(viewModel.logsProperty());
-
-        lbResult.textProperty().bind(viewModel.resultProperty());
-        lbStatus.textProperty().bind(viewModel.statusProperty());
     }
 }

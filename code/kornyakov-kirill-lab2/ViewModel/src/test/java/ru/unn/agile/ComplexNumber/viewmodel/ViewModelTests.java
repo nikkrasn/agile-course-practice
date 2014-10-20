@@ -61,7 +61,7 @@ public class ViewModelTests {
 
     @Test
     public void calculateButtonIsDisabledInitially() {
-        assertFalse(viewModel.isCalculationPossibleProperty().get());
+        assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
@@ -69,21 +69,21 @@ public class ViewModelTests {
         setInputData();
         viewModel.re1Property().set("trash");
 
-        assertFalse(viewModel.isCalculationPossibleProperty().get());
+        assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
         viewModel.re1Property().set("1");
 
-        assertFalse(viewModel.isCalculationPossibleProperty().get());
+        assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsEnabledWithCorrectInput() {
         setInputData();
 
-        assertTrue(viewModel.isCalculationPossibleProperty().get());
+        assertFalse(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
@@ -207,10 +207,10 @@ public class ViewModelTests {
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*Arguments"
-                        + ": Re1 = " + viewModel.re1Property().get()
-                        + "; Im1 = " + viewModel.im1Property().get()
-                        + "; Re2 = " + viewModel.re2Property().get()
-                        + "; Im2 = " + viewModel.im2Property().get() + ".*"));
+                + ": Re1 = " + viewModel.re1Property().get()
+                + "; Im1 = " + viewModel.im1Property().get()
+                + "; Re2 = " + viewModel.re2Property().get()
+                + "; Im2 = " + viewModel.im2Property().get() + ".*"));
     }
 
     @Test

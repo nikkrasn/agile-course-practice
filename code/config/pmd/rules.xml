@@ -8,5 +8,6 @@
   <rule ref="rulesets/java/braces.xml" />
   <rule ref="rulesets/java/design.xml">
     <exclude name="NonStaticInitializer"/>
+    <exclude name="GodClass"/>
   </rule>
 </ruleset>

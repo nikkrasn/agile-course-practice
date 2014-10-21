@@ -257,7 +257,7 @@ public class ViewModelTests {
     public void argumentsAreCorrectlyLogged() {
         setInputData();
 
-        viewModel.logInput();
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
@@ -273,6 +273,16 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.re1Property().set("12");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.re1Property().set("12");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, viewModel.getLog().size());
     }
 
     private void setInputData() {

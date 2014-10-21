@@ -25,8 +25,6 @@ public class Calculator {
     @FXML
     private Button btnCalc;
 
-    private boolean isInputChanged;
-
     @FXML
     void initialize() {
         viewModel.setLogger(new MockLogger());
@@ -35,37 +33,20 @@ public class Calculator {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {
-                if (isInputChanged && oldValue && !newValue) {
-                    viewModel.logInput();
-                    isInputChanged = false;
-                }
-            }
-        };
-        final ChangeListener<String> valueChangeListener = new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> observable,
-                                final String oldValue, final String newValue) {
-                if (oldValue.equals(newValue)) {
-                    return;
-                }
-                isInputChanged = true;
+                viewModel.onFocusChanged(oldValue, newValue);
             }
         };
         // two-way binding hasn't supported by fxml yet, so place it in code-behind
         txtZ1Re.textProperty().bindBidirectional(viewModel.re1Property());
-        txtZ1Re.textProperty().addListener(valueChangeListener);
         txtZ1Re.focusedProperty().addListener(focusChangeListener);
 
         txtZ1Im.textProperty().bindBidirectional(viewModel.im1Property());
-        txtZ1Im.textProperty().addListener(valueChangeListener);
         txtZ1Im.focusedProperty().addListener(focusChangeListener);
 
         txtZ2Re.textProperty().bindBidirectional(viewModel.re2Property());
-        txtZ2Re.textProperty().addListener(valueChangeListener);
         txtZ2Re.focusedProperty().addListener(focusChangeListener);
 
         txtZ2Im.textProperty().bindBidirectional(viewModel.im2Property());
-        txtZ2Im.textProperty().addListener(valueChangeListener);
         txtZ2Im.focusedProperty().addListener(focusChangeListener);
 
         cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
@@ -74,9 +55,6 @@ public class Calculator {
             public void changed(final ObservableValue<? extends ViewModel.Operation> observable,
                                 final ViewModel.Operation oldValue,
                                 final ViewModel.Operation newValue) {
-                if (oldValue.equals(newValue)) {
-                    return;
-                }
                 viewModel.onOperationChanged(oldValue, newValue);
             }
         });

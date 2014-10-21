@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
@@ -24,6 +25,7 @@ public class ViewModel {
     private final StringProperty status = new SimpleStringProperty();
 
     private ILogger logger;
+    private List<ValueCachingChangeListener> valueChangedListeners;
 
     public void setLogger(final ILogger logger) {
         if (logger == null) {
@@ -65,20 +67,18 @@ public class ViewModel {
         };
         calculationDisabled.bind(couldCalculate.not());
 
-        ChangeListener<String> valueChangedListener = new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> observable,
-                                final String oldValue, final String newValue) {
-                if (oldValue.equals(newValue)) {
-                    return;
-                }
-                status.set(getInputStatus().toString());
-            }
-        };
-        re1.addListener(valueChangedListener);
-        im1.addListener(valueChangedListener);
-        re2.addListener(valueChangedListener);
-        im2.addListener(valueChangedListener);
+        final List<StringProperty> vals = new ArrayList<StringProperty>() { {
+            add(re1);
+            add(im1);
+            add(re2);
+            add(im2);
+        } };
+        valueChangedListeners = new ArrayList<>();
+        for (StringProperty val : vals) {
+            final ValueCachingChangeListener listener = new ValueCachingChangeListener();
+            val.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
     }
 
     public void calculate() {
@@ -122,15 +122,26 @@ public class ViewModel {
         updateLogs();
     }
 
-    public void logInput() {
-        StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
-        message.append("Input arguments are: [")
-                .append(re1.get()).append("; ")
-                .append(im1.get()).append("; ")
-                .append(re2.get()).append("; ")
-                .append(im2.get()).append("]");
-        logger.log(message.toString());
-        updateLogs();
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueCachingChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Input arguments are: [")
+                        .append(re1.get()).append("; ")
+                        .append(im1.get()).append("; ")
+                        .append(re2.get()).append("; ")
+                        .append(im2.get()).append("]");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
     }
 
     public final List<String> getLog() {
@@ -229,6 +240,26 @@ public class ViewModel {
 
         public String toString() {
             return name;
+        }
+    }
+
+    private class ValueCachingChangeListener implements ChangeListener<String> {
+        private String prevValue = new String();
+        private String curValue = new String();
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
+            status.set(getInputStatus().toString());
+            curValue = newValue;
+        }
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+        public void cache() {
+            prevValue = curValue;
         }
     }
 }

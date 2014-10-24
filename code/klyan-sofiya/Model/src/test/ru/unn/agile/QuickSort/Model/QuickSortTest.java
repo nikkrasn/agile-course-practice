@@ -18,7 +18,7 @@ public class QuickSortTest {
     public void canSortZeroElementArray() {
         QuickSorting quickSort = new QuickSorting();
         double[] values = {};
-        quickSort.Sort(values);
+        quickSort.sort(values);
         assertEquals(0, values.length);
     }
 
@@ -26,7 +26,7 @@ public class QuickSortTest {
     public void canSortNullArray() {
         QuickSorting quickSort = new QuickSorting();
         double[] values = null;
-        quickSort.Sort(values);
+        quickSort.sort(values);
         assertEquals(null, values);
     }
 
@@ -34,7 +34,7 @@ public class QuickSortTest {
     public void canSortOneElementArray() {
         QuickSorting quickSort = new QuickSorting();
         double[] values = {-4};
-        quickSort.Sort(values);
+        quickSort.sort(values);
         assertArrayEquals(new double[]{-4}, values, delta);
     }
 
@@ -42,7 +42,7 @@ public class QuickSortTest {
     public void canSortTwoElementArray() {
         QuickSorting quickSort = new QuickSorting();
         double[] values = {3, -4};
-        quickSort.Sort(values);
+        quickSort.sort(values);
         assertArrayEquals(new double[]{-4, 3}, values, delta);
     }
 
@@ -51,7 +51,7 @@ public class QuickSortTest {
         QuickSorting quickSort = new QuickSorting();
         double[] values = {3, -4, 5, -100, 200, 200, -350, 6.7, -2.3};
         double[] javaSortedValues = values.clone();
-        quickSort.Sort(values);
+        quickSort.sort(values);
         java.util.Arrays.sort(javaSortedValues);
         assertArrayEquals(javaSortedValues, values, delta);
     }

@@ -8,7 +8,7 @@ public class QuickArraySorter {
     }
 
     public void sortInInterval(final int inputLeftInd, final int inputRightInd) {
-        int leftInd = (inputLeftInd >= 0) ? inputLeftInd : 0;
+        int leftInd = inputLeftInd >= 0 ? inputLeftInd : 0;
         int rightInd = inputRightInd;
         if (rightInd > sortingValues.length - 1) {
             rightInd = sortingValues.length - 1;
@@ -57,7 +57,7 @@ public class QuickArraySorter {
     }
 
     private boolean checkIfOutOfRange(final int index) {
-        if ((index < 0) || (index >= sortingValues.length)) {
+        if (index < 0 || index >= sortingValues.length) {
             System.out.println("Index is out of range: " + index);
             return true;
         }

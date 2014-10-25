@@ -48,8 +48,8 @@ public class DequeTest {
     public void canAddItemToHead() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, firstInDeque = 0;
-
         deque.addFirst(itemToAdd);
+
         firstInDeque = deque.getFirst();
 
         assertEquals(itemToAdd, firstInDeque);
@@ -59,8 +59,8 @@ public class DequeTest {
     public void canAddItemToTail() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, lastInDeque = 0;
-
         deque.addLast(itemToAdd);
+
         lastInDeque = deque.getLast();
 
         assertEquals(itemToAdd, lastInDeque);
@@ -70,8 +70,8 @@ public class DequeTest {
     public void isTheOnlyTailElementTheFirstOne() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, firstInDeque = 0;
-
         deque.addLast(itemToAdd);
+
         firstInDeque = deque.getFirst();
 
         assertEquals(itemToAdd, firstInDeque);
@@ -81,8 +81,8 @@ public class DequeTest {
     public void isTheOnlyHeadElementTheLastOne() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, lastInDeque = 0;
-
         deque.addLast(itemToAdd);
+
         lastInDeque = deque.getLast();
 
         assertEquals(itemToAdd, lastInDeque);
@@ -100,5 +100,37 @@ public class DequeTest {
         deque.getLast();
     }
 
+    @Test
+    public void isRemovedFirstElementEqualToRecentlyAdded() {
+        Deque<Integer> deque = new Deque<Integer>();
+        int itemToAdd = 1, firstInDeque = 0;
+        deque.addFirst(itemToAdd);
 
+        firstInDeque = deque.removeFirst();
+
+        assertEquals(itemToAdd, firstInDeque);
+    }
+
+    @Test
+    public void isRemovedLastElementEqualToRecentlyAdded() {
+        Deque<Integer> deque = new Deque<Integer>();
+        int itemToAdd = 1, lastInDeque = 0;
+        deque.addLast(itemToAdd);
+
+        lastInDeque = deque.removeLast();
+
+        assertEquals(itemToAdd, lastInDeque);
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void cannotRemoveFirstElementFromEmptyDeque() {
+        Deque deque = new Deque();
+        deque.removeFirst();
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void cannotRemoveLastElementFromEmptyDeque() {
+        Deque deque = new Deque();
+        deque.removeLast();
+    }
 }

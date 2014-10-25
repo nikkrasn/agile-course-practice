@@ -64,4 +64,20 @@ public class Deque<Item> {
         }
         return last.item;
     }
+
+    public Item removeFirst() {
+        if (first == null) {
+            throw new NoSuchElementException();
+        }
+
+        return first.item;
+    }
+
+    public Item removeLast() {
+        if (last == null) {
+            throw new NoSuchElementException();
+        }
+
+        return last.item;
+    }
 }

@@ -9,7 +9,6 @@ import java.util.NoSuchElementException;
 public class Deque<Item> {
     private Node first = null;
     private Node last  = null;
-    private int  size  = 0;
 
     private class Node {
         private Item item;
@@ -18,7 +17,7 @@ public class Deque<Item> {
     }
 
     public boolean isEmpty() {
-        return size == 0;
+        return first == null;
     }
 
     public void addFirst(final Item itemToAdd) {
@@ -37,7 +36,6 @@ public class Deque<Item> {
         } else {
             oldFirst.prev = first;
         }
-        ++size;
     }
 
     public void addLast(final Item itemToAdd) {
@@ -56,8 +54,6 @@ public class Deque<Item> {
         } else {
             oldLast.next = last;
         }
-
-        ++size;
     }
 
     public Item getFirst() {
@@ -80,9 +76,13 @@ public class Deque<Item> {
         }
 
         Item itemToReturn = first.item;
-        first = first.next;
-
-        --size;
+        if (first.equals(last)) {
+            first = null;
+            last  = null;
+        } else {
+            first = first.next;
+            first.prev = null;
+        }
         return itemToReturn;
     }
 
@@ -92,9 +92,25 @@ public class Deque<Item> {
         }
 
         Item itemToReturn = last.item;
-        last = last.prev;
-
-        --size;
+        if (first.equals(last)) {
+            first = null;
+            last  = null;
+        } else {
+            last = last.prev;
+            last.next = null;
+        }
         return itemToReturn;
+    }
+
+    public void clear() {
+        while (!isEmpty()) {
+            if (first.equals(last)) {
+                first = null;
+                last  = null;
+            } else {
+                first = first.next;
+                first.prev = null;
+            }
+        }
     }
 }

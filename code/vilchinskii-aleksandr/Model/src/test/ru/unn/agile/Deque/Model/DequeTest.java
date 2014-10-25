@@ -189,6 +189,19 @@ public class DequeTest {
         assertTrue(Arrays.equals(itemsToAdd, itemsFromDeque));
     }
 
+    @Test
+    public void canClearNotEmptyDeque() {
+        Deque<Integer> deque = new Deque<Integer>();
+        final int numberOfItems = 3;
+        int [] itemsToAdd       = new int[numberOfItems];
+        fillInIntArrayIncrementally(itemsToAdd);
+        addIntsFromArrayToDequeHead(deque, itemsToAdd);
+
+        deque.clear();
+
+        assertTrue(deque.isEmpty());
+    }
+
     private int addIntsFromArrayToDequeTail(final Deque<Integer> deque, final int[] itemsToAdd) {
         int i = 0;
         for (i = 0; i < itemsToAdd.length; ++i) {

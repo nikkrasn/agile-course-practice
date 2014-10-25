@@ -5,7 +5,15 @@ package ru.unn.agile.Deque.Model;
  */
 
 public class Deque<Item> {
+    private Node first = null;
+    private Node last  = null;
     private int  size  = 0;
+
+    private class Node {
+        private Item item;
+        private Node prev;
+        private Node next;
+    }
 
     public boolean isEmpty() {
         return size == 0;
@@ -16,6 +24,10 @@ public class Deque<Item> {
             throw new NullPointerException();
         }
 
+        Node newHead = new Node();
+        newHead.item = itemToAdd;
+
+        first = newHead;
         ++size;
     }
 
@@ -24,6 +36,18 @@ public class Deque<Item> {
             throw new NullPointerException();
         }
 
+        Node newTail = new Node();
+        newTail.item = itemToAdd;
+
+        last = newTail;
         ++size;
+    }
+
+    public Item getFirst() {
+        return first.item;
+    }
+
+    public Item getLast() {
+        return last.item;
     }
 }

@@ -40,4 +40,27 @@ public class DequeTest {
         Deque<Integer> deque = new Deque<Integer>();
         deque.addLast(null);
     }
+
+    @Test
+    public void canAddItemToHead() {
+        Deque<Integer> deque = new Deque<Integer>();
+        int itemToAdd = 1, firstInDeque = 0;
+
+        deque.addFirst(itemToAdd);
+        firstInDeque = deque.getFirst();
+
+        assertEquals(itemToAdd, firstInDeque);
+    }
+
+    @Test
+    public void canAddItemToTail() {
+        Deque<Integer> deque = new Deque<Integer>();
+        int itemToAdd = 1, lastInDeque = 0;
+
+        deque.addLast(itemToAdd);
+        lastInDeque = deque.getLast();
+
+        assertEquals(itemToAdd, lastInDeque);
+    }
+
 }

@@ -1,6 +1,9 @@
 package ru.unn.agile.Deque.Model;
 
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.*;
 
 /**
@@ -84,5 +87,18 @@ public class DequeTest {
 
         assertEquals(itemToAdd, lastInDeque);
     }
+
+    @Test (expected = NoSuchElementException.class)
+    public void cannotGetFirstElementFromEmptyDeque() {
+        Deque deque = new Deque();
+        deque.getFirst();
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void cannotGetLastElementFromEmptyDeque() {
+        Deque deque = new Deque();
+        deque.getLast();
+    }
+
 
 }

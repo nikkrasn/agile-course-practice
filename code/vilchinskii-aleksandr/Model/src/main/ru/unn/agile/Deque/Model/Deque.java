@@ -1,5 +1,7 @@
 package ru.unn.agile.Deque.Model;
 
+import java.util.NoSuchElementException;
+
 /**
  * Created by avilchin on 10/25/14.
  */
@@ -50,10 +52,16 @@ public class Deque<Item> {
     }
 
     public Item getFirst() {
+        if (first == null) {
+            throw new NoSuchElementException();
+        }
         return first.item;
     }
 
     public Item getLast() {
+        if (last == null) {
+            throw new NoSuchElementException();
+        }
         return last.item;
     }
 }

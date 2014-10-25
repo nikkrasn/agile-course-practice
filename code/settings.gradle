@@ -75,6 +75,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Tsarev Mikhail
 
 // Vilchinskii Aleksandr
+include "vilchinskii-aleksandr"
+project(":vilchinskii-aleksandr").name = "vilchinskii-aleksandr-Model"
 
 // Zolotov Andrey
 

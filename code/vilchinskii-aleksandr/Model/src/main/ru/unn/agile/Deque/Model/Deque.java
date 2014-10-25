@@ -26,12 +26,16 @@ public class Deque<Item> {
             throw new NullPointerException();
         }
 
-        Node newHead = new Node();
-        newHead.item = itemToAdd;
+        Node oldFirst = first;
+        first = new Node();
+        first.item = itemToAdd;
+        first.prev = null;
+        first.next = oldFirst;
 
-        first = newHead;
         if (last == null) {
-            last = newHead;
+            last = first;
+        } else {
+            oldFirst.prev = first;
         }
         ++size;
     }
@@ -41,45 +45,56 @@ public class Deque<Item> {
             throw new NullPointerException();
         }
 
-        Node newTail = new Node();
-        newTail.item = itemToAdd;
+        Node oldLast = last;
+        last      = new Node();
+        last.item = itemToAdd;
+        last.prev = oldLast;
+        last.next = null;
 
         if (first == null) {
-            first = newTail;
+            first = last;
+        } else {
+            oldLast.next = last;
         }
-        last = newTail;
+
         ++size;
     }
 
     public Item getFirst() {
-        if (first == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
         return first.item;
     }
 
     public Item getLast() {
-        if (last == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
         return last.item;
     }
 
     public Item removeFirst() {
-        if (first == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
 
+        Item itemToReturn = first.item;
+        first = first.next;
+
         --size;
-        return first.item;
+        return itemToReturn;
     }
 
     public Item removeLast() {
-        if (last == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
 
+        Item itemToReturn = last.item;
+        last = last.prev;
+
         --size;
-        return last.item;
+        return itemToReturn;
     }
 }

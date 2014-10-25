@@ -2,6 +2,7 @@ package ru.unn.agile.Deque.Model;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
@@ -67,7 +68,7 @@ public class DequeTest {
     }
 
     @Test
-    public void isTheOnlyTailElementTheFirstOne() {
+    public void isTheOnlyTailItemTheFirstOne() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, firstInDeque = 0;
         deque.addLast(itemToAdd);
@@ -78,7 +79,7 @@ public class DequeTest {
     }
 
     @Test
-    public void isTheOnlyHeadElementTheLastOne() {
+    public void isTheOnlyHeadItemTheLastOne() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, lastInDeque = 0;
         deque.addLast(itemToAdd);
@@ -89,19 +90,19 @@ public class DequeTest {
     }
 
     @Test (expected = NoSuchElementException.class)
-    public void cannotGetFirstElementFromEmptyDeque() {
+    public void cannotGetFirstItemFromEmptyDeque() {
         Deque deque = new Deque();
         deque.getFirst();
     }
 
     @Test (expected = NoSuchElementException.class)
-    public void cannotGetLastElementFromEmptyDeque() {
+    public void cannotGetLastItemFromEmptyDeque() {
         Deque deque = new Deque();
         deque.getLast();
     }
 
     @Test
-    public void isRemovedFirstElementEqualToRecentlyAdded() {
+    public void isRemovedFirstItemEqualToRecentlyAdded() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, firstInDeque = 0;
         deque.addFirst(itemToAdd);
@@ -112,7 +113,7 @@ public class DequeTest {
     }
 
     @Test
-    public void isRemovedLastElementEqualToRecentlyAdded() {
+    public void isRemovedLastItemEqualToRecentlyAdded() {
         Deque<Integer> deque = new Deque<Integer>();
         int itemToAdd = 1, lastInDeque = 0;
         deque.addLast(itemToAdd);
@@ -123,13 +124,13 @@ public class DequeTest {
     }
 
     @Test (expected = NoSuchElementException.class)
-    public void cannotRemoveFirstElementFromEmptyDeque() {
+    public void cannotRemoveFirstItemFromEmptyDeque() {
         Deque deque = new Deque();
         deque.removeFirst();
     }
 
     @Test (expected = NoSuchElementException.class)
-    public void cannotRemoveLastElementFromEmptyDeque() {
+    public void cannotRemoveLastItemFromEmptyDeque() {
         Deque deque = new Deque();
         deque.removeLast();
     }
@@ -152,5 +153,63 @@ public class DequeTest {
         deque.removeLast();
 
         assertTrue(deque.isEmpty());
+    }
+
+    @Test
+    public void areItemsAddedToTailEqualToItemsRemoveFromHead() {
+        Deque<Integer> deque = new Deque<Integer>();
+        final int numberOfItems = 3;
+        int[] itemsToAdd        = new int[numberOfItems];
+        int[] itemsFromDeque    = new int[numberOfItems];
+        int i = 0;
+        fillInIntArrayIncrementally(itemsToAdd);
+        addIntsFromArrayToDequeTail(deque, itemsToAdd);
+
+        while (!deque.isEmpty()) {
+            itemsFromDeque[i++] = deque.removeFirst();
+        }
+
+        assertTrue(Arrays.equals(itemsToAdd, itemsFromDeque));
+    }
+
+    @Test
+    public void areItemsAddedToHeadEqualToItemsRemoveFromTail() {
+        Deque<Integer> deque = new Deque<Integer>();
+        final int numberOfItems = 3;
+        int[] itemsToAdd        = new int[numberOfItems];
+        int[] itemsFromDeque    = new int[numberOfItems];
+        int i = 0;
+        fillInIntArrayIncrementally(itemsToAdd);
+        addIntsFromArrayToDequeHead(deque, itemsToAdd);
+
+        while (!deque.isEmpty()) {
+            itemsFromDeque[i++] = deque.removeLast();
+        }
+
+        assertTrue(Arrays.equals(itemsToAdd, itemsFromDeque));
+    }
+
+    private int addIntsFromArrayToDequeTail(final Deque<Integer> deque, final int[] itemsToAdd) {
+        int i = 0;
+        for (i = 0; i < itemsToAdd.length; ++i) {
+            deque.addLast(itemsToAdd[i]);
+        }
+        return i;
+    }
+
+    private int addIntsFromArrayToDequeHead(final Deque<Integer> deque, final int[] itemsToAdd) {
+        int i = 0;
+        for (i = 0; i < itemsToAdd.length; ++i) {
+            deque.addFirst(itemsToAdd[i]);
+        }
+        return i;
+    }
+
+    private int fillInIntArrayIncrementally(final int[] itemsToAdd) {
+        int i = 0;
+        for (i = 0; i < itemsToAdd.length; ++i) {
+            itemsToAdd[i] = i;
+        }
+        return i;
     }
 }

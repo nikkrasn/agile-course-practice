@@ -28,6 +28,9 @@ public class Deque<Item> {
         newHead.item = itemToAdd;
 
         first = newHead;
+        if (last == null) {
+            last = newHead;
+        }
         ++size;
     }
 
@@ -39,6 +42,9 @@ public class Deque<Item> {
         Node newTail = new Node();
         newTail.item = itemToAdd;
 
+        if (first == null) {
+            first = newTail;
+        }
         last = newTail;
         ++size;
     }

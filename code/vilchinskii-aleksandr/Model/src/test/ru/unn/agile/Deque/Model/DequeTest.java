@@ -63,4 +63,26 @@ public class DequeTest {
         assertEquals(itemToAdd, lastInDeque);
     }
 
+    @Test
+    public void isTheOnlyTailElementTheFirstOne() {
+        Deque<Integer> deque = new Deque<Integer>();
+        int itemToAdd = 1, firstInDeque = 0;
+
+        deque.addLast(itemToAdd);
+        firstInDeque = deque.getFirst();
+
+        assertEquals(itemToAdd, firstInDeque);
+    }
+
+    @Test
+    public void isTheOnlyHeadElementTheLastOne() {
+        Deque<Integer> deque = new Deque<Integer>();
+        int itemToAdd = 1, lastInDeque = 0;
+
+        deque.addLast(itemToAdd);
+        lastInDeque = deque.getLast();
+
+        assertEquals(itemToAdd, lastInDeque);
+    }
+
 }

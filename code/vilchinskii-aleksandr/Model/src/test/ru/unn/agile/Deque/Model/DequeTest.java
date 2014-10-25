@@ -16,16 +16,28 @@ public class DequeTest {
     }
 
     @Test
-    public void canAddItem() {
+    public void isDequeNotEmptyAfterAddFirst() {
         Deque<Integer> deque = new Deque<Integer>();
         deque.addFirst(1);
         assertFalse(deque.isEmpty());
     }
 
+    @Test
+    public void isDequeNotEmptyAfterAddLast() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(1);
+        assertFalse(deque.isEmpty());
+    }
+
     @Test(expected = NullPointerException.class)
-    public void cannotAddNullItem() {
+    public void cannotAddNullItemToHead() {
         Deque<Integer> deque = new Deque<Integer>();
         deque.addFirst(null);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void cannotAddNullItemToTail() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(null);
+    }
 }

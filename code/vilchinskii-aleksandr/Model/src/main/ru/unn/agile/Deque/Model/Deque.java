@@ -18,4 +18,12 @@ public class Deque<Item> {
 
         ++size;
     }
+
+    public void addLast(final Item itemToAdd) {
+        if (itemToAdd == null) {
+            throw new NullPointerException();
+        }
+
+        ++size;
+    }
 }

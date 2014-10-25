@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'cpd'
+apply from:   'config/scripts/javafx.plugin'
 
 buildscript {
     repositories {

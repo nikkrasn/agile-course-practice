@@ -1,5 +1,3 @@
-apply from: 'javafx.plugin'
-
 javafx {
     mainClass 'ru.unn.agile.ComplexNumber.viewmodel.ViewModel'
 }

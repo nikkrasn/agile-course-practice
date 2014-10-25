@@ -133,4 +133,24 @@ public class DequeTest {
         Deque deque = new Deque();
         deque.removeLast();
     }
+
+    @Test
+    public void isDequeEmptyAfterRemoveFirst() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addFirst(1);
+
+        deque.removeFirst();
+
+        assertTrue(deque.isEmpty());
+    }
+
+    @Test
+    public void isDequeEmptyAfterRemoveLast() {
+        Deque<Integer> deque = new Deque<Integer>();
+        deque.addLast(1);
+
+        deque.removeLast();
+
+        assertTrue(deque.isEmpty());
+    }
 }

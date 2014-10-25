@@ -70,6 +70,7 @@ public class Deque<Item> {
             throw new NoSuchElementException();
         }
 
+        --size;
         return first.item;
     }
 
@@ -78,6 +79,7 @@ public class Deque<Item> {
             throw new NoSuchElementException();
         }
 
+        --size;
         return last.item;
     }
 }

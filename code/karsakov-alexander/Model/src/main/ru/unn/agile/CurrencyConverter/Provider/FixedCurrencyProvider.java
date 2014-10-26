@@ -1,4 +1,6 @@
-package ru.unn.agile.CurrencyConverter.Model;
+package ru.unn.agile.CurrencyConverter.Provider;
+
+import ru.unn.agile.CurrencyConverter.Model.Currency;
 
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.*;
 
@@ -9,16 +11,16 @@ public class FixedCurrencyProvider implements ICurrencyProvider {
     private static final double RUB_RATE = 1;
 
     @Override
-    public final Currency[] getActualCurrency() {
-        Currency[] fixedCurrencies = new Currency[LIST_SIZE];
+    public final Currency[] getActualCurrencyRates() {
+        Currency[] fixedCurrencyRates = new Currency[LIST_SIZE];
 
-        fixedCurrencies[USD.getIndex()] =
+        fixedCurrencyRates[USD.getIndex()] =
             new Currency(USD.getNumCode(), "USD", "Доллар США", 1, USD_RATE);
-        fixedCurrencies[EUR.getIndex()] =
+        fixedCurrencyRates[EUR.getIndex()] =
             new Currency(EUR.getNumCode(), "EUR", "Евро", 1, EUR_RATE);
-        fixedCurrencies[RUB.getIndex()] =
+        fixedCurrencyRates[RUB.getIndex()] =
             new Currency(RUB.getNumCode(), "RUB", "Российский рубль", 1, RUB_RATE);
 
-        return fixedCurrencies;
+        return fixedCurrencyRates;
     }
 }

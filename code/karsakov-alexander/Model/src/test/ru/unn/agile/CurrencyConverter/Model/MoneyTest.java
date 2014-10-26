@@ -7,7 +7,7 @@ public class MoneyTest {
     private Currency testCurrency;
 
     @Before
-    public void init(){
+    public void init() {
         testCurrency = new Currency(840, "USD", "Доллар США", 1, 41.8101);
     }
 

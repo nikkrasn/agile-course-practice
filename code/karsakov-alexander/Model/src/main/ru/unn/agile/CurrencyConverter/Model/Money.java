@@ -1,7 +1,10 @@
 package ru.unn.agile.CurrencyConverter.Model;
 
 public class Money {
-    public Money(Currency currency, double amount) {
+    private Currency currency;
+    private double amount;
+
+    public Money(final Currency currency, final double amount) {
         if (currency == null) {
             throw new IllegalArgumentException("Currency can't be null.");
         }
@@ -12,9 +15,4 @@ public class Money {
         this.currency = currency;
         this.amount = amount;
     }
-
-    
-
-    private Currency currency;
-    private double amount;
 }

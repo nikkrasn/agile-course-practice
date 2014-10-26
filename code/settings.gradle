@@ -27,6 +27,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Abramov Dmitry
 
 // Anufriev Denis
+include "anufriev-denis"
+project(":anufriev-denis").name = "anufriev-denis-Model"
 
 // Blinkova Ekaterina
 

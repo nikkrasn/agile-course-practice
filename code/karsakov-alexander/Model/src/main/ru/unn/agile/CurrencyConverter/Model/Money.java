@@ -25,19 +25,19 @@ public class Money {
         return amount;
     }
 
-    public void setAmount(double newAmount) {
-        if (newAmount <= 0) {
-            throw new IllegalArgumentException("Amount must be positive number.");
+    public void setAmount(final double newAmount) {
+        if (newAmount < 0) {
+            throw new IllegalArgumentException("Amount must be non negative number.");
         }
 
         amount = newAmount;
     }
 
-    public boolean isInCurrency(Currency currency) {
+    public boolean isInCurrency(final Currency currency) {
         return this.currency.isEqual(currency);
     }
 
-    public Money convertToCurrency(Currency newCurrency) {
+    public Money convertToCurrency(final Currency newCurrency) {
         if (newCurrency == null) {
             throw new IllegalArgumentException("New currency can't be null.");
         }
@@ -45,8 +45,8 @@ public class Money {
         if (currency.isEqual(newCurrency)) {
             return new Money(currency, amount);
         } else {
-            double newAmount = amount * (newCurrency.getNominal() / newCurrency.getValue()) *
-                               (currency.getValue() / currency.getNominal());
+            double newAmount = amount * (newCurrency.getNominal() / newCurrency.getValue())
+                               * (currency.getValue() / currency.getNominal());
             return new Money(newCurrency, newAmount);
         }
     }

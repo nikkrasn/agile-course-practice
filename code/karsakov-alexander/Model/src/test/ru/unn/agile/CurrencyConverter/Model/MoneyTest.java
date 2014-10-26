@@ -23,13 +23,13 @@ public class MoneyTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void moneyThrowsExceptionOnNullAmount() {
-        new Money(usd, 0);
+    public void moneyConstructorThrowsExceptionOnNegativeAmount() {
+        new Money(usd, -10);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void moneyThrowsExceptionOnNegativeAmount() {
-        new Money(usd, -10);
+    public void moneySetAmountThrowsExceptionOnNegativeAmount() {
+        tenBucks.setAmount(-10);
     }
 
     @Test
@@ -42,18 +42,32 @@ public class MoneyTest {
         assertFalse(tenBucks.isInCurrency(eur));
     }
 
+    @Test
+    public void moneyIsInCurrencyNullCurrencyReturnsFalse() {
+        assertFalse(tenBucks.isInCurrency(null));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void moneyThrowsExceptionOnConvertToNullCurrency() {
         tenBucks.convertToCurrency(null);
     }
 
     @Test
-    public void moneyConversionIsCorrect() {
-        double expectedAmount = tenBucks.getAmount() * (eur.getNominal()/eur.getValue()) *
-                                (usd.getValue()/usd.getNominal());
+    public void moneyConvertToIsCorrect() {
+        double expectedAmount = tenBucks.getAmount() * (eur.getNominal() / eur.getValue())
+                                * (usd.getValue() / usd.getNominal());
 
         Money someEuros = tenBucks.convertToCurrency(eur);
 
         assertEquals(someEuros.getAmount(), expectedAmount, delta);
+    }
+
+    @Test
+    public void moneyZeroConvertToIsZero() {
+        Money noDollars = new Money(usd, 0);
+
+        Money noEuros = noDollars.convertToCurrency(eur);
+
+        assertEquals(noEuros.getAmount(), 0, delta);
     }
 }

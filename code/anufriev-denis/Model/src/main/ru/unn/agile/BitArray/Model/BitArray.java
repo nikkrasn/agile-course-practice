@@ -18,16 +18,21 @@ public class BitArray {
         this.array = new int[(size+BIT_PER_INT-1)/BIT_PER_INT];
     }
 
-    public void setBit(int index) throws Exception {
+    public int[] getArray(){
+        return this.array;
+    }
+
+    public BitArray setBit(int index) throws Exception {
         checkOutOfArray(index);
         int intIndex=index/BIT_PER_INT;
         index%=BIT_PER_INT;
 
         int bitMask = BIT_MASK << index;
         this.array[intIndex] = this.array[intIndex] | bitMask;
+        return this;
     }
 
-    public void clearBit(int index) throws Exception {
+    public BitArray clearBit(int index) throws Exception {
         checkOutOfArray(index);
         int intIndex=index/BIT_PER_INT;
         index%=BIT_PER_INT;
@@ -36,6 +41,7 @@ public class BitArray {
         bitMask = ~bitMask;
 
         this.array[intIndex] = this.array[intIndex] & bitMask;
+        return this;
     }
 
     public boolean get(int index) throws Exception {
@@ -46,6 +52,36 @@ public class BitArray {
         int bitMask = BIT_MASK << index;
 
         return (this.array[intIndex] & bitMask)==0 ? false : true;
+    }
+
+    public BitArray xor(BitArray array) {
+        for (int i=0; i<(size+BIT_PER_INT-1)/BIT_PER_INT; i++) {
+            this.array[i] = this.array[i] ^ array.getArray()[i];
+        }
+        return this;
+    }
+
+    public BitArray or(BitArray array) {
+        for (int i=0; i<(size+BIT_PER_INT-1)/BIT_PER_INT; i++) {
+            this.array[i] = this.array[i] | array.getArray()[i];
+        }
+        return this;
+    }
+
+    public BitArray and(BitArray array) {
+        for (int i=0; i<(size+BIT_PER_INT-1)/BIT_PER_INT; i++) {
+            this.array[i] = this.array[i] & array.getArray()[i];
+        }
+        return this;
+    }
+
+    public BitArray not(){
+        for (int i=0; i<(this.size+BIT_PER_INT-1)/BIT_PER_INT; i++) {
+            this.array[i] = ~ this.array[i];
+        }
+        int bitMask = getBitMask(this.size);
+        this.array[((size+BIT_PER_INT-1)/BIT_PER_INT)-1] &= bitMask;
+        return this;
     }
 
     private void checkOutOfArray(int index) throws Exception {
@@ -60,4 +96,8 @@ public class BitArray {
         }
     }
 
+    private int getBitMask(int n){
+        n%=BIT_PER_INT;
+        return (BIT_MASK << n)-1;
+    }
 }

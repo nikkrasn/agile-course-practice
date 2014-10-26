@@ -20,7 +20,7 @@ public class CurrencyTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void currencyThrowsExceptionOnNegativeNominal() {
-        new Currency(840, "USD", "Доллар США", -1, 41.8101);
+        new Currency(840, "USD", "Доллар США", -10, 41.8101);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -30,6 +30,6 @@ public class CurrencyTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void currencyThrowsExceptionOnNegativeValue() {
-        new Currency(840, "USD", "Доллар США", 1, -1);
+        new Currency(840, "USD", "Доллар США", 1, -10);
     }
 }

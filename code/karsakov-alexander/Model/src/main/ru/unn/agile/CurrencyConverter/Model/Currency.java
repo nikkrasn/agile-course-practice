@@ -2,12 +2,6 @@ package ru.unn.agile.CurrencyConverter.Model;
 
 // Store currency in format like in cbr.ru: http://www.cbr.ru/scripts/XML_daily.asp
 public class Currency {
-    private final int numCode;
-    private final String charCode;
-    private final String name;
-    private final int nominal;
-    private final double value;
-
     public Currency(final int numCode, final String charCode, final String name,
                     final int nominal, final double value) {
         if (charCode == null) {
@@ -52,5 +46,11 @@ public class Currency {
     public double getValue() {
         return value;
     }
+
+    private final int numCode;
+    private final String charCode;
+    private final String name;
+    private final int nominal;
+    private final double value;
 }
 

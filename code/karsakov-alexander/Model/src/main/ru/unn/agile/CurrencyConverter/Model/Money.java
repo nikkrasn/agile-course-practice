@@ -5,14 +5,49 @@ public class Money {
     private double amount;
 
     public Money(final Currency currency, final double amount) {
-        if (currency == null) {
+        setCurrency(currency);
+        setAmount(amount);
+    }
+
+    public final Currency getCurrency() {
+        return currency;
+    }
+
+    private void setCurrency(final Currency newCurrency) {
+        if (newCurrency == null) {
             throw new IllegalArgumentException("Currency can't be null.");
         }
-        if (amount <= 0) {
+
+        currency = newCurrency;
+    }
+
+    public final double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double newAmount) {
+        if (newAmount <= 0) {
             throw new IllegalArgumentException("Amount must be positive number.");
         }
 
-        this.currency = currency;
-        this.amount = amount;
+        amount = newAmount;
+    }
+
+    public boolean isInCurrency(Currency currency) {
+        return this.currency.isEqual(currency);
+    }
+
+    public Money convertToCurrency(Currency newCurrency) {
+        if (newCurrency == null) {
+            throw new IllegalArgumentException("New currency can't be null.");
+        }
+
+        if (currency.isEqual(newCurrency)) {
+            return new Money(currency, amount);
+        } else {
+            double newAmount = amount * (newCurrency.getNominal() / newCurrency.getValue()) *
+                               (currency.getValue() / currency.getNominal());
+            return new Money(newCurrency, newAmount);
+        }
     }
 }

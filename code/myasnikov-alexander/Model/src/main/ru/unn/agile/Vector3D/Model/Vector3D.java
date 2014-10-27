@@ -17,4 +17,27 @@ public class Vector3D {
     public double GetNorm() {
         return Math.sqrt(x*x + y*y + z*z);
     }
+
+    public void Normalize() {
+        double norm = GetNorm();
+        if (norm != 0) {
+            x /= norm;
+            y /= norm;
+            z /= norm;
+        }
+    }
+
+    public double GetCoordinateX() {
+        return x;
+    }
+
+    public double GetCoordinateY() {
+        return y;
+    }
+
+    public double GetCoordinateZ() {
+        return z;
+    }
+
+
 }

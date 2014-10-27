@@ -199,16 +199,14 @@ public class DequeTest {
     }
 
     private void addIntsFromArrayToDequeTail(final Deque<Integer> deque, final int[] itemsToAdd) {
-        int i = 0;
-        for (i = 0; i < itemsToAdd.length; ++i) {
-            deque.addLast(itemsToAdd[i]);
+        for (int item: itemsToAdd) {
+            deque.addLast(item);
         }
     }
 
     private void addIntsFromArrayToDequeHead(final Deque<Integer> deque, final int[] itemsToAdd) {
-        int i = 0;
-        for (i = 0; i < itemsToAdd.length; ++i) {
-            deque.addFirst(itemsToAdd[i]);
+        for (int item: itemsToAdd) {
+            deque.addFirst(item);
         }
     }
 

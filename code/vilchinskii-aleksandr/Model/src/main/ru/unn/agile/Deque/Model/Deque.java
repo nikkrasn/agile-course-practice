@@ -2,7 +2,7 @@ package ru.unn.agile.Deque.Model;
 
 import java.util.NoSuchElementException;
 
-public class Deque<Item> {
+public final class Deque<Item> {
     private Node first;
     private Node last;
 

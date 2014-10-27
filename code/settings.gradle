@@ -37,6 +37,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Bysheva Tatyana
 
 // Izutov Evgenii
+include "izutov-evgenii"
+project(":izutov-evgenii").name = "izutov-evgenii-Model"
 
 // Karsakov Alexander
 

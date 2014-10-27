@@ -4,7 +4,7 @@ public class Matrix {
 
     private final int countRows;
     private final int countColumns;
-    private final double[][] data;
+    private double[][] data;
 
     public Matrix(final int countRows, final int countColumns) {
         this.countRows = countRows;
@@ -40,6 +40,10 @@ public class Matrix {
 
     public int getCountColumns() {
         return countColumns;
+    }
+
+    public void setValueAt(final int row, final int col, final double value) {
+        data[row][col] = value;
     }
 
     public double getValueAt(final int row, final int col) {

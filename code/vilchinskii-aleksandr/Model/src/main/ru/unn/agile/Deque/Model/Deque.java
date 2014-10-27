@@ -2,13 +2,9 @@ package ru.unn.agile.Deque.Model;
 
 import java.util.NoSuchElementException;
 
-/**
- * Created by avilchin on 10/25/14.
- */
-
 public class Deque<Item> {
-    private Node first = null;
-    private Node last  = null;
+    private Node first;
+    private Node last;
 
     private class Node {
         private Item item;
@@ -20,14 +16,14 @@ public class Deque<Item> {
         return first == null;
     }
 
-    public void addFirst(final Item itemToAdd) {
-        if (itemToAdd == null) {
+    public void addFirst(final Item item) {
+        if (item == null) {
             throw new NullPointerException();
         }
 
         Node oldFirst = first;
         first = new Node();
-        first.item = itemToAdd;
+        first.item = item;
         first.prev = null;
         first.next = oldFirst;
 
@@ -38,14 +34,14 @@ public class Deque<Item> {
         }
     }
 
-    public void addLast(final Item itemToAdd) {
-        if (itemToAdd == null) {
+    public void addLast(final Item item) {
+        if (item == null) {
             throw new NullPointerException();
         }
 
         Node oldLast = last;
         last      = new Node();
-        last.item = itemToAdd;
+        last.item = item;
         last.prev = oldLast;
         last.next = null;
 

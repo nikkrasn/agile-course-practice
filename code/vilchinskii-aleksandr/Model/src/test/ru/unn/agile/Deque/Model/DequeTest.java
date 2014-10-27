@@ -7,10 +7,6 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by avilchin on 10/25/14.
- */
-
 public class DequeTest {
 
     @Test
@@ -202,27 +198,24 @@ public class DequeTest {
         assertTrue(deque.isEmpty());
     }
 
-    private int addIntsFromArrayToDequeTail(final Deque<Integer> deque, final int[] itemsToAdd) {
+    private void addIntsFromArrayToDequeTail(final Deque<Integer> deque, final int[] itemsToAdd) {
         int i = 0;
         for (i = 0; i < itemsToAdd.length; ++i) {
             deque.addLast(itemsToAdd[i]);
         }
-        return i;
     }
 
-    private int addIntsFromArrayToDequeHead(final Deque<Integer> deque, final int[] itemsToAdd) {
+    private void addIntsFromArrayToDequeHead(final Deque<Integer> deque, final int[] itemsToAdd) {
         int i = 0;
         for (i = 0; i < itemsToAdd.length; ++i) {
             deque.addFirst(itemsToAdd[i]);
         }
-        return i;
     }
 
-    private int fillInIntArrayIncrementally(final int[] itemsToAdd) {
+    private void fillInIntArrayIncrementally(final int[] itemsToAdd) {
         int i = 0;
         for (i = 0; i < itemsToAdd.length; ++i) {
             itemsToAdd[i] = i;
         }
-        return i;
     }
 }

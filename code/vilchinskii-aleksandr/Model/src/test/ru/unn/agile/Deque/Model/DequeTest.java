@@ -1,10 +1,7 @@
 package ru.unn.agile.Deque.Model;
 
 import org.junit.Test;
-
 import java.util.Arrays;
-import java.util.NoSuchElementException;
-
 import static org.junit.Assert.*;
 
 public class DequeTest {
@@ -85,16 +82,18 @@ public class DequeTest {
         assertEquals(itemToAdd, lastInDeque);
     }
 
-    @Test (expected = NoSuchElementException.class)
+    @Test
     public void cannotGetFirstItemFromEmptyDeque() {
         Deque deque = Deque.createDeque();
-        deque.getFirst();
+        Object item = deque.getFirst();
+        assertNull(item);
     }
 
-    @Test (expected = NoSuchElementException.class)
+    @Test
     public void cannotGetLastItemFromEmptyDeque() {
         Deque deque = Deque.createDeque();
-        deque.getLast();
+        Object item = deque.getLast();
+        assertNull(item);
     }
 
     @Test
@@ -119,16 +118,18 @@ public class DequeTest {
         assertEquals(itemToAdd, lastInDeque);
     }
 
-    @Test (expected = NoSuchElementException.class)
+    @Test
     public void cannotRemoveFirstItemFromEmptyDeque() {
         Deque deque = Deque.createDeque();
-        deque.removeFirst();
+        Object item = deque.removeFirst();
+        assertNull(item);
     }
 
-    @Test (expected = NoSuchElementException.class)
+    @Test
     public void cannotRemoveLastItemFromEmptyDeque() {
         Deque deque = Deque.createDeque();
-        deque.removeLast();
+        Object item = deque.removeLast();
+        assertNull(item);
     }
 
     @Test

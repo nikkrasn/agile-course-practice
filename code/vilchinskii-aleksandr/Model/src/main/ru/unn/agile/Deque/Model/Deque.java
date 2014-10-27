@@ -1,7 +1,5 @@
 package ru.unn.agile.Deque.Model;
 
-import java.util.NoSuchElementException;
-
 public final class Deque<Item> {
     private Node first;
     private Node last;
@@ -61,21 +59,21 @@ public final class Deque<Item> {
 
     public Item getFirst() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            return null;
         }
         return first.item;
     }
 
     public Item getLast() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            return null;
         }
         return last.item;
     }
 
     public Item removeFirst() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            return null;
         }
 
         Item itemToReturn = first.item;
@@ -91,7 +89,7 @@ public final class Deque<Item> {
 
     public Item removeLast() {
         if (isEmpty()) {
-            throw new NoSuchElementException();
+            return null;
         }
 
         Item itemToReturn = last.item;

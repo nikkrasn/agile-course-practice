@@ -11,39 +11,39 @@ public class DequeTest {
 
     @Test
     public void isNewlyCreatedDequeEmpty() {
-        Deque emptyDeque = new Deque();
+        Deque emptyDeque = Deque.createDeque();
         assertTrue(emptyDeque.isEmpty());
     }
 
     @Test
     public void isDequeNotEmptyAfterAddFirst() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         deque.addFirst(1);
         assertFalse(deque.isEmpty());
     }
 
     @Test
     public void isDequeNotEmptyAfterAddLast() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         deque.addLast(1);
         assertFalse(deque.isEmpty());
     }
 
     @Test(expected = NullPointerException.class)
     public void cannotAddNullItemToHead() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         deque.addFirst(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void cannotAddNullItemToTail() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         deque.addLast(null);
     }
 
     @Test
     public void canAddItemToHead() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         int itemToAdd = 1, firstInDeque = 0;
         deque.addFirst(itemToAdd);
 
@@ -54,7 +54,7 @@ public class DequeTest {
 
     @Test
     public void canAddItemToTail() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         int itemToAdd = 1, lastInDeque = 0;
         deque.addLast(itemToAdd);
 
@@ -65,7 +65,7 @@ public class DequeTest {
 
     @Test
     public void isTheOnlyTailItemTheFirstOne() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         int itemToAdd = 1, firstInDeque = 0;
         deque.addLast(itemToAdd);
 
@@ -76,7 +76,7 @@ public class DequeTest {
 
     @Test
     public void isTheOnlyHeadItemTheLastOne() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         int itemToAdd = 1, lastInDeque = 0;
         deque.addLast(itemToAdd);
 
@@ -87,19 +87,19 @@ public class DequeTest {
 
     @Test (expected = NoSuchElementException.class)
     public void cannotGetFirstItemFromEmptyDeque() {
-        Deque deque = new Deque();
+        Deque deque = Deque.createDeque();
         deque.getFirst();
     }
 
     @Test (expected = NoSuchElementException.class)
     public void cannotGetLastItemFromEmptyDeque() {
-        Deque deque = new Deque();
+        Deque deque = Deque.createDeque();
         deque.getLast();
     }
 
     @Test
     public void isRemovedFirstItemEqualToRecentlyAdded() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         int itemToAdd = 1, firstInDeque = 0;
         deque.addFirst(itemToAdd);
 
@@ -110,7 +110,7 @@ public class DequeTest {
 
     @Test
     public void isRemovedLastItemEqualToRecentlyAdded() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         int itemToAdd = 1, lastInDeque = 0;
         deque.addLast(itemToAdd);
 
@@ -121,19 +121,19 @@ public class DequeTest {
 
     @Test (expected = NoSuchElementException.class)
     public void cannotRemoveFirstItemFromEmptyDeque() {
-        Deque deque = new Deque();
+        Deque deque = Deque.createDeque();
         deque.removeFirst();
     }
 
     @Test (expected = NoSuchElementException.class)
     public void cannotRemoveLastItemFromEmptyDeque() {
-        Deque deque = new Deque();
+        Deque deque = Deque.createDeque();
         deque.removeLast();
     }
 
     @Test
     public void isDequeEmptyAfterRemoveFirst() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         deque.addFirst(1);
 
         deque.removeFirst();
@@ -143,7 +143,7 @@ public class DequeTest {
 
     @Test
     public void isDequeEmptyAfterRemoveLast() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         deque.addLast(1);
 
         deque.removeLast();
@@ -153,7 +153,7 @@ public class DequeTest {
 
     @Test
     public void areItemsAddedToTailEqualToItemsRemoveFromHead() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         final int numberOfItems = 3;
         int[] itemsToAdd        = new int[numberOfItems];
         int[] itemsFromDeque    = new int[numberOfItems];
@@ -170,7 +170,7 @@ public class DequeTest {
 
     @Test
     public void areItemsAddedToHeadEqualToItemsRemoveFromTail() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         final int numberOfItems = 3;
         int[] itemsToAdd        = new int[numberOfItems];
         int[] itemsFromDeque    = new int[numberOfItems];
@@ -187,7 +187,7 @@ public class DequeTest {
 
     @Test
     public void canClearNotEmptyDeque() {
-        Deque<Integer> deque = new Deque<Integer>();
+        Deque<Integer> deque = Deque.createDeque();
         final int numberOfItems = 3;
         int [] itemsToAdd       = new int[numberOfItems];
         fillInIntArrayIncrementally(itemsToAdd);

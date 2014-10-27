@@ -6,6 +6,13 @@ public class Deque<Item> {
     private Node first;
     private Node last;
 
+    private Deque() {
+    }
+
+    public static <Item> Deque<Item> createDeque() {
+        return new Deque<Item>();
+    }
+
     private class Node {
         private Item item;
         private Node prev;

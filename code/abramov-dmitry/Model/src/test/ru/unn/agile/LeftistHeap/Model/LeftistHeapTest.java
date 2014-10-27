@@ -7,13 +7,13 @@ public class LeftistHeapTest {
 
     @Test
     public void canCreateLeftistHeap() {
-        LeftistHeap heap = new LeftistHeap();
+        LeftistHeap heap = new LeftistHeap<String>();
         assertNotNull(heap);
     }
 
     @Test
     public void canCreateEmptyHeap() {
-        LeftistHeap heap = new LeftistHeap();
+        LeftistHeap heap = new LeftistHeap<String>();
 
         boolean isEmpty = heap.IsEmpty();
 
@@ -22,9 +22,9 @@ public class LeftistHeapTest {
 
     @Test
     public void canAddElementToHeap() {
-        LeftistHeap heap = new LeftistHeap();
+        LeftistHeap heap = new LeftistHeap<String>();
 
-        heap.Add(1);
+        heap.Add(1, "I am first");
 
         assertFalse(heap.IsEmpty());
     }

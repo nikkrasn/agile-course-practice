@@ -22,7 +22,7 @@ public class HeapNodeTest {
     }
 
     @Test
-    public void canCreateHeapNodeWithChilds() {
+    public void canCreateHeapNodeWithChildren() {
         HeapNode<Integer, String> node = new HeapNode<Integer, String>(
                 5,
                 "I have a large family",
@@ -31,5 +31,17 @@ public class HeapNodeTest {
 
         assertNotNull(node.LeftChild);
         assertNotNull(node.RightChild);
+    }
+
+    @Test
+    public void canSetChild() {
+        HeapNode<Integer, String> node = new HeapNode<Integer, String>(1, "I am alone");
+
+        HeapNode<Integer, String> companion = new HeapNode<Integer, String>(2, "You never walk alone");
+
+        node.LeftChild = companion;
+
+        assertNotNull(node.LeftChild);
+        assertNull(node.RightChild);
     }
 }

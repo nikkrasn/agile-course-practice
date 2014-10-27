@@ -1,9 +1,14 @@
 package ru.unn.agile.LeftistHeap.Model;
 
-import java.util.Enumeration;
+public class LeftistHeap<TValue> {
 
-public class LeftistHeap<TKey, TValue> {
+    private boolean isEmpty = true;
+
     public boolean IsEmpty() {
-        return true;
+        return isEmpty;
+    }
+
+    public void Add(int key, TValue value) {
+        isEmpty = false;
     }
 }

@@ -45,6 +45,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Krasnoyarov Nikita
 
 // Lazarev Anton
+include "lazarev-anton-lab2"
+project(":lazarev-anton-lab2").name = "lazarev-anton-lab2-Model"
 
 // Ljaljushkin Nikolay
 

@@ -44,17 +44,17 @@ public class CurrencyTest {
 
     @Test
     public void currencyCompareWithNullReturnsFalse() {
-        assertFalse(validCurrency.isEqual(null));
+        assertFalse(validCurrency.equals(null));
     }
 
     @Test
     public void currencyCompareWithItselfReturnsTrue() {
-        assertTrue(validCurrency.isEqual(validCurrency));
+        assertTrue(validCurrency.equals(validCurrency));
     }
 
     @Test
     public void currencyCompareWithAnotherReturnsFalse() {
         Currency anotherValidCurrency = new Currency(978, "EUR", "Евро", 1, 52.9065);
-        assertFalse(validCurrency.isEqual(anotherValidCurrency));
+        assertFalse(validCurrency.equals(anotherValidCurrency));
     }
 }

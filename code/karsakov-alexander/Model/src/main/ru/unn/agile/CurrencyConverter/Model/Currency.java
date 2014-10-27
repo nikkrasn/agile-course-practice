@@ -53,8 +53,22 @@ public class Currency {
         return value;
     }
 
-    public boolean isEqual(final Currency another) {
-        return another != null && numCode == another.numCode;
+    @Override
+    public int hashCode() {
+        return numCode;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Currency currency = (Currency) o;
+        return numCode == currency.numCode;
     }
 }
 

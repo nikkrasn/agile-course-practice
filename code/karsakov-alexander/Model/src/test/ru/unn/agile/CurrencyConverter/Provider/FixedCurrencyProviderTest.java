@@ -55,7 +55,7 @@ public class FixedCurrencyProviderTest {
         for (int i = 0; i < currencyRates.length; i++) {
             for (int j = 0; j < currencyRates.length; j++) {
                 if (i != j) {
-                    assertFalse(currencyRates[i].isEqual(currencyRates[j]));
+                    assertFalse(currencyRates[i] == currencyRates[j]);
                 }
             }
         }

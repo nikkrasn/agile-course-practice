@@ -34,7 +34,7 @@ public class Money {
     }
 
     public boolean isInCurrency(final Currency currency) {
-        return this.currency.isEqual(currency);
+        return this.currency.equals(currency);
     }
 
     public Money convertToCurrency(final Currency newCurrency) {
@@ -42,7 +42,7 @@ public class Money {
             throw new IllegalArgumentException("New currency can't be null.");
         }
 
-        if (currency.isEqual(newCurrency)) {
+        if (currency.equals(newCurrency)) {
             return new Money(currency, amount);
         } else {
             double newAmount = amount * (newCurrency.getNominal() / newCurrency.getValue())

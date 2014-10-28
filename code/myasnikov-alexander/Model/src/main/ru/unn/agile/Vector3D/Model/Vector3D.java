@@ -27,6 +27,14 @@ public class Vector3D {
         }
     }
 
+    public double DotProduct(Vector3D vector) {
+
+        return x*vector.GetCoordinateX() + y*vector.GetCoordinateY()+z*vector.GetCoordinateZ();
+    }
+
+    public void CrossProduct() {
+
+    }
     public double GetCoordinateX() {
         return x;
     }

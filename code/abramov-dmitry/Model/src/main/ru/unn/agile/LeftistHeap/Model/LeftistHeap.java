@@ -4,6 +4,7 @@ public class LeftistHeap<TValue> {
     private HeapNode<TValue> root;
 
     public LeftistHeap() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     public LeftistHeap(final int rootKey, final TValue rootValue) {
@@ -27,10 +28,10 @@ public class LeftistHeap<TValue> {
 
         HeapNode<TValue> min = root;
 
-        root = innerMerge(root.leftChild, root.rightChild);
+        root = innerMerge(root.getLeftChild(), root.getRightChild());
 
-        min.leftChild = null;
-        min.rightChild = null;
+        min.setLeftChild(null);
+        min.setRightChild(null);
         return min;
     }
 
@@ -59,19 +60,21 @@ public class LeftistHeap<TValue> {
             rightHeapRootTmp = tmp;
         }
 
-        leftHeapRootTmp.rightChild = innerMerge(leftHeapRootTmp.rightChild, rightHeapRootTmp);
+        leftHeapRootTmp.setRightChild(
+                innerMerge(leftHeapRootTmp.getRightChild(), rightHeapRootTmp));
 
-        if (leftHeapRootTmp.leftChild == null) {
-            leftHeapRootTmp.leftChild = leftHeapRootTmp.rightChild;
-            leftHeapRootTmp.rightChild = null;
+        if (leftHeapRootTmp.getLeftChild() == null) {
+            leftHeapRootTmp.setLeftChild(leftHeapRootTmp.getRightChild());
+            leftHeapRootTmp.setRightChild(null);
         } else {
-            if (leftHeapRootTmp.leftChild.distValue < leftHeapRootTmp.rightChild.distValue) {
-                HeapNode<TValue> temp = leftHeapRootTmp.leftChild;
-                leftHeapRootTmp.leftChild = leftHeapRootTmp.rightChild;
-                leftHeapRootTmp.rightChild = temp;
+            if (leftHeapRootTmp.getLeftChild().getDistValue()
+                    < leftHeapRootTmp.getRightChild().getDistValue()) {
+                HeapNode<TValue> temp = leftHeapRootTmp.getLeftChild();
+                leftHeapRootTmp.setLeftChild(leftHeapRootTmp.getRightChild());
+                leftHeapRootTmp.setRightChild(temp);
             }
 
-            leftHeapRootTmp.distValue = leftHeapRootTmp.rightChild.distValue + 1;
+            leftHeapRootTmp.setDistValue(leftHeapRootTmp.getRightChild().getDistValue() + 1);
         }
 
         return leftHeapRootTmp;

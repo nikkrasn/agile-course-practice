@@ -17,8 +17,8 @@ public class HeapNodeTest {
     public void canCreateHeapNodeWithoutChildren() {
         HeapNode<String> node = new HeapNode<String>(2, "I am alone");
 
-        assertNull(node.leftChild);
-        assertNull(node.rightChild);
+        assertNull(node.getLeftChild());
+        assertNull(node.getRightChild());
     }
 
     @Test
@@ -29,8 +29,8 @@ public class HeapNodeTest {
                 new HeapNode<String>(3, "I am son"),
                 new HeapNode<String>(4, "I am daughter"));
 
-        assertNotNull(node.leftChild);
-        assertNotNull(node.rightChild);
+        assertNotNull(node.getLeftChild());
+        assertNotNull(node.getRightChild());
     }
 
     @Test
@@ -39,9 +39,9 @@ public class HeapNodeTest {
 
         HeapNode<String> companion = new HeapNode<String>(2, "You never walk alone");
 
-        node.leftChild = companion;
+        node.setLeftChild(companion);
 
-        assertNotNull(node.leftChild);
-        assertNull(node.rightChild);
+        assertNotNull(node.getLeftChild());
+        assertNull(node.getRightChild());
     }
 }

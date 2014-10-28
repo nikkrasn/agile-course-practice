@@ -30,9 +30,11 @@ public class Vector3D {
         return result;
     }
 
-    public double CrossProduct(Vector3D vector) {
-
-        return -1.0;
+    public static Vector3D CrossProduct(Vector3D vector1, Vector3D vector2) {
+        double x = vector1.GetCoordinateY() * vector2.GetCoordinateZ() - vector1.GetCoordinateZ() * vector2.GetCoordinateY();
+        double y = vector1.GetCoordinateZ() * vector2.GetCoordinateX() - vector1.GetCoordinateX() * vector2.GetCoordinateZ();
+        double z = vector1.GetCoordinateX() * vector2.GetCoordinateY() - vector1.GetCoordinateY() * vector2.GetCoordinateX();
+        return new Vector3D(x, y, z);
     }
 
     public double GetCoordinateX() {

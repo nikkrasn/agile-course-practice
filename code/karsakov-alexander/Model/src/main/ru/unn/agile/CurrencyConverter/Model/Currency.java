@@ -55,7 +55,15 @@ public class Currency {
 
     @Override
     public int hashCode() {
-        return numCode;
+        int result;
+        long temp;
+        result = numCode;
+        result = 31 * result + charCode.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + nominal;
+        temp = Double.doubleToLongBits(value);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     @Override

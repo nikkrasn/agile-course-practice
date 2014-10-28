@@ -1,33 +1,49 @@
 package ru.unn.agile.LeftistHeap.Model;
 
 public class HeapNode<TValue> {
-    private int key;
-    private TValue value;
+    private final int key;
+    private final TValue value;
 
-    public int DistValue;
+    private int distValue;
 
-    public HeapNode<TValue> LeftChild;
-    public HeapNode<TValue> RightChild;
+    private HeapNode<TValue> leftChild;
+    private HeapNode<TValue> rightChild;
 
-    public HeapNode(int key, TValue value) {
+    public HeapNode(final int key, final TValue value) {
         this.key = key;
         this.value = value;
-        this.DistValue = 0;
+        this.distValue = 0;
     }
 
-    public HeapNode(int key, TValue value, HeapNode<TValue> leftChild, HeapNode<TValue> rightChild) {
+    public HeapNode(
+            final int key,
+            final TValue value,
+            final HeapNode<TValue> leftChild,
+            final HeapNode<TValue> rightChild) {
         this.key = key;
         this.value = value;
-        LeftChild = leftChild;
-        RightChild = rightChild;
-        this.DistValue = 0;
+        this.leftChild = leftChild;
+        this.rightChild = rightChild;
+        this.distValue = 0;
     }
 
-    public int GetKey() {
+    public int getKey() {
         return key;
     }
 
-    public TValue GetValue() {
+    public TValue getValue() {
         return value;
     }
+
+    public int getDistValue() { return distValue; }
+
+    public void setDistValue(final int value) { distValue = value; }
+
+    public HeapNode<TValue> getLeftChild() { return leftChild; }
+
+    public void setLeftChild(final HeapNode<TValue> value) { leftChild = value; }
+
+    public HeapNode<TValue> getRightChild() { return rightChild; }
+
+    public void setRightChild(final HeapNode<TValue> value) { rightChild = value; }
 }

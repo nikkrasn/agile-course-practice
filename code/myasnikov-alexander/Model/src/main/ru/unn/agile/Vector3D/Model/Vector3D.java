@@ -4,18 +4,22 @@ package ru.unn.agile.Vector3D.model;
 
 public class Vector3D {
 
-    public Vector3D(double coordinateX, double coordinateY, double coordinateZ) {
+    private double x;
+    private double y;
+    private double z;
+
+    public Vector3D(final double coordinateX, final double coordinateY, final double coordinateZ) {
         x = coordinateX;
         y = coordinateY;
         z = coordinateZ;
     }
 
-    public double GetNorm() {
-        return Math.sqrt(x*x + y*y + z*z);
+    public double getNorm() {
+        return Math.sqrt(x * x + y * y + z * z);
     }
 
-    public void Normalize() {
-        double norm = GetNorm();
+    public void normalize() {
+        double norm = getNorm();
         if (norm != 0) {
             x /= norm;
             y /= norm;
@@ -23,33 +27,36 @@ public class Vector3D {
         }
     }
 
-    public static double DotProduct(Vector3D vector1, Vector3D vector2) {
-        double result = vector1.GetCoordinateX() * vector2.GetCoordinateX() +
-                        vector1.GetCoordinateY() * vector2.GetCoordinateY() +
-                        vector1.GetCoordinateZ() * vector2.GetCoordinateZ();
+    public static double dotProduct(final Vector3D vector1, final Vector3D vector2) {
+        double result = vector1.getCoordinateX() * vector2.getCoordinateX()
+                      + vector1.getCoordinateY() * vector2.getCoordinateY()
+                      + vector1.getCoordinateZ() * vector2.getCoordinateZ();
         return result;
     }
 
-    public static Vector3D CrossProduct(Vector3D vector1, Vector3D vector2) {
-        double x = vector1.GetCoordinateY() * vector2.GetCoordinateZ() - vector1.GetCoordinateZ() * vector2.GetCoordinateY();
-        double y = vector1.GetCoordinateZ() * vector2.GetCoordinateX() - vector1.GetCoordinateX() * vector2.GetCoordinateZ();
-        double z = vector1.GetCoordinateX() * vector2.GetCoordinateY() - vector1.GetCoordinateY() * vector2.GetCoordinateX();
+    public static Vector3D crossProduct(final Vector3D vector1, final Vector3D vector2) {
+        double x = vector1.getCoordinateY() * vector2.getCoordinateZ()
+                 - vector1.getCoordinateZ() * vector2.getCoordinateY();
+
+        double y = vector1.getCoordinateZ() * vector2.getCoordinateX()
+                 - vector1.getCoordinateX() * vector2.getCoordinateZ();
+
+        double z = vector1.getCoordinateX() * vector2.getCoordinateY()
+                 - vector1.getCoordinateY() * vector2.getCoordinateX();
+
         return new Vector3D(x, y, z);
     }
 
-    public double GetCoordinateX() {
+    public double getCoordinateX() {
         return x;
     }
 
-    public double GetCoordinateY() {
+    public double getCoordinateY() {
         return y;
     }
 
-    public double GetCoordinateZ() {
+    public double getCoordinateZ() {
         return z;
     }
 
-    private double x;
-    private double y;
-    private double z;
 }

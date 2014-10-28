@@ -49,6 +49,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Ljaljushkin Nikolay
 
 // Myasnikov Alexander
+include "myasnikov-alexander"
+project(":myasnikov-alexander").name = "myasnikov-alexander-Model"
 
 // Ovsuhno Andrey
 

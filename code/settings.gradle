@@ -25,6 +25,8 @@ include "kornyakov-kirill-lab3/Infrastructure"
 project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infrastructure"
 
 // Abramov Dmitry
+include "abramov-dmitry"
+project(":abramov-dmitry").name = "abramov-dmitry"
 
 // Anufriev Denis
 

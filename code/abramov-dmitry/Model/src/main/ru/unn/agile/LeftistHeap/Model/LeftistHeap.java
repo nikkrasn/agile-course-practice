@@ -1,49 +1,46 @@
 package ru.unn.agile.LeftistHeap.Model;
 
-import java.util.Collection;
-import java.util.List;
-
 public class LeftistHeap<TValue> {
     private HeapNode<TValue> root;
 
-    public LeftistHeap()
-    {
+    public LeftistHeap() {
     }
 
-    public LeftistHeap(int rootKey, TValue rootValue)
-    {
+    public LeftistHeap(int rootKey, TValue rootValue) {
         root = new HeapNode<TValue>(rootKey, rootValue);
     }
 
-    public boolean IsEmpty() {
+    public boolean isEmpty() {
         return root == null;
     }
 
-    public void Add(int key, TValue value) {
+    public void add(int key, TValue value) {
         LeftistHeap<TValue> heap = new LeftistHeap<TValue>(key, value);
 
-        Merge(heap);
+        merge(heap);
     }
 
-    public HeapNode<TValue> ExtractMin() {
-        if (IsEmpty()){
+    public HeapNode<TValue> extractMin() {
+        if (isEmpty()) {
             return root;
         }
 
         HeapNode<TValue> min = root;
 
-        root = innerMerge(root.LeftChild, root.RightChild);
+        root = innerMerge(root.leftChild, root.rightChild);
 
-        min.LeftChild = min.RightChild = null;
+        min.leftChild = min.rightChild = null;
         return min;
     }
 
-    public void Merge(LeftistHeap<TValue> heapToMerge) {
+    public void merge(LeftistHeap<TValue> heapToMerge) {
         root = innerMerge(root, heapToMerge.root);
         heapToMerge.root = null;
     }
 
-    private HeapNode<TValue> innerMerge(HeapNode<TValue> leftHeapRoot, HeapNode<TValue> rightHeapRoot){
+    private HeapNode<TValue> innerMerge(
+            HeapNode<TValue> leftHeapRoot,
+            HeapNode<TValue> rightHeapRoot){
         if (leftHeapRoot == null) {
             return rightHeapRoot;
         }
@@ -52,29 +49,26 @@ public class LeftistHeap<TValue> {
             return leftHeapRoot;
         }
 
-        if (leftHeapRoot.GetKey() > rightHeapRoot.GetKey()) {
+        if (leftHeapRoot.getKey() > rightHeapRoot.getKey()) {
             HeapNode<TValue> temp = leftHeapRoot;
             leftHeapRoot = rightHeapRoot;
             rightHeapRoot = temp;
         }
 
-        leftHeapRoot.RightChild = innerMerge(leftHeapRoot.RightChild, rightHeapRoot);
+        leftHeapRoot.rightChild = innerMerge(leftHeapRoot.rightChild, rightHeapRoot);
 
-        if(leftHeapRoot.LeftChild == null)
-        {
-            leftHeapRoot.LeftChild = leftHeapRoot.RightChild;
-            leftHeapRoot.RightChild = null;
+        if (leftHeapRoot.leftChild == null) {
+            leftHeapRoot.leftChild = leftHeapRoot.rightChild;
+            leftHeapRoot.rightChild = null;
         }
-        else
-        {
-            if(leftHeapRoot.LeftChild.DistValue < leftHeapRoot.RightChild.DistValue)
-            {
-                HeapNode<TValue> temp = leftHeapRoot.LeftChild;
-                leftHeapRoot.LeftChild = leftHeapRoot.RightChild;
-                leftHeapRoot.RightChild = temp;
+        else {
+            if (leftHeapRoot.leftChild.distValue < leftHeapRoot.rightChild.distValue) {
+                HeapNode<TValue> temp = leftHeapRoot.leftChild;
+                leftHeapRoot.leftChild = leftHeapRoot.rightChild;
+                leftHeapRoot.rightChild = temp;
             }
 
-            leftHeapRoot.DistValue = leftHeapRoot.RightChild.DistValue + 1;
+            leftHeapRoot.distValue = leftHeapRoot.rightChild.distValue + 1;
         }
 
         return leftHeapRoot;

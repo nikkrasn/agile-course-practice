@@ -15,7 +15,7 @@ public class LeftistHeapTest {
     public void canCreateEmptyHeap() {
         LeftistHeap heap = new LeftistHeap<String>();
 
-        boolean isEmpty = heap.IsEmpty();
+        boolean isEmpty = heap.isEmpty();
 
         assertTrue(isEmpty);
     }
@@ -24,17 +24,17 @@ public class LeftistHeapTest {
     public void canAddElementToHeap() {
         LeftistHeap heap = new LeftistHeap<String>();
 
-        heap.Add(1, "I am first");
+        heap.add(1, "I am first");
 
-        assertFalse(heap.IsEmpty());
+        assertFalse(heap.isEmpty());
     }
 
     @Test
     public void canExtractMinFromHeap() {
         LeftistHeap heap = new LeftistHeap<String>();
-        heap.Add(1, "I am first");
+        heap.add(13, "I wait a fortune");
 
-        HeapNode<String> nodeWithMinKey = heap.ExtractMin();
+        HeapNode<String> nodeWithMinKey = heap.extractMin();
 
         assertNotNull(nodeWithMinKey);
     }
@@ -42,38 +42,38 @@ public class LeftistHeapTest {
     @Test
     public void canExtractMinFromHeapWithFewElements() {
         LeftistHeap heap = new LeftistHeap<String>();
-        heap.Add(2, "I am only second");
-        heap.Add(1, "I am first");
+        heap.add(5, "I am only second");
+        heap.add(3, "I am first");
 
-        assertEquals(heap.ExtractMin().GetKey(), 1);
+        assertEquals(heap.extractMin().getKey(), 1);
     }
 
     @Test
     public void canExtractAllElements() {
         LeftistHeap heap = new LeftistHeap<String>();
-        heap.Add(1, "I am lonely");
+        heap.add(0, "I am lonely");
 
-        HeapNode<String> nodeWithMinKey = heap.ExtractMin();
+        HeapNode<String> nodeWithMinKey = heap.extractMin();
 
-        assertTrue(heap.IsEmpty());
+        assertTrue(heap.isEmpty());
     }
 
     @Test
     public void canExtractNotAllElements() {
         LeftistHeap heap = new LeftistHeap<String>();
-        heap.Add(1, "I am lonely");
-        heap.Add(2, "No-o-o!!!");
+        heap.add(-3, "I so lonely");
+        heap.add(2, "No-o-o!!!");
 
-        HeapNode<String> nodeWithMinKey = heap.ExtractMin();
+        HeapNode<String> nodeWithMinKey = heap.extractMin();
 
-        assertFalse(heap.IsEmpty());
+        assertFalse(heap.isEmpty());
     }
 
     @Test
     public void canExtractMinFromEmptyHeap() {
         LeftistHeap heap = new LeftistHeap<String>();
 
-        HeapNode<String> nodeWithMinKey = heap.ExtractMin();
+        HeapNode<String> nodeWithMinKey = heap.extractMin();
 
         assertNull(nodeWithMinKey);
     }
@@ -81,39 +81,39 @@ public class LeftistHeapTest {
     @Test
     public void canMergeTwoHeaps() {
         LeftistHeap heap1 = new LeftistHeap<String>();
-        heap1.Add(1, "I am first");
-        heap1.Add(4, "It was close");
-        heap1.Add(5, "Top five");
+        heap1.add(1, "I am the best");
+        heap1.add(4, "It was close");
+        heap1.add(5, "Top five");
 
         LeftistHeap heap2 = new LeftistHeap<String>();
-        heap2.Add(2, "2 slow for win");
-        heap2.Add(3, "It is good");
-        heap2.Add(6, "My imagine have limit");
+        heap2.add(2, "2 slow for win");
+        heap2.add(3, "It is good");
+        heap2.add(6, "My imagine have limit");
 
-        heap1.Merge(heap2);
+        heap1.merge(heap2);
 
-        assertEquals(heap1.ExtractMin().GetKey(), 1);
-        assertEquals(heap1.ExtractMin().GetKey(), 2);
-        assertEquals(heap1.ExtractMin().GetKey(), 3);
-        assertEquals(heap1.ExtractMin().GetKey(), 4);
-        assertEquals(heap1.ExtractMin().GetKey(), 5);
-        assertEquals(heap1.ExtractMin().GetKey(), 6);
+        assertEquals(heap1.extractMin().getKey(), 1);
+        assertEquals(heap1.extractMin().getKey(), 2);
+        assertEquals(heap1.extractMin().getKey(), 3);
+        assertEquals(heap1.extractMin().getKey(), 4);
+        assertEquals(heap1.extractMin().getKey(), 5);
+        assertEquals(heap1.extractMin().getKey(), 6);
     }
 
     @Test
     public void canMergeWithEmptyHeap() {
         LeftistHeap heap1 = new LeftistHeap<String>();
-        heap1.Add(1, "I am first");
-        heap1.Add(4, "It was close");
-        heap1.Add(5, "Top five");
+        heap1.add(0, "Stop");
+        heap1.add(2, "Copy");
+        heap1.add(5, "Paste");
 
         LeftistHeap heap2 = new LeftistHeap<String>();
 
-        heap1.Merge(heap2);
+        heap1.merge(heap2);
 
-        assertEquals(heap1.ExtractMin().GetKey(), 1);
-        assertEquals(heap1.ExtractMin().GetKey(), 4);
-        assertEquals(heap1.ExtractMin().GetKey(), 5);
+        assertEquals(heap1.extractMin().getKey(), 0);
+        assertEquals(heap1.extractMin().getKey(), 2);
+        assertEquals(heap1.extractMin().getKey(), 5);
     }
 
     @Test
@@ -121,14 +121,14 @@ public class LeftistHeapTest {
         LeftistHeap heap1 = new LeftistHeap<String>();
 
         LeftistHeap heap2 = new LeftistHeap<String>();
-        heap2.Add(2, "2 slow for win");
-        heap2.Add(3, "It is good");
-        heap2.Add(6, "My imagine have limit");
+        heap2.add(24, "x");
+        heap2.add(25, "y");
+        heap2.add(26, "z");
 
-        heap1.Merge(heap2);
+        heap1.merge(heap2);
 
-        assertEquals(heap1.ExtractMin().GetKey(), 2);
-        assertEquals(heap1.ExtractMin().GetKey(), 3);
-        assertEquals(heap1.ExtractMin().GetKey(), 6);
+        assertEquals(heap1.extractMin().getKey(), 24);
+        assertEquals(heap1.extractMin().getKey(), 25);
+        assertEquals(heap1.extractMin().getKey(), 26);
     }
 }

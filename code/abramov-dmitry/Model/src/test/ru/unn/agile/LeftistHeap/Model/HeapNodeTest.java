@@ -9,16 +9,16 @@ public class HeapNodeTest {
         HeapNode<String> node = new HeapNode<String>(1, "it is string");
 
         assertNotNull(node);
-        assertEquals(1, node.GetKey());
-        assertEquals(new String("it is string"), node.GetValue());
+        assertEquals(1, node.getKey());
+        assertEquals(new String("it is string"), node.getValue());
     }
 
     @Test
     public void canCreateHeapNodeWithoutChildren() {
         HeapNode<String> node = new HeapNode<String>(2, "I am alone");
 
-        assertNull(node.LeftChild);
-        assertNull(node.RightChild);
+        assertNull(node.leftChild);
+        assertNull(node.rightChild);
     }
 
     @Test
@@ -29,8 +29,8 @@ public class HeapNodeTest {
                 new HeapNode<String>(3, "I am son"),
                 new HeapNode<String>(4, "I am daughter"));
 
-        assertNotNull(node.LeftChild);
-        assertNotNull(node.RightChild);
+        assertNotNull(node.leftChild);
+        assertNotNull(node.rightChild);
     }
 
     @Test
@@ -39,9 +39,9 @@ public class HeapNodeTest {
 
         HeapNode<String> companion = new HeapNode<String>(2, "You never walk alone");
 
-        node.LeftChild = companion;
+        node.leftChild = companion;
 
-        assertNotNull(node.LeftChild);
-        assertNull(node.RightChild);
+        assertNotNull(node.leftChild);
+        assertNull(node.rightChild);
     }
 }

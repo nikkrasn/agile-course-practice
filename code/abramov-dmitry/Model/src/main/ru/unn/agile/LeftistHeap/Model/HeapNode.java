@@ -1,25 +1,25 @@
 package ru.unn.agile.LeftistHeap.Model;
 
-public class HeapNode<TKey, TValue> {
-    private TKey key;
+public class HeapNode<TValue> {
+    private int key;
     private TValue value;
 
-    public HeapNode<TKey, TValue> LeftChild;
-    public HeapNode<TKey, TValue> RightChild;
+    public HeapNode<TValue> LeftChild;
+    public HeapNode<TValue> RightChild;
 
-    public HeapNode(TKey key, TValue value) {
+    public HeapNode(int key, TValue value) {
         this.key = key;
         this.value = value;
     }
 
-    public HeapNode(TKey key, TValue value, HeapNode<TKey, TValue> leftChild, HeapNode<TKey, TValue> rightChild) {
+    public HeapNode(int key, TValue value, HeapNode<TValue> leftChild, HeapNode<TValue> rightChild) {
         this.key = key;
         this.value = value;
         LeftChild = leftChild;
         RightChild = rightChild;
     }
 
-    public TKey GetKey() {
+    public int GetKey() {
         return key;
     }
 

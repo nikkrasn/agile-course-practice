@@ -1,5 +1,5 @@
 package ru.unn.agile.DemandElasticity;
 
 public interface IDemandElasticity {
-    float calculate(IRange firstRange, IRange secondRange);
+    double calculate(IPositiveRange firstRange, IPositiveRange secondRange);
 }

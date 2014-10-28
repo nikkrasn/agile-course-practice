@@ -24,4 +24,38 @@ public class Hsv {
         this.v = v;
     }
 
+    public Rgb toRgb() {
+        final double degrees = 60.0;
+        final double maxRGB = 255.0;
+        final int rDivider = 6;
+
+        int range = (int) (Math.floor(h / degrees)) % rDivider;
+        double f = h / degrees - Math.floor(h / degrees);
+
+        double vv = v * maxRGB;
+        double p = vv * (1 - s);
+        double q = vv * (1 - f * s);
+        double t = vv * (1 - (1 - f) * s);
+
+        final int firstSixth  = 0;
+        final int secondSixth = 1;
+        final int thirdSixth  = 2;
+        final int fourthSixth = 3;
+        final int fifthSixth  = 4;
+
+        switch (range) {
+            case firstSixth:
+                return new Rgb(vv, t, p);
+            case secondSixth:
+                return new Rgb(q, vv, p);
+            case thirdSixth:
+                return new Rgb(p, vv, t);
+            case fourthSixth:
+                return new Rgb(p, q, vv);
+            case fifthSixth:
+                return new Rgb(t, p, vv);
+            default:
+                return new Rgb(vv, p, q);
+        }
+    }
 }

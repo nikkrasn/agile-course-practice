@@ -5,6 +5,10 @@
 # Gradle
 .gradle
 build
+gradle/
+gradlew
+gradlew.bat
+cpd.xml
 
 # IntelliJ IDEA
 out

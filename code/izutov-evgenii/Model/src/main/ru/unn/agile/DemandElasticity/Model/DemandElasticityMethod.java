@@ -1,6 +1,9 @@
-package ru.unn.agile.DemandElasticity;
+package ru.unn.agile.DemandElasticity.Model;
 
-public abstract class DemandElasticityMethod<TFirst extends IPositiveRange, TSecond extends IPositiveRange, TOutput extends Enum> implements IDemandElasticityMethod<TFirst, TSecond, TOutput> {
+public abstract class DemandElasticityMethod
+        <TFirst extends IPositiveRange,
+        TSecond extends IPositiveRange,
+        TOutput extends Enum> implements IDemandElasticityMethod<TFirst, TSecond, TOutput> {
     private final double delta = 0.000001;
 
     protected double getDelta() {

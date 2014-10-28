@@ -1,4 +1,4 @@
-package ru.unn.agile.DemandElasticity;
+package ru.unn.agile.DemandElasticity.Model;
 
 public final class Coefficient<T extends Enum> {
     private T type;

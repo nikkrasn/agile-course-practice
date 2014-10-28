@@ -1,4 +1,4 @@
-package ru.unn.agile.DemandElasticity;
+package ru.unn.agile.DemandElasticity.Model;
 
 public abstract class PositiveRange implements IPositiveRange {
     private final double delta = 0.000001;

@@ -1,6 +1,7 @@
-package ru.unn.agile.DemandElasticity;
+package ru.unn.agile.DemandElasticity.Model;
 
-public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMethod<DemandRange, PriceRange, GoodsPairType> {
+public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMethod
+        <DemandRange, PriceRange, GoodsPairType> {
 
     @Override
     protected Coefficient<GoodsPairType> createUndefinedCoefficient() {

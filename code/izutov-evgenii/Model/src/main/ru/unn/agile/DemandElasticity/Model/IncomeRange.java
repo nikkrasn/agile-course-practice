@@ -1,4 +1,4 @@
-package ru.unn.agile.DemandElasticity;
+package ru.unn.agile.DemandElasticity.Model;
 
 public final class IncomeRange extends PositiveRange {
     public IncomeRange() {

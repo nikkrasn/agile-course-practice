@@ -1,6 +1,7 @@
-package ru.unn.agile.DemandElasticity;
+package ru.unn.agile.DemandElasticity.Model;
 
-public final class DemandElasticityMethodByIncome extends DemandElasticityMethod<DemandRange, IncomeRange, GoodType> {
+public final class DemandElasticityMethodByIncome extends DemandElasticityMethod
+        <DemandRange, IncomeRange, GoodType> {
     @Override
     protected Coefficient<GoodType> createUndefinedCoefficient() {
         return new Coefficient<>(GoodType.Undefined, Double.NaN);

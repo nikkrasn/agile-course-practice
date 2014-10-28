@@ -13,12 +13,28 @@ public class Matrix {
     }
 
     public Matrix(final double[][] data) {
+
         this.countRows = data.length;
-        this.countColumns = data[0].length;
-        this.data = new double[countRows][countColumns];
+        int maxLength = 0;
         for (int i = 0; i < countRows; i++) {
+            if (data[i].length > maxLength) {
+                maxLength = data[i].length;
+            }
+        }
+        this.countColumns = maxLength;
+        this.data = new double[countRows][countColumns];
+        initializeMatrix(countRows, countColumns);
+
+        for (int i = 0; i < countRows; i++) {
+            if (data[i].length < countColumns) {
+                for (int j = data[i].length; j < countColumns; j++) {
+                    this.data[i][j] = 0;
+                }
+            }
             for (int j = 0; j < countColumns; j++) {
-                this.data[i][j] = data[i][j];
+                if (this.data[i][j] != 0) {
+                    this.data[i][j] = data[i][j];
+                }
             }
         }
     }
@@ -48,6 +64,14 @@ public class Matrix {
 
     public double getValueAt(final int row, final int col) {
         return data[row][col];
+    }
+
+    public void initializeMatrix(final int row, final int col) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                data[i][j] = 1;
+            }
+        }
     }
 
 }

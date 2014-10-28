@@ -39,6 +39,13 @@ public class MatrixTest {
     }
 
     @Test
+    public void canFindMatrixDimensionWithIncorrectlyInput() {
+        double[][] d = {{}, {4, 5, 7, 8, 8, 8}, {1}, {1, 1, 1}};
+        Matrix mat = new Matrix(d);
+        assertTrue(mat.getCountRows() == 4 && mat.getCountColumns() == 6);
+    }
+
+    @Test
     public void canSetInitialMatrixElement() {
         double[][] d = {{0.5, -2, 8.7}, {0, 8, 1}, {76.32, -0.55, 0}};
         Matrix mat = new Matrix(d);

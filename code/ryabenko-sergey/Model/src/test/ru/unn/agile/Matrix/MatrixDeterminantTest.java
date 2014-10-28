@@ -48,6 +48,22 @@ public class MatrixDeterminantTest {
     }
 
     @Test
+    public void canFindDeterminantForIncorrectlyEnteredMatrix() {
+        double[][] d = {{1, 2, 3}, {4, 5}, {6}};
+        Matrix mat = new Matrix(d);
+        double det = MatrixDeterminant.determinant(mat);
+        assertEquals(-90, det, delta);
+    }
+
+    @Test
+    public void canFindDeterminantForHalfEmptyMatrix() {
+        double[][] d = {{}, {}, {1, 0, 1, 0, 1}, {}, {}};
+        Matrix mat = new Matrix(d);
+        double det = MatrixDeterminant.determinant(mat);
+        assertEquals(0, det, delta);
+    }
+
+    @Test
      public void canCreateSubMatrix() {
 
         double[][] d = {{1, 0, 0}, {0, 1, 1}, {0, 1, 6}};

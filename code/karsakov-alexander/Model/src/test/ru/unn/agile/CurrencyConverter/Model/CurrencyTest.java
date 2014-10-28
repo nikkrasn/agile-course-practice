@@ -2,59 +2,121 @@ package ru.unn.agile.CurrencyConverter.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
+import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
+
 import static org.junit.Assert.*;
+import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.EUR;
+import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.USD;
 
 public class CurrencyTest {
-    private Currency validCurrency;
+    private Currency[] validCurrencies;
 
     @Before
     public void init() {
-        validCurrency = new Currency(840, "USD", "Доллар США", 1, 41.8101);
+        ICurrencyProvider provider = new FixedCurrencyProvider();
+        validCurrencies = provider.getActualCurrencyRates();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void currencyThrowsExceptionOnNullCharCode() {
-        new Currency(840, null, "Доллар США", 1, 41.8101);
+    public void currencyBuilderThrowsExceptionOnNullNumCode() {
+        new Currency.Builder().numCode(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void currencyThrowsExceptionOnNullName() {
-        new Currency(840, "USD", null, 1, 41.8101);
+    public void currencyBuilderThrowsExceptionOnNegativeNumCode() {
+        new Currency.Builder().numCode(-10);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void currencyThrowsExceptionOnNullNominal() {
-        new Currency(840, "USD", "Доллар США", 0, 41.8101);
+    public void currencyBuilderThrowsExceptionOnNullCharCode() {
+        new Currency.Builder().charCode(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void currencyThrowsExceptionOnNegativeNominal() {
-        new Currency(840, "USD", "Доллар США", -10, 41.8101);
+    public void currencyBuilderThrowsExceptionOnNullName() {
+        new Currency.Builder().name(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void currencyThrowsExceptionOnNullValue() {
-        new Currency(840, "USD", "Доллар США", 1, 0);
+    public void currencyBuilderThrowsExceptionOnNullNominal() {
+        new Currency.Builder().nominal(0);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void currencyThrowsExceptionOnNegativeValue() {
-        new Currency(840, "USD", "Доллар США", 1, -10);
+    public void currencyBuilderThrowsExceptionOnNegativeNominal() {
+        new Currency.Builder().nominal(-10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void currencyBuilderThrowsExceptionOnNegativeValue() {
+        new Currency.Builder().value(-10);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void currencyThrowsExceptionIfNumCodeIsNotSpecified() {
+        new Currency.Builder().charCode("USD")
+                              .name("Доллар США")
+                              .nominal(1)
+                              .value(41.8101)
+                              .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void currencyThrowsExceptionIfCharCodeIsNotSpecified() {
+        new Currency.Builder().numCode(840)
+                              .name("Доллар США")
+                              .nominal(1)
+                              .value(41.8101)
+                              .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void currencyThrowsExceptionIfNameIsNotSpecified() {
+        new Currency.Builder().numCode(840)
+                              .charCode("USD")
+                              .nominal(1)
+                              .value(41.8101)
+                              .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void currencyThrowsExceptionIfNominalIsNotSpecified() {
+        new Currency.Builder().numCode(840)
+                              .charCode("USD")
+                              .name("Доллар США")
+                              .value(41.8101)
+                              .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void currencyThrowsExceptionIfValueIsNotSpecified() {
+        new Currency.Builder().numCode(840)
+                              .charCode("USD")
+                              .name("Доллар США")
+                              .nominal(1)
+                              .build();
     }
 
     @Test
     public void currencyCompareWithNullReturnsFalse() {
+        Currency validCurrency = validCurrencies[USD.getIndex()];
+
         assertFalse(validCurrency.equals(null));
     }
 
     @Test
     public void currencyCompareWithItselfReturnsTrue() {
+        Currency validCurrency = validCurrencies[USD.getIndex()];
+
         assertTrue(validCurrency.equals(validCurrency));
     }
 
     @Test
     public void currencyCompareWithAnotherReturnsFalse() {
-        Currency anotherValidCurrency = new Currency(978, "EUR", "Евро", 1, 52.9065);
+        Currency validCurrency = validCurrencies[USD.getIndex()];
+        Currency anotherValidCurrency = validCurrencies[EUR.getIndex()];
+
         assertFalse(validCurrency.equals(anotherValidCurrency));
     }
 }

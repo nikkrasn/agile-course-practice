@@ -14,13 +14,24 @@ public class FixedCurrencyProvider implements ICurrencyProvider {
     public final Currency[] getActualCurrencyRates() {
         Currency[] fixedCurrencyRates = new Currency[LIST_SIZE];
 
-        fixedCurrencyRates[USD.getIndex()] =
-            new Currency(USD.getNumCode(), "USD", "Доллар США", 1, USD_RATE);
-        fixedCurrencyRates[EUR.getIndex()] =
-            new Currency(EUR.getNumCode(), "EUR", "Евро", 1, EUR_RATE);
-        fixedCurrencyRates[RUB.getIndex()] =
-            new Currency(RUB.getNumCode(), "RUB", "Российский рубль", 1, RUB_RATE);
-
+        fixedCurrencyRates[USD.getIndex()] = Currency.builder().numCode(USD.getNumCode())
+                                                                   .charCode("USD")
+                                                                   .name("Доллар США")
+                                                                   .nominal(1)
+                                                                   .value(USD_RATE)
+                                                                   .build();
+        fixedCurrencyRates[EUR.getIndex()] = Currency.builder().numCode(EUR.getNumCode())
+                                                                   .charCode("EUR")
+                                                                   .name("Евро")
+                                                                   .nominal(1)
+                                                                   .value(EUR_RATE)
+                                                                   .build();
+        fixedCurrencyRates[RUB.getIndex()] = Currency.builder().numCode(RUB.getNumCode())
+                                                                   .charCode("RUB")
+                                                                   .name("Российский рубль")
+                                                                   .nominal(1)
+                                                                   .value(RUB_RATE)
+                                                                   .build();
         return fixedCurrencyRates;
     }
 }

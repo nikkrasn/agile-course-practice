@@ -1,36 +1,35 @@
 package ru.unn.agile.CurrencyConverter.Model;
 
 // Store currency in format like in cbr.ru: http://www.cbr.ru/scripts/XML_daily.asp
-public class Currency {
+public final class Currency {
     private final int numCode;
     private final String charCode;
     private final String name;
     private final int nominal;
     private final double value;
 
-    public Currency(final int numCode, final String charCode, final String name,
-                    final int nominal, final double value) {
-        if (charCode == null) {
-            throw new IllegalArgumentException("charCode can't be null.");
+    public Currency(final Builder b) {
+        if (b.numCode <= 0) {
+            throw new IllegalArgumentException("numCode must be specified");
+        }
+        if (b.charCode == null) {
+            throw new IllegalArgumentException("charCode must be specified");
+        }
+        if (b.name == null) {
+            throw new IllegalArgumentException("name must be specified");
+        }
+        if (b.nominal <= 0) {
+            throw new IllegalArgumentException("nominal must be specified");
+        }
+        if (b.value <= 0) {
+            throw new IllegalArgumentException("value must be specified");
         }
 
-        if (name == null) {
-            throw new IllegalArgumentException("Name can't be null.");
-        }
-
-        if (nominal <= 0) {
-            throw new IllegalArgumentException("Nominal must be positive integer.");
-        }
-
-        if (value <= 0) {
-            throw new IllegalArgumentException("Value must be positive number.");
-        }
-
-        this.numCode = numCode;
-        this.charCode = charCode;
-        this.name = name;
-        this.nominal = nominal;
-        this.value = value;
+        this.numCode = b.numCode;
+        this.charCode = b.charCode;
+        this.name = b.name;
+        this.nominal = b.nominal;
+        this.value = b.value;
     }
 
     public int getNumCode() {
@@ -55,14 +54,15 @@ public class Currency {
 
     @Override
     public int hashCode() {
+        final int oddPrime = 31;
         int result;
         long temp;
         result = numCode;
-        result = 31 * result + charCode.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + nominal;
+        result = oddPrime * result + charCode.hashCode();
+        result = oddPrime * result + name.hashCode();
+        result = oddPrime * result + nominal;
         temp = Double.doubleToLongBits(value);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = oddPrime * result + (int) (temp ^ (temp >>> Integer.SIZE));
         return result;
     }
 
@@ -76,7 +76,68 @@ public class Currency {
         }
 
         Currency currency = (Currency) o;
-        return numCode == currency.numCode;
+        return this.hashCode() == o.hashCode();
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private int numCode = -1;
+        private String charCode;
+        private String name;
+        private int nominal = -1;
+        private double value = -1;
+
+        public Builder numCode(final int numCode) {
+            if (numCode <= 0) {
+                throw new IllegalArgumentException("numCode must be positive integer");
+            }
+
+            this.numCode = numCode;
+            return this;
+        }
+
+        public Builder charCode(final String charCode) {
+            if (charCode == null) {
+                throw new IllegalArgumentException("charCode can't be null");
+            }
+
+            this.charCode = charCode;
+            return this;
+        }
+
+        public Builder name(final String name) {
+            if (name == null) {
+                throw new IllegalArgumentException("name can't be null");
+            }
+
+            this.name = name;
+            return this;
+        }
+
+        public Builder nominal(final int nominal) {
+            if (nominal <= 0) {
+                throw new IllegalArgumentException("nominal must be positive integer");
+            }
+
+            this.nominal = nominal;
+            return this;
+        }
+
+        public Builder value(final double value) {
+            if (value < 0) {
+                throw new IllegalArgumentException("value must be non-negative number");
+            }
+
+            this.value = value;
+            return this;
+        }
+
+        public Currency build() {
+            return new Currency(this);
+        }
     }
 }
 

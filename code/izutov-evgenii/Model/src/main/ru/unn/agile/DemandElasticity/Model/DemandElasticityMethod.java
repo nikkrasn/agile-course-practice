@@ -4,10 +4,10 @@ public abstract class DemandElasticityMethod
         <TFirst extends IPositiveRange,
         TSecond extends IPositiveRange,
         TOutput extends Enum> implements IDemandElasticityMethod<TFirst, TSecond, TOutput> {
-    private final double delta = 0.000001;
+    private static final double DELTA = 0.000001;
 
     protected double getDelta() {
-        return delta;
+        return DELTA;
     }
 
     @Override
@@ -42,10 +42,10 @@ public abstract class DemandElasticityMethod
     protected abstract Coefficient<TOutput> createFiniteCoefficient(final double coefficientValue);
 
     private boolean isInfiniteValue(final double firstMidpoint, final double secondMidpoint) {
-        return (Math.abs(firstMidpoint) >= delta) && (Math.abs(secondMidpoint) < delta);
+        return Math.abs(firstMidpoint) >= DELTA && Math.abs(secondMidpoint) < DELTA;
     }
 
     private boolean isUndefinedValue(final double firstMidpoint, final double secondMidpoint) {
-        return (Math.abs(firstMidpoint) < delta) && (Math.abs(secondMidpoint) < delta);
+        return Math.abs(firstMidpoint) < DELTA && Math.abs(secondMidpoint) < DELTA;
     }
 }

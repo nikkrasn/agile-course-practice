@@ -1,8 +1,8 @@
 package ru.unn.agile.DemandElasticity.Model;
 
 public final class Coefficient<T extends Enum> {
-    private T type;
-    private double value;
+    private final T type;
+    private final double value;
 
     public Coefficient(final T type, final double value) {
         if (type == null) {

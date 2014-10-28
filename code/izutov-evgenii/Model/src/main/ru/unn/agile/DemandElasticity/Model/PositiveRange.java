@@ -1,7 +1,7 @@
 package ru.unn.agile.DemandElasticity.Model;
 
 public abstract class PositiveRange implements IPositiveRange {
-    private final double delta = 0.000001;
+    private static final double DOUBLE = 0.000001;
     private double startValue;
     private double endValue;
 
@@ -58,7 +58,7 @@ public abstract class PositiveRange implements IPositiveRange {
         double difference = calculateDifference();
         double sum = calculateSum();
 
-        if ((Math.abs(sum) < delta) && (Math.abs(difference) < delta)) {
+        if (Math.abs(sum) < DOUBLE && Math.abs(difference) < DOUBLE) {
             throw new ArithmeticException("division zero by zero");
         }
 
@@ -67,6 +67,6 @@ public abstract class PositiveRange implements IPositiveRange {
 
     @Override
     public boolean isZeroLengthRange() {
-        return Math.abs(startValue - endValue) < delta;
+        return Math.abs(startValue - endValue) < DOUBLE;
     }
 }

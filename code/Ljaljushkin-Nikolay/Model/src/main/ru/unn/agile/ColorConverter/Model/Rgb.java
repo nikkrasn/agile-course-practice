@@ -2,6 +2,12 @@ package ru.unn.agile.ColorConverter.Model;
 
 public class Rgb {
 
+    public static final double MAX_RGB = 255.0;
+    public static final double R_DIVIDER = 6.0;
+    public static final int G_OFFSET = 2;
+    public static final int B_OFFSET = 4;
+    public static final int DEGREES = 60;
+
     private final double r;
     private final double g;
     private final double b;
@@ -31,24 +37,17 @@ public class Rgb {
 
         double h = 0;
         if (delta != 0) {
-            final int degrees = 60;
-            final int rDivider = 6;
-            final int gOffset = 2;
-            final int bOffset = 4;
-
             if (max == r) {
-                h = degrees * ((r - b) / delta % rDivider);
+                h = DEGREES * ((r - b) / delta % R_DIVIDER);
             } else if (max == g) {
-                h = degrees * ((b - r) / delta + gOffset);
+                h = DEGREES * ((b - r) / delta + G_OFFSET);
             } else if (max == b) {
-                h = degrees * ((r - g) / delta + bOffset);
+                h = DEGREES * ((r - g) / delta + B_OFFSET);
             }
         }
 
-        final int maxRGB = 255;
-
         double s = max <= 0 ? 0 : 1 - min / max;
-        double v = max / maxRGB;
+        double v = max / MAX_RGB;
 
         return new Hsv(h, s, v);
     }

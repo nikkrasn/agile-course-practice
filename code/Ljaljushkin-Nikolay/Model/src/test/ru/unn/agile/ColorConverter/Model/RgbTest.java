@@ -7,17 +7,17 @@ import static org.junit.Assert.*;
 public class RgbTest {
 
     @Test
-    public void canConvertBlackRgbToHsv() {
-        Rgb rgbColor = new Rgb(0, 0, 0);
-        Hsv expectedColor = new Hsv(0, 0, 0);
+    public void canConvertWhiteRgbToHsv() {
+        Rgb rgbColor = new Rgb(255, 255, 255);
+        Hsv expectedColor = new Hsv(0, 0, 1);
 
         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
     @Test
-    public void canConvertWhiteRgbToHsv() {
-        Rgb rgbColor = new Rgb(255, 255, 255);
-        Hsv expectedColor = new Hsv(0, 0, 1);
+    public void canConvertBlackRgbToHsv() {
+        Rgb rgbColor = new Rgb(0, 0, 0);
+        Hsv expectedColor = new Hsv(0, 0, 0);
 
         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }

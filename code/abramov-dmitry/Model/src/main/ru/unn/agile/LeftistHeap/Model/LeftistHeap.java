@@ -6,7 +6,7 @@ public class LeftistHeap<TValue> {
     public LeftistHeap() {
     }
 
-    public LeftistHeap(int rootKey, TValue rootValue) {
+    public LeftistHeap(final int rootKey, final TValue rootValue) {
         root = new HeapNode<TValue>(rootKey, rootValue);
     }
 
@@ -14,7 +14,7 @@ public class LeftistHeap<TValue> {
         return root == null;
     }
 
-    public void add(int key, TValue value) {
+    public void add(final int key, final TValue value) {
         LeftistHeap<TValue> heap = new LeftistHeap<TValue>(key, value);
 
         merge(heap);
@@ -29,18 +29,19 @@ public class LeftistHeap<TValue> {
 
         root = innerMerge(root.leftChild, root.rightChild);
 
-        min.leftChild = min.rightChild = null;
+        min.leftChild = null;
+        min.rightChild = null;
         return min;
     }
 
-    public void merge(LeftistHeap<TValue> heapToMerge) {
+    public void merge(final LeftistHeap<TValue> heapToMerge) {
         root = innerMerge(root, heapToMerge.root);
         heapToMerge.root = null;
     }
 
     private HeapNode<TValue> innerMerge(
-            HeapNode<TValue> leftHeapRoot,
-            HeapNode<TValue> rightHeapRoot){
+            final HeapNode<TValue> leftHeapRoot,
+            final HeapNode<TValue> rightHeapRoot) {
         if (leftHeapRoot == null) {
             return rightHeapRoot;
         }
@@ -49,28 +50,30 @@ public class LeftistHeap<TValue> {
             return leftHeapRoot;
         }
 
+        HeapNode<TValue> leftHeapRootTmp = leftHeapRoot;
+        HeapNode<TValue> rightHeapRootTmp = rightHeapRoot;
+
         if (leftHeapRoot.getKey() > rightHeapRoot.getKey()) {
-            HeapNode<TValue> temp = leftHeapRoot;
-            leftHeapRoot = rightHeapRoot;
-            rightHeapRoot = temp;
+            HeapNode<TValue> tmp = leftHeapRootTmp;
+            leftHeapRootTmp = rightHeapRoot;
+            rightHeapRootTmp = tmp;
         }
 
-        leftHeapRoot.rightChild = innerMerge(leftHeapRoot.rightChild, rightHeapRoot);
+        leftHeapRootTmp.rightChild = innerMerge(leftHeapRootTmp.rightChild, rightHeapRootTmp);
 
-        if (leftHeapRoot.leftChild == null) {
-            leftHeapRoot.leftChild = leftHeapRoot.rightChild;
-            leftHeapRoot.rightChild = null;
-        }
-        else {
-            if (leftHeapRoot.leftChild.distValue < leftHeapRoot.rightChild.distValue) {
-                HeapNode<TValue> temp = leftHeapRoot.leftChild;
-                leftHeapRoot.leftChild = leftHeapRoot.rightChild;
-                leftHeapRoot.rightChild = temp;
+        if (leftHeapRootTmp.leftChild == null) {
+            leftHeapRootTmp.leftChild = leftHeapRootTmp.rightChild;
+            leftHeapRootTmp.rightChild = null;
+        } else {
+            if (leftHeapRootTmp.leftChild.distValue < leftHeapRootTmp.rightChild.distValue) {
+                HeapNode<TValue> temp = leftHeapRootTmp.leftChild;
+                leftHeapRootTmp.leftChild = leftHeapRootTmp.rightChild;
+                leftHeapRootTmp.rightChild = temp;
             }
 
-            leftHeapRoot.distValue = leftHeapRoot.rightChild.distValue + 1;
+            leftHeapRootTmp.distValue = leftHeapRootTmp.rightChild.distValue + 1;
         }
 
-        return leftHeapRoot;
+        return leftHeapRootTmp;
     }
 }

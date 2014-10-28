@@ -9,17 +9,17 @@ public class HeapNode<TValue> {
     public HeapNode<TValue> leftChild;
     public HeapNode<TValue> rightChild;
 
-    public HeapNode(int key, TValue value) {
+    public HeapNode(final int key, final TValue value) {
         this.key = key;
         this.value = value;
         this.distValue = 0;
     }
 
     public HeapNode(
-            int key,
-            TValue value,
-            HeapNode<TValue> leftChild,
-            HeapNode<TValue> rightChild) {
+            final int key,
+            final TValue value,
+            final HeapNode<TValue> leftChild,
+            final HeapNode<TValue> rightChild) {
         this.key = key;
         this.value = value;
         this.leftChild = leftChild;

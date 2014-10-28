@@ -45,7 +45,7 @@ public class LeftistHeapTest {
         heap.add(5, "I am only second");
         heap.add(3, "I am first");
 
-        assertEquals(heap.extractMin().getKey(), 1);
+        assertEquals(heap.extractMin().getKey(), 3);
     }
 
     @Test

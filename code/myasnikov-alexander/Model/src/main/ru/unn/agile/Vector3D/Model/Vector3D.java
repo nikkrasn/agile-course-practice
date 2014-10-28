@@ -4,14 +4,10 @@ package ru.unn.agile.Vector3D.model;
 
 public class Vector3D {
 
-    double x;
-    double y;
-    double z;
-
-    public Vector3D(double value1, double value2, double value3) {
-        x = value1;
-        y = value2;
-        z = value3;
+    public Vector3D(double coordinateX, double coordinateY, double coordinateZ) {
+        x = coordinateX;
+        y = coordinateY;
+        z = coordinateZ;
     }
 
     public double GetNorm() {
@@ -27,14 +23,18 @@ public class Vector3D {
         }
     }
 
-    public double DotProduct(Vector3D vector) {
-
-        return x*vector.GetCoordinateX() + y*vector.GetCoordinateY()+z*vector.GetCoordinateZ();
+    public static double DotProduct(Vector3D vector1, Vector3D vector2) {
+        double result = vector1.GetCoordinateX() * vector2.GetCoordinateX() +
+                        vector1.GetCoordinateY() * vector2.GetCoordinateY() +
+                        vector1.GetCoordinateZ() * vector2.GetCoordinateZ();
+        return result;
     }
 
-    public void CrossProduct() {
+    public double CrossProduct(Vector3D vector) {
 
+        return -1.0;
     }
+
     public double GetCoordinateX() {
         return x;
     }
@@ -47,5 +47,7 @@ public class Vector3D {
         return z;
     }
 
-
+    private double x;
+    private double y;
+    private double z;
 }

@@ -3,12 +3,14 @@ package ru.unn.agile.Vector3D.model;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
+
 public class Vector3DTest {
 
     private double delta=1e-10;
 
     @Test
-    public void canGetNorm() {
+    public void canGetNormVectorOneCoordinate() {
         Vector3D vector = new Vector3D( 1.0, 0.0, 0.0 );
 
         double result = vector.GetNorm();
@@ -35,7 +37,7 @@ public class Vector3DTest {
     }
 
     @Test
-    public void canNormalizeVectorNormOne() {
+    public void canNormalizeVectorNormOneCoordinate() {
         Vector3D vector = new Vector3D( 0.0, 0.0, 1.0 );
 
         vector.Normalize();
@@ -75,7 +77,7 @@ public class Vector3DTest {
         Vector3D vector1 = new Vector3D( 1.0, 0.0, 0.0 );
         Vector3D vector2 = new Vector3D( 2.0, 0.0, 0.0 );
 
-        double result = vector1.DotProduct(vector2);
+        double result = Vector3D.DotProduct(vector1, vector2);
 
         assertEquals(result, 2.0 , delta);
     }
@@ -85,7 +87,7 @@ public class Vector3DTest {
         Vector3D vector1 = new Vector3D( -1.0, 0.0, -3.0 );
         Vector3D vector2 = new Vector3D( 1.0, 1.0, -1.0 );
 
-        double result = vector1.DotProduct(vector2);
+        double result = Vector3D.DotProduct(vector1, vector2);
 
         assertEquals(result, 2.0 , delta);
     }
@@ -95,7 +97,7 @@ public class Vector3DTest {
         Vector3D vector1 = new Vector3D( 1.0, 0.0, 3.0 );
         Vector3D vector2 = new Vector3D( 0.0, 5.0, 0.0 );
 
-        double result = vector1.DotProduct(vector2);
+        double result = Vector3D.DotProduct(vector1, vector2);
 
         assertEquals(result, 0.0 , delta);
     }

@@ -3,6 +3,7 @@ package ru.unn.agile.CurrencyConverter.Provider;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.CurrencyConverter.Model.Currency;
+import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 
 import static org.junit.Assert.*;
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.*;
@@ -43,9 +44,9 @@ public class FixedCurrencyProviderTest {
     public void fixedCurrencyProviderReturnsRequiredCurrency() {
         Currency[] currencyRates = provider.getActualCurrencyRates();
 
-        assertTrue(checkCurrencyRatesContainsNumCode(currencyRates, USD.getNumCode()));
-        assertTrue(checkCurrencyRatesContainsNumCode(currencyRates, EUR.getNumCode()));
-        assertTrue(checkCurrencyRatesContainsNumCode(currencyRates, RUB.getNumCode()));
+        for (CurrencyIndexes index : CurrencyIndexes.values()) {
+            assertTrue(checkCurrencyRatesContainsNumCode(currencyRates, index.getNumCode()));
+        }
     }
 
     @Test

@@ -56,12 +56,11 @@ public final class Currency {
     public int hashCode() {
         final int oddPrime = 31;
         int result;
-        long temp;
         result = numCode;
         result = oddPrime * result + charCode.hashCode();
         result = oddPrime * result + name.hashCode();
         result = oddPrime * result + nominal;
-        temp = Double.doubleToLongBits(value);
+        long temp = Double.doubleToLongBits(value);
         result = oddPrime * result + (int) (temp ^ (temp >>> Integer.SIZE));
         return result;
     }
@@ -71,7 +70,7 @@ public final class Currency {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Currency)) {
             return false;
         }
 
@@ -84,10 +83,10 @@ public final class Currency {
     }
 
     public static class Builder {
-        private int numCode = -1;
+        private int numCode;
         private String charCode;
         private String name;
-        private int nominal = -1;
+        private int nominal;
         private double value = -1;
 
         public Builder numCode(final int numCode) {

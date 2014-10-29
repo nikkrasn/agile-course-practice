@@ -14,24 +14,16 @@ public class FixedCurrencyProvider implements ICurrencyProvider {
     public final Currency[] getActualCurrencyRates() {
         Currency[] fixedCurrencyRates = new Currency[LIST_SIZE];
 
-        fixedCurrencyRates[USD.getIndex()] = Currency.builder().numCode(USD.getNumCode())
-                                                                   .charCode("USD")
-                                                                   .name("Доллар США")
-                                                                   .nominal(1)
-                                                                   .value(USD_RATE)
-                                                                   .build();
-        fixedCurrencyRates[EUR.getIndex()] = Currency.builder().numCode(EUR.getNumCode())
-                                                                   .charCode("EUR")
-                                                                   .name("Евро")
-                                                                   .nominal(1)
-                                                                   .value(EUR_RATE)
-                                                                   .build();
-        fixedCurrencyRates[RUB.getIndex()] = Currency.builder().numCode(RUB.getNumCode())
-                                                                   .charCode("RUB")
-                                                                   .name("Российский рубль")
-                                                                   .nominal(1)
-                                                                   .value(RUB_RATE)
-                                                                   .build();
+        fixedCurrencyRates[USD.getIndex()] =
+                Currency.builder().numCode(USD.getNumCode()).charCode("USD")
+                .name("Доллар США").nominal(1).value(USD_RATE).build();
+        fixedCurrencyRates[EUR.getIndex()] =
+                Currency.builder().numCode(EUR.getNumCode()).charCode("EUR")
+                .name("Евро").nominal(1).value(EUR_RATE).build();
+        fixedCurrencyRates[RUB.getIndex()] =
+                Currency.builder().numCode(RUB.getNumCode()).charCode("RUB")
+                .name("Российский рубль").nominal(1).value(RUB_RATE).build();
+
         return fixedCurrencyRates;
     }
 }

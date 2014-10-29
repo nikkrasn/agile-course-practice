@@ -21,6 +21,9 @@ public class Matrix {
     }
 
     public void preInitialization(final  int row, final int col) {
+        if (row > getCountRows() || col > getCountColumns()) {
+            throw new IllegalArgumentException();
+        }
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 this.data[i][j] = 1;

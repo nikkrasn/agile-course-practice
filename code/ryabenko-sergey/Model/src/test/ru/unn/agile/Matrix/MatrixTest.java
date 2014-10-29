@@ -114,4 +114,12 @@ public class MatrixTest {
                &&  mat.getValueAt(2, 3) == 1.4 && mat.getValueAt(3, 2) == 4.41
         );
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void canCheckPreInitializationMatrix() {
+        Matrix mat = new Matrix(5, 5);
+        mat.preInitialization(10, 10);
+    }
+
 }
+

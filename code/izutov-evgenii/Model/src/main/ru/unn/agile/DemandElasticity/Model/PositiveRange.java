@@ -6,8 +6,8 @@ public abstract class PositiveRange implements IPositiveRange {
     private double endValue;
 
     public PositiveRange() {
-        setStartValue(0);
-        setEndValue(0);
+        setStartValue(0d);
+        setEndValue(0d);
     }
 
     public PositiveRange(final double startValue, final double endValue) {
@@ -22,7 +22,7 @@ public abstract class PositiveRange implements IPositiveRange {
 
     @Override
     public void setStartValue(final double startValue) {
-        if (startValue < 0) {
+        if (startValue < 0d) {
             throw new IllegalArgumentException("startValue must be positive");
         }
 
@@ -36,7 +36,7 @@ public abstract class PositiveRange implements IPositiveRange {
 
     @Override
     public void setEndValue(final double endValue) {
-        if (endValue < 0) {
+        if (endValue < 0d) {
             throw new IllegalArgumentException("endValue must be positive");
         }
 
@@ -62,7 +62,7 @@ public abstract class PositiveRange implements IPositiveRange {
             throw new ArithmeticException("division zero by zero");
         }
 
-        return difference / (sum / 2);
+        return difference / (sum / 2d);
     }
 
     @Override

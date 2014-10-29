@@ -11,7 +11,7 @@ public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMe
     @Override
     protected Coefficient<GoodsPairType> createInfiniteCoefficient(final double firstMidpoint) {
         GoodsPairType type;
-        if (firstMidpoint > 0) {
+        if (firstMidpoint > 0d) {
             type = GoodsPairType.Substitute;
         } else {
             type = GoodsPairType.Complementary;
@@ -22,7 +22,7 @@ public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMe
     @Override
     protected Coefficient<GoodsPairType> createFiniteCoefficient(final double coefficientValue) {
         GoodsPairType type;
-        if (coefficientValue > 0) {
+        if (coefficientValue > 0d) {
             type = GoodsPairType.Substitute;
         } else if (Math.abs(coefficientValue) < getDelta()) {
             type = GoodsPairType.Independent;

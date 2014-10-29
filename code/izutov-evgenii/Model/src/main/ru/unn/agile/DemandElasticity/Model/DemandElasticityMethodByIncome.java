@@ -10,7 +10,7 @@ public final class DemandElasticityMethodByIncome extends DemandElasticityMethod
     @Override
     protected Coefficient<GoodType> createInfiniteCoefficient(final double firstMidpoint) {
         GoodType type;
-        if (firstMidpoint > 0) {
+        if (firstMidpoint > 0d) {
             type = GoodType.Luxury;
         } else {
             type = GoodType.Inferior;
@@ -21,9 +21,9 @@ public final class DemandElasticityMethodByIncome extends DemandElasticityMethod
     @Override
     protected Coefficient<GoodType> createFiniteCoefficient(final double coefficientValue) {
         GoodType type;
-        if (coefficientValue > 1) {
+        if (coefficientValue > 1d) {
             type = GoodType.Luxury;
-        } else if (coefficientValue > 0) {
+        } else if (coefficientValue > 0d) {
             type = GoodType.FirstNeed;
         } else if (Math.abs(coefficientValue) < getDelta()) {
             type = GoodType.Neutral;

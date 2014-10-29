@@ -16,6 +16,7 @@ public class DemandElasticityMethodByPriceTest {
     @Test
     public void canCreateDemandElasticityByPriceWithDefaultValues() {
         DemandElasticityMethodByPrice demand = new DemandElasticityMethodByPrice();
+
         assertNotNull(demand);
     }
 
@@ -36,57 +37,72 @@ public class DemandElasticityMethodByPriceTest {
 
     @Test
     public void canCalculateValue() {
-        DemandRange demands = new DemandRange(400, 200);
-        PriceRange prices = new PriceRange(4, 5);
+        DemandRange demands = new DemandRange(507d, 132d);
+        PriceRange prices = new PriceRange(1d, 4d);
+        double expectedValue = ((132d - 507d) / (507d + 132d)) / ((4d - 1d) / (1d + 4d));
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
-        assertEquals(-3, answer.getValue(), delta);
+
+        assertEquals(expectedValue, answer.getValue(), delta);
     }
 
     @Test
     public void canCalculateUndefinedType() {
-        DemandRange demands = new DemandRange(50, 50);
-        PriceRange prices = new PriceRange(24, 24);
+        DemandRange demands = new DemandRange(50d, 50d);
+        PriceRange prices = new PriceRange(24d, 24d);
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
+
         assertEquals(DemandType.Undefined, answer.getType());
     }
 
     @Test
     public void canCalculateGiffenGoodType() {
-        DemandRange demands = new DemandRange(460, 510);
-        PriceRange prices = new PriceRange(2, 10);
+        DemandRange demands = new DemandRange(460d, 510d);
+        PriceRange prices = new PriceRange(2d, 10d);
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
+
         assertEquals(DemandType.GiffenGood, answer.getType());
     }
 
     @Test
     public void canCalculatePerfectlyInelasticType() {
-        DemandRange demands = new DemandRange(312, 312);
-        PriceRange prices = new PriceRange(2, 17);
+        DemandRange demands = new DemandRange(312d, 312d);
+        PriceRange prices = new PriceRange(2d, 17d);
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
+
         assertEquals(DemandType.PerfectlyInelastic, answer.getType());
     }
 
     @Test
     public void canCalculateInelasticType() {
-        DemandRange demands = new DemandRange(100, 57);
-        PriceRange prices = new PriceRange(5, 9);
+        DemandRange demands = new DemandRange(100d, 57d);
+        PriceRange prices = new PriceRange(5d, 9d);
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
+
         assertEquals(DemandType.Inelastic, answer.getType());
     }
 
     @Test
     public void canCalculateElasticityType() {
-        DemandRange demands = new DemandRange(300, 12);
-        PriceRange prices = new PriceRange(7, 8);
+        DemandRange demands = new DemandRange(300d, 12d);
+        PriceRange prices = new PriceRange(7d, 8d);
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
+
         assertEquals(DemandType.Elasticity, answer.getType());
     }
 
     @Test
     public void canCalculatePerfectlyElasticityType() {
-        DemandRange demands = new DemandRange(500, 300);
-        PriceRange prices = new PriceRange(5, 5);
+        DemandRange demands = new DemandRange(500d, 300d);
+        PriceRange prices = new PriceRange(5d, 5d);
+
         Coefficient answer = demandElasticityByPrice.calculate(demands, prices);
+
         assertEquals(DemandType.PerfectlyElasticity, answer.getType());
     }
 }

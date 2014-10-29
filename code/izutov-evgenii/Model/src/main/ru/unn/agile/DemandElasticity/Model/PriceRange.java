@@ -5,7 +5,7 @@ public final class PriceRange extends PositiveRange {
         super();
     }
 
-    public PriceRange(final float startValue, final float endValue) {
+    public PriceRange(final double startValue, final double endValue) {
         super(startValue, endValue);
     }
 }

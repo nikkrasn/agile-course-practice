@@ -21,7 +21,7 @@ public final class Coefficient<T extends Enum> {
         return value;
     }
 
-    public boolean isUndefined() {
+    public boolean isValueUndefined() {
         return Double.isNaN(value);
     }
 }

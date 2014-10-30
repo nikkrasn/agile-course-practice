@@ -5,12 +5,14 @@ import org.junit.Test;
 import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
 import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.EUR;
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.USD;
 
 public class CurrencyTest {
-    private Currency[] validCurrencies;
+    private ArrayList<Currency> validCurrencies;
 
     @Before
     public void init() {
@@ -100,22 +102,22 @@ public class CurrencyTest {
 
     @Test
     public void currencyCompareWithNullReturnsFalse() {
-        Currency validCurrency = validCurrencies[USD.getIndex()];
+        Currency validCurrency = validCurrencies.get(USD.getIndex());
 
         assertFalse(validCurrency.equals(null));
     }
 
     @Test
     public void currencyCompareWithItselfReturnsTrue() {
-        Currency validCurrency = validCurrencies[USD.getIndex()];
+        Currency validCurrency = validCurrencies.get(USD.getIndex());
 
         assertTrue(validCurrency.equals(validCurrency));
     }
 
     @Test
     public void currencyCompareWithAnotherReturnsFalse() {
-        Currency validCurrency = validCurrencies[USD.getIndex()];
-        Currency anotherValidCurrency = validCurrencies[EUR.getIndex()];
+        Currency validCurrency = validCurrencies.get(USD.getIndex());
+        Currency anotherValidCurrency = validCurrencies.get(EUR.getIndex());
 
         assertFalse(validCurrency.equals(anotherValidCurrency));
     }

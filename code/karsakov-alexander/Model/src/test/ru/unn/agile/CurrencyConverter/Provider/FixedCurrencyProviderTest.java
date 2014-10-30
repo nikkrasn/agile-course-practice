@@ -5,13 +5,14 @@ import org.junit.Test;
 import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
-import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.*;
 
 public class FixedCurrencyProviderTest {
     private ICurrencyProvider provider;
 
-    private static boolean checkCurrencyRatesContainsNumCode(final Currency[] currencyRates,
+    private static boolean checkCurrencyRatesContainsNumCode(final ArrayList<Currency> currencyRates,
                                                              final int numCode) {
         for (final Currency currency : currencyRates) {
             if (currency.getNumCode() == numCode) {
@@ -28,21 +29,21 @@ public class FixedCurrencyProviderTest {
 
     @Test
     public void fixedCurrencyProviderReturnsNotEmptyList() {
-        Currency[] currencyRates = provider.getActualCurrencyRates();
+        ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        assertTrue(currencyRates.length > 0);
+        assertTrue(currencyRates.size() > 0);
     }
 
     @Test
     public void fixedCurrencyProviderReturnsAtLeastThreeCurrency() {
-        Currency[] currencyRates = provider.getActualCurrencyRates();
+        ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        assertTrue(currencyRates.length >= 3);
+        assertTrue(currencyRates.size() >= 3);
     }
 
     @Test
     public void fixedCurrencyProviderReturnsRequiredCurrency() {
-        Currency[] currencyRates = provider.getActualCurrencyRates();
+        ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         for (CurrencyIndexes index : CurrencyIndexes.values()) {
             assertTrue(checkCurrencyRatesContainsNumCode(currencyRates, index.getNumCode()));
@@ -51,12 +52,12 @@ public class FixedCurrencyProviderTest {
 
     @Test
     public void fixedCurrencyProviderReturnsUniqueCurrency() {
-        Currency[] currencyRates = provider.getActualCurrencyRates();
+        ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        for (int i = 0; i < currencyRates.length; i++) {
-            for (int j = 0; j < currencyRates.length; j++) {
+        for (int i = 0; i < currencyRates.size(); i++) {
+            for (int j = 0; j < currencyRates.size(); j++) {
                 if (i != j) {
-                    assertFalse(currencyRates[i] == currencyRates[j]);
+                    assertFalse(currencyRates.get(i) == currencyRates.get(j));
                 }
             }
         }

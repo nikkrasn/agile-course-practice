@@ -5,6 +5,8 @@ import org.junit.Test;
 import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
 import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
 
+import java.util.ArrayList;
+
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.*;
 import static org.junit.Assert.*;
 
@@ -17,9 +19,9 @@ public class MoneyTest {
     @Before
     public void init() {
         ICurrencyProvider provider = new FixedCurrencyProvider();
-        Currency[] currencies = provider.getActualCurrencyRates();
-        usd = currencies[USD.getIndex()];
-        eur = currencies[EUR.getIndex()];
+        ArrayList<Currency> currencies = provider.getActualCurrencyRates();
+        usd = currencies.get(USD.getIndex());
+        eur = currencies.get(EUR.getIndex());
         tenBucks = new Money(usd, 10);
     }
 

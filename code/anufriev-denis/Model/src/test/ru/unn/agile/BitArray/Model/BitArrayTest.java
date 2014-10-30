@@ -26,8 +26,7 @@ public class BitArrayTest {
 
         try {
             BitArray array = new BitArray(-5);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -36,11 +35,11 @@ public class BitArrayTest {
 
     @Test
     public void isCreatedBitArrayEmpty() throws Exception {
-        BitArray array1 = new BitArray(8);
-        BitArray array2 = new BitArray(8);
-        array2.clearBit(0).clearBit(1).clearBit(2).clearBit(3).clearBit(4).clearBit(5).clearBit(6).clearBit(7);
+        BitArray array1 = new BitArray(5);
+        BitArray array2 = new BitArray(5);
+        array2.clearBit(0).clearBit(1).clearBit(2).clearBit(3).clearBit(4);
 
-        assertArrayEquals(array2.getArray(),array1.getArray());
+        assertArrayEquals(array2.getArray(), array1.getArray());
     }
 
     @Test
@@ -68,8 +67,7 @@ public class BitArrayTest {
 
         try {
             array.setBit(31);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -82,7 +80,7 @@ public class BitArrayTest {
 
         array.clearBit(4);
 
-        assertEquals(false,array.get(4));
+        assertEquals(false, array.get(4));
     }
 
     @Test
@@ -92,12 +90,11 @@ public class BitArrayTest {
 
         try {
             array.clearBit(-1);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
-        assertEquals("Out of array",message);
+        assertEquals("Out of array", message);
     }
 
     @Test
@@ -106,7 +103,7 @@ public class BitArrayTest {
 
         boolean res = array.get(4);
 
-        assertEquals(false,res);
+        assertEquals(false, res);
     }
 
     @Test
@@ -115,7 +112,7 @@ public class BitArrayTest {
 
         boolean res = array.get(31999);
 
-        assertEquals(false,res);
+        assertEquals(false, res);
     }
 
     @Test
@@ -135,12 +132,11 @@ public class BitArrayTest {
 
         try {
             array.get(-8);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
-        assertEquals("Out of array",message);
+        assertEquals("Out of array", message);
     }
 
     @Test
@@ -159,12 +155,12 @@ public class BitArrayTest {
 
     @Test
     public void canPerformOr() throws Exception {
-        BitArray array1 = new BitArray(8);
-        BitArray array2 = new BitArray(8);
-        BitArray array3 = new BitArray(8);
-        array1.setBit(0).setBit(1).setBit(2).setBit(3);
-        array2.setBit(0).setBit(4).setBit(5).setBit(6);
-        array3.setBit(0).setBit(1).setBit(2).setBit(3).setBit(4).setBit(5).setBit(6);
+        BitArray array1 = new BitArray(9);
+        BitArray array2 = new BitArray(9);
+        BitArray array3 = new BitArray(9);
+        array1.setBit(1).setBit(2).setBit(3);
+        array2.setBit(4).setBit(7).setBit(8);
+        array3.setBit(1).setBit(2).setBit(3).setBit(4).setBit(7).setBit(8);
 
         array1.or(array2);
 
@@ -173,12 +169,12 @@ public class BitArrayTest {
 
     @Test
     public void canPerformAnd() throws Exception {
-        BitArray array1 = new BitArray(8);
-        BitArray array2 = new BitArray(8);
-        BitArray array3 = new BitArray(8);
-        array1.setBit(0).setBit(1).setBit(2).setBit(3);
-        array2.setBit(1).setBit(4).setBit(5).setBit(6);
-        array3.setBit(1);
+        BitArray array1 = new BitArray(10);
+        BitArray array2 = new BitArray(10);
+        BitArray array3 = new BitArray(10);
+        array1.setBit(0).setBit(1).setBit(2).setBit(3).setBit(9);
+        array2.setBit(1).setBit(4).setBit(5).setBit(6).setBit(9);
+        array3.setBit(1).setBit(9);
 
         array1.and(array2);
 
@@ -226,7 +222,7 @@ public class BitArrayTest {
 
         array1.getArray();
 
-        assertEquals(15,array1.getArray()[0]);
+        assertEquals(15, array1.getArray()[0]);
     }
 
     @Test
@@ -236,21 +232,21 @@ public class BitArrayTest {
 
         array1.getArray();
 
-        assertEquals(15,array1.getArray()[0]);
+        assertEquals(15, array1.getArray()[0]);
     }
 
     @Test
     public void canPerformSuperpositionOfFunctions() throws Exception {
-        BitArray array1 = new BitArray(4);
-        BitArray array2 = new BitArray(4);
-        BitArray array3 = new BitArray(4);
-        array1.setBit(0).setBit(2);
-        array2.setBit(0).setBit(1).setBit(2).setBit(3);
-        array3.setBit(0).setBit(2);
+        BitArray array1 = new BitArray(5);
+        BitArray array2 = new BitArray(5);
+        BitArray array3 = new BitArray(5);
+        array1.setBit(0).setBit(2).setBit(4);
+        array2.setBit(0).setBit(1).setBit(2).setBit(3).setBit(4);
+        array3.setBit(0).setBit(2).setBit(4);
 
         array1.not().xor(array2);
 
-        assertArrayEquals(array3.getArray(),array1.getArray());
+        assertArrayEquals(array3.getArray(), array1.getArray());
     }
 
     @Test
@@ -258,13 +254,13 @@ public class BitArrayTest {
         BitArray array1 = new BitArray(32000);
         BitArray array2 = new BitArray(32000);
         BitArray array3 = new BitArray(32000);
-        array1.setBit(0).setBit(2).setBit(31999);
-        array2.setBit(0).setBit(1).setBit(2).setBit(3).setBit(31999);
-        array3.setBit(1).setBit(3);
+        array1.setBit(12).setBit(14).setBit(31999);
+        array2.setBit(12).setBit(13).setBit(14).setBit(15).setBit(31999);
+        array3.setBit(13).setBit(15);
 
         array1.not().and(array2);
 
-        assertArrayEquals(array3.getArray(),array1.getArray());
+        assertArrayEquals(array3.getArray(), array1.getArray());
     }
 
     @Test
@@ -278,7 +274,7 @@ public class BitArrayTest {
 
         array1.xor(array2).or(array3).not().xor(array3);
 
-        assertArrayEquals(array2.getArray(),array1.getArray());
+        assertArrayEquals(array2.getArray(), array1.getArray());
     }
 
     @Test
@@ -287,13 +283,13 @@ public class BitArrayTest {
         BitArray array2 = new BitArray(99999);
         BitArray array3 = new BitArray(99999);
         BitArray array4 = new BitArray(99999);
-        array1.setBit(0).setBit(2).setBit(99998);
-        array2.setBit(0).setBit(1).setBit(2).setBit(3).setBit(99998);
-        array3.setBit(0).setBit(1).setBit(3).setBit(99998);
+        array1.setBit(66).setBit(68).setBit(99998);
+        array2.setBit(66).setBit(67).setBit(68).setBit(69).setBit(99998);
+        array3.setBit(66).setBit(67).setBit(69).setBit(99998);
         array4.not();
 
         array1.xor(array2).or(array3).not().xor(array3);
 
-        assertArrayEquals(array4.getArray(),array1.getArray());
+        assertArrayEquals(array4.getArray(), array1.getArray());
     }
 }

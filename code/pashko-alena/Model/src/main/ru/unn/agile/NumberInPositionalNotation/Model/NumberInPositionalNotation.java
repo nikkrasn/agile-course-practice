@@ -1,15 +1,9 @@
 package ru.unn.agile.NumberInPositionalNotation.Model;
+import static ru.unn.agile.NumberInPositionalNotation.Model.Notations.*;
 
-/**
- * Created by Алена on 25.10.2014.
- */
 public class NumberInPositionalNotation {
     private final String value;
     private final int notation;
-    private static final int DECIMAL_NOTATION = 10;
-    private static final int HEXADECIMAL_NOTATION = 16;
-    private static final int OCTAL_NOTATION = 8;
-    private static final int BINARY_NOTATION = 2;
 
     public NumberInPositionalNotation(final String val, final int not) {
         this.value = val;
@@ -18,12 +12,12 @@ public class NumberInPositionalNotation {
 
     public NumberInPositionalNotation(final String val) {
         this.value = val;
-        this.notation = DECIMAL_NOTATION;
+        this.notation = DECIMAL_NOTATION.getBase();
     }
 
     public NumberInPositionalNotation() {
         this.value = "0";
-        this.notation = DECIMAL_NOTATION;
+        this.notation = DECIMAL_NOTATION.getBase();
     }
 
     @Override
@@ -41,17 +35,15 @@ public class NumberInPositionalNotation {
     }
 
     public String getValue() {
-
         return value;
     }
 
     public int getNotation() {
-
         return notation;
     }
 
     public NumberInPositionalNotation convertFromDecimal(final int notation) {
-        if (checkInputData(notation) && getNotation() == DECIMAL_NOTATION) {
+        if (checkInputData(notation) && getNotation() == DECIMAL_NOTATION.getBase()) {
             String [] parts = getValue().split("\\.");
             int indexOfPoint = getValue().indexOf('.');
             int integerPart = Integer.parseInt(parts[0]);
@@ -62,19 +54,23 @@ public class NumberInPositionalNotation {
             int lengthOfFractionalPart = fractionalPart.length();
             int fractionalPartNumber = (int) (Integer.parseInt(fractionalPart)
                     * Math.pow(notation, lengthOfFractionalPart
-            )  / Math.pow(DECIMAL_NOTATION, lengthOfFractionalPart));
+            )  / Math.pow(DECIMAL_NOTATION.getBase(), lengthOfFractionalPart));
             String integerPartResult = parts[0];
             String fractionalPartResult = fractionalPart;
 
-            if (notation == HEXADECIMAL_NOTATION) {
-                integerPartResult = Integer.toHexString(integerPart);
-                fractionalPartResult = Integer.toHexString(fractionalPartNumber);
-            } else if (notation == OCTAL_NOTATION) {
-                integerPartResult = Integer.toOctalString(integerPart);
-                fractionalPartResult = Integer.toOctalString(fractionalPartNumber);
-            } else if (notation == BINARY_NOTATION) {
-                integerPartResult = Integer.toBinaryString(integerPart);
-                fractionalPartResult = Integer.toBinaryString(fractionalPartNumber);
+            Notations not = Notations.create(notation);
+            switch (not) {
+                case BINARY_NOTATION: integerPartResult = Integer.toBinaryString(integerPart);
+                    fractionalPartResult = Integer.toBinaryString(fractionalPartNumber);
+                    break;
+                case OCTAL_NOTATION: integerPartResult = Integer.toOctalString(integerPart);
+                    fractionalPartResult = Integer.toOctalString(fractionalPartNumber);
+                    break;
+                case HEXADECIMAL_NOTATION: integerPartResult = Integer.toHexString(integerPart);
+                    fractionalPartResult = Integer.toHexString(fractionalPartNumber);
+                    break;
+                default:
+                    break;
             }
 
             int lengthOfFract = fractionalPartResult.length();
@@ -100,7 +96,8 @@ public class NumberInPositionalNotation {
     }
 
     public NumberInPositionalNotation convertToDecimal() {
-        if (checkInputData(DECIMAL_NOTATION) && getNotation() != DECIMAL_NOTATION) {
+        if (checkInputData(DECIMAL_NOTATION.getBase())
+                && getNotation() != DECIMAL_NOTATION.getBase()) {
             int indexOfPoint = getValue().indexOf('.');
             String [] parts = getValue().split("\\.");
             String integerPart = parts[0];
@@ -115,36 +112,30 @@ public class NumberInPositionalNotation {
                     + Integer.parseInt(fractionalPart, getNotation())
                     / Math.pow(this.notation, lengthOfFractionalPart);
             String convertedValueString = Double.toString(convertedValue);
-            return new NumberInPositionalNotation(convertedValueString, DECIMAL_NOTATION);
+            return new NumberInPositionalNotation(convertedValueString, DECIMAL_NOTATION.getBase());
         } else {
             return new NumberInPositionalNotation(getValue(), getNotation());
         }
     }
 
+    private boolean checkNotation(final int notation) {
+        if (notation != BINARY_NOTATION.getBase() && notation != OCTAL_NOTATION.getBase()
+                && notation != DECIMAL_NOTATION.getBase()
+                && notation != HEXADECIMAL_NOTATION.getBase()) {
+            return false;
+        }
+        return true;
+    }
+
     private boolean checkInputData(final int notation) {
         int numberOfSymbols;
         String symbols;
-        if (notation != BINARY_NOTATION && notation != OCTAL_NOTATION
-                && notation != DECIMAL_NOTATION && notation != HEXADECIMAL_NOTATION) {
+        if (!checkNotation(notation) || !checkNotation(getNotation())) {
             return false;
         }
-
-        if (getNotation() == BINARY_NOTATION) {
-            symbols = "01.";
-            numberOfSymbols = BINARY_NOTATION + 1;
-        } else if (getNotation() == OCTAL_NOTATION) {
-            symbols = "01234567.";
-            numberOfSymbols = OCTAL_NOTATION + 1;
-        } else if (getNotation() == DECIMAL_NOTATION) {
-            symbols = "0123456789.";
-            numberOfSymbols = DECIMAL_NOTATION + 1;
-        } else if (getNotation() == HEXADECIMAL_NOTATION) {
-            symbols = "0123456789abcdef.";
-            numberOfSymbols = HEXADECIMAL_NOTATION + 1;
-        } else {
-            return false;
-        }
-
+        Notations not = Notations.create(getNotation());
+        symbols = not.getSymbols();
+        numberOfSymbols = not.getNumberOfSymbols();
         int count = 0;
         for (int i = 1; i < (getValue()).length() + 1; i++) {
             count = 0;
@@ -166,11 +157,11 @@ public class NumberInPositionalNotation {
             NumberInPositionalNotation out;
             if (getNotation() == notation) {
                 out = new NumberInPositionalNotation(getValue(), getNotation());
-            } else if (getNotation() == DECIMAL_NOTATION) {
+            } else if (getNotation() == DECIMAL_NOTATION.getBase()) {
                 out = convertFromDecimal(notation);
             } else {
                 out = convertToDecimal();
-                if (notation != DECIMAL_NOTATION) {
+                if (notation != DECIMAL_NOTATION.getBase()) {
                     out = out.convertFromDecimal(notation);
                 }
             }

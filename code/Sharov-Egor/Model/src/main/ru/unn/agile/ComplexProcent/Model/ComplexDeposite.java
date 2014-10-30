@@ -12,6 +12,6 @@ public class ComplexDeposite {
     }
 
     public double getCapitolizedBase(int years){
-        return this.base*(1+this.procent);
+        return this.base *Math.pow((1 + (this.procent / this.interestCountInYear)), years * this.interestCountInYear);
     };
 }

@@ -13,22 +13,26 @@ public class Matrix {
     }
 
     public Matrix(final double[][] data) {
-
         this.countRows = data.length;
-        int maxLength = 0;
-        for (int i = 0; i < countRows; i++) {
-            if (data[i].length > maxLength) {
-                maxLength = data[i].length;
+        this.countColumns = getMaxLength(data);
+        this.data = new double[countRows][countColumns];
+        preInitialization(countRows, countColumns);
+        initializeMatrix(data);
+    }
+
+    public void preInitialization(final  int row, final int col) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                this.data[i][j] = 1;
             }
         }
-        this.countColumns = maxLength;
-        this.data = new double[countRows][countColumns];
-        initializeMatrix(countRows, countColumns);
+    }
 
+    public void initializeMatrix(final double[][] data) {
         for (int i = 0; i < countRows; i++) {
             if (data[i].length < countColumns) {
-                for (int j = data[i].length; j < countColumns; j++) {
-                    this.data[i][j] = 0;
+                for (int k = data[i].length; k < countColumns; k++) {
+                    this.data[i][k] = 0;
                 }
             }
             for (int j = 0; j < countColumns; j++) {
@@ -54,6 +58,17 @@ public class Matrix {
         return countRows;
     }
 
+    public int getMaxLength(final double[][] data) {
+        int row = data.length;
+        int maxLength = 0;
+        for (int i = 0; i < row; i++) {
+            if (data[i].length > maxLength) {
+                maxLength = data[i].length;
+            }
+        }
+        return maxLength;
+    }
+
     public int getCountColumns() {
         return countColumns;
     }
@@ -64,14 +79,6 @@ public class Matrix {
 
     public double getValueAt(final int row, final int col) {
         return data[row][col];
-    }
-
-    public void initializeMatrix(final int row, final int col) {
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                data[i][j] = 1;
-            }
-        }
     }
 
 }

@@ -47,5 +47,71 @@ public class MatrixTest {
         Matrix mat = new Matrix(new double[][]{{0.5, -2, 8.7}, {0, 8, 1}, {76.32, -0.55, 0}});
         assertEquals(-0.55, mat.getValueAt(2, 1), delta);
     }
-}
 
+    @Test
+    public void canFindMaxLengthRow() {
+        double[][] d = {{}, {4, 5, 7, 8, 8, 8}, {1}, {1, -1.556785, 1}, {-1, 1, 1, -1, 1, 0}};
+        Matrix mat = new Matrix(d);
+        assertTrue(mat.getMaxLength(d) == 6);
+    }
+
+    @Test
+    public void canFindMaxLengthRowInEmptyMatrix() {
+        double[][] d = {{}};
+        Matrix mat = new Matrix(d);
+        assertTrue(mat.getMaxLength(d) == 0);
+    }
+
+    @Test
+    public void isPreInitializationMatrix() {
+        Matrix mat = new Matrix(new double[][]{{}, {3, 0}});
+        mat.preInitialization(mat.getCountRows(), mat.getCountColumns());
+        assertTrue(mat.getValueAt(0, 0) == 1 && mat.getValueAt(0, 1) == 1
+               &&  mat.getValueAt(1, 0) == 1 && mat.getValueAt(1, 1) == 1
+        );
+    }
+
+    @Test
+    public void isInitializationHigherOrderMatrix() {
+        Matrix mat = new Matrix(new double[][] {{1, 2}, {1, -2, 3, -4},
+                {1.1, 1.2, 1.3, 1.4}, {2.21, 3.31, 4.41}});
+        mat.preInitialization(mat.getCountRows(), mat.getCountColumns());
+        assertTrue(mat.getValueAt(0, 0) == 1 && mat.getValueAt(0, 3) == 1
+               &&  mat.getValueAt(2, 3) == 1 && mat.getValueAt(3, 2) == 1
+        );
+    }
+
+    @Test
+    public void canPreInitializationEmptiesMatrix() {
+        Matrix mat = new Matrix(new double[][]{{}});
+        mat.preInitialization(mat.getCountRows(), mat.getCountColumns());
+    }
+
+    @Test
+    public void canInitializeIncorrectMatrix() {
+        double[][] d = {{}, {3, -0.55}};
+        Matrix mat = new Matrix(d);
+        mat.initializeMatrix(d);
+        assertTrue(mat.getValueAt(0, 0) == 0 && mat.getValueAt(0, 1) == 0
+               &&  mat.getValueAt(1, 0) == 3 && mat.getValueAt(1, 1) == -0.55
+        );
+    }
+
+    @Test
+    public void canInitializeEmptiesMatrix() {
+        double[][] d = {{}};
+        Matrix mat = new Matrix(d);
+        mat.initializeMatrix(d);
+    }
+
+    @Test
+    public void canInitializeHigherOrderMatrix() {
+        double[][] d = {{1, 2}, {1, -2, 3, -4},
+                {1.1, 1.2, 1.3, 1.4}, {2.21, 3.31, 4.41}};
+        Matrix mat = new Matrix(d);
+        mat.initializeMatrix(d);
+        assertTrue(mat.getValueAt(0, 0) == 1 && mat.getValueAt(0, 3) == 0
+               &&  mat.getValueAt(2, 3) == 1.4 && mat.getValueAt(3, 2) == 4.41
+        );
+    }
+}

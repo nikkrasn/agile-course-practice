@@ -15,6 +15,12 @@ public class BitArrayTest {
     }
 
     @Test
+    public void canCreateBigBitArray() throws Exception {
+        BitArray array = new BitArray(32000);
+        assertNotNull(array);
+    }
+
+    @Test
     public void canCreateBitArrayWithNegativeSize() throws Exception {
         String message = "";
 
@@ -99,6 +105,15 @@ public class BitArrayTest {
         BitArray array = new BitArray(8);
 
         boolean res = array.get(4);
+
+        assertEquals(false,res);
+    }
+
+    @Test
+    public void canGetElementFromBigBitArray() throws Exception {
+        BitArray array = new BitArray(32000);
+
+        boolean res = array.get(31999);
 
         assertEquals(false,res);
     }
@@ -215,6 +230,16 @@ public class BitArrayTest {
     }
 
     @Test
+    public void canGetBigBitArray() throws Exception {
+        BitArray array1 = new BitArray(99999);
+        array1.setBit(0).setBit(1).setBit(2).setBit(3);
+
+        array1.getArray();
+
+        assertEquals(15,array1.getArray()[0]);
+    }
+
+    @Test
     public void canPerformSuperpositionOfFunctions() throws Exception {
         BitArray array1 = new BitArray(4);
         BitArray array2 = new BitArray(4);
@@ -224,6 +249,20 @@ public class BitArrayTest {
         array3.setBit(0).setBit(2);
 
         array1.not().xor(array2);
+
+        assertArrayEquals(array3.getArray(),array1.getArray());
+    }
+
+    @Test
+    public void canPerformSuperpositionOfBigBitArrayFunctions() throws Exception {
+        BitArray array1 = new BitArray(32000);
+        BitArray array2 = new BitArray(32000);
+        BitArray array3 = new BitArray(32000);
+        array1.setBit(0).setBit(2).setBit(31999);
+        array2.setBit(0).setBit(1).setBit(2).setBit(3).setBit(31999);
+        array3.setBit(1).setBit(3);
+
+        array1.not().and(array2);
 
         assertArrayEquals(array3.getArray(),array1.getArray());
     }
@@ -240,5 +279,21 @@ public class BitArrayTest {
         array1.xor(array2).or(array3).not().xor(array3);
 
         assertArrayEquals(array2.getArray(),array1.getArray());
+    }
+
+    @Test
+    public void canPerformSeveralSuperpositionsOfBigBitArrayFunctions() throws Exception {
+        BitArray array1 = new BitArray(99999);
+        BitArray array2 = new BitArray(99999);
+        BitArray array3 = new BitArray(99999);
+        BitArray array4 = new BitArray(99999);
+        array1.setBit(0).setBit(2).setBit(99998);
+        array2.setBit(0).setBit(1).setBit(2).setBit(3).setBit(99998);
+        array3.setBit(0).setBit(1).setBit(3).setBit(99998);
+        array4.not();
+
+        array1.xor(array2).or(array3).not().xor(array3);
+
+        assertArrayEquals(array4.getArray(),array1.getArray());
     }
 }

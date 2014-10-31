@@ -1,7 +1,12 @@
 package ru.unn.agile.Stack.Model;
 
-/**
- * Created by qq on 31.10.14.
- */
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 public class StackTest {
+    @Test
+    public void isEmptyStackEmpty() {
+        Stack stack = new Stack();
+        assertTrue(stack.isEmpty());
+    }
 }

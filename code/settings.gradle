@@ -31,6 +31,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Blinkova Ekaterina
 
 // Bobylkov Fedor
+include "bobylkov-fedor/Model"
+project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
 
 // Borodulina Ljubov
 

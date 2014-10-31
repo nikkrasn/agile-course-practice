@@ -7,7 +7,7 @@ public final class Deque<Item> {
     private Deque() {
     }
 
-    public static <Item> Deque<Item> createDeque() {
+    public static <Item> Deque<Item> create() {
         return new Deque<Item>();
     }
 

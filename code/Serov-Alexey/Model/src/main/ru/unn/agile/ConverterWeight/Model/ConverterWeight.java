@@ -1,13 +1,12 @@
 package ru.unn.agile.ConverterWeight.Model;
 
 public class ConverterWeight {
-
-private static final double GRAMM_AND_KILLOGRAM     = 1000;
-private static final double GRAMM_AND_CENTNER       = 100000;
-private static final double GRAMM_AND_TON           = 1000000;
-private static final double KILLOGRAM_AND_CENTNER   = 100;
-private static final double KILLOGRAM_AND_TON       = 1000;
-private static final double CENTNER_AND_TON         = 10;
+    private static final double GRAMM_AND_KILLOGRAM     = 1000;
+    private static final double GRAMM_AND_CENTNER       = 100000;
+    private static final double GRAMM_AND_TON           = 1000000;
+    private static final double KILLOGRAM_AND_CENTNER   = 100;
+    private static final double KILLOGRAM_AND_TON       = 1000;
+    private static final double CENTNER_AND_TON         = 10;
 
     public double grammToKilogram(final String input) {
         double forTrans = Double.parseDouble(input);

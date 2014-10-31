@@ -10,4 +10,8 @@ public class Stack<T> {
     public T top() {
         throw new EmptyStackException();
     }
+
+    public T pop() {
+        throw new EmptyStackException();
+    }
 }

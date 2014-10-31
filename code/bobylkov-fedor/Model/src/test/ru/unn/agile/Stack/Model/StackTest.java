@@ -16,4 +16,10 @@ public class StackTest {
         Stack stack = new Stack();
         stack.top();
     }
+
+    @Test(expected = EmptyStackException.class)
+    public void callPopInEmptyStackThrowsException() {
+        Stack stack = new Stack();
+        stack.pop();
+    }
 }

@@ -2,21 +2,10 @@ package ru.unn.agile.Stack.Model;
 
 import org.junit.Test;
 import java.util.EmptyStackException;
-import static org.junit.Assert.*;
 
-public class StackTest {
-    @Test
-    public void isEmptyStackEmpty() {
-        Stack stack = new Stack();
-        assertTrue(stack.isEmpty());
-    }
+import static org.junit.Assert.assertEquals;
 
-    @Test(expected = EmptyStackException.class)
-    public void callTopInEmptyStackThrowsException() {
-        Stack stack = new Stack();
-        stack.top();
-    }
-
+public class PopTest {
     @Test(expected = EmptyStackException.class)
     public void callPopInEmptyStackThrowsException() {
         Stack stack = new Stack();

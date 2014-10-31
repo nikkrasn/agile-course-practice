@@ -10,7 +10,6 @@ private static final double KILLOGRAM_AND_TON       = 1000;
 private static final double CENTNER_AND_TON         = 10;
 
     public double grammToKilogram(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * GRAMM_AND_KILLOGRAM <= Double.MAX_VALUE) {
             return forTrans / GRAMM_AND_KILLOGRAM;
@@ -20,7 +19,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double grammToCentner(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * GRAMM_AND_CENTNER <= Double.MAX_VALUE) {
             return forTrans / GRAMM_AND_CENTNER;
@@ -30,7 +28,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double grammToTon(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * GRAMM_AND_TON <= Double.MAX_VALUE) {
             return forTrans / GRAMM_AND_TON;
@@ -40,7 +37,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double kilogramToGram(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * GRAMM_AND_KILLOGRAM <= Double.MAX_VALUE) {
             return forTrans * GRAMM_AND_KILLOGRAM;
@@ -50,7 +46,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double kilogramToCentner(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * KILLOGRAM_AND_CENTNER <= Double.MAX_VALUE) {
             return forTrans / KILLOGRAM_AND_CENTNER;
@@ -60,7 +55,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double kilogramToTon(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * KILLOGRAM_AND_TON <= Double.MAX_VALUE) {
             return forTrans / KILLOGRAM_AND_TON;
@@ -70,7 +64,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double centnerToGram(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * GRAMM_AND_CENTNER <= Double.MAX_VALUE) {
             return forTrans * GRAMM_AND_CENTNER;
@@ -80,7 +73,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double centnerToKilogram(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * KILLOGRAM_AND_CENTNER <= Double.MAX_VALUE) {
             return forTrans * KILLOGRAM_AND_CENTNER;
@@ -90,7 +82,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double centnerToTon(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * CENTNER_AND_TON <= Double.MAX_VALUE) {
             return forTrans / CENTNER_AND_TON;
@@ -100,7 +91,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double tonToGram(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * GRAMM_AND_TON <= Double.MAX_VALUE) {
             return forTrans * GRAMM_AND_TON;
@@ -110,7 +100,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double tonToKilogram(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * KILLOGRAM_AND_TON <= Double.MAX_VALUE) {
             return forTrans * KILLOGRAM_AND_TON;
@@ -120,7 +109,6 @@ private static final double CENTNER_AND_TON         = 10;
     }
 
     public double tonToCentner(final String input) {
-
         double forTrans = Double.parseDouble(input);
         if (isToTranslate(input) && forTrans * CENTNER_AND_TON <= Double.MAX_VALUE) {
             return forTrans * CENTNER_AND_TON;

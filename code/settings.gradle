@@ -79,6 +79,8 @@ project(":myasnikov-alexander").name = "myasnikov-alexander-Model"
 // Tsarev Mikhail
 
 // Vilchinskii Aleksandr
+include "vilchinskii-aleksandr"
+project(":vilchinskii-aleksandr").name = "vilchinskii-aleksandr-Model"
 
 // Zolotov Andrey
 

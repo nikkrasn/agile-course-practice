@@ -108,7 +108,7 @@ public class StatisticalValues {
     }
 
     private boolean isSumProbabilitiesValueEqualsOne(final double sum) {
-        return (1.0 - sum) < EPSILON;
+        return Math.abs(1.0 - sum) < EPSILON;
     }
 
     public double calculateVariance() {

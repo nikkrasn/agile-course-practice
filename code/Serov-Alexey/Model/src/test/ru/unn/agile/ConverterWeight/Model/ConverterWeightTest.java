@@ -3,260 +3,257 @@ package ru.unn.agile.ConverterWeight.Model;
 import org.junit.Test;
 import static org.junit.Assert.*;
 public class ConverterWeightTest {
-
+private final double delta = 0.0;
     @Test
-    public void GrammToKilogram_InputNULL_ReturnZero() {
+    public void grammToKilogramInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToKilogram("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.grammToKilogram("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void GrammToKilogram_InputNumber_ReturnInKilogram() {
+    public void grammToKilogramInputNumberReturnInKilogram() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToKilogram("1");
-        assertEquals(0.001, result, 0.0);
+        double result = converter.grammToKilogram("1");
+        assertEquals(0.001, result, delta);
     }
 
     @Test
-    public void GrammToKilogram_InputNegativNumber_ReturnZero() {
+    public void grammToKilogramInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToKilogram("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.grammToKilogram("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void GrammToCentner_InputNULL_ReturnZero() {
+    public void grammToCentnerInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToCentner("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.grammToCentner("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void GrammToCentner_InputNumber_ReturnInCentner() {
+    public void grammToCentnerInputNumberReturnInCentner() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToCentner("1");
-        assertEquals(0.00001, result, 0.0);
+        double result = converter.grammToCentner("1");
+        assertEquals(0.00001, result, delta);
     }
 
     @Test
-    public void GrammToCentner_InputNegativNumber_ReturnZero() {
+    public void grammToCentnerInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToCentner("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.grammToCentner("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void GrammToTon_InputNULL_ReturnZero() {
+    public void grammToTonInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToTon("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.grammToTon("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void GrammToTon_InputNumber_ReturnInTon() {
+    public void grammToTonInputNumberReturnInTon() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToTon("1");
-        assertEquals(0.000001, result, 0.0);
+        double result = converter.grammToTon("1");
+        assertEquals(0.000001, result, delta);
     }
 
     @Test
-    public void GrammToTon_InputNegativNumber_ReturnZero() {
+    public void grammToTonInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToTon("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.grammToTon("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void KilogramToGram_InputNULL_ReturnZero() {
+    public void kilogramToGramInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToGram("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.kilogramToGram("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void KilogramToGram_InputNumber_ReturnInGram() {
+    public void kilogramToGramInputNumberReturnInGram() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToGram("1");
-        assertEquals(1000, result, 0.0);
+        double result = converter.kilogramToGram("1");
+        assertEquals(1000, result, delta);
     }
 
     @Test
-    public void KilogramToGram_InputNegativNumber_ReturnZero() {
+    public void kilogramToGramInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.GrammToKilogram("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.kilogramToGram("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void KilogramToCentner_InputNULL_ReturnZero() {
+    public void kilogramToCentnerInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToCentner("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.kilogramToCentner("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void KilogramToCentner_InputNumber_ReturnInCentner() {
+    public void kilogramToCentnerInputNumberReturnInCentner() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToCentner("1");
-        assertEquals(0.01, result, 0.0);
+        double result = converter.kilogramToCentner("1");
+        assertEquals(0.01, result, delta);
     }
 
     @Test
-    public void KilogramToCentner_InputNegativNumber_ReturnZero() {
+    public void kilogramToCentnerInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToCentner("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.kilogramToCentner("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void KilogramToTon_InputNULL_ReturnZero() {
+    public void kilogramToTonInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToTon("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.kilogramToTon("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void KilogramToTon_InputNumber_ReturnInTon() {
+    public void kilogramToTonInputNumberReturnInTon() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToTon("1");
-        assertEquals(0.001, result, 0.0);
+        double result = converter.kilogramToTon("1");
+        assertEquals(0.001, result, delta);
     }
 
     @Test
-    public void KilogramToTon_InputNegativNumber_ReturnZero() {
+    public void kilogramToTonInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.KilogramToTon("-1");
-        assertEquals(0.0, result, 0.0);
-    }
-//_______________------------------------------
-
-
-    @Test
-    public void CentnerToGram_InputNULL_ReturnZero() {
-        ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToGram("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.kilogramToTon("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void CentnerToGram_InputNumber_ReturnInGram() {
+    public void centnerToGramInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToGram("1");
-        assertEquals(100000, result, 0.0);
+        double result = converter.centnerToGram("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void CentnerToGram_InputNegativNumber_ReturnZero() {
+    public void centnerToGramInputNumberReturnInGram() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToGram("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.centnerToGram("1");
+        assertEquals(100000, result, delta);
     }
 
     @Test
-    public void CentnerToKilogram_InputNULL_ReturnZero() {
+    public void centnerToGramInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToKilogram("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.centnerToGram("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void CentnerToKilogram_InputNumber_ReturnInKilogram() {
+    public void centnerToKilogramInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToKilogram("1");
-        assertEquals(100, result, 0.0);
+        double result = converter.centnerToKilogram("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void CentnerToKilogram_InputNegativNumber_ReturnZero() {
+    public void centnerToKilogramInputNumberReturnInKilogram() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToKilogram("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.centnerToKilogram("1");
+        assertEquals(100, result, delta);
     }
 
     @Test
-    public void CentnerToTon_InputNULL_ReturnZero() {
+    public void centnerToKilogramInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToTon("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.centnerToKilogram("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void CentnerToTon_InputNumber_ReturnInTon() {
+    public void centnerToTonInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToTon("1");
-        assertEquals(0.1, result, 0.0);
+        double result = converter.centnerToTon("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void CentnerToTon_InputNegativNumber_ReturnZero() {
+    public void centnerToTonInputNumberReturnInTon() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.CentnerToTon("-1");
-        assertEquals(0.0, result, 0.0);
-    }
-
-    //-----------------------------
-    @Test
-    public void TonToGram_InputNULL_ReturnZero() {
-        ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToGram("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.centnerToTon("1");
+        assertEquals(0.1, result, delta);
     }
 
     @Test
-    public void TonToGram_InputNumber_ReturnInGram() {
+    public void centnerToTonInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToGram("1");
-        assertEquals(1000000, result, 0.0);
+        double result = converter.centnerToTon("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void TonToGram_InputNegativNumber_ReturnZero() {
+    public void tonToGramInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToGram("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.tonToGram("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void TonToKilogram_InputNULL_ReturnZero() {
+    public void tonToGramInputNumberReturnInGram() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToKilogram("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.tonToGram("1");
+        assertEquals(1000000, result, delta);
     }
 
     @Test
-    public void TonToKilogram_InputNumber_ReturnInKilogram() {
+    public void tonToGramInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToKilogram("1");
-        assertEquals(1000, result, 0.0);
+        double result = converter.tonToGram("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void TonToKilogram_InputNegativNumber_ReturnZero() {
+    public void tonToKilogramInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToKilogram("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.tonToKilogram("");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void TonToCentner_InputNULL_ReturnZero() {
+    public void tonToKilogramInputNumberReturnInKilogram() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToCentner("");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.tonToKilogram("1");
+        assertEquals(1000, result, delta);
     }
 
     @Test
-    public void TonToCentner_InputNumber_ReturnInCentner() {
+    public void tonToKilogramInputNegativNumberReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToCentner("1");
-        assertEquals(100, result, 0.0);
+        double result = converter.tonToKilogram("-1");
+        assertEquals(0.0, result, delta);
     }
 
     @Test
-    public void TonToCentner_InputNegativNumber_ReturnZero() {
+    public void tonToCentnerInputNULLReturnZero() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.TonToCentner("-1");
-        assertEquals(0.0, result, 0.0);
+        double result = converter.tonToCentner("");
+        assertEquals(0.0, result, delta);
+    }
+
+    @Test
+    public void tonToCentnerInputNumberReturnInCentner() {
+        ConverterWeight converter = createConverterWeight();
+        double result = converter.tonToCentner("1");
+        assertEquals(10, result, delta);
+    }
+
+    @Test
+    public void tonToCentnerInputNegativNumberReturnZero() {
+        ConverterWeight converter = createConverterWeight();
+        double result = converter.tonToCentner("-1");
+        assertEquals(0.0, result, delta);
     }
     private ConverterWeight createConverterWeight() {
         return new ConverterWeight();

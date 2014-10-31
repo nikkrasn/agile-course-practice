@@ -1,123 +1,134 @@
 package ru.unn.agile.ConverterWeight.Model;
 
-/**
- * Created by Алексей on 26.10.14.
- */
 public class ConverterWeight {
 
-    public double GrammToKilogram(String input){
+private static final double GRAMM_AND_KILLOGRAM     = 1000;
+private static final double GRAMM_AND_CENTNER       = 100000;
+private static final double GRAMM_AND_TON           = 1000000;
+private static final double KILLOGRAM_AND_CENTNER   = 100;
+private static final double KILLOGRAM_AND_TON       = 1000;
+private static final double CENTNER_AND_TON         = 10;
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)/1000;
-        }
-        else return 0.0;
+    public double grammToKilogram(final String input) {
+
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) / GRAMM_AND_KILLOGRAM;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double GrammToCentner(String input){
+    public double grammToCentner(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)/100000;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) / GRAMM_AND_CENTNER;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double GrammToTon(String input){
+    public double grammToTon(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)/1000000;
-        }
-        else return 0.0;
-    }
-        //________________________________________________
-
-    public double KilogramToGram(String input){
-
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)*1000;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) / GRAMM_AND_TON;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double KilogramToCentner(String input){
+    public double kilogramToGram(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)/100;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) * GRAMM_AND_KILLOGRAM;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double KilogramToTon(String input){
+    public double kilogramToCentner(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)/1000;
-        }
-        else return 0.0;
-    }
-//---------------------------
-    public double CentnerToGram(String input){
-
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)*100000;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) / KILLOGRAM_AND_CENTNER;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double CentnerToKilogram(String input){
+    public double kilogramToTon(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)*100;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) / KILLOGRAM_AND_TON;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double CentnerToTon(String input){
+    public double centnerToGram(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)/10;
-        }
-        else return 0.0;
-    }
-//---------
-
-    public double TonToGram(String input){
-
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)*1000000;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) * GRAMM_AND_CENTNER;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double TonToKilogram(String input){
+    public double centnerToKilogram(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)*1000;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) * KILLOGRAM_AND_CENTNER;
+        } else {
+            return 0.0;
+            }
     }
 
-    public double TonToCentner(String input){
+    public double centnerToTon(final String input) {
 
-        if(!isEmpty(input)&&(!isNegativNumber(input))){
-            return Double.parseDouble(input)*100;
-        }
-        else return 0.0;
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) / CENTNER_AND_TON;
+        } else {
+            return 0.0;
+            }
     }
 
-    private boolean isEmpty(String input) {
-        if (input == ""){
+    public double tonToGram(final String input) {
+
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) * GRAMM_AND_TON;
+        } else {
+            return 0.0;
+            }
+    }
+
+    public double tonToKilogram(final String input) {
+
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) * KILLOGRAM_AND_TON;
+        } else {
+            return 0.0;
+            }
+    }
+
+    public double tonToCentner(final String input) {
+
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return Double.parseDouble(input) * CENTNER_AND_TON;
+        } else {
+            return 0.0;
+            }
+    }
+
+    private boolean isNotEmpty(final String input) {
+        if (input == "") {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isPositivNumber(final String input) {
+        if (Double.parseDouble(input) > 0) {
             return true;
         }
-        else
-            return false;
-
-    }
-    private boolean isNegativNumber(String input) {
-        if (Double.parseDouble(input) < 0){
-            return true;
-        }
-        else
-            return false;
-
-    }
+        return false;
+     }
 
 }

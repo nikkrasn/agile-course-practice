@@ -8,7 +8,7 @@ public class Stack<T> {
     private final List<T> elements;
 
     public Stack() {
-        elements = new ArrayList<T>();
+        elements = new ArrayList<>();
     }
 
     public boolean isEmpty() {
@@ -34,8 +34,6 @@ public class Stack<T> {
     public void push(final T element) {
         elements.add(element);
     }
-
-    //-------------------------------------------------------
 
     private int stackSize() {
         return elements.size();

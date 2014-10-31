@@ -22,4 +22,11 @@ public class StackTest {
         Stack stack = new Stack();
         stack.pop();
     }
+
+    @Test
+    public void canPopPushedElement() {
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(1);
+        assertEquals(1, (long) stack.pop());
+    }
 }

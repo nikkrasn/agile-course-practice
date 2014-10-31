@@ -9,22 +9,23 @@ import static org.junit.Assert.*;
 
 public class StatisticalValuesTest {
 
+    public static final double EPSILON = 0.0001;
+
     @Test
     public void canCalculateExpectedValueWithOneNumber() {
         List<Double> values = Arrays.asList(1.0);
         List<Double> probabilities = Arrays.asList(1.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
+        String message = "";
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(1, expectedValue, Float.MIN_VALUE);
+        assertEquals(1, expectedValue, EPSILON);
     }
 
     @Test
@@ -33,16 +34,15 @@ public class StatisticalValuesTest {
         List<Double> probabilities = Arrays.asList(0.3, 0.7);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
+        String message = "";
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(1.7, expectedValue, Float.MIN_VALUE);
+        assertEquals(1.7, expectedValue, EPSILON);
     }
 
     @Test
@@ -51,16 +51,15 @@ public class StatisticalValuesTest {
         List<Double> probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
+        String message = "";
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(3.0, expectedValue, Float.MIN_VALUE);
+        assertEquals(3.0, expectedValue, EPSILON);
     }
 
     @Test
@@ -73,9 +72,7 @@ public class StatisticalValuesTest {
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -92,9 +89,7 @@ public class StatisticalValuesTest {
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -111,9 +106,7 @@ public class StatisticalValuesTest {
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -130,9 +123,7 @@ public class StatisticalValuesTest {
 
         try {
             expectedValue = statisticalCalculator.calculateExpectedValue();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -145,13 +136,12 @@ public class StatisticalValuesTest {
         List<Double> probabilities = Arrays.asList(1.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double variance = 0;
+        String message = "";
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
         assertEquals(0, variance, Float.MIN_VALUE);
@@ -159,38 +149,36 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateVarianceWithTwoNumbers() {
-        List<Double> values = Arrays.asList(2.0, 2.0);
-        List<Double> probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(5.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.2, 0.8);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double variance = 0;
+        String message = "";
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(0.0, variance, Float.MIN_VALUE);
+        assertEquals(1.44, variance, EPSILON);
     }
 
     @Test
     public void canCalculateVarianceWithMultipleNumbers() {
         List<Double> values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
-        List<Double> probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
+        List<Double> probabilities = Arrays.asList(0.3, 0.4, 0.1, 0.1, 0.1);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double variance = 0;
+        String message = "";
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(2.0, variance, Float.MIN_VALUE);
+        assertEquals(0.0, variance, EPSILON);
     }
 
     @Test
@@ -203,9 +191,7 @@ public class StatisticalValuesTest {
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -222,9 +208,7 @@ public class StatisticalValuesTest {
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -241,9 +225,7 @@ public class StatisticalValuesTest {
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -260,9 +242,7 @@ public class StatisticalValuesTest {
 
         try {
             variance = statisticalCalculator.calculateVariance();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -275,52 +255,49 @@ public class StatisticalValuesTest {
         List<Double> probabilities = Arrays.asList(1.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double moment = 0;
+        String message = "";
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(1.0, moment, Float.MIN_VALUE);
+        assertEquals(1.0, moment, EPSILON);
     }
 
     @Test
     public void canCalculateInitialMomentWithTwoNumbers() {
-        List<Double> values = Arrays.asList(2.0, 2.0);
-        List<Double> probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(5.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.2, 0.8);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double moment = 0;
+        String message = "";
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(4.0, moment, Float.MIN_VALUE);
+        assertEquals(8.2, moment, EPSILON);
     }
 
     @Test
     public void canCalculateInitialMomentWithMultipleNumbers() {
         List<Double> values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
-        List<Double> probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
+        List<Double> probabilities = Arrays.asList(0.1, 0.2, 0.3, 0.4, 0.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double moment = 0;
+        String message = "";
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
-
+        } catch (Exception e) {
+            message = e.getMessage();
         }
 
-        assertEquals(11.0, moment, Float.MIN_VALUE);
+        assertEquals(10.0, moment, EPSILON);
     }
 
     @Test
@@ -333,9 +310,7 @@ public class StatisticalValuesTest {
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -352,9 +327,7 @@ public class StatisticalValuesTest {
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -371,9 +344,7 @@ public class StatisticalValuesTest {
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 
@@ -390,9 +361,7 @@ public class StatisticalValuesTest {
 
         try {
             moment = statisticalCalculator.calculateInitialMoment(2);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             message = e.getMessage();
         }
 

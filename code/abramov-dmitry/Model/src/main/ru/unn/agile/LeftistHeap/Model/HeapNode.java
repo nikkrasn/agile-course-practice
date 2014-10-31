@@ -1,7 +1,7 @@
 package ru.unn.agile.LeftistHeap.Model;
 
 public class HeapNode<TValue> {
-    private final int key;
+    private int key;
     private final TValue value;
 
     private int distValue;
@@ -29,6 +29,10 @@ public class HeapNode<TValue> {
 
     public int getKey() {
         return key;
+    }
+
+    public void setKey(final int newKey) {
+        key = newKey;
     }
 
     public TValue getValue() {

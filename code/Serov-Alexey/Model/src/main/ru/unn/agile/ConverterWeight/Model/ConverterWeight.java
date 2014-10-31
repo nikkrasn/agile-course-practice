@@ -14,7 +14,7 @@ public class ConverterWeight {
             return forTrans / GRAMM_AND_KILLOGRAM;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double grammToCentner(final String input) {
@@ -23,7 +23,7 @@ public class ConverterWeight {
             return forTrans / GRAMM_AND_CENTNER;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double grammToTon(final String input) {
@@ -32,7 +32,7 @@ public class ConverterWeight {
             return forTrans / GRAMM_AND_TON;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double kilogramToGram(final String input) {
@@ -41,7 +41,7 @@ public class ConverterWeight {
             return forTrans * GRAMM_AND_KILLOGRAM;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double kilogramToCentner(final String input) {
@@ -50,7 +50,7 @@ public class ConverterWeight {
             return forTrans / KILLOGRAM_AND_CENTNER;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double kilogramToTon(final String input) {
@@ -59,7 +59,7 @@ public class ConverterWeight {
             return forTrans / KILLOGRAM_AND_TON;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double centnerToGram(final String input) {
@@ -68,7 +68,7 @@ public class ConverterWeight {
             return forTrans * GRAMM_AND_CENTNER;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double centnerToKilogram(final String input) {
@@ -77,7 +77,7 @@ public class ConverterWeight {
             return forTrans * KILLOGRAM_AND_CENTNER;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double centnerToTon(final String input) {
@@ -86,7 +86,7 @@ public class ConverterWeight {
             return forTrans / CENTNER_AND_TON;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double tonToGram(final String input) {
@@ -95,7 +95,7 @@ public class ConverterWeight {
             return forTrans * GRAMM_AND_TON;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double tonToKilogram(final String input) {
@@ -104,7 +104,7 @@ public class ConverterWeight {
             return forTrans * KILLOGRAM_AND_TON;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     public double tonToCentner(final String input) {
@@ -113,7 +113,7 @@ public class ConverterWeight {
             return forTrans * CENTNER_AND_TON;
         } else {
             throw new IllegalArgumentException();
-            }
+        }
     }
 
     private boolean isNotEmpty(final String input) {
@@ -128,7 +128,7 @@ public class ConverterWeight {
             return true;
         }
         return false;
-     }
+    }
 
     private boolean isToTranslate(final String input) {
         if (isNotEmpty(input) && isPositivNumber(input)) {

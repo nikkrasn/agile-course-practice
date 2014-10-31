@@ -35,7 +35,7 @@ public final class MatrixDeterminant {
 
     public static Matrix createSubMatrix(final Matrix matrix,
                                          final int excludingRow, final int excludingCol) {
-        Matrix mat = new Matrix(matrix.getCountRows() - 1, matrix.getCountColumns() - 1);
+        Matrix mat = new Matrix(matrix.getCountRows() - 1);
         int row = -1;
 
         for (int i = 0; i < matrix.getCountRows(); i++) {

@@ -6,30 +6,30 @@ public class Matrix {
     private final int countColumns;
     private double[][] data;
 
-    public Matrix(final int countRows, final int countColumns) {
+    public Matrix(final int countRows) {
+        if (countRows < 0) {
+            throw new IllegalArgumentException();
+        }
         this.countRows = countRows;
-        this.countColumns = countColumns;
+        this.countColumns = countRows;
         data = new double[countRows][countColumns];
     }
 
     public Matrix(final double[][] data) {
         this.countRows = data.length;
-        this.countColumns = getMaxLength(data);
-        this.data = new double[countRows][countColumns];
-        preInitialization(countRows, countColumns);
-        initializeMatrix(data);
-    }
-
-    public void preInitialization(final  int row, final int col) {
-        if (row > getCountRows() || col > getCountColumns()) {
+        if (countRows < getMaxLength(data)) {
             throw new IllegalArgumentException();
         }
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
+        this.countColumns = countRows;
+        this.data = new double[countRows][countColumns];
+        for (int i = 0; i < countRows; i++) {
+            for (int j = 0; j < countColumns; j++) {
                 this.data[i][j] = 1;
             }
         }
+        initializeMatrix(data);
     }
+
 
     public void initializeMatrix(final double[][] data) {
         for (int i = 0; i < countRows; i++) {

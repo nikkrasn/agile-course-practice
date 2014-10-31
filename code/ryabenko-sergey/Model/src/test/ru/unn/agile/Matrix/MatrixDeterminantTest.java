@@ -9,15 +9,16 @@ public class MatrixDeterminantTest {
     private final double delta = 0.001;
 
     @Test (expected = IllegalArgumentException.class)
-    public void canCheckMatrixIsEmpty() {
-        Matrix mat = new Matrix(new double[][]{{}});
-        double det = MatrixDeterminant.determinant(mat);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
     public void canCheckMatrixIsSquare() {
         Matrix mat = new Matrix(new double[][]{{-3.55, 4, 1}, {1, 0, 0}});
         double det = MatrixDeterminant.determinant(mat);
+    }
+
+    @Test
+    public void canFindDeterminantForEmptiesMatrix() {
+        Matrix mat = new Matrix(new double[][]{{}});
+        double det = MatrixDeterminant.determinant(mat);
+        assertEquals(0, det, delta);
     }
 
     @Test

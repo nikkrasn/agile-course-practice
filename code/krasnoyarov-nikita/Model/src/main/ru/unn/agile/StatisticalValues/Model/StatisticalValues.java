@@ -17,6 +17,9 @@ public class StatisticalValues {
         Iterator valuesIterator = values.iterator();
         Iterator probabilitiesIterator = probabilities.iterator();
 
+        checkDifferentSizeOfLists();
+        checkProbabilitiesValueMoreOne();
+        checkNegativeProbabilitiesValue();
         checkSumProbabilitiesValue();
             while (valuesIterator.hasNext()) {
                 expectedValue += (double) valuesIterator.next() * (double) probabilitiesIterator.next();
@@ -25,7 +28,49 @@ public class StatisticalValues {
         return expectedValue;
     }
 
-    private void checkSumProbabilitiesValue() throws Exception{
+    private void checkDifferentSizeOfLists() throws Exception {
+        if (isDifferentSizeOfLists()) {
+            throw new Exception("Size of values and probabilities lists doesn't match");
+        }
+    }
+
+    private boolean isDifferentSizeOfLists() {
+        return values.size() != probabilities.size();
+    }
+
+    private void checkProbabilitiesValueMoreOne() throws Exception {
+        Iterator probabilitiesIterator = probabilities.iterator();
+        double probability = 0;
+
+        while (probabilitiesIterator.hasNext()) {
+            probability = (double) probabilitiesIterator.next();
+            if (isProbabilitiesValueMoreOne(probability)) {
+                throw new Exception("One of probabilities is more than 1");
+            }
+        }
+    }
+
+    private boolean isProbabilitiesValueMoreOne(double probability) {
+        return probability > 1.0;
+    }
+
+    private void checkNegativeProbabilitiesValue() throws Exception {
+        Iterator probabilitiesIterator = probabilities.iterator();
+        double probability = 0;
+
+        while (probabilitiesIterator.hasNext()) {
+            probability = (double) probabilitiesIterator.next();
+            if (isNegativeProbabilityValue(probability)) {
+                throw new Exception("One of probabilities is negative");
+            }
+        }
+    }
+
+    private boolean isNegativeProbabilityValue(double probability) {
+        return probability < 0;
+    }
+
+    private void checkSumProbabilitiesValue() throws Exception {
         Iterator probabilitiesIterator = probabilities.iterator();
         double sum = 0;
 
@@ -40,6 +85,6 @@ public class StatisticalValues {
     }
 
     private boolean isSumProbabilitiesValueEqualsOne(double sum) {
-        return sum == 1 ? true : false;
+        return sum == 1.0;
     }
 }

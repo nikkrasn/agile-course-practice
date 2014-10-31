@@ -13,11 +13,11 @@ public class StatisticalValuesTest {
     public void canCalculateExpectedValueWithOneNumber() {
         List values = Arrays.asList(1.0);
         List probabilities = Arrays.asList(1.0);
-        StatisticalValues calculator = new StatisticalValues(values, probabilities);
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
 
         try {
-            expectedValue = calculator.calculateExpectedValue();
+            expectedValue = statisticalCalculator.calculateExpectedValue();
         }
         catch (Exception e)
         {
@@ -31,11 +31,11 @@ public class StatisticalValuesTest {
     public void canCalculateExpectedValueWithTwoNumbers() {
         List values = Arrays.asList(1.0, 2.0);
         List probabilities = Arrays.asList(0.3, 0.7);
-        StatisticalValues calculator = new StatisticalValues(values, probabilities);
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
 
         try {
-            expectedValue = calculator.calculateExpectedValue();
+            expectedValue = statisticalCalculator.calculateExpectedValue();
         }
         catch (Exception e)
         {
@@ -49,11 +49,11 @@ public class StatisticalValuesTest {
     public void canCalculateExpectedValueWithMultipleNumbers() {
         List values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
         List probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
-        StatisticalValues calculator = new StatisticalValues(values, probabilities);
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
 
         try {
-            expectedValue = calculator.calculateExpectedValue();
+            expectedValue = statisticalCalculator.calculateExpectedValue();
         }
         catch (Exception e)
         {
@@ -68,11 +68,11 @@ public class StatisticalValuesTest {
         List values = Arrays.asList(1.0, 2.0);
         List probabilities = Arrays.asList(0.1, 0.5);
         double expectedValue = 0;
-        StatisticalValues calculator = new StatisticalValues(values, probabilities);
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
 
         try {
-            expectedValue = calculator.calculateExpectedValue();
+            expectedValue = statisticalCalculator.calculateExpectedValue();
         }
         catch (Exception e)
         {
@@ -80,6 +80,63 @@ public class StatisticalValuesTest {
         }
 
         assertEquals("Sum of probabilities doesn't equal to 1", message);
+    }
+
+    @Test
+    public void checkNegativeProbabilitiesValue() {
+        List values = Arrays.asList(1.0, 2.0);
+        List probabilities = Arrays.asList(-5.0, 0.9);
+        double expectedValue = 0;
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
+        String message = "";
+
+        try {
+            expectedValue = statisticalCalculator.calculateExpectedValue();
+        }
+        catch (Exception e)
+        {
+            message = e.getMessage();
+        }
+
+        assertEquals("One of probabilities is negative", message);
+    }
+
+    @Test
+    public void checkProbabilitiesValueMoreOne() {
+        List values = Arrays.asList(1.0, 2.0);
+        List probabilities = Arrays.asList(0.3, 1.5);
+        double expectedValue = 0;
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
+        String message = "";
+
+        try {
+            expectedValue = statisticalCalculator.calculateExpectedValue();
+        }
+        catch (Exception e)
+        {
+            message = e.getMessage();
+        }
+
+        assertEquals("One of probabilities is more than 1", message);
+    }
+
+    @Test
+    public void checkDifferentSizeOfLists() {
+        List values = Arrays.asList(1.0, 2.0, 3.0);
+        List probabilities = Arrays.asList(0.3, 0.7);
+        double expectedValue = 0;
+        StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
+        String message = "";
+
+        try {
+            expectedValue = statisticalCalculator.calculateExpectedValue();
+        }
+        catch (Exception e)
+        {
+            message = e.getMessage();
+        }
+
+        assertEquals("Size of values and probabilities lists doesn't match", message);
     }
 
 }

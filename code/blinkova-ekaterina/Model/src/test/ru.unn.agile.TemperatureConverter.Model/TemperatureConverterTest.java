@@ -73,6 +73,7 @@ public class TemperatureConverterTest {
         TemperatureConverter convertation = createTemperatureConverter();
         double temperature = convertation.celsiusToFahrenheit(Double.MAX_VALUE);
     }
+
     @Test (expected = IllegalArgumentException.class)
     public void maxDoubleCelsiusToKelvin() {
         TemperatureConverter convertation = createTemperatureConverter();

@@ -12,14 +12,34 @@ public class StatisticalValues {
         this.probabilities = probabilities;
     }
 
-    public double calculateExpectedValue() {
+    public double calculateExpectedValue() throws Exception{
         double expectedValue = 0;
         Iterator valuesIterator = values.iterator();
         Iterator probabilitiesIterator = probabilities.iterator();
 
-        while (valuesIterator.hasNext()) {
-            expectedValue += (double) valuesIterator.next() * (double) probabilitiesIterator.next();
-        }
+        checkSumProbabilitiesValue();
+            while (valuesIterator.hasNext()) {
+                expectedValue += (double) valuesIterator.next() * (double) probabilitiesIterator.next();
+            }
+
         return expectedValue;
+    }
+
+    private void checkSumProbabilitiesValue() throws Exception{
+        Iterator probabilitiesIterator = probabilities.iterator();
+        double sum = 0;
+
+        while (probabilitiesIterator.hasNext()) {
+            sum += (double) probabilitiesIterator.next();
+        }
+
+        if (!isSumProbabilitiesValueEqualsOne(sum))
+        {
+            throw new Exception("Sum of probabilities doesn't equal to 1");
+        }
+    }
+
+    private boolean isSumProbabilitiesValueEqualsOne(double sum) {
+        return sum == 1 ? true : false;
     }
 }

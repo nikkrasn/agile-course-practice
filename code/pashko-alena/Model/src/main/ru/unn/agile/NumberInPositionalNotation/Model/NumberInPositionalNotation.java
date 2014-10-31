@@ -126,7 +126,7 @@ public class NumberInPositionalNotation {
         int numberOfSymbols;
         String symbols;
         symbols = notation.getSymbols();
-        numberOfSymbols = notation.getNumberOfSymbols();
+        numberOfSymbols = notation.getBase() + 1;
         int count = 0;
         for (int i = 1; i < (getValue()).length() + 1; i++) {
             count = 0;

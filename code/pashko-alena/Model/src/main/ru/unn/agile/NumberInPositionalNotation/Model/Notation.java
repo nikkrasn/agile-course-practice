@@ -17,10 +17,6 @@ public enum Notation {
         return base;
     }
 
-    public int getNumberOfSymbols() {
-        return base + 1;
-    }
-
     public String getSymbols() {
         return symbols;
     }

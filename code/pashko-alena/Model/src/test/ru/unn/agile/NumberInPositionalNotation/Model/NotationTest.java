@@ -18,12 +18,6 @@ public class NotationTest {
     }
 
     @Test
-    public void canReturnNumberOfSymbols() {
-        Notation not = Notation.OCTAL;
-        assertEquals(9, not.getNumberOfSymbols());
-    }
-
-    @Test
     public void canReturnSymbols() {
         Notation not = Notation.HEXADECIMAL;
         assertEquals("0123456789abcdef.", not.getSymbols());

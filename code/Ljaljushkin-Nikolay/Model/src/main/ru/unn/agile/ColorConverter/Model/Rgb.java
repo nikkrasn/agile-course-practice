@@ -7,6 +7,7 @@ public class Rgb {
     public static final int G_OFFSET = 2;
     public static final int B_OFFSET = 4;
     public static final int DEGREES = 60;
+    public static final double EPS = 0.0001;
 
     private final double r;
     private final double g;
@@ -31,23 +32,28 @@ public class Rgb {
     }
 
     public Hsv toHsv() {
-        double max = Math.max(r, Math.max(g, b));
-        double min = Math.min(r, Math.min(g, b));
+        double eps = EPS;
+        double rr = r / MAX_RGB;
+        double gg = g / MAX_RGB;
+        double bb = b / MAX_RGB;
+
+        double max = Math.max(rr, Math.max(gg, bb));
+        double min = Math.min(rr, Math.min(gg, bb));
         double delta = max - min;
 
         double h = 0;
-        if (delta != 0) {
-            if (max == r) {
-                h = DEGREES * ((r - b) / delta % R_DIVIDER);
-            } else if (max == g) {
-                h = DEGREES * ((b - r) / delta + G_OFFSET);
-            } else if (max == b) {
-                h = DEGREES * ((r - g) / delta + B_OFFSET);
+        if (delta >= EPS) {
+            if (max == rr) {
+                h = DEGREES * ((gg - bb) / delta % R_DIVIDER);
+            } else if (max == gg) {
+                h = DEGREES * ((bb - rr) / delta + G_OFFSET);
+            } else if (max == bb) {
+                h = DEGREES * ((rr - gg) / delta + B_OFFSET);
             }
         }
 
         double s = max <= 0 ? 0 : 1 - min / max;
-        double v = max / MAX_RGB;
+        double v = max;
 
         return new Hsv(h, s, v);
     }

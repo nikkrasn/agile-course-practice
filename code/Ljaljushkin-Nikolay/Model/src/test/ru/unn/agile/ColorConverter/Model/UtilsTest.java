@@ -4,35 +4,37 @@ import static org.junit.Assert.*;
 
 public final class UtilsTest {
 
+    public static final double EPS = 0.01;
+
     private UtilsTest() {
     }
 
-    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Rgb expectedColor)
-    {
+    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Rgb expectedColor) {
         Rgb targetColor = hsvColor.toRgb();
         rgbAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Hsv expectedColor)
-    {
+    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Hsv expectedColor) {
         Hsv targetColor = rgbColor.toHsv();
         hsvAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor)
-    {
+    protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
         Rgb targetColor = labColor.toRgb();
         rgbAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForLabColor(final Lab labColor, final Xyz expectedColor)
-    {
+    protected static void expectedValuesForLabColor(final Lab labColor, final Xyz expectedColor) {
         Xyz targetColor = labColor.toXyz();
         xyzAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Rgb expectedColor)
-    {
+    protected static void expectedValuesForLabColor(final Lab labColor, final Hsv expectedColor) {
+        Hsv targetColor = labColor.toRgb().toHsv();
+        hsvAssert(expectedColor, targetColor);
+    }
+
+    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Rgb expectedColor) {
         Rgb targetColor = xyzColor.toRgb();
         rgbAssert(expectedColor, targetColor);
     }
@@ -74,7 +76,11 @@ public final class UtilsTest {
     }
 
     protected static boolean isCloseEnough(final double a, final double b) {
-        double difference = Math.abs(a * .01);
-        return Math.abs(a - b) <= difference;
+        double difference = Math.abs(a * EPS);
+        if (a != 0.0) {
+            return Math.abs(a - b) <= difference;
+        } else {
+            return Math.abs(a - b) <= EPS;
+        }
     }
 }

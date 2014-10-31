@@ -30,5 +30,13 @@ public class RgbTest {
         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
+    @Test
+    public void canConvertDarkRedRgbToHsv() {
+        Rgb rgbColor = new Rgb(139, 0, 0);
+        Hsv expectedColor = new Hsv(0, 1, 0.55);
+
+        UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
+
 
 }

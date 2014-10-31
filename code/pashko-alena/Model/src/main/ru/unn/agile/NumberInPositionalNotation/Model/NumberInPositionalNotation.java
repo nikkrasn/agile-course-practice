@@ -77,18 +77,8 @@ public class NumberInPositionalNotation {
                 default: break;
             }
 
-            int lengthOfFract = fractionalPartResult.length();
-            while (lengthOfFract > 1 && fractionalPartResult.substring(lengthOfFract - 1,
-                    lengthOfFract).equals("0")) {
-                fractionalPartResult =
-                        fractionalPartResult.substring(0, fractionalPartResult.length() - 1);
-                lengthOfFractionalPart--;
-                lengthOfFract--;
-            }
-            for (int i = 0; i < lengthOfFractionalPart - lengthOfFract; i++) {
-                fractionalPartResult = "0" + fractionalPartResult;
-            }
-            fractionalPartResult = "0." + fractionalPartResult;
+            fractionalPartResult = convertFractionalPart(fractionalPartResult,
+                    lengthOfFractionalPart);
             String outputValue = integerPartResult
                     + fractionalPartResult.substring(fractionalPartResult.indexOf('.'),
                     fractionalPartResult.length());
@@ -97,6 +87,24 @@ public class NumberInPositionalNotation {
         } else {
             return new NumberInPositionalNotation(getValue(), getNotation());
         }
+    }
+
+    private String convertFractionalPart(final String fractPart, final int len) {
+        int length = len;
+        String fractionalPart = fractPart;
+        int lengthOfFract = fractionalPart.length();
+        while (lengthOfFract > 1 && fractionalPart.substring(lengthOfFract - 1,
+                lengthOfFract).equals("0")) {
+            fractionalPart =
+                    fractionalPart.substring(0, fractionalPart.length() - 1);
+            length--;
+            lengthOfFract--;
+        }
+        for (int i = 0; i < length - lengthOfFract; i++) {
+            fractionalPart = "0" + fractionalPart;
+        }
+        fractionalPart = "0." + fractionalPart;
+        return fractionalPart;
     }
 
     public NumberInPositionalNotation convertToDecimal() {

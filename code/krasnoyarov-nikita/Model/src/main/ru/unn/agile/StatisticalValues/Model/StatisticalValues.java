@@ -1,5 +1,6 @@
 package ru.unn.agile.StatisticalValues.Model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,5 +87,24 @@ public class StatisticalValues {
 
     private boolean isSumProbabilitiesValueEqualsOne(double sum) {
         return sum == 1.0;
+    }
+
+    public double calculateVariance() throws Exception{
+        double variance = 0;
+        Iterator valuesIterator = values.iterator();
+        double expectedValue = calculateExpectedValue();
+        double squaredExpectedValue = 0;
+        List squaredValues = new ArrayList();
+
+        while (valuesIterator.hasNext()) {
+            squaredValues.add(Math.pow((double) valuesIterator.next(), 2));
+        }
+
+        StatisticalValues statisticalCalculator = new StatisticalValues(squaredValues, probabilities);
+        squaredExpectedValue = statisticalCalculator.calculateExpectedValue();
+
+        variance = squaredExpectedValue - Math.pow(expectedValue, 2);
+
+        return variance;
     }
 }

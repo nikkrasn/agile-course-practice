@@ -47,7 +47,7 @@ public class StatisticalValuesTest {
         assertEquals(3.0, expectedValue, EPSILON);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkExpectedValueSumProbabilitiesValueEqualsOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.1, 0.5);
@@ -57,7 +57,7 @@ public class StatisticalValuesTest {
         expectedValue = statisticalCalculator.calculateExpectedValue();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkExpectedValueNegativeProbabilitiesValue() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(-5.0, 0.9);
@@ -67,7 +67,7 @@ public class StatisticalValuesTest {
         expectedValue = statisticalCalculator.calculateExpectedValue();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkExpectedValueProbabilitiesValueMoreThanOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.3, 1.5);
@@ -77,7 +77,7 @@ public class StatisticalValuesTest {
         expectedValue = statisticalCalculator.calculateExpectedValue();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkExpectedValueDifferentSizeOfLists() {
         List<Double> values = Arrays.asList(1.0, 2.0, 3.0);
         List<Double> probabilities = Arrays.asList(0.3, 0.7);
@@ -123,7 +123,7 @@ public class StatisticalValuesTest {
         assertEquals(1.61, variance, EPSILON);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkVarianceSumProbabilitiesValueEqualsOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.1, 0.5);
@@ -133,7 +133,7 @@ public class StatisticalValuesTest {
         variance = statisticalCalculator.calculateVariance();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkVarianceNegativeProbabilitiesValue() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(-5.0, 0.9);
@@ -143,7 +143,7 @@ public class StatisticalValuesTest {
         variance = statisticalCalculator.calculateVariance();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkVarianceProbabilitiesValueMoreThanOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.3, 1.5);
@@ -153,7 +153,7 @@ public class StatisticalValuesTest {
         variance = statisticalCalculator.calculateVariance();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkVarianceDifferentSizeOfLists() {
         List<Double> values = Arrays.asList(1.0, 2.0, 3.0);
         List<Double> probabilities = Arrays.asList(0.3, 0.7);
@@ -199,7 +199,7 @@ public class StatisticalValuesTest {
         assertEquals(10.0, moment, EPSILON);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkInitialMomentSumProbabilitiesValueEqualsOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.1, 0.5);
@@ -219,7 +219,7 @@ public class StatisticalValuesTest {
         moment = statisticalCalculator.calculateInitialMoment(2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkInitialMomentProbabilitiesValueMoreThanOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.3, 1.5);
@@ -229,7 +229,7 @@ public class StatisticalValuesTest {
         moment = statisticalCalculator.calculateInitialMoment(2);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void checkInitialMomentDifferentSizeOfLists() {
         List<Double> values = Arrays.asList(1.0, 2.0, 3.0);
         List<Double> probabilities = Arrays.asList(0.3, 0.7);

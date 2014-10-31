@@ -107,4 +107,20 @@ public class StatisticalValues {
 
         return variance;
     }
+
+    public double calculateInitialMoment(int k) throws Exception {
+        double moment = 0;
+        Iterator valuesIterator = values.iterator();
+        List momentValues = new ArrayList();
+
+        while (valuesIterator.hasNext()) {
+            momentValues.add(Math.pow((double) valuesIterator.next(), k));
+        }
+
+        StatisticalValues statisticalCalculator = new StatisticalValues(momentValues, probabilities);
+
+        moment = statisticalCalculator.calculateExpectedValue();;
+
+        return moment;
+    }
 }

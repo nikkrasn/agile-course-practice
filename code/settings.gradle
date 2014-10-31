@@ -69,6 +69,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Skachkova Natalia
 
 // Sokolov Mihail
+include "Sokolov-Mihail/lab1"
+project(":Sokolov-Mihail/lab1").name = "Sokolov-Mihail-lab1"
 
 // Syainova Diana
 

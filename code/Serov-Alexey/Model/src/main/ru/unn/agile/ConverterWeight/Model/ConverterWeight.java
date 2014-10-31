@@ -11,109 +11,121 @@ private static final double CENTNER_AND_TON         = 10;
 
     public double grammToKilogram(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) / GRAMM_AND_KILLOGRAM;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * GRAMM_AND_KILLOGRAM <= Double.MAX_VALUE) {
+            return forTrans / GRAMM_AND_KILLOGRAM;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double grammToCentner(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) / GRAMM_AND_CENTNER;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * GRAMM_AND_CENTNER <= Double.MAX_VALUE) {
+            return forTrans / GRAMM_AND_CENTNER;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double grammToTon(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) / GRAMM_AND_TON;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * GRAMM_AND_TON <= Double.MAX_VALUE) {
+            return forTrans / GRAMM_AND_TON;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double kilogramToGram(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) * GRAMM_AND_KILLOGRAM;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * GRAMM_AND_KILLOGRAM <= Double.MAX_VALUE) {
+            return forTrans * GRAMM_AND_KILLOGRAM;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double kilogramToCentner(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) / KILLOGRAM_AND_CENTNER;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * KILLOGRAM_AND_CENTNER <= Double.MAX_VALUE) {
+            return forTrans / KILLOGRAM_AND_CENTNER;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double kilogramToTon(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) / KILLOGRAM_AND_TON;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * KILLOGRAM_AND_TON <= Double.MAX_VALUE) {
+            return forTrans / KILLOGRAM_AND_TON;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double centnerToGram(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) * GRAMM_AND_CENTNER;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * GRAMM_AND_CENTNER <= Double.MAX_VALUE) {
+            return forTrans * GRAMM_AND_CENTNER;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double centnerToKilogram(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) * KILLOGRAM_AND_CENTNER;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * KILLOGRAM_AND_CENTNER <= Double.MAX_VALUE) {
+            return forTrans * KILLOGRAM_AND_CENTNER;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double centnerToTon(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) / CENTNER_AND_TON;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * CENTNER_AND_TON <= Double.MAX_VALUE) {
+            return forTrans / CENTNER_AND_TON;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double tonToGram(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) * GRAMM_AND_TON;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * GRAMM_AND_TON <= Double.MAX_VALUE) {
+            return forTrans * GRAMM_AND_TON;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double tonToKilogram(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) * KILLOGRAM_AND_TON;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * KILLOGRAM_AND_TON <= Double.MAX_VALUE) {
+            return forTrans * KILLOGRAM_AND_TON;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
     public double tonToCentner(final String input) {
 
-        if (isNotEmpty(input) && isPositivNumber(input)) {
-            return Double.parseDouble(input) * CENTNER_AND_TON;
+        double forTrans = Double.parseDouble(input);
+        if (isToTranslate(input) && forTrans * CENTNER_AND_TON <= Double.MAX_VALUE) {
+            return forTrans * CENTNER_AND_TON;
         } else {
-            return 0.0;
+            throw new IllegalArgumentException();
             }
     }
 
@@ -130,5 +142,13 @@ private static final double CENTNER_AND_TON         = 10;
         }
         return false;
      }
+
+    private boolean isToTranslate(final String input) {
+        if (isNotEmpty(input) && isPositivNumber(input)) {
+            return true;
+        }
+            return false;
+
+    }
 
 }

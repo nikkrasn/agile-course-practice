@@ -4,12 +4,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 public class ConverterWeightTest {
 private final double delta = 0.0;
-    @Test
-    public void grammToKilogramInputNULLReturnZero() {
-        ConverterWeight converter = createConverterWeight();
-        double result = converter.grammToKilogram("");
-        assertEquals(0.0, result, delta);
-    }
 
     @Test
     public void grammToKilogramInputNumberReturnInKilogram() {
@@ -18,18 +12,18 @@ private final double delta = 0.0;
         assertEquals(0.001, result, delta);
     }
 
-    @Test
-    public void grammToKilogramInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void grammToKilogramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.grammToKilogram("-1");
-        assertEquals(0.0, result, delta);
+        converter.grammToKilogram("-1");
     }
 
-    @Test
-    public void grammToCentnerInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void grammToKilogramInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.grammToCentner("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.grammToKilogram(str);
     }
 
     @Test
@@ -39,18 +33,18 @@ private final double delta = 0.0;
         assertEquals(0.00001, result, delta);
     }
 
-    @Test
-    public void grammToCentnerInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void grammToCentnerInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.grammToCentner("-1");
-        assertEquals(0.0, result, delta);
+        converter.grammToCentner("-1");
     }
 
-    @Test
-    public void grammToTonInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void grammToCentnerInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.grammToTon("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.grammToCentner(str);
     }
 
     @Test
@@ -60,18 +54,18 @@ private final double delta = 0.0;
         assertEquals(0.000001, result, delta);
     }
 
-    @Test
-    public void grammToTonInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void grammToTonInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.grammToTon("-1");
-        assertEquals(0.0, result, delta);
+        converter.grammToTon("-1");
     }
 
-    @Test
-    public void kilogramToGramInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void grammToTonInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.kilogramToGram("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.grammToTon(str);
     }
 
     @Test
@@ -81,18 +75,18 @@ private final double delta = 0.0;
         assertEquals(1000, result, delta);
     }
 
-    @Test
-    public void kilogramToGramInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void kilogramToGramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.kilogramToGram("-1");
-        assertEquals(0.0, result, delta);
+        converter.kilogramToGram("-1");
     }
 
-    @Test
-    public void kilogramToCentnerInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void kilogramToGramInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.kilogramToCentner("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.kilogramToGram(str);
     }
 
     @Test
@@ -102,18 +96,18 @@ private final double delta = 0.0;
         assertEquals(0.01, result, delta);
     }
 
-    @Test
-    public void kilogramToCentnerInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void kilogramToCentnerInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.kilogramToCentner("-1");
-        assertEquals(0.0, result, delta);
+        converter.kilogramToCentner("-1");
     }
 
-    @Test
-    public void kilogramToTonInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void kilogramToCentnerInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.kilogramToTon("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.kilogramToCentner(str);
     }
 
     @Test
@@ -123,18 +117,18 @@ private final double delta = 0.0;
         assertEquals(0.001, result, delta);
     }
 
-    @Test
-    public void kilogramToTonInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void kilogramToTonInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.kilogramToTon("-1");
-        assertEquals(0.0, result, delta);
+        converter.kilogramToTon("-1");
     }
 
-    @Test
-    public void centnerToGramInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void kilogramToTonInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.centnerToGram("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.kilogramToTon(str);
     }
 
     @Test
@@ -144,18 +138,18 @@ private final double delta = 0.0;
         assertEquals(100000, result, delta);
     }
 
-    @Test
-    public void centnerToGramInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void centnerToGramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.centnerToGram("-1");
-        assertEquals(0.0, result, delta);
+        converter.centnerToGram("-1");
     }
 
-    @Test
-    public void centnerToKilogramInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void centnerToGramInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.centnerToKilogram("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.centnerToGram(str);
     }
 
     @Test
@@ -165,18 +159,18 @@ private final double delta = 0.0;
         assertEquals(100, result, delta);
     }
 
-    @Test
-    public void centnerToKilogramInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void centnerToKilogramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.centnerToKilogram("-1");
-        assertEquals(0.0, result, delta);
+        converter.centnerToKilogram("-1");
     }
 
-    @Test
-    public void centnerToTonInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void centnerToKillogramInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.centnerToTon("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.centnerToKilogram(str);
     }
 
     @Test
@@ -186,18 +180,18 @@ private final double delta = 0.0;
         assertEquals(0.1, result, delta);
     }
 
-    @Test
-    public void centnerToTonInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void centnerToTonInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.centnerToTon("-1");
-        assertEquals(0.0, result, delta);
+        converter.centnerToTon("-1");
     }
 
-    @Test
-    public void tonToGramInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void centnerToTonInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.tonToGram("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.centnerToTon(str);
     }
 
     @Test
@@ -207,18 +201,18 @@ private final double delta = 0.0;
         assertEquals(1000000, result, delta);
     }
 
-    @Test
-    public void tonToGramInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void tonToGramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.tonToGram("-1");
-        assertEquals(0.0, result, delta);
+        converter.tonToGram("-1");
     }
 
-    @Test
-    public void tonToKilogramInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void tonToGramInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.tonToKilogram("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.tonToGram(str);
     }
 
     @Test
@@ -228,18 +222,18 @@ private final double delta = 0.0;
         assertEquals(1000, result, delta);
     }
 
-    @Test
-    public void tonToKilogramInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void tonToKilogramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.tonToKilogram("-1");
-        assertEquals(0.0, result, delta);
+        converter.tonToKilogram("-1");
     }
 
-    @Test
-    public void tonToCentnerInputNULLReturnZero() {
+    @Test (expected = IllegalArgumentException.class)
+    public void tonToKilogramInputMaxDoubleReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.tonToCentner("");
-        assertEquals(0.0, result, delta);
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.tonToKilogram(str);
     }
 
     @Test
@@ -249,12 +243,20 @@ private final double delta = 0.0;
         assertEquals(10, result, delta);
     }
 
-    @Test
-    public void tonToCentnerInputNegativNumberReturnZero() {
+    @Test(expected = IllegalArgumentException.class)
+    public void tonToCentnerInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
-        double result = converter.tonToCentner("-1");
-        assertEquals(0.0, result, delta);
+        converter.tonToCentner("-1");
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void tonToCentnerInputMaxDoubleReturnExeption() {
+        ConverterWeight converter = createConverterWeight();
+        double tmp = Double.MAX_VALUE;
+        String str = Double.toString(tmp);
+        converter.tonToCentner(str);
+    }
+
     private ConverterWeight createConverterWeight() {
         return new ConverterWeight();
     }

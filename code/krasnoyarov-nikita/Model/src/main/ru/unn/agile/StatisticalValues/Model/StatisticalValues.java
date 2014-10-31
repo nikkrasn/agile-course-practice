@@ -45,7 +45,7 @@ public class StatisticalValues {
 
     private void checkProbabilities() throws Exception {
         checkDifferentSizeOfLists();
-        checkProbabilitiesValueMoreOne();
+        checkProbabilitiesValueMoreThanOne();
         checkNegativeProbabilitiesValue();
         checkSumProbabilitiesValue();
     }
@@ -60,20 +60,20 @@ public class StatisticalValues {
         return values.size() != probabilities.size();
     }
 
-    private void checkProbabilitiesValueMoreOne() throws Exception {
+    private void checkProbabilitiesValueMoreThanOne() throws Exception {
         Iterator probabilitiesIterator = probabilities.iterator();
         double probability = 0;
 
         while (probabilitiesIterator.hasNext()) {
             probability = (double) probabilitiesIterator.next();
-            if (isProbabilitiesCorrect(probability)) {
+            if (!isProbabilityCorrect(probability)) {
                 throw new Exception("One of probabilities is more than 1");
             }
         }
     }
 
-    private boolean isProbabilitiesCorrect(final double probability) {
-        return probability > 1.0;
+    private boolean isProbabilityCorrect(final double probability) {
+        return probability < 1.0;
     }
 
     private void checkNegativeProbabilitiesValue() throws Exception {

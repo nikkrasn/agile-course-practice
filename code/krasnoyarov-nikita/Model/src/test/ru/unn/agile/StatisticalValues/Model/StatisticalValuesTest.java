@@ -97,7 +97,7 @@ public class StatisticalValuesTest {
     }
 
     @Test
-    public void checkExpectedValueProbabilitiesValueMoreOne() {
+    public void checkExpectedValueProbabilitiesValueMoreThanOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.3, 1.5);
         double expectedValue = 0;
@@ -216,7 +216,7 @@ public class StatisticalValuesTest {
     }
 
     @Test
-    public void checkVarianceProbabilitiesValueMoreOne() {
+    public void checkVarianceProbabilitiesValueMoreThanOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.3, 1.5);
         double variance = 0;
@@ -335,7 +335,7 @@ public class StatisticalValuesTest {
     }
 
     @Test
-    public void checkInitialMomentProbabilitiesValueMoreOne() {
+    public void checkInitialMomentProbabilitiesValueMoreThanOne() {
         List<Double> values = Arrays.asList(1.0, 2.0);
         List<Double> probabilities = Arrays.asList(0.3, 1.5);
         double moment = 0;

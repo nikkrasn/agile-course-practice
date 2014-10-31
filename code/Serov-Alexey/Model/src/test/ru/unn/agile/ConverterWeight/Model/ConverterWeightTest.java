@@ -12,7 +12,7 @@ private final double delta = 0.0;
         assertEquals(0.001, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void grammToKilogramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.grammToKilogram("-1");
@@ -33,7 +33,7 @@ private final double delta = 0.0;
         assertEquals(0.00001, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void grammToCentnerInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.grammToCentner("-1");
@@ -54,7 +54,7 @@ private final double delta = 0.0;
         assertEquals(0.000001, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void grammToTonInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.grammToTon("-1");
@@ -75,7 +75,7 @@ private final double delta = 0.0;
         assertEquals(1000, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void kilogramToGramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.kilogramToGram("-1");
@@ -96,7 +96,7 @@ private final double delta = 0.0;
         assertEquals(0.01, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void kilogramToCentnerInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.kilogramToCentner("-1");
@@ -117,7 +117,7 @@ private final double delta = 0.0;
         assertEquals(0.001, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void kilogramToTonInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.kilogramToTon("-1");
@@ -138,7 +138,7 @@ private final double delta = 0.0;
         assertEquals(100000, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void centnerToGramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.centnerToGram("-1");
@@ -159,7 +159,7 @@ private final double delta = 0.0;
         assertEquals(100, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void centnerToKilogramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.centnerToKilogram("-1");
@@ -180,7 +180,7 @@ private final double delta = 0.0;
         assertEquals(0.1, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void centnerToTonInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.centnerToTon("-1");
@@ -201,7 +201,7 @@ private final double delta = 0.0;
         assertEquals(1000000, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void tonToGramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.tonToGram("-1");
@@ -222,7 +222,7 @@ private final double delta = 0.0;
         assertEquals(1000, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void tonToKilogramInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.tonToKilogram("-1");
@@ -243,7 +243,7 @@ private final double delta = 0.0;
         assertEquals(10, result, delta);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void tonToCentnerInputNegativNumberReturnExeption() {
         ConverterWeight converter = createConverterWeight();
         converter.tonToCentner("-1");

@@ -25,7 +25,7 @@ public class StatisticalValuesTest {
             message = e.getMessage();
         }
 
-        assertEquals(1, expectedValue, EPSILON);
+        assertEquals(1.0, expectedValue, EPSILON);
     }
 
     @Test
@@ -144,7 +144,7 @@ public class StatisticalValuesTest {
             message = e.getMessage();
         }
 
-        assertEquals(0, variance, Float.MIN_VALUE);
+        assertEquals(0.0, variance, Float.MIN_VALUE);
     }
 
     @Test

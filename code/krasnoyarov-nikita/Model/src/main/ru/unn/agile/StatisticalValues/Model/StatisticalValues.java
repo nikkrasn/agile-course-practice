@@ -66,14 +66,14 @@ public class StatisticalValues {
 
         while (probabilitiesIterator.hasNext()) {
             probability = (double) probabilitiesIterator.next();
-            if (!isProbabilityCorrect(probability)) {
+            if (isProbabilityIncorrect(probability)) {
                 throw new Exception("One of probabilities is more than 1");
             }
         }
     }
 
-    private boolean isProbabilityCorrect(final double probability) {
-        return probability < 1.0;
+    private boolean isProbabilityIncorrect(final double probability) {
+        return probability > 1.0;
     }
 
     private void checkNegativeProbabilitiesValue() throws Exception {

@@ -5,15 +5,31 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StatisticalValues {
-    private final List values;
-    private final List probabilities;
+    private List values;
+    private List probabilities;
 
     public StatisticalValues(final List values, final List probabilities) {
         this.values = values;
         this.probabilities = probabilities;
     }
 
-    public double calculateExpectedValue() throws Exception{
+    public List getValues() {
+        return this.values;
+    }
+
+    public List getProbabilities() {
+        return this.probabilities;
+    }
+
+    public void setProbabilities(final List probabilities) {
+        this.probabilities = probabilities;
+    }
+
+    public void setValues(final List values) {
+        this.values = values;
+    }
+
+    public double calculateExpectedValue() throws Exception {
         double expectedValue = 0;
         Iterator valuesIterator = values.iterator();
         Iterator probabilitiesIterator = probabilities.iterator();
@@ -22,9 +38,10 @@ public class StatisticalValues {
         checkProbabilitiesValueMoreOne();
         checkNegativeProbabilitiesValue();
         checkSumProbabilitiesValue();
-            while (valuesIterator.hasNext()) {
-                expectedValue += (double) valuesIterator.next() * (double) probabilitiesIterator.next();
-            }
+
+        while (valuesIterator.hasNext()) {
+            expectedValue += (double) valuesIterator.next() * (double) probabilitiesIterator.next();
+        }
 
         return expectedValue;
     }

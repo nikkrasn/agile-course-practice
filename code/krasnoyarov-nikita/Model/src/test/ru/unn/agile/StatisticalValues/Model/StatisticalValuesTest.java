@@ -398,5 +398,5 @@ public class StatisticalValuesTest {
 
         assertEquals("Size of values and probabilities lists doesn't match", message);
     }
-    
+
 }

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 public class ComplexDepositTest {
+
     private final double delta = 0.001;
 
     @Test
@@ -50,7 +51,6 @@ public class ComplexDepositTest {
         firstDeposit.setBase(2000);
         assertEquals(firstDeposit.getBase(), secondDeposit.getBase(), delta);
     }
-
     @Test
     public void canChangePercent() {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 3);
@@ -66,7 +66,6 @@ public class ComplexDepositTest {
         firstDeposit.setInterestCountInYear(3);
         assertEquals(firstDeposit.getInterestCountInYear(), secondDeposit.getInterestCountInYear(),delta);
     }
-
     @Test
     public void canChangeMultiply() {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
@@ -75,4 +74,5 @@ public class ComplexDepositTest {
         assertIsEqualDeposit(firstDeposit, secondDeposit);
 
     }
+
 }

@@ -58,4 +58,10 @@ public class Hsv {
                 return new Rgb(vv, p, q);
         }
     }
+
+    public Lab toLab() {
+        return this.toRgb().toLab();
+    }
+
+
 }

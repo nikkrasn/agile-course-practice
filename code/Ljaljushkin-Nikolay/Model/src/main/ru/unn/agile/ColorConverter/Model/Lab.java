@@ -56,4 +56,5 @@ public class Lab {
     public Hsv toHsv() {
         return this.toRgb().toHsv();
     }
+
 }

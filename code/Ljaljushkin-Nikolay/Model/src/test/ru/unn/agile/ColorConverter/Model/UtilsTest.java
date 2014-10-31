@@ -9,11 +9,18 @@ public final class UtilsTest {
     private UtilsTest() {
     }
 
+    //for Hsv
     protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Rgb expectedColor) {
         Rgb targetColor = hsvColor.toRgb();
         rgbAssert(expectedColor, targetColor);
     }
 
+    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Lab expectedColor) {
+        Lab targetColor = hsvColor.toLab();
+        labAssert(expectedColor, targetColor);
+    }
+
+    //for Rgb
     protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Hsv expectedColor) {
         Hsv targetColor = rgbColor.toHsv();
         hsvAssert(expectedColor, targetColor);
@@ -29,6 +36,7 @@ public final class UtilsTest {
         labAssert(expectedColor, targetColor);
     }
 
+    //for Lab
     protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
         Rgb targetColor = labColor.toRgb();
         rgbAssert(expectedColor, targetColor);
@@ -44,6 +52,7 @@ public final class UtilsTest {
         hsvAssert(expectedColor, targetColor);
     }
 
+    // for XYZ
     protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Rgb expectedColor) {
         Rgb targetColor = xyzColor.toRgb();
         rgbAssert(expectedColor, targetColor);
@@ -54,6 +63,7 @@ public final class UtilsTest {
         labAssert(expectedColor, targetColor);
     }
 
+    // asserts
     protected static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {
         assertTrue("(r)" + expectedColor.getR() + " != " + targetColor.getR(),
                 isCloseEnough(expectedColor.getR(), targetColor.getR()));

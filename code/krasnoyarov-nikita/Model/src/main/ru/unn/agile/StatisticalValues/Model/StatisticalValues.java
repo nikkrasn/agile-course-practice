@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StatisticalValues {
+    public static final double EPSILON = 0.0001;
+
     private List<Double> values;
     private List<Double> probabilities;
 
@@ -29,7 +31,7 @@ public class StatisticalValues {
         this.values = values;
     }
 
-    public double calculateExpectedValue() throws Exception {
+    public double calculateExpectedValue() {
         double expectedValue = 0;
         Iterator valuesIterator = values.iterator();
         Iterator probabilitiesIterator = probabilities.iterator();
@@ -43,16 +45,16 @@ public class StatisticalValues {
         return expectedValue;
     }
 
-    private void checkProbabilities() throws Exception {
+    private void checkProbabilities() {
         checkDifferentSizeOfLists();
         checkProbabilitiesValueMoreThanOne();
         checkNegativeProbabilitiesValue();
         checkSumProbabilitiesValue();
     }
 
-    private void checkDifferentSizeOfLists() throws Exception {
+    private void checkDifferentSizeOfLists() {
         if (isDifferentSizeOfLists()) {
-            throw new Exception("Size of values and probabilities lists doesn't match");
+            throw new IllegalArgumentException("Size of lists doesn't match");
         }
     }
 
@@ -60,14 +62,14 @@ public class StatisticalValues {
         return values.size() != probabilities.size();
     }
 
-    private void checkProbabilitiesValueMoreThanOne() throws Exception {
+    private void checkProbabilitiesValueMoreThanOne() {
         Iterator probabilitiesIterator = probabilities.iterator();
         double probability = 0;
 
         while (probabilitiesIterator.hasNext()) {
             probability = (double) probabilitiesIterator.next();
             if (isProbabilityIncorrect(probability)) {
-                throw new Exception("One of probabilities is more than 1");
+                throw new IllegalArgumentException("One of probabilities is more than 1");
             }
         }
     }
@@ -76,14 +78,14 @@ public class StatisticalValues {
         return probability > 1.0;
     }
 
-    private void checkNegativeProbabilitiesValue() throws Exception {
+    private void checkNegativeProbabilitiesValue() {
         Iterator probabilitiesIterator = probabilities.iterator();
         double probability = 0;
 
         while (probabilitiesIterator.hasNext()) {
             probability = (double) probabilitiesIterator.next();
             if (isNegativeProbabilityValue(probability)) {
-                throw new Exception("One of probabilities is negative");
+                throw new IllegalArgumentException("One of probabilities is negative");
             }
         }
     }
@@ -92,7 +94,7 @@ public class StatisticalValues {
         return probability < 0;
     }
 
-    private void checkSumProbabilitiesValue() throws Exception {
+    private void checkSumProbabilitiesValue() {
         Iterator probabilitiesIterator = probabilities.iterator();
         double sum = 0;
 
@@ -101,17 +103,20 @@ public class StatisticalValues {
         }
 
         if (!isSumProbabilitiesValueEqualsOne(sum)) {
-            throw new Exception("Sum of probabilities doesn't equal to 1");
+            throw new IllegalArgumentException("Sum of probabilities doesn't equal to 1");
         }
     }
 
     private boolean isSumProbabilitiesValueEqualsOne(final double sum) {
-        return sum == 1.0;
+        return (1.0 - sum) < EPSILON;
     }
 
-    public double calculateVariance() throws Exception {
+    public double calculateVariance() {
         double variance = 0;
         Iterator valuesIterator = values.iterator();
+
+        checkProbabilities();
+
         double expectedValue = calculateExpectedValue();
         double squaredExpectedValue = 0;
         List<Double> squaredVals = new ArrayList<>();
@@ -128,10 +133,12 @@ public class StatisticalValues {
         return variance;
     }
 
-    public double calculateInitialMoment(final int k) throws Exception {
+    public double calculateInitialMoment(final int k) {
         double moment = 0;
         Iterator valuesIterator = values.iterator();
         List<Double> momentVals = new ArrayList<>();
+
+        checkProbabilities();
 
         while (valuesIterator.hasNext()) {
             momentVals.add(Math.pow((double) valuesIterator.next(), k));

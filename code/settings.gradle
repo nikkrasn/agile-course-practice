@@ -51,6 +51,8 @@ project(":karsakov-alexander/Model").name = "karsakov-alexander-Model"
 // Ljaljushkin Nikolay
 
 // Myasnikov Alexander
+include "myasnikov-alexander"
+project(":myasnikov-alexander").name = "myasnikov-alexander-Model"
 
 // Ovsuhno Andrey
 

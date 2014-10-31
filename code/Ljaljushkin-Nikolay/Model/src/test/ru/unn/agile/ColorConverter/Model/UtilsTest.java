@@ -19,6 +19,11 @@ public final class UtilsTest {
         hsvAssert(expectedColor, targetColor);
     }
 
+    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Xyz expectedColor) {
+        Xyz targetColor = rgbColor.toXyz();
+        xyzAssert(expectedColor, targetColor);
+    }
+
     protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
         Rgb targetColor = labColor.toRgb();
         rgbAssert(expectedColor, targetColor);
@@ -30,7 +35,7 @@ public final class UtilsTest {
     }
 
     protected static void expectedValuesForLabColor(final Lab labColor, final Hsv expectedColor) {
-        Hsv targetColor = labColor.toRgb().toHsv();
+        Hsv targetColor = labColor.toHsv();
         hsvAssert(expectedColor, targetColor);
     }
 

@@ -50,7 +50,10 @@ public class Lab {
     }
 
     public Rgb toRgb() {
-        Xyz xyz = this.toXyz();
-        return xyz.toRgb();
+        return this.toXyz().toRgb();
+    }
+
+    public Hsv toHsv() {
+        return this.toRgb().toHsv();
     }
 }

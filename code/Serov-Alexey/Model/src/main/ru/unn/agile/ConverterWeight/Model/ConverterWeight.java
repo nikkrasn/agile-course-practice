@@ -135,7 +135,5 @@ public class ConverterWeight {
             return true;
         }
             return false;
-
     }
-
 }

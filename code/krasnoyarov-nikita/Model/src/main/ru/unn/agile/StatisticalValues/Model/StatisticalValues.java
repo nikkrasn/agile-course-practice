@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class StatisticalValues {
-    private List values;
-    private List probabilities;
+    private List<Double> values;
+    private List<Double> probabilities;
 
     public StatisticalValues(final List values, final List probabilities) {
         this.values = values;
@@ -111,7 +111,7 @@ public class StatisticalValues {
         Iterator valuesIterator = values.iterator();
         double expectedValue = calculateExpectedValue();
         double squaredExpectedValue = 0;
-        List squaredValues = new ArrayList();
+        List<Double> squaredValues = new ArrayList();
 
         while (valuesIterator.hasNext()) {
             squaredValues.add(Math.pow((double) valuesIterator.next(), 2));
@@ -128,7 +128,7 @@ public class StatisticalValues {
     public double calculateInitialMoment(int k) throws Exception {
         double moment = 0;
         Iterator valuesIterator = values.iterator();
-        List momentValues = new ArrayList();
+        List<Double> momentValues = new ArrayList();
 
         while (valuesIterator.hasNext()) {
             momentValues.add(Math.pow((double) valuesIterator.next(), k));

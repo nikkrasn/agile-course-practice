@@ -11,8 +11,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateExpectedValueWithOneNumber() {
-        List values = Arrays.asList(1.0);
-        List probabilities = Arrays.asList(1.0);
+        List<Double> values = Arrays.asList(1.0);
+        List<Double> probabilities = Arrays.asList(1.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
 
@@ -29,8 +29,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateExpectedValueWithTwoNumbers() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.3, 0.7);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
 
@@ -47,8 +47,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateExpectedValueWithMultipleNumbers() {
-        List values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
-        List probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
+        List<Double> values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
+        List<Double> probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double expectedValue = 0;
 
@@ -65,8 +65,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkExpectedValueSumProbabilitiesValueEqualsOne() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.1, 0.5);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.1, 0.5);
         double expectedValue = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -84,8 +84,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkExpectedValueNegativeProbabilitiesValue() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(-5.0, 0.9);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(-5.0, 0.9);
         double expectedValue = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -103,8 +103,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkExpectedValueProbabilitiesValueMoreOne() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.3, 1.5);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.3, 1.5);
         double expectedValue = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -122,8 +122,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkExpectedValueDifferentSizeOfLists() {
-        List values = Arrays.asList(1.0, 2.0, 3.0);
-        List probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(1.0, 2.0, 3.0);
+        List<Double> probabilities = Arrays.asList(0.3, 0.7);
         double expectedValue = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -141,8 +141,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateVarianceWithOneNumber() {
-        List values = Arrays.asList(1.0);
-        List probabilities = Arrays.asList(1.0);
+        List<Double> values = Arrays.asList(1.0);
+        List<Double> probabilities = Arrays.asList(1.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double variance = 0;
 
@@ -159,8 +159,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateVarianceWithTwoNumbers() {
-        List values = Arrays.asList(2.0, 2.0);
-        List probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(2.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.3, 0.7);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double variance = 0;
 
@@ -177,8 +177,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateVarianceWithMultipleNumbers() {
-        List values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
-        List probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
+        List<Double> values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
+        List<Double> probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double variance = 0;
 
@@ -195,8 +195,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkVarianceSumProbabilitiesValueEqualsOne() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.1, 0.5);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.1, 0.5);
         double variance = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -214,8 +214,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkVarianceNegativeProbabilitiesValue() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(-5.0, 0.9);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(-5.0, 0.9);
         double variance = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -233,8 +233,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkVarianceProbabilitiesValueMoreOne() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.3, 1.5);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.3, 1.5);
         double variance = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -252,8 +252,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkVarianceDifferentSizeOfLists() {
-        List values = Arrays.asList(1.0, 2.0, 3.0);
-        List probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(1.0, 2.0, 3.0);
+        List<Double> probabilities = Arrays.asList(0.3, 0.7);
         double variance = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -271,8 +271,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateInitialMomentWithOneNumber() {
-        List values = Arrays.asList(1.0);
-        List probabilities = Arrays.asList(1.0);
+        List<Double> values = Arrays.asList(1.0);
+        List<Double> probabilities = Arrays.asList(1.0);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double moment = 0;
 
@@ -289,8 +289,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateInitialMomentWithTwoNumbers() {
-        List values = Arrays.asList(2.0, 2.0);
-        List probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(2.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.3, 0.7);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double moment = 0;
 
@@ -307,8 +307,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void canCalculateInitialMomentWithMultipleNumbers() {
-        List values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
-        List probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
+        List<Double> values = Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0);
+        List<Double> probabilities = Arrays.asList(0.2, 0.2, 0.2, 0.2, 0.2);
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         double moment = 0;
 
@@ -325,8 +325,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkInitialMomentSumProbabilitiesValueEqualsOne() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.1, 0.5);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.1, 0.5);
         double moment = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -344,8 +344,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkInitialMomentNegativeProbabilitiesValue() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(-5.0, 0.9);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(-5.0, 0.9);
         double moment = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -363,8 +363,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkInitialMomentProbabilitiesValueMoreOne() {
-        List values = Arrays.asList(1.0, 2.0);
-        List probabilities = Arrays.asList(0.3, 1.5);
+        List<Double> values = Arrays.asList(1.0, 2.0);
+        List<Double> probabilities = Arrays.asList(0.3, 1.5);
         double moment = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";
@@ -382,8 +382,8 @@ public class StatisticalValuesTest {
 
     @Test
     public void checkInitialMomentDifferentSizeOfLists() {
-        List values = Arrays.asList(1.0, 2.0, 3.0);
-        List probabilities = Arrays.asList(0.3, 0.7);
+        List<Double> values = Arrays.asList(1.0, 2.0, 3.0);
+        List<Double> probabilities = Arrays.asList(0.3, 0.7);
         double moment = 0;
         StatisticalValues statisticalCalculator = new StatisticalValues(values, probabilities);
         String message = "";

@@ -86,6 +86,10 @@ public class Rgb {
         return new Xyz(x, y, z);
     }
 
+    public Lab toLab() {
+        return this.toXyz().toLab();
+    }
+
     private static double pivotRgb(final double n) {
         return Xyz.XYZ_DIVIDER
                 * (n > THRESHOLD

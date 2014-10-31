@@ -24,6 +24,11 @@ public final class UtilsTest {
         xyzAssert(expectedColor, targetColor);
     }
 
+    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Lab expectedColor) {
+        Lab targetColor = rgbColor.toLab();
+        labAssert(expectedColor, targetColor);
+    }
+
     protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
         Rgb targetColor = labColor.toRgb();
         rgbAssert(expectedColor, targetColor);
@@ -93,4 +98,6 @@ public final class UtilsTest {
             return Math.abs(a - b) <= EPS;
         }
     }
+
+
 }

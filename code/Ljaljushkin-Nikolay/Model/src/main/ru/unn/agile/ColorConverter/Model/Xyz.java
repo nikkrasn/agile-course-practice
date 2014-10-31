@@ -16,9 +16,9 @@ public class Xyz {
     public static final double FACTOR_TO_MULTIPLY = 1.055;
     public static final double MAX_RGB = 255.0;
 
-    public static final double X_WHITE = 95.047;
+    public static final double X_WHITE = 95.05;
     public static final double Y_WHITE = 100.000;
-    public static final double Z_WHITE = 108.883;
+    public static final double Z_WHITE = 108.9;
 
     public static final double EPSILON = 0.008856;
     public static final double KAPPA = 903.3;

@@ -39,8 +39,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Izutov Evgenii
 
 // Karsakov Alexander
-include "karsakov-alexander"
-project(":karsakov-alexander").name = "karsakov-alexander-lab1-Model"
+include "karsakov-alexander/Model"
+project(":karsakov-alexander/Model").name = "karsakov-alexander-Model"
 
 // Klyan Sofiya
 

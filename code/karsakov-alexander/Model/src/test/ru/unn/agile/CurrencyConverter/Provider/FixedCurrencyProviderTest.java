@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 public class FixedCurrencyProviderTest {
     private ICurrencyProvider provider;
 
-    private static boolean checkCurrencyRatesContainsNumCode(final ArrayList<Currency> currencyRates,
-                                                             final int numCode) {
+    private static boolean checkCurrencyRatesContainsNumCode(
+        final ArrayList<Currency> currencyRates, final int numCode) {
         for (final Currency currency : currencyRates) {
             if (currency.getNumCode() == numCode) {
                 return true;

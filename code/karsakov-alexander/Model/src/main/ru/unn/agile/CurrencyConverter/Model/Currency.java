@@ -25,11 +25,11 @@ public final class Currency {
             throw new IllegalArgumentException("value must be specified");
         }
 
-        this.numCode = b.numCode;
-        this.charCode = b.charCode;
-        this.name = b.name;
-        this.nominal = b.nominal;
-        this.value = b.value;
+        numCode = b.numCode;
+        charCode = b.charCode;
+        name = b.name;
+        nominal = b.nominal;
+        value = b.value;
     }
 
     public int getNumCode() {

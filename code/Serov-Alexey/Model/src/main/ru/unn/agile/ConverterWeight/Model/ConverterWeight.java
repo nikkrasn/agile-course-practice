@@ -134,6 +134,6 @@ public class ConverterWeight {
         if (isNotEmpty(input) && isPositivNumber(input)) {
             return true;
         }
-            return false;
+        return false;
     }
 }

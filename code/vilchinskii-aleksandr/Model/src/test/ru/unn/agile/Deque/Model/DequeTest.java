@@ -3,7 +3,10 @@ package ru.unn.agile.Deque.Model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import java.util.Arrays;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class DequeTest {
@@ -150,50 +153,64 @@ public class DequeTest {
 
     @Test
     public void areItemsAddedToTailEqualToItemsRemoveFromHead() {
-        int[] itemsToAdd        = {0, 1, 2};
-        int[] itemsFromDeque    = {0, 1, 2};
-        int i = 0;
-        addIntsFromArrayToDequeTail(deque, itemsToAdd);
+        List<Integer> itemsToAdd     = getIncrementalIntegerList();
+        List<Integer> itemsFromDeque = getEmptyIntegerList();
+        addItemsFromListToDequeTail(deque, itemsToAdd);
 
         while (!deque.isEmpty()) {
-            itemsFromDeque[i++] = deque.removeFirst();
+            itemsFromDeque.add(deque.removeFirst());
         }
 
-        assertTrue(Arrays.equals(itemsToAdd, itemsFromDeque));
+        assertTrue(itemsToAdd.equals(itemsFromDeque));
     }
 
     @Test
     public void areItemsAddedToHeadEqualToItemsRemoveFromTail() {
-        int[] itemsToAdd        = {0, 1, 2};
-        int[] itemsFromDeque    = {0, 1, 2};
-        int i = 0;
-        addIntsFromArrayToDequeHead(deque, itemsToAdd);
+        List<Integer> itemsToAdd     = getIncrementalIntegerList();
+        List<Integer> itemsFromDeque = getEmptyIntegerList();
+        addItemsFromListToDequeHead(deque, itemsToAdd);
 
         while (!deque.isEmpty()) {
-            itemsFromDeque[i++] = deque.removeLast();
+            itemsFromDeque.add(deque.removeLast());
         }
 
-        assertTrue(Arrays.equals(itemsToAdd, itemsFromDeque));
+        assertTrue(itemsToAdd.equals(itemsFromDeque));
     }
 
     @Test
     public void canClearNotEmptyDeque() {
-        int[] itemsToAdd        = {0, 1, 2};
-        addIntsFromArrayToDequeHead(deque, itemsToAdd);
+        List<Integer> itemsToAdd = getIncrementalIntegerList();
+        addItemsFromListToDequeHead(deque, itemsToAdd);
 
         deque.clear();
 
         assertTrue(deque.isEmpty());
     }
 
-    private void addIntsFromArrayToDequeTail(final Deque<Integer> deque, final int[] itemsToAdd) {
-        for (int item: itemsToAdd) {
+    private List<Integer> getIncrementalIntegerList() {
+        List<Integer> itemsToAdd = getEmptyIntegerList();
+        fillInListIncrementally(itemsToAdd, 3);
+        return itemsToAdd;
+    }
+
+    private ArrayList<Integer> getEmptyIntegerList() {
+        return new ArrayList<Integer>();
+    }
+
+    private void fillInListIncrementally(final List<Integer> list, final int range) {
+        for (int i = 0; i < range; ++i) {
+            list.add(i);
+        }
+    }
+
+    private void addItemsFromListToDequeTail(final Deque<Integer> deque, final List<Integer> list) {
+        for (int item: list) {
             deque.addLast(item);
         }
     }
 
-    private void addIntsFromArrayToDequeHead(final Deque<Integer> deque, final int[] itemsToAdd) {
-        for (int item: itemsToAdd) {
+    private void addItemsFromListToDequeHead(final Deque<Integer> deque, final List<Integer> list) {
+        for (int item: list) {
             deque.addFirst(item);
         }
     }

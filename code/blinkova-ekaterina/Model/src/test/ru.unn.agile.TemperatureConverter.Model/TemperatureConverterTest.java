@@ -3,8 +3,6 @@ package ru.unn.agile.TemperatureConverter.Model;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
-
 public class TemperatureConverterTest {
     private final double delta = 0.001;
     @Test

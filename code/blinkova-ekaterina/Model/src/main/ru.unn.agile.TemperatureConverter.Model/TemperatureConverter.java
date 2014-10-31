@@ -1,8 +1,5 @@
 package ru.unn.agile.TemperatureConverter.Model;
 
-
-
-
 public class TemperatureConverter {
     private static final double FIRSTCTOF = 1.8;
     private static final double SECONDCTOF = 32.0;

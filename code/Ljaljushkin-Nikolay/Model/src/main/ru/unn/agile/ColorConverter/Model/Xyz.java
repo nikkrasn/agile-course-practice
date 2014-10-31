@@ -22,6 +22,7 @@ public class Xyz {
 
     public static final double EPSILON = 0.008856;
     public static final double KAPPA = 903.3;
+    public static final double CUBIC_POWER = 3.0;
 
     private final double x;
     private final double y;
@@ -68,6 +69,20 @@ public class Xyz {
         return new Rgb(toDigital(r), toDigital(g), toDigital(b));
     }
 
+    public Lab toLab() {
+
+        Xyz white = Xyz.getWhiteReference();
+        double xx = pivotXyz(x / white.getX());
+        double yy = pivotXyz(y / white.getY());
+        double zz = pivotXyz(z / white.getZ());
+
+        double l = Math.max(0, Lab.DENOMINATOR * yy - Lab.NOMINATOR);
+        double a = Lab.A_DIVIDER * (xx - yy);
+        double b = Lab.B_DIVIDER * (yy - zz);
+
+        return new Lab(l, a, b);
+    }
+
     private static double toDigital(final double n) {
         double result = MAX_RGB * n;
         if (result < 0) {
@@ -77,5 +92,13 @@ public class Xyz {
             return MAX_RGB;
         }
         return result;
+    }
+
+    private static double pivotXyz(final double n) {
+        return n > EPSILON ? cubicRoot(n) : (KAPPA * n + Lab.NOMINATOR) / Lab.DENOMINATOR;
+    }
+
+    private static double cubicRoot(final double n) {
+        return Math.pow(n, 1.0 / CUBIC_POWER);
     }
 }

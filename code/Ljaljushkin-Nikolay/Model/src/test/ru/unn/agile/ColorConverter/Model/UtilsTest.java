@@ -44,6 +44,11 @@ public final class UtilsTest {
         rgbAssert(expectedColor, targetColor);
     }
 
+    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Lab expectedColor) {
+        Lab targetColor = xyzColor.toLab();
+        labAssert(expectedColor, targetColor);
+    }
+
     protected static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {
         assertTrue("(r)" + expectedColor.getR() + " != " + targetColor.getR(),
                 isCloseEnough(expectedColor.getR(), targetColor.getR()));
@@ -82,7 +87,7 @@ public final class UtilsTest {
 
     protected static boolean isCloseEnough(final double a, final double b) {
         double difference = Math.abs(a * EPS);
-        if (a != 0.0) {
+        if (a != 0.0 && b != 0.0) {
             return Math.abs(a - b) <= difference;
         } else {
             return Math.abs(a - b) <= EPS;

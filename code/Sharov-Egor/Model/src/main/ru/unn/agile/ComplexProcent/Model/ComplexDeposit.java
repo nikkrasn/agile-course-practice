@@ -21,8 +21,8 @@ public class ComplexDeposit {
     }
 
     public ComplexDeposit setBase(double base) {
-        this.base = base;
-        return  this;
+        this.base=base;
+        return this;
     }
 
     public double getPercent() {

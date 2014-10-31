@@ -82,6 +82,4 @@ public class TemperatureConverterTest {
     private TemperatureConverter createTemperatureConverter() {
         return new TemperatureConverter();
     }
-
-
 }

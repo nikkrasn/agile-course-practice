@@ -23,5 +23,4 @@ public class TemperatureConverter {
     public double celsiusToNewton(final double input) {
         return CTON * input;
     }
-
 }

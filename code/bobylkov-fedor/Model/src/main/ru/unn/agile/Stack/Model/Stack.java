@@ -1,7 +1,13 @@
 package ru.unn.agile.Stack.Model;
 
-public class Stack {
+import java.util.EmptyStackException;
+
+public class Stack<T> {
     public boolean isEmpty() {
         return true;
+    }
+
+    public T top() {
+        throw new EmptyStackException();
     }
 }

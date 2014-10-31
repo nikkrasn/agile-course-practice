@@ -51,42 +51,30 @@ public class DequeTest {
 
     @Test
     public void canAddItemToHead() {
-        int itemToAdd = 1, firstInDeque = 0;
+        Integer itemToAdd = 1;
         deque.addFirst(itemToAdd);
-
-        firstInDeque = deque.getFirst();
-
-        assertEquals(itemToAdd, firstInDeque);
+        assertEquals(itemToAdd, deque.getFirst());
     }
 
     @Test
     public void canAddItemToTail() {
-        int itemToAdd = 1, lastInDeque = 0;
+        Integer itemToAdd = 1;
         deque.addLast(itemToAdd);
-
-        lastInDeque = deque.getLast();
-
-        assertEquals(itemToAdd, lastInDeque);
+        assertEquals(itemToAdd, deque.getLast());
     }
 
     @Test
     public void isTheOnlyTailItemTheFirstOne() {
-        int itemToAdd = 1, firstInDeque = 0;
+        Integer itemToAdd = 1;
         deque.addLast(itemToAdd);
-
-        firstInDeque = deque.getFirst();
-
-        assertEquals(itemToAdd, firstInDeque);
+        assertEquals(itemToAdd,  deque.getFirst());
     }
 
     @Test
     public void isTheOnlyHeadItemTheLastOne() {
-        int itemToAdd = 1, lastInDeque = 0;
+        Integer itemToAdd = 1;
         deque.addLast(itemToAdd);
-
-        lastInDeque = deque.getLast();
-
-        assertEquals(itemToAdd, lastInDeque);
+        assertEquals(itemToAdd, deque.getLast());
     }
 
     @Test
@@ -103,22 +91,16 @@ public class DequeTest {
 
     @Test
     public void isRemovedFirstItemEqualToRecentlyAdded() {
-        int itemToAdd = 1, firstInDeque = 0;
+        Integer itemToAdd = 1;
         deque.addFirst(itemToAdd);
-
-        firstInDeque = deque.removeFirst();
-
-        assertEquals(itemToAdd, firstInDeque);
+        assertEquals(itemToAdd, deque.removeFirst());
     }
 
     @Test
     public void isRemovedLastItemEqualToRecentlyAdded() {
-        int itemToAdd = 1, lastInDeque = 0;
+        Integer itemToAdd = 1;
         deque.addLast(itemToAdd);
-
-        lastInDeque = deque.removeLast();
-
-        assertEquals(itemToAdd, lastInDeque);
+        assertEquals(itemToAdd, deque.removeLast());
     }
 
     @Test

@@ -27,36 +27,54 @@ public class Hsv {
     public Rgb toRgb() {
         final double degrees = 60.0;
         final double maxRGB = 255.0;
-        final int rDivider = 6;
+        final int numberOfSection = 6;
 
-        int range = (int) (Math.floor(h / degrees)) % rDivider;
-        double f = h / degrees - Math.floor(h / degrees);
+        int section = (int) (Math.floor(h / degrees)) % numberOfSection;
+        double fractionalPartOfHue = h / degrees - Math.floor(h / degrees);
 
-        double vv = v * maxRGB;
-        double p = vv * (1 - s);
-        double q = vv * (1 - f * s);
-        double t = vv * (1 - (1 - f) * s);
+        double p = v * (1 - s);
+        double q = v * (1 - fractionalPartOfHue * s);
+        double t = v * (1 - (1 - fractionalPartOfHue) * s);
 
-        final int firstSixth  = 0;
-        final int secondSixth = 1;
-        final int thirdSixth  = 2;
-        final int fourthSixth = 3;
-        final int fifthSixth  = 4;
+        final int firstSection = 0;
+        final int secondSection = 1;
+        final int thirdSection = 2;
+        final int fourthSection = 3;
+        final int fifthSection = 4;
 
-        switch (range) {
-            case firstSixth:
-                return new Rgb(vv, t, p);
-            case secondSixth:
-                return new Rgb(q, vv, p);
-            case thirdSixth:
-                return new Rgb(p, vv, t);
-            case fourthSixth:
-                return new Rgb(p, q, vv);
-            case fifthSixth:
-                return new Rgb(t, p, vv);
+        double r, g, b;
+        switch (section) {
+            case firstSection:
+                r = v;
+                g = t;
+                b = p;
+                break;
+            case secondSection:
+                r = q;
+                g = v;
+                b = p;
+                break;
+            case thirdSection:
+                r = p;
+                g = v;
+                b = t;
+                break;
+            case fourthSection:
+                r = p;
+                g = q;
+                b = v;
+                break;
+            case fifthSection:
+                r = t;
+                g = p;
+                b = v;
+                break;
             default:
-                return new Rgb(vv, p, q);
+                r = v;
+                g = p;
+                b = q;
         }
+        return new Rgb(r * maxRGB, g * maxRGB, b * maxRGB);
     }
 
     public Lab toLab() {

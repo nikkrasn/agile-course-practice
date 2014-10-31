@@ -35,18 +35,18 @@ public class Lab {
         double z = y - b / B_DIVIDER;
 
         Xyz white = Xyz.getWhiteReference();
-        double x3 = x * x * x;
-        double z3 = z * z * z;
+        double cubedX = x * x * x;
+        double cubedZ = z * z * z;
 
-        double xx = (x3 > Xyz.EPSILON ? x3 : (x - NOMINATOR / DENOMINATOR) / FACTOR);
-        double yy = (l > (Xyz.KAPPA * Xyz.EPSILON)
+        x = (cubedX > Xyz.EPSILON ? cubedX : (x - NOMINATOR / DENOMINATOR) / FACTOR);
+        y = (l > (Xyz.KAPPA * Xyz.EPSILON)
                 ? Math.pow((l + NOMINATOR) / DENOMINATOR, POWER) : l / Xyz.KAPPA);
-        double zz = (z3 > Xyz.EPSILON ? z3 : (z - NOMINATOR / DENOMINATOR) / FACTOR);
+        z = (cubedZ > Xyz.EPSILON ? cubedZ : (z - NOMINATOR / DENOMINATOR) / FACTOR);
 
         return new Xyz(
-                white.getX() * xx,
-                white.getY() * yy,
-                white.getZ() * zz);
+                white.getX() * x,
+                white.getY() * y,
+                white.getZ() * z);
     }
 
     public Rgb toRgb() {

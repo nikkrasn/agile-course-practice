@@ -2,7 +2,7 @@ package ru.unn.agile.ColorConverter.Model;
 
 public class Xyz {
 
-    public static final double[][] TRANSFORM_MAT = {
+    public static final double[][] TRANS_MAT = {
             {3.2404542, -1.5371385, -0.4985314},
             {-0.9692660, 1.8760108, 0.0415560},
             {0.0556434, -0.2040259, 1.05722252}
@@ -51,34 +51,41 @@ public class Xyz {
     }
 
     public Rgb toRgb() {
-        double xx = x / XYZ_DIVIDER;
-        double yy = y / XYZ_DIVIDER;
-        double zz = z / XYZ_DIVIDER;
+        double r = convertToRgbComponent(x, y, z, 0);
+        double g = convertToRgbComponent(x, y, z, 1);
+        double b = convertToRgbComponent(x, y, z, 2);
+        return new Rgb(r, g, b);
+    }
 
-        double r = xx * TRANSFORM_MAT[0][0] + yy * TRANSFORM_MAT[0][1] + zz * TRANSFORM_MAT[0][2];
-        double g = xx * TRANSFORM_MAT[1][0] + yy * TRANSFORM_MAT[1][1] + zz * TRANSFORM_MAT[1][2];
-        double b = xx * TRANSFORM_MAT[2][0] + yy * TRANSFORM_MAT[2][1] + zz * TRANSFORM_MAT[2][2];
+    private double applyTransformationMatrix(
+            final double x, final double y, final double z, final int row) {
+        return x * TRANS_MAT[row][0] + y * TRANS_MAT[row][1] + z * TRANS_MAT[row][2];
+    }
 
-        r = r > THRESHOLD
-                ? FACTOR_TO_MULTIPLY * Math.pow(r, 1 / POWER) - FACTOR_TO_SUBTRACT : RGB_FACTOR * r;
-        g = g > THRESHOLD
-                ? FACTOR_TO_MULTIPLY * Math.pow(g, 1 / POWER) - FACTOR_TO_SUBTRACT : RGB_FACTOR * g;
-        b = b > THRESHOLD
-                ? FACTOR_TO_MULTIPLY * Math.pow(b, 1 / POWER) - FACTOR_TO_SUBTRACT : RGB_FACTOR * b;
+    private double getArithmeticComponent(final double component) {
+        return component > THRESHOLD
+                ? FACTOR_TO_MULTIPLY * Math.pow(component, 1 / POWER) - FACTOR_TO_SUBTRACT
+                : RGB_FACTOR * component;
+    }
 
-        return new Rgb(toDigital(r), toDigital(g), toDigital(b));
+    private double convertToRgbComponent(
+            final double x, final double y, final double z, final int row) {
+        double result = 0;
+        result = applyTransformationMatrix(x / XYZ_DIVIDER, y / XYZ_DIVIDER, z / XYZ_DIVIDER, row);
+        result = getArithmeticComponent(result);
+        return toDigital(result);
     }
 
     public Lab toLab() {
 
         Xyz white = Xyz.getWhiteReference();
-        double xx = pivotXyz(x / white.getX());
-        double yy = pivotXyz(y / white.getY());
-        double zz = pivotXyz(z / white.getZ());
+        double pivotedX = pivotXyz(x / white.getX());
+        double pivotedY = pivotXyz(y / white.getY());
+        double pivotedZ = pivotXyz(z / white.getZ());
 
-        double l = Math.max(0, Lab.DENOMINATOR * yy - Lab.NOMINATOR);
-        double a = Lab.A_DIVIDER * (xx - yy);
-        double b = Lab.B_DIVIDER * (yy - zz);
+        double l = Math.max(0, Lab.DENOMINATOR * pivotedY - Lab.NOMINATOR);
+        double a = Lab.A_DIVIDER * (pivotedX - pivotedY);
+        double b = Lab.B_DIVIDER * (pivotedY - pivotedZ);
 
         return new Lab(l, a, b);
     }

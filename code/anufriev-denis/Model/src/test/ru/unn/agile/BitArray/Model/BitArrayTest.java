@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by Anufr_000 on 26.10.2014.
- */
 public class BitArrayTest {
     @Test
     public void canCreateBitArray() throws Exception {

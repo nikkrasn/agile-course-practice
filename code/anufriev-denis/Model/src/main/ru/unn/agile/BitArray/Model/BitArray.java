@@ -1,8 +1,5 @@
 package ru.unn.agile.BitArray.Model;
 
-/**
- * Created by Anufr_000 on 26.10.2014.
- */
 public class BitArray {
 
     public static final int BIT_PER_INT = 32;
@@ -51,7 +48,7 @@ public class BitArray {
 
         int bitMask = BIT_MASK << position;
 
-        return (this.array[intArrayIndex] & bitMask) == 0 ? false : true;
+        return (this.array[intArrayIndex] & bitMask) != 0;
     }
 
     public BitArray xor(final BitArray array) {

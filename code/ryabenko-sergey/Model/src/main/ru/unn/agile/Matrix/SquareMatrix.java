@@ -1,21 +1,19 @@
 package ru.unn.agile.Matrix;
 
-public class Matrix {
+public class SquareMatrix {
 
     private final int countRows;
-    private final int countColumns;
     private double[][] data;
 
-    public Matrix(final int countRows) {
+    public SquareMatrix(final int countRows) {
         if (countRows < 0) {
             throw new IllegalArgumentException();
         }
         this.countRows = countRows;
-        this.countColumns = countRows;
-        data = new double[countRows][countColumns];
+        data = new double[countRows][countRows];
     }
 
-    public Matrix(final double[][] data) {
+    public SquareMatrix(final double[][] data) {
         if (data.length == 0) {
             throw new IllegalArgumentException();
         }
@@ -24,29 +22,17 @@ public class Matrix {
             throw new IllegalArgumentException();
         }
         checkLengthRows(data);
-        this.countColumns = countRows;
-        this.data = new double[countRows][countColumns];
+        this.data = new double[countRows][countRows];
         initializeMatrix(data);
 
     }
 
     public void initializeMatrix(final double[][] data) {
         for (int i = 0; i < countRows; i++) {
-            for (int j = 0; j < countColumns; j++) {
-                    this.data[i][j] = data[i][j];
+            for (int j = 0; j < countRows; j++) {
+                this.data[i][j] = data[i][j];
             }
         }
-    }
-
-    public boolean isSquare() {
-        return countRows == countColumns;
-    }
-
-    public int getSize() {
-        if (isSquare()) {
-            return countRows;
-        }
-        throw new IllegalArgumentException();
     }
 
     public int getCountRows() {
@@ -60,10 +46,6 @@ public class Matrix {
                 throw new IllegalArgumentException();
             }
         }
-    }
-
-    public int getCountColumns() {
-        return countColumns;
     }
 
     public void setValueAt(final int row, final int col, final double value) {

@@ -16,32 +16,24 @@ public class Matrix {
     }
 
     public Matrix(final double[][] data) {
-        this.countRows = data.length;
-        if (countRows < getMaxLength(data)) {
+        if (data.length == 0) {
             throw new IllegalArgumentException();
         }
+        this.countRows = data.length;
+        if (countRows != data[0].length) {
+            throw new IllegalArgumentException();
+        }
+        checkLengthRows(data);
         this.countColumns = countRows;
         this.data = new double[countRows][countColumns];
-        for (int i = 0; i < countRows; i++) {
-            for (int j = 0; j < countColumns; j++) {
-                this.data[i][j] = 1;
-            }
-        }
         initializeMatrix(data);
-    }
 
+    }
 
     public void initializeMatrix(final double[][] data) {
         for (int i = 0; i < countRows; i++) {
-            if (data[i].length < countColumns) {
-                for (int k = data[i].length; k < countColumns; k++) {
-                    this.data[i][k] = 0;
-                }
-            }
             for (int j = 0; j < countColumns; j++) {
-                if (this.data[i][j] != 0) {
                     this.data[i][j] = data[i][j];
-                }
             }
         }
     }
@@ -61,15 +53,13 @@ public class Matrix {
         return countRows;
     }
 
-    public int getMaxLength(final double[][] data) {
+    public void checkLengthRows(final double[][] data) {
         int row = data.length;
-        int maxLength = 0;
-        for (int i = 0; i < row; i++) {
-            if (data[i].length > maxLength) {
-                maxLength = data[i].length;
+        for (int i = 1; i < row; i++) {
+            if (data[i].length != data[0].length) {
+                throw new IllegalArgumentException();
             }
         }
-        return maxLength;
     }
 
     public int getCountColumns() {

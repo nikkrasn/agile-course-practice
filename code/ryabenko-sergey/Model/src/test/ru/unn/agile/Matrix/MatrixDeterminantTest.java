@@ -15,13 +15,6 @@ public class MatrixDeterminantTest {
     }
 
     @Test
-    public void canFindDeterminantForEmptiesMatrix() {
-        Matrix mat = new Matrix(new double[][]{{}});
-        double det = MatrixDeterminant.determinant(mat);
-        assertEquals(0, det, delta);
-    }
-
-    @Test
     public void canFindDeterminantForFirstOrderMatrix() {
         Matrix mat = new Matrix(new double[][]{{-3.55}});
         double det = MatrixDeterminant.determinant(mat);
@@ -43,18 +36,16 @@ public class MatrixDeterminantTest {
         assertEquals(-36, det, delta);
     }
 
-    @Test
-    public void canFindDeterminantForIncorrectlyEnteredMatrix() {
+    @Test (expected = IllegalArgumentException.class)
+    public void canCheckIncorrectlyEnteredMatrix() {
         Matrix mat = new Matrix(new double[][]{{1, 2, 3}, {4, 5}, {6}});
         double det = MatrixDeterminant.determinant(mat);
-        assertEquals(-90, det, delta);
     }
 
-    @Test
-    public void canFindDeterminantForHalfEmptyMatrix() {
+    @Test (expected = IllegalArgumentException.class)
+    public void canCheckHalfEmptyMatrix() {
         Matrix mat = new Matrix(new double[][]{{}, {}, {1, 0, 1, 0, 1}, {}, {}});
         double det = MatrixDeterminant.determinant(mat);
-        assertEquals(0, det, delta);
     }
 
     @Test

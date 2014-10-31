@@ -131,4 +131,88 @@ public class LeftistHeapTest {
         assertEquals(heap1.extractMin().getKey(), 25);
         assertEquals(heap1.extractMin().getKey(), 26);
     }
+
+    @Test
+    public void canDecreaseKey() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(3, "x");
+        heap.add(5, "y");
+        heap.add(7, "z");
+
+        boolean result = heap.decreaseKey(7, 1);
+
+        assertEquals(result, true);
+        assertEquals(heap.extractMin().getKey(), 1);
+        assertEquals(heap.extractMin().getKey(), 3);
+        assertEquals(heap.extractMin().getKey(), 5);
+    }
+
+    @Test
+    public void canDecreaseNegativeKey() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(-4, "x");
+        heap.add(-6, "y");
+        heap.add(-7, "z");
+
+        boolean result = heap.decreaseKey(-6, -8);
+
+        assertEquals(result, true);
+        assertEquals(heap.extractMin().getKey(), -8);
+        assertEquals(heap.extractMin().getKey(), -7);
+        assertEquals(heap.extractMin().getKey(), -4);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+     public void canNotChangeKeyToLarger() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(-4, "x");
+
+        heap.decreaseKey(-4, -3);
+    }
+
+    @Test
+    public void canGetElementByKeyFromRoot() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(13, "It's a kind of magic");
+
+        HeapNode<String> node = heap.extractElementWithKey(13);
+
+        assertNotNull(node);
+    }
+
+    @Test
+    public void canGetElementByKey() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(11, "a");
+        heap.add(13, "b");
+        heap.add(15, "c");
+
+        HeapNode<String> node = heap.extractElementWithKey(13);
+
+        assertEquals(node.getKey(), 13);
+    }
+
+    @Test
+    public void canNotGetElementThatNotExist() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(1, "Alone");
+
+        HeapNode<String> node = heap.extractElementWithKey(4);
+
+        assertNull(node);
+    }
+
+    @Test
+    public void dontChangeHeapIfExtractElementThatNotExist() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(1, "First");
+        heap.add(2, "Second");
+        heap.add(3, "Third");
+
+        HeapNode<String> node = heap.extractElementWithKey(4);
+
+        assertEquals(heap.extractMin().getKey(), 1);
+        assertEquals(heap.extractMin().getKey(), 2);
+        assertEquals(heap.extractMin().getKey(), 3);
+    }
 }

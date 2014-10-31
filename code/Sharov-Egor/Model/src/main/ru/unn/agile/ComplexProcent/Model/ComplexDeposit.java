@@ -5,15 +5,15 @@ public class ComplexDeposit {
     private double percent;
     private double interestCountInYear;
 
-    public ComplexDeposit(final double depositBase, final double depositProcent, final double depositInterestCount){
+    public ComplexDeposit(final double depositBase, final double depositPercent, final double depositInterestCount) {
         this.setBase(depositBase);
-        this.setPercent(depositProcent);
+        this.setPercent(depositPercent);
         this.setInterestCountInYear(depositInterestCount);
     }
 
-    public double getCapitalizedBase(int years){
-        return this.getBase() *Math.pow((1 + (this.getPercent() / this.getInterestCountInYear())), years * this.getInterestCountInYear());
-    };
+    public double getCapitalizedBase(int years) {
+        return this.getBase() * Math.pow((1 + (this.getPercent() / this.getInterestCountInYear())), years * this.getInterestCountInYear());
+    }
 
 
     public double getBase() {
@@ -30,7 +30,7 @@ public class ComplexDeposit {
     }
 
     public ComplexDeposit setPercent(double percent) {
-        this.percent = percent /100;
+        this.percent = percent / 100;
         return this;
     }
 

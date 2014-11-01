@@ -9,54 +9,28 @@ public final class UtilsTest {
     private UtilsTest() {
     }
 
-    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Rgb expectedColor) {
-        Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
+    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+                                                      final Rgb expectedColor) {
+        Rgb targetColor = (Rgb) knownColor.toColor(expectedColor.getClass());
         rgbAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Lab expectedColor) {
-        Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
+    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+                                                      final Lab expectedColor) {
+        Lab targetColor = (Lab) knownColor.toColor(expectedColor.getClass());
         labAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Hsv expectedColor) {
-        Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        hsvAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Xyz expectedColor) {
-        Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
+    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+                                                      final Xyz expectedColor) {
+        Xyz targetColor = (Xyz) knownColor.toColor(expectedColor.getClass());
         xyzAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Lab expectedColor) {
-        Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        labAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
-        Rgb targetColor = (Rgb) labColor.toColor(expectedColor.getClass());
-        rgbAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForLabColor(final Lab labColor, final Xyz expectedColor) {
-        Xyz targetColor = (Xyz) labColor.toColor(expectedColor.getClass());
-        xyzAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForLabColor(final Lab labColor, final Hsv expectedColor) {
-        Hsv targetColor = (Hsv) labColor.toColor(expectedColor.getClass());
+    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+                                                      final Hsv expectedColor) {
+        Hsv targetColor = (Hsv) knownColor.toColor(expectedColor.getClass());
         hsvAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Rgb expectedColor) {
-        Rgb targetColor = (Rgb) xyzColor.toColor(expectedColor.getClass());
-        rgbAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Lab expectedColor) {
-        Lab targetColor = (Lab) xyzColor.toColor(expectedColor.getClass());
-        labAssert(expectedColor, targetColor);
     }
 
     protected static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {

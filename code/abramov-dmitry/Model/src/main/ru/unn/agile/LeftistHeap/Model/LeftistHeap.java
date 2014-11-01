@@ -47,46 +47,14 @@ public class LeftistHeap<TValue> {
             throw new IllegalArgumentException("Can not change key to larger value");
         }
 
-        HeapNode<TValue> subHeap = heapRoot;
-        Stack<HeapNode<TValue>> stack = new Stack<HeapNode<TValue>>();
-
-        int decreaseOfDist = 0;
-
-        if (subHeap.getKey() != key) {
-            stack.push(subHeap);
-            while (!stack.empty()) {
-                if (subHeap.getRightChild() != null && subHeap.getRightChild().getKey() <= key) {
-                    subHeap = subHeap.getRightChild();
-
-                    if (subHeap.getKey() == key) {
-                        decreaseOfDist = stack.peek().getDistValue();
-                        stack.peek().setRightChild(null);
-                        break;
-                    }
-                } else {
-                    HeapNode<TValue> peek = stack.peek();
-                    if (peek.getLeftChild() != null && peek.getLeftChild().getKey() <= key) {
-                        subHeap = peek.getLeftChild();
-                    }
-
-                    if (subHeap.getKey() < key) {
-                        stack.pop();
-                    }
-
-                    if (subHeap.getKey() == key) {
-                        decreaseOfDist = peek.getDistValue();
-                        peek.setLeftChild(null);
-                        break;
-                    }
-                }
-            }
-        }
-
+        Stack<HeapNode<TValue>> path = new Stack<HeapNode<TValue>>();
+        HeapNode<TValue> nodeToDecreaseKey = cutSubHeapByRootKey(heapRoot, key, path);
+        int decreaseOfDist = nodeToDecreaseKey.getKey() - 1;
         HeapNode<TValue> curentNode;
 
-        if (subHeap.getKey() == key) {
-            while (!stack.empty()) {
-                curentNode = stack.pop();
+        if (nodeToDecreaseKey.getKey() == key) {
+            while (!path.empty()) {
+                curentNode = path.pop();
                 curentNode.setDistValue(curentNode.getDistValue() - decreaseOfDist);
                 if (curentNode.getLeftChild() == null || curentNode.getRightChild() == null
                         || curentNode.getLeftChild().getDistValue()
@@ -95,8 +63,8 @@ public class LeftistHeap<TValue> {
                 }
             }
 
-            subHeap.setKey(newValue);
-            heapRoot = innerMerge(heapRoot, subHeap);
+            nodeToDecreaseKey.setKey(newValue);
+            heapRoot = innerMerge(heapRoot, nodeToDecreaseKey);
             return true;
         }
 
@@ -111,6 +79,46 @@ public class LeftistHeap<TValue> {
         }
 
         return null;
+    }
+
+    private HeapNode<TValue> cutSubHeapByRootKey(
+            final HeapNode<TValue> root,
+            final int key,
+            final Stack<HeapNode<TValue>> path) {
+        HeapNode<TValue> nodeToDecreaseKey = heapRoot;
+
+        if (nodeToDecreaseKey.getKey() != key) {
+            path.push(nodeToDecreaseKey);
+            while (!path.empty()) {
+                if (nodeToDecreaseKey.getRightChild() != null
+                        && nodeToDecreaseKey.getRightChild().getKey() <= key) {
+                    nodeToDecreaseKey = nodeToDecreaseKey.getRightChild();
+
+                    if (nodeToDecreaseKey.getKey() == key) {
+                        //decreaseOfDist = path.peek().getDistValue();
+                        path.peek().setRightChild(null);
+                        break;
+                    }
+                } else {
+                    HeapNode<TValue> peek = path.peek();
+                    if (peek.getLeftChild() != null && peek.getLeftChild().getKey() <= key) {
+                        nodeToDecreaseKey = peek.getLeftChild();
+                    }
+
+                    if (nodeToDecreaseKey.getKey() < key) {
+                        path.pop();
+                    }
+
+                    if (nodeToDecreaseKey.getKey() == key) {
+                        //decreaseOfDist = peek.getDistValue();
+                        peek.setLeftChild(null);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return nodeToDecreaseKey;
     }
 
     private HeapNode<TValue> innerMerge(
@@ -149,29 +157,6 @@ public class LeftistHeap<TValue> {
         }
 
         return leftHeapRootTmp;
-    }
-
-    private HeapNode<TValue> findByKey(final int key, final HeapNode<TValue> root) {
-        if (root == null) {
-            return null;
-        }
-
-        if (root.getKey() == key) {
-            return root;
-        }
-
-        HeapNode<TValue> result = null;
-
-        if (root.getRightChild() != null && root.getRightChild().getKey() < key) {
-            result = findByKey(key, root.getRightChild());
-        }
-
-
-         if (result == null && root.getLeftChild() != null && root.getLeftChild().getKey() < key) {
-             result = findByKey(key, root.getLeftChild());
-         }
-
-        return result;
     }
 
     private void swapChildren(final HeapNode<TValue> node) {

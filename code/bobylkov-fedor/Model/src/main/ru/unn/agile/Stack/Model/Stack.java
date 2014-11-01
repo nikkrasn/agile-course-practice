@@ -21,7 +21,7 @@ public class Stack<T> {
     }
 
     public boolean isEmpty() {
-        return stackSize() == 0;
+        return size() == 0;
     }
 
     public T top() {
@@ -48,11 +48,11 @@ public class Stack<T> {
         return elements;
     }
 
-    private int stackSize() {
+    private int size() {
         return elements.size();
     }
 
     private int lastElementIndex() {
-        return stackSize() - 1;
+        return size() - 1;
     }
 }

@@ -11,12 +11,21 @@ public class Stack<T> {
         elements = new ArrayList<>();
     }
 
+    public Stack(final Stack<T> otherStack) {
+        if (otherStack == null) {
+            throw new IllegalArgumentException(
+                    "Cannot create stack with copy-constructor: argument is null.");
+        }
+
+        elements = otherStack.toList();
+    }
+
     public boolean isEmpty() {
         return stackSize() == 0;
     }
 
     public T top() {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
 
@@ -24,7 +33,7 @@ public class Stack<T> {
     }
 
     public T pop() {
-        if (this.isEmpty()) {
+        if (isEmpty()) {
             throw new EmptyStackException();
         }
 
@@ -33,6 +42,10 @@ public class Stack<T> {
 
     public void push(final T element) {
         elements.add(element);
+    }
+
+    public List<T> toList() {
+        return elements;
     }
 
     private int stackSize() {

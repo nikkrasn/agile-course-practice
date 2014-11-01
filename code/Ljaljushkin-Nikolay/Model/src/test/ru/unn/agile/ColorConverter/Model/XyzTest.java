@@ -12,13 +12,6 @@ public class XyzTest {
         UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertWhiteXyzToLab() {
-    //     Xyz xyzColor = Xyz.getWhiteReference();
-    //     Lab expectedColor = new Lab(100, 0.01, -0.01);
-    //     UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
-    // }
-
     @Test
     public void canConvertBlackXyzToRgb() {
         Xyz xyzColor = new Xyz(0, 0, 0);
@@ -26,12 +19,12 @@ public class XyzTest {
         UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertBlackXyzToLab() {
-    //     Xyz xyzColor = new Xyz(0, 0, 0);
-    //     Lab expectedColor = new Lab(0, 0, 0);
-    //     UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
-    // }
+    @Test
+    public void canConvertBlackXyzToLab() {
+         Xyz xyzColor = new Xyz(0, 0, 0);
+         Lab expectedColor = new Lab(0, 0, 0);
+         UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
+    }
 
     @Test
     public void canConvertOrangeXyzToRgb() {

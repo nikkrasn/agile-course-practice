@@ -19,12 +19,12 @@ public class RgbTest {
         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertWhiteRgbToLab() {
-    //     Rgb rgbColor = new Rgb(255, 255, 255);
-    //     Lab expectedColor = new Lab(100, 0.01, -0.01);
-    //     UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
-    // }
+    @Test
+    public void canConvertWhiteRgbToLab() {
+         Rgb rgbColor = new Rgb(255, 255, 255);
+         Lab expectedColor = new Lab(100, 0.01, -0.01);
+         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
 
     // @Test
     // public void canConvertBlackRgbToHsv() {
@@ -41,12 +41,12 @@ public class RgbTest {
         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertBlackRgbToLab() {
-    //     Rgb rgbColor = new Rgb(0, 0, 0);
-    //     Lab expectedColor = new Lab(0, 0, 0);
-    //     UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
-    // }
+    @Test
+    public void canConvertBlackRgbToLab() {
+         Rgb rgbColor = new Rgb(0, 0, 0);
+         Lab expectedColor = new Lab(0, 0, 0);
+         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
 
     // @Test
     // public void canConvertDarkRedRgbToHsv() {
@@ -63,11 +63,11 @@ public class RgbTest {
         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertOrangeRgbToLab() {
-    //     Rgb rgbColor = new Rgb(255, 165, 0);
-    //     Lab expectedColor = new Lab(74.93, 23.94, 78.96);
-    //     UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
-    // }
+    @Test
+    public void canConvertOrangeRgbToLab() {
+         Rgb rgbColor = new Rgb(255, 165, 0);
+         Lab expectedColor = new Lab(74.93, 23.94, 78.96);
+         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
 
 }

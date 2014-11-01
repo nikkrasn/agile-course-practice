@@ -1,34 +1,57 @@
-//package ru.unn.agile.ColorConverter.Model;
-//
-//public class Lab {
-//    public static final int POWER = 3;
-//    public static final double B_DIVIDER = 200.0;
-//    public static final double A_DIVIDER = 500.0;
-//    public static final double NOMINATOR = 16.0;
-//    public static final double DENOMINATOR = 116.0;
-//    public static final double FACTOR = 7.787;
-//    private final double l;
-//    private final double a;
-//    private final double b;
-//
-//    public double getL() {
-//        return l;
-//    }
-//
-//    public double getA() {
-//        return a;
-//    }
-//
-//    public double getB() {
-//        return b;
-//    }
-//
-//    Lab(final double l, final double a, final double b) {
-//        this.l = l;
-//        this.a = a;
-//        this.b = b;
-//    }
-//
+package ru.unn.agile.ColorConverter.Model;
+
+public class Lab extends ColorSpace {
+
+    @Override
+    public void initialize(final Rgb color) {
+        LabConverter.fromRgbToColorSpace(color, this);
+    }
+
+    @Override
+    public Rgb toRgb() {
+        return LabConverter.toRgbColor(this);
+    }
+
+    private double l;
+    private double a;
+    private double b;
+
+    public double getL() {
+        return l;
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setL(final double l) {
+        this.l = l;
+    }
+
+    public void setA(final double a) {
+        this.a = a;
+    }
+
+    public void setB(final double b) {
+        this.b = b;
+    }
+
+    Lab() {
+        l = 0;
+        a = 0;
+        b = 0;
+    }
+
+    Lab(final double l, final double a, final double b) {
+        this.l = l;
+        this.a = a;
+        this.b = b;
+    }
+
 //    public Xyz toXyz() {
 //        double y = (l + NOMINATOR) / DENOMINATOR;
 //        double x = a / A_DIVIDER + y;
@@ -56,5 +79,5 @@
 //    public Hsv toHsv() {
 //        return this.toRgb().toHsv();
 //    }
-//
-//}
+
+}

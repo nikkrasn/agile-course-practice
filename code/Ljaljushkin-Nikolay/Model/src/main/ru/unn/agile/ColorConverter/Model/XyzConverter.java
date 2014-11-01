@@ -14,22 +14,22 @@ public final class XyzConverter {
             {0.0193, 0.1192, 0.9505}
     };
 
-    public static final double POWER = 2.4;
+    public static final double PIVOT_POWER = 2.4;
+
     public static final double XYZ_THRESHOLD = 0.0031308;
     public static final double RGB_THRESHOLD = 0.04045;
+
     public static final double XYZ_DIVIDER = 100.0;
-    public static final double RGB_FACTOR = 12.92;
+
     public static final double FACTOR_TO_SUBTRACT = 0.055;
     public static final double FACTOR_TO_MULTIPLY = 1.055;
+
+    public static final double RGB_FACTOR = 12.92;
     public static final double MAX_RGB = 255.0;
 
     public static final double X_WHITE = 95.05;
-    public static final double Y_WHITE = 100.000;
+    public static final double Y_WHITE = 100.0;
     public static final double Z_WHITE = 108.9;
-
-    public static final double EPSILON = 0.008856;
-    public static final double KAPPA = 903.3;
-    public static final double CUBIC_POWER = 3.0;
 
     private XyzConverter() {
     }
@@ -49,22 +49,6 @@ public final class XyzConverter {
         dstColor.setZ(z);
     }
 
-    private static double applyTransformToXYZ(final double r,
-                                              final double g,
-                                              final double b,
-                                              final int row) {
-        return r * TRANS_MAT_TO_XYZ[row][0]
-                + g * TRANS_MAT_TO_XYZ[row][1]
-                + b * TRANS_MAT_TO_XYZ[row][2];
-    }
-
-    private static double pivotRgb(final double n) {
-        return XYZ_DIVIDER
-                * (n > RGB_THRESHOLD
-                ? Math.pow((n + FACTOR_TO_SUBTRACT) / FACTOR_TO_MULTIPLY, POWER)
-                : n / RGB_FACTOR);
-    }
-
     public static Rgb toRgbColor(final Xyz srcColor) {
 
         double x = srcColor.getX();
@@ -78,6 +62,29 @@ public final class XyzConverter {
         return new Rgb(r, g, b);
     }
 
+    private static double pivotRgb(final double n) {
+        return XYZ_DIVIDER
+                * (n > RGB_THRESHOLD
+                ? Math.pow((n + FACTOR_TO_SUBTRACT) / FACTOR_TO_MULTIPLY, PIVOT_POWER)
+                : n / RGB_FACTOR);
+    }
+
+    private static double applyTransformToXYZ(final double r,
+                                              final double g,
+                                              final double b,
+                                              final int row) {
+        return r * TRANS_MAT_TO_XYZ[row][0]
+                + g * TRANS_MAT_TO_XYZ[row][1]
+                + b * TRANS_MAT_TO_XYZ[row][2];
+    }
+
+    private static double convertToRgbComponent(
+            final double x, final double y, final double z, final int row) {
+        double result = 0;
+        result = applyTransformToRGB(x / XYZ_DIVIDER, y / XYZ_DIVIDER, z / XYZ_DIVIDER, row);
+        result = getArithmeticComponent(result);
+        return toDigitalRgb(result);
+    }
 
     private static double applyTransformToRGB(final double x,
                                               final double y,
@@ -90,24 +97,11 @@ public final class XyzConverter {
 
     private static double getArithmeticComponent(final double component) {
         return component > XYZ_THRESHOLD
-                ? FACTOR_TO_MULTIPLY * Math.pow(component, 1 / POWER) - FACTOR_TO_SUBTRACT
+                ? FACTOR_TO_MULTIPLY * Math.pow(component, 1 / PIVOT_POWER) - FACTOR_TO_SUBTRACT
                 : RGB_FACTOR * component;
     }
 
-    private static double convertToRgbComponent(
-            final double x, final double y, final double z, final int row) {
-        double result = 0;
-        result = applyTransformToRGB(x / XYZ_DIVIDER, y / XYZ_DIVIDER, z / XYZ_DIVIDER, row);
-        result = getArithmeticComponent(result);
-        return toDigital(result);
-    }
-
-    public static Xyz getWhiteReference() {
-        return new Xyz(X_WHITE, Y_WHITE, Z_WHITE);
-    }
-
-
-    private static double toDigital(final double n) {
+    private static double toDigitalRgb(final double n) {
         double result = MAX_RGB * n;
         if (result < 0) {
             return 0;
@@ -118,12 +112,8 @@ public final class XyzConverter {
         return result;
     }
 
-//    private static double pivotXyz(final double n) {
-//        return n > EPSILON ? cubicRoot(n) : (KAPPA * n + Lab.NOMINATOR) / Lab.DENOMINATOR;
-//    }
-
-    private static double cubicRoot(final double n) {
-        return Math.pow(n, 1.0 / CUBIC_POWER);
+    public static Xyz getWhiteReference() {
+        return new Xyz(X_WHITE, Y_WHITE, Z_WHITE);
     }
 
 }

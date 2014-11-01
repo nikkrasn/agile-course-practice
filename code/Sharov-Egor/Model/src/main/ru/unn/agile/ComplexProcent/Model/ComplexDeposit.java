@@ -6,24 +6,6 @@ public class ComplexDeposit {
     private double interestCountInYear;
     private static final double ENTIRE_PERCENT = 100;
 
-    public ComplexDeposit(final double base, final double percent, final double interestCount) {
-        this.setBase(base);
-        this.setPercent(percent);
-        this.setInterestCountInYear(interestCount);
-    }
-
-    private double accrualCount(final int years) {
-        return years * this.getInterestCountInYear();
-    }
-
-    private double getPercentsInOnePeriod() {
-        return 1 + this.getPercent() / this.getInterestCountInYear();
-    }
-
-    private double capitalizedPercents(final int years) {
-        return Math.pow(getPercentsInOnePeriod(), accrualCount(years));
-    }
-
     public double getCapitalizedBase(final int years) {
         return this.getBase() * capitalizedPercents(years);
     }
@@ -50,9 +32,26 @@ public class ComplexDeposit {
         return interestCountInYear;
     }
 
-
     public ComplexDeposit setInterestCountInYear(final double interestCountInYear) {
         this.interestCountInYear = interestCountInYear;
         return this;
+    }
+
+    public ComplexDeposit(final double base, final double percent, final double interestCount) {
+        this.setBase(base);
+        this.setPercent(percent);
+        this.setInterestCountInYear(interestCount);
+    }
+
+    private double accrualCount(final int years) {
+        return years * this.getInterestCountInYear();
+    }
+
+    private double getPercentsInOnePeriod() {
+        return 1 + this.getPercent() / this.getInterestCountInYear();
+    }
+
+    private double capitalizedPercents(final int years) {
+        return Math.pow(getPercentsInOnePeriod(), accrualCount(years));
     }
 }

@@ -58,7 +58,6 @@ public class MatrixTest {
         double[][] d = {{1, 2, 7, 9.87}, {1, -2, 3, -4},
                 {1.1, 1.2, 1.3, 1.4}, {2.21, 0, 3.31, 4.41}};
         SquareMatrix mat = new SquareMatrix(d);
-        mat.initializeMatrix(d);
         assertTrue(mat.getValueAt(0, 0) == 1 && mat.getValueAt(0, 3) == 9.87
                &&  mat.getValueAt(2, 3) == 1.4 && mat.getValueAt(3, 2) == 3.31
         );

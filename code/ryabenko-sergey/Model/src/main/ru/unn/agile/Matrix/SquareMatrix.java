@@ -27,7 +27,7 @@ public class SquareMatrix {
 
     }
 
-    public void initializeMatrix(final double[][] data) {
+    private void initializeMatrix(final double[][] data) {
         for (int i = 0; i < countRows; i++) {
             for (int j = 0; j < countRows; j++) {
                 this.data[i][j] = data[i][j];

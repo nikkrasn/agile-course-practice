@@ -1,7 +1,6 @@
 package ru.unn.agile.ColorConverter.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class XyzTest {
 
@@ -33,10 +32,10 @@ public class XyzTest {
         UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertOrangeXyzToLab() {
-    //     Xyz xyzColor = new Xyz(54.69, 48.17, 6.41);
-    //     Lab expectedColor = new Lab(74.93, 23.94, 78.96);
-    //     UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
-    // }
+    @Test
+    public void canConvertOrangeXyzToLab() {
+         Xyz xyzColor = new Xyz(54.69, 48.17, 6.41);
+         Lab expectedColor = new Lab(74.93, 23.94, 78.96);
+         UtilsTest.expectedValuesForXyzColor(xyzColor, expectedColor);
+    }
 }

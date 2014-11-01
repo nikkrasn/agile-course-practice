@@ -12,17 +12,7 @@ public class Rgb extends ColorSpace {
         return RgbConverter.toRgbColor(this);
     }
 
-//    public static final double[][] TRANS_MAT = {
-//            {0.4124, 0.3576, 0.1805},
-//            {0.2126, 0.7152, 0.0722},
-//            {0.0193, 0.1192, 0.9505}
-//    };
-//    public static final double MAX_RGB = 255.0;
-//    public static final double R_DIVIDER = 6.0;
-//    public static final int G_OFFSET = 2;
-//    public static final int B_OFFSET = 4;
-//    public static final int DEGREES = 60;
-//    public static final double EPS = 0.0001;
+
 
     private double r;
     private double g;
@@ -88,10 +78,6 @@ public class Rgb extends ColorSpace {
 //        double v = max;
 //
 //        return new Hsv(h, s, v);
-//    }
-
-//    public Lab toLab() {
-//        return this.toXyz().toLab();
 //    }
 
 }

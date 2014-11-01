@@ -1,16 +1,15 @@
 package ru.unn.agile.ColorConverter.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class RgbTest {
 
-    // @Test
-    // public void canConvertWhiteRgbToHsv() {
-    //     Rgb rgbColor = new Rgb(255, 255, 255);
-    //     Hsv expectedColor = new Hsv(0, 0, 1);
-    //     UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
-    // }
+    @Test
+    public void canConvertWhiteRgbToHsv() {
+         Rgb rgbColor = new Rgb(255, 255, 255);
+         Hsv expectedColor = new Hsv(0, 0, 1);
+         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
 
     @Test
     public void canConvertWhiteRgbToXyz() {
@@ -26,12 +25,12 @@ public class RgbTest {
          UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertBlackRgbToHsv() {
-    //     Rgb rgbColor = new Rgb(0, 0, 0);
-    //     Hsv expectedColor = new Hsv(0, 0, 0);
-    //     UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
-    // }
+    @Test
+    public void canConvertBlackRgbToHsv() {
+         Rgb rgbColor = new Rgb(0, 0, 0);
+         Hsv expectedColor = new Hsv(0, 0, 0);
+         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
 
     @Test
     public void canConvertBlackRgbToXyz()
@@ -48,12 +47,12 @@ public class RgbTest {
          UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
     }
 
-    // @Test
-    // public void canConvertDarkRedRgbToHsv() {
-    //     Rgb rgbColor = new Rgb(139, 0, 0);
-    //     Hsv expectedColor = new Hsv(0, 1, 0.55);
-    //     UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
-    // }
+    @Test
+    public void canConvertDarkRedRgbToHsv() {
+         Rgb rgbColor = new Rgb(139, 0, 0);
+         Hsv expectedColor = new Hsv(0, 1, 0.55);
+         UtilsTest.expectedValuesForRgbColor(rgbColor, expectedColor);
+    }
 
     @Test
     public void canConvertOrangeRgbToXyz()

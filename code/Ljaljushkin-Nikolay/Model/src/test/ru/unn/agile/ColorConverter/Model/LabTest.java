@@ -1,7 +1,6 @@
 package ru.unn.agile.ColorConverter.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class LabTest {
 
@@ -19,12 +18,12 @@ public class LabTest {
         UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
     }
 
-//    @Test
-//    public void canConvertWhiteLabToHsv() {
-//        Lab labColor = new Lab(100, 0.01, -0.01);
-//        Hsv expectedColor = new Hsv(0, 0, 1);
-//        UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
-//    }
+    @Test
+    public void canConvertWhiteLabToHsv() {
+        Lab labColor = new Lab(100, 0.01, -0.01);
+        Hsv expectedColor = new Hsv(0, 0, 1);
+        UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
+    }
 
     @Test
     public void canConvertBlackLabToXyz() {
@@ -40,12 +39,12 @@ public class LabTest {
         UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
     }
 
-//    @Test
-//    public void canConvertBlackLabToHsv() {
-//        Lab labColor = new Lab(0, 0, 0);
-//        Hsv expectedColor = new Hsv(0, 0, 0);
-//        UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
-//    }
+    @Test
+    public void canConvertBlackLabToHsv() {
+        Lab labColor = new Lab(0, 0, 0);
+        Hsv expectedColor = new Hsv(0, 0, 0);
+        UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
+    }
 
     @Test
     public void canConvertDarkRedLabToXyz() {
@@ -61,10 +60,10 @@ public class LabTest {
         UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
     }
 
-//    @Test
-//    public void canConvertDarkRedLabToHsv() {
-//        Lab labColor = new Lab(28.0847, 51.0104, 41.2945);
-//        Hsv expectedColor = new Hsv(0, 1, 0.55);
-//        UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
-//    }
+    @Test
+    public void canConvertDarkRedLabToHsv() {
+        Lab labColor = new Lab(28.0847, 51.0104, 41.2945);
+        Hsv expectedColor = new Hsv(0, 1, 0.55);
+        UtilsTest.expectedValuesForLabColor(labColor, expectedColor);
+    }
 }

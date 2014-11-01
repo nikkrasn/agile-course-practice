@@ -34,47 +34,47 @@ public final class Converter {
         return val * k;
     }
 
-    // From sqm
-    public static double sqmToSqkm(final double val) {
+    // From SquareMeter
+    public static double squareMeterToSquareKilometer(final double val) {
         return fromTo(val, "sqm", "sqkm");
     }
-    public static double sqmToHa(final double val) {
+    public static double squareMeterToHectare(final double val) {
         return fromTo(val, "sqm", "ha");
     }
-    public static double sqmToAre(final double val) {
+    public static double squareMeterToAre(final double val) {
         return fromTo(val, "sqm", "are");
     }
 
-    // From sqkm
-    public static double sqkmToSqm(final double val) {
+    // From SquareKilometer
+    public static double squareKilometerToSquareMeter(final double val) {
         return fromTo(val, "sqkm", "sqm");
     }
-    public static double sqkmToHa(final double val) {
+    public static double squareKilometerToHectare(final double val) {
         return fromTo(val, "sqkm", "ha");
     }
-    public static double sqkmToAre(final double val) {
+    public static double squareKilometerToAre(final double val) {
         return fromTo(val, "sqkm", "are");
     }
 
-    // From ha
-    public static double haToSqm(final double val) {
+    // From hectare
+    public static double hectareToSquareMeter(final double val) {
         return fromTo(val, "ha", "sqm");
     }
-    public static double haToSqkm(final double val) {
+    public static double hectareToSquareKilometer(final double val) {
         return fromTo(val, "ha", "sqkm");
     }
-    public static double haToAre(final double val) {
+    public static double hectareToAre(final double val) {
         return fromTo(val, "ha", "are");
     }
 
-    // From are
-    public static double areToSqm(final double val) {
+    // From Are
+    public static double areToSquareMeter(final double val) {
         return fromTo(val, "are", "sqm");
     }
-    public static double areToSqkm(final double val) {
+    public static double areToSquareKilometer(final double val) {
         return fromTo(val, "are", "sqkm");
     }
-    public static double areToHa(final double val) {
+    public static double areToHectare(final double val) {
         return fromTo(val, "are", "ha");
     }
 }

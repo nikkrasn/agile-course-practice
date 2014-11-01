@@ -50,6 +50,7 @@ public class ComplexDepositTest {
         firstDeposit.setBase(2000);
         assertEquals(firstDeposit.getBase(), secondDeposit.getBase(), delta);
     }
+    
     @Test
     public void canChangePercent() {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 3);
@@ -65,6 +66,7 @@ public class ComplexDepositTest {
         deposit1.setInterestCountInYear(3);
         assertEquals(deposit1.getInterestCountInYear(), deposit2.getInterestCountInYear(), delta);
     }
+
     @Test
     public void canChangeMultiply() {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);

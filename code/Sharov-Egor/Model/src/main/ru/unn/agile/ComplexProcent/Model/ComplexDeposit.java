@@ -28,7 +28,6 @@ public class ComplexDeposit {
         return this.getBase() * capitalizedPercents(years);
     }
 
-
     public double getBase() {
         return base;
     }

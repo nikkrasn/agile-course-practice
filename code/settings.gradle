@@ -85,6 +85,8 @@ project(":ryabenko-sergey").name = "ryabenko-sergey-Model"
 // Skachkova Natalia
 
 // Sokolov Mihail
+include "Sokolov-Mihail"
+project(":Sokolov-Mihail").name = "Sokolov-Mihail-lab1"
 
 // Syainova Diana
 

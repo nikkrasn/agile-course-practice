@@ -6,32 +6,24 @@ import static org.junit.Assert.*;
 
 public class BitArrayTest {
     @Test
-    public void canCreateBitArray() throws Exception {
+    public void canCreateBitArray() {
         BitArray array = new BitArray(8);
         assertNotNull(array);
     }
 
     @Test
-    public void canCreateBigBitArray() throws Exception {
+    public void canCreateBigBitArray() {
         BitArray array = new BitArray(32000);
         assertNotNull(array);
     }
 
-    @Test
-    public void canCreateBitArrayWithNegativeSize() throws Exception {
-        String message = "";
-
-        try {
-            BitArray array = new BitArray(-5);
-        } catch (Exception e) {
-            message = e.getMessage();
-        }
-
-        assertEquals("Not positive initial size", message);
+    @Test(expected = IllegalArgumentException.class)
+    public void cantCreateBitArrayWithNegativeSize() {
+        new BitArray(-5);
     }
 
     @Test
-    public void isCreatedBitArrayEmpty() throws Exception {
+    public void isCreatedBitArrayEmpty() {
         BitArray array1 = new BitArray(5);
         BitArray array2 = new BitArray(5);
         array2.clearBit(0).clearBit(1).clearBit(2).clearBit(3).clearBit(4);
@@ -40,7 +32,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canSetBit() throws Exception {
+    public void canSetBit() {
         BitArray array = new BitArray(8);
 
         array.setBit(4);
@@ -49,7 +41,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canSetLastBit() throws Exception {
+    public void canSetLastBit() {
         BitArray array = new BitArray(32);
 
         array.setBit(31);
@@ -57,22 +49,15 @@ public class BitArrayTest {
         assertEquals(true, array.get(31));
     }
 
-    @Test
-    public void canSetOutOfArrayBit() throws Exception {
+    @Test(expected = IllegalArgumentException.class)
+    public void cantSetOutOfArrayBit() {
         BitArray array = new BitArray(30);
-        String message = "";
 
-        try {
-            array.setBit(31);
-        } catch (Exception e) {
-            message = e.getMessage();
-        }
-
-        assertEquals("Out of array", message);
+        array.setBit(31);
     }
 
     @Test
-    public void canClearBit() throws Exception {
+    public void canClearBit() {
         BitArray array = new BitArray(8);
 
         array.clearBit(4);
@@ -80,22 +65,15 @@ public class BitArrayTest {
         assertEquals(false, array.get(4));
     }
 
-    @Test
-    public void canClearOutOfArrayBit() throws Exception {
+    @Test(expected = IllegalArgumentException.class)
+    public void cantClearOutOfArrayBit() {
         BitArray array = new BitArray(8);
-        String message = "";
 
-        try {
-            array.clearBit(-1);
-        } catch (Exception e) {
-            message = e.getMessage();
-        }
-
-        assertEquals("Out of array", message);
+        array.clearBit(-1);
     }
 
     @Test
-    public void canGetElement() throws Exception {
+    public void canGetElement() {
         BitArray array = new BitArray(8);
 
         boolean res = array.get(4);
@@ -104,7 +82,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canGetElementFromBigBitArray() throws Exception {
+    public void canGetLastElementFromBigBitArray() {
         BitArray array = new BitArray(32000);
 
         boolean res = array.get(31999);
@@ -113,7 +91,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canGetTrueElement() throws Exception {
+    public void canGetTrueElement() {
         BitArray array = new BitArray(8);
         array.setBit(4);
 
@@ -122,22 +100,15 @@ public class BitArrayTest {
         assertEquals(true, res);
     }
 
-    @Test
-    public void canGetOutOfArrayElement() throws Exception {
+    @Test(expected = IllegalArgumentException.class)
+    public void cantGetOutOfArrayElement() {
         BitArray array = new BitArray(8);
-        String message = "";
 
-        try {
-            array.get(-8);
-        } catch (Exception e) {
-            message = e.getMessage();
-        }
-
-        assertEquals("Out of array", message);
+        array.get(-8);
     }
 
     @Test
-    public void canPerformXor() throws Exception {
+    public void canPerformXor() {
         BitArray array1 = new BitArray(8);
         BitArray array2 = new BitArray(8);
         BitArray array3 = new BitArray(8);
@@ -151,7 +122,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformOr() throws Exception {
+    public void canPerformOr() {
         BitArray array1 = new BitArray(9);
         BitArray array2 = new BitArray(9);
         BitArray array3 = new BitArray(9);
@@ -165,7 +136,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformAnd() throws Exception {
+    public void canPerformAnd() {
         BitArray array1 = new BitArray(10);
         BitArray array2 = new BitArray(10);
         BitArray array3 = new BitArray(10);
@@ -179,7 +150,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformHardAnd() throws Exception {
+    public void canPerformHardAnd() {
         BitArray array1 = new BitArray(33);
         BitArray array2 = new BitArray(33);
         BitArray array3 = new BitArray(33);
@@ -193,7 +164,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformNot() throws Exception {
+    public void canPerformNot() {
         BitArray array1 = new BitArray(8);
         array1.setBit(0).setBit(1).setBit(2).setBit(3).setBit(4).setBit(5).setBit(6).setBit(7);
 
@@ -203,7 +174,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformNotNot() throws Exception {
+    public void canPerformNotNot() {
         BitArray array1 = new BitArray(8);
         BitArray array2 = new BitArray(8);
 
@@ -213,7 +184,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canGetArray() throws Exception {
+    public void canGetArray() {
         BitArray array1 = new BitArray(8);
         array1.setBit(0).setBit(1).setBit(2).setBit(3);
 
@@ -223,7 +194,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canGetBigBitArray() throws Exception {
+    public void canGetBigBitArray() {
         BitArray array1 = new BitArray(99999);
         array1.setBit(0).setBit(1).setBit(2).setBit(3);
 
@@ -233,7 +204,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformSuperpositionOfFunctions() throws Exception {
+    public void canPerformSuperpositionOfFunctions() {
         BitArray array1 = new BitArray(5);
         BitArray array2 = new BitArray(5);
         BitArray array3 = new BitArray(5);
@@ -247,7 +218,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformSuperpositionOfBigBitArrayFunctions() throws Exception {
+    public void canPerformSuperpositionOfFunctionsOnBigBitArray() {
         BitArray array1 = new BitArray(32000);
         BitArray array2 = new BitArray(32000);
         BitArray array3 = new BitArray(32000);
@@ -261,7 +232,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformSeveralSuperpositionsOfFunctions() throws Exception {
+    public void canPerformSeveralSuperpositionsOfFunctions() {
         BitArray array1 = new BitArray(4);
         BitArray array2 = new BitArray(4);
         BitArray array3 = new BitArray(4);
@@ -275,7 +246,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canPerformSeveralSuperpositionsOfBigBitArrayFunctions() throws Exception {
+    public void canPerformSeveralSuperpositionsOfFunctionsOnBigBitArray() {
         BitArray array1 = new BitArray(99999);
         BitArray array2 = new BitArray(99999);
         BitArray array3 = new BitArray(99999);

@@ -9,7 +9,7 @@ public class BitArray {
     private final int size;
     private int[] array;
 
-    public BitArray(final int size) throws Exception {
+    public BitArray(final int size) {
         checkPositiveSizeOfArray(size);
         this.size = size;
         this.array = new int[(size + BIT_PER_INT - 1) / BIT_PER_INT];
@@ -19,7 +19,7 @@ public class BitArray {
         return this.array;
     }
 
-    public BitArray setBit(final int index) throws Exception {
+    public BitArray setBit(final int index) {
         checkOutOfArray(index);
         int intArrayIndex = index / BIT_PER_INT;
         int position = index % BIT_PER_INT;
@@ -29,7 +29,7 @@ public class BitArray {
         return this;
     }
 
-    public BitArray clearBit(final int index) throws Exception {
+    public BitArray clearBit(final int index) {
         checkOutOfArray(index);
         int intArrayIndex = index / BIT_PER_INT;
         int position = index % BIT_PER_INT;
@@ -41,7 +41,7 @@ public class BitArray {
         return this;
     }
 
-    public boolean get(final int index) throws Exception {
+    public boolean get(final int index) {
         checkOutOfArray(index);
         int intArrayIndex = index / BIT_PER_INT;
         int position = index % BIT_PER_INT;
@@ -81,15 +81,15 @@ public class BitArray {
         return this;
     }
 
-    private void checkOutOfArray(final int index) throws Exception {
+    private void checkOutOfArray(final int index) {
         if (index >= this.size || index < 0) {
-            throw new Exception("Out of array");
+            throw new IllegalArgumentException("Out of array");
         }
     }
 
-    private void checkPositiveSizeOfArray(final int size) throws Exception {
+    private void checkPositiveSizeOfArray(final int size) {
         if (size <= 0) {
-            throw new Exception("Not positive initial size");
+            throw new IllegalArgumentException("Not positive initial size");
         }
     }
 

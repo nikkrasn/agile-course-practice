@@ -103,7 +103,6 @@ public class LeftistHeap<TValue> {
                     nodeToDecreaseKey = nodeToDecreaseKey.getRightChild();
 
                     if (nodeToDecreaseKey.getKey() == key) {
-                        //decreaseOfDist = path.peek().getDistValue();
                         path.peek().setRightChild(null);
                         break;
                     }
@@ -118,7 +117,6 @@ public class LeftistHeap<TValue> {
                     }
 
                     if (nodeToDecreaseKey.getKey() == key) {
-                        //decreaseOfDist = peek.getDistValue();
                         peek.setLeftChild(null);
                         break;
                     }

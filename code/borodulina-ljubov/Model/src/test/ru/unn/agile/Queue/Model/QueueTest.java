@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class QueueTest {
     private Queue<Integer> queue;
@@ -54,6 +55,16 @@ public class QueueTest {
 
         assertTrue(itemsToAdd.equals(itemsFromQueue));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void cannotAddNullItem() { queue.add(null); }
+
+    @Test(expected = NoSuchElementException.class)
+    public void cannotRemoveFromEmptyQueue() { queue.remove(); }
+
+    @Test (expected = NoSuchElementException.class)
+    public void cannotGetFromEmptyQueue() { queue.element(); }
+
 
     private ArrayList<Integer> getEmptyList() {
         return new ArrayList<Integer>();

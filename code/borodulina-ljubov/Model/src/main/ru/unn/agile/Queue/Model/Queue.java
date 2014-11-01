@@ -1,5 +1,7 @@
 package ru.unn.agile.Queue.Model;
 
+import java.util.NoSuchElementException;
+
 public class Queue<T> {
     private Node first;
 
@@ -12,15 +14,18 @@ public class Queue<T> {
         return first == null;
     }
 
-    public void add(T item) {
+    public void add(final T item) {
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
         Node newLast = new Node();
         newLast.item = item;
         newLast.next = null;
 
         if (isEmpty()) {
             first = newLast;
-        }
-        else {
+        } else {
             Node last = getLast();
             last.next = newLast;
         }
@@ -35,12 +40,22 @@ public class Queue<T> {
     }
 
     public T remove() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
         T itemToReturn = first.item;
         first = first.next;
         return itemToReturn;
     }
 
     public T element() {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
         return first.item;
     }
+
+
 }

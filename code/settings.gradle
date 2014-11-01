@@ -33,6 +33,8 @@ project(":anufriev-denis").name = "anufriev-denis-Model"
 // Blinkova Ekaterina
 
 // Bobylkov Fedor
+include "bobylkov-fedor/Model"
+project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
 
 // Borodulina Ljubov
 

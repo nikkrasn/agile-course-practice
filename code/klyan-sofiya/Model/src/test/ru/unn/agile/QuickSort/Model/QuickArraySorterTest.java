@@ -15,52 +15,46 @@ public class QuickArraySorterTest {
         assertNotNull(sorter);
     }
 
-    @Test
+    @Test(expected=IndexOutOfBoundsException.class)
     public void canSwapNegativeFirstElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(-1, 2);
-        assertArrayEquals(new double[]{3, -4, 5}, values, delta);
     }
 
-    @Test
+    @Test(expected=IndexOutOfBoundsException.class)
     public void canSwapNegativeSecondElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(2, -1);
-        assertArrayEquals(new double[]{3, -4, 5}, values, delta);
     }
 
-    @Test
+    @Test(expected=IndexOutOfBoundsException.class)
     public void canSwapBothNegativeElements() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(-2, -1);
-        assertArrayEquals(new double[]{3, -4, 5}, values, delta);
     }
 
-    @Test
+    @Test(expected=IndexOutOfBoundsException.class)
     public void canSwapOutOfRangeFirstElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(7, 2);
-        assertArrayEquals(new double[]{3, -4, 5}, values, delta);
     }
 
-    @Test
+    @Test(expected=IndexOutOfBoundsException.class)
     public void canSwapOutOfRangeSecondElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(2, 7);
-        assertArrayEquals(new double[]{3, -4, 5}, values, delta);
     }
 
-    @Test
+    @Test(expected=IndexOutOfBoundsException.class)
     public void canSwapOutOfRangeBothElements() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(5, 7);
-        assertArrayEquals(new double[]{3, -4, 5}, values, delta);
     }
 
     @Test

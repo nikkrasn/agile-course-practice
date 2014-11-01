@@ -48,7 +48,7 @@ public class QuickArraySorter {
             return;
         }
         if (checkIfOutOfRange(i) || checkIfOutOfRange(j)) {
-            return;
+            throw new IndexOutOfBoundsException();
         }
 
         double temp = sortingValues[i];
@@ -58,7 +58,6 @@ public class QuickArraySorter {
 
     private boolean checkIfOutOfRange(final int index) {
         if (index < 0 || index >= sortingValues.length) {
-            System.out.println("Index is out of range: " + index);
             return true;
         }
         return false;

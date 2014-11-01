@@ -31,14 +31,12 @@ public class ConverterTest {
         double sqkm = Converter.squareMeterToSquareKilometer(sqm);
         assertEquals(sqkm, 2.0, delta);
     }
-
     @Test
     public void isCorrectConvertationSquareMeterToHectare() {
         double sqm = 2.0 * 10000;
         double ha = Converter.squareMeterToHectare(sqm);
         assertEquals(ha, 2.0, delta);
     }
-
     @Test
     public void isCorrectConvertationSquareMeterToAre() {
         double sqm = 2.0 * 100;
@@ -53,14 +51,12 @@ public class ConverterTest {
         double sqm = Converter.squareKilometerToSquareMeter(sqkm);
         assertEquals(sqm, 20000.0, delta);
     }
-
     @Test
     public void isCorrectConvertationSquareKilometerToHectare() {
         double sqkm = 0.02;
         double ha = Converter.squareKilometerToHectare(sqkm);
         assertEquals(ha, 2.0, delta);
     }
-
     @Test
     public void isCorrectConvertationSquareKilometerToAre() {
         double sqkm = 0.02;
@@ -75,14 +71,12 @@ public class ConverterTest {
         double sqm = Converter.hectareToSquareMeter(ha);
         assertEquals(sqm, 20000.0, delta);
     }
-
     @Test
     public void isCorrectConvertationHectareToSquareKilometer() {
         double ha = 2.0;
         double sqkm = Converter.hectareToSquareKilometer(ha);
         assertEquals(sqkm, 0.02, delta);
     }
-
     @Test
     public void isCorrectConvertationHectareToAre() {
         double ha = 2.0;
@@ -97,14 +91,12 @@ public class ConverterTest {
         double sqm = Converter.areToSquareMeter(are);
         assertEquals(sqm, 20000.0, delta);
     }
-
     @Test
     public void isCorrectConvertationAreToSquareKilometer() {
         double are = 200.0;
         double sqkm = Converter.areToSquareKilometer(are);
         assertEquals(sqkm, 0.02, delta);
     }
-    
     @Test
     public void isCorrectConvertationAreToHectare() {
         double are = 200.0;

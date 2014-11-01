@@ -49,7 +49,7 @@ public class StackTest {
     @Test
     public void canPush() {
         stack.push(1);
-        assertStackEquals(new Object[]{1}, stack);
+        assertStackEquals(new Object[] {1}, stack);
     }
 
     @Test (expected = EmptyStackException.class)
@@ -93,14 +93,14 @@ public class StackTest {
     public void canObjectStackContainDifferentTypeElements() {
         stack.push(1);
         stack.push("str");
-        assertStackEquals(new Object[]{1, "str"}, stack);
+        assertStackEquals(new Object[] {1, "str"}, stack);
     }
 
     @Test
     public void canCreateSpecificTypeStack() {
         Stack<String> stringStack = new Stack<>();
         stringStack.push("str");
-        assertStackEquals(new Object[]{"str"}, stringStack);
+        assertStackEquals(new Object[] {"str"}, stringStack);
     }
 
     @Test
@@ -109,7 +109,7 @@ public class StackTest {
         stack.push(2);
 
         Stack<Object> stackFromStack = new Stack<>(stack);
-        assertStackEquals(new Object[]{1, 2}, stackFromStack);
+        assertStackEquals(new Object[] {1, 2}, stackFromStack);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -123,7 +123,7 @@ public class StackTest {
         stack.push(2);
 
         Stack<Object> stackFromStack = new Stack<>(stack);
-        assertStackEquals(new Object[]{1, 2}, stack);
+        assertStackEquals(new Object[] {1, 2}, stack);
     }
 
     @Test

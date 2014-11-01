@@ -15,42 +15,42 @@ public class QuickArraySorterTest {
         assertNotNull(sorter);
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void canSwapNegativeFirstElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(-1, 2);
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void canSwapNegativeSecondElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(2, -1);
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void canSwapBothNegativeElements() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(-2, -1);
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void canSwapOutOfRangeFirstElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(7, 2);
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void canSwapOutOfRangeSecondElement() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);
         sorter.swapByInds(2, 7);
     }
 
-    @Test(expected=IndexOutOfBoundsException.class)
+    @Test(expected = IndexOutOfBoundsException.class)
     public void canSwapOutOfRangeBothElements() {
         double[] values = {3, -4, 5};
         QuickArraySorter sorter = new QuickArraySorter(values);

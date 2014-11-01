@@ -33,7 +33,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Bobylkov Fedor
 
 // Borodulina Ljubov
-
+include "borodulina-ljubov"
+project(":borodulina-ljubov").name = "borodulina-ljubov-Model"
 // Bysheva Tatyana
 
 // Izutov Evgenii

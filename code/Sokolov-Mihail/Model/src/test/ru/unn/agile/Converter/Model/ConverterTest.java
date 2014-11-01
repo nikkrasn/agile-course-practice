@@ -24,7 +24,6 @@ public class ConverterTest {
         Converter.squareMeterToHectare(sqm);
     }
 
-    // from SquareMeter
     @Test
     public void isCorrectConvertationSquareMeterToSquareKilometer() {
         double sqm = 2.0 * 1000000;
@@ -46,7 +45,6 @@ public class ConverterTest {
         assertEquals(are, 2.0, delta);
     }
 
-    // from SquareKilometer
     @Test
     public void isCorrectConvertationSquareKilometerToSquareMeter() {
         double sqkm = 0.02;
@@ -68,7 +66,6 @@ public class ConverterTest {
         assertEquals(are, 200.0, delta);
     }
 
-    // from Hectare
     @Test
     public void isCorrectConvertationHectareToSquareMeter() {
         double ha = 2.0;
@@ -90,7 +87,6 @@ public class ConverterTest {
         assertEquals(are, 200.0, delta);
     }
 
-    // from are
     @Test
     public void isCorrectConvertationAreToSquareMeter() {
         double are = 200.0;

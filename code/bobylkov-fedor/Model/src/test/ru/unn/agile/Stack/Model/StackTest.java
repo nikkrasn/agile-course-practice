@@ -2,8 +2,12 @@ package ru.unn.agile.Stack.Model;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import java.util.EmptyStackException;
+import java.util.List;
+
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
 public class StackTest {
     private Stack<Object> stack;
@@ -45,7 +49,7 @@ public class StackTest {
     @Test
     public void canPush() {
         stack.push(1);
-        assertEquals(1, stack.top());
+        assertStackEquals(new Object[]{1}, stack);
     }
 
     @Test (expected = EmptyStackException.class)
@@ -89,24 +93,64 @@ public class StackTest {
     public void canObjectStackContainDifferentTypeElements() {
         stack.push(1);
         stack.push("str");
-        assertEquals("str", stack.pop());
-        assertEquals(1, stack.pop());
+        assertStackEquals(new Object[]{1, "str"}, stack);
     }
 
     @Test
     public void canCreateSpecificTypeStack() {
         Stack<String> stringStack = new Stack<>();
         stringStack.push("str");
-        assertEquals("str", stringStack.top());
+        assertStackEquals(new Object[]{"str"}, stringStack);
     }
 
     @Test
-    public void canCreateStackFromStack() {
+    public void canCopyStack() {
         stack.push(1);
-        stack.push("str");
+        stack.push(2);
 
         Stack<Object> stackFromStack = new Stack<>(stack);
-        assertEquals("str", stackFromStack.pop());
-        assertEquals(1, stackFromStack.pop());
+        assertStackEquals(new Object[]{1, 2}, stackFromStack);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void cannotCopyStackFromNull() {
+        stack = new Stack<>(null);
+    }
+
+    @Test
+    public void isOriginalStackCorrectAfterCopying() {
+        stack.push(1);
+        stack.push(2);
+
+        Stack<Object> stackFromStack = new Stack<>(stack);
+        assertStackEquals(new Object[]{1, 2}, stack);
+    }
+
+    @Test
+    public void canConvertStackToList() {
+        stack.push(1);
+        stack.push(2);
+
+        List<Object> list = stack.toList();
+        assertArrayEquals(new Object[] {1, 2}, list.toArray());
+    }
+
+    @Test
+    public void canConvertEmptyStackToList() {
+        List<Object> list = stack.toList();
+        assertArrayEquals(new Object[] {}, list.toArray());
+    }
+
+    @Test
+    public void canConvertSpecificTypeStackToSameTypeList() {
+        Stack<String> stringStack = new Stack<>();
+        stringStack.push("str");
+
+        List<String> stringList = stringStack.toList();
+        assertArrayEquals(new Object[] {"str"}, stringList.toArray());
+    }
+
+    private void assertStackEquals(final Object[] expected, final Stack actual) {
+        assertArrayEquals(expected, actual.toList().toArray());
     }
 }

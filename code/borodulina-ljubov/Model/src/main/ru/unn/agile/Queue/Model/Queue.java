@@ -1,7 +1,17 @@
 package ru.unn.agile.Queue.Model;
 
-public class Queue {
+public class Queue<T> {
+    private T first;
+
     public boolean isEmpty() {
-        return true;
+        return first == null;
+    }
+
+    public void add(T item) {
+        first = item;
+    }
+
+    public T element() {
+        return first;
     }
 }

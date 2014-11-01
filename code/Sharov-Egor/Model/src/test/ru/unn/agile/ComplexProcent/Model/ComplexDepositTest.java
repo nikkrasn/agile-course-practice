@@ -37,12 +37,6 @@ public class ComplexDepositTest {
         assertEquals(1195.61817, deposit.getCapitalizedBase(4), DELTA);
     }
 
-    private void assertIsEqualDeposit(final ComplexDeposit dept1, final ComplexDeposit dept2) {
-        assertEquals(dept1.getBase(), dept2.getBase(), DELTA);
-        assertEquals(dept1.getPercent(), dept2.getPercent(), DELTA);
-        assertEquals(dept1.getInterestCountInYear(), dept2.getInterestCountInYear(), DELTA);
-    }
-
     @Test
     public void canChangeBase() {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 3);
@@ -73,5 +67,11 @@ public class ComplexDepositTest {
         ComplexDeposit secondDeposit = new ComplexDeposit(2000, 3.5, 3);
         secondDeposit.setPercent(4.5).setBase(1000).setInterestCountInYear(1);
         assertIsEqualDeposit(firstDeposit, secondDeposit);
+    }
+
+    private void assertIsEqualDeposit(final ComplexDeposit dept1, final ComplexDeposit dept2) {
+        assertEquals(dept1.getBase(), dept2.getBase(), DELTA);
+        assertEquals(dept1.getPercent(), dept2.getPercent(), DELTA);
+        assertEquals(dept1.getInterestCountInYear(), dept2.getInterestCountInYear(), DELTA);
     }
 }

@@ -56,7 +56,7 @@ public final class Converter {
         return fromTo(val, "sqkm", "are");
     }
 
-    // From hectare
+    // From Hectare
     public static double hectareToSquareMeter(final double val) {
         return fromTo(val, "ha", "sqm");
     }

@@ -45,6 +45,8 @@ project(":karsakov-alexander/Model").name = "karsakov-alexander-Model"
 // Klyan Sofiya
 
 // Krasnoyarov Nikita
+include "krasnoyarov-nikita"
+project(":krasnoyarov-nikita").name = "krasnoyarov-nikita-Model"
 
 // Lazarev Anton
 

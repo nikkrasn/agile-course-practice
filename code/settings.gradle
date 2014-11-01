@@ -69,6 +69,8 @@ project(":pashko-alena").name = "pashko-alena-Model"
 // Pogorelsky Iliya
 
 // Ryabenko Sergey
+include "ryabenko-sergey"
+project(":ryabenko-sergey").name = "ryabenko-sergey-Model"
 
 // Ryabusheva Anna
 

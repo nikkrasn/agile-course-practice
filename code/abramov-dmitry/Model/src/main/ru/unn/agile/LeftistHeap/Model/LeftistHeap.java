@@ -50,18 +50,9 @@ public class LeftistHeap<TValue> {
         Stack<HeapNode<TValue>> path = new Stack<HeapNode<TValue>>();
         HeapNode<TValue> nodeToDecreaseKey = cutSubHeapByRootKey(heapRoot, key, path);
         int decreaseOfDist = nodeToDecreaseKey.getKey() - 1;
-        HeapNode<TValue> curentNode;
 
         if (nodeToDecreaseKey.getKey() == key) {
-            while (!path.empty()) {
-                curentNode = path.pop();
-                curentNode.setDistValue(curentNode.getDistValue() - decreaseOfDist);
-                if (curentNode.getLeftChild() == null || curentNode.getRightChild() == null
-                        || curentNode.getLeftChild().getDistValue()
-                        < curentNode.getRightChild().getDistValue()) {
-                    swapChildren(curentNode);
-                }
-            }
+            updateDistOnPath(path, decreaseOfDist);
 
             nodeToDecreaseKey.setKey(newValue);
             heapRoot = innerMerge(heapRoot, nodeToDecreaseKey);
@@ -79,6 +70,23 @@ public class LeftistHeap<TValue> {
         }
 
         return null;
+    }
+
+    private void updateDistOnPath(
+        final Stack<HeapNode<TValue>> path,
+        final int decreaseOfDist
+    ) {
+        HeapNode<TValue> currentNode;
+
+        while (!path.empty()) {
+            currentNode = path.pop();
+            currentNode.setDistValue(currentNode.getDistValue() - decreaseOfDist);
+            if (currentNode.getLeftChild() == null || currentNode.getRightChild() == null
+                    || currentNode.getLeftChild().getDistValue()
+                    < currentNode.getRightChild().getDistValue()) {
+                swapChildren(currentNode);
+            }
+        }
     }
 
     private HeapNode<TValue> cutSubHeapByRootKey(

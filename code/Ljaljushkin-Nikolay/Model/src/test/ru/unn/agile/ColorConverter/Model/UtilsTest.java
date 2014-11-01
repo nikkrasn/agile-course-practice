@@ -9,55 +9,55 @@ public final class UtilsTest {
     private UtilsTest() {
     }
 
-    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Rgb expectedColor) {
-        Rgb targetColor = hsvColor.toRgb();
-        rgbAssert(expectedColor, targetColor);
-    }
+//    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Rgb expectedColor) {
+//        Rgb targetColor = hsvColor.toRgb();
+//        rgbAssert(expectedColor, targetColor);
+//    }
+//
+//    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Lab expectedColor) {
+//        Lab targetColor = hsvColor.toLab();
+//        labAssert(expectedColor, targetColor);
+//    }
 
-    protected static void expectedValuesForHsvColor(final Hsv hsvColor, final Lab expectedColor) {
-        Lab targetColor = hsvColor.toLab();
-        labAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Hsv expectedColor) {
-        Hsv targetColor = rgbColor.toHsv();
-        hsvAssert(expectedColor, targetColor);
-    }
+//    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Hsv expectedColor) {
+//        Hsv targetColor = rgbColor.toHsv();
+//        hsvAssert(expectedColor, targetColor);
+//    }
 
     protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Xyz expectedColor) {
-        Xyz targetColor = rgbColor.toXyz();
+        Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
         xyzAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Lab expectedColor) {
-        Lab targetColor = rgbColor.toLab();
-        labAssert(expectedColor, targetColor);
-    }
+//    protected static void expectedValuesForRgbColor(final Rgb rgbColor, final Lab expectedColor) {
+//        Lab targetColor = rgbColor.toLab();
+//        labAssert(expectedColor, targetColor);
+//    }
 
-    protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
-        Rgb targetColor = labColor.toRgb();
-        rgbAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForLabColor(final Lab labColor, final Xyz expectedColor) {
-        Xyz targetColor = labColor.toXyz();
-        xyzAssert(expectedColor, targetColor);
-    }
-
-    protected static void expectedValuesForLabColor(final Lab labColor, final Hsv expectedColor) {
-        Hsv targetColor = labColor.toHsv();
-        hsvAssert(expectedColor, targetColor);
-    }
+//    protected static void expectedValuesForLabColor(final Lab labColor, final Rgb expectedColor) {
+//        Rgb targetColor = labColor.toRgb();
+//        rgbAssert(expectedColor, targetColor);
+//    }
+//
+//    protected static void expectedValuesForLabColor(final Lab labColor, final Xyz expectedColor) {
+//        Xyz targetColor = labColor.toXyz();
+//        xyzAssert(expectedColor, targetColor);
+//    }
+//
+//    protected static void expectedValuesForLabColor(final Lab labColor, final Hsv expectedColor) {
+//        Hsv targetColor = labColor.toHsv();
+//        hsvAssert(expectedColor, targetColor);
+//    }
 
     protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Rgb expectedColor) {
-        Rgb targetColor = xyzColor.toRgb();
+        Rgb targetColor = (Rgb) xyzColor.toColor(expectedColor.getClass());
         rgbAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Lab expectedColor) {
-        Lab targetColor = xyzColor.toLab();
-        labAssert(expectedColor, targetColor);
-    }
+//    protected static void expectedValuesForXyzColor(final Xyz xyzColor, final Lab expectedColor) {
+//        Lab targetColor = xyzColor.toLab();
+//        labAssert(expectedColor, targetColor);
+//    }
 
     protected static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {
         assertTrue("(r)" + expectedColor.getR() + " != " + targetColor.getR(),
@@ -68,14 +68,14 @@ public final class UtilsTest {
                 isCloseEnough(expectedColor.getB(), targetColor.getB()));
     }
 
-    protected static void hsvAssert(final Hsv expectedColor, final Hsv targetColor) {
-        assertTrue("(h)" + expectedColor.getH() + " != " + targetColor.getH(),
-                isCloseEnough(expectedColor.getH(), targetColor.getH()));
-        assertTrue("(s)" + expectedColor.getS() + " != " + targetColor.getS(),
-                isCloseEnough(expectedColor.getS(), targetColor.getS()));
-        assertTrue("(v)" + expectedColor.getV() + " != " + targetColor.getV(),
-                isCloseEnough(expectedColor.getV(), targetColor.getV()));
-    }
+//    protected static void hsvAssert(final Hsv expectedColor, final Hsv targetColor) {
+//        assertTrue("(h)" + expectedColor.getH() + " != " + targetColor.getH(),
+//                isCloseEnough(expectedColor.getH(), targetColor.getH()));
+//        assertTrue("(s)" + expectedColor.getS() + " != " + targetColor.getS(),
+//                isCloseEnough(expectedColor.getS(), targetColor.getS()));
+//        assertTrue("(v)" + expectedColor.getV() + " != " + targetColor.getV(),
+//                isCloseEnough(expectedColor.getV(), targetColor.getV()));
+//    }
 
     protected static void xyzAssert(final Xyz expectedColor, final Xyz targetColor) {
         assertTrue("(x)" + expectedColor.getX() + " != " + targetColor.getX(),
@@ -86,14 +86,14 @@ public final class UtilsTest {
                 isCloseEnough(expectedColor.getZ(), targetColor.getZ()));
     }
 
-    protected static void labAssert(final Lab expectedColor, final Lab targetColor) {
-        assertTrue("(l)" + expectedColor.getL() + " != " + targetColor.getL(),
-                isCloseEnough(expectedColor.getL(), targetColor.getL()));
-        assertTrue("(a)" + expectedColor.getA() + " != " + targetColor.getA(),
-                isCloseEnough(expectedColor.getA(), targetColor.getA()));
-        assertTrue("(b)" + expectedColor.getB() + " != " + targetColor.getB(),
-                isCloseEnough(expectedColor.getB(), targetColor.getB()));
-    }
+//    protected static void labAssert(final Lab expectedColor, final Lab targetColor) {
+//        assertTrue("(l)" + expectedColor.getL() + " != " + targetColor.getL(),
+//                isCloseEnough(expectedColor.getL(), targetColor.getL()));
+//        assertTrue("(a)" + expectedColor.getA() + " != " + targetColor.getA(),
+//                isCloseEnough(expectedColor.getA(), targetColor.getA()));
+//        assertTrue("(b)" + expectedColor.getB() + " != " + targetColor.getB(),
+//                isCloseEnough(expectedColor.getB(), targetColor.getB()));
+//    }
 
     protected static boolean isCloseEnough(final double a, final double b) {
         double difference = Math.abs(a * EPS);

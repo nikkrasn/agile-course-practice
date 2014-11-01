@@ -47,6 +47,8 @@ include "karsakov-alexander/Model"
 project(":karsakov-alexander/Model").name = "karsakov-alexander-Model"
 
 // Klyan Sofiya
+include "klyan-sofiya"
+project(":klyan-sofiya").name = "klyan-sofiya-Model"
 
 // Krasnoyarov Nikita
 include "krasnoyarov-nikita"

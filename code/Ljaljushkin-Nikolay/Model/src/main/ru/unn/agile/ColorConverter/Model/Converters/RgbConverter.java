@@ -1,4 +1,6 @@
-package ru.unn.agile.ColorConverter.Model;
+package ru.unn.agile.ColorConverter.Model.Converters;
+
+import ru.unn.agile.ColorConverter.Model.ColorSpaces.Rgb;
 
 public final class RgbConverter {
 

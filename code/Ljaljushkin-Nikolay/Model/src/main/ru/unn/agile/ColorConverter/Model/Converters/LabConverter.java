@@ -1,4 +1,6 @@
-package ru.unn.agile.ColorConverter.Model;
+package ru.unn.agile.ColorConverter.Model.Converters;
+
+import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
 
 public final class LabConverter {
 
@@ -56,7 +58,7 @@ public final class LabConverter {
                 ? Math.pow((l + NOMINATOR) / DENOMINATOR, CUBIC_POWER) : l / KAPPA);
         z = (cubedZ > EPSILON ? cubedZ : (z - NOMINATOR / DENOMINATOR) / FACTOR);
 
-         Xyz xyz = new Xyz(
+        Xyz xyz = new Xyz(
                 white.getX() * x,
                 white.getY() * y,
                 white.getZ() * z);

@@ -1,4 +1,6 @@
-package ru.unn.agile.ColorConverter.Model;
+package ru.unn.agile.ColorConverter.Model.TestUtilities;
+
+import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
 
 import static org.junit.Assert.*;
 
@@ -9,31 +11,31 @@ public final class UtilsTest {
     private UtilsTest() {
     }
 
-    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
-                                                      final Rgb expectedColor) {
+    public static void expectedValuesForKnownColor(final ColorSpace knownColor,
+                                                   final Rgb expectedColor) {
         Rgb targetColor = (Rgb) knownColor.toColor(expectedColor.getClass());
         rgbAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+    public static void expectedValuesForKnownColor(final ColorSpace knownColor,
                                                       final Lab expectedColor) {
         Lab targetColor = (Lab) knownColor.toColor(expectedColor.getClass());
         labAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+    public static void expectedValuesForKnownColor(final ColorSpace knownColor,
                                                       final Xyz expectedColor) {
         Xyz targetColor = (Xyz) knownColor.toColor(expectedColor.getClass());
         xyzAssert(expectedColor, targetColor);
     }
 
-    protected static void expectedValuesForKnownColor(final ColorSpace knownColor,
+    public static void expectedValuesForKnownColor(final ColorSpace knownColor,
                                                       final Hsv expectedColor) {
         Hsv targetColor = (Hsv) knownColor.toColor(expectedColor.getClass());
         hsvAssert(expectedColor, targetColor);
     }
 
-    protected static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {
+    private static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {
         assertTrue("(r)" + expectedColor.getR() + " != " + targetColor.getR(),
                 isCloseEnough(expectedColor.getR(), targetColor.getR()));
         assertTrue("(g)" + expectedColor.getG() + " != " + targetColor.getG(),
@@ -42,7 +44,7 @@ public final class UtilsTest {
                 isCloseEnough(expectedColor.getB(), targetColor.getB()));
     }
 
-    protected static void hsvAssert(final Hsv expectedColor, final Hsv targetColor) {
+    private static void hsvAssert(final Hsv expectedColor, final Hsv targetColor) {
         assertTrue("(h)" + expectedColor.getH() + " != " + targetColor.getH(),
                 isCloseEnough(expectedColor.getH(), targetColor.getH()));
         assertTrue("(s)" + expectedColor.getS() + " != " + targetColor.getS(),
@@ -51,7 +53,7 @@ public final class UtilsTest {
                 isCloseEnough(expectedColor.getV(), targetColor.getV()));
     }
 
-    protected static void xyzAssert(final Xyz expectedColor, final Xyz targetColor) {
+    private static void xyzAssert(final Xyz expectedColor, final Xyz targetColor) {
         assertTrue("(x)" + expectedColor.getX() + " != " + targetColor.getX(),
                 isCloseEnough(expectedColor.getX(), targetColor.getX()));
         assertTrue("(y)" + expectedColor.getY() + " != " + targetColor.getY(),
@@ -60,7 +62,7 @@ public final class UtilsTest {
                 isCloseEnough(expectedColor.getZ(), targetColor.getZ()));
     }
 
-    protected static void labAssert(final Lab expectedColor, final Lab targetColor) {
+    private static void labAssert(final Lab expectedColor, final Lab targetColor) {
         assertTrue("(l)" + expectedColor.getL() + " != " + targetColor.getL(),
                 isCloseEnough(expectedColor.getL(), targetColor.getL()));
         assertTrue("(a)" + expectedColor.getA() + " != " + targetColor.getA(),
@@ -69,7 +71,7 @@ public final class UtilsTest {
                 isCloseEnough(expectedColor.getB(), targetColor.getB()));
     }
 
-    protected static boolean isCloseEnough(final double a, final double b) {
+    private static boolean isCloseEnough(final double a, final double b) {
         double difference = Math.abs(a * EPS);
         if (a != 0.0 && b != 0.0) {
             return Math.abs(a - b) <= difference;
@@ -77,6 +79,5 @@ public final class UtilsTest {
             return Math.abs(a - b) <= EPS;
         }
     }
-
 
 }

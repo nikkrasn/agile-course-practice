@@ -1,4 +1,4 @@
-package ru.unn.agile.ColorConverter.Model;
+package ru.unn.agile.ColorConverter.Model.ColorSpaces;
 
 public abstract class ColorSpace {
 

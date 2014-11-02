@@ -1,4 +1,6 @@
-package ru.unn.agile.ColorConverter.Model;
+package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+
+import ru.unn.agile.ColorConverter.Model.Converters.HsvConverter;
 
 public class Hsv extends ColorSpace {
 
@@ -40,12 +42,13 @@ public class Hsv extends ColorSpace {
         this.v = v;
     }
 
-    Hsv() {
+    public Hsv() {
         h = 0;
         s = 0;
         v = 0;
     }
-    Hsv(final double h, final double s, final double v) {
+
+    public Hsv(final double h, final double s, final double v) {
         this.h = h;
         this.s = s;
         this.v = v;

@@ -1,69 +1,73 @@
-package ru.unn.agile.ColorConverter.Model;
+package ru.unn.agile.ColorConverter.Model.Tests;
 
 import org.junit.Test;
+import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
+import ru.unn.agile.ColorConverter.Model.TestUtilities.KnownColors;
+import ru.unn.agile.ColorConverter.Model.TestUtilities.UtilsTest;
+
 
 public class LabTest {
 
     @Test
     public void canConvertWhiteLabToXyz() {
-        Lab labColor = new Lab(100, 0.01, -0.01);
-        Xyz expectedColor = XyzConverter.getWhiteReference();
+        Lab labColor = KnownColors.WHITE_LAB;
+        Xyz expectedColor = KnownColors.WHITE_XYZ;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertWhiteLabToRgb() {
-        Lab labColor = new Lab(100, 0.01, -0.01);
-        Rgb expectedColor = new Rgb(255, 255, 255);
+        Lab labColor = KnownColors.WHITE_LAB;
+        Rgb expectedColor = KnownColors.WHITE_RGB;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertWhiteLabToHsv() {
-        Lab labColor = new Lab(100, 0.01, -0.01);
-        Hsv expectedColor = new Hsv(0, 0, 1);
+        Lab labColor = KnownColors.WHITE_LAB;
+        Hsv expectedColor = KnownColors.WHITE_HSV;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertBlackLabToXyz() {
-        Lab labColor = new Lab(0, 0, 0);
-        Xyz expectedColor = new Xyz(0, 0, 0);
+        Lab labColor = KnownColors.BLACK_LAB;
+        Xyz expectedColor = KnownColors.BLACK_XYZ;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertBlackLabToRgb() {
-        Lab labColor = new Lab(0, 0, 0);
-        Rgb expectedColor = new Rgb(0, 0, 0);
+        Lab labColor = KnownColors.BLACK_LAB;
+        Rgb expectedColor = KnownColors.BLACK_RGB;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertBlackLabToHsv() {
-        Lab labColor = new Lab(0, 0, 0);
-        Hsv expectedColor = new Hsv(0, 0, 0);
+        Lab labColor = KnownColors.BLACK_LAB;
+        Hsv expectedColor = KnownColors.BLACK_HSV;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertDarkRedLabToXyz() {
-        Lab labColor = new Lab(28.0847, 51.0104, 41.2945);
-        Xyz expectedColor = new Xyz(10.6474, 5.4889, 0.4982);
+        Lab labColor = KnownColors.DARK_RED_LAB;
+        Xyz expectedColor = KnownColors.DARK_RED_XYZ;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertDarkRedLabToRgb() {
-        Lab labColor = new Lab(28.0847, 51.0104, 41.2945);
-        Rgb expectedColor = new Rgb(139, 0, 0);
+        Lab labColor = KnownColors.DARK_RED_LAB;
+        Rgb expectedColor = KnownColors.DARK_RED_RGB;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 
     @Test
     public void canConvertDarkRedLabToHsv() {
-        Lab labColor = new Lab(28.0847, 51.0104, 41.2945);
-        Hsv expectedColor = new Hsv(0, 1, 0.55);
+        Lab labColor = KnownColors.DARK_RED_LAB;
+        Hsv expectedColor = KnownColors.DARK_RED_HSV;
         UtilsTest.expectedValuesForKnownColor(labColor, expectedColor);
     }
 }

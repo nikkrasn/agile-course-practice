@@ -63,7 +63,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Samokhvalov Maxim
 
 // Serov Alexey
-
+include "serov-alexey"
+project(":serov-alexey").name = "serov-alexey-Model"
 // Sharov Egor
 
 // Skachkova Natalia

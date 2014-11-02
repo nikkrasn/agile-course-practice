@@ -8,40 +8,28 @@ public class CoefficientTest {
 
     @Test
     public void canCreateCoefficientWithInitialValues() {
-        Coefficient coefficient = new Coefficient<>(DemandType.GiffenGood, 1d);
+        Coefficient coefficient = new Coefficient(1d);
 
         assertNotNull(coefficient);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void coefficientThrowsExceptionOnNullTypeInput() {
-        new Coefficient<>(null, 1d);
-    }
-
-    @Test
-    public void canSetInitialType() {
-        Coefficient coefficient = new Coefficient<>(DemandType.Inelastic, 1d);
-
-        assertEquals(DemandType.Inelastic, coefficient.getType());
-    }
-
     @Test
     public void canSetInitialValue() {
-        Coefficient coefficient = new Coefficient<>(DemandType.Elasticity, 17d);
+        Coefficient coefficient = new Coefficient(17d);
 
         assertEquals(17d, coefficient.getValue(), delta);
     }
 
     @Test
     public void isValueUndefinedReturnsTrueOnUndefinedValue() {
-        Coefficient coefficient = new Coefficient<>(DemandType.Undefined, Double.NaN);
+        Coefficient coefficient = new Coefficient(Double.NaN);
 
         assertTrue(coefficient.isValueUndefined());
     }
 
     @Test
     public void isValueUndefinedReturnsFalseOnFiniteValue() {
-        Coefficient coefficient = new Coefficient<>(DemandType.PerfectlyElasticity, 71d);
+        Coefficient coefficient = new Coefficient(71d);
 
         assertFalse(coefficient.isValueUndefined());
     }

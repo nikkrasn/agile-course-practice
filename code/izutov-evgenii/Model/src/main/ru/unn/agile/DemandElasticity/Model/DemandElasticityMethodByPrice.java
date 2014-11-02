@@ -1,25 +1,35 @@
 package ru.unn.agile.DemandElasticity.Model;
 
-public final class DemandElasticityMethodByPrice extends DemandElasticityMethod
-        <DemandRange, PriceRange, DemandType> {
+public final class DemandElasticityMethodByPrice extends DemandElasticityMethod {
     @Override
-    protected Coefficient<DemandType> createUndefinedCoefficient() {
-        return new Coefficient<>(DemandType.Undefined, Double.NaN);
+    protected void testArgumentsOnType(final IPositiveRange first, final IPositiveRange second) {
+        if (!(first instanceof DemandRange)) {
+            throw new IllegalArgumentException("first demand parameter must be DemandRange type");
+        }
+
+        if (!(second instanceof PriceRange)) {
+            throw new IllegalArgumentException("second price parameter must be PriceRange type f");
+        }
     }
 
     @Override
-    protected Coefficient<DemandType> createInfiniteCoefficient(final double firstMidpoint) {
+    protected Coefficient createUndefinedCoefficient() {
+        return new CoefficientDescription<>(DemandType.Undefined, Double.NaN);
+    }
+
+    @Override
+    protected Coefficient createInfiniteCoefficient(final double firstMidpoint) {
         DemandType type;
         if (firstMidpoint > 0d) {
             type = DemandType.GiffenGood;
         } else {
             type = DemandType.PerfectlyElasticity;
         }
-        return new Coefficient<>(type, Double.NaN);
+        return new CoefficientDescription<>(type, Double.NaN);
     }
 
     @Override
-    protected Coefficient<DemandType> createFiniteCoefficient(final double coefficientValue) {
+    protected Coefficient createFiniteCoefficient(final double coefficientValue) {
         DemandType type;
         if (coefficientValue > 0d) {
             type = DemandType.GiffenGood;
@@ -31,6 +41,6 @@ public final class DemandElasticityMethodByPrice extends DemandElasticityMethod
             type = DemandType.Elasticity;
         }
 
-        return new Coefficient<>(type, coefficientValue);
+        return new CoefficientDescription<>(type, coefficientValue);
     }
 }

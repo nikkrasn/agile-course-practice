@@ -1,20 +1,10 @@
 package ru.unn.agile.DemandElasticity.Model;
 
-public final class Coefficient<T extends Enum> {
-    private final T type;
+public class Coefficient {
     private final double value;
 
-    public Coefficient(final T type, final double value) {
-        if (type == null) {
-            throw new IllegalArgumentException("type can not be null");
-        }
-
-        this.type = type;
+    public Coefficient(final double value) {
         this.value = value;
-    }
-
-    public T getType() {
-        return type;
     }
 
     public double getValue() {

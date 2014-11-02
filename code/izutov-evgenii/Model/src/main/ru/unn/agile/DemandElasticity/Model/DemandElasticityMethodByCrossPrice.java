@@ -1,26 +1,36 @@
 package ru.unn.agile.DemandElasticity.Model;
 
-public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMethod
-        <DemandRange, PriceRange, GoodsPairType> {
-
+public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMethod {
     @Override
-    protected Coefficient<GoodsPairType> createUndefinedCoefficient() {
-        return new Coefficient<>(GoodsPairType.Undefined, Double.NaN);
+    protected void testArgumentsOnType(final IPositiveRange first, final IPositiveRange second) {
+        if (!(first instanceof DemandRange)) {
+            throw new IllegalArgumentException("first demand parameter must be DemandRange type");
+        }
+
+        if (!(second instanceof PriceRange)) {
+            throw new IllegalArgumentException(
+                    "second cross price parameter must be PriceRange type");
+        }
     }
 
     @Override
-    protected Coefficient<GoodsPairType> createInfiniteCoefficient(final double firstMidpoint) {
+    protected Coefficient createUndefinedCoefficient() {
+        return new CoefficientDescription<>(GoodsPairType.Undefined, Double.NaN);
+    }
+
+    @Override
+    protected Coefficient createInfiniteCoefficient(final double firstMidpoint) {
         GoodsPairType type;
         if (firstMidpoint > 0d) {
             type = GoodsPairType.Substitute;
         } else {
             type = GoodsPairType.Complementary;
         }
-        return new Coefficient<>(type, Double.NaN);
+        return new CoefficientDescription<>(type, Double.NaN);
     }
 
     @Override
-    protected Coefficient<GoodsPairType> createFiniteCoefficient(final double coefficientValue) {
+    protected Coefficient createFiniteCoefficient(final double coefficientValue) {
         GoodsPairType type;
         if (coefficientValue > 0d) {
             type = GoodsPairType.Substitute;
@@ -29,6 +39,6 @@ public final class DemandElasticityMethodByCrossPrice extends DemandElasticityMe
         } else {
             type = GoodsPairType.Complementary;
         }
-        return new Coefficient<>(type, coefficientValue);
+        return new CoefficientDescription<>(type, coefficientValue);
     }
 }

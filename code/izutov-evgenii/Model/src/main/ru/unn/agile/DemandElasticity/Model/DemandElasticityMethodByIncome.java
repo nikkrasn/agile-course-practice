@@ -1,25 +1,35 @@
 package ru.unn.agile.DemandElasticity.Model;
 
-public final class DemandElasticityMethodByIncome extends DemandElasticityMethod
-        <DemandRange, IncomeRange, GoodType> {
+public final class DemandElasticityMethodByIncome extends DemandElasticityMethod {
     @Override
-    protected Coefficient<GoodType> createUndefinedCoefficient() {
-        return new Coefficient<>(GoodType.Undefined, Double.NaN);
+    protected void testArgumentsOnType(final IPositiveRange first, final IPositiveRange second) {
+        if (!(first instanceof DemandRange)) {
+            throw new IllegalArgumentException("first demand parameter must be DemandRange type");
+        }
+
+        if (!(second instanceof IncomeRange)) {
+            throw new IllegalArgumentException("second income parameter must be IncomeRange type");
+        }
     }
 
     @Override
-    protected Coefficient<GoodType> createInfiniteCoefficient(final double firstMidpoint) {
+    protected Coefficient createUndefinedCoefficient() {
+        return new CoefficientDescription<>(GoodType.Undefined, Double.NaN);
+    }
+
+    @Override
+    protected Coefficient createInfiniteCoefficient(final double firstMidpoint) {
         GoodType type;
         if (firstMidpoint > 0d) {
             type = GoodType.Luxury;
         } else {
             type = GoodType.Inferior;
         }
-        return new Coefficient<>(type, Double.NaN);
+        return new CoefficientDescription<>(type, Double.NaN);
     }
 
     @Override
-    protected Coefficient<GoodType> createFiniteCoefficient(final double coefficientValue) {
+    protected Coefficient createFiniteCoefficient(final double coefficientValue) {
         GoodType type;
         if (coefficientValue > 1d) {
             type = GoodType.Luxury;
@@ -30,6 +40,6 @@ public final class DemandElasticityMethodByIncome extends DemandElasticityMethod
         } else {
             type = GoodType.Inferior;
         }
-        return new Coefficient<>(type, coefficientValue);
+        return new CoefficientDescription<>(type, coefficientValue);
     }
 }

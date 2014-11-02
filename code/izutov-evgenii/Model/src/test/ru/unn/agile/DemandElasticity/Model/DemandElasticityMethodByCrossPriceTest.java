@@ -35,6 +35,21 @@ public class DemandElasticityMethodByCrossPriceTest {
         demandElasticityByCrossPrice.calculate(new DemandRange(), null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void calculateThrowsExceptionOnWrongTypeInput() {
+        demandElasticityByCrossPrice.calculate(new PriceRange(), new DemandRange());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void calculateThrowsExceptionOnWrongTypeFirstRange() {
+        demandElasticityByCrossPrice.calculate(new PriceRange(), new PriceRange());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void calculateThrowsExceptionOnWrongTypeSecondRange() {
+        demandElasticityByCrossPrice.calculate(new DemandRange(), new IncomeRange());
+    }
+
     @Test
     public void canCalculateValue() {
         DemandRange demands = new DemandRange(400d, 200d);
@@ -51,7 +66,8 @@ public class DemandElasticityMethodByCrossPriceTest {
         DemandRange demands = new DemandRange(710d, 710d);
         PriceRange prices = new PriceRange(5d, 5d);
 
-        Coefficient answer = demandElasticityByCrossPrice.calculate(demands, prices);
+        CoefficientDescription answer =
+                (CoefficientDescription) demandElasticityByCrossPrice.calculate(demands, prices);
 
         assertEquals(GoodsPairType.Undefined, answer.getType());
     }
@@ -61,7 +77,8 @@ public class DemandElasticityMethodByCrossPriceTest {
         DemandRange demands = new DemandRange(130d, 501d);
         PriceRange prices = new PriceRange(4d, 9d);
 
-        Coefficient answer = demandElasticityByCrossPrice.calculate(demands, prices);
+        CoefficientDescription answer =
+                (CoefficientDescription) demandElasticityByCrossPrice.calculate(demands, prices);
 
         assertEquals(GoodsPairType.Substitute, answer.getType());
     }
@@ -71,7 +88,8 @@ public class DemandElasticityMethodByCrossPriceTest {
         DemandRange demands = new DemandRange(100d, 500d);
         PriceRange prices = new PriceRange(10d, 3d);
 
-        Coefficient answer = demandElasticityByCrossPrice.calculate(demands, prices);
+        CoefficientDescription answer =
+                (CoefficientDescription) demandElasticityByCrossPrice.calculate(demands, prices);
 
         assertEquals(GoodsPairType.Complementary, answer.getType());
     }
@@ -81,7 +99,8 @@ public class DemandElasticityMethodByCrossPriceTest {
         DemandRange demands = new DemandRange(570d, 570d);
         PriceRange prices = new PriceRange(11d, 17d);
 
-        Coefficient answer = demandElasticityByCrossPrice.calculate(demands, prices);
+        CoefficientDescription answer =
+                (CoefficientDescription) demandElasticityByCrossPrice.calculate(demands, prices);
 
         assertEquals(GoodsPairType.Independent, answer.getType());
     }

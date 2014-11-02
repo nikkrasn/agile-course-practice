@@ -2,10 +2,12 @@ package ru.unn.agile.Metrics.Model;
 
 import java.util.Vector;
 
-public class Metrics {
+public final class Metrics {
 
-    public float l1(final Vector<Float> vector1, final Vector<Float> vector2) {
+    private Metrics() {
+    }
 
+    public static float l1(final Vector<Float> vector1, final Vector<Float> vector2) {
         checkVectorsSizes(vector1, vector2);
 
         float metricL1 = 0.0f;
@@ -17,8 +19,7 @@ public class Metrics {
         return metricL1;
     }
 
-    public float l2(final Vector<Float> vector1, final Vector<Float> vector2) {
-
+    public static float l2(final Vector<Float> vector1, final Vector<Float> vector2) {
         checkVectorsSizes(vector1, vector2);
 
         float metricL2 = 0.0f;
@@ -32,8 +33,7 @@ public class Metrics {
         return metricL2;
     }
 
-    public float l3(final Vector<Float> vector1, final Vector<Float> vector2) {
-
+    public static float l3(final Vector<Float> vector1, final Vector<Float> vector2) {
         checkVectorsSizes(vector1, vector2);
 
         float metricL3 = 0.0f;
@@ -48,8 +48,7 @@ public class Metrics {
         return metricL3;
     }
 
-    public float l4(final Vector<Float> vector1, final Vector<Float> vector2) {
-
+    public static float l4(final Vector<Float> vector1, final Vector<Float> vector2) {
         checkVectorsSizes(vector1, vector2);
 
         float metricL4 = 0.0f;
@@ -64,8 +63,7 @@ public class Metrics {
         return metricL4;
     }
 
-    public float lInf(final Vector<Float> vector1, final Vector<Float> vector2) {
-
+    public static float lInf(final Vector<Float> vector1, final Vector<Float> vector2) {
         checkVectorsSizes(vector1, vector2);
 
         float metricLInf = Math.abs(vector1.elementAt(0) - vector2.elementAt(0));
@@ -78,11 +76,12 @@ public class Metrics {
         return metricLInf;
     }
 
-    private void checkVectorsSizes(final Vector<Float> vector1, final Vector<Float> vector2) {
+    private static void checkVectorsSizes(final Vector<Float> vector1,
+                                          final Vector<Float> vector2) {
         if (vector1.size() != vector2.size()) {
             throw new IllegalArgumentException("Vectors sizes are not equal");
         }
-        if (vector1.size() == 0 && vector2.size() == 0) {
+        if (vector1.isEmpty() && vector2.isEmpty()) {
             throw new IllegalArgumentException("Vectors are empty");
         }
     }

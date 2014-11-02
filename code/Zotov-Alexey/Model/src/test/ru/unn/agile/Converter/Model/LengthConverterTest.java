@@ -4,7 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class LengthConverterTest {
-    private final double DELTA = 0.001;
+    private static final double DELTA = 0.001;
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsOnNegativeDouble() {

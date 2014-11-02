@@ -1,12 +1,12 @@
 package ru.unn.agile.DeterminatorIntersection.Model;
 
 public class Plane {
-    private double coefA;
-    private double coefB;
-    private double coefC;
-    private double coefD;
+    private final double coefA;
+    private final double coefB;
+    private final double coefC;
+    private final double coefD;
 
-    Plane(double a, double b, double c, double d) {
+    Plane(final double a, final double b, final double c, final double d) {
         this.coefA = a;
         this.coefB = b;
         this.coefC = c;
@@ -21,7 +21,7 @@ public class Plane {
         return new Point3D(coefA, coefB, coefC);
     }
 
-    public boolean isPointBelongPlane(Point3D point) {
-        return (point.scalarMultiplication(getNormalVector()) == coefD);
+    public boolean isPointBelongPlane(final Point3D point) {
+        return point.scalarMultiplication(getNormalVector()) == coefD;
     }
 }

@@ -1,10 +1,10 @@
 package ru.unn.agile.DeterminatorIntersection.Model;
 
 public class Line3D {
-    private Point3D point;
-    private Point3D vector;
+    private final Point3D point;
+    private final Point3D vector;
 
-    Line3D(Point3D inputPoint, Point3D inputVector) {
+    Line3D(final Point3D inputPoint, final Point3D inputVector) {
         this.point = inputPoint;
         this.vector = inputVector;
     }

@@ -1,10 +1,10 @@
 package ru.unn.agile.DeterminatorIntersection.Model;
 
 public class DeterminatorIntersection {
-    private Line3D line;
-    private Plane plane;
+    private final Line3D line;
+    private final Plane plane;
 
-    DeterminatorIntersection(Line3D inputLine, Plane inputPlane) {
+    DeterminatorIntersection(final Line3D inputLine, final Plane inputPlane) {
         this.line = inputLine;
         this.plane = inputPlane;
     }
@@ -34,6 +34,6 @@ public class DeterminatorIntersection {
 
     private boolean isNotNullScalarMultiplication() {
         Point3D planeNormal = plane.getNormalVector();
-        return !(planeNormal.scalarMultiplication(line.getVector()) == 0);
+        return planeNormal.scalarMultiplication(line.getVector()) != 0;
     }
 }

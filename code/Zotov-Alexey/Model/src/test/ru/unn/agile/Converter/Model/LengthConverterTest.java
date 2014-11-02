@@ -58,6 +58,7 @@ public class LengthConverterTest {
         double mile = LengthConverter.kmToMile(km);
         assertEquals(mile, 2. * 1000. / 1609.344, DELTA);
     }
+
     @Test
     public void isCorrectConvertationKmToInch() {
         double km = 2.;

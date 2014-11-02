@@ -20,7 +20,7 @@ public final class LengthConverter {
 
     private LengthConverter() { }
 
-    private static double fromTo(final double val, final String from, final String to) {
+    private static double convertFromTo(final double val, final String from, final String to) {
         if (val < 0) {
             throw new IllegalArgumentException();
         }
@@ -35,51 +35,50 @@ public final class LengthConverter {
     }
 
     public static double mToKm(final double val) {
-        return fromTo(val, "m", "km");
+        return convertFromTo(val, "m", "km");
     }
 
     public static double mToMile(final double val) {
-        return fromTo(val, "m", "mile");
+        return convertFromTo(val, "m", "mile");
     }
 
     public static double mToInch(final double val) {
-        return fromTo(val, "m", "inch");
+        return convertFromTo(val, "m", "inch");
     }
 
     public static double kmToM(final double val) {
-        return fromTo(val, "km", "m");
+        return convertFromTo(val, "km", "m");
     }
 
     public static double kmToMile(final double val) {
-        return fromTo(val, "km", "mile");
+        return convertFromTo(val, "km", "mile");
     }
 
     public static double kmToInch(final double val) {
-        return fromTo(val, "km", "inch");
+        return convertFromTo(val, "km", "inch");
     }
 
     public static double mileToM(final double val) {
-        return fromTo(val, "mile", "m");
+        return convertFromTo(val, "mile", "m");
     }
 
     public static double mileToKm(final double val) {
-        return fromTo(val, "mile", "km");
+        return convertFromTo(val, "mile", "km");
     }
 
     public static double mileToInch(final double val) {
-        return fromTo(val, "mile", "inch");
+        return convertFromTo(val, "mile", "inch");
     }
 
     public static double inchToM(final double val) {
-        return fromTo(val, "inch", "m");
+        return convertFromTo(val, "inch", "m");
     }
 
     public static double inchToKm(final double val) {
-        return fromTo(val, "inch", "km");
+        return convertFromTo(val, "inch", "km");
     }
 
     public static double inchToMile(final double val) {
-        return fromTo(val, "inch", "mile");
+        return convertFromTo(val, "inch", "mile");
     }
-
 }

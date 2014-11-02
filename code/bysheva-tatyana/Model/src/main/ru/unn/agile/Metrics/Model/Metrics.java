@@ -33,4 +33,14 @@ public class Metrics {
 
         return metricL3;
     }
+
+    public static float L4(Vector<Float> vector1, Vector<Float> vector2) {
+        float metricL4 = 0.0f;
+
+        for (int i = 0; i < vector1.size(); i++) {
+            metricL4 += Math.pow(Math.pow(vector1.elementAt(i)-vector2.elementAt(i), 4), 1.0f/4.0f);
+        }
+
+        return metricL4;
+    }
 }

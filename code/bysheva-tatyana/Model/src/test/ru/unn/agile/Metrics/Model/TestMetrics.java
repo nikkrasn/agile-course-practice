@@ -48,4 +48,16 @@ public class TestMetrics {
 
         assertEquals(0.0f, metricL3, epsilon);
     }
+
+    @Test
+    public void checkL4MetricForOneDimensionVectors() {
+        Float[] array = new Float[]{0.0f};
+
+        Vector<Float> vector1 = new Vector<Float>(Arrays.asList(array));
+        Vector<Float> vector2 = new Vector<Float>(Arrays.asList(array));
+
+        float metricL4 = Metrics.L4(vector1, vector2);
+
+        assertEquals(0.0f, metricL4, epsilon);
+    }
 }

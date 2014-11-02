@@ -41,7 +41,7 @@ public class Metrics {
 
         for (int i = 0; i < vector1.size(); i++) {
             metricL3 += Math.pow(
-                    Math.pow(vector1.elementAt(i) - vector2.elementAt(i), powerOfMetric),
+                    Math.pow(Math.abs(vector1.elementAt(i) - vector2.elementAt(i)), powerOfMetric),
                     1.0f / powerOfMetric);
         }
 

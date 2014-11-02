@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Vector;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TestMetrics {
 
@@ -21,7 +22,7 @@ public class TestMetrics {
 
         float metricL1 = Metrics.L1(vector1, vector2);
 
-        assertEquals(metricL1, 0.0f, epsilon);
+        assertEquals(0.0f, metricL1, epsilon);
     }
 
     @Test
@@ -33,6 +34,18 @@ public class TestMetrics {
 
         float metricL2 = Metrics.L2(vector1, vector2);
 
-        assertEquals(metricL2, 0.0f, epsilon);
+        assertEquals(0.0f, metricL2, epsilon);
+    }
+
+    @Test
+    public void checkL3MetricForOneDimensionVectors() {
+        Float[] array = new Float[]{0.0f};
+
+        Vector<Float> vector1 = new Vector<Float>(Arrays.asList(array));
+        Vector<Float> vector2 = new Vector<Float>(Arrays.asList(array));
+
+        float metricL3 = Metrics.L3(vector1, vector2);
+
+        assertEquals(0.0f, metricL3, epsilon);
     }
 }

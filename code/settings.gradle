@@ -1,6 +1,6 @@
 // Bevzuk Anton
-/*include "bevzuk-anton"
-project(":bevzuk-anton").name = "bevzuk-anton-Model"*/
+include "bevzuk-anton"
+project(":bevzuk-anton").name = "bevzuk-anton-Model"
 // Kornyakov Kirill
 include "kornyakov-kirill-lab1"
 project(":kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"

@@ -56,4 +56,10 @@ public class TestMetrics {
         float metricLInf = metrics.lInf(vector1, vector2);
         assertEquals(0.0f, metricLInf, epsilon);
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL1MetricForDifferentDimensionVectors() {
+        vector2 = new Vector<>(Arrays.asList(new Float[] {0.0f, 1.0f}));
+        metrics.l1(vector1, vector2);
+    }
 }

@@ -10,27 +10,29 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class TxtLogger implements ILogger {
-    private BufferedWriter writer = null;
-    private String filename = "";
     private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+    private final BufferedWriter writer;
+    private final String filename;
 
     private static String now() {
         Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
         return sdf.format(cal.getTime());
     }
 
     public TxtLogger(final String filename) {
         this.filename = filename;
 
+        BufferedWriter logWriter = null;
         try {
-            FileWriter logFile = new FileWriter(filename);
-            writer = new BufferedWriter(logFile);
+            logWriter = new BufferedWriter(new FileWriter(filename));
         } catch (Exception e) {
             e.printStackTrace();
         }
+        writer = logWriter;
     }
 
     @Override

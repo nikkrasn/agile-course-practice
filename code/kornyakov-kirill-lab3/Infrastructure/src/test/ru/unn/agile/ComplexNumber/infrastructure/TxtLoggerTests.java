@@ -7,7 +7,6 @@ import static org.junit.Assert.fail;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
@@ -43,7 +42,7 @@ public class TxtLoggerTests {
 
         txtLogger.log(testMessage);
 
-        String message = readLines().get(0);
+        String message = txtLogger.getLog().get(0);
         assertThat(message, matchesPattern(".*" + testMessage + "$"));
     }
 
@@ -54,7 +53,7 @@ public class TxtLoggerTests {
         txtLogger.log(messages[0]);
         txtLogger.log(messages[1]);
 
-        List<String> actualMessages = readLines();
+        List<String> actualMessages = txtLogger.getLog();
         for (int i = 0; i < actualMessages.size(); i++) {
             assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
         }
@@ -66,25 +65,7 @@ public class TxtLoggerTests {
 
         txtLogger.log(testMessage);
 
-        String message = readLines().get(0);
+        String message = txtLogger.getLog().get(0);
         assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
-    }
-
-    private List<String> readLines() {
-        BufferedReader reader;
-        ArrayList<String> log = new ArrayList<String>();
-        try {
-            reader = new BufferedReader(new FileReader(FILENAME));
-            String line = reader.readLine();
-
-            while (line != null) {
-                log.add(line);
-                line = reader.readLine();
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return log;
     }
 }

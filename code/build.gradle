@@ -1,10 +1,63 @@
+apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'cpd'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'de.aaschmid.gradle.plugins:gradle-cpd-plugin:0.1'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.sourceforge.pmd:pmd:5.1.0'
+}
+
+tasks.cpd {
+    doFirst {
+        println '[**************** Copy/paste analysis ****************]'
+    }
+
+    def reportName = 'cpd.xml'
+    reports {
+        xml.enabled = true
+        xml.destination = reportName
+    }
+
+    minimumTokenCount = 50
+
+    source files{ allprojects.findAll{ p -> p.hasProperty('sourceSets') }.collect { p -> p.sourceSets.collect { (it.java) } } }
+        .filter{ !it.path.contains('kornyakov-kirill-lab1') && !it.path.contains('kornyakov-kirill-lab2') }
+
+    doLast {
+        def copyPasted = new XmlParser().parse(reportName)
+        def rate = copyPasted.duplication.size()
+        println 'Copy-paste rate: '  + rate + ' times'
+        copyPasted.duplication.each { d -> println '[**************** Found in: ****************]'
+            d.file.each { f -> println f.'@path' + ', started @' + f.'@line' + ' line' }
+            println d.codefragment.text() }
+        if (rate == 0) {
+            println '[**************** WELL DONE! ****************]'
+            println '[****************  ᕦ(ò‿ó)ᕤ  ****************]'
+        } else {
+            println '[**************** (ノಠ益ಠ)ノ彡 ****************]'
+            throw new RuntimeException("Cannot proceed with non zero copy-paste rate!")
+        }
+    }
+}
 
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
 
     repositories {
        mavenCentral()
@@ -21,14 +74,41 @@ subprojects {
 
     test {
         afterTest { desc, result ->
-            String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
-            println "[${suiteName}]: ${result.resultType} in ${desc.name}"
+            //if (result.resultType == TestResult.ResultType.SUCCESS) {
+            //    println "."
+            //}
+            //else {
+                String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
+                println "[${suiteName}]: ${result.resultType} in ${desc.name}"
+            //}
         }
     }
 
     checkstyle {
-       checkstyleMain.configFile = new File("config/checkstyle/", "main.xml")
-       checkstyleTest.configFile = new File("config/checkstyle/", "test.xml")
-       // ignoreFailures = true
+        checkstyleMain.configFile = new File("config/checkstyle/", "main.xml")
+        checkstyleTest.configFile = new File("config/checkstyle/", "test.xml")
+        // ignoreFailures = true
+    }
+
+    pmd {
+        pmdMain.ruleSets = [ "java-basic", "java-braces", "java-design" ]
+        pmdTest.ruleSets = [ "java-basic", "java-braces" ]
+        // ignoreFailures = true
+    }
+
+    gradle.taskGraph.afterTask { Task task, TaskState state ->
+        if ((task.name == 'pmdMain' || task.name == 'pmdTest') && state.failure) {
+            def outFile = task.name == 'pmdMain' ? 'main.xml' : 'test.xml'
+            def reportFile = file("${buildDir}/reports/pmd/${outFile}")
+            if (reportFile.exists()) {
+                def result = new XmlParser().parse(reportFile)
+                result.file.each { file ->
+                    file.violation.each { violation ->
+                        println "${file.'@name'}:${violation.'@beginline'}: ${violation.text()}"
+                    }
+                }
+                reportFile.delete()
+            }
+        }
     }
 }

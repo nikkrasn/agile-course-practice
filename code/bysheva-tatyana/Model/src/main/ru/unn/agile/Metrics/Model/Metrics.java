@@ -4,51 +4,60 @@ import java.util.Vector;
 
 public class Metrics {
 
-    public static float L1(Vector<Float> vector1, Vector<Float> vector2) {
+    public float l1(final Vector<Float> vector1, final Vector<Float> vector2) {
         float metricL1 = 0.0f;
 
         for (int i = 0; i < vector1.size(); i++) {
-            metricL1 += Math.abs(vector1.elementAt(i)-vector2.elementAt(i));
+            metricL1 += Math.abs(vector1.elementAt(i) - vector2.elementAt(i));
         }
 
         return metricL1;
     }
 
-    public static float L2(Vector<Float> vector1, Vector<Float> vector2) {
+    public float l2(final Vector<Float> vector1, final Vector<Float> vector2) {
         float metricL2 = 0.0f;
+        final float powerOfMetric = 2.0f;
 
         for (int i = 0; i < vector1.size(); i++) {
-            metricL2 += Math.sqrt(Math.pow(vector1.elementAt(i)-vector2.elementAt(i), 2));
+            metricL2 += Math.sqrt(
+                    Math.pow(vector1.elementAt(i) - vector2.elementAt(i), powerOfMetric));
         }
 
         return metricL2;
     }
 
-    public static float L3(Vector<Float> vector1, Vector<Float> vector2) {
+    public float l3(final Vector<Float> vector1, final Vector<Float> vector2) {
         float metricL3 = 0.0f;
+        final float powerOfMetric = 3.0f;
 
         for (int i = 0; i < vector1.size(); i++) {
-            metricL3 += Math.pow(Math.pow(vector1.elementAt(i)-vector2.elementAt(i), 3), 1.0f/3.0f);
+            metricL3 += Math.pow(
+                    Math.pow(vector1.elementAt(i) - vector2.elementAt(i), powerOfMetric),
+                    1.0f / powerOfMetric);
         }
 
         return metricL3;
     }
 
-    public static float L4(Vector<Float> vector1, Vector<Float> vector2) {
+    public float l4(final Vector<Float> vector1, final Vector<Float> vector2) {
         float metricL4 = 0.0f;
+        final float powerOfMetric = 4.0f;
 
         for (int i = 0; i < vector1.size(); i++) {
-            metricL4 += Math.pow(Math.pow(vector1.elementAt(i)-vector2.elementAt(i), 4), 1.0f/4.0f);
+            metricL4 += Math.pow(
+                    Math.pow(vector1.elementAt(i) - vector2.elementAt(i), powerOfMetric),
+                    1.0f / powerOfMetric);
         }
 
         return metricL4;
     }
 
-    public static float LInf(Vector<Float> vector1, Vector<Float> vector2) {
-        float metricLInf = Math.abs(vector1.elementAt(0)-vector2.elementAt(0));
+    public float lInf(final Vector<Float> vector1, final Vector<Float> vector2) {
+        float metricLInf = Math.abs(vector1.elementAt(0) - vector2.elementAt(0));
 
         for (int i = 1; i < vector1.size(); i++) {
-            metricLInf = Math.max(Math.abs(vector1.elementAt(i)-vector2.elementAt(i)), metricLInf);
+            metricLInf = Math.max(
+                    Math.abs(vector1.elementAt(i) - vector2.elementAt(i)), metricLInf);
         }
 
         return metricLInf;

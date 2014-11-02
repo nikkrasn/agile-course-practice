@@ -62,4 +62,28 @@ public class TestMetrics {
         vector2 = new Vector<>(Arrays.asList(new Float[] {0.0f, 1.0f}));
         metrics.l1(vector1, vector2);
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL2MetricForDifferentDimensionVectors() {
+        vector2 = new Vector<>(Arrays.asList(new Float[] {0.0f, 1.0f}));
+        metrics.l2(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL3MetricForDifferentDimensionVectors() {
+        vector2 = new Vector<>(Arrays.asList(new Float[] {0.0f, 1.0f}));
+        metrics.l3(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL4MetricForDifferentDimensionVectors() {
+        vector2 = new Vector<>(Arrays.asList(new Float[] {0.0f, 1.0f}));
+        metrics.l4(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkLInfMetricForDifferentDimensionVectors() {
+        vector2 = new Vector<>(Arrays.asList(new Float[] {0.0f, 1.0f}));
+        metrics.lInf(vector1, vector2);
+    }
 }

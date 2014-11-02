@@ -6,20 +6,33 @@ import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
 public class FixedCurrencyProviderTest {
     private ICurrencyProvider provider;
 
-    private static boolean checkCurrencyRatesContainsNumCode(
-        final ArrayList<Currency> currencyRates, final int numCode) {
-        for (final Currency currency : currencyRates) {
-            if (currency.getNumCode() == numCode) {
-                return true;
+    private static boolean checkCurrencyRatesContainsAllCurrencyInCurrencyIndex(
+        final ArrayList<Currency> currencyRates) {
+        for (CurrencyIndexes index : CurrencyIndexes.values()) {
+            boolean isCurrencyFound = false;
+            for (final Currency currency : currencyRates) {
+                if (currency.getNumCode() == index.getNumCode()) {
+                    isCurrencyFound = true;
+                }
+            }
+            if (!isCurrencyFound) {
+                return false;
             }
         }
-        return false;
+        return true;
+    }
+
+    private static boolean checkCurrencyRatesContatinsUniqueValues(
+            final ArrayList<Currency> currencyRates) {
+        HashSet<Currency> uniqueCurrencies = new HashSet<Currency>(currencyRates);
+        return uniqueCurrencies.size() == currencyRates.size();
     }
 
     @Before
@@ -42,24 +55,16 @@ public class FixedCurrencyProviderTest {
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsRequiredCurrency() {
+    public void fixedCurrencyProviderReturnsAllCurrencyInCurrencyIndex() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        for (CurrencyIndexes index : CurrencyIndexes.values()) {
-            assertTrue(checkCurrencyRatesContainsNumCode(currencyRates, index.getNumCode()));
-        }
+        assertTrue(checkCurrencyRatesContainsAllCurrencyInCurrencyIndex(currencyRates));
     }
 
     @Test
     public void fixedCurrencyProviderReturnsUniqueCurrency() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        for (int i = 0; i < currencyRates.size(); i++) {
-            for (int j = 0; j < currencyRates.size(); j++) {
-                if (i != j) {
-                    assertFalse(currencyRates.get(i) == currencyRates.get(j));
-                }
-            }
-        }
+        assertTrue(checkCurrencyRatesContatinsUniqueValues(currencyRates));
     }
 }

@@ -27,10 +27,14 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Abramov Dmitry
 
 // Anufriev Denis
+include "anufriev-denis"
+project(":anufriev-denis").name = "anufriev-denis-Model"
 
 // Blinkova Ekaterina
 
 // Bobylkov Fedor
+include "bobylkov-fedor/Model"
+project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
 
 // Borodulina Ljubov
 
@@ -39,24 +43,36 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Izutov Evgenii
 
 // Karsakov Alexander
+include "karsakov-alexander/Model"
+project(":karsakov-alexander/Model").name = "karsakov-alexander-Model"
 
 // Klyan Sofiya
+include "klyan-sofiya"
+project(":klyan-sofiya").name = "klyan-sofiya-Model"
 
 // Krasnoyarov Nikita
+include "krasnoyarov-nikita"
+project(":krasnoyarov-nikita").name = "krasnoyarov-nikita-Model"
 
 // Lazarev Anton
 
 // Ljaljushkin Nikolay
 
 // Myasnikov Alexander
+include "myasnikov-alexander"
+project(":myasnikov-alexander").name = "myasnikov-alexander-Model"
 
 // Ovsuhno Andrey
 
 // Pashko Alena
+include "pashko-alena"
+project(":pashko-alena").name = "pashko-alena-Model"
 
 // Pogorelsky Iliya
 
 // Ryabenko Sergey
+include "ryabenko-sergey"
+project(":ryabenko-sergey").name = "ryabenko-sergey-Model"
 
 // Ryabusheva Anna
 
@@ -70,12 +86,16 @@ project(":serov-alexey").name = "serov-alexey-Model"
 // Skachkova Natalia
 
 // Sokolov Mihail
+include "Sokolov-Mihail"
+project(":Sokolov-Mihail").name = "Sokolov-Mihail-lab1"
 
 // Syainova Diana
 
 // Tsarev Mikhail
 
 // Vilchinskii Aleksandr
+include "vilchinskii-aleksandr"
+project(":vilchinskii-aleksandr").name = "vilchinskii-aleksandr-Model"
 
 // Zolotov Andrey
 

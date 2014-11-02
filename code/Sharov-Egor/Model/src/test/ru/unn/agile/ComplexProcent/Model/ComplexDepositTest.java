@@ -3,6 +3,7 @@ package ru.unn.agile.ComplexProcent.Model;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class ComplexDepositTest {
     private static final double DELTA = 0.001;
@@ -66,12 +67,6 @@ public class ComplexDepositTest {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
         ComplexDeposit secondDeposit = new ComplexDeposit(2000, 3.5, 3);
         secondDeposit.setPercent(4.5).setBase(1000).setInterestCountInYear(1);
-        assertIsEqualDeposit(firstDeposit, secondDeposit);
-    }
-
-    private void assertIsEqualDeposit(final ComplexDeposit dept1, final ComplexDeposit dept2) {
-        assertEquals(dept1.getBase(), dept2.getBase(), DELTA);
-        assertEquals(dept1.getPercent(), dept2.getPercent(), DELTA);
-        assertEquals(dept1.getInterestCountInYear(), dept2.getInterestCountInYear(), DELTA);
+        assertTrue(firstDeposit.isEqualDeposit(secondDeposit));
     }
 }

@@ -43,8 +43,36 @@ public class ComplexDeposit {
         this.setInterestCountInYear(interestCount);
     }
 
+    public boolean isEqualDeposit(final ComplexDeposit deposit) {
+        if (isSameBase(deposit) && isSamePercent(deposit) && isSameInterestCount(deposit)) {
+            return true;
+        }
+        return false;
+    }
+
     private double accrualCount(final int years) {
         return years * this.getInterestCountInYear();
+    }
+
+    private boolean isSameBase(final ComplexDeposit depositToCompare) {
+        if (this.getBase() == depositToCompare.getBase()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isSamePercent(final ComplexDeposit depositToCompare) {
+        if (this.getPercent() == depositToCompare.getPercent()) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isSameInterestCount(final ComplexDeposit depositToCompare) {
+        if (this.getInterestCountInYear() == depositToCompare.getInterestCountInYear()) {
+            return true;
+        }
+        return false;
     }
 
     private double getPercentsInOnePeriod() {

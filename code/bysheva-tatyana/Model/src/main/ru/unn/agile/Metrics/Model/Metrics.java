@@ -43,4 +43,14 @@ public class Metrics {
 
         return metricL4;
     }
+
+    public static float LInf(Vector<Float> vector1, Vector<Float> vector2) {
+        float metricLInf = Math.abs(vector1.elementAt(0)-vector2.elementAt(0));
+
+        for (int i = 1; i < vector1.size(); i++) {
+            metricLInf = Math.max(Math.abs(vector1.elementAt(i)-vector2.elementAt(i)), metricLInf);
+        }
+
+        return metricLInf;
+    }
 }

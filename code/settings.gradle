@@ -3,26 +3,10 @@ include "bevzuk-anton"
 project(":bevzuk-anton").name = "bevzuk-anton-Model"
 
 // Kornyakov Kirill
-include "kornyakov-kirill-lab1"
-project(":kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
 
 // Kornyakov Kirill
-include "kornyakov-kirill-lab2/Model"
-project(":kornyakov-kirill-lab2/Model").name = "kornyakov-kirill-lab2-Model"
-include "kornyakov-kirill-lab2/ViewModel"
-project(":kornyakov-kirill-lab2/ViewModel").name = "kornyakov-kirill-lab2-ViewModel"
-include "kornyakov-kirill-lab2/View"
-project(":kornyakov-kirill-lab2/View").name = "kornyakov-kirill-lab2-View"
 
 // Kornyakov Kirill
-include "kornyakov-kirill-lab3/Model"
-project(":kornyakov-kirill-lab3/Model").name = "kornyakov-kirill-Model"
-include "kornyakov-kirill-lab3/ViewModel"
-project(":kornyakov-kirill-lab3/ViewModel").name = "kornyakov-kirill-ViewModel"
-include "kornyakov-kirill-lab3/View"
-project(":kornyakov-kirill-lab3/View").name = "kornyakov-kirill-View"
-include "kornyakov-kirill-lab3/Infrastructure"
-project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infrastructure"
 
 // Abramov Dmitry
 
@@ -65,7 +49,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Serov Alexey
 
 // Sharov Egor
-
+include "Sharov-Egor"
+project(":Sharov-Egor").name = "Sharov—Egor-Model"
 // Skachkova Natalia
 
 // Sokolov Mihail

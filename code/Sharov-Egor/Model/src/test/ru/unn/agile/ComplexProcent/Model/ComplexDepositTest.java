@@ -1,42 +1,69 @@
 package ru.unn.agile.ComplexProcent.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+
+import java.util.GregorianCalendar;
+
+import static org.junit.Assert.*;
 
 public class ComplexDepositTest {
-    private static final double DELTA = 0.001;
+    private static final double DELTA = 0.01;
 
     @Test
     public void canCreateDeposit() {
         ComplexDeposit deposit = new ComplexDeposit(1000, 4, 1);
+        GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 11);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertNotNull(deposit);
     }
 
     @Test
-    public void canSetCapitalizedBaseInOnePeriod() {
+    public void canCalcCapitalizedBaseInOnePeriod() {
         ComplexDeposit deposit = new ComplexDeposit(1000, 4.5, 1);
-        assertEquals(1045, deposit.getCapitalizedBase(1), DELTA);
+        GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+        assertEquals(1045, deposit.getCapitalizedBase(), DELTA);
+
     }
 
     @Test
-    public void canSetCapitalizedBaseInOnePeriodForFewYears() {
+    public void canCalcCapitalizedBaseInOnePeriodForFewYears() {
         ComplexDeposit deposit = new ComplexDeposit(1000, 4.5, 1);
-        assertEquals(1092.025, deposit.getCapitalizedBase(2), DELTA);
+        GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2016, 7, 10);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+        assertEquals(1092.15, deposit.getCapitalizedBase(), DELTA);
     }
 
     @Test
-    public void canSetCapitalizedBaseInFewPeriodForYear() {
+    public void canCalcCapitalizedBaseInFewPeriodForYear() {
         ComplexDeposit deposit = new ComplexDeposit(1000, 4.5, 3);
-        assertEquals(1045.67838, deposit.getCapitalizedBase(1), DELTA);
+        GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+        assertEquals(1045.93, deposit.getCapitalizedBase(), DELTA);
     }
 
     @Test
-    public void canSetCapitalizedBaseInFewPeriodForFewYears() {
+    public void canCalcCapitalizedBaseInFewPeriodForFewYears() {
         ComplexDeposit deposit = new ComplexDeposit(1000, 4.5, 3);
-        assertEquals(1195.61817, deposit.getCapitalizedBase(4), DELTA);
+        GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2018, 7, 10);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+        assertEquals(1196.95, deposit.getCapitalizedBase(), DELTA);
     }
+
+    @Test
+    public void canCalcCapitalizedBaseInLessThenYear() {
+        ComplexDeposit deposit = new ComplexDeposit(1000, 4.5, 3);
+        GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2015, 5, 11);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+        assertEquals(1038.27, deposit.getCapitalizedBase(), DELTA);
+    }
+
 
     @Test
     public void canChangeBase() {
@@ -63,10 +90,38 @@ public class ComplexDepositTest {
     }
 
     @Test
+    public void hashCodeEqualsCheck() {
+        ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
+        ComplexDeposit secondDeposit = new ComplexDeposit(1000, 4.5, 1);
+        assertTrue(firstDeposit.hashCode() == secondDeposit.hashCode());
+    }
+
+    @Test
+    public void hashCodeNotEqualsCheck() {
+        ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
+        ComplexDeposit secondDeposit = new ComplexDeposit(2000, 3.5, 3);
+        assertFalse(firstDeposit.hashCode() == secondDeposit.hashCode());
+    }
+
+    @Test
+    public void equalsTrueCheck() {
+        ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
+        ComplexDeposit secondDeposit = new ComplexDeposit(1000, 4.5, 1);
+        assertTrue(firstDeposit.equals(secondDeposit));
+    }
+
+    @Test
+    public void equalsFalseCheck() {
+        ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
+        ComplexDeposit secondDeposit = new ComplexDeposit(2000, 3.5, 4);
+        assertFalse(firstDeposit.equals(secondDeposit));
+    }
+
+    @Test
     public void canChangeMultiply() {
         ComplexDeposit firstDeposit = new ComplexDeposit(1000, 4.5, 1);
         ComplexDeposit secondDeposit = new ComplexDeposit(2000, 3.5, 3);
         secondDeposit.setPercent(4.5).setBase(1000).setInterestCountInYear(1);
-        assertTrue(firstDeposit.isEqualDeposit(secondDeposit));
+        assertTrue(firstDeposit.equals(secondDeposit));
     }
 }

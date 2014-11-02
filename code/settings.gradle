@@ -31,7 +31,8 @@ include "anufriev-denis"
 project(":anufriev-denis").name = "anufriev-denis-Model"
 
 // Blinkova Ekaterina
-
+include "blinkova-ekaterina"
+project(":blinkova-ekaterina").name = "blinkova-ekaterina-Model"
 // Bobylkov Fedor
 include "bobylkov-fedor/Model"
 project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"

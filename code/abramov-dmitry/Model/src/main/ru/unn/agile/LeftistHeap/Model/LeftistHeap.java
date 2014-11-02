@@ -49,9 +49,9 @@ public class LeftistHeap<TValue> {
 
         Stack<HeapNode<TValue>> path = new Stack<HeapNode<TValue>>();
         HeapNode<TValue> nodeToDecreaseKey = cutSubHeapByRootKey(heapRoot, key, path);
-        int decreaseOfDist = nodeToDecreaseKey.getKey() - 1;
 
-        if (nodeToDecreaseKey.getKey() == key) {
+        if (nodeToDecreaseKey != null) {
+            int decreaseOfDist = nodeToDecreaseKey.getKey() - 1;
             updateDistOnPath(path, decreaseOfDist);
 
             nodeToDecreaseKey.setKey(newValue);
@@ -124,7 +124,11 @@ public class LeftistHeap<TValue> {
             }
         }
 
-        return nodeToDecreaseKey;
+        if (nodeToDecreaseKey.getKey() == key) {
+            return nodeToDecreaseKey;
+        } else {
+            return null;
+        }
     }
 
     private HeapNode<TValue> innerMerge(

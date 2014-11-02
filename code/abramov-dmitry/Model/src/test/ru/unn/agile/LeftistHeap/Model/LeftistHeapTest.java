@@ -203,6 +203,21 @@ public class LeftistHeapTest {
     }
 
     @Test
+    public void canNotGetElementThatNotExistFromHeapWithFewElements() {
+        LeftistHeap<Integer> heap = new LeftistHeap<Integer>();
+        heap.add(4, 4);
+        heap.add(8, 8);
+        heap.add(15, 15);
+        heap.add(16, 16);
+        heap.add(23, 23);
+        heap.add(42, 42);
+
+        HeapNode<Integer> node = heap.extractElementWithKey(17);
+
+        assertNull(node);
+    }
+
+    @Test
     public void dontChangeHeapIfExtractElementThatNotExist() {
         LeftistHeap<String> heap = new LeftistHeap<String>();
         heap.add(1, "First");

@@ -82,5 +82,8 @@ public class Metrics {
         if (vector1.size() != vector2.size()) {
             throw new IllegalArgumentException("Vectors sizes are not equal");
         }
+        if (vector1.size() == 0 && vector2.size() == 0) {
+            throw new IllegalArgumentException("Vectors are empty");
+        }
     }
 }

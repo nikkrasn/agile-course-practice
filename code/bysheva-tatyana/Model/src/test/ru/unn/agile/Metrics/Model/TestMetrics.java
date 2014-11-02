@@ -122,6 +122,41 @@ public class TestMetrics {
         assertEquals(3.0f, metricLInf, epsilon);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL1MetricForEmptyVectors() {
+        vector1 = new Vector<>(Arrays.asList(new Float[]{}));
+        vector2 = new Vector<>(Arrays.asList(new Float[]{}));
+        metrics.l1(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL2MetricForEmptyVectors() {
+        vector1 = new Vector<>(Arrays.asList(new Float[]{}));
+        vector2 = new Vector<>(Arrays.asList(new Float[]{}));
+        metrics.l2(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL3MetricForEmptyVectors() {
+        vector1 = new Vector<>(Arrays.asList(new Float[]{}));
+        vector2 = new Vector<>(Arrays.asList(new Float[]{}));
+        metrics.l3(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL4MetricForEmptyVectors() {
+        vector1 = new Vector<>(Arrays.asList(new Float[]{}));
+        vector2 = new Vector<>(Arrays.asList(new Float[]{}));
+        metrics.l4(vector1, vector2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkLInfMetricForEmptyVectors() {
+        vector1 = new Vector<>(Arrays.asList(new Float[]{}));
+        vector2 = new Vector<>(Arrays.asList(new Float[]{}));
+        metrics.lInf(vector1, vector2);
+    }
+
     private void fillVectors() {
         vector1 = new Vector<>(Arrays.asList(new Float[] {1.0f, 2.0f, 3.0f}));
         vector2 = new Vector<>(Arrays.asList(new Float[] {4.0f, 5.0f, 6.0f}));

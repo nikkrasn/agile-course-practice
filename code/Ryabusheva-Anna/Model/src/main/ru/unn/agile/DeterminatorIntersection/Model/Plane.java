@@ -1,8 +1,5 @@
 package ru.unn.agile.DeterminatorIntersection.Model;
 
-/**
- * Created by Anna on 01.11.2014.
- */
 public class Plane {
     private double coefA;
     private double coefB;

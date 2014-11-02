@@ -1,7 +1,6 @@
 package ru.unn.agile.DeterminatorIntersection.Model;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class DeterminatorIntersectionTest {

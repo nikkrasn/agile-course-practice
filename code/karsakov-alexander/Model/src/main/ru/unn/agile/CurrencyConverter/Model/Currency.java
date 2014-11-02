@@ -10,19 +10,24 @@ public final class Currency {
 
     public Currency(final Builder b) {
         if (b.numCode <= 0) {
-            throw new IllegalArgumentException("numCode must be specified");
+            throw new IllegalArgumentException(
+                    "'numCode' must be specified using Currency.Builder.numCode()");
         }
         if (b.charCode == null) {
-            throw new IllegalArgumentException("charCode must be specified");
+            throw new IllegalArgumentException(
+                    "'charCode' must be specified using Currency.Builder.charCode()");
         }
         if (b.name == null) {
-            throw new IllegalArgumentException("name must be specified");
+            throw new IllegalArgumentException(
+                    "'name' must be specified using Currency.Builder.name()");
         }
         if (b.nominal <= 0) {
-            throw new IllegalArgumentException("nominal must be specified");
+            throw new IllegalArgumentException(
+                    "'nominal' must be specified using Currency.Builder.nominal()");
         }
         if (b.value <= 0) {
-            throw new IllegalArgumentException("value must be specified");
+            throw new IllegalArgumentException(
+                    "'value' must be specified using Currency.Builder.value()");
         }
 
         numCode = b.numCode;

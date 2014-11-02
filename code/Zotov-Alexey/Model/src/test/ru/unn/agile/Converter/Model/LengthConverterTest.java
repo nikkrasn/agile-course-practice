@@ -18,27 +18,26 @@ public class LengthConverterTest {
         LengthConverter.mileToM(mile);
     }
 
-    // Проверка на не выкидывание эксепшена
-    // при работе с большими числами
     @Test
     public void notThrowsOnLargeDouble() {
         double m = Double.MAX_VALUE;
         LengthConverter.mToMile(m);
     }
 
-    // from m
     @Test
     public void isCorrectConvertationMToKm() {
         double m = 2.;
         double km = LengthConverter.mToKm(m);
         assertEquals(km, 2. / 1000., delta);
     }
+
     @Test
     public void isCorrectConvertationMToMile() {
         double m = 2.;
         double mile = LengthConverter.mToMile(m);
         assertEquals(mile, 2. / 1609.344, delta);
     }
+
     @Test
     public void isCorrectConvertationMToInch() {
         double m = 2.;
@@ -46,13 +45,13 @@ public class LengthConverterTest {
         assertEquals(inch, 2. / 0.0254, delta);
     }
 
-    // from km
     @Test
     public void isCorrectConvertationKmToM() {
         double km = 2.;
         double m = LengthConverter.kmToM(km);
         assertEquals(m, 2. * 1000., delta);
     }
+
     @Test
     public void isCorrectConvertationKmToMile() {
         double km = 2.;
@@ -66,19 +65,20 @@ public class LengthConverterTest {
         assertEquals(inch, 2. * 1000. / 0.0254, delta);
     }
 
-    // from mile
     @Test
     public void isCorrectConvertationMileToM() {
         double mile = 2.;
         double m = LengthConverter.mileToM(mile);
         assertEquals(m, 2. * 1609.344, delta);
     }
+
     @Test
     public void isCorrectConvertationMileTokm() {
         double mile = 2.;
         double km = LengthConverter.mileToKm(mile);
         assertEquals(km, 2. * 1609.344 / 1000., delta);
     }
+
     @Test
     public void isCorrectConvertationMileToInch() {
         double mile = 2.;
@@ -86,19 +86,20 @@ public class LengthConverterTest {
         assertEquals(inch, 2. * 1609.344 / 0.0254, delta);
     }
 
-    // from inch
     @Test
     public void isCorrectConvertationInchToM() {
         double inch = 2.;
         double m = LengthConverter.inchToM(inch);
         assertEquals(m, 2. * 0.0254, delta);
     }
+
     @Test
     public void isCorrectConvertationInchToKm() {
         double inch = 2.;
         double km = LengthConverter.inchToKm(inch);
         assertEquals(km, 2. * 0.0254 / 1000, delta);
     }
+
     @Test
     public void isCorrectConvertationInchToMile() {
         double inch = 2.;

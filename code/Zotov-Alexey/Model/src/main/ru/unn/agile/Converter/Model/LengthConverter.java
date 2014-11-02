@@ -34,46 +34,50 @@ public final class LengthConverter {
         return val * k;
     }
 
-    // From m
     public static double mToKm(final double val) {
         return fromTo(val, "m", "km");
     }
+
     public static double mToMile(final double val) {
         return fromTo(val, "m", "mile");
     }
+
     public static double mToInch(final double val) {
         return fromTo(val, "m", "inch");
     }
 
-    // From km
     public static double kmToM(final double val) {
         return fromTo(val, "km", "m");
     }
+
     public static double kmToMile(final double val) {
         return fromTo(val, "km", "mile");
     }
+
     public static double kmToInch(final double val) {
         return fromTo(val, "km", "inch");
     }
 
-    // From mile
     public static double mileToM(final double val) {
         return fromTo(val, "mile", "m");
     }
+
     public static double mileToKm(final double val) {
         return fromTo(val, "mile", "km");
     }
+
     public static double mileToInch(final double val) {
         return fromTo(val, "mile", "inch");
     }
 
-    // From inch
     public static double inchToM(final double val) {
         return fromTo(val, "inch", "m");
     }
+
     public static double inchToKm(final double val) {
         return fromTo(val, "inch", "km");
     }
+
     public static double inchToMile(final double val) {
         return fromTo(val, "inch", "mile");
     }

@@ -30,7 +30,8 @@ include "anufriev-denis"
 project(":anufriev-denis").name = "anufriev-denis-Model"
 
 // Blinkova Ekaterina
-
+include "blinkova-ekaterina"
+project(":blinkova-ekaterina").name = "blinkova-ekaterina-Model"
 // Bobylkov Fedor
 include "bobylkov-fedor/Model"
 project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
@@ -82,7 +83,8 @@ project(":Ryabusheva-Anna").name = "Ryabusheva-Anna-Model"
 // Samokhvalov Maxim
 
 // Serov Alexey
-
+include "serov-alexey"
+project(":serov-alexey").name = "serov-alexey-Model"
 // Sharov Egor
 
 // Skachkova Natalia

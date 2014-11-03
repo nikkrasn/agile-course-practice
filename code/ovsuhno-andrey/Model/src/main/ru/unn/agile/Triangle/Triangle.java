@@ -1,9 +1,9 @@
 package ru.unn.agile.Triangle;
 
 public class Triangle {
-    final private Point pointA;
-    final private Point pointB;
-    final private Point pointC;
+    private final Point pointA;
+    private final Point pointB;
+    private final Point pointC;
 
     public Triangle(final double aX, final double aY,
                     final double bX, final double bY,
@@ -60,7 +60,7 @@ public class Triangle {
         return space;
     }
 
-    private double countTriangleCosineFromSides(double a, double b, double c) {
+    private double countTriangleCosineFromSides(final double a, final double b, final double c) {
         final double half = 0.5;
         double result = half * (a * a + b * b - c * c) / (a * b);
         return result;

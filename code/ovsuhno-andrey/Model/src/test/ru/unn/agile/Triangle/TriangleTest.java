@@ -53,7 +53,8 @@ public class TriangleTest {
     @Test
     public void canCountLengthsOfRandomTriangle() {
         Triangle certainTriangle = new Triangle(1, 2, 2, 4, 5, 3);
-        assertArrayEquals(new double[]{2.2361, 3.1623, 4.1231}, certainTriangle.countLengths(), roughDelta);
+        double[] correctLengths = {2.2361, 3.1623, 4.1231};
+        assertArrayEquals(correctLengths, certainTriangle.countLengths(), roughDelta);
     }
 
     @Test
@@ -83,12 +84,14 @@ public class TriangleTest {
     @Test
     public void canCountAnglesCosineOfRectangularTriangle() {
         Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
-        assertArrayEquals(new double[]{0.0, 0.8944, 0.4472}, certainTriangle.countAnglesCosine(), roughDelta);
+        double[] correctAngles = {0.0, 0.8944, 0.4472};
+        assertArrayEquals(correctAngles, certainTriangle.countAnglesCosine(), roughDelta);
     }
 
     @Test
     public void canCountAnglesCosineOfRandomTriangle() {
         Triangle certainTriangle = new Triangle(1, 2, 2, 4, 5, 3);
-        assertArrayEquals(new double[]{0.6508, -0.1414, 0.8437}, certainTriangle.countAnglesCosine(), roughDelta);
+        double[] correctAngles = {0.6508, -0.1414, 0.8437};
+        assertArrayEquals(correctAngles, certainTriangle.countAnglesCosine(), roughDelta);
     }
 }

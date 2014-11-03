@@ -51,7 +51,7 @@ public class LeftistHeap<TValue> {
         HeapNode<TValue> nodeToDecreaseKey = cutSubHeapByRootKey(heapRoot, key, path);
 
         if (nodeToDecreaseKey != null) {
-            int decreaseOfDist = nodeToDecreaseKey.getKey() - 1;
+            int decreaseOfDist = nodeToDecreaseKey.getDistValue();
             updateDistOnPath(path, decreaseOfDist);
 
             nodeToDecreaseKey.setKey(newValue);

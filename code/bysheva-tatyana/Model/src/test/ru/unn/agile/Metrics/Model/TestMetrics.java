@@ -2,7 +2,6 @@ package ru.unn.agile.Metrics.Model;
 
 import org.junit.Test;
 
-import java.io.Console;
 import java.util.Arrays;
 import java.util.Vector;
 

@@ -6,9 +6,8 @@ public final class StringFormatter {
 
     public static String precisionFormat(final double value) {
         Integer cutter = (int) value;
-        String buffer = cutter.toString();
-
-        buffer += ".";
+        StringBuilder builder = new StringBuilder();
+        builder.append(cutter.toString() + ".");
 
         final int precisionDegree = 100;
         long multipliedValue = Math.round(Math.abs(value * precisionDegree));
@@ -16,20 +15,20 @@ public final class StringFormatter {
 
         final int ten = 10;
         if (cutter < ten) {
-            buffer += "0";
+            builder.append("0");
         }
-        buffer += cutter.toString();
+        builder.append(cutter.toString());
 
-        return buffer;
+        return builder.toString();
     }
 
     public static String format(final Point certainPoint) {
-        String buffer = new String();
-        buffer = "(";
+        StringBuilder builder = new StringBuilder();
+        builder.append("(");
         String x = precisionFormat(certainPoint.getX());
-        buffer += x + ", ";
+        builder.append(x + ", ");
         String y = precisionFormat(certainPoint.getY());
-        buffer += y + ")";
-        return buffer;
+        builder.append(y + ")");
+        return builder.toString();
     }
 }

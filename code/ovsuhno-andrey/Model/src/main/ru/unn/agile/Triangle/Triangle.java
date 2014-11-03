@@ -13,11 +13,11 @@ public class Triangle {
         Point pointC = new Point(cX, cY);
         if (!Point.isTriangle(pointA, pointB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
-        } else {
-            this.pointA = pointA;
-            this.pointB = pointB;
-            this.pointC = pointC;
         }
+        this.pointA = pointA;
+        this.pointB = pointB;
+        this.pointC = pointC;
+
     }
 
     public double[] countLengths() {
@@ -84,10 +84,9 @@ public class Triangle {
         Point candidateA = new Point(x, y);
         if (!Point.isTriangle(candidateA, pointB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
-        } else {
-            this.pointA.setX(x);
-            this.pointA.setY(y);
         }
+        this.pointA.setX(x);
+        this.pointA.setY(y);
     }
 
     public Point getA() {
@@ -98,10 +97,9 @@ public class Triangle {
         Point candidateB = new Point(x, y);
         if (!Point.isTriangle(pointA, candidateB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
-        } else {
-            this.pointB.setX(x);
-            this.pointB.setY(y);
         }
+        this.pointB.setX(x);
+        this.pointB.setY(y);
     }
 
     public Point getB() {
@@ -112,10 +110,9 @@ public class Triangle {
         Point candidateC = new Point(x, y);
         if (!Point.isTriangle(pointA, pointB, candidateC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
-        } else {
-            this.pointC.setX(x);
-            this.pointC.setY(y);
         }
+        this.pointC.setX(x);
+        this.pointC.setY(y);
     }
 
     public Point getC() {

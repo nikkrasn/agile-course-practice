@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestMetrics {
 
-    private final float epsilon = 0.01f;
+    private static final float EPSILON = 0.01f;
 
     private Vector<Float> vector1;
     private Vector<Float> vector2;
@@ -18,35 +18,35 @@ public class TestMetrics {
     public void checkL1MetricForOneDimensionVectors() {
         fillOneDimensionVectorsBySomeValues();
         float metricL1 = Metrics.l1(vector1, vector2);
-        assertEquals(1.0f, metricL1, epsilon);
+        assertEquals(1.0f, metricL1, EPSILON);
     }
 
     @Test
     public void checkL2MetricForOneDimensionVectors() {
         fillOneDimensionVectorsBySomeValues();
         float metricL2 = Metrics.l2(vector1, vector2);
-        assertEquals(1.0f, metricL2, epsilon);
+        assertEquals(1.0f, metricL2, EPSILON);
     }
 
     @Test
     public void checkL3MetricForOneDimensionVectors() {
         fillOneDimensionVectorsBySomeValues();
         float metricL3 = Metrics.l3(vector1, vector2);
-        assertEquals(1.0f, metricL3, epsilon);
+        assertEquals(1.0f, metricL3, EPSILON);
     }
 
     @Test
     public void checkL4MetricForOneDimensionVectors() {
         fillOneDimensionVectorsBySomeValues();
         float metricL4 = Metrics.l4(vector1, vector2);
-        assertEquals(1.0f, metricL4, epsilon);
+        assertEquals(1.0f, metricL4, EPSILON);
     }
 
     @Test
     public void checkLInfMetricForOneDimensionVectors() {
         fillOneDimensionVectorsBySomeValues();
         float metricLInf = Metrics.lInf(vector1, vector2);
-        assertEquals(1.0f, metricLInf, epsilon);
+        assertEquals(1.0f, metricLInf, EPSILON);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -83,35 +83,35 @@ public class TestMetrics {
     public void checkL1MetricForThreeDimensionVectors() {
         fillThreeDimensionVectorsBySomeValues();
         float metricL1 = Metrics.l1(vector1, vector2);
-        assertEquals(9.0f, metricL1, epsilon);
+        assertEquals(9.0f, metricL1, EPSILON);
     }
 
     @Test
     public void checkL2MetricForThreeDimensionVectors() {
         fillThreeDimensionVectorsBySomeValues();
         float metricL2 = Metrics.l2(vector1, vector2);
-        assertEquals(9.0f, metricL2, epsilon);
+        assertEquals(9.0f, metricL2, EPSILON);
     }
 
     @Test
     public void checkL3MetricForThreeDimensionVectors() {
         fillThreeDimensionVectorsBySomeValues();
         float metricL3 = Metrics.l3(vector1, vector2);
-        assertEquals(9.0f, metricL3, epsilon);
+        assertEquals(9.0f, metricL3, EPSILON);
     }
 
     @Test
     public void checkL4MetricForThreeDimensionVectors() {
         fillThreeDimensionVectorsBySomeValues();
         float metricL4 = Metrics.l4(vector1, vector2);
-        assertEquals(9.0f, metricL4, epsilon);
+        assertEquals(9.0f, metricL4, EPSILON);
     }
 
     @Test
     public void checkLInfMetricForThreeDimensionVectors() {
         fillThreeDimensionVectorsBySomeValues();
         float metricLInf = Metrics.lInf(vector1, vector2);
-        assertEquals(3.0f, metricLInf, epsilon);
+        assertEquals(3.0f, metricLInf, EPSILON);
     }
 
     @Test (expected = IllegalArgumentException.class)

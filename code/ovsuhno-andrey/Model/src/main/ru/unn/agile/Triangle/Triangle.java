@@ -46,10 +46,14 @@ public class Triangle {
         return perimeter;
     }
 
+    private double countPerimeter(double[] lengths) {
+        return lengths[0] + lengths[1] + lengths[2];
+    }
+
     public double countSpace() {
         final double half = 0.5;
-        double halfPerimeter = half * countPerimeter();
         double[] lengths = countLengths();
+        double halfPerimeter = half * countPerimeter(lengths);
 
         double space = halfPerimeter;
         space *= halfPerimeter - lengths[0];

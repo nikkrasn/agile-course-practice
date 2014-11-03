@@ -11,7 +11,7 @@ public class Triangle {
         Point pointA = new Point(aX, aY);
         Point pointB = new Point(bX, bY);
         Point pointC = new Point(cX, cY);
-        if ((pointA.equals(pointB)) || (pointB.equals(pointC)) || (pointC.equals(pointA))) {
+        if (pointA.equals(pointB) || pointB.equals(pointC) || pointC.equals(pointA)) {
             throw new IllegalArgumentException("Triangle points can't be equal");
         } else if (pointC.isOnStraightLine(pointA, pointB)) {
             throw new IllegalArgumentException("All triangle point can't be on one line");

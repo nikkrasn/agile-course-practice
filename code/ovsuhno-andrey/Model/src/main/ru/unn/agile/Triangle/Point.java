@@ -42,7 +42,7 @@ public class Point {
         yCoeff = pointB.getX() - pointA.getX();
         freeCoeff = xCoeff * pointA.getX() + yCoeff * pointA.getY();
 
-        return ((xCoeff * this.getX() + yCoeff * this.getY()) == freeCoeff);
+        return (xCoeff * this.getX() + yCoeff * this.getY()) == freeCoeff;
     }
 
     public void setX(final double x) {

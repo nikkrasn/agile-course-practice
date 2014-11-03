@@ -44,6 +44,42 @@ public class TriangleTest {
         assertEquals(correctC, newTriangle.getC());
     }
 
+    @Test (expected = IllegalArgumentException.class)
+     public void throwsWhenSetPointAInOtherPoint() {
+        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        certainTriangle.setA(1, 4);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void throwsWhenSetPointBInOtherPoint() {
+        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        certainTriangle.setB(2, 2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void throwsWhenSetPointCInOtherPoint() {
+        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        certainTriangle.setC(1, 2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void throwsWhenSetPointAOnLineOfOtherPoints() {
+        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        certainTriangle.setA(1.5, 3);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void throwsWhenSetPointBOnLineOfOtherPoints() {
+        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        certainTriangle.setB(1.5, 2);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void throwsWhenSetPointCOnLineOfOtherPoints() {
+        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        certainTriangle.setC(1, 3);
+    }
+
     @Test
      public void canCountLengthsOfRectangularTriangle() {
         Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);

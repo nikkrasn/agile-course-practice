@@ -42,7 +42,16 @@ public class Point {
         yCoeff = pointB.getX() - pointA.getX();
         freeCoeff = xCoeff * pointA.getX() + yCoeff * pointA.getY();
 
-        return xCoeff * this.getX() + yCoeff * this.getY() == freeCoeff;
+        final double delta = 0.001;
+        return Math.abs(xCoeff * this.getX() + yCoeff * this.getY() - freeCoeff) < delta;
+    }
+
+    public static boolean isTriangle(final Point pointA, final Point pointB, final Point pointC) {
+        boolean answer = pointA.equals(pointB) || pointB.equals(pointC) || pointC.equals(pointA);
+        if (!answer) {
+            answer = answer || pointC.isOnStraightLine(pointA, pointB);
+        }
+        return !answer;
     }
 
     public void setX(final double x) {

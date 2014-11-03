@@ -1,5 +1,7 @@
 package ru.unn.agile.LeftistHeap.Model;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -45,7 +47,7 @@ public class LeftistHeapTest {
         heap.add(5, "I am only second");
         heap.add(3, "I am first");
 
-        assertEquals(heap.extractMin().getKey(), 3);
+        assertEquals(3, heap.extractMin().getKey());
     }
 
     @Test
@@ -92,12 +94,7 @@ public class LeftistHeapTest {
 
         heap1.merge(heap2);
 
-        assertEquals(heap1.extractMin().getKey(), 1);
-        assertEquals(heap1.extractMin().getKey(), 2);
-        assertEquals(heap1.extractMin().getKey(), 3);
-        assertEquals(heap1.extractMin().getKey(), 4);
-        assertEquals(heap1.extractMin().getKey(), 5);
-        assertEquals(heap1.extractMin().getKey(), 6);
+        assertArrayEquals(new int[] {1, 2, 3, 4, 5, 6}, getKeys(heap1));
     }
 
     @Test
@@ -111,9 +108,7 @@ public class LeftistHeapTest {
 
         heap1.merge(heap2);
 
-        assertEquals(heap1.extractMin().getKey(), 0);
-        assertEquals(heap1.extractMin().getKey(), 2);
-        assertEquals(heap1.extractMin().getKey(), 5);
+        assertArrayEquals(new int[] {0, 2, 5}, getKeys(heap1));
     }
 
     @Test
@@ -127,9 +122,7 @@ public class LeftistHeapTest {
 
         heap1.merge(heap2);
 
-        assertEquals(heap1.extractMin().getKey(), 24);
-        assertEquals(heap1.extractMin().getKey(), 25);
-        assertEquals(heap1.extractMin().getKey(), 26);
+        assertArrayEquals(new int[] {24, 25, 26}, getKeys(heap1));
     }
 
     @Test
@@ -142,9 +135,7 @@ public class LeftistHeapTest {
         boolean result = heap.decreaseKey(7, 1);
 
         assertEquals(result, true);
-        assertEquals(heap.extractMin().getKey(), 1);
-        assertEquals(heap.extractMin().getKey(), 3);
-        assertEquals(heap.extractMin().getKey(), 5);
+        assertArrayEquals(new int[] {1, 3, 5}, getKeys(heap));
     }
 
     @Test
@@ -157,9 +148,7 @@ public class LeftistHeapTest {
         boolean result = heap.decreaseKey(-6, -8);
 
         assertEquals(result, true);
-        assertEquals(heap.extractMin().getKey(), -8);
-        assertEquals(heap.extractMin().getKey(), -7);
-        assertEquals(heap.extractMin().getKey(), -4);
+        assertArrayEquals(new int[] {-8, -7, -4}, getKeys(heap));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -189,7 +178,7 @@ public class LeftistHeapTest {
 
         HeapNode<String> node = heap.extractElementWithKey(13);
 
-        assertEquals(node.getKey(), 13);
+        assertEquals(13, node.getKey());
     }
 
     @Test
@@ -226,8 +215,33 @@ public class LeftistHeapTest {
 
         HeapNode<String> node = heap.extractElementWithKey(4);
 
-        assertEquals(heap.extractMin().getKey(), 1);
-        assertEquals(heap.extractMin().getKey(), 2);
-        assertEquals(heap.extractMin().getKey(), 3);
+        assertArrayEquals(new int[] {1, 2, 3}, getKeys(heap));
+    }
+
+    @Test
+    public void canMergeWithEmptyHeapAsNull() {
+        LeftistHeap<String> heap1 = new LeftistHeap<String>();
+        heap1.add(0, "Stop");
+        heap1.add(2, "Copy");
+        heap1.add(5, "Paste");
+
+        heap1.merge(null);
+
+        assertArrayEquals(new int[] {0, 2, 5}, getKeys(heap1));
+    }
+
+    private <TValue> int[] getKeys(final LeftistHeap<TValue> heap) {
+        List<Integer> listOfKeys = new ArrayList<Integer>();
+
+        while (!heap.isEmpty()) {
+            listOfKeys.add(heap.extractMin().getKey());
+        }
+
+        int[] arrayOfKeys = new int[listOfKeys.size()];
+        for (int i = 0; i < listOfKeys.size(); i++) {
+            arrayOfKeys[i] = listOfKeys.get(i);
+        }
+
+        return arrayOfKeys;
     }
 }

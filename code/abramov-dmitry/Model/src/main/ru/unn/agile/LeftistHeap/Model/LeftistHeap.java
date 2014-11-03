@@ -38,8 +38,10 @@ public class LeftistHeap<TValue> {
     }
 
     public void merge(final LeftistHeap<TValue> heapToMerge) {
-        heapRoot = innerMerge(heapRoot, heapToMerge.heapRoot);
-        heapToMerge.heapRoot = null;
+        if (heapToMerge != null) {
+            heapRoot = innerMerge(heapRoot, heapToMerge.heapRoot);
+            heapToMerge.heapRoot = null;
+        }
     }
 
     public boolean decreaseKey(final int key, final int newValue) {

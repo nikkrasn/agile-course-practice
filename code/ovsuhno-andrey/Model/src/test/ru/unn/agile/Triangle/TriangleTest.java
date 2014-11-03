@@ -9,7 +9,10 @@ public class TriangleTest {
 
     @Test
     public void canCreateTriangle() {
-        Triangle newTriangle = new Triangle(1, 2, 3, 4, 2, 1);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(3 ,4);
+        Point pointC = new Point(2 ,1);
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         assertNotNull(newTriangle);
     }
 
@@ -47,118 +50,175 @@ public class TriangleTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenMatchingPoints() {
-        Triangle newTriangle = new Triangle(1, 2, 1, 2, 5, 6);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,2);
+        Point pointC = new Point(5 ,6);
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenPointsOnStraightLine() {
-        Triangle newTriangle = new Triangle(1, 2, 1, 3, 1, 4);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,3);
+        Point pointC = new Point(1 ,4);
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC);
     }
 
     @Test
     public void canSetInitialAPoint() {
-        Triangle newTriangle = new Triangle(1, 2, 3, 4, 2, 1);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(3 ,4);
+        Point pointC = new Point(2 ,1);
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         Point correctA = new Point(1, 2);
         assertEquals(correctA, newTriangle.getA());
     }
 
     @Test
     public void canSetInitialBPoint() {
-        Triangle newTriangle = new Triangle(1, 2, 3, 4, 2, 1);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(3 ,4);
+        Point pointC = new Point(2 ,1);
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         Point correctB = new Point(3, 4);
         assertEquals(correctB, newTriangle.getB());
     }
 
     @Test
     public void canSetInitialCPoint() {
-        Triangle newTriangle = new Triangle(1, 2, 3, 4, 2, 1);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(3 ,4);
+        Point pointC = new Point(2 ,1);
+        Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         Point correctC = new Point(2, 1);
         assertEquals(correctC, newTriangle.getC());
     }
 
     @Test (expected = IllegalArgumentException.class)
      public void throwsWhenSetPointAInOtherPoint() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         certainTriangle.setA(1, 4);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointBInOtherPoint() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         certainTriangle.setB(2, 2);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointCInOtherPoint() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         certainTriangle.setC(1, 2);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointAOnLineOfOtherPoints() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         certainTriangle.setA(1.5, 3);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointBOnLineOfOtherPoints() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         certainTriangle.setB(1.5, 2);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointCOnLineOfOtherPoints() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         certainTriangle.setC(1, 3);
     }
 
     @Test
      public void canCountLengthsOfRectangularTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         assertArrayEquals(new double[]{2, 2.2361, 1}, certainTriangle.countLengths(), roughDelta);
     }
 
     @Test
     public void canCountLengthsOfRandomTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 2, 4, 5, 3);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(2 ,4);
+        Point pointC = new Point(5 ,3);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         double[] correctLengths = {2.2361, 3.1623, 4.1231};
         assertArrayEquals(correctLengths, certainTriangle.countLengths(), roughDelta);
     }
 
     @Test
     public void canCountPerimeterOfRectangularTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         assertEquals(5.2361, certainTriangle.countPerimeter(), roughDelta);
     }
 
     @Test
     public void canCountPerimeterOfRandomTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 2, 4, 5, 3);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(2 ,4);
+        Point pointC = new Point(5 ,3);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         assertEquals(9.5215, certainTriangle.countPerimeter(), roughDelta);
     }
 
     @Test
     public void canCountSpaceOfRectangularTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         assertEquals(1.0, certainTriangle.countSpace(), accurateDelta);
     }
 
     @Test
     public void canCountSpaceOfRandomTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 2, 4, 5, 3);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(2 ,4);
+        Point pointC = new Point(5 ,3);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         assertEquals(3.5, certainTriangle.countSpace(), roughDelta);
     }
 
     @Test
     public void canCountAnglesCosineOfRectangularTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 1, 4, 2, 2);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(1 ,4);
+        Point pointC = new Point(2 ,2);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         double[] correctAngles = {0.0, 0.8944, 0.4472};
         assertArrayEquals(correctAngles, certainTriangle.countAnglesCosine(), roughDelta);
     }
 
     @Test
     public void canCountAnglesCosineOfRandomTriangle() {
-        Triangle certainTriangle = new Triangle(1, 2, 2, 4, 5, 3);
+        Point pointA = new Point(1 ,2);
+        Point pointB = new Point(2 ,4);
+        Point pointC = new Point(5 ,3);
+        Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
         double[] correctAngles = {0.6508, -0.1414, 0.8437};
         assertArrayEquals(correctAngles, certainTriangle.countAnglesCosine(), roughDelta);
     }

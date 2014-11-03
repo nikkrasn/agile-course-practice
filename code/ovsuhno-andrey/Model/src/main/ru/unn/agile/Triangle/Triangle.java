@@ -5,12 +5,7 @@ public class Triangle {
     private final Point pointB;
     private final Point pointC;
 
-    public Triangle(final double aX, final double aY,
-                    final double bX, final double bY,
-                    final double cX, final double cY) {
-        Point pointA = new Point(aX, aY);
-        Point pointB = new Point(bX, bY);
-        Point pointC = new Point(cX, cY);
+    public Triangle(final Point pointA, final Point pointB, final Point pointC) {
         if (!isTriangle(pointA, pointB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         }
@@ -39,9 +34,8 @@ public class Triangle {
     }
 
     public double countPerimeter() {
-        double perimeter = pointA.getDistance(pointB);
-        perimeter += pointB.getDistance(pointC);
-        perimeter += pointC.getDistance(pointA);
+        double[] lengths = countLengths();
+        double perimeter = lengths[0] + lengths[1] + lengths[2];
 
         return perimeter;
     }

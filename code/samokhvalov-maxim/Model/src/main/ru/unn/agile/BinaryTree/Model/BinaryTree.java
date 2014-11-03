@@ -56,7 +56,6 @@ public class BinaryTree {
     private void deleteNode(final Node node) {
         if (node.getLeft() == null && node.getRight() == null) {
             deleteChildByKey(this.root, null, node.getKey());
-
         } else if (node.getLeft() == null) {
             node.initBy(node.getRight());
         } else if (node.getRight() == null) {

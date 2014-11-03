@@ -46,7 +46,7 @@ public class Triangle {
         return perimeter;
     }
 
-    private double countPerimeter(double[] lengths) {
+    private double countPerimeter(final double[] lengths) {
         return lengths[0] + lengths[1] + lengths[2];
     }
 

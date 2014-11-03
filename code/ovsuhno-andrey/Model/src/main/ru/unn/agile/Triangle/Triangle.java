@@ -1,48 +1,50 @@
 package ru.unn.agile.Triangle;
 
 public class Triangle {
-    private Point A;
-    private Point B;
-    private Point C;
+    private Point pointA;
+    private Point pointB;
+    private Point pointC;
 
     public Triangle(final double aX, final double aY,
                     final double bX, final double bY,
                     final double cX, final double cY) {
-        Point A = new Point(aX, aY);
-        Point B = new Point(bX, bY);
-        Point C = new Point(cX, cY);
-        if ((A.equals(B)) || (B.equals(C)) || (C.equals(A))) {
-            throw new IllegalArgumentException();
+        Point pointA = new Point(aX, aY);
+        Point pointB = new Point(bX, bY);
+        Point pointC = new Point(cX, cY);
+        if ((pointA.equals(pointB)) || (pointB.equals(pointC)) || (pointC.equals(pointA))) {
+            throw new IllegalArgumentException("Triangle points can't be equal");
         }
-        else if (C.isOnStraightLine(A, B)) {
-            throw new IllegalArgumentException();
+        else if (pointC.isOnStraightLine(pointA, pointB)) {
+            throw new IllegalArgumentException("All triangle point can't be on one line");
         }
         else {
-            this.A = A;
-            this.B = B;
-            this.C = C;
+            this.pointA = pointA;
+            this.pointB = pointB;
+            this.pointC = pointC;
         }
     }
 
     public double[] countLengths() {
-        double[] lengths = new double[3];
-        lengths[0] = A.getDistance(B);
-        lengths[1] = B.getDistance(C);
-        lengths[2] = C.getDistance(A);
+        final int pointNum = 3;
+        double[] lengths = new double[pointNum];
+        lengths[0] = pointA.getDistance(pointB);
+        lengths[1] = pointB.getDistance(pointC);
+        lengths[2] = pointC.getDistance(pointA);
 
         return lengths;
     }
 
     public double countPerimeter() {
-        double perimeter = A.getDistance(B);
-        perimeter += B.getDistance(C);
-        perimeter += C.getDistance(A);
+        double perimeter = pointA.getDistance(pointB);
+        perimeter += pointB.getDistance(pointC);
+        perimeter += pointC.getDistance(pointA);
 
         return perimeter;
     }
 
     public double countSpace() {
-        double halfPerimeter = 0.5 * countPerimeter();
+        final double half = 0.5;
+        double halfPerimeter = half * countPerimeter();
         double[] lengths = countLengths();
 
         double space = halfPerimeter;
@@ -55,43 +57,57 @@ public class Triangle {
     }
 
     public double[] countAnglesCosine() {
-        double[] anglesCosine = new double[3];
+        final int angleNum = 3;
+        double[] anglesCosine = new double[angleNum];
         double[] lengths = countLengths();
 
-        anglesCosine[0] = 0.5 * ((lengths[0] * lengths[0]) + (lengths[2] * lengths[2]) - (lengths[1] * lengths[1]));
+        final double half = 0.5;
+
+        anglesCosine[0] = lengths[0] * lengths[0];
+        anglesCosine[0] += lengths[2] * lengths[2];
+        anglesCosine[0] -= lengths[1] * lengths[1];
+        anglesCosine[0] *= half;
         anglesCosine[0] /= lengths[0] * lengths[2];
-        anglesCosine[1] = 0.5 * ((lengths[0] * lengths[0]) + (lengths[1] * lengths[1]) - (lengths[2] * lengths[2]));
+
+        anglesCosine[1] = lengths[0] * lengths[0];
+        anglesCosine[1] += lengths[1] * lengths[1];
+        anglesCosine[1] -= lengths[2] * lengths[2];
+        anglesCosine[1] *= half;
         anglesCosine[1] /= lengths[0] * lengths[1];
-        anglesCosine[2] = 0.5 * ((lengths[1] * lengths[1]) + (lengths[2] * lengths[2]) - (lengths[0] * lengths[0]));
+
+        anglesCosine[2] = lengths[1] * lengths[1];
+        anglesCosine[2] += lengths[2] * lengths[2];
+        anglesCosine[2] -= lengths[0] * lengths[0];
+        anglesCosine[2] *= half;
         anglesCosine[2] /= lengths[1] * lengths[2];
 
         return anglesCosine;
     }
 
     public void setA(final double x, final double y) {
-        this.A.setX(x);
-        this.A.setY(y);
+        this.pointA.setX(x);
+        this.pointA.setY(y);
     }
 
     public Point getA() {
-        return A;
+        return pointA;
     }
 
     public void setB(final double x, final double y) {
-        this.B.setX(x);
-        this.B.setY(y);
+        this.pointB.setX(x);
+        this.pointB.setY(y);
     }
 
     public Point getB() {
-        return B;
+        return pointB;
     }
 
     public void setC(final double x, final double y) {
-        this.C.setX(x);
-        this.C.setY(y);
+        this.pointC.setX(x);
+        this.pointC.setY(y);
     }
 
     public Point getC() {
-        return C;
+        return pointC;
     }
 }

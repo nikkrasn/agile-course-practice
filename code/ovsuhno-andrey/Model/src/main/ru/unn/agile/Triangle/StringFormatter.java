@@ -14,7 +14,8 @@ public final class StringFormatter {
         long multipliedValue = Math.round(Math.abs(value * precisionDegree));
         cutter = ((int) multipliedValue) % precisionDegree;
 
-        if (cutter < 10) {
+        final int ten = 10;
+        if (cutter < ten) {
             buffer += "0";
         }
         buffer += cutter.toString();
@@ -31,5 +32,4 @@ public final class StringFormatter {
         buffer += y + ")";
         return buffer;
     }
-
 }

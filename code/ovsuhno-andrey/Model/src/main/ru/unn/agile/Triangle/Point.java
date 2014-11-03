@@ -10,6 +10,16 @@ public class Point {
     }
 
     @Override
+    public int hashCode() {
+        final int shift = 32;
+        long temp = Double.doubleToLongBits(x);
+        int result = (int) (temp ^ (temp >>> shift));
+        temp = Double.doubleToLongBits(y);
+        result = (shift - 1)  * result + (int) (temp ^ (temp >>> shift));
+        return result;
+    }
+
+    @Override
     public boolean equals(final Object object) {
         Point certainPoint = (Point) object;
         return certainPoint.getX() == getX() && certainPoint.getY() == getY();
@@ -22,15 +32,15 @@ public class Point {
         return result;
     }
 
-    public boolean isOnStraightLine(final Point A, final Point B) {
-        if (A.equals(B)) {
-            throw new IllegalArgumentException();
+    public boolean isOnStraightLine(final Point pointA, final Point pointB) {
+        if (pointA.equals(pointB)) {
+            throw new IllegalArgumentException("Can't hold the line with only one point");
         }
 
         double xCoeff, yCoeff, freeCoeff;
-        xCoeff = A.getY() - B.getY();
-        yCoeff = B.getX() - A.getX();
-        freeCoeff = xCoeff * A.getX() + yCoeff * A.getY();
+        xCoeff = pointA.getY() - pointB.getY();
+        yCoeff = pointB.getX() - pointA.getX();
+        freeCoeff = xCoeff * pointA.getX() + yCoeff * pointA.getY();
 
         return ((xCoeff * this.getX() + yCoeff * this.getY()) == freeCoeff);
     }

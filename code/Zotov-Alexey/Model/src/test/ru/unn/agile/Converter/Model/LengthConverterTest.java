@@ -15,68 +15,68 @@ public class LengthConverterTest {
     @Test (expected = IllegalArgumentException.class)
     public void throwsOnLargeDouble() {
         double mile = Double.MAX_VALUE;
-        LengthConverter.mileToM(mile);
+        LengthConverter.mileToMeter(mile);
     }
 
     @Test
     public void notThrowsOnLargeDouble() {
         double m = Double.MAX_VALUE;
-        LengthConverter.mToMile(m);
+        LengthConverter.meterToMile(m);
     }
 
     @Test
     public void isCorrectConvertationMToKm() {
         double m = 2.;
-        double km = LengthConverter.mToKm(m);
+        double km = LengthConverter.meterToKilometer(m);
         assertEquals(km, 2. / 1000., DELTA);
     }
 
     @Test
     public void isCorrectConvertationMToMile() {
         double m = 2.;
-        double mile = LengthConverter.mToMile(m);
+        double mile = LengthConverter.meterToMile(m);
         assertEquals(mile, 2. / 1609.344, DELTA);
     }
 
     @Test
     public void isCorrectConvertationMToInch() {
         double m = 2.;
-        double inch = LengthConverter.mToInch(m);
+        double inch = LengthConverter.meterToInch(m);
         assertEquals(inch, 2. / 0.0254, DELTA);
     }
 
     @Test
     public void isCorrectConvertationKmToM() {
         double km = 2.;
-        double m = LengthConverter.kmToM(km);
+        double m = LengthConverter.kilometerToMeter(km);
         assertEquals(m, 2. * 1000., DELTA);
     }
 
     @Test
     public void isCorrectConvertationKmToMile() {
         double km = 2.;
-        double mile = LengthConverter.kmToMile(km);
+        double mile = LengthConverter.kilometerToMile(km);
         assertEquals(mile, 2. * 1000. / 1609.344, DELTA);
     }
 
     @Test
     public void isCorrectConvertationKmToInch() {
         double km = 2.;
-        double inch = LengthConverter.kmToInch(km);
+        double inch = LengthConverter.kilometerToInch(km);
         assertEquals(inch, 2. * 1000. / 0.0254, DELTA);
     }
 
     @Test
     public void isCorrectConvertationMileToM() {
         double mile = 2.;
-        double m = LengthConverter.mileToM(mile);
+        double m = LengthConverter.mileToMeter(mile);
         assertEquals(m, 2. * 1609.344, DELTA);
     }
 
     @Test
     public void isCorrectConvertationMileTokm() {
         double mile = 2.;
-        double km = LengthConverter.mileToKm(mile);
+        double km = LengthConverter.mileToKilometer(mile);
         assertEquals(km, 2. * 1609.344 / 1000., DELTA);
     }
 
@@ -90,14 +90,14 @@ public class LengthConverterTest {
     @Test
     public void isCorrectConvertationInchToM() {
         double inch = 2.;
-        double m = LengthConverter.inchToM(inch);
+        double m = LengthConverter.inchToMeter(inch);
         assertEquals(m, 2. * 0.0254, DELTA);
     }
 
     @Test
     public void isCorrectConvertationInchToKm() {
         double inch = 2.;
-        double km = LengthConverter.inchToKm(inch);
+        double km = LengthConverter.inchToKilometer(inch);
         assertEquals(km, 2. * 0.0254 / 1000, DELTA);
     }
 

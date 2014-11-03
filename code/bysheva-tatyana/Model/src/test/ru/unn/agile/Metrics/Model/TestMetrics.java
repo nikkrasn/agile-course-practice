@@ -2,6 +2,7 @@ package ru.unn.agile.Metrics.Model;
 
 import org.junit.Test;
 
+import java.io.Console;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -112,6 +113,31 @@ public class TestMetrics {
         createThreeDimensionVectors();
         float metricLInf = Metrics.lInf(vector1, vector2);
         assertEquals(3.0f, metricLInf, EPSILON);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL1MetricForNullObjects() {
+        Metrics.l1(null, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL2MetricForNullObjects() {
+        Metrics.l2(null, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL3MetricForNullObjects() {
+        Metrics.l3(null, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkL4MetricForNullObjects() {
+        Metrics.l4(null, null);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void checkLInfMetricForNullObjects() {
+        Metrics.lInf(null, null);
     }
 
     @Test (expected = IllegalArgumentException.class)

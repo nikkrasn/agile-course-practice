@@ -75,6 +75,9 @@ public final class Metrics {
 
     private static void checkVectorsSizes(final Vector<Float> vector1,
                                           final Vector<Float> vector2) {
+        if (vector1 == null || vector2 == null) {
+            throw new IllegalArgumentException("One or both vectors are null");
+        }
         if (vector1.size() != vector2.size()) {
             throw new IllegalArgumentException("Vectors sizes are not equal");
         }

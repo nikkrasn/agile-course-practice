@@ -61,6 +61,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Ryabusheva Anna
 
 // Samokhvalov Maxim
+include "samokhvalov-maxim"
+project(":samokhvalov-maxim").name = "samokhvalov-maxim-Model"
 
 // Serov Alexey
 

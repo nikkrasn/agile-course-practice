@@ -34,37 +34,6 @@ public class BinaryTree {
         }
     }
 
-    /*private void delete(final Node root, final int key) {
-        if (root == null) {
-            return;
-        }
-
-        if (key > root.getKey()) {
-            delete(root.getRight(), key);
-        } else if (key < root.getKey()) {
-            delete(root.getLeft(), key);
-        } else {
-            if (root.getLeft() == null && root.getRight() == null) {
-                root = null;
-            } else if (root.getLeft() == null) {
-                root = root.getRight();
-                int ket = root.getKey();
-            } else if (root.getRight() == null) {
-                root = root.getLeft();
-                int ket = root.getKey();
-            } else {
-                if (root.getRight().getLeft() == null) {
-                    root.getRight().setLeft(root.getLeft());
-                    root = root.getRight();
-                } else {
-                    root.setKey(root.getRight().getLeft().getKey());
-                    root.setValue(root.getRight().getLeft().getValue());
-                    this.delete(root.getRight().getLeft());
-                }
-            }
-        }
-    } */
-
     public void delete(final int key) {
         if (this.root == null) {
             return;

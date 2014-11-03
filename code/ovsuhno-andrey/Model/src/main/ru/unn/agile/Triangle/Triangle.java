@@ -81,7 +81,7 @@ public class Triangle {
     }
 
     public void setA(final double x, final double y) {
-        Point candidateA = new Point(x ,y);
+        Point candidateA = new Point(x, y);
         if (!Point.isTriangle(candidateA, pointB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         } else {
@@ -95,7 +95,7 @@ public class Triangle {
     }
 
     public void setB(final double x, final double y) {
-        Point candidateB = new Point(x ,y);
+        Point candidateB = new Point(x, y);
         if (!Point.isTriangle(pointA, candidateB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         } else {
@@ -109,7 +109,7 @@ public class Triangle {
     }
 
     public void setC(final double x, final double y) {
-        Point candidateC = new Point(x ,y);
+        Point candidateC = new Point(x, y);
         if (!Point.isTriangle(pointA, pointB, candidateC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         } else {

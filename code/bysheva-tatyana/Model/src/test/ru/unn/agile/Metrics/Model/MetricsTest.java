@@ -3,6 +3,7 @@ package ru.unn.agile.Metrics.Model;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -12,13 +13,13 @@ public class MetricsTest {
 
     private static final float EPSILON = 0.01f;
 
-    private ArrayList<Float> vector0D;
+    private List<Float> emptyVector;
 
-    private ArrayList<Float> firstVector1D;
-    private ArrayList<Float> secondVector1D;
+    private List<Float> firstVector1D;
+    private List<Float> secondVector1D;
 
-    private ArrayList<Float> firstVector3D;
-    private ArrayList<Float> secondVector3D;
+    private List<Float> firstVector3D;
+    private List<Float> secondVector3D;
 
     @Before
     public void setUp() {
@@ -28,7 +29,7 @@ public class MetricsTest {
         firstVector3D = new ArrayList<>(Arrays.asList(new Float[] {1.0f, 2.0f, 3.0f}));
         secondVector3D = new ArrayList<>(Arrays.asList(new Float[] {4.0f, 5.0f, 6.0f}));
 
-        vector0D = new ArrayList<>(Arrays.asList(new Float[] {}));
+        emptyVector = new ArrayList<>(Arrays.asList(new Float[] {}));
     }
 
     @Test
@@ -143,26 +144,26 @@ public class MetricsTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void checkL1MetricForEmptyVectors() {
-        Metrics.l1(vector0D, vector0D);
+        Metrics.l1(emptyVector, emptyVector);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void checkL2MetricForEmptyVectors() {
-        Metrics.l2(vector0D, vector0D);
+        Metrics.l2(emptyVector, emptyVector);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void checkL3MetricForEmptyVectors() {
-        Metrics.l3(vector0D, vector0D);
+        Metrics.l3(emptyVector, emptyVector);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void checkL4MetricForEmptyVectors() {
-        Metrics.l4(vector0D, vector0D);
+        Metrics.l4(emptyVector, emptyVector);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void checkLInfMetricForEmptyVectors() {
-        Metrics.lInf(vector0D, vector0D);
+        Metrics.lInf(emptyVector, emptyVector);
     }
 }

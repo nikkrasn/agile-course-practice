@@ -16,35 +16,35 @@ public class TestMetrics {
 
     @Test
     public void checkL1MetricForOneDimensionVectors() {
-        fillOneDimensionVectorsBySomeValues();
+        createOneDimensionVectors();
         float metricL1 = Metrics.l1(vector1, vector2);
         assertEquals(1.0f, metricL1, EPSILON);
     }
 
     @Test
     public void checkL2MetricForOneDimensionVectors() {
-        fillOneDimensionVectorsBySomeValues();
+        createOneDimensionVectors();
         float metricL2 = Metrics.l2(vector1, vector2);
         assertEquals(1.0f, metricL2, EPSILON);
     }
 
     @Test
     public void checkL3MetricForOneDimensionVectors() {
-        fillOneDimensionVectorsBySomeValues();
+        createOneDimensionVectors();
         float metricL3 = Metrics.l3(vector1, vector2);
         assertEquals(1.0f, metricL3, EPSILON);
     }
 
     @Test
     public void checkL4MetricForOneDimensionVectors() {
-        fillOneDimensionVectorsBySomeValues();
+        createOneDimensionVectors();
         float metricL4 = Metrics.l4(vector1, vector2);
         assertEquals(1.0f, metricL4, EPSILON);
     }
 
     @Test
     public void checkLInfMetricForOneDimensionVectors() {
-        fillOneDimensionVectorsBySomeValues();
+        createOneDimensionVectors();
         float metricLInf = Metrics.lInf(vector1, vector2);
         assertEquals(1.0f, metricLInf, EPSILON);
     }
@@ -81,35 +81,35 @@ public class TestMetrics {
 
     @Test
     public void checkL1MetricForThreeDimensionVectors() {
-        fillThreeDimensionVectorsBySomeValues();
+        createThreeDimensionVectors();
         float metricL1 = Metrics.l1(vector1, vector2);
         assertEquals(9.0f, metricL1, EPSILON);
     }
 
     @Test
     public void checkL2MetricForThreeDimensionVectors() {
-        fillThreeDimensionVectorsBySomeValues();
+        createThreeDimensionVectors();
         float metricL2 = Metrics.l2(vector1, vector2);
         assertEquals(9.0f, metricL2, EPSILON);
     }
 
     @Test
     public void checkL3MetricForThreeDimensionVectors() {
-        fillThreeDimensionVectorsBySomeValues();
+        createThreeDimensionVectors();
         float metricL3 = Metrics.l3(vector1, vector2);
         assertEquals(9.0f, metricL3, EPSILON);
     }
 
     @Test
     public void checkL4MetricForThreeDimensionVectors() {
-        fillThreeDimensionVectorsBySomeValues();
+        createThreeDimensionVectors();
         float metricL4 = Metrics.l4(vector1, vector2);
         assertEquals(9.0f, metricL4, EPSILON);
     }
 
     @Test
     public void checkLInfMetricForThreeDimensionVectors() {
-        fillThreeDimensionVectorsBySomeValues();
+        createThreeDimensionVectors();
         float metricLInf = Metrics.lInf(vector1, vector2);
         assertEquals(3.0f, metricLInf, EPSILON);
     }
@@ -144,12 +144,12 @@ public class TestMetrics {
         Metrics.lInf(vector1, vector2);
     }
 
-    private void fillThreeDimensionVectorsBySomeValues() {
+    private void createThreeDimensionVectors() {
         vector1 = new Vector<>(Arrays.asList(new Float[] {1.0f, 2.0f, 3.0f}));
         vector2 = new Vector<>(Arrays.asList(new Float[] {4.0f, 5.0f, 6.0f}));
     }
 
-    private void fillOneDimensionVectorsBySomeValues() {
+    private void createOneDimensionVectors() {
         vector1 = new Vector<>(Arrays.asList(new Float[] {1.0f}));
         vector2 = new Vector<>(Arrays.asList(new Float[] {2.0f}));
     }

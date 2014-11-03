@@ -62,8 +62,7 @@ public class Triangle {
 
     private double countTriangleCosineFromSides(final double a, final double b, final double c) {
         final double half = 0.5;
-        double result = half * (a * a + b * b - c * c) / (a * b);
-        return result;
+        return half * (a * a + b * b - c * c) / (a * b);
     }
 
     public double[] countAnglesCosine() {

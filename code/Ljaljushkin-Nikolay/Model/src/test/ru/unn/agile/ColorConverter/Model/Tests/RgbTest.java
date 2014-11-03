@@ -1,9 +1,9 @@
 package ru.unn.agile.ColorConverter.Model.Tests;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
 import ru.unn.agile.ColorConverter.Model.TestUtilities.KnownColors;
-import ru.unn.agile.ColorConverter.Model.TestUtilities.UtilsTest;
 
 public class RgbTest {
 
@@ -12,7 +12,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Hsv expectedColor = KnownColors.WHITE_HSV;
         Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.hsvAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -20,7 +20,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Xyz expectedColor = KnownColors.WHITE_XYZ;
         Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.xyzAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Lab expectedColor = KnownColors.WHITE_LAB;
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.labAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Hsv expectedColor = KnownColors.BLACK_HSV;
         Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.hsvAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Xyz expectedColor = KnownColors.BLACK_XYZ;
         Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.xyzAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Lab expectedColor = KnownColors.BLACK_LAB;
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.labAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.DARK_RED_RGB;
         Hsv expectedColor = KnownColors.DARK_RED_HSV;
         Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.hsvAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.ORANGE_RGB;
         Xyz expectedColor = KnownColors.ORANGE_XYZ;
         Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.xyzAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -77,6 +77,6 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.ORANGE_RGB;
         Lab expectedColor = KnownColors.ORANGE_LAB;
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        UtilsTest.labAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 }

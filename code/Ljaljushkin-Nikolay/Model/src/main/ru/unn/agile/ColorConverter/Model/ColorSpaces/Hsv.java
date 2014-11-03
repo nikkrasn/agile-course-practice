@@ -53,4 +53,11 @@ public class Hsv extends ColorSpace {
         this.s = s;
         this.v = v;
     }
+
+    public boolean isEqual(final Hsv comparedColor) {
+        boolean isHClose = Utils.isCloseEnough(h, comparedColor.getH());
+        boolean isSClose = Utils.isCloseEnough(s, comparedColor.getS());
+        boolean isVClose = Utils.isCloseEnough(v, comparedColor.getV());
+        return isHClose && isSClose && isVClose;
+    }
 }

@@ -54,4 +54,11 @@ public class Rgb extends ColorSpace {
         this.g = g;
         this.b = b;
     }
+
+    public boolean isEqual(final Rgb comparedColor) {
+        boolean isRClose = Utils.isCloseEnough(r, comparedColor.getR());
+        boolean isGClose = Utils.isCloseEnough(g, comparedColor.getG());
+        boolean isBClose = Utils.isCloseEnough(b, comparedColor.getB());
+        return isRClose && isGClose && isBClose;
+    }
 }

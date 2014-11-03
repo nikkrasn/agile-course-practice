@@ -54,4 +54,10 @@ public class Lab extends ColorSpace {
         this.b = b;
     }
 
+    public boolean isEqual(final Lab comparedColor) {
+        boolean isLClose = Utils.isCloseEnough(l, comparedColor.getL());
+        boolean isAClose = Utils.isCloseEnough(a, comparedColor.getA());
+        boolean isBClose = Utils.isCloseEnough(b, comparedColor.getB());
+        return isLClose && isAClose && isBClose;
+    }
 }

@@ -1,6 +1,7 @@
 package ru.unn.agile.ColorConverter.Model.Tests;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
 import ru.unn.agile.ColorConverter.Model.TestUtilities.*;
 
@@ -11,7 +12,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.WHITE_HSV;
         Rgb expectedColor = KnownColors.WHITE_RGB;
         Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
-        UtilsTest.rgbAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -19,7 +20,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.WHITE_HSV;
         Lab expectedColor = KnownColors.WHITE_LAB;
         Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
-        UtilsTest.labAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -27,7 +28,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.BLACK_HSV;
         Rgb expectedColor = KnownColors.BLACK_RGB;
         Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
-        UtilsTest.rgbAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -35,7 +36,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.BLACK_HSV;
         Lab expectedColor = KnownColors.BLACK_LAB;
         Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
-        UtilsTest.labAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -43,7 +44,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.AQUAMARINE_HSV;
         Rgb expectedColor = KnownColors.AQUAMARINE_RGB;
         Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
-        UtilsTest.rgbAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 
     @Test
@@ -51,6 +52,6 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.AQUAMARINE_HSV;
         Lab expectedColor = KnownColors.AQUAMARINE_LAB;
         Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
-        UtilsTest.labAssert(expectedColor, targetColor);
+        assertTrue(expectedColor.isEqual(targetColor));
     }
 }

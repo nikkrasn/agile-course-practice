@@ -39,6 +39,8 @@ project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
 // Borodulina Ljubov
 
 // Bysheva Tatyana
+include "bysheva-tatyana"
+project(":bysheva-tatyana").name = "bysheva-tatyana-Model"
 
 // Izutov Evgenii
 include "izutov-evgenii"

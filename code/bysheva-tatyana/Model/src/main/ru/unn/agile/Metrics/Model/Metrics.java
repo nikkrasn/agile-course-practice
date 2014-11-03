@@ -4,9 +4,6 @@ import java.util.Vector;
 
 public final class Metrics {
 
-    private Metrics() {
-    }
-
     public static float l1(final Vector<Float> vector1, final Vector<Float> vector2) {
         checkVectorsSizes(vector1, vector2);
 
@@ -85,4 +82,8 @@ public final class Metrics {
             throw new IllegalArgumentException("Vectors are empty");
         }
     }
+
+    private Metrics() {
+    }
+    
 }

@@ -22,6 +22,14 @@ public class RgbTest {
     }
 
     @Test
+    public void canConvertWhiteRgbAndXyzToHsv() {
+        Rgb rgbColor = KnownColors.WHITE_RGB;
+        Xyz xyzColor = KnownColors.WHITE_XYZ;
+        Hsv expectedColor = KnownColors.WHITE_HSV;
+        UtilsTest.expectedValuesForTwoKnownColors(rgbColor, xyzColor, expectedColor);
+    }
+
+    @Test
     public void canConvertWhiteRgbToLab() {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Lab expectedColor = KnownColors.WHITE_LAB;
@@ -41,6 +49,14 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Xyz expectedColor = KnownColors.BLACK_XYZ;
         UtilsTest.expectedValuesForKnownColor(rgbColor, expectedColor);
+    }
+
+    @Test
+    public void canConvertBlackRgbAndXyzToHsv() {
+        Rgb rgbColor = KnownColors.BLACK_RGB;
+        Xyz xyzColor = KnownColors.BLACK_XYZ;
+        Hsv expectedColor = KnownColors.BLACK_HSV;
+        UtilsTest.expectedValuesForTwoKnownColors(rgbColor, xyzColor, expectedColor);
     }
 
     @Test
@@ -66,10 +82,17 @@ public class RgbTest {
     }
 
     @Test
+    public void canConvertOrangeRgbAndXyzToLab() {
+        Rgb rgbColor = KnownColors.ORANGE_RGB;
+        Xyz xyzColor = KnownColors.ORANGE_XYZ;
+        Lab expectedColor = KnownColors.ORANGE_LAB;
+        UtilsTest.expectedValuesForTwoKnownColors(rgbColor, xyzColor, expectedColor);
+    }
+
+    @Test
     public void canConvertOrangeRgbToLab() {
         Rgb rgbColor = KnownColors.ORANGE_RGB;
         Lab expectedColor = KnownColors.ORANGE_LAB;
         UtilsTest.expectedValuesForKnownColor(rgbColor, expectedColor);
     }
-
 }

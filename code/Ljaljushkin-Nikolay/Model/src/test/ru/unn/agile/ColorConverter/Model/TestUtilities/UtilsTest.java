@@ -18,21 +18,53 @@ public final class UtilsTest {
     }
 
     public static void expectedValuesForKnownColor(final ColorSpace knownColor,
-                                                      final Lab expectedColor) {
+                                                   final Lab expectedColor) {
         Lab targetColor = (Lab) knownColor.toColor(expectedColor.getClass());
         labAssert(expectedColor, targetColor);
     }
 
     public static void expectedValuesForKnownColor(final ColorSpace knownColor,
-                                                      final Xyz expectedColor) {
+                                                   final Xyz expectedColor) {
         Xyz targetColor = (Xyz) knownColor.toColor(expectedColor.getClass());
         xyzAssert(expectedColor, targetColor);
     }
 
     public static void expectedValuesForKnownColor(final ColorSpace knownColor,
-                                                      final Hsv expectedColor) {
+                                                   final Hsv expectedColor) {
         Hsv targetColor = (Hsv) knownColor.toColor(expectedColor.getClass());
         hsvAssert(expectedColor, targetColor);
+    }
+
+    public static void expectedValuesForTwoKnownColors(final ColorSpace firstKnownColor,
+                                                       final ColorSpace secondKnownColor,
+                                                       final Xyz expectedColor) {
+        Xyz firstTargetColor = (Xyz) firstKnownColor.toColor(expectedColor.getClass());
+        Xyz secondTargetColor = (Xyz) secondKnownColor.toColor(expectedColor.getClass());
+        xyzAssert(firstTargetColor, secondTargetColor);
+    }
+
+    public static void expectedValuesForTwoKnownColors(final ColorSpace firstKnownColor,
+                                                       final ColorSpace secondKnownColor,
+                                                       final Rgb expectedColor) {
+        Rgb firstTargetColor = (Rgb) firstKnownColor.toColor(expectedColor.getClass());
+        Rgb secondTargetColor = (Rgb) secondKnownColor.toColor(expectedColor.getClass());
+        rgbAssert(firstTargetColor, secondTargetColor);
+    }
+
+    public static void expectedValuesForTwoKnownColors(final ColorSpace firstKnownColor,
+                                                       final ColorSpace secondKnownColor,
+                                                       final Lab expectedColor) {
+        Lab firstTargetColor = (Lab) firstKnownColor.toColor(expectedColor.getClass());
+        Lab secondTargetColor = (Lab) secondKnownColor.toColor(expectedColor.getClass());
+        labAssert(firstTargetColor, secondTargetColor);
+    }
+
+    public static void expectedValuesForTwoKnownColors(final ColorSpace firstKnownColor,
+                                                       final ColorSpace secondKnownColor,
+                                                       final Hsv expectedColor) {
+        Hsv firstTargetColor = (Hsv) firstKnownColor.toColor(expectedColor.getClass());
+        Hsv secondTargetColor = (Hsv) secondKnownColor.toColor(expectedColor.getClass());
+        hsvAssert(firstTargetColor, secondTargetColor);
     }
 
     private static void rgbAssert(final Rgb expectedColor, final Rgb targetColor) {
@@ -79,5 +111,4 @@ public final class UtilsTest {
             return Math.abs(a - b) <= EPS;
         }
     }
-
 }

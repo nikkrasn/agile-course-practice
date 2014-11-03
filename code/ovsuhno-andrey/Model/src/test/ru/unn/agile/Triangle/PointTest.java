@@ -99,36 +99,4 @@ public class PointTest {
         Point pointC = new Point(2, 4);
         assertFalse(pointC.isOnStraightLine(pointA, pointB));
     }
-
-    @Test
-    public void areSamePointsFormingTriangle() {
-        Point pointA = new Point(1, 1);
-        Point pointB = new Point(1, 1);
-        Point pointC = new Point(1, 1);
-        assertFalse(Point.isTriangle(pointA, pointB, pointC));
-    }
-
-    @Test
-    public void areNotDifferentPointsFormingTriangle() {
-        Point pointA = new Point(1, 1);
-        Point pointB = new Point(1, 1);
-        Point pointC = new Point(2, 2);
-        assertFalse(Point.isTriangle(pointA, pointB, pointC));
-    }
-
-    @Test
-    public void arePointsOnStraightLineFormingTriangle() {
-        Point pointA = new Point(1, 1);
-        Point pointB = new Point(1, 3);
-        Point pointC = new Point(1, 2);
-        assertFalse(Point.isTriangle(pointA, pointB, pointC));
-    }
-
-    @Test
-    public void arePointsNotOnStraightLineFormingTriangle() {
-        Point pointA = new Point(1, 1);
-        Point pointB = new Point(2, 2);
-        Point pointC = new Point(2, 1);
-        assertTrue(Point.isTriangle(pointA, pointB, pointC));
-    }
 }

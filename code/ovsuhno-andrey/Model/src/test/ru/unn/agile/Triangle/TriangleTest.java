@@ -13,6 +13,38 @@ public class TriangleTest {
         assertNotNull(newTriangle);
     }
 
+    @Test
+    public void areSamePointsFormingTriangle() {
+        Point pointA = new Point(1, 1);
+        Point pointB = new Point(1, 1);
+        Point pointC = new Point(1, 1);
+        assertFalse(Triangle.isTriangle(pointA, pointB, pointC));
+    }
+
+    @Test
+    public void areNotDifferentPointsFormingTriangle() {
+        Point pointA = new Point(1, 1);
+        Point pointB = new Point(1, 1);
+        Point pointC = new Point(2, 2);
+        assertFalse(Triangle.isTriangle(pointA, pointB, pointC));
+    }
+
+    @Test
+    public void arePointsOnStraightLineFormingTriangle() {
+        Point pointA = new Point(1, 1);
+        Point pointB = new Point(1, 3);
+        Point pointC = new Point(1, 2);
+        assertFalse(Triangle.isTriangle(pointA, pointB, pointC));
+    }
+
+    @Test
+    public void arePointsNotOnStraightLineFormingTriangle() {
+        Point pointA = new Point(1, 1);
+        Point pointB = new Point(2, 2);
+        Point pointC = new Point(2, 1);
+        assertTrue(Triangle.isTriangle(pointA, pointB, pointC));
+    }
+
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenMatchingPoints() {
         Triangle newTriangle = new Triangle(1, 2, 1, 2, 5, 6);

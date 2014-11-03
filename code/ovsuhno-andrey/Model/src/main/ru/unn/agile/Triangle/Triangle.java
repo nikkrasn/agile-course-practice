@@ -1,9 +1,9 @@
 package ru.unn.agile.Triangle;
 
 public class Triangle {
-    private Point pointA;
-    private Point pointB;
-    private Point pointC;
+    final private Point pointA;
+    final private Point pointB;
+    final private Point pointC;
 
     public Triangle(final double aX, final double aY,
                     final double bX, final double bY,
@@ -11,13 +11,21 @@ public class Triangle {
         Point pointA = new Point(aX, aY);
         Point pointB = new Point(bX, bY);
         Point pointC = new Point(cX, cY);
-        if (!Point.isTriangle(pointA, pointB, pointC)) {
+        if (!isTriangle(pointA, pointB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         }
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
 
+    }
+
+    public static boolean isTriangle(final Point pointA, final Point pointB, final Point pointC) {
+        boolean answer = pointA.equals(pointB) || pointB.equals(pointC) || pointC.equals(pointA);
+        if (!answer) {
+            answer = answer || pointC.isOnStraightLine(pointA, pointB);
+        }
+        return !answer;
     }
 
     public double[] countLengths() {
@@ -52,37 +60,27 @@ public class Triangle {
         return space;
     }
 
+    private double countTriangleCosineFromSides(double a, double b, double c) {
+        final double half = 0.5;
+        double result = half * (a * a + b * b - c * c) / (a * b);
+        return result;
+    }
+
     public double[] countAnglesCosine() {
         final int angleNum = 3;
         double[] anglesCosine = new double[angleNum];
         double[] lengths = countLengths();
 
-        final double half = 0.5;
-
-        anglesCosine[0] = lengths[0] * lengths[0];
-        anglesCosine[0] += lengths[2] * lengths[2];
-        anglesCosine[0] -= lengths[1] * lengths[1];
-        anglesCosine[0] *= half;
-        anglesCosine[0] /= lengths[0] * lengths[2];
-
-        anglesCosine[1] = lengths[0] * lengths[0];
-        anglesCosine[1] += lengths[1] * lengths[1];
-        anglesCosine[1] -= lengths[2] * lengths[2];
-        anglesCosine[1] *= half;
-        anglesCosine[1] /= lengths[0] * lengths[1];
-
-        anglesCosine[2] = lengths[1] * lengths[1];
-        anglesCosine[2] += lengths[2] * lengths[2];
-        anglesCosine[2] -= lengths[0] * lengths[0];
-        anglesCosine[2] *= half;
-        anglesCosine[2] /= lengths[1] * lengths[2];
+        anglesCosine[0] = countTriangleCosineFromSides(lengths[0], lengths[2], lengths[1]);
+        anglesCosine[1] = countTriangleCosineFromSides(lengths[0], lengths[1], lengths[2]);
+        anglesCosine[2] = countTriangleCosineFromSides(lengths[1], lengths[2], lengths[0]);
 
         return anglesCosine;
     }
 
     public void setA(final double x, final double y) {
         Point candidateA = new Point(x, y);
-        if (!Point.isTriangle(candidateA, pointB, pointC)) {
+        if (!isTriangle(candidateA, pointB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         }
         this.pointA.setX(x);
@@ -95,7 +93,7 @@ public class Triangle {
 
     public void setB(final double x, final double y) {
         Point candidateB = new Point(x, y);
-        if (!Point.isTriangle(pointA, candidateB, pointC)) {
+        if (!isTriangle(pointA, candidateB, pointC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         }
         this.pointB.setX(x);
@@ -108,7 +106,7 @@ public class Triangle {
 
     public void setC(final double x, final double y) {
         Point candidateC = new Point(x, y);
-        if (!Point.isTriangle(pointA, pointB, candidateC)) {
+        if (!isTriangle(pointA, pointB, candidateC)) {
             throw new IllegalArgumentException("Triangle is formed by 3 points not on line ");
         }
         this.pointC.setX(x);

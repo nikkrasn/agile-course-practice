@@ -46,14 +46,6 @@ public class Point {
         return Math.abs(xCoeff * this.getX() + yCoeff * this.getY() - freeCoeff) < delta;
     }
 
-    public static boolean isTriangle(final Point pointA, final Point pointB, final Point pointC) {
-        boolean answer = pointA.equals(pointB) || pointB.equals(pointC) || pointC.equals(pointA);
-        if (!answer) {
-            answer = answer || pointC.isOnStraightLine(pointA, pointB);
-        }
-        return !answer;
-    }
-
     public void setX(final double x) {
         this.x = x;
     }

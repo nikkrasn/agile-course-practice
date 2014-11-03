@@ -29,7 +29,7 @@ public class Point {
         }
 
         Point certainPoint = (Point) object;
-        return certainPoint.getX() == getX() && certainPoint.getY() == getY();
+        return hashCode() == certainPoint.hashCode();
     }
 
     public double getDistance(final Point anotherPoint) {

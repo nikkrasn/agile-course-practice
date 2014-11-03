@@ -21,6 +21,13 @@ public class Point {
 
     @Override
     public boolean equals(final Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (getClass() != object.getClass()) {
+            return false;
+        }
+
         Point certainPoint = (Point) object;
         return certainPoint.getX() == getX() && certainPoint.getY() == getY();
     }

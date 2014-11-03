@@ -33,6 +33,19 @@ public class PointTest {
     }
 
     @Test
+    public void isPointsEqualToNull() {
+        Point certainPoint = new Point(2, 4);
+        assertFalse(certainPoint.equals(null));
+    }
+
+    @Test
+    public void isPointsEqualToNotPointObject() {
+        Point certainPoint = new Point(2, 4);
+        int number = 1;
+        assertFalse(certainPoint.equals(number));
+    }
+
+    @Test
     public void arePointsWithDifferentXCooridinateNotEqual() {
         Point certainPoint = new Point(2, 4);
         Point anotherPoint = new Point(4, 4);

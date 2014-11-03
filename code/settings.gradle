@@ -86,7 +86,8 @@ project(":Ryabusheva-Anna").name = "Ryabusheva-Anna-Model"
 include "serov-alexey"
 project(":serov-alexey").name = "serov-alexey-Model"
 // Sharov Egor
-
+include "Sharov-Egor"
+project(":Sharov-Egor").name = "Sharov—Egor-Model"
 // Skachkova Natalia
 
 // Sokolov Mihail

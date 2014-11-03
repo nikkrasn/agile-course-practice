@@ -2,21 +2,9 @@ package ru.unn.agile.BinaryTree.Model;
 
 import org.junit.Test;
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 public class BinaryTreeTest {
-
-    private BinaryTree createTestTree(final boolean isSameValue) {
-        BinaryTree tree = new BinaryTree();
-        int[] treeKeys = {3, 1, 2, 0, 6, 5, 4 };
-        for (int i = 0; i < treeKeys.length; i++) {
-            String value = isSameValue ? "test" : "test" + String.valueOf(treeKeys[i]);
-            Node temp = new Node(treeKeys[i], value);
-            tree.insert(temp);
-        }
-        return tree;
-    }
 
     @Test
     public void canCreateTree() {
@@ -113,5 +101,16 @@ public class BinaryTreeTest {
         BinaryTree tree = createTestTree(true);
         ArrayList<Node> nodes = tree.findByValue("test");
         assertEquals(7, nodes.size());
+    }
+
+    private BinaryTree createTestTree(final boolean isSameValue) {
+        BinaryTree tree = new BinaryTree();
+        int[] treeKeys = {3, 1, 2, 0, 6, 5, 4 };
+        for (int i = 0; i < treeKeys.length; i++) {
+            String value = isSameValue ? "test" : "test" + String.valueOf(treeKeys[i]);
+            Node temp = new Node(treeKeys[i], value);
+            tree.insert(temp);
+        }
+        return tree;
     }
 }

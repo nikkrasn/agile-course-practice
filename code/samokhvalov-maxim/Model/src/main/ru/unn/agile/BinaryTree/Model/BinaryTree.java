@@ -6,10 +6,29 @@ public class BinaryTree {
 
     private Node root;
     private ArrayList<Node> searchNodes = null;
+
     public Node getRoot() { return this.root; }
 
     public void insert(final Node newNode) {
         this.insert(this.root, newNode);
+    }
+
+    public void delete(final int key) {
+        if (this.root == null) {
+            return;
+        }
+
+        Node node = this.find(this.root, key);
+
+        if (node != null) {
+            this.deleteNode(node);
+        }
+    }
+
+    public ArrayList<Node> findByValue(final Object value) {
+        searchNodes = new ArrayList<Node>();
+        recInOrder(this.root, value);
+        return searchNodes;
     }
 
     private void insert(final Node root, final Node newNode) {
@@ -31,18 +50,6 @@ public class BinaryTree {
                     insert(root.getRight(), newNode);
                 }
             }
-        }
-    }
-
-    public void delete(final int key) {
-        if (this.root == null) {
-            return;
-        }
-
-        Node node = this.find(this.root, key);
-
-        if (node != null) {
-            this.deleteNode(node);
         }
     }
 
@@ -97,12 +104,6 @@ public class BinaryTree {
         } else {
             return find(root.getLeft(), key);
         }
-    }
-
-    public ArrayList<Node> findByValue(final Object value) {
-        searchNodes = new ArrayList<Node>();
-        recInOrder(this.root, value);
-        return searchNodes;
     }
 
     private void recInOrder(final Node root, final Object value) {

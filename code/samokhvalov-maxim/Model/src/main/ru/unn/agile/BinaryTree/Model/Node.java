@@ -1,10 +1,11 @@
 package ru.unn.agile.BinaryTree.Model;
 
 public class Node {
-     private int key;
-     private Object value;
-     private Node left;
-     private Node right;
+
+    private int key;
+    private Object value;
+    private Node left;
+    private Node right;
 
     public int getKey() { return this.key; }
     public Object getValue() { return this.value; }

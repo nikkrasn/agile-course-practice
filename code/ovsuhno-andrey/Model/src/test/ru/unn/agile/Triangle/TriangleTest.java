@@ -123,29 +123,29 @@ public class TriangleTest {
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointAOnLineOfOtherPoints() {
-        Point pointA = new Point(1 ,2);
-        Point pointB = new Point(1 ,4);
-        Point pointC = new Point(2 ,2);
+        Point pointA = new Point(1 ,1);
+        Point pointB = new Point(3 ,5);
+        Point pointC = new Point(3 ,1);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
-        certainTriangle.setA(1.5, 3);
+        certainTriangle.setA(3, 3);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointBOnLineOfOtherPoints() {
-        Point pointA = new Point(1 ,2);
-        Point pointB = new Point(1 ,4);
-        Point pointC = new Point(2 ,2);
+        Point pointA = new Point(1 ,1);
+        Point pointB = new Point(3 ,5);
+        Point pointC = new Point(3 ,1);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
-        certainTriangle.setB(1.5, 2);
+        certainTriangle.setB(2, 1);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsWhenSetPointCOnLineOfOtherPoints() {
-        Point pointA = new Point(1 ,2);
-        Point pointB = new Point(1 ,4);
-        Point pointC = new Point(2 ,2);
+        Point pointA = new Point(1 ,1);
+        Point pointB = new Point(3 ,5);
+        Point pointC = new Point(3 ,1);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
-        certainTriangle.setC(1, 3);
+        certainTriangle.setC(2, 3);
     }
 
     @Test

@@ -5,7 +5,6 @@ import org.junit.Test;
 
 
 public class CubeTest {
-
     private static final double DELTA = 0.001;
 
     @Test

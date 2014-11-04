@@ -3,7 +3,7 @@ package ru.unn.agile.CalculateSquare.Model;
 public class Cylinder {
 
     private final double radius, height;
-    private static final int CONSTANTA = 2;
+    private static final int COEFF_CYLINDER = 2;
 
     public Cylinder(final double radius, final double height) {
         this.radius = radius;
@@ -11,7 +11,7 @@ public class Cylinder {
     }
 
     public double calculateSquare() {
-        return CONSTANTA * Math.PI * radius * (height + radius);
+        return COEFF_CYLINDER * Math.PI * radius * (height + radius);
     }
 }
 

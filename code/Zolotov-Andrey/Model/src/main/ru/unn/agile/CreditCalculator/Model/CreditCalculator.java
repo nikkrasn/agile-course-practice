@@ -38,6 +38,18 @@ public class CreditCalculator {
         }
     }
 
+    public double allSumm() {
+        double monthPayment;
+        if (typePayment) {
+            monthPayment = this.monthlyPayment(1);
+            return time * monthPayment;
+        } else {
+            double percentInMonth = percent / PROCENT / MONTH_IN_YEAR;
+            monthPayment = summ + summ * percentInMonth * (time + 1) / 2;
+            return monthPayment;
+        }
+    }
+
     public void setSumm(final int summ) {
 
         this.summ = summ;

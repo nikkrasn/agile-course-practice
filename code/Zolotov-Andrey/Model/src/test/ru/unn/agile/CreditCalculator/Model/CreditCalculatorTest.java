@@ -28,4 +28,16 @@ public class CreditCalculatorTest {
         CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, false);
         assertTrue(calculator.monthlyPayment(6) > 1680 && calculator.monthlyPayment(6) < 1690);
     }
+
+    @Test
+    public void canGetAllSummAnnuityPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, true);
+        assertTrue(calculator.allSumm() > 10430 && calculator.allSumm() < 10450);
+    }
+
+    @Test
+    public void canGetAllSummDifferentiatedPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, true);
+        assertTrue(calculator.allSumm() > 10435 && calculator.allSumm() < 10445);
+    }
 }

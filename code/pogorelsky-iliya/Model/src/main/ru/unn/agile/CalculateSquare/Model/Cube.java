@@ -1,7 +1,6 @@
 package ru.unn.agile.CalculateSquare.Model;
 
 public class Cube {
-
     private final double edge;
     private static final int COEFF_SQUARE = 6;
 

@@ -69,6 +69,8 @@ include "myasnikov-alexander"
 project(":myasnikov-alexander").name = "myasnikov-alexander-Model"
 
 // Ovsuhno Andrey
+include "ovsuhno-andrey/Model"
+project(":ovsuhno-andrey/Model").name = "ovsuhno-andrey-Model"
 
 // Pashko Alena
 include "pashko-alena"

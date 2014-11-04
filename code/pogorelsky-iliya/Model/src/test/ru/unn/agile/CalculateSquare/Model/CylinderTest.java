@@ -5,7 +5,6 @@ import org.junit.Test;
 
 
 public class CylinderTest {
-
     private static final double DELTA = 0.001;
 
     @Test

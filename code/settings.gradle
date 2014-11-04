@@ -61,6 +61,8 @@ project(":krasnoyarov-nikita").name = "krasnoyarov-nikita-Model"
 // Lazarev Anton
 
 // Ljaljushkin Nikolay
+include "Ljaljushkin-Nikolay"
+project(":Ljaljushkin-Nikolay").name = "ljaljushkin-nikolay-Model"
 
 // Myasnikov Alexander
 include "myasnikov-alexander"

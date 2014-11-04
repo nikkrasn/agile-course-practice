@@ -1,7 +1,6 @@
 package ru.unn.agile.CalculateSquare.Model;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 

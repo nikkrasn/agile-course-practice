@@ -15,7 +15,7 @@ public class Triangle {
 
     }
 
-    public static boolean isTriangle(final Point pointA, final Point pointB, final Point pointC) {
+    private static boolean isTriangle(final Point pointA, final Point pointB, final Point pointC) {
         boolean answer = pointA.equals(pointB) || pointB.equals(pointC) || pointC.equals(pointA);
         if (!answer) {
             answer = answer || pointC.isOnStraightLine(pointA, pointB);

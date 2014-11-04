@@ -2,6 +2,8 @@ package ru.unn.agile.CreditCalculator.core;
 
 public class CreditCalculator {
 
+    public static final int MONTH_IN_YEAR = 12;
+    public static final int PROCENT = 100;
     private int summ;
     private char currency;
     private int time;
@@ -15,12 +17,25 @@ public class CreditCalculator {
                             final double percent,
                             final int startMonth,
                             final boolean typePayment) {
-       this.summ = summa;
-       this.currency = currency;
-       this.time = time;
+        this.summ = summa;
+        this.currency = currency;
+        this.time = time;
         this.percent = percent;
         this.startMonth = startMonth;
         this.typePayment = typePayment;
+    }
+
+    public double monthlyPayment(final int monthDifPay) {
+        double monthPayment;
+        if (typePayment) {
+            double percentInMonth = percent / PROCENT / MONTH_IN_YEAR;
+            monthPayment = summ * percentInMonth / (1 - 1 / Math.pow(1 + percentInMonth, time));
+            return monthPayment;
+        } else {
+            double percentInMonth = percent / PROCENT / MONTH_IN_YEAR;
+            monthPayment = summ / time + summ * (time - monthDifPay + 1) * percentInMonth / time;
+            return monthPayment;
+        }
     }
 
     public void setSumm(final int summ) {

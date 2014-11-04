@@ -7,6 +7,7 @@ public class QuadraticEquation {
     private static final double ZERO = 0.0;
     private static final double TWO = 2.0;
     private static final double FOUR = 4.0;
+    private static final double DELTA = 0.0001;
 
     public QuadraticEquation(final double coefficientFirst,
                              final double coefficientSecond,
@@ -17,7 +18,7 @@ public class QuadraticEquation {
     }
 
     public void setFirstCoefficientEquation(final double coefficientFirst) {
-        if (coefficientFirst == ZERO) {
+        if (Math.abs(coefficientFirst - ZERO) < DELTA) {
             throw new IllegalArgumentException(
                     "The first coefficient can't be null in quadratic equation");
         } else {
@@ -31,6 +32,18 @@ public class QuadraticEquation {
 
     public void setFreeTermEquation(final double termFree) {
         this.freeTerm = termFree;
+    }
+
+    public double getFirstCoefficientEquation() {
+        return firstCoefficient;
+    }
+
+    public double getSecondCoefficientEquation() {
+        return secondCoefficient;
+    }
+
+    public double getFreeTermEquation() {
+        return freeTerm;
     }
 
     public double getDiscriminant() {

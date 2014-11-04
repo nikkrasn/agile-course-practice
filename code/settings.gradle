@@ -71,8 +71,8 @@ project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infras
 // Sokolov Mihail
 
 // Syainova Diana
-include "syainova-diana"
-project(":syainova-diana").name = "syainova-diana-Model"
+include "Syainova-Diana"
+project(":Syainova-Diana").name = "Syainova-Diana-Model"
 
 // Tsarev Mikhail
 

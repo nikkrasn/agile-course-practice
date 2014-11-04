@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class ConeTest {
+    
     private static final double DELTA = 0.001;
 
     @Test

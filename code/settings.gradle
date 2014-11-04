@@ -89,6 +89,8 @@ include "Ryabusheva-Anna"
 project(":Ryabusheva-Anna").name = "Ryabusheva-Anna-Model"
 
 // Samokhvalov Maxim
+include "samokhvalov-maxim"
+project(":samokhvalov-maxim").name = "samokhvalov-maxim-Model"
 
 // Serov Alexey
 include "serov-alexey"

@@ -5,22 +5,14 @@ import java.util.Stack;
 public class LeftistHeap<TValue> {
     private HeapNode<TValue> heapRoot;
 
-    public LeftistHeap() {
-        // This constructor is intentionally empty. Nothing special is needed here.
-    }
-
-    public LeftistHeap(final int rootKey, final TValue rootValue) {
-        heapRoot = new HeapNode<TValue>(rootKey, rootValue);
-    }
-
     public boolean isEmpty() {
         return heapRoot == null;
     }
 
     public void add(final int key, final TValue value) {
-        LeftistHeap<TValue> heap = new LeftistHeap<TValue>(key, value);
+        HeapNode<TValue> newNode = new HeapNode<TValue>(key, value);
 
-        merge(heap);
+        heapRoot = innerMerge(heapRoot, newNode);
     }
 
     public HeapNode<TValue> extractMin() {
@@ -75,20 +67,34 @@ public class LeftistHeap<TValue> {
     }
 
     private void updateDistOnPath(
-        final Stack<HeapNode<TValue>> path,
-        final int decreaseOfDist
-    ) {
+            final Stack<HeapNode<TValue>> path,
+            final int decreaseOfDist) {
         HeapNode<TValue> currentNode;
 
         while (!path.empty()) {
             currentNode = path.pop();
             currentNode.setDistValue(currentNode.getDistValue() - decreaseOfDist);
-            if (currentNode.getLeftChild() == null || currentNode.getRightChild() == null
-                    || currentNode.getLeftChild().getDistValue()
-                    < currentNode.getRightChild().getDistValue()) {
+            if (isNeedToSwapChildren(currentNode)) {
                 swapChildren(currentNode);
             }
         }
+    }
+
+    private boolean isNeedToSwapChildren(final HeapNode<TValue> node) {
+        if (node.getLeftChild() == null) {
+            return true;
+        }
+
+        if (node.getRightChild() == null) {
+            return false;
+        }
+
+        if (node.getLeftChild().getDistValue()
+            < node.getRightChild().getDistValue()) {
+            return true;
+        }
+
+        return false;
     }
 
     private HeapNode<TValue> cutSubHeapByRootKey(
@@ -160,8 +166,7 @@ public class LeftistHeap<TValue> {
             leftHeapRootTmp.setLeftChild(leftHeapRootTmp.getRightChild());
             leftHeapRootTmp.setRightChild(null);
         } else {
-            if (leftHeapRootTmp.getLeftChild().getDistValue()
-                    < leftHeapRootTmp.getRightChild().getDistValue()) {
+            if (isNeedToSwapChildren(leftHeapRootTmp)) {
                 swapChildren(leftHeapRootTmp);
             }
 

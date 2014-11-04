@@ -31,23 +31,35 @@ public class HeapNode<TValue> {
         return key;
     }
 
-    public void setKey(final int newKey) {
-        key = newKey;
+    public void setKey(final int value) {
+        key = value;
     }
 
     public TValue getValue() {
         return value;
     }
 
-    public int getDistValue() { return distValue; }
+    public int getDistValue() {
+        return distValue;
+    }
 
-    public void setDistValue(final int value) { distValue = value; }
+    public void setDistValue(final int value) {
+        distValue = value;
+    }
 
-    public HeapNode<TValue> getLeftChild() { return leftChild; }
+    public HeapNode<TValue> getLeftChild() {
+        return leftChild;
+    }
 
-    public void setLeftChild(final HeapNode<TValue> value) { leftChild = value; }
+    public void setLeftChild(final HeapNode<TValue> value) {
+        leftChild = value;
+    }
 
-    public HeapNode<TValue> getRightChild() { return rightChild; }
+    public HeapNode<TValue> getRightChild() {
+        return rightChild;
+    }
 
-    public void setRightChild(final HeapNode<TValue> value) { rightChild = value; }
+    public void setRightChild(final HeapNode<TValue> value) {
+        rightChild = value;
+    }
 }

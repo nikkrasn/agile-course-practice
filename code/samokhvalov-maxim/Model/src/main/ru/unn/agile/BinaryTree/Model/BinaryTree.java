@@ -7,7 +7,9 @@ public class BinaryTree {
     private Node root;
     private ArrayList<Node> searchNodes = null;
 
-    public Node getRoot() { return this.root; }
+    public Node getRoot() {
+        return this.root;
+    }
 
     public void insert(final Node newNode) {
         this.insert(this.root, newNode);

@@ -7,15 +7,36 @@ public class Node {
     private Node left;
     private Node right;
 
-    public int getKey() { return this.key; }
-    public Object getValue() { return this.value; }
-    public Node getLeft() { return this.left; }
-    public Node getRight() { return this.right; }
+    public int getKey() {
+        return this.key;
+    }
 
-    public void setKey(final int key) { this.key = key; }
-    public void setLeft(final Node left) { this.left = left; }
-    public void setRight(final Node right) { this.right = right; }
-    public void setValue(final Object value) { this.value = value; }
+    public Object getValue() {
+        return this.value;
+    }
+
+    public Node getLeft() {
+        return this.left;
+    }
+
+    public Node getRight() {
+        return this.right;
+    }
+
+    public void setKey(final int key) {
+        this.key = key;
+    }
+
+    public void setLeft(final Node left) {
+        this.left = left;
+    }
+    public void setRight(final Node right) {
+        this.right = right;
+    }
+
+    public void setValue(final Object value) {
+        this.value = value;
+    }
 
     public Node(final int key) {
         this.key = key;

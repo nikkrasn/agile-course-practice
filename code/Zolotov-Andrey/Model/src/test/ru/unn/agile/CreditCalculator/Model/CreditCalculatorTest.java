@@ -37,7 +37,19 @@ public class CreditCalculatorTest {
 
     @Test
     public void canGetAllSummDifferentiatedPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, false);
+        assertTrue(calculator.allSumm() > 10435 && calculator.allSumm() < 10440);
+    }
+
+    @Test
+    public void canGetOverAnnuityPayment() {
         CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, true);
-        assertTrue(calculator.allSumm() > 10435 && calculator.allSumm() < 10445);
+        assertTrue(calculator.overPayment() > 430 && calculator.overPayment() < 450);
+    }
+
+    @Test
+    public void canGetOverDifferentiatedPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, false);
+        assertTrue(calculator.overPayment() > 435 && calculator.overPayment() < 440);
     }
 }

@@ -50,6 +50,10 @@ public class CreditCalculator {
         }
     }
 
+    public double overPayment() {
+        return this.allSumm() - summ;
+    }
+
     public void setSumm(final int summ) {
 
         this.summ = summ;

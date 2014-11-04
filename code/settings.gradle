@@ -117,7 +117,7 @@ include "vilchinskii-aleksandr"
 project(":vilchinskii-aleksandr").name = "vilchinskii-aleksandr-Model"
 
 // Zolotov Andrey
-
-// Zotov Alexey
-include "Zotov-Alexey"
+include "Zolotov-Andrey"
+project(":Zolotov-Andrey").name = "Zolotov-Andrey-Model"
+// Zotov Alexeyinclude "Zotov-Alexey"
 project(":Zotov-Alexey").name = "Zotov-Alexey-lab1"

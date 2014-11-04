@@ -5,7 +5,6 @@ import org.junit.Test;
 
 
 public class SphereTest {
-
     private static final double DELTA = 0.001;
 
     @Test

@@ -105,6 +105,8 @@ include "Sokolov-Mihail"
 project(":Sokolov-Mihail").name = "Sokolov-Mihail-lab1"
 
 // Syainova Diana
+include "Syainova-Diana"
+project(":Syainova-Diana").name = "Syainova-Diana-Model"
 
 // Tsarev Mikhail
 

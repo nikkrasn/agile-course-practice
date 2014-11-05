@@ -52,4 +52,22 @@ public class CreditCalculatorTest {
         CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, false);
         assertTrue(calculator.overPayment() > 435 && calculator.overPayment() < 440);
     }
+
+    @Test
+    public void canGetDateFinishPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, false);
+        assertTrue(calculator.finishPayment().equals("5.2015"));
+    }
+
+    @Test
+    public void canGetDateDecemberFinishPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 13 , 15, 11, true);
+        assertTrue(calculator.finishPayment().equals("12.2015"));
+    }
+
+    @Test
+    public void canGetDateJanuaryFinishPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 14 , 15, 11, true);
+        assertTrue(calculator.finishPayment().equals("1.2016"));
+    }
 }

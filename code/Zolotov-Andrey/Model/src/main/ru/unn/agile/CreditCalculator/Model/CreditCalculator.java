@@ -1,5 +1,7 @@
 package ru.unn.agile.CreditCalculator.core;
 
+import java.util.*;
+
 public class CreditCalculator {
 
     public static final int MONTH_IN_YEAR = 12;
@@ -52,6 +54,17 @@ public class CreditCalculator {
 
     public double overPayment() {
         return this.allSumm() - summ;
+    }
+
+    public String finishPayment() {
+        Calendar c = Calendar.getInstance();
+        int finishYear = c.get(c.YEAR) + (time + startMonth) / MONTH_IN_YEAR;
+        int month = (time + startMonth) % MONTH_IN_YEAR;
+        if (month == 0) {
+            month = MONTH_IN_YEAR;
+            finishYear--;
+        }
+        return "" + month + "." + finishYear + "";
     }
 
     public void setSumm(final int summ) {

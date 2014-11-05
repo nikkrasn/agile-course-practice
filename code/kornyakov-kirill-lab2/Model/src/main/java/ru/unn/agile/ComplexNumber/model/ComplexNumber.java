@@ -4,9 +4,14 @@ public class ComplexNumber {
     private final double re;
     private final double im;
 
-    public ComplexNumber(final double real, final double imaginary) {
-        this.re = real;
-        this.im = imaginary;
+    public ComplexNumber() {
+        re = 0;
+        im = 0;
+    }
+
+    public ComplexNumber(final double re, final double im) {
+        this.re = re;
+        this.im = im;
     }
 
     public ComplexNumber(final String re, final String im) {
@@ -14,30 +19,25 @@ public class ComplexNumber {
         this.im = Double.parseDouble(im);
     }
 
-    public ComplexNumber() {
-        this.re = 0;
-        this.im = 0;
-    }
-
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-
         final int shift = 32;
 
-        temp = Double.doubleToLongBits(re);
-        result = (int) (temp ^ (temp >>> shift));
+        long temp = Double.doubleToLongBits(re);
+        int result = (int) (temp ^ (temp >>> shift));
         temp = Double.doubleToLongBits(im);
         result = (shift - 1) * result + (int) (temp ^ (temp >>> shift));
         return result;
     }
 
     public boolean equals(final Object object) {
-        ComplexNumber number;
-        number = (ComplexNumber) object;
-        return number.getReal() == getReal()
-                && number.getImaginary() == getImaginary();
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof ComplexNumber)) {
+            return false;
+        }
+        return hashCode() == object.hashCode();
     }
 
     public ComplexNumber add(final ComplexNumber other) {

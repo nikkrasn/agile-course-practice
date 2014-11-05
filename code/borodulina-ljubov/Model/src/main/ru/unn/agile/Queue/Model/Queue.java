@@ -57,5 +57,28 @@ public class Queue<T> {
         return first.item;
     }
 
+    public T poll() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        T itemToReturn = first.item;
+        first = first.next;
+        return itemToReturn;
+    }
+
+    public T peek() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        return first.item;
+    }
+
+    public void clear() {
+        while (!isEmpty()) {
+           first = first.next;
+        }
+    }
 
 }

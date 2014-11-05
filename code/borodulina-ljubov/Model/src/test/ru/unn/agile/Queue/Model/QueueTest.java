@@ -45,9 +45,7 @@ public class QueueTest {
     public void canAddTwoItems() {
         List<Integer> itemsToAdd     = getIncrementalList(2);
         List<Integer> itemsFromQueue = getEmptyList();
-        for (int item: itemsToAdd) {
-            queue.add(item);
-        }
+        addItemsFromListToQueue(itemsToAdd);
 
         while (!queue.isEmpty()) {
             itemsFromQueue.add(queue.remove());
@@ -64,6 +62,44 @@ public class QueueTest {
 
     @Test (expected = NoSuchElementException.class)
     public void cannotGetFromEmptyQueue() { queue.element(); }
+
+    @Test
+    public void isPolledFromEmptyQueue() {
+        assertNull(queue.poll());
+    }
+
+    @Test
+    public void isPolledItemEqualToRecentlyAdded() {
+       Integer itemToAdd = 1;
+       queue.add(itemToAdd);
+       assertEquals(itemToAdd, queue.poll());
+    }
+
+    @Test
+    public void isPeekedFromEmptyQueue() { assertNull(queue.peek()); }
+
+    @Test
+    public void isPeekedItemEqualToRecentlyAdded() {
+        Integer itemToAdd = 1;
+        queue.add(itemToAdd);
+        assertEquals(itemToAdd, queue.peek());
+    }
+
+    @Test
+    public void canClearNotEmptyDeque() {
+        List<Integer> items = getIncrementalList(2);
+        addItemsFromListToQueue(items);
+
+        queue.clear();
+
+        assertTrue(queue.isEmpty());
+    }
+
+    private void addItemsFromListToQueue(final List<Integer> items) {
+        for (int item: items) {
+            queue.add(item);
+        }
+    }
 
 
     private ArrayList<Integer> getEmptyList() {

@@ -56,18 +56,30 @@ public class CreditCalculatorTest {
     @Test
     public void canGetDateFinishPayment() {
         CreditCalculator calculator = new CreditCalculator(10000, 'R', 6 , 15, 11, false);
-        assertTrue(calculator.finishPayment().equals("5.2015"));
+        assertTrue(calculator.finishPaymentDate().equals("5.2015"));
     }
 
     @Test
     public void canGetDateDecemberFinishPayment() {
         CreditCalculator calculator = new CreditCalculator(10000, 'R', 13 , 15, 11, true);
-        assertTrue(calculator.finishPayment().equals("12.2015"));
+        assertTrue(calculator.finishPaymentDate().equals("12.2015"));
     }
 
     @Test
     public void canGetDateJanuaryFinishPayment() {
         CreditCalculator calculator = new CreditCalculator(10000, 'R', 14 , 15, 11, true);
-        assertTrue(calculator.finishPayment().equals("1.2016"));
+        assertTrue(calculator.finishPaymentDate().equals("1.2016"));
+    }
+
+    @Test
+    public void canGetDateJanuaryStartPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 14 , 15, 1, true);
+        assertTrue(calculator.startPaymentDate().equals("2.2014"));
+    }
+
+    @Test
+    public void canGetDateDecemberStartPayment() {
+        CreditCalculator calculator = new CreditCalculator(10000, 'R', 14 , 15, 12, true);
+        assertTrue(calculator.startPaymentDate().equals("1.2015"));
     }
 }

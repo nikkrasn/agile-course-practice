@@ -56,7 +56,7 @@ public class CreditCalculator {
         return this.allSumm() - summ;
     }
 
-    public String finishPayment() {
+    public String finishPaymentDate() {
         Calendar c = Calendar.getInstance();
         int finishYear = c.get(c.YEAR) + (time + startMonth) / MONTH_IN_YEAR;
         int month = (time + startMonth) % MONTH_IN_YEAR;
@@ -65,6 +65,17 @@ public class CreditCalculator {
             finishYear--;
         }
         return "" + month + "." + finishYear + "";
+    }
+
+    public String startPaymentDate() {
+        Calendar c = Calendar.getInstance();
+        int startYear = c.get(c.YEAR);
+        int startPaymentMonth = startMonth + 1;
+        if (startMonth == MONTH_IN_YEAR) {
+            startPaymentMonth = 1;
+            startYear++;
+        }
+        return "" + startPaymentMonth + "." + startYear + "";
     }
 
     public void setSumm(final int summ) {

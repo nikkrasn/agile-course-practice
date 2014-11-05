@@ -64,7 +64,7 @@ public class QueueTest {
     public void cannotGetFromEmptyQueue() { queue.element(); }
 
     @Test
-    public void isPolledFromEmptyQueue() {
+    public void cannotPollFromEmptyQueue() {
         assertNull(queue.poll());
     }
 
@@ -76,7 +76,7 @@ public class QueueTest {
     }
 
     @Test
-    public void isPeekedFromEmptyQueue() { assertNull(queue.peek()); }
+    public void cannotPeekFromEmptyQueue() { assertNull(queue.peek()); }
 
     @Test
     public void isPeekedItemEqualToRecentlyAdded() {

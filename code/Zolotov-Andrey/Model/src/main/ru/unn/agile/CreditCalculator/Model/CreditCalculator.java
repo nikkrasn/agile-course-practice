@@ -5,61 +5,63 @@ import java.util.*;
 public class CreditCalculator {
 
     public static final int MONTH_IN_YEAR = 12;
-    public static final int PROCENT = 100;
-    private int summ;
+    public static final int PERCENT = 100;
+    private int sum;
     private char currency;
-    private int time;
-    private double percent;
+    private int paymentPeriod;
+    private double interestRate;
     private int startMonth;
     private boolean typePayment;
 
-    public CreditCalculator(final int summa,
+    public CreditCalculator(final int sum,
                             final char currency,
-                            final int time,
-                            final double percent,
+                            final int paymentPeriod,
+                            final double interestRate,
                             final int startMonth,
                             final boolean typePayment) {
-        this.summ = summa;
+        this.sum = sum;
         this.currency = currency;
-        this.time = time;
-        this.percent = percent;
+        this.paymentPeriod  = paymentPeriod;
+        this.interestRate = interestRate;
         this.startMonth = startMonth;
         this.typePayment = typePayment;
     }
 
-    public double monthlyPayment(final int monthDifPay) {
+    public double getMonthlyPayment(final int numberOfPayment) {
         double monthPayment;
         if (typePayment) {
-            double percentInMonth = percent / PROCENT / MONTH_IN_YEAR;
-            monthPayment = summ * percentInMonth / (1 - 1 / Math.pow(1 + percentInMonth, time));
+            double percentInMonth = interestRate / PERCENT / MONTH_IN_YEAR;
+            monthPayment = sum * percentInMonth
+                    / (1 - 1 / Math.pow(1 + percentInMonth, paymentPeriod));
             return monthPayment;
         } else {
-            double percentInMonth = percent / PROCENT / MONTH_IN_YEAR;
-            monthPayment = summ / time + summ * (time - monthDifPay + 1) * percentInMonth / time;
+            double percentInMonth = interestRate / PERCENT / MONTH_IN_YEAR;
+            monthPayment = sum / paymentPeriod
+                    + sum * (paymentPeriod - numberOfPayment + 1) * percentInMonth / paymentPeriod;
             return monthPayment;
         }
     }
 
-    public double allSumm() {
+    public double getAllSum() {
         double monthPayment;
         if (typePayment) {
-            monthPayment = this.monthlyPayment(1);
-            return time * monthPayment;
+            monthPayment = getMonthlyPayment(1);
+            return paymentPeriod * monthPayment;
         } else {
-            double percentInMonth = percent / PROCENT / MONTH_IN_YEAR;
-            monthPayment = summ + summ * percentInMonth * (time + 1) / 2;
+            double percentInMonth = interestRate / PERCENT / MONTH_IN_YEAR;
+            monthPayment = sum + sum * percentInMonth * (paymentPeriod + 1) / 2;
             return monthPayment;
         }
     }
 
-    public double overPayment() {
-        return this.allSumm() - summ;
+    public double getOverPayment() {
+        return getAllSum() - sum;
     }
 
-    public String finishPaymentDate() {
+    public String getFinishDateOfPayment() {
         Calendar c = Calendar.getInstance();
-        int finishYear = c.get(c.YEAR) + (time + startMonth) / MONTH_IN_YEAR;
-        int month = (time + startMonth) % MONTH_IN_YEAR;
+        int finishYear = c.get(c.YEAR) + (paymentPeriod + startMonth) / MONTH_IN_YEAR;
+        int month = (paymentPeriod + startMonth) % MONTH_IN_YEAR;
         if (month == 0) {
             month = MONTH_IN_YEAR;
             finishYear--;
@@ -67,7 +69,7 @@ public class CreditCalculator {
         return "" + month + "." + finishYear + "";
     }
 
-    public String startPaymentDate() {
+    public String getSartDateOfPayment() {
         Calendar c = Calendar.getInstance();
         int startYear = c.get(c.YEAR);
         int startPaymentMonth = startMonth + 1;
@@ -78,17 +80,15 @@ public class CreditCalculator {
         return "" + startPaymentMonth + "." + startYear + "";
     }
 
-    public void setSumm(final int summ) {
-
-        this.summ = summ;
+    public void setSum(final int sum) {
+        this.sum = sum;
     }
 
-    public int getSumm() {
-        return summ;
+    public int getSum() {
+        return sum;
     }
 
     public void setCurrency(final char currency) {
-
         this.currency = currency;
     }
 
@@ -96,26 +96,23 @@ public class CreditCalculator {
         return currency;
     }
 
-    public void setTime(final int time) {
-
-        this.time = time;
+    public void setPaymentPeriod(final int paymentPeriod) {
+        this.paymentPeriod = paymentPeriod;
     }
 
-    public int getTime() {
-        return time;
+    public int getPaymentPeriod() {
+        return paymentPeriod;
     }
 
-    public void setPercent(final double percent) {
-
-        this.percent = percent;
+    public void setInterestRate(final double interestRate) {
+        this.interestRate = interestRate;
     }
 
-    public double getPercent() {
-        return percent;
+    public double getInterestRate() {
+        return interestRate;
     }
 
     public void setStartMonth(final int startMonth) {
-
         this.startMonth = startMonth;
     }
 
@@ -124,7 +121,6 @@ public class CreditCalculator {
     }
 
     public void setTypePayment(final boolean typePayment) {
-
         this.typePayment = typePayment;
     }
 

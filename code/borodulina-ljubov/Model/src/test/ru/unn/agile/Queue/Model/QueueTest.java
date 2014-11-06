@@ -18,7 +18,7 @@ public class QueueTest {
 
     @After
     public void tearDown() {
-        queue = null;
+      queue = null;
     }
 
     @Test
@@ -55,13 +55,19 @@ public class QueueTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void cannotAddNullItem() { queue.add(null); }
+    public void cannotAddNullItem() {
+        queue.add(null);
+    }
 
     @Test(expected = NoSuchElementException.class)
-    public void cannotRemoveFromEmptyQueue() { queue.remove(); }
+    public void cannotRemoveFromEmptyQueue() {
+        queue.remove();
+    }
 
     @Test (expected = NoSuchElementException.class)
-    public void cannotGetFromEmptyQueue() { queue.element(); }
+    public void cannotGetFromEmptyQueue() {
+        queue.element();
+    }
 
     @Test
     public void cannotPollFromEmptyQueue() {
@@ -76,7 +82,9 @@ public class QueueTest {
     }
 
     @Test
-    public void cannotPeekFromEmptyQueue() { assertNull(queue.peek()); }
+    public void cannotPeekFromEmptyQueue() {
+        assertNull(queue.peek());
+    }
 
     @Test
     public void isPeekedItemEqualToRecentlyAdded() {

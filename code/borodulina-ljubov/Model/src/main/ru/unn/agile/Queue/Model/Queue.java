@@ -31,14 +31,6 @@ public class Queue<T> {
         }
     }
 
-    private Node getLast() {
-        Node temp = first;
-        while (temp.next != null) {
-            temp = temp.next;
-        }
-        return temp;
-    }
-
     public T remove() {
         if (isEmpty()) {
             throw new NoSuchElementException();
@@ -79,6 +71,14 @@ public class Queue<T> {
         while (!isEmpty()) {
            first = first.next;
         }
+    }
+
+    private Node getLast() {
+        Node temp = first;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        return temp;
     }
 
 }

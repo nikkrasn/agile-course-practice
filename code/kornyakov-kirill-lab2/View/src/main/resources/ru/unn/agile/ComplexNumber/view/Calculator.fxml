@@ -38,7 +38,7 @@
             </HBox>
             <HBox>
                <children>
-                  <ComboBox fx:id="cbOperation" items="${viewModel.operations}" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <ComboBox fx:id="cbOperation" items="${viewModel.operations}" prefWidth="204.0" />
                   <Separator prefWidth="200.0" visible="false" />
                   <Button fx:id="btnCalc" defaultButton="true" disable="${viewModel.calculationDisabled}"
                           maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Calculate" HBox.hgrow="ALWAYS" />
@@ -46,10 +46,10 @@
             </HBox>
             <HBox>
                <children>
-                  <Label text="Result:" />
+                  <Label text="Result: " />
                   <Label fx:id="lbResult" text="${viewModel.result}" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                   <Separator prefWidth="200.0" visible="false" />
-                  <Label text="Status:" />
+                  <Label text="Status: " />
                   <Label fx:id="lbStatus" text="${viewModel.status}" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>

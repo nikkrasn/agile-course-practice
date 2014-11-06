@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
 import ru.unn.agile.ComplexNumber.viewmodel.MockLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
@@ -21,7 +22,7 @@ public class Calculator {
     @FXML
     private TextField txtZ2Im;
     @FXML
-    private ComboBox<ViewModel.Operation> cbOperation;
+    private ComboBox<Operation> cbOperation;
     @FXML
     private Button btnCalc;
 
@@ -50,11 +51,11 @@ public class Calculator {
         txtZ2Im.focusedProperty().addListener(focusChangeListener);
 
         cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
-        cbOperation.valueProperty().addListener(new ChangeListener<ViewModel.Operation>() {
+        cbOperation.valueProperty().addListener(new ChangeListener<Operation>() {
             @Override
-            public void changed(final ObservableValue<? extends ViewModel.Operation> observable,
-                                final ViewModel.Operation oldValue,
-                                final ViewModel.Operation newValue) {
+            public void changed(final ObservableValue<? extends Operation> observable,
+                                final Operation oldValue,
+                                final Operation newValue) {
                 viewModel.onOperationChanged(oldValue, newValue);
             }
         });

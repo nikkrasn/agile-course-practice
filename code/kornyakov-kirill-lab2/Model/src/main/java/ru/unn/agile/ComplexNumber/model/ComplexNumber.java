@@ -62,4 +62,29 @@ public class ComplexNumber {
     public String toString() {
         return Formatter.getFormatted(this);
     }
+
+    public enum Operation {
+        ADD("Add") {
+            public ComplexNumber apply(final ComplexNumber l, final ComplexNumber r) {
+                return l.add(r);
+            }
+        },
+        MULTIPLY("Mul") {
+            public ComplexNumber apply(final ComplexNumber l, final ComplexNumber r) {
+                return l.multiply(r);
+            }
+        };
+
+        private final String name;
+        Operation(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        public abstract ComplexNumber apply(final ComplexNumber l, final ComplexNumber r);
+    }
 }

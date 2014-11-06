@@ -3,6 +3,7 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ViewModelTests {
         assertEquals("", viewModel.im1Property().get());
         assertEquals("", viewModel.re2Property().get());
         assertEquals("", viewModel.im2Property().get());
-        assertEquals(ViewModel.Operation.ADD, viewModel.operationProperty().get());
+        assertEquals(Operation.ADD, viewModel.operationProperty().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
@@ -88,13 +89,13 @@ public class ViewModelTests {
 
     @Test
     public void canSetAddOperation() {
-        viewModel.operationProperty().set(ViewModel.Operation.ADD);
-        assertEquals(ViewModel.Operation.ADD, viewModel.operationProperty().get());
+        viewModel.operationProperty().set(Operation.ADD);
+        assertEquals(Operation.ADD, viewModel.operationProperty().get());
     }
 
     @Test
     public void addIsDefaultOperation() {
-        assertEquals(ViewModel.Operation.ADD, viewModel.operationProperty().get());
+        assertEquals(Operation.ADD, viewModel.operationProperty().get());
     }
 
     @Test
@@ -138,7 +139,7 @@ public class ViewModelTests {
         viewModel.im1Property().set("3");
         viewModel.re2Property().set("1");
         viewModel.im2Property().set("2");
-        viewModel.operationProperty().set(ViewModel.Operation.MULTIPLY);
+        viewModel.operationProperty().set(Operation.MULTIPLY);
 
         viewModel.calculate();
 
@@ -151,7 +152,7 @@ public class ViewModelTests {
         viewModel.im1Property().set("2.3");
         viewModel.re2Property().set("-10.4");
         viewModel.im2Property().set("-20.5");
-        viewModel.operationProperty().set(ViewModel.Operation.ADD);
+        viewModel.operationProperty().set(Operation.ADD);
 
         viewModel.calculate();
 
@@ -238,7 +239,7 @@ public class ViewModelTests {
     public void canSeeOperationChangeInLog() {
         setInputData();
 
-        viewModel.onOperationChanged(ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
+        viewModel.onOperationChanged(Operation.ADD, Operation.MULTIPLY);
 
         String message = viewModel.getLog().get(0);
         assertTrue(message.matches(".*" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
@@ -246,9 +247,9 @@ public class ViewModelTests {
 
     @Test
     public void operationIsNotLoggedIfNotChanged() {
-        viewModel.onOperationChanged(ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
+        viewModel.onOperationChanged(Operation.ADD, Operation.MULTIPLY);
 
-        viewModel.onOperationChanged(ViewModel.Operation.MULTIPLY, ViewModel.Operation.MULTIPLY);
+        viewModel.onOperationChanged(Operation.MULTIPLY, Operation.MULTIPLY);
 
         assertEquals(1, viewModel.getLog().size());
     }

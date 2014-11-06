@@ -7,6 +7,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
+import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,16 +90,7 @@ public class ViewModel {
         ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
         ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
 
-        switch (operation.get()) {
-            case ADD:
-                result.set(z1.add(z2).toString());
-                break;
-            case MULTIPLY:
-                result.set(z1.multiply(z2).toString());
-                break;
-            default:
-                throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
-        }
+        result.set(operation.get().apply(z1, z2).toString());
         status.set(Status.SUCCESS.toString());
 
         StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
@@ -227,20 +219,6 @@ public class ViewModel {
             record += log + "\n";
         }
         logs.set(record);
-    }
-
-    public enum Operation {
-        ADD("Add"),
-        MULTIPLY("Mul");
-        private final String name;
-
-        private Operation(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
     }
 
     private class ValueCachingChangeListener implements ChangeListener<String> {

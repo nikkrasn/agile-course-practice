@@ -10,7 +10,15 @@
 
  - [Google-группа][list] — просьба по всем вопросам обращаться сюда.
  - [Таблица успеваемости][hall-of-fame]
- - [Лабораторные работы][labs]
+ - Учебные материалы
+   - [Описания лабораторных работ][labs]
+   - [Контрольные вопросы][control-questions], [колхозная шпаргалка][cheatsheet] к ним
+   - [Экзаменационные вопросы][exam-questions]
+ - Литература
+   - Мика Мартин, Роберт Мартин "Принципы, паттерны и методики гибкой разработки
+     на языке C#" ([pdf][book-agile])
+   - Мартин Фаулер, Кент Бек и др. "Рефакторинг: улучшение существующего кода"
+     ([pdf][book-refactoring])
 
 <!-- LINKS -->
 
@@ -20,3 +28,9 @@
 [list]:         https://groups.google.com/forum/?hl=ru#!forum/agile-development-course
 [hall-of-fame]: https://docs.google.com/spreadsheet/ccc?key=0AsBBkrQIoSbjdGh5UFhSRVdQZmZhWXJLNjhwV08zU0E&usp=drive_web&authkey=CNXx0YMC&authkey=CNXx0YMC#gid=9
 [labs]:         https://github.com/UNN-VMK-Software/agile-course-theory/tree/master/lab-guide
+[control-questions]: https://github.com/UNN-VMK-Software/agile-course-theory/blob/master/slides/control-questions.md
+[cheatsheet]:   https://docs.google.com/document/d/1QhdJOnSw-Gn_-WM9RWLzmxZMrWTB4EbyTkaNBWMGA3Y/edit
+[exam-questions]:    https://docs.google.com/spreadsheet/ccc?key=0AsBBkrQIoSbjdDBDS2FTb3B3d3ZlUldJcl9HUmtEaUE&authkey=CKGP8vYB&authkey=CKGP8vYB#gid=0
+
+[book-agile]:        http://www.books.ru/books/printsipy-patterny-i-metodiki-gibkoi-razrabotki-na-yazyke-c-fail-pdf-864714/?show=1
+[book-refactoring]:  http://www.books.ru/books/refaktoring-uluchshenie-sushchestvuyushchego-koda-fail-pdf-552092/?show=1

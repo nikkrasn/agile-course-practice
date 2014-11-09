@@ -5,5 +5,7 @@ script:
   - cd code
   - TERM=dumb
   - gradle check
+after_success:
+  - gradle jacocoRootReport coveralls
 notifications:
   email: false

@@ -2,11 +2,13 @@ package ru.unn.agile.Converter.view;
 
 import javax.swing.*;
 
-/**
- * Created by Алексей on 11.11.2014.
- */
 public class LenghtConverterGUI {
 
+   /* private JPanel mainPanel;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JButton convertButton;
+    private JTextField textField1;
+    private JTextField textField2;*/
 
-   // private JPanel mainPanel;
 }

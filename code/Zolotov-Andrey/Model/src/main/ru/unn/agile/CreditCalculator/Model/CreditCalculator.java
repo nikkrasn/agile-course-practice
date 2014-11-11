@@ -2,57 +2,29 @@ package ru.unn.agile.CreditCalculator.core;
 
 import java.util.*;
 
-public class CreditCalculator {
+abstract class CreditCalculator {
 
     public static final int MONTH_IN_YEAR = 12;
     public static final int PERCENT = 100;
+
     private int sum;
-    private char currency;
     private int paymentPeriod;
+    private char currency;
     private double interestRate;
     private int startMonth;
-    private boolean typePayment;
 
-    public CreditCalculator(final int sum,
-                            final char currency,
-                            final int paymentPeriod,
-                            final double interestRate,
-                            final int startMonth,
-                            final boolean typePayment) {
-        this.sum = sum;
-        this.currency = currency;
-        this.paymentPeriod  = paymentPeriod;
-        this.interestRate = interestRate;
-        this.startMonth = startMonth;
-        this.typePayment = typePayment;
+    public CreditCalculator(final Builder builder) {
+        sum = builder.getSumBuild();
+        paymentPeriod = builder.getPaymentPeriodBuild();
+        currency = builder.getCurrencyBuild();
+        interestRate = builder.getInterestRateBuild();
+        startMonth = builder.getStartMonthBuild();
     }
 
-    public double getMonthlyPayment(final int numberOfPayment) {
-        double monthPayment;
-        if (typePayment) {
-            double percentInMonth = interestRate / PERCENT / MONTH_IN_YEAR;
-            monthPayment = sum * percentInMonth
-                    / (1 - 1 / Math.pow(1 + percentInMonth, paymentPeriod));
-            return monthPayment;
-        } else {
-            double percentInMonth = interestRate / PERCENT / MONTH_IN_YEAR;
-            monthPayment = sum / paymentPeriod
-                    + sum * (paymentPeriod - numberOfPayment + 1) * percentInMonth / paymentPeriod;
-            return monthPayment;
-        }
-    }
 
-    public double getAllSum() {
-        double monthPayment;
-        if (typePayment) {
-            monthPayment = getMonthlyPayment(1);
-            return paymentPeriod * monthPayment;
-        } else {
-            double percentInMonth = interestRate / PERCENT / MONTH_IN_YEAR;
-            monthPayment = sum + sum * percentInMonth * (paymentPeriod + 1) / 2;
-            return monthPayment;
-        }
-    }
+    abstract double getMonthlyPayment(final int numberOfPayment);
+
+    abstract double getAllSum();
 
     public double getOverPayment() {
         return getAllSum() - sum;
@@ -118,13 +90,5 @@ public class CreditCalculator {
 
     public int getStartMonth() {
         return startMonth;
-    }
-
-    public void setTypePayment(final boolean typePayment) {
-        this.typePayment = typePayment;
-    }
-
-    public boolean getTypePayment() {
-        return typePayment;
     }
 }

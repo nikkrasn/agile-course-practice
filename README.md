@@ -1,6 +1,7 @@
 # Спецкурс "Agile Development"
 
 [![Build Status][travis-badge]][travis]
+[![Coverage Status][coveralls-badge]][coveralls]
 
  - Нижегородский Государственный Университет им. Н.И. Лобачевского
  - Факультет ВМК, каф. МО ЭВМ
@@ -24,6 +25,8 @@
 
 [travis]:       https://travis-ci.org/UNN-VMK-Software/agile-course-practice
 [travis-badge]: https://travis-ci.org/UNN-VMK-Software/agile-course-practice.svg?branch=master
+[coveralls]: https://coveralls.io/r/UNN-VMK-Software/agile-course-practice
+[coveralls-badge]: https://img.shields.io/coveralls/UNN-VMK-Software/agile-course-practice.svg
 [cc3]:          http://creativecommons.org/licenses/by-sa/3.0/
 [list]:         https://groups.google.com/forum/?hl=ru#!forum/agile-development-course
 [hall-of-fame]: https://docs.google.com/spreadsheet/ccc?key=0AsBBkrQIoSbjdGh5UFhSRVdQZmZhWXJLNjhwV08zU0E&usp=drive_web&authkey=CNXx0YMC&authkey=CNXx0YMC#gid=9

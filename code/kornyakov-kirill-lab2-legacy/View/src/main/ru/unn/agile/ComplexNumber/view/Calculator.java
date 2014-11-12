@@ -1,6 +1,6 @@
 package ru.unn.agile.ComplexNumber.view;
 
-import ru.unn.agile.ComplexNumber.infrastructure.TxtLogger;
+import ru.unn.agile.ComplexNumber.viewmodel.MockLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -75,7 +75,7 @@ public final class Calculator {
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Calculator");
 
-        TxtLogger logger = new TxtLogger("./Calculator.log");
+        MockLogger logger = new MockLogger();
         frame.setContentPane(new Calculator(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

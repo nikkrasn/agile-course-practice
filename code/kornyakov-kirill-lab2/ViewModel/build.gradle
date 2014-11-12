@@ -1,8 +1,7 @@
-dependencies {
-    compile project(':kornyakov-kirill-Model')
+javafx {
+    mainClass 'ru.unn.agile.ComplexNumber.viewmodel.ViewModel'
 }
 
-sourceSets {
-    main.java.srcDir 'src/main'
-    test.java.srcDir 'src/test'
+dependencies {
+    compile project(':kornyakov-kirill-lab2-Model')
 }

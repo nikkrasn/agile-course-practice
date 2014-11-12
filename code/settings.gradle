@@ -6,6 +6,14 @@ include "kornyakov-kirill-lab1"
 project(":kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
 
 // Kornyakov Kirill
+include "kornyakov-kirill-lab2-legacy/Model"
+project(":kornyakov-kirill-lab2-legacy/Model").name = "kornyakov-kirill-lab2-Model-legacy"
+include "kornyakov-kirill-lab2-legacy/ViewModel"
+project(":kornyakov-kirill-lab2-legacy/ViewModel").name = "kornyakov-kirill-lab2-ViewModel-legacy"
+include "kornyakov-kirill-lab2-legacy/View"
+project(":kornyakov-kirill-lab2-legacy/View").name = "kornyakov-kirill-lab2-View-legacy"
+
+// Kornyakov Kirill
 include "kornyakov-kirill-lab2/Model"
 project(":kornyakov-kirill-lab2/Model").name = "kornyakov-kirill-lab2-Model"
 include "kornyakov-kirill-lab2/ViewModel"

@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':kornyakov-kirill-lab2-Model-legacy')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main'
+    test.java.srcDir 'src/test'
+}

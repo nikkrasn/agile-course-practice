@@ -105,8 +105,8 @@ include "samokhvalov-maxim"
 project(":samokhvalov-maxim").name = "samokhvalov-maxim-Model"
 
 // Serov Alexey
-include "serov-alexey"
-project(":serov-alexey").name = "serov-alexey-Model"
+include "Serov-Alexey"
+project(":Serov-Alexey").name = "serov-alexey-Model"
 // Sharov Egor
 include "Sharov-Egor"
 project(":Sharov-Egor").name = "Sharov—Egor-Model"

@@ -1,25 +1,25 @@
 // Bevzuk Anton
 include "bevzuk-anton"
 project(":bevzuk-anton").name = "bevzuk-anton-Model"
-// Kornyakov Kirill
-include "kornyakov-kirill-lab1"
-project(":kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
+// Kornyakov Kirill // Commented out due to jacoco exception
+//include "kornyakov-kirill-lab1"
+//project(":kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
 
 // Kornyakov Kirill
-include "kornyakov-kirill-lab2-legacy/Model"
-project(":kornyakov-kirill-lab2-legacy/Model").name = "kornyakov-kirill-lab2-Model-legacy"
-include "kornyakov-kirill-lab2-legacy/ViewModel"
-project(":kornyakov-kirill-lab2-legacy/ViewModel").name = "kornyakov-kirill-lab2-ViewModel-legacy"
-include "kornyakov-kirill-lab2-legacy/View"
-project(":kornyakov-kirill-lab2-legacy/View").name = "kornyakov-kirill-lab2-View-legacy"
+//include "kornyakov-kirill-lab2-legacy/Model"
+//project(":kornyakov-kirill-lab2-legacy/Model").name = "kornyakov-kirill-lab2-Model-legacy"
+//include "kornyakov-kirill-lab2-legacy/ViewModel"
+//project(":kornyakov-kirill-lab2-legacy/ViewModel").name = "kornyakov-kirill-lab2-ViewModel-legacy"
+//include "kornyakov-kirill-lab2-legacy/View"
+//project(":kornyakov-kirill-lab2-legacy/View").name = "kornyakov-kirill-lab2-View-legacy"
 
 // Kornyakov Kirill
-include "kornyakov-kirill-lab2/Model"
-project(":kornyakov-kirill-lab2/Model").name = "kornyakov-kirill-lab2-Model"
-include "kornyakov-kirill-lab2/ViewModel"
-project(":kornyakov-kirill-lab2/ViewModel").name = "kornyakov-kirill-lab2-ViewModel"
-include "kornyakov-kirill-lab2/View"
-project(":kornyakov-kirill-lab2/View").name = "kornyakov-kirill-lab2-View"
+//include "kornyakov-kirill-lab2/Model"
+//project(":kornyakov-kirill-lab2/Model").name = "kornyakov-kirill-lab2-Model"
+//include "kornyakov-kirill-lab2/ViewModel"
+//project(":kornyakov-kirill-lab2/ViewModel").name = "kornyakov-kirill-lab2-ViewModel"
+//include "kornyakov-kirill-lab2/View"
+//project(":kornyakov-kirill-lab2/View").name = "kornyakov-kirill-lab2-View"
 
 // Kornyakov Kirill
 include "kornyakov-kirill-lab3/Model"
@@ -40,8 +40,8 @@ include "anufriev-denis"
 project(":anufriev-denis").name = "anufriev-denis-Model"
 
 // Blinkova Ekaterina
-include "blinkova-ekaterina"
-project(":blinkova-ekaterina").name = "blinkova-ekaterina-Model"
+//include "blinkova-ekaterina"
+//project(":blinkova-ekaterina").name = "blinkova-ekaterina-Model"
 // Bobylkov Fedor
 include "bobylkov-fedor/Model"
 project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
@@ -114,7 +114,7 @@ project(":Sharov-Egor").name = "Sharov—Egor-Model"
 
 // Sokolov Mihail
 include "Sokolov-Mihail"
-project(":Sokolov-Mihail").name = "Sokolov-Mihail-lab1"
+project(":Sokolov-Mihail").name = "Sokolov-Mihail-Model"
 
 // Syainova Diana
 include "Syainova-Diana"
@@ -131,4 +131,4 @@ include "Zolotov-Andrey"
 project(":Zolotov-Andrey").name = "Zolotov-Andrey-Model"
 // Zotov Alexey
 include "Zotov-Alexey"
-project(":Zotov-Alexey").name = "Zotov-Alexey-lab1"
+project(":Zotov-Alexey").name = "Zotov-Alexey-Model"

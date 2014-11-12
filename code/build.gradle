@@ -40,7 +40,6 @@ tasks.cpd {
     minimumTokenCount = 50
 
     source files{ allprojects.findAll{ p -> p.hasProperty('sourceSets') }.collect { p -> p.sourceSets.collect { (it.java) } } }
-        .filter{ !it.path.contains('kornyakov-kirill-lab1') && !it.path.contains('kornyakov-kirill-lab2') && !it.path.contains('kornyakov-kirill-lab2-legacy') }
 
     doLast {
         def copyPasted = new XmlParser().parse(reportName)

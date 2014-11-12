@@ -1,6 +1,7 @@
 // Bevzuk Anton
 include "bevzuk-anton"
 project(":bevzuk-anton").name = "bevzuk-anton-Model"
+
 // Kornyakov Kirill // Commented out due to jacoco exception
 //include "kornyakov-kirill-lab1"
 //project(":kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
@@ -32,103 +33,106 @@ include "kornyakov-kirill-lab3/Infrastructure"
 project(":kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infrastructure"
 
 // Abramov Dmitry
-include "abramov-dmitry"
-project(":abramov-dmitry").name = "abramov-dmitry"
+include "abramov-dmitry/Model"
+project(":abramov-dmitry/Model").name = "abramov-dmitry-Model"
 
 // Anufriev Denis
-include "anufriev-denis"
-project(":anufriev-denis").name = "anufriev-denis-Model"
+include "anufriev-denis/Model"
+project(":anufriev-denis/Model").name = "anufriev-denis-Model"
 
 // Blinkova Ekaterina
-//include "blinkova-ekaterina"
-//project(":blinkova-ekaterina").name = "blinkova-ekaterina-Model"
+//include "blinkova-ekaterina/Model"
+//project(":blinkova-ekaterina/Model").name = "blinkova-ekaterina-Model"
+
 // Bobylkov Fedor
 include "bobylkov-fedor/Model"
 project(":bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
 
 // Borodulina Ljubov
-include "borodulina-ljubov"
-project(":borodulina-ljubov").name = "borodulina-ljubov-Model"
+include "borodulina-ljubov/Model"
+project(":borodulina-ljubov/Model").name = "borodulina-ljubov-Model"
 
 // Bysheva Tatyana
-include "bysheva-tatyana"
-project(":bysheva-tatyana").name = "bysheva-tatyana-Model"
+include "bysheva-tatyana/Model"
+project(":bysheva-tatyana/Model").name = "bysheva-tatyana-Model"
 
 // Izutov Evgenii
-include "izutov-evgenii"
-project(":izutov-evgenii").name = "izutov-evgenii-Model"
+include "izutov-evgenii/Model"
+project(":izutov-evgenii/Model").name = "izutov-evgenii-Model"
 
 // Karsakov Alexander
 include "karsakov-alexander/Model"
 project(":karsakov-alexander/Model").name = "karsakov-alexander-Model"
 
 // Klyan Sofiya
-include "klyan-sofiya"
-project(":klyan-sofiya").name = "klyan-sofiya-Model"
+include "klyan-sofiya/Model"
+project(":klyan-sofiya/Model").name = "klyan-sofiya-Model"
 
 // Krasnoyarov Nikita
-include "krasnoyarov-nikita"
-project(":krasnoyarov-nikita").name = "krasnoyarov-nikita-Model"
+include "krasnoyarov-nikita/Model"
+project(":krasnoyarov-nikita/Model").name = "krasnoyarov-nikita-Model"
 
 // Lazarev Anton
 
 // Ljaljushkin Nikolay
-include "Ljaljushkin-Nikolay"
-project(":Ljaljushkin-Nikolay").name = "ljaljushkin-nikolay-Model"
+include "Ljaljushkin-Nikolay/Model"
+project(":Ljaljushkin-Nikolay/Model").name = "ljaljushkin-nikolay-Model"
 
 // Myasnikov Alexander
-include "myasnikov-alexander"
-project(":myasnikov-alexander").name = "myasnikov-alexander-Model"
+include "myasnikov-alexander/Model"
+project(":myasnikov-alexander/Model").name = "myasnikov-alexander-Model"
 
 // Ovsuhno Andrey
 include "ovsuhno-andrey/Model"
 project(":ovsuhno-andrey/Model").name = "ovsuhno-andrey-Model"
 
 // Pashko Alena
-include "pashko-alena"
-project(":pashko-alena").name = "pashko-alena-Model"
+include "pashko-alena/Model"
+project(":pashko-alena/Model").name = "pashko-alena-Model"
 
 // Pogorelsky Iliya
-include "pogorelsky-iliya"
-project(":pogorelsky-iliya").name = "pogorelsky-iliya-Model"
+include "pogorelsky-iliya/Model"
+project(":pogorelsky-iliya/Model").name = "pogorelsky-iliya-Model"
 
 // Ryabenko Sergey
-include "ryabenko-sergey"
-project(":ryabenko-sergey").name = "ryabenko-sergey-Model"
+include "ryabenko-sergey/Model"
+project(":ryabenko-sergey/Model").name = "ryabenko-sergey-Model"
 
 // Ryabusheva Anna
-include "Ryabusheva-Anna"
-project(":Ryabusheva-Anna").name = "Ryabusheva-Anna-Model"
+include "Ryabusheva-Anna/Model"
+project(":Ryabusheva-Anna/Model").name = "Ryabusheva-Anna-Model"
 
 // Samokhvalov Maxim
-include "samokhvalov-maxim"
-project(":samokhvalov-maxim").name = "samokhvalov-maxim-Model"
+include "samokhvalov-maxim/Model"
+project(":samokhvalov-maxim/Model").name = "samokhvalov-maxim-Model"
 
 // Serov Alexey
-include "Serov-Alexey"
-project(":Serov-Alexey").name = "serov-alexey-Model"
+include "Serov-Alexey/Model"
+project(":Serov-Alexey/Model").name = "serov-alexey-Model"
+
 // Sharov Egor
-include "Sharov-Egor"
-project(":Sharov-Egor").name = "Sharov—Egor-Model"
+include "Sharov-Egor/Model"
+project(":Sharov-Egor/Model").name = "Sharov—Egor-Model"
 // Skachkova Natalia
 
 // Sokolov Mihail
-include "Sokolov-Mihail"
-project(":Sokolov-Mihail").name = "Sokolov-Mihail-Model"
+include "Sokolov-Mihail/Model"
+project(":Sokolov-Mihail/Model").name = "Sokolov-Mihail-Model"
 
 // Syainova Diana
-include "Syainova-Diana"
-project(":Syainova-Diana").name = "Syainova-Diana-Model"
+include "Syainova-Diana/Model"
+project(":Syainova-Diana/Model").name = "Syainova-Diana-Model"
 
 // Tsarev Mikhail
 
 // Vilchinskii Aleksandr
-include "vilchinskii-aleksandr"
-project(":vilchinskii-aleksandr").name = "vilchinskii-aleksandr-Model"
+include "vilchinskii-aleksandr/Model"
+project(":vilchinskii-aleksandr/Model").name = "vilchinskii-aleksandr-Model"
 
 // Zolotov Andrey
-include "Zolotov-Andrey"
-project(":Zolotov-Andrey").name = "Zolotov-Andrey-Model"
+include "Zolotov-Andrey/Model"
+project(":Zolotov-Andrey/Model").name = "Zolotov-Andrey-Model"
+
 // Zotov Alexey
-include "Zotov-Alexey"
-project(":Zotov-Alexey").name = "Zotov-Alexey-Model"
+include "Zotov-Alexey/Model"
+project(":Zotov-Alexey/Model").name = "Zotov-Alexey-Model"

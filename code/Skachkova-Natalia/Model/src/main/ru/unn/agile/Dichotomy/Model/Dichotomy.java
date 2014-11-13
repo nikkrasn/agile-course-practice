@@ -5,7 +5,7 @@ public class Dichotomy {
     private void isArrayOrdered(final int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             if (array[i] > array[i + 1]) {
-                throw new IllegalArgumentException("Out of array");
+                throw new IllegalArgumentException("Array is unsorted");
             }
         }
     }
@@ -19,18 +19,18 @@ public class Dichotomy {
         }
         while (length != 1) {
             if (element <= tempArray[length / 2 - 1]) {
-                int temp = 0;
+                int tempLength = 0;
                 for (int i = 0; i < length / 2; i++) {
-                    temp++;
+                    tempLength++;
                 }
-                length = temp;
+                length = tempLength;
             } else {
-                int temp = 0;
+                int tempLength = 0;
                 for (int i = length / 2; i < length; i++) {
                     tempArray[i - length / 2] = tempArray[i];
-                    temp++;
+                    tempLength++;
                 }
-                length = temp;
+                length = tempLength;
             }
         }
         if (tempArray[0] == element) {

@@ -3,5 +3,6 @@ dependencies {
 }
 
 sourceSets {
-    main.java.srcDir 'src/main'
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
 }

@@ -1,13 +1,3 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'cpd'
-apply plugin: 'com.github.kt3k.coveralls'
-apply from:   'config/scripts/javafx.plugin'
-
-allprojects {
-    apply plugin: 'jacoco'
-}
-
 buildscript {
     repositories {
         mavenCentral()
@@ -16,6 +6,15 @@ buildscript {
         classpath 'de.aaschmid.gradle.plugins:gradle-cpd-plugin:0.1'
         classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.0'
     }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'cpd'
+apply plugin: 'com.github.kt3k.coveralls'
+
+allprojects {
+    apply plugin: 'jacoco'
 }
 
 repositories {
@@ -91,13 +90,13 @@ subprojects {
     }
 
     checkstyle {
-        checkstyleMain.configFile = new File("config/checkstyle/", "main.xml")
-        checkstyleTest.configFile = new File("config/checkstyle/", "test.xml")
+        checkstyleMain.configFile = new File("code/config/checkstyle/", "main.xml")
+        checkstyleTest.configFile = new File("code/config/checkstyle/", "test.xml")
         // ignoreFailures = true
     }
 
     pmd {
-        pmdMain.ruleSetFiles = files(rootDir.getAbsolutePath() + "/config/pmd/rules.xml")
+        pmdMain.ruleSetFiles = files(rootDir.getAbsolutePath() + "/code/config/pmd/rules.xml")
         pmdTest.ruleSets = [ "java-basic", "java-braces" ]
         // ignoreFailures = true
     }

@@ -19,4 +19,4 @@
 [cc3]:          http://creativecommons.org/licenses/by-sa/3.0/
 [list]:         https://groups.google.com/forum/?hl=ru#!forum/agile-development-course
 [hall-of-fame]: https://docs.google.com/spreadsheet/ccc?key=0AsBBkrQIoSbjdGh5UFhSRVdQZmZhWXJLNjhwV08zU0E&usp=drive_web&authkey=CNXx0YMC&authkey=CNXx0YMC#gid=9
-[labs]:         https://github.com/UNN-VMK-Software/agile-course-practice/tree/master/guide
+[labs]:         https://github.com/UNN-VMK-Software/agile-course-theory/tree/master/lab-guide

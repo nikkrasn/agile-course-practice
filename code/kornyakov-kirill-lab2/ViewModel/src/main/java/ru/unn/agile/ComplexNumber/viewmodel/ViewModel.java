@@ -30,10 +30,6 @@ public class ViewModel {
 
     // FXML needs default c-tor for binding
     public ViewModel() {
-        init();
-    }
-
-    private void init() {
         re1.set("");
         im1.set("");
         re2.set("");
@@ -48,15 +44,13 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                if (getInputStatus() == Status.READY) {
-                    return true;
-                }
-                return false;
+                return getInputStatus() == Status.READY;
             }
         };
         calculationDisabled.bind(couldCalculate.not());
 
-        final List<StringProperty> vals = new ArrayList<StringProperty>() { {
+        // Add listeners to the input text fields
+        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             add(re1);
             add(im1);
             add(re2);
@@ -64,9 +58,9 @@ public class ViewModel {
         } };
 
         valueChangedListeners = new ArrayList<>();
-        for (StringProperty val : vals) {
+        for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
-            val.addListener(listener);
+            field.addListener(listener);
             valueChangedListeners.add(listener);
         }
     }
@@ -164,12 +158,11 @@ enum Status {
     READY("Press 'Calculate' or Enter"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Success");
-    private final String name;
 
+    private final String name;
     private Status(final String name) {
         this.name = name;
     }
-
     public String toString() {
         return name;
     }

@@ -1,258 +1,267 @@
 package ru.unn.agile.ComplexNumber.viewmodel;
 
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
+import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private String re1;
-    private String im1;
-    private String re2;
-    private String im2;
-    private Operation operation;
-    private String result;
-    private String status;
-    private boolean isCalculateButtonEnabled;
-    private boolean isInputChanged;
-    private ILogger logger;
+    private final StringProperty re1 = new SimpleStringProperty();
+    private final StringProperty im1 = new SimpleStringProperty();
+    private final StringProperty re2 = new SimpleStringProperty();
+    private final StringProperty im2 = new SimpleStringProperty();
+    private final ObjectProperty<ObservableList<Operation>> operations =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
+    private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
+    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    private final StringProperty logs = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty();
+    private final StringProperty status = new SimpleStringProperty();
 
-    public ViewModel(final ILogger logger) {
+    private ILogger logger;
+    private List<ValueCachingChangeListener> valueChangedListeners;
+
+    public void setLogger(final ILogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
         }
-
         this.logger = logger;
-        re1 = "";
-        im1 = "";
-        re2 = "";
-        im2 = "";
-        operation = Operation.ADD;
-        result = "";
-        status = Status.WAITING;
-
-        isCalculateButtonEnabled = false;
-        isInputChanged = true;
     }
 
-    public void processKeyInTextField(final int keyCode) {
-        parseInput();
-
-        if (keyCode == KeyboardKeys.ENTER) {
-            enterPressed();
-        }
+    // FXML needs default c-tor for binding
+    public ViewModel() {
+        init();
     }
 
-    private void enterPressed() {
-        logInputParams();
-
-        if (isCalculateButtonEnabled()) {
-            calculate();
-        }
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
     }
 
-    private void logInputParams() {
-        if (!isInputChanged) {
-            return;
-        }
+    private void init() {
+        re1.set("");
+        im1.set("");
+        re2.set("");
+        im2.set("");
+        status.set(Status.WAITING.toString());
+        operation.set(Operation.ADD);
+        result.set("");
 
-        logger.log(editingFinishedLogMessage());
-        isInputChanged = false;
-    }
-
-    public void focusLost() {
-        logInputParams();
-    }
-
-    private String editingFinishedLogMessage() {
-        String message = LogMessages.EDITING_FINISHED
-                + "Input arguments are: ["
-                + re1 + "; "
-                + im1 + "; "
-                + re2 + "; "
-                + im2 + "]";
-
-        return message;
-    }
-
-    public boolean isCalculateButtonEnabled() {
-        return isCalculateButtonEnabled;
-    }
-
-    private boolean isInputAvailable() {
-        return !re1.isEmpty() && !im1.isEmpty() && !re2.isEmpty() && !im2.isEmpty();
-    }
-
-    private boolean parseInput() {
-        try {
-            if (!re1.isEmpty()) {
-                Double.parseDouble(re1);
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(re1, im1, re2, im2);
             }
-            if (!im1.isEmpty()) {
-                Double.parseDouble(im1);
+            @Override
+            protected boolean computeValue() {
+                if (getInputStatus() == Status.READY) {
+                    return true;
+                }
+                return false;
             }
-            if (!re2.isEmpty()) {
-                Double.parseDouble(re2);
-            }
-            if (!im2.isEmpty()) {
-                Double.parseDouble(im2);
-            }
-        } catch (Exception e) {
-            status = Status.BAD_FORMAT;
-            isCalculateButtonEnabled = false;
-            return false;
-        }
+        };
+        calculationDisabled.bind(couldCalculate.not());
 
-        isCalculateButtonEnabled = isInputAvailable();
-        if (isCalculateButtonEnabled) {
-            status = Status.READY;
-        } else {
-            status = Status.WAITING;
+        final List<StringProperty> vals = new ArrayList<StringProperty>() { {
+            add(re1);
+            add(im1);
+            add(re2);
+            add(im2);
+        } };
+        valueChangedListeners = new ArrayList<>();
+        for (StringProperty val : vals) {
+            final ValueCachingChangeListener listener = new ValueCachingChangeListener();
+            val.addListener(listener);
+            valueChangedListeners.add(listener);
         }
-
-        return isCalculateButtonEnabled;
     }
 
     public void calculate() {
-        logger.log(calculateLogMessage());
-
-        if (!parseInput()) {
+        if (calculationDisabled.get()) {
             return;
         }
 
-        ComplexNumber z1 = new ComplexNumber(re1, im1);
-        ComplexNumber z2 = new ComplexNumber(re2, im2);
-        ComplexNumber z3 = new ComplexNumber();
+        ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
+        ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
 
-        switch (operation) {
-            case ADD:
-                z3 = z1.add(z2);
-                break;
-            case MULTIPLY:
-                z3 = z1.multiply(z2);
-                break;
-            default:
-                throw new IllegalArgumentException("Only ADD and MULTIPLY are supported");
-        }
+        result.set(operation.get().apply(z1, z2).toString());
+        status.set(Status.SUCCESS.toString());
 
-        result = z3.toString();
-        status = Status.SUCCESS;
+        StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+        message.append("Arguments")
+                .append(": Re1 = ").append(re1.get())
+                .append("; Im1 = ").append(im1.get())
+                .append("; Re2 = ").append(re2.get())
+                .append("; Im2 = ").append(im2.get())
+                .append(" Operation: ").append(operation.get().toString()).append(".");
+        logger.log(message.toString());
+        updateLogs();
     }
 
-    public List<String> getLog() {
+    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueCachingChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Input arguments are: [")
+                        .append(re1.get()).append("; ")
+                        .append(im1.get()).append("; ")
+                        .append(re2.get()).append("; ")
+                        .append(im2.get()).append("]");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
+    }
+
+    public final List<String> getLog() {
         return logger.getLog();
     }
 
-    private String calculateLogMessage() {
-        String message =
-                LogMessages.CALCULATE_WAS_PRESSED + "Arguments"
-                + ": Re1 = " + re1
-                + "; Im1 = " + im1
-                + "; Re2 = " + re2
-                + "; Im2 = " + im2 + "."
-                + " Operation: " + operation.toString() + ".";
-
-        return message;
-    }
-
-    public Operation getOperation() {
-        return operation;
-    }
-
-    public void setOperation(final Operation operation) {
-        if (this.operation != operation) {
-            logger.log(LogMessages.OPERATION_WAS_CHANGED + operation.toString());
-            this.operation = operation;
-        }
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getRe1() {
+    public StringProperty re1Property() {
         return re1;
     }
-
-    public void setRe1(final String re1) {
-        if (re1.equals(this.re1)) {
-            return;
-        }
-
-        this.re1 = re1;
-        isInputChanged = true;
-    }
-
-    public String getIm1() {
+    public StringProperty im1Property() {
         return im1;
     }
-
-    public void setIm1(final String im1) {
-        if (im1.equals(this.im1)) {
-            return;
-        }
-
-        this.im1 = im1;
-        isInputChanged = true;
-    }
-
-    public String getRe2() {
+    public StringProperty re2Property() {
         return re2;
     }
-
-    public void setRe2(final String re2) {
-        if (re2.equals(this.re2)) {
-            return;
-        }
-
-        this.re2 = re2;
-        isInputChanged = true;
-    }
-
-    public String getIm2() {
+    public StringProperty im2Property() {
         return im2;
     }
+    public ObjectProperty<ObservableList<Operation>> operationsProperty() {
+        return operations;
+    }
+    public final ObservableList<Operation> getOperations() {
+        return operations.get();
+    }
+    public ObjectProperty<Operation> operationProperty() {
+        return operation;
+    }
+    public BooleanProperty calculationDisabledProperty() {
+        return calculationDisabled;
+    }
+    public final boolean getCalculationDisabled() {
+        return calculationDisabled.get();
+    }
+    public StringProperty logsProperty() {
+        return logs;
+    }
+    public final String getLogs() {
+        return logs.get();
+    }
+    public StringProperty resultProperty() {
+        return result;
+    }
+    public final String getResult() {
+        return result.get();
+    }
+    public StringProperty statusProperty() {
+        return status;
+    }
+    public final String getStatus() {
+        return status.get();
+    }
 
-    public void setIm2(final String im2) {
-        if (im2.equals(this.im2)) {
-            return;
+    private Status getInputStatus() {
+        Status inputStatus = Status.READY;
+        if (re1.get().isEmpty() || im1.get().isEmpty() ||
+            re2.get().isEmpty() || im2.get().isEmpty() ) {
+            inputStatus = Status.WAITING;
+        }
+        try {
+            if (!re1.get().isEmpty()) {
+                Double.parseDouble(re1.get());
+            }
+            if (!im1.get().isEmpty()) {
+                Double.parseDouble(im1.get());
+            }
+            if (!re2.get().isEmpty()) {
+                Double.parseDouble(re2.get());
+            }
+            if (!im2.get().isEmpty()) {
+                Double.parseDouble(im2.get());
+            }
+        } catch (NumberFormatException nfe) {
+            inputStatus = Status.BAD_FORMAT;
         }
 
-        this.im2 = im2;
-        isInputChanged = true;
+        return inputStatus;
     }
 
-    public enum Operation {
-        ADD("Add"),
-        MULTIPLY("Mul");
-        private final String name;
-
-        private Operation(final String name) {
-            this.name = name;
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
         }
+        logs.set(record);
+    }
 
-        public String toString() {
-            return name;
+    private class ValueCachingChangeListener implements ChangeListener<String> {
+        private String prevValue = new String();
+        private String curValue = new String();
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
+            status.set(getInputStatus().toString());
+            curValue = newValue;
+        }
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+        public void cache() {
+            prevValue = curValue;
         }
     }
+}
 
-    public final class Status {
-        public static final String WAITING = "Please provide input data";
-        public static final String READY = "Press 'Calculate' or Enter";
-        public static final String BAD_FORMAT = "Bad format";
-        public static final String SUCCESS = "Success";
+enum Status {
+    WAITING("Please provide input data"),
+    READY("Press 'Calculate' or Enter"),
+    BAD_FORMAT("Bad format"),
+    SUCCESS("Success");
+    private final String name;
 
-        private Status() { }
+    private Status(final String name) {
+        this.name = name;
     }
 
-    public final class LogMessages {
-        public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
-        public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
-        public static final String EDITING_FINISHED = "Updated input. ";
-
-        private LogMessages() { }
+    public String toString() {
+        return name;
     }
+}
+
+final class LogMessages {
+    public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
+    public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
+    public static final String EDITING_FINISHED = "Updated input. ";
+
+    private LogMessages() { }
 }

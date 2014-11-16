@@ -1,10 +1,10 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel.legacy;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Operation;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Status;
+import ru.unn.agile.ComplexNumber.viewmodel.legacy.ViewModel.Operation;
+import ru.unn.agile.ComplexNumber.viewmodel.legacy.ViewModel.Status;
 
 import static org.junit.Assert.*;
 

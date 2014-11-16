@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel.legacy;
 
 public final class KeyboardKeys {
     public static final int ENTER = 10;

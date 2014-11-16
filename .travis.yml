@@ -1,7 +1,10 @@
 language: java
+jdk:
+  - oraclejdk8
 script:
-  - cd code
   - TERM=dumb
-  - gradle check
+  - gradle check jacocoTestReport
+after_success:
+  - gradle jacocoRootReport coveralls
 notifications:
   email: false

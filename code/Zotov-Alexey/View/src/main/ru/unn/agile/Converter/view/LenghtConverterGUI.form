@@ -24,7 +24,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="6eaf7" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+              <component id="6eaf7" class="javax.swing.JComboBox" binding="cbFrom">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -40,7 +40,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="7d607" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+              <component id="7d607" class="javax.swing.JComboBox" binding="cbTo">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -74,7 +74,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="393d7" class="javax.swing.JButton" binding="convertButton" default-binding="true">
+          <component id="393d7" class="javax.swing.JButton" binding="btnConvert">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -98,13 +98,16 @@
                   <text value="Result"/>
                 </properties>
               </component>
-              <component id="1cf13" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+              <component id="1cf13" class="javax.swing.JTextField" binding="txtResult">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
                   </grid>
                 </constraints>
-                <properties/>
+                <properties>
+                  <editable value="false"/>
+                  <enabled value="true"/>
+                </properties>
               </component>
             </children>
           </grid>
@@ -146,7 +149,7 @@
               <text value="Value"/>
             </properties>
           </component>
-          <component id="bfa74" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+          <component id="bfa74" class="javax.swing.JTextField" binding="txtInput">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>

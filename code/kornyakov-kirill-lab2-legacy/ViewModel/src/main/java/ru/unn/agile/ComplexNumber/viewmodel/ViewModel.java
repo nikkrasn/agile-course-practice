@@ -14,14 +14,8 @@ public class ViewModel {
     private String status;
     private boolean isCalculateButtonEnabled;
     private boolean isInputChanged;
-    private ILogger logger;
 
-    public ViewModel(final ILogger logger) {
-        if (logger == null) {
-            throw new IllegalArgumentException("Logger parameter can't be null");
-        }
-
-        this.logger = logger;
+    public ViewModel() {
         re1 = "";
         im1 = "";
         re2 = "";
@@ -43,35 +37,10 @@ public class ViewModel {
     }
 
     private void enterPressed() {
-        logInputParams();
 
         if (isCalculateButtonEnabled()) {
             calculate();
         }
-    }
-
-    private void logInputParams() {
-        if (!isInputChanged) {
-            return;
-        }
-
-        logger.log(editingFinishedLogMessage());
-        isInputChanged = false;
-    }
-
-    public void focusLost() {
-        logInputParams();
-    }
-
-    private String editingFinishedLogMessage() {
-        String message = LogMessages.EDITING_FINISHED
-                + "Input arguments are: ["
-                + re1 + "; "
-                + im1 + "; "
-                + re2 + "; "
-                + im2 + "]";
-
-        return message;
     }
 
     public boolean isCalculateButtonEnabled() {
@@ -113,15 +82,13 @@ public class ViewModel {
     }
 
     public void calculate() {
-        logger.log(calculateLogMessage());
-
         if (!parseInput()) {
             return;
         }
 
         ComplexNumber z1 = new ComplexNumber(re1, im1);
         ComplexNumber z2 = new ComplexNumber(re2, im2);
-        ComplexNumber z3 = new ComplexNumber();
+        ComplexNumber z3;
 
         switch (operation) {
             case ADD:
@@ -138,31 +105,12 @@ public class ViewModel {
         status = Status.SUCCESS;
     }
 
-    public List<String> getLog() {
-        return logger.getLog();
-    }
-
-    private String calculateLogMessage() {
-        String message =
-                LogMessages.CALCULATE_WAS_PRESSED + "Arguments"
-                + ": Re1 = " + re1
-                + "; Im1 = " + im1
-                + "; Re2 = " + re2
-                + "; Im2 = " + im2 + "."
-                + " Operation: " + operation.toString() + ".";
-
-        return message;
-    }
-
     public Operation getOperation() {
         return operation;
     }
 
     public void setOperation(final Operation operation) {
-        if (this.operation != operation) {
-            logger.log(LogMessages.OPERATION_WAS_CHANGED + operation.toString());
             this.operation = operation;
-        }
     }
 
     public String getResult() {
@@ -246,13 +194,5 @@ public class ViewModel {
         public static final String SUCCESS = "Success";
 
         private Status() { }
-    }
-
-    public final class LogMessages {
-        public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
-        public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
-        public static final String EDITING_FINISHED = "Updated input. ";
-
-        private LogMessages() { }
     }
 }

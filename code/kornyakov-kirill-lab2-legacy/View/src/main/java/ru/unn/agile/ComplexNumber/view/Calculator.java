@@ -1,6 +1,5 @@
 package ru.unn.agile.ComplexNumber.view;
 
-import ru.unn.agile.ComplexNumber.viewmodel.MockLogger;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -20,7 +19,6 @@ public final class Calculator {
     private JComboBox<ViewModel.Operation> cbOperation;
     private JTextField txtResult;
     private JLabel lbStatus;
-    private JList<String> lstLog;
 
     private Calculator() { }
 
@@ -58,25 +56,12 @@ public final class Calculator {
         txtZ1Im.addKeyListener(keyListener);
         txtZ2Re.addKeyListener(keyListener);
         txtZ2Im.addKeyListener(keyListener);
-
-        FocusAdapter focusLostListener = new FocusAdapter() {
-            public void focusLost(final FocusEvent e) {
-                bind();
-                Calculator.this.viewModel.focusLost();
-                backBind();
-            }
-        };
-        txtZ1Re.addFocusListener(focusLostListener);
-        txtZ1Im.addFocusListener(focusLostListener);
-        txtZ2Re.addFocusListener(focusLostListener);
-        txtZ2Im.addFocusListener(focusLostListener);
     }
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Calculator");
 
-        MockLogger logger = new MockLogger();
-        frame.setContentPane(new Calculator(new ViewModel(logger)).mainPanel);
+        frame.setContentPane(new Calculator(new ViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -84,7 +69,7 @@ public final class Calculator {
 
     private void loadListOfOperations() {
         ViewModel.Operation[] operations = ViewModel.Operation.values();
-        cbOperation.setModel(new JComboBox<ViewModel.Operation>(operations).getModel());
+        cbOperation.setModel(new JComboBox<>(operations).getModel());
     }
 
     private void bind() {
@@ -101,9 +86,5 @@ public final class Calculator {
 
         txtResult.setText(viewModel.getResult());
         lbStatus.setText(viewModel.getStatus());
-
-        List<String> log = viewModel.getLog();
-        String[] items = log.toArray(new String[log.size()]);
-        lstLog.setListData(items);
     }
 }

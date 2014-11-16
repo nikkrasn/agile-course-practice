@@ -42,10 +42,6 @@ public class CalculateJobDays {
         return (cashMonth.getMonth() == startOfVacation.getMonth())&&(cashMonth.getMonth() != endOfVacation.getMonth());
     }
 
-    private static boolean vacationInAnotherTime(LocalDate startOfVacation, LocalDate cashMonth, LocalDate endOfVacation) {
-        return (cashMonth.getMonth() != startOfVacation.getMonth())&&(cashMonth.getMonth() != endOfVacation.getMonth());
-    }
-
     private static boolean allVacationIncludeInCashMonth(LocalDate startOfVacation, LocalDate cashMonth, LocalDate endOfVacation) {
         return (cashMonth.getMonth() == startOfVacation.getMonth()&&(cashMonth.getMonth() == endOfVacation.getMonth()));
     }

@@ -2,6 +2,8 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
@@ -23,6 +25,8 @@ public class ViewModel {
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
+
+    private List<ValueChangeListener> valueChangedListeners;
 
     // FXML needs default c-tor for binding
     public ViewModel() {
@@ -58,6 +62,13 @@ public class ViewModel {
             add(re2);
             add(im2);
         } };
+
+        valueChangedListeners = new ArrayList<>();
+        for (StringProperty val : vals) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            val.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
     }
 
     public void calculate() {
@@ -137,6 +148,14 @@ public class ViewModel {
         }
 
         return inputStatus;
+    }
+
+    private class ValueChangeListener implements ChangeListener<String> {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getInputStatus().toString());
+        }
     }
 }
 

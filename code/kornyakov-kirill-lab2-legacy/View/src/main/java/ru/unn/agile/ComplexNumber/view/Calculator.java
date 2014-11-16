@@ -3,8 +3,10 @@ package ru.unn.agile.ComplexNumber.view;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
 
 import javax.swing.*;
-import java.awt.event.*;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public final class Calculator {
 

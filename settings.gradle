@@ -7,12 +7,12 @@ project(":code/bevzuk-anton").name = "bevzuk-anton-Model"
 //project(":code/kornyakov-kirill-lab1").name = "kornyakov-kirill-lab1-Model"
 
 // Kornyakov Kirill
-//include "code/kornyakov-kirill-lab2-legacy/Model"
-//project(":code/kornyakov-kirill-lab2-legacy/Model").name = "kornyakov-kirill-lab2-Model-legacy"
-//include "code/kornyakov-kirill-lab2-legacy/ViewModel"
-//project(":code/kornyakov-kirill-lab2-legacy/ViewModel").name = "kornyakov-kirill-lab2-ViewModel-legacy"
-//include "code/kornyakov-kirill-lab2-legacy/View"
-//project(":code/kornyakov-kirill-lab2-legacy/View").name = "kornyakov-kirill-lab2-View-legacy"
+include "code/kornyakov-kirill-lab2-legacy/Model"
+project(":code/kornyakov-kirill-lab2-legacy/Model").name = "kornyakov-kirill-lab2-Model-legacy"
+include "code/kornyakov-kirill-lab2-legacy/ViewModel"
+project(":code/kornyakov-kirill-lab2-legacy/ViewModel").name = "kornyakov-kirill-lab2-ViewModel-legacy"
+include "code/kornyakov-kirill-lab2-legacy/View"
+project(":code/kornyakov-kirill-lab2-legacy/View").name = "kornyakov-kirill-lab2-View-legacy"
 
 // Kornyakov Kirill
 include "code/kornyakov-kirill-lab2/Model"

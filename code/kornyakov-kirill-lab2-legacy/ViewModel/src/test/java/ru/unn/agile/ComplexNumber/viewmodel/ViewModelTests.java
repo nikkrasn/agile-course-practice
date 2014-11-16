@@ -6,10 +6,7 @@ import org.junit.Test;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Operation;
 import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Status;
 
-import java.util.List;
-
 import static org.junit.Assert.*;
-import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
 
 public class ViewModelTests {
     private ViewModel viewModel;

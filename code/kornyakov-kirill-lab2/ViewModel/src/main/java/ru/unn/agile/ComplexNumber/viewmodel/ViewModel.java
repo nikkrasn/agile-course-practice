@@ -26,7 +26,7 @@ public class ViewModel {
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
-    private List<ValueChangeListener> valueChangedListeners;
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     // FXML needs default c-tor for binding
     public ViewModel() {
@@ -57,7 +57,6 @@ public class ViewModel {
             add(im2);
         } };
 
-        valueChangedListeners = new ArrayList<>();
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);

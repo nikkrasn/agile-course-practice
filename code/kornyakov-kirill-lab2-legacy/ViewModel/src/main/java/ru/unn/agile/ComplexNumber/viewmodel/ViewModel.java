@@ -2,8 +2,6 @@ package ru.unn.agile.ComplexNumber.viewmodel;
 
 import ru.unn.agile.ComplexNumber.model.ComplexNumber;
 
-import java.util.List;
-
 public class ViewModel {
     private String re1;
     private String im1;
@@ -13,7 +11,6 @@ public class ViewModel {
     private String result;
     private String status;
     private boolean isCalculateButtonEnabled;
-    private boolean isInputChanged;
 
     public ViewModel() {
         re1 = "";
@@ -25,7 +22,6 @@ public class ViewModel {
         status = Status.WAITING;
 
         isCalculateButtonEnabled = false;
-        isInputChanged = true;
     }
 
     public void processKeyInTextField(final int keyCode) {
@@ -131,7 +127,6 @@ public class ViewModel {
         }
 
         this.re1 = re1;
-        isInputChanged = true;
     }
 
     public String getIm1() {
@@ -144,7 +139,6 @@ public class ViewModel {
         }
 
         this.im1 = im1;
-        isInputChanged = true;
     }
 
     public String getRe2() {
@@ -157,7 +151,6 @@ public class ViewModel {
         }
 
         this.re2 = re2;
-        isInputChanged = true;
     }
 
     public String getIm2() {
@@ -170,7 +163,6 @@ public class ViewModel {
         }
 
         this.im2 = im2;
-        isInputChanged = true;
     }
 
     public enum Operation {

@@ -3,8 +3,6 @@ package ru.unn.agile.Converter.view;
 import ru.unn.agile.Converter.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.*;
-//import java.util.List;
-//import java.util.List;
 
 public final class LenghtConverterGUI {
 
@@ -16,8 +14,6 @@ public final class LenghtConverterGUI {
     private JTextField txtResult;
     private ViewModel viewModel;
 
-    private LenghtConverterGUI() { }
-
     public static void main(final String[] args) {
         JFrame frame = new JFrame("");
         frame.setContentPane(new LenghtConverterGUI(new ViewModel()).mainPanel);
@@ -26,6 +22,7 @@ public final class LenghtConverterGUI {
         frame.setVisible(true);
     }
 
+    private LenghtConverterGUI() { }
 
     private LenghtConverterGUI(final ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -70,7 +67,6 @@ public final class LenghtConverterGUI {
         FocusAdapter focusLostListener = new FocusAdapter() {
             public void focusLost(final FocusEvent e) {
                 bind();
-                //LenghtConverterGUI.this.viewModel.focusLost();
                 backBind();
             }
         };
@@ -79,13 +75,7 @@ public final class LenghtConverterGUI {
 
     private void backBind() {
         btnConvert.setEnabled(viewModel.isConvertButtonEnabled());
-
         txtResult.setText(viewModel.getResult());
-        //lbStatus.setText(viewModel.getStatus());
-
-        //List<String> log = viewModel.getLog();
-        //String[] items = log.toArray(new String[log.size()]);
-        //lstLog.setListData(items);
     }
 
     private void loadListOfOperations() {
@@ -99,5 +89,4 @@ public final class LenghtConverterGUI {
         viewModel.setInputMeasure((ViewModel.Measure) cbFrom.getSelectedItem());
         viewModel.setOutputMeasure((ViewModel.Measure) cbTo.getSelectedItem());
     }
-
 }

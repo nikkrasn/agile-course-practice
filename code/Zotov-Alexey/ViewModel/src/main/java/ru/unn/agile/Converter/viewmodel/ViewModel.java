@@ -8,7 +8,6 @@ public class ViewModel {
     private Measure outputMeasure;
     private String result;
     private boolean isConvertButtonEnabled;
-    private boolean isInputChanged;
     public static final int ENTER = 10;
 
     public ViewModel() {
@@ -26,39 +25,7 @@ public class ViewModel {
         }
     }
 
-    private void enterPressed() {
-        if (isConvertButtonEnabled()) {
-            convert();
-        }
-    }
-
     public boolean isConvertButtonEnabled() {
-        return isConvertButtonEnabled;
-    }
-
-    private boolean isInputAvailable() {
-        return !inputValue.isEmpty();
-    }
-
-    private boolean parseInput() {
-        result = "";
-        try {
-            if (!inputValue.isEmpty()) {
-                Double.parseDouble(inputValue);
-               if (Double.isInfinite(Double.parseDouble(inputValue))) {
-                   throw new IllegalArgumentException("слишком большой вход");
-               }
-            }
-        } catch (NumberFormatException e) {
-            isConvertButtonEnabled = false;
-            result = "плохой вход";
-            return false;
-        }   catch (IllegalArgumentException e) {
-            isConvertButtonEnabled = false;
-            result = e.getMessage();
-            return false;
-        }
-        isConvertButtonEnabled = isInputAvailable();
         return isConvertButtonEnabled;
     }
 
@@ -123,7 +90,7 @@ public class ViewModel {
     }
 
     public void setInputMeasure(final Measure inputMeasure) {
-            this.inputMeasure = inputMeasure;
+        this.inputMeasure = inputMeasure;
     }
 
     public void setOutputMeasure(final Measure outputMeasure) {
@@ -150,13 +117,47 @@ public class ViewModel {
         KILOMETER("Kilometer"),
         MILE("Mile"),
         INCH("Inch");
-        private final String name;
-        private Measure(final String name) {
-            this.name = name;
-        }
+
         public String toString() {
             return name;
         }
+
+        private final String name;
+
+        private Measure(final String name) {
+            this.name = name;
+        }
     }
 
+    private void enterPressed() {
+        if (isConvertButtonEnabled()) {
+            convert();
+        }
+    }
+
+    private boolean isInputAvailable() {
+        return !inputValue.isEmpty();
+    }
+
+    private boolean parseInput() {
+        result = "";
+        try {
+            if (!inputValue.isEmpty()) {
+                Double.parseDouble(inputValue);
+               if (Double.isInfinite(Double.parseDouble(inputValue))) {
+                   throw new IllegalArgumentException("слишком большой вход");
+               }
+            }
+        } catch (NumberFormatException e) {
+            isConvertButtonEnabled = false;
+            result = "плохой вход";
+            return false;
+        }   catch (IllegalArgumentException e) {
+            isConvertButtonEnabled = false;
+            result = e.getMessage();
+            return false;
+        }
+        isConvertButtonEnabled = isInputAvailable();
+        return isConvertButtonEnabled;
+    }
 }

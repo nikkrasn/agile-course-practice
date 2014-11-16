@@ -1,37 +1,64 @@
 package ru.unn.agile.calculateSalary;
 
 import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.Month;
+
 import static org.junit.Assert.*;
 
 public class CalculateJobDaysTests {
 
     @Test
     public void checkDayOfWeekTest(){
-        assertEquals(6, CalculateJobDays.checkDayOfWeek(22, 11, 2014));
+       LocalDate example = LocalDate.of(2014, Month.NOVEMBER, 16);
+        assertEquals(7, CalculateJobDays.checkDayOfWeek(example));
     }
 
     @Test
-    public void checkHolidayTest(){
-        assertEquals(true, CalculateJobDays.isHoliday(3, 2014, 8));
+    public void checkJobDaysInSeptemberTest(){
+        LocalDate example = LocalDate.of(2014, Month.SEPTEMBER, 1);
+        assertEquals(22, CalculateJobDays.countingJobDaysInMonth(example));
     }
 
     @Test
-    public void checkJobDayOnHolidayTest(){
-        assertEquals(false, CalculateJobDays.isHoliday(4, 2014, 10));
+    public void checkJobDaysInAugustTest(){
+        LocalDate example = LocalDate.of(2014, Month.AUGUST, 1);
+        assertEquals(21, CalculateJobDays.countingJobDaysInMonth(example));
     }
 
     @Test
-    public void checkJobDaysInMonthTest(){
-        assertEquals(23, CalculateJobDays.countingJobDaysInMonth(10, 2014));
+    public void checkCashDaysInMonthWith14VacationDaysTest(){
+        LocalDate exampleCashMonth = LocalDate.of(2014, Month.AUGUST, 1);
+        LocalDate exampleOfVacation = LocalDate.of(2014, Month.AUGUST, 1);
+        assertEquals(11, CalculateJobDays.countingCashDaysInMonth(14, exampleOfVacation, exampleCashMonth));
     }
 
     @Test
-    public void checkJobDaysInMonthWithOneHolidayTest(){
-        assertEquals(19, CalculateJobDays.countingJobDaysInMonth(11, 2014));
+    public void checkCashDaysInMonthWith7VacationDaysTest(){
+        LocalDate exampleCashMonth = LocalDate.of(2014, Month.SEPTEMBER, 1);
+        LocalDate exampleOfVacation = LocalDate.of(2014, Month.SEPTEMBER, 8);
+        assertEquals(17, CalculateJobDays.countingCashDaysInMonth(7, exampleOfVacation, exampleCashMonth));
     }
 
     @Test
-    public void checkJobDaysInDifficultMonthJanuaryTest(){
-        assertEquals(17, CalculateJobDays.countingJobDaysInMonth(1, 2014));
+    public void checkCashDaysInMonthWithEndOfVacationInAnotherMonthTest(){
+        LocalDate exampleCashMonth = LocalDate.of(2014, Month.AUGUST, 1);
+        LocalDate exampleOfVacation = LocalDate.of(2014, Month.AUGUST, 25);
+        assertEquals(16, CalculateJobDays.countingCashDaysInMonth(14, exampleOfVacation, exampleCashMonth));
+    }
+
+    @Test
+    public void checkCashDaysInMonthWithStartOfVacationInPreviousMonthTest(){
+        LocalDate exampleCashMonth = LocalDate.of(2014, Month.SEPTEMBER, 1);
+        LocalDate exampleOfVacation = LocalDate.of(2014, Month.AUGUST, 25);
+        assertEquals(17, CalculateJobDays.countingCashDaysInMonth(14, exampleOfVacation, exampleCashMonth));
+    }
+
+    @Test
+    public void checkJobDaysInMonthWithoutVacationDaysTest(){
+        LocalDate exampleCashMonth = LocalDate.of(2014, Month.MARCH, 1);
+        LocalDate exampleOfVacation = LocalDate.of(2014, Month.SEPTEMBER, 8);
+        assertEquals(21, CalculateJobDays.countingCashDaysInMonth(7, exampleOfVacation, exampleCashMonth));
     }
 }

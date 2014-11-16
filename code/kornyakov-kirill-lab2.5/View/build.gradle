@@ -1,0 +1,3 @@
+dependencies {
+    compile project(':kornyakov-kirill-lab2-ViewModel')
+}

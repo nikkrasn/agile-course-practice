@@ -14,7 +14,7 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new MockLogger());
     }
 
     @After
@@ -157,6 +157,133 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("-9.2 - 18.2i", viewModel.resultProperty().get());
+    }
+
+    @Test
+    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+        try {
+            new ViewModel(null);
+            fail("Exception wasn't thrown");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Logger parameter can't be null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("Invalid exception type");
+        }
+    }
+
+    @Test
+    public void logIsEmptyInTheBeginning() {
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterCalculation() {
+        setInputData();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.CALCULATE_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void logContainsInputArgumentsAfterCalculation() {
+        setInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + viewModel.re1Property().get()
+                + ".*" + viewModel.im1Property().get()
+                + ".*" + viewModel.re2Property().get()
+                + ".*" + viewModel.im1Property().get() + ".*"));
+    }
+
+    @Test
+    public void argumentsInfoIssProperlyFormatted() {
+        setInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*Arguments"
+                + ": Re1 = " + viewModel.re1Property().get()
+                + "; Im1 = " + viewModel.im1Property().get()
+                + "; Re2 = " + viewModel.re2Property().get()
+                + "; Im2 = " + viewModel.im2Property().get() + ".*"));
+    }
+
+    @Test
+    public void operationTypeIsMentionedInTheLog() {
+        setInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*Add.*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        setInputData();
+
+        viewModel.calculate();
+        viewModel.calculate();
+        viewModel.calculate();
+
+        assertEquals(3, viewModel.getLog().size());
+    }
+
+    @Test
+    public void canSeeOperationChangeInLog() {
+        setInputData();
+
+        viewModel.onOperationChanged(Operation.ADD, Operation.MULTIPLY);
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
+    }
+
+    @Test
+    public void operationIsNotLoggedIfNotChanged() {
+        viewModel.onOperationChanged(Operation.ADD, Operation.MULTIPLY);
+
+        viewModel.onOperationChanged(Operation.MULTIPLY, Operation.MULTIPLY);
+
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void argumentsAreCorrectlyLogged() {
+        setInputData();
+
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
+                + "Input arguments are: \\["
+                + viewModel.re1Property().get() + "; "
+                + viewModel.im1Property().get() + "; "
+                + viewModel.re2Property().get() + "; "
+                + viewModel.im2Property().get() + "\\]"));
+    }
+
+    @Test
+    public void calculateIsNotCalledWhenButtonIsDisabled() {
+        viewModel.calculate();
+
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.re1Property().set("12");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.re1Property().set("12");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, viewModel.getLog().size());
     }
 
     private void setInputData() {

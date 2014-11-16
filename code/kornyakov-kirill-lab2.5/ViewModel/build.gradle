@@ -1,7 +1,0 @@
-javafx {
-    mainClass 'ru.unn.agile.ComplexNumber.viewmodel.ViewModel'
-}
-
-dependencies {
-    compile project(':kornyakov-kirill-lab2-Model')
-}

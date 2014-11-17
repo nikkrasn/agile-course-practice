@@ -97,6 +97,10 @@ project(":code/pogorelsky-iliya/Model").name = "pogorelsky-iliya-Model"
 // Ryabenko Sergey
 include "code/ryabenko-sergey/Model"
 project(":code/ryabenko-sergey/Model").name = "ryabenko-sergey-Model"
+include "code/ryabenko-sergey/ViewModel"
+project(":code/ryabenko-sergey/ViewModel").name = "ryabenko-sergey-ViewModel"
+include "code/ryabenko-sergey/View"
+project(":code/ryabenko-sergey/View").name = "ryabenko-sergey-View"
 
 // Ryabusheva Anna
 include "code/Ryabusheva-Anna/Model"

@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':kornyakov-kirill-Model')
+    compile project(':Sokolov-Mihail-lab2-Model')
 }
 
 sourceSets {

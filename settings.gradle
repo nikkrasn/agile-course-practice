@@ -126,7 +126,11 @@ project(":code/Sharov-Egor/Model").name = "Sharov—Egor-Model"
 
 // Sokolov Mihail
 include "code/Sokolov-Mihail/Model"
-project(":code/Sokolov-Mihail/Model").name = "Sokolov-Mihail-Model"
+project(":code/Sokolov-Mihail/Model").name = "Sokolov-Mihail-lab2-Model"
+include "code/Sokolov-Mihail/ViewModel"
+project(":code/Sokolov-Mihail/ViewModel").name = "Sokolov-Mihail-lab2-ViewModel"
+include "code/Sokolov-Mihail/View"
+project(":code/Sokolov-Mihail/View").name = "Sokolov-Mihail-lab2-View"
 
 // Syainova Diana
 include "code/Syainova-Diana/Model"

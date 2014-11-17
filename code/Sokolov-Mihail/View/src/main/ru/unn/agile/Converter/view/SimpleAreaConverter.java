@@ -1,6 +1,5 @@
 package ru.unn.agile.Converter.view;
 
-import ru.unn.agile.Converter.Model.Converter;
 import ru.unn.agile.Converter.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -15,6 +14,17 @@ public final class SimpleAreaConverter {
     private JButton btnConvert;
     private JPanel mainPanel;
     private ViewModel viewModel;
+
+    public static void main(final String[] args) {
+        JFrame frame = new JFrame("Simple area converter");
+
+        frame.setContentPane(new SimpleAreaConverter(new ViewModel()).mainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private  SimpleAreaConverter() { }
 
     private SimpleAreaConverter(final ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -56,17 +66,6 @@ public final class SimpleAreaConverter {
         };
         tbValue.addKeyListener(keyListener);
     }
-
-    public static void main(final String[] args) {
-        JFrame frame = new JFrame("Simple area converter");
-
-        frame.setContentPane(new SimpleAreaConverter(new ViewModel()).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private SimpleAreaConverter() { }
 
     private void loadListAreaMeasures() {
         ViewModel.MeasureOfArea[] measures = ViewModel.MeasureOfArea.values();

@@ -3,7 +3,7 @@ package ru.unn.agile.Converter.Model;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Converter {
+public final class AreaConverter {
     private static final double KOEF_M = 1.0;
     private static final double KOEF_KM = 1000000.0;
     private static final double KOEF_HA = 10000.0;
@@ -65,7 +65,7 @@ public final class Converter {
         return fromTo(val, "are", "ha");
     }
 
-    private Converter() { }
+    private AreaConverter() { }
 
     private static double fromTo(final double val, final String from, final String to) {
         if (val < 0) {

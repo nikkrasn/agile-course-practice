@@ -1,6 +1,6 @@
 package ru.unn.agile.Converter.viewmodel;
 
-import ru.unn.agile.Converter.Model.Converter;
+import ru.unn.agile.Converter.Model.AreaConverter;
 
 public class ViewModel {
     private String value;
@@ -100,52 +100,52 @@ public class ViewModel {
                 return dvalue;
             }
             if (measureTo == MeasureOfArea.SquareKilometer) {
-                return Converter.squareMeterToSquareKilometer(dvalue);
+                return AreaConverter.squareMeterToSquareKilometer(dvalue);
             }
             if (measureTo == MeasureOfArea.Hectare) {
-                return Converter.squareMeterToHectare(dvalue);
+                return AreaConverter.squareMeterToHectare(dvalue);
             }
             if (measureTo == MeasureOfArea.Are) {
-                return Converter.squareMeterToAre(dvalue);
+                return AreaConverter.squareMeterToAre(dvalue);
             }
         }
         if (measureFrom == MeasureOfArea.SquareKilometer) {
             if (measureTo == MeasureOfArea.SquareMeter) {
-                return Converter.squareKilometerToSquareMeter(dvalue);
+                return AreaConverter.squareKilometerToSquareMeter(dvalue);
             }
             if (measureTo == MeasureOfArea.SquareKilometer) {
                 return dvalue;
             }
             if (measureTo == MeasureOfArea.Hectare) {
-                return Converter.squareKilometerToHectare(dvalue);
+                return AreaConverter.squareKilometerToHectare(dvalue);
             }
             if (measureTo == MeasureOfArea.Are) {
-                return Converter.squareKilometerToAre(dvalue);
+                return AreaConverter.squareKilometerToAre(dvalue);
             }
         }
         if (measureFrom == MeasureOfArea.Hectare) {
             if (measureTo == MeasureOfArea.SquareMeter) {
-                return Converter.hectareToSquareMeter(dvalue);
+                return AreaConverter.hectareToSquareMeter(dvalue);
             }
             if (measureTo == MeasureOfArea.SquareKilometer) {
-                return Converter.hectareToSquareKilometer(dvalue);
+                return AreaConverter.hectareToSquareKilometer(dvalue);
             }
             if (measureTo == MeasureOfArea.Hectare) {
                 return dvalue;
             }
             if (measureTo == MeasureOfArea.Are) {
-                return Converter.hectareToAre(dvalue);
+                return AreaConverter.hectareToAre(dvalue);
             }
         }
         if (measureFrom == MeasureOfArea.Are) {
             if (measureTo == MeasureOfArea.SquareMeter) {
-                return Converter.areToSquareMeter(dvalue);
+                return AreaConverter.areToSquareMeter(dvalue);
             }
             if (measureTo == MeasureOfArea.SquareKilometer) {
-                return Converter.areToSquareKilometer(dvalue);
+                return AreaConverter.areToSquareKilometer(dvalue);
             }
             if (measureTo == MeasureOfArea.Hectare) {
-                return Converter.areToHectare(dvalue);
+                return AreaConverter.areToHectare(dvalue);
             }
             if (measureTo == MeasureOfArea.Are) {
                 return dvalue;

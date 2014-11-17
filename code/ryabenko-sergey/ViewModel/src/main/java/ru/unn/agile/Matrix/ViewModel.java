@@ -37,7 +37,7 @@ public class ViewModel {
         }
         double[][] array = Converter.stringToArray(textInput);
         SquareMatrix mat = new SquareMatrix(array);
-        result = String.valueOf(MatrixDeterminant.determinant(mat));
+        result = String.valueOf(MatrixDeterminant.calculation(mat));
         status = Status.CALCULATED;
     }
 

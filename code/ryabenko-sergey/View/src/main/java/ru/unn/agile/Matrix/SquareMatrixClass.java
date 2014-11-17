@@ -35,7 +35,7 @@ public final class SquareMatrixClass {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
-                SquareMatrixClass.this.viewModel.calculate();
+                viewModel.calculate();
                 backBind();
             }
         });
@@ -43,7 +43,7 @@ public final class SquareMatrixClass {
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 bind();
-                SquareMatrixClass.this.viewModel.processKeyInTextField(e.getKeyCode());
+                viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
             }
         };

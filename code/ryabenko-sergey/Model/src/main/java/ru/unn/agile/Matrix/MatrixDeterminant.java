@@ -4,7 +4,7 @@ public final class MatrixDeterminant {
 
     private MatrixDeterminant() { }
 
-    public static double determinant(final SquareMatrix matrix) {
+    public static double calculation(final SquareMatrix matrix) {
         double sum = 0;
         if (matrix.getCountRows() == 0) {
             throw new IllegalArgumentException();
@@ -21,7 +21,7 @@ public final class MatrixDeterminant {
 
         for (int i = 0; i < matrix.getCountRows(); i++) {
             sum += changeSign(i) * matrix.getValueAt(0, i)
-                    * determinant(createSubMatrix(matrix, 0, i));
+                    * calculation(createSubMatrix(matrix, 0, i));
         }
         return sum;
     }

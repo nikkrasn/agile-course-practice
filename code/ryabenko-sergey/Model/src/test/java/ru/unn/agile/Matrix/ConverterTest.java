@@ -24,7 +24,7 @@ public class ConverterTest {
         String text = "7 8\n-0.1 4";
         double[][] data = Converter.stringToArray(text);
         SquareMatrix mat = new SquareMatrix(data);
-        assertEquals(28.8, MatrixDeterminant.determinant(mat), delta);
+        assertEquals(28.8, MatrixDeterminant.calculation(mat), delta);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ConverterTest {
         String text = "    7  8   \n\n\n  -1          0.5    ";
         double[][] data = Converter.stringToArray(text);
         SquareMatrix mat = new SquareMatrix(data);
-        assertEquals(11.5, MatrixDeterminant.determinant(mat), delta);
+        assertEquals(11.5, MatrixDeterminant.calculation(mat), delta);
     }
 
     @Test (expected = IllegalArgumentException.class)

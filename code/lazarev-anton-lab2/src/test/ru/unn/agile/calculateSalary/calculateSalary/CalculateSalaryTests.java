@@ -1,6 +1,7 @@
-package ru.unn.agile.calculateSalary;
+package ru.unn.agile.calculateSalary.calculateSalary;
 
 import org.junit.Test;
+import CalculateSalary;
 
 import java.time.LocalDate;
 import java.time.Month;

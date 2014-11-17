@@ -13,7 +13,8 @@ public class CalculateJobDays {
     public static int countingCashDaysInMonth(int lengthOfVacation, LocalDate startOfVacation, LocalDate cashMonth){
         LocalDate endOfVacation = startOfVacation.plusDays(lengthOfVacation);
         int cashDaysInMonth = calculateCalendarDays(0, cashMonth);
-        if (allVacationIncludeInCashMonth(startOfVacation, cashMonth, endOfVacation)){
+        if (cashMonth.getYear() != startOfVacation.getYear()){return cashDaysInMonth;}
+        else if (allVacationIncludeInCashMonth(startOfVacation, cashMonth, endOfVacation)){
             for(int i = startOfVacation.getDayOfMonth(); i < endOfVacation.getDayOfMonth(); i++){
                 LocalDate checkingDate = LocalDate.of(cashMonth.getYear(), cashMonth.getMonth(), i);
                 if(isNotDayOff(checkingDate)){cashDaysInMonth--;}

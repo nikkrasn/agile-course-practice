@@ -1,4 +1,6 @@
-package ru.unn.agile.calculateSalary;
+package ru.unn.agile.calculateSalary.calculateSalary;
+
+import CalculateJobDays;
 
 import java.time.LocalDate;
 

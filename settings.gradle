@@ -43,7 +43,8 @@ project(":code/anufriev-denis/Model").name = "anufriev-denis-Model"
 // Blinkova Ekaterina
 include "code/blinkova-ekaterina/Model"
 project(":code/blinkova-ekaterina/Model").name = "blinkova-ekaterina-Model"
-
+include "code/blinkova-ekaterina/View"
+project(":code/blinkova-ekaterina/View").name = "blinkova-ekaterina-View"
 // Bobylkov Fedor
 include "code/bobylkov-fedor/Model"
 project(":code/bobylkov-fedor/Model").name = "bobylkov-fedor-Model"

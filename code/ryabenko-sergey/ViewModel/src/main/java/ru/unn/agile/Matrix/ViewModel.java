@@ -7,7 +7,7 @@ public class ViewModel {
     private String result;
     private String status;
     private boolean isCalculateButtonEnabled;
-    public static final int ENTER = 12345;
+    public static final int SHIFT = 16;
 
     public ViewModel() {
         textInput = "";
@@ -19,12 +19,12 @@ public class ViewModel {
     public void processKeyInTextField(final int keyCode) {
         parseInput();
 
-        if (keyCode == ENTER) {
-            enterPressed();
+        if (keyCode == SHIFT) {
+            shiftPressed();
         }
     }
 
-    private void enterPressed() {
+    private void shiftPressed() {
 
         if (isCalculateButtonEnabled()) {
             calculate();
@@ -54,8 +54,8 @@ public class ViewModel {
     }
 
     public final class Status {
-        public static final String EMPTY_INPUT = "Enter the data and press Calculate.";
-        public static final String READY = "Press 'Calculate' or Enter";
+        public static final String EMPTY_INPUT = "Enter the data and press 'Calculate'.";
+        public static final String READY = "Press 'Calculate' or SHIFT";
         public static final String BAD_INPUT = "Bad input";
         public static final String CALCULATED = "Calculation was carried out";
         private Status() {
@@ -90,7 +90,6 @@ public class ViewModel {
         try {
             if (isInputEmpty()) {
                 double[][] array = Converter.stringToArray(textInput);
-                SquareMatrix mat = new SquareMatrix(array);
             }
         } catch (Exception e) {
             status = Status.BAD_INPUT;

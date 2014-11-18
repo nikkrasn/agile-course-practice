@@ -1,10 +1,7 @@
 package ru.unn.agile.Matrix;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 public final class SquareMatrixClass {
 
@@ -48,6 +45,14 @@ public final class SquareMatrixClass {
             }
         };
         textArray.addKeyListener(keyListener);
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(final FocusEvent e) {
+                bind();
+                backBind();
+            }
+        };
+        textArray.addFocusListener(focusLostListener);
     }
 
     private void bind() {

@@ -1,0 +1,8 @@
+/*dependencies {
+    compile project(':blinkova-ekaterina-ViewModel')
+}*/
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
+}

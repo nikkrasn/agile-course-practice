@@ -39,7 +39,7 @@ public class SquareMatrix {
         return countRows;
     }
 
-    public void checkLengthRows(final double[][] data) {
+    public static void checkLengthRows(final double[][] data) {
         int row = data.length;
         for (int i = 1; i < row; i++) {
             if (data[i].length != data[0].length) {

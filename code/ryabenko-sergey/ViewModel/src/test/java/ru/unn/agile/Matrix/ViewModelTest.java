@@ -38,6 +38,57 @@ public class ViewModelTest {
     }
 
     @Test
+    public void isStatusReadyWhenArrayIsCorrect() {
+        viewModel.setTextInput("1");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertEquals(Status.READY, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusEmptyWhenArrayIsNull() {
+        viewModel.setTextInput("");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertEquals(Status.EMPTY_INPUT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusBadWhenArrayIsIncorrect() {
+        viewModel.setTextInput("n");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+    }
+
+    @Test
+    public void canCleanStatusIfParseIsTrue() {
+        viewModel.setTextInput("1.0a \n 7");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        viewModel.setTextInput("1.0 \n 7");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertEquals(Status.READY, viewModel.getStatus());
+    }
+
+    @Test
+    public void canCleanStatusIfParseIsFalse() {
+        viewModel.setTextInput("1.0 \n 7");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        viewModel.setTextInput("1.0a \n 7");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isCalculateButtonDisabledInitially() {
+        assertEquals(false, viewModel.isCalculateButtonEnabled());
+    }
+
+    @Test
+    public void isCalculateButtonEnabledIfInputIsCorrect() {
+        viewModel.setTextInput("1.0 \n 7");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertEquals(true, viewModel.isCalculateButtonEnabled());
+    }
+
+    @Test
     public void canReportBadInputWithIncorrectValue() {
         viewModel.setTextInput("n");
         viewModel.calculate();
@@ -46,14 +97,27 @@ public class ViewModelTest {
 
     @Test
     public void canCalculateCorrectMatrix() {
-        ViewModel view = new ViewModel();
-        view.setTextInput("7 8\n-0.1 4");
-        view.calculate();
-        assertEquals(view.getResult(), "28.8");
+        viewModel.setTextInput("7 8\n-0.1 4");
+        viewModel.calculate();
+        assertEquals(viewModel.getResult(), "28.8");
     }
 
     @Test
-    public void isStatusCalculatedIfCorrectInput() {
+    public void canCalculateCorrectMatrixWithShiftKey() {
+        viewModel.setTextInput("1");
+        viewModel.processKeyInTextField(viewModel.SHIFT);
+        assertEquals(Status.CALCULATED, viewModel.getStatus());
+    }
+
+    @Test
+    public void canReportBadInputWithShiftKey() {
+        viewModel.setTextInput("n");
+        viewModel.processKeyInTextField(viewModel.SHIFT);
+        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusCalculatedIfWasCorrectInput() {
         viewModel.setTextInput("7 8\n-0.1 4");
         viewModel.calculate();
         assertEquals(Status.CALCULATED, viewModel.getStatus());
@@ -68,10 +132,9 @@ public class ViewModelTest {
 
     @Test
     public void canConvertIncorrectStringToArray() {
-        ViewModel view = new ViewModel();
-        view.setTextInput("    7  8   \n\n\n  -1          0.5    ");
-        view.calculate();
-        assertEquals(view.getResult(), "11.5");
+        viewModel.setTextInput("    7  8   \n\n\n  -1          0.5    ");
+        viewModel.calculate();
+        assertEquals(viewModel.getResult(), "11.5");
     }
 
     @Test

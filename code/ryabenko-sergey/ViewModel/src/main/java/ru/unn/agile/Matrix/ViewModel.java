@@ -8,6 +8,7 @@ public class ViewModel {
     private String status;
     private boolean isCalculateButtonEnabled;
     public static final int SHIFT = 16;
+    public static final int ANY_KEY = 12345;
 
     public ViewModel() {
         textInput = "";
@@ -62,7 +63,7 @@ public class ViewModel {
         }
     }
 
-    public static final class Patterns {
+    private static final class Patterns {
         public static final Pattern ONLY_NEW_LINES = Pattern.compile("[\n]+");
         public static final Pattern ONLY_INDENTS = Pattern.compile(" +");
         private Patterns() {

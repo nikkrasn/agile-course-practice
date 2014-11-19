@@ -19,9 +19,25 @@ public class MatrixTest {
     }
 
     @Test
-    public void canSetInitialRowCount() {
+    public void canCreateEmptyMatrix() {
+        SquareMatrix mat = new SquareMatrix(0);
+        assertNotNull(mat);
+    }
+
+    @Test
+    public void canInitialRowCount() {
         SquareMatrix mat = new SquareMatrix(1);
-        assertEquals(1, mat.getCountRows());
+        assertTrue(1 == mat.getCountRows() && mat.getValueAt(0, 0) == 0);
+    }
+
+    @Test
+    public void canSetInitialMatrixElement() {
+        SquareMatrix mat = new SquareMatrix(4);
+        mat.setValueAt(0, 0, -1);
+        mat.setValueAt(0, 1, 0);
+        mat.setValueAt(1, 0, -11.1);
+        mat.setValueAt(1, 1, 1.1);
+        assertTrue(4 == mat.getCountRows() && mat.getValueAt(1, 1) == 1.1);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -35,22 +51,39 @@ public class MatrixTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void canCheckMatrixIsSquare() {
+    public void canCheckMatrixIsNonSquare() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{0.5, -2, 8.7}});
     }
 
     @Test
-    public void canSetInitialMatrixElement() {
+    public void canCheckMatrixIsSquare() {
+        SquareMatrix mat = new SquareMatrix(new double[][]{{-1.67}});
+        assertTrue(1 == mat.getCountRows() && mat.getValueAt(0, 0) == -1.67);
+    }
+
+    @Test
+    public void canGetMatrixElement() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{0.5, -2, 8.7}, {0, 8, 1},
                 {76.32, -0.55, 0}});
         assertEquals(-0.55, mat.getValueAt(2, 1), delta);
     }
 
     @Test (expected = IllegalArgumentException.class)
+    public void canCheckLengthRowsForNonSquareMatrix() {
+        double[][] d = {{1, 2.1}, {-1}};
+        SquareMatrix.checkLengthRows(d);
+    }
+
+    @Test
+    public void canCheckLengthRowsForSquareMatrix() {
+        double[][] d = {{1.77, 2}, {-1, 0.54}};
+        SquareMatrix.checkLengthRows(d);
+    }
+
+    @Test
     public void canCheckLengthRowsForEmptyMatrix() {
-        double[][] d = {{1, 2}, {1}};
-        SquareMatrix mat = new SquareMatrix(d);
-        mat.checkLengthRows(d);
+        double[][] d = {{}};
+        SquareMatrix.checkLengthRows(d);
     }
 
     @Test

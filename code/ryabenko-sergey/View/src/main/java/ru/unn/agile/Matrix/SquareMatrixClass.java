@@ -28,14 +28,14 @@ public final class SquareMatrixClass {
         this.viewModel = viewModel;
         backBind();
 
-        buttonCalculate.addActionListener(new ActionListener() {
+        ActionListener onButtonClick = new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent e) {
                 bind();
                 viewModel.calculate();
                 backBind();
             }
-        });
+        };
 
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
@@ -44,7 +44,6 @@ public final class SquareMatrixClass {
                 backBind();
             }
         };
-        textArray.addKeyListener(keyListener);
 
         FocusAdapter focusLostListener = new FocusAdapter() {
             public void focusLost(final FocusEvent e) {
@@ -52,7 +51,10 @@ public final class SquareMatrixClass {
                 backBind();
             }
         };
+
+        textArray.addKeyListener(keyListener);
         textArray.addFocusListener(focusLostListener);
+        buttonCalculate.addActionListener(onButtonClick);
     }
 
     private void bind() {

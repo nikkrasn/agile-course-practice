@@ -14,8 +14,14 @@ public class ConverterTest {
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void canCheckEmptyLines() {
+    public void canCheckEmptyString() {
         String text = "           ";
+        double[][] data = Converter.stringToArray(text);
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void canCheckEmptyLines() {
+        String text = " \n\n\n";
         double[][] data = Converter.stringToArray(text);
     }
 

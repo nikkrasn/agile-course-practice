@@ -4,15 +4,15 @@ import java.time.LocalDate;
 
 public class CalculateJobDays {
 
-    public static int countingJobDaysInMonth(LocalDate checkingMonth){
+    public static int countJobDaysInMonth(LocalDate checkingMonth){
         int jobDaysInMonth = 0;
-        jobDaysInMonth = calculateCalendarDays(jobDaysInMonth, checkingMonth);
+        jobDaysInMonth = getCalendarDays(jobDaysInMonth, checkingMonth);
         return jobDaysInMonth;
     }
 
-    public static int countingCashDaysInMonth(int lengthOfVacation, LocalDate startOfVacation, LocalDate cashMonth){
+    public static int countCashDaysInMonth(int lengthOfVacation, LocalDate startOfVacation, LocalDate cashMonth){
         LocalDate endOfVacation = startOfVacation.plusDays(lengthOfVacation);
-        int cashDaysInMonth = calculateCalendarDays(0, cashMonth);
+        int cashDaysInMonth = getCalendarDays(0, cashMonth);
         if (cashMonth.getYear() != startOfVacation.getYear()){return cashDaysInMonth;}
         else if (allVacationIncludeInCashMonth(startOfVacation, cashMonth, endOfVacation)){
             for(int i = startOfVacation.getDayOfMonth(); i < endOfVacation.getDayOfMonth(); i++){
@@ -47,7 +47,7 @@ public class CalculateJobDays {
         return (cashMonth.getMonth() == startOfVacation.getMonth()&&(cashMonth.getMonth() == endOfVacation.getMonth()));
     }
 
-    private static int calculateCalendarDays(int jobDaysInMonth, LocalDate checkingMonth) {
+    private static int getCalendarDays(int jobDaysInMonth, LocalDate checkingMonth) {
         for(int i=1; i <= checkingMonth.lengthOfMonth(); i++){
             LocalDate checkingDate = LocalDate.of(checkingMonth.getYear(),checkingMonth.getMonth(), i);
             if (isNotDayOff(checkingDate)) {

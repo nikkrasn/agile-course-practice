@@ -43,7 +43,7 @@ import javafx.scene.layout.VBox;
 /**
  * Sample custom control hosting a text field and a button.
  */
-public class CustomControl extends VBox {
+public class ComplexPercent extends VBox {
     @FXML private TextField textField;
 
 

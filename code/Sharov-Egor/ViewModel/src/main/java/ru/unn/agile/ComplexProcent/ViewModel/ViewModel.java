@@ -1,4 +1,4 @@
-package ru.unn.ComplexProcent.ViewModel;
+package ru.unn.agile.ComplexProcent.ViewModel;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;

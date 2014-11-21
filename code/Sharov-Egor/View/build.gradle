@@ -1,9 +1,5 @@
 apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
 
-dependencies {
-    compile project(':Sharov-Egor-ViewModel')
-}
-
 sourceSets {
     main.java.srcDir 'src/main/java'
 }

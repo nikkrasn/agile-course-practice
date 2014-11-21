@@ -1,3 +1,9 @@
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
+
+dependencies {
+    compile project(':Ryabusheva-Anna-ViewModel')
+}
+
 sourceSets {
     main.java.srcDir 'src/main/java'
 }

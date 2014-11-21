@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class CalculateSalaryTests {
 
     @Test
-    public void NullWhenSalaryNegatively(){
+    public void NullWhenSalaryNegatively() {
         double salary = -10000;
         LocalDate month = LocalDate.of(2014, Month.OCTOBER, 1);
         LocalDate vacation = LocalDate.of(2014, Month.OCTOBER, 1);
@@ -17,15 +17,14 @@ public class CalculateSalaryTests {
     }
 
     @Test
-    public void countCashInMonth(){
+    public void countCashInMonthWithoutVacation() {
         double salary = 10000;
         LocalDate month = LocalDate.of(2014, Month.OCTOBER, 1);
-        LocalDate vacation = LocalDate.of(2014, Month.NOVEMBER, 1);
-        assertEquals(8700, CalculateSalary.CountCash(salary, month, 176, vacation, 14), 0);
+        assertEquals(8700, CalculateSalary.CountCashWithoutVacation(salary, month, 184), 0);
     }
 
     @Test
-    public void countCashInMonthWithOvertime(){
+    public void countCashInMonthWithOvertime() {
         double salary = 10000;
         LocalDate month = LocalDate.of(2014, Month.OCTOBER, 1);
         LocalDate vacation = LocalDate.of(2014, Month.NOVEMBER, 1);
@@ -33,7 +32,15 @@ public class CalculateSalaryTests {
     }
 
     @Test
-    public void countCashInMonthWith14DaysOfVacation(){
+    public void countCashInMonthWithLessJobHours() {
+        double salary = 10000;
+        LocalDate month = LocalDate.of(2014, Month.OCTOBER, 1);
+        LocalDate vacation = LocalDate.of(2014, Month.NOVEMBER, 1);
+        assertEquals(7281, CalculateSalary.CountCash(salary, month, 154, vacation, 14), 1);
+    }
+
+    @Test
+    public void countCashInMonthWith14DaysOfVacation() {
         double salary = 10000;
         LocalDate month = LocalDate.of(2014, Month.OCTOBER, 1);
         LocalDate vacation = LocalDate.of(2014, Month.OCTOBER, 6);
@@ -41,7 +48,7 @@ public class CalculateSalaryTests {
     }
 
     @Test
-    public void countCashInMonthWithStartVacationButEndVacationInAnotherMonth(){
+    public void countCashInMonthWithStartVacationButEndVacationInAnotherMonth() {
         double salary = 10000;
         LocalDate month = LocalDate.of(2014, Month.OCTOBER, 1);
         LocalDate vacation = LocalDate.of(2014, Month.OCTOBER, 27);
@@ -49,7 +56,7 @@ public class CalculateSalaryTests {
     }
 
     @Test
-    public void countCashInMonthWithStartVacationInAnotherMonthButEndVacationInCashMonth(){
+    public void countCashInMonthWithStartVacationInAnotherMonthButEndVacationInCashMonth() {
         double salary = 10000;
         LocalDate month = LocalDate.of(2014, Month.NOVEMBER, 1);
         LocalDate vacation = LocalDate.of(2014, Month.OCTOBER, 27);
@@ -57,11 +64,25 @@ public class CalculateSalaryTests {
     }
 
     @Test
-    public void countCashInMonthWhichInYearNotEqualYearOfVacation(){
+    public void countCashInMonthWhichInYearNotEqualYearOfVacation() {
         double salary = 10000;
         LocalDate month = LocalDate.of(2014, Month.NOVEMBER, 1);
         LocalDate vacation = LocalDate.of(2015, Month.OCTOBER, 27);
         assertEquals(8700, CalculateSalary.CountCash(salary, month, 160, vacation, 14), 1);
+    }
+
+    @Test
+    public void countCashInMonthWithOvertimeAndWithoutVacation() {
+        double salary = 10000;
+        LocalDate month = LocalDate.of(2014, Month.NOVEMBER, 1);
+        assertEquals(14137, CalculateSalary.CountCashWithoutVacation(salary, month, 210), 1);
+    }
+
+    @Test
+    public void countCashInMonthWithLessJobHoursAndWithoutVacation() {
+        double salary = 10000;
+        LocalDate month = LocalDate.of(2014, Month.NOVEMBER, 1);
+        assertEquals(6525, CalculateSalary.CountCashWithoutVacation(salary, month, 120), 1);
     }
 
 }

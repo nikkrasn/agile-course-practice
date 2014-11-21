@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import ru.unn.agile.DeterminatorIntersection.view.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.unn.agile.DeterminatorIntersection.view.Determinator">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="6.0" spacing="10.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <children>
+                <VBox spacing="10.0">
+                    <children>
+                        <Label minWidth="-Infinity" text="Plane:"/>
+                        <HBox alignment="TOP_LEFT" spacing="30">
+                            <children>
+                                <HBox spacing="10">
+                                    <children>
+                                        <Label minWidth="-Infinity" text="A"/>
+                                        <TextField fx:id="txtPlaneA" maxWidth="50.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox spacing="10">
+                                    <children>
+                                        <Label minWidth="-Infinity" text="B"/>
+                                        <TextField fx:id="txtPlaneB" maxWidth="50.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox spacing="10">
+                                    <children>
+                                        <Label minWidth="-Infinity" text="C"/>
+                                        <TextField fx:id="txtPlaneC" maxWidth="50.0"/>
+                                    </children>
+                                </HBox>
+                                <HBox spacing="10">
+                                    <children>
+                                        <Label minWidth="-Infinity" text="B"/>
+                                        <TextField fx:id="txtPlaneD" maxWidth="50.0"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <VBox layoutX="6.0" spacing="10.0">
+                    <children>
+                        <Label minWidth="-Infinity" text="Line:"/>
+                        <HBox layoutX="6.0" spacing="50">
+                            <children>
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label minWidth="-Infinity" text="Point"/>
+                                        <HBox>
+                                            <children>
+                                                <Label minWidth="-Infinity" text="X"/>
+                                                <Separator prefWidth="10.0" visible="false"/>
+                                                <TextField fx:id="txtLinePointX" maxWidth="50.0"/>
+                                            </children>
+                                        </HBox>
+                                        <HBox>
+                                            <children>
+                                                <Label minWidth="-Infinity" text="Y"/>
+                                                <Separator prefWidth="10.0" visible="false"/>
+                                                <TextField fx:id="txtLinePointY" maxWidth="50.0"/>
+                                            </children>
+                                        </HBox>
+                                        <HBox>
+                                            <children>
+                                                <Label minWidth="-Infinity" text="Z"/>
+                                                <Separator prefWidth="10.0" visible="false"/>
+                                                <TextField fx:id="txtLinePointZ" maxWidth="50.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                                <Separator prefWidth="30.0" visible="false"/>
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label minWidth="-Infinity" text="Vector"/>
+                                        <HBox>
+                                            <children>
+                                                <Label minWidth="-Infinity" text="X"/>
+                                                <Separator prefWidth="10.0" visible="false"/>
+                                                <TextField fx:id="txtLineVectorX" maxWidth="50.0"/>
+                                            </children>
+                                        </HBox>
+                                        <HBox>
+                                            <children>
+                                                <Label minWidth="-Infinity" text="Y"/>
+                                                <Separator prefWidth="10.0" visible="false"/>
+                                                <TextField fx:id="txtLineVectorY" maxWidth="50.0"/>
+                                            </children>
+                                        </HBox>
+                                        <HBox>
+                                            <children>
+                                                <Label minWidth="-Infinity" text="Z"/>
+                                                <Separator prefWidth="10.0" visible="false"/>
+                                                <TextField fx:id="txtLineVectorZ" maxWidth="50.0"/>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <Button fx:id="btnDet" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Determinate" HBox.hgrow="ALWAYS"/>
+                <HBox spacing="10">
+                    <children>
+                        <Label minWidth="-Infinity" text="Result:"/>
+                        <Label fx:id="lbResult" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+                <HBox spacing="10">
+                    <children>
+                        <Label minWidth="-Infinity" text="Status:"/>
+                        <Label fx:id="lbStatus" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

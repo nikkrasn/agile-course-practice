@@ -6,7 +6,7 @@ public class Plane {
     private final double coefC;
     private final double coefD;
 
-    Plane(final double a, final double b, final double c, final double d) {
+    public Plane(final double a, final double b, final double c, final double d) {
         this.coefA = a;
         this.coefB = b;
         this.coefC = c;

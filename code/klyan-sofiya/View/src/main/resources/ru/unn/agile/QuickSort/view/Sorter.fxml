@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.QuickSort.view.Sorter">
+   <children>
+      <VBox layoutX="0" layoutY="0" prefHeight="200.0" prefWidth="441.0">
+         <children>
+            <TextArea fx:id="areaInput" prefHeight="45.0" prefWidth="441.0" />
+            <Button fx:id="btnSort" mnemonicParsing="false" text="Sort" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

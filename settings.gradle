@@ -67,6 +67,8 @@ project(":code/karsakov-alexander/Model").name = "karsakov-alexander-Model"
 // Klyan Sofiya
 include "code/klyan-sofiya/Model"
 project(":code/klyan-sofiya/Model").name = "klyan-sofiya-Model"
+include "code/klyan-sofiya/View"
+project(":code/klyan-sofiya/View").name = "klyan-sofiya-View"
 
 // Krasnoyarov Nikita
 include "code/krasnoyarov-nikita/Model"

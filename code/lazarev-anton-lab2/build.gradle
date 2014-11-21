@@ -1,3 +1,5 @@
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
+
 sourceSets {
     main.java.srcDir '/src/main'
     test.java.srcDir '/src/test'

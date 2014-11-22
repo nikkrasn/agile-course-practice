@@ -59,6 +59,10 @@ project(":code/bysheva-tatyana/Model").name = "bysheva-tatyana-Model"
 // Izutov Evgenii
 include "code/izutov-evgenii/Model"
 project(":code/izutov-evgenii/Model").name = "izutov-evgenii-Model"
+include "code/izutov-evgenii/ViewModel"
+project(":code/izutov-evgenii/ViewModel").name = "izutov-evgenii-ViewModel"
+include "code/izutov-evgenii/View"
+project(":code/izutov-evgenii/View").name = "izutov-evgenii-View"
 
 // Karsakov Alexander
 include "code/karsakov-alexander/Model"

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.DemandElasticity.view.DemandElasticity">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="6.0" spacing="10.0">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Group>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label minWidth="-Infinity" text="First field" HBox.hgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="4.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox>
+                           <children>
+                              <Label minWidth="-Infinity" text="Start">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField />
+                              <Separator prefWidth="120.0" visible="false" />
+                              <Label minWidth="-Infinity" text="Finish">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Group>
+            <Group>
+               <children>
+                  <VBox>
+                     <children>
+                        <Label minWidth="-Infinity" text="Second field" HBox.hgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="4.0" />
+                           </VBox.margin></Label>
+                        <HBox>
+                           <children>
+                              <Label minWidth="-Infinity" text="Start">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Label>
+                              <TextField />
+                              <Separator prefWidth="120.0" visible="false" />
+                              <Label minWidth="-Infinity" text="Finish">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Label>
+                              <TextField />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Group>
+            <HBox>
+               <children>
+                  <ComboBox prefWidth="200.0" />
+                  <Separator prefWidth="200.0" visible="false" />
+                  <Button mnemonicParsing="false" defaultButton="true" text="Calculate" HBox.hgrow="ALWAYS"/>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="-Infinity" text="Result:">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></Label>
+                  <Label minWidth="-Infinity" text="Label" HBox.hgrow="ALWAYS" />
+                  <Separator prefWidth="200.0" visible="false" />
+                  <Label minWidth="-Infinity" text="Status:">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></Label>
+                  <Label minWidth="-Infinity" text="Label" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -57,15 +57,17 @@ public class ViewModel {
         TemperatureConverter converter = new TemperatureConverter();
         double temperature;
 
+        double input = Double.parseDouble(inputValue);
+
         switch (scale) {
             case FAHRENHEIT:
-                temperature = converter.celsiusToFahrenheit(Double.parseDouble(inputValue));
+                temperature = converter.celsiusToFahrenheit(input);
                 break;
             case KELVIN:
-                temperature = converter.celsiusToKelvin(Double.parseDouble(inputValue));
+                temperature = converter.celsiusToKelvin(input);
                 break;
             case NEWTON:
-                temperature = converter.celsiusToNewton(Double.parseDouble(inputValue));
+                temperature = converter.celsiusToNewton(input);
                 break;
             default:
                 throw new IllegalArgumentException("You can use only Fahrenheit, Kelvin or Newton");

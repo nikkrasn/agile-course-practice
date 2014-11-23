@@ -2,7 +2,7 @@ package ru.unn.agile.TemperatureConverter.view;
 
 import javax.swing.*;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
-
+import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel.Scale;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -15,7 +15,7 @@ public final class Converter {
     private JTextField txtResult;
     private JButton btnConvert;
     private JTextField txtStatus;
-    private JComboBox<ViewModel.Scale> cbScale;
+    private JComboBox<Scale> cbScale;
     private ViewModel viewModel;
 
     private Converter() { }
@@ -65,13 +65,13 @@ public final class Converter {
     }
 
     private void loadListOfScales() {
-        ViewModel.Scale[] scales = ViewModel.Scale.values();
+        Scale[] scales = ViewModel.Scale.values();
         cbScale.setModel(new JComboBox<>(scales).getModel());
     }
 
     private void bind() {
         viewModel.setInputValue(txtValue.getText());
-        viewModel.setScale((ViewModel.Scale) cbScale.getSelectedItem());
+        viewModel.setScale((Scale) cbScale.getSelectedItem());
     }
 
     private void backBind() {

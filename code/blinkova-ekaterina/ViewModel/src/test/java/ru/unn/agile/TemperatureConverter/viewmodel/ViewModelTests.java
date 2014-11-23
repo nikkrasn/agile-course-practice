@@ -6,7 +6,6 @@ import org.junit.Test;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel.Status;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel.Scale;
 import static org.junit.Assert.*;
-
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
@@ -113,21 +112,21 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusWrongFormatThenBadInputValue() {
+    public void ifBadInputValueThenStatusWrongFormat() {
         viewModel.setInputValue("q");
         viewModel.convert();
         assertEquals(Status.WRONG_FORMAT, viewModel.getStatus());
   }
 
     @Test
-    public void isStatusSuccessThenGoodInputValue() {
+    public void ifGoodInputValueThenStatusSuccess() {
         viewModel.setInputValue("1.0");
         viewModel.convert();
         assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
-    public void isStatusReadyThenGoodInputValue() {
+    public void ifGoodInputValueThenStatusReady() {
         viewModel.setInputValue("1.0");
         viewModel.processKeyInTextField();
         assertEquals(Status.READY, viewModel.getStatus());

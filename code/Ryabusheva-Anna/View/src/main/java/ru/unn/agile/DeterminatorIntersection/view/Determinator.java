@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import ru.unn.agile.DeterminatorIntersection.viewmodel.ViewModel;
 
-import java.awt.*;
-
 public class Determinator {
     @FXML
     private ViewModel viewModel;

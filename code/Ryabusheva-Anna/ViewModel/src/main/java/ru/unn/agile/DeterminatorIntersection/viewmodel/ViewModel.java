@@ -7,9 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import ru.unn.agile.DeterminatorIntersection.Model.*;
-
 import java.util.ArrayList;
 import java.util.List;
 

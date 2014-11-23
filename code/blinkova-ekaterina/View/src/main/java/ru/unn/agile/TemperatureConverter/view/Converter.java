@@ -30,7 +30,7 @@ public final class Converter {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
-                Converter.this.viewModel.convert();
+                viewModel.convert();
                 backBind();
             }
         });
@@ -47,7 +47,7 @@ public final class Converter {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
                 bind();
-                Converter.this.viewModel.processKeyInTextField();
+                viewModel.processKeyInTextField();
                 backBind();
             }
         };

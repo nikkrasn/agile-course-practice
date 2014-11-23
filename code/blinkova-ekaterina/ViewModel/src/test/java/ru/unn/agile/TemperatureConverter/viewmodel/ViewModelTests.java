@@ -145,4 +145,26 @@ public class ViewModelTests {
         viewModel.processKeyInTextField();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
+
+    @Test
+    public void isStatusWaitingWithEmptyInputValue() {
+        viewModel.setInputValue("");
+        assertEquals(Status.WAITING, viewModel.getStatus());
+    }
+
+    @Test
+    public void isConvertButtonDisableWithEmptyInput() {
+        viewModel.setInputValue("");
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void isConvertButtonDisableInTheBeginning() {
+        assertEquals(false, viewModel.isConvertButtonEnabled());
+    }
+
+    @Test
+    public void isFahrenheitDefaultScale() {
+        assertEquals(Scale.FAHRENHEIT, viewModel.getScale());
+    }
 }

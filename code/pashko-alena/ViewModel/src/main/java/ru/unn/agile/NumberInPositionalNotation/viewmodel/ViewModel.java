@@ -59,22 +59,6 @@ public class ViewModel {
         }
     }
 
-    private Status getInputStatus() {
-        Status inputStatus;
-            if (inputNumber.get().isEmpty()) {
-                inputStatus = Status.WAITING;
-            } else {
-                NumberInPositionalNotation number =
-                        new NumberInPositionalNotation(inputNumber.get(), inputNotation.get());
-                if (number.checkInputData()) {
-                    inputStatus = Status.READY;
-                } else {
-                    inputStatus = Status.BAD_FORMAT;
-                }
-            }
-        return inputStatus;
-    }
-
     public void convert() {
         if (convertDisabled.get()) {
             return;
@@ -132,6 +116,23 @@ public class ViewModel {
     public final String getStatus() {
         return status.get();
     }
+
+    private Status getInputStatus() {
+        Status inputStatus;
+        if (inputNumber.get().isEmpty()) {
+            inputStatus = Status.WAITING;
+        } else {
+            NumberInPositionalNotation number =
+                    new NumberInPositionalNotation(inputNumber.get(), inputNotation.get());
+            if (number.checkInputData()) {
+                inputStatus = Status.READY;
+            } else {
+                inputStatus = Status.BAD_FORMAT;
+            }
+        }
+        return inputStatus;
+    }
+
 
     private class ValueChangeListener implements ChangeListener<String> {
         @Override

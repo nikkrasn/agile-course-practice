@@ -15,29 +15,29 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
          <children>
-            <HBox>
-               <children>
-                  <Label minWidth="-Infinity" text="Input Number"/>
-                      <Separator prefWidth="20.0" visible="false" />
-                  <TextField fx:id="txtInNum" />
-                  <Separator prefWidth="20.0" visible="false" />
-                  <Label minWidth="-Infinity" text="Input Notation" />
-                   <Separator prefWidth="20.0" visible="false" />
-                    <ComboBox fx:id="cbInNotation" items="${viewModel.notations}" prefWidth="204.0" />
-                </children>
-            </HBox>
-            <HBox>
-               <children>
-                  <Label minWidth="-Infinity" text="Output Number" />
-                   <Separator prefWidth="10.0" visible="false" />
-                   <Label fx:id="lbResult" text="${viewModel.outputNumber}" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                  <Separator prefWidth="20.0" visible="false" />
-                  <Label minWidth="-Infinity" text="Output Notation" />
-                   <Separator prefWidth="10.0" visible="false" />
-                    <ComboBox fx:id="cbOutNotation" items="${viewModel.notations}" prefWidth="204.0" />
-                </children>
-            </HBox>
-            <HBox>
+             <HBox>
+                 <children>
+                     <Label minWidth="-Infinity" text="Input Number"/>
+                     <Separator prefWidth="20.0" visible="false"/>
+                     <TextField fx:id="txtInNum"/>
+                     <Separator prefWidth="20.0" visible="false"/>
+                     <Label minWidth="-Infinity" text="Input Notation"/>
+                     <Separator prefWidth="20.0" visible="false"/>
+                     <ComboBox fx:id="cbInNotation" items="${viewModel.notations}" prefWidth="204.0"/>
+                 </children>
+
+                 <children>
+                     <Label minWidth="-Infinity" text="Output Number"/>
+                     <Separator prefWidth="10.0" visible="false"/>
+                     <Label fx:id="lbResult" text="${viewModel.outputNumber}" maxWidth="1.7976931348623157E308"
+                            HBox.hgrow="ALWAYS"/>
+                     <Separator prefWidth="20.0" visible="false"/>
+                     <Label minWidth="-Infinity" text="Output Notation"/>
+                     <Separator prefWidth="10.0" visible="false"/>
+                     <ComboBox fx:id="cbOutNotation" items="${viewModel.notations}" prefWidth="204.0"/>
+                 </children>
+             </HBox>
+             <HBox>
                <children>
                    <Separator prefWidth="50.0" visible="false" />
                   <Button fx:id="btnConvert" defaultButton="true" disable="${viewModel.convertDisabled}"

@@ -89,24 +89,6 @@ public class NumberInPositionalNotation {
         }
     }
 
-    private String convertFractionalPart(final String fractPart, final int len) {
-        int length = len;
-        String fractionalPart = fractPart;
-        int lengthOfFract = fractionalPart.length();
-        while (lengthOfFract > 1 && fractionalPart.substring(lengthOfFract - 1,
-                lengthOfFract).equals("0")) {
-            fractionalPart =
-                    fractionalPart.substring(0, fractionalPart.length() - 1);
-            length--;
-            lengthOfFract--;
-        }
-        for (int i = 0; i < length - lengthOfFract; i++) {
-            fractionalPart = "0" + fractionalPart;
-        }
-        fractionalPart = "0." + fractionalPart;
-        return fractionalPart;
-    }
-
     public NumberInPositionalNotation convertToDecimal() {
         if (checkInputData()
                 && getNotation() != DECIMAL) {
@@ -168,5 +150,23 @@ public class NumberInPositionalNotation {
         } else {
             return new NumberInPositionalNotation(getValue(), getNotation());
         }
+    }
+
+    private String convertFractionalPart(final String fractPart, final int len) {
+        int length = len;
+        String fractionalPart = fractPart;
+        int lengthOfFract = fractionalPart.length();
+        while (lengthOfFract > 1 && fractionalPart.substring(lengthOfFract - 1,
+                lengthOfFract).equals("0")) {
+            fractionalPart =
+                    fractionalPart.substring(0, fractionalPart.length() - 1);
+            length--;
+            lengthOfFract--;
+        }
+        for (int i = 0; i < length - lengthOfFract; i++) {
+            fractionalPart = "0" + fractionalPart;
+        }
+        fractionalPart = "0." + fractionalPart;
+        return fractionalPart;
     }
 }

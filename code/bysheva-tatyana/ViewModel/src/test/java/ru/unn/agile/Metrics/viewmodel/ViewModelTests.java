@@ -1,6 +1,10 @@
 package ru.unn.agile.Metrics.viewmodel;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -10,5 +14,9 @@ public class ViewModelTests {
         viewModel = new ViewModel();
     }
 
+    @After
+    public void tearDown() {
+        viewModel = null;
+    }
 
 }

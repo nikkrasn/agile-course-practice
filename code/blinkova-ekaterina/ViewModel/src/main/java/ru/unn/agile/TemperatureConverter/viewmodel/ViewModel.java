@@ -75,6 +75,11 @@ public class ViewModel {
         status = Status.SUCCESS;
     }
 
+    public void processKeyInTextField() {
+        parseInput();
+    }
+
+
     private boolean isInputValueNotEmpty() {
         return !inputValue.isEmpty();
     }

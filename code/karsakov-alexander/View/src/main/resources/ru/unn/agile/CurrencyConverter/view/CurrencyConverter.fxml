@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import ru.unn.agile.CurrencyConverter.viewmodel.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="216.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.CurrencyConverter.view.CurrencyConverter" prefHeight="216.0" prefWidth="540.0">
+   <fx:define>
+        <ViewModel fx:id="viewModel" />
+   </fx:define>
    <children>
-      <TextFlow layoutX="25.0" layoutY="31.0" prefHeight="0.0" prefWidth="54.0">
-         <children>
-            <Label id="fromLabel" text="From:" />
-         </children>
-      </TextFlow>
-      <ComboBox id="fromCurrencyComboBox" layoutX="79.0" layoutY="25.0" prefHeight="39.0" prefWidth="179.0" />
+      <Label id="fromLabel" text="From:" layoutX="25.0" layoutY="31.0"/>
+      <ComboBox fx:id="fromCurrencyComboBox" items="${viewModel.fromCurrencyList}" layoutX="79.0" layoutY="25.0" prefHeight="39.0" prefWidth="179.0" />
       <Label id="valueLabel" layoutX="25.0" layoutY="83.0" prefHeight="27.0" prefWidth="54.0" text="Value:" />
-      <TextField id="valueTextField" layoutX="79.0" layoutY="77.0" prefHeight="39.0" prefWidth="179.0" />
-      <Button id="convertButton" layoutX="337.0" layoutY="77.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="179.0" text="Convert" />
-      <ComboBox id="toCurrencyComboBox" layoutX="337.0" layoutY="25.0" prefHeight="39.0" prefWidth="179.0" />
+      <TextField fx:id="valueTextField" layoutX="79.0" layoutY="77.0" prefHeight="39.0" prefWidth="179.0" />
+      <Button fx:id="convertButton" defaultButton="true" disable="${viewModel.convertButtonDisabled}" layoutX="337.0" layoutY="77.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="179.0" text="Convert"/>
+      <ComboBox fx:id="toCurrencyComboBox" items="${viewModel.toCurrencyList}" layoutX="337.0" layoutY="25.0" prefHeight="39.0" prefWidth="179.0" />
       <Label id="toLabel" layoutX="303.0" layoutY="31.0" text="To:" />
       <Label id="resultLabel" layoutX="277.0" layoutY="135.0" text="Result:" />
-      <TextField id="resultTextField" layoutX="337.0" layoutY="129.0" prefHeight="39.0" prefWidth="127.0" />
-      <Label id="resultCurrencyLabel" layoutX="471.0" layoutY="135.0" prefHeight="27.0" prefWidth="45.0" />
+      <TextField fx:id="resultTextField" text="${viewModel.result}" layoutX="337.0" layoutY="129.0" prefHeight="39.0" prefWidth="127.0" />
+      <Label fx:id="resultCurrencyLabel" text="${viewModel.resultCurrency}" layoutX="471.0" layoutY="135.0" prefHeight="27.0" prefWidth="45.0" />
       <Label id="statusLabel" layoutX="25.0" layoutY="176.0" text="Status:" />
-      <Label id="statusLabelText" layoutX="87.0" layoutY="176.0" />
+      <Label fx:id="statusLabelText" text="${viewModel.status}" layoutX="87.0" layoutY="176.0" />
    </children>
 </AnchorPane>

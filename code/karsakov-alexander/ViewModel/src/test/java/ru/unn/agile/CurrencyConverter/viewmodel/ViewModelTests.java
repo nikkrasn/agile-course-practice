@@ -1,6 +1,5 @@
 package ru.unn.agile.CurrencyConverter.viewmodel;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +45,7 @@ public class ViewModelTests {
 
     @Test
     public void convertButtonIsDisabledInitially() {
-        assertTrue(viewModel.getCalculationDisabled());
+        assertTrue(viewModel.getConvertButtonDisabled());
     }
 
     @Test
@@ -60,7 +59,7 @@ public class ViewModelTests {
     public void convertButtonIsDisabledWhenInputIsEmpty() {
         viewModel.inputValueProperty().set("");
 
-        assertTrue(viewModel.getCalculationDisabled());
+        assertTrue(viewModel.getConvertButtonDisabled());
     }
 
     @Test
@@ -68,7 +67,7 @@ public class ViewModelTests {
         setInputData();
         viewModel.inputValueProperty().set("");
 
-        assertTrue(viewModel.getCalculationDisabled());
+        assertTrue(viewModel.getConvertButtonDisabled());
     }
 
     @Test
@@ -76,14 +75,14 @@ public class ViewModelTests {
         setInputData();
         viewModel.inputValueProperty().set("abba");
 
-        assertTrue(viewModel.getCalculationDisabled());
+        assertTrue(viewModel.getConvertButtonDisabled());
     }
 
     @Test
     public void convertButtonIsEnabledWhenCorrectInput() {
         setInputData();
 
-        assertFalse(viewModel.getCalculationDisabled());
+        assertFalse(viewModel.getConvertButtonDisabled());
     }
 
     @Test
@@ -103,6 +102,29 @@ public class ViewModelTests {
 
         assertEquals(viewModel.toCurrencyProperty().get().getCharCode(),
                      viewModel.resultCurrencyProperty().get());
+    }
+
+    @Test
+    public void canSetSuccessMessage() {
+        setInputData();
+
+        viewModel.convert();
+
+        assertEquals(ViewModelStatus.SUCCESS.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void canSetBadFormatMessage() {
+        viewModel.inputValueProperty().set("incorrect");
+
+        assertEquals(ViewModelStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void canSetReadyStatusOnProperInput() {
+        setInputData();
+
+        assertEquals(ViewModelStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     private void setInputData() {

@@ -11,7 +11,6 @@ import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 import ru.unn.agile.CurrencyConverter.Model.Money;
 import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
 import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
-import ru.unn.agile.CurrencyConverter.viewmodel.ViewModelStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +20,13 @@ public class ViewModel {
 
     private final StringProperty inputValue = new SimpleStringProperty();
 
-    private ObjectProperty<ObservableList<Currency>> fromCurrencyList =
+    private final ObjectProperty<ObservableList<Currency>> fromCurrencyList =
             new SimpleObjectProperty<>();
-    private final ObjectProperty<Currency> fromCurrency = new SimpleObjectProperty<>();
+    private ObjectProperty<Currency> fromCurrency = new SimpleObjectProperty<>();
 
-    private ObjectProperty<ObservableList<Currency>> toCurrencyList =
+    private final ObjectProperty<ObservableList<Currency>> toCurrencyList =
             new SimpleObjectProperty<>();
-    private final ObjectProperty<Currency> toCurrency = new SimpleObjectProperty<>();
+    private ObjectProperty<Currency> toCurrency = new SimpleObjectProperty<>();
 
     private final BooleanProperty convertButtonDisabled = new SimpleBooleanProperty();
 
@@ -42,7 +41,7 @@ public class ViewModel {
     public ViewModel() {
         inputValue.set("");
         result.set("");
-        resultCurrency.setValue("");
+        resultCurrency.set("");
 
         ICurrencyProvider provider = new FixedCurrencyProvider();
         actualRates = provider.getActualCurrencyRates();
@@ -105,10 +104,10 @@ public class ViewModel {
         return toCurrency;
     }
 
-    public BooleanProperty convertDisabledProperty() {
+    public BooleanProperty convertButtonDisabledProperty() {
         return convertButtonDisabled;
     }
-    public final boolean getCalculationDisabled() {
+    public final boolean getConvertButtonDisabled() {
         return convertButtonDisabled.get();
     }
 
@@ -116,8 +115,16 @@ public class ViewModel {
         return result;
     }
 
+    public final String getResult() {
+        return result.get();
+    }
+
     public StringProperty resultCurrencyProperty() {
         return resultCurrency;
+    }
+
+    public final String getResultCurrency() {
+        return resultCurrency.get();
     }
 
     public StringProperty statusProperty() {
@@ -129,7 +136,7 @@ public class ViewModel {
     }
 
     public void convert() {
-        if (getCalculationDisabled()) {
+        if (getConvertButtonDisabled()) {
             return;
         }
 
@@ -140,6 +147,7 @@ public class ViewModel {
 
         result.set(String.format("%.5f", convertedMoney.getAmount()));
         resultCurrency.set(toCurrency.get().getCharCode());
+        status.set(ViewModelStatus.SUCCESS.toString());
     }
 
     private ViewModelStatus getInputStatus() {

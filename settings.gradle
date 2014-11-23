@@ -89,6 +89,10 @@ project(":code/ovsuhno-andrey/Model").name = "ovsuhno-andrey-Model"
 // Pashko Alena
 include "code/pashko-alena/Model"
 project(":code/pashko-alena/Model").name = "pashko-alena-Model"
+include "code/pashko-alena/View"
+project(":code/pashko-alena/View").name = "pashko-alena-View"
+include "code/pashko-alena/ViewModel"
+project(":code/pashko-alena/ViewModel").name = "pashko-alena-ViewModel"
 
 // Pogorelsky Iliya
 include "code/pogorelsky-iliya/Model"

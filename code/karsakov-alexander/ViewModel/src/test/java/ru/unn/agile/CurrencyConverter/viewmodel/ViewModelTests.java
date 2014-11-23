@@ -27,7 +27,7 @@ public class ViewModelTests {
         assertEquals(CurrencyIndexes.USD, viewModel.toCurrencyProperty().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals("", viewModel.resultCurrencyProperty().get());
-        assertEquals(ViewModelStatus.READY.toString(), viewModel.getStatus());
+        assertEquals(ViewModelStatus.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -37,8 +37,14 @@ public class ViewModelTests {
         assertEquals(ViewModelStatus.WAITING.toString(), viewModel.getStatus());
     }
 
+    @Test
+    public void statusIsReadyWhenFieldsAreFill() {
+        setInputData();
+
+        assertEquals(ViewModelStatus.READY.toString(), viewModel.statusProperty().get());
+    }
 
     private void setInputData() {
-
+        viewModel.inputValueProperty().set("10");
     }
 }

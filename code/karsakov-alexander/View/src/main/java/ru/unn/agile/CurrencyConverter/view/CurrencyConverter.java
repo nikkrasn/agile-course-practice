@@ -31,8 +31,10 @@ public class CurrencyConverter {
 
     @FXML
     void initialize() {
-
         // Two-way binding hasn't supported by FXML yet, so place it in code-behind
+        valueTextField.textProperty().bindBidirectional(viewModel.inputValueProperty());
+        fromCurrencyComboBox.valueProperty().bindBidirectional(viewModel.fromCurrencyProperty());
+        toCurrencyComboBox.valueProperty().bindBidirectional(viewModel.toCurrencyProperty());
 
         convertButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

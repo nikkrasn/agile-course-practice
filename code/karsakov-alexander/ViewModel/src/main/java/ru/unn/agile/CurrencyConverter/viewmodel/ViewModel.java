@@ -43,16 +43,7 @@ public class ViewModel {
 
         status.set(ViewModelStatus.WAITING.toString());
 
-        BooleanBinding couldCalculate = new BooleanBinding() {
-            {
-                super.bind(inputValue);
-            }
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == ViewModelStatus.READY;
-            }
-        };
-        convertButtonDisabled.bind(couldCalculate.not());
+        convertButtonDisabled.set(true);
 
         // Add listeners to the input text fields
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
@@ -124,6 +115,18 @@ public class ViewModel {
 
     private ViewModelStatus getInputStatus() {
         ViewModelStatus inputStatus = ViewModelStatus.READY;
+
+        if (inputValue.get().isEmpty()) {
+            inputStatus = ViewModelStatus.WAITING;
+        }
+
+        try {
+            if (!inputValue.get().isEmpty()) {
+                Double.parseDouble(inputValue.get());
+            }
+        } catch (NumberFormatException e) {
+            inputStatus = ViewModelStatus.BAD_FORMAT;
+        }
         return inputStatus;
     }
 

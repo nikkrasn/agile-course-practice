@@ -8,6 +8,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.DeterminatorIntersection.Model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,15 +162,14 @@ public class ViewModel {
         if (isSomeOfFieldsValueEmpty()) {
             inputStatus = Status.WAITING;
         }
-        try {
-            parseAllFields();
-        } catch (NumberFormatException cuntParseSomeOfField) {
+        if (cannotParseSomeOfFields()) {
             inputStatus = Status.BAD_FORMAT;
         }
         return inputStatus;
     }
 
-    private void parseAllFields() {
+    private boolean cannotParseSomeOfFields() {
+        boolean cannotParse = false;
         try {
             if (!planeA.get().isEmpty()) {
                 Double.parseDouble(planeA.get());
@@ -202,8 +202,9 @@ public class ViewModel {
                 Double.parseDouble(linePointZ.get());
             }
         } catch (NumberFormatException cuntParseSomeOfField) {
-            throw cuntParseSomeOfField;
+            cannotParse = true;
         }
+        return cannotParse;
     }
 
     private boolean isSomeOfFieldsValueEmpty() {

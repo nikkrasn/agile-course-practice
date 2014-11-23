@@ -10,13 +10,13 @@
     <ColumnConstraints hgrow="ALWAYS" minWidth="300.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="60.0" vgrow="NEVER" />
-    <RowConstraints minHeight="60.0" vgrow="NEVER" />
-      <RowConstraints minHeight="60.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
+      <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
     <RowConstraints minHeight="300.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <Button mnemonicParsing="false" text="Push" />
+      <Button mnemonicParsing="false" text="Push" GridPane.hgrow="ALWAYS" />
       <Button mnemonicParsing="false" text="Pop" GridPane.columnSpan="2" GridPane.rowIndex="1" />
       <TableView GridPane.columnSpan="2" GridPane.rowIndex="3">
         <columns>

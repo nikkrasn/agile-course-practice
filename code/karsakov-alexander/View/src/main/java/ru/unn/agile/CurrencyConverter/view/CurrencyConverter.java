@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
-import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
+import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.viewmodel.ViewModel;
 
 public class CurrencyConverter {
@@ -22,9 +22,9 @@ public class CurrencyConverter {
     @FXML
     private Label statusLabelText;
     @FXML
-    private ComboBox<CurrencyIndexes> fromCurrencyComboBox;
+    private ComboBox<Currency> fromCurrencyComboBox;
     @FXML
-    private ComboBox<CurrencyIndexes> toCurrencyComboBox;
+    private ComboBox<Currency> toCurrencyComboBox;
     @FXML
     private Button convertButton;
 

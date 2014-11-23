@@ -6,22 +6,28 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
+import ru.unn.agile.CurrencyConverter.Model.Money;
+import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
+import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
 import ru.unn.agile.CurrencyConverter.viewmodel.ViewModelStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
+    private ArrayList<Currency> actualRates;
+
     private final StringProperty inputValue = new SimpleStringProperty();
 
-    private final ObjectProperty<ObservableList<CurrencyIndexes>> fromCurrencyList =
-            new SimpleObjectProperty<>(FXCollections.observableArrayList(CurrencyIndexes.values()));
-    private final ObjectProperty<CurrencyIndexes> fromCurrency = new SimpleObjectProperty<>();
+    private ObjectProperty<ObservableList<Currency>> fromCurrencyList =
+            new SimpleObjectProperty<>();
+    private final ObjectProperty<Currency> fromCurrency = new SimpleObjectProperty<>();
 
-    private final ObjectProperty<ObservableList<CurrencyIndexes>> toCurrencyList =
-            new SimpleObjectProperty<>(FXCollections.observableArrayList(CurrencyIndexes.values()));
-    private final ObjectProperty<CurrencyIndexes> toCurrency = new SimpleObjectProperty<>();
+    private ObjectProperty<ObservableList<Currency>> toCurrencyList =
+            new SimpleObjectProperty<>();
+    private final ObjectProperty<Currency> toCurrency = new SimpleObjectProperty<>();
 
     private final BooleanProperty convertButtonDisabled = new SimpleBooleanProperty();
 
@@ -38,8 +44,12 @@ public class ViewModel {
         result.set("");
         resultCurrency.setValue("");
 
-        fromCurrency.setValue(CurrencyIndexes.RUB);
-        toCurrency.setValue(CurrencyIndexes.USD);
+        ICurrencyProvider provider = new FixedCurrencyProvider();
+        actualRates = provider.getActualCurrencyRates();
+        fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
+        toCurrencyList.set(FXCollections.observableArrayList(actualRates));
+        fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));
+        toCurrency.set(actualRates.get(CurrencyIndexes.USD.getIndex()));
 
         status.set(ViewModelStatus.WAITING.toString());
 
@@ -71,27 +81,27 @@ public class ViewModel {
         return inputValue;
     }
 
-    public ObjectProperty<ObservableList<CurrencyIndexes>> fromCurrencyListProperty() {
+    public ObjectProperty<ObservableList<Currency>> fromCurrencyListProperty() {
         return fromCurrencyList;
     }
 
-    public ObservableList<CurrencyIndexes> getFromCurrencyList() {
+    public ObservableList<Currency> getFromCurrencyList() {
         return fromCurrencyList.get();
     }
 
-    public ObjectProperty<CurrencyIndexes> fromCurrencyProperty() {
+    public ObjectProperty<Currency> fromCurrencyProperty() {
         return fromCurrency;
     }
 
-    public ObjectProperty<ObservableList<CurrencyIndexes>> toCurrencyListProperty() {
+    public ObjectProperty<ObservableList<Currency>> toCurrencyListProperty() {
         return toCurrencyList;
     }
 
-    public ObservableList<CurrencyIndexes> getToCurrencyList() {
+    public ObservableList<Currency> getToCurrencyList() {
         return toCurrencyList.get();
     }
 
-    public ObjectProperty<CurrencyIndexes> toCurrencyProperty() {
+    public ObjectProperty<Currency> toCurrencyProperty() {
         return toCurrency;
     }
 
@@ -119,7 +129,17 @@ public class ViewModel {
     }
 
     public void convert() {
+        if (getCalculationDisabled()) {
+            return;
+        }
 
+        double amount = Double.parseDouble(inputValue.get());
+
+        Money inputMoney = new Money(fromCurrency.get(), amount);
+        Money convertedMoney = inputMoney.convertToCurrency(toCurrency.get());
+
+        result.set(String.format("%.5f", convertedMoney.getAmount()));
+        resultCurrency.set(toCurrency.get().getCharCode());
     }
 
     private ViewModelStatus getInputStatus() {

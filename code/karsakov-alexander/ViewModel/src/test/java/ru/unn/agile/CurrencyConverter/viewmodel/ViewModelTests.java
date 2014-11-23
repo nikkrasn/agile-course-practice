@@ -1,18 +1,23 @@
 package ru.unn.agile.CurrencyConverter.viewmodel;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+    private ObservableList<Currency> currencyList;
 
     @Before
     public void setUp() {
         viewModel = new ViewModel();
+        currencyList = viewModel.fromCurrencyListProperty().get();
     }
 
     @After
@@ -23,8 +28,10 @@ public class ViewModelTests {
     @Test
     public void canSetDefaultValues() {
         assertEquals("", viewModel.inputValueProperty().get());
-        assertEquals(CurrencyIndexes.RUB, viewModel.fromCurrencyProperty().get());
-        assertEquals(CurrencyIndexes.USD, viewModel.toCurrencyProperty().get());
+        assertEquals(currencyList.get(CurrencyIndexes.RUB.getIndex()),
+                     viewModel.fromCurrencyProperty().get());
+        assertEquals(currencyList.get(CurrencyIndexes.USD.getIndex()),
+                     viewModel.toCurrencyProperty().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals("", viewModel.resultCurrencyProperty().get());
         assertEquals(ViewModelStatus.WAITING.toString(), viewModel.getStatus());
@@ -77,6 +84,25 @@ public class ViewModelTests {
         setInputData();
 
         assertFalse(viewModel.getCalculationDisabled());
+    }
+
+    @Test
+    public void canConvertCorrectly() {
+        setInputData();
+
+        viewModel.convert();
+
+        assertEquals("0,23918", viewModel.resultProperty().get());
+    }
+
+    @Test
+    public void canSetCorrectResultCurrencyName() {
+        setInputData();
+
+        viewModel.convert();
+
+        assertEquals(viewModel.toCurrencyProperty().get().getCharCode(),
+                     viewModel.resultCurrencyProperty().get());
     }
 
     private void setInputData() {

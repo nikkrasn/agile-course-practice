@@ -4,38 +4,27 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<GridPane minHeight="600.0" minWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
   <columnConstraints>
-    <ColumnConstraints />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="600.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="300.0" />
+    <ColumnConstraints hgrow="ALWAYS" minWidth="300.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
-      <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
-      <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
-    <RowConstraints minHeight="250.0" vgrow="ALWAYS" />
+    <RowConstraints minHeight="60.0" vgrow="NEVER" />
+    <RowConstraints minHeight="60.0" vgrow="NEVER" />
+      <RowConstraints minHeight="60.0" vgrow="NEVER" />
+    <RowConstraints minHeight="300.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <TableView minHeight="250.0" minWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <Button mnemonicParsing="false" text="Push" />
+      <Button mnemonicParsing="false" text="Pop" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+      <TableView GridPane.columnSpan="2" GridPane.rowIndex="3">
         <columns>
-          <TableColumn editable="false" minWidth="20.0" prefWidth="-1.0" resizable="false" sortable="false" text="#" />
-          <TableColumn editable="false" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Value" />
+          <TableColumn editable="false" maxWidth="-1.0" minWidth="20.0" prefWidth="-1.0" resizable="false" sortable="false" text="#" />
+          <TableColumn editable="false" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Value" />
         </columns>
       </TableView>
-      <GridPane prefHeight="3.0" prefWidth="600.0" GridPane.columnIndex="1">
-        <columnConstraints>
-          <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" />
-          <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="60.0" minHeight="60.0" prefHeight="60.0" vgrow="NEVER" />
-        </rowConstraints>
-         <children>
-            <Button minHeight="60.0" minWidth="300.0" mnemonicParsing="false" text="Push" />
-            <TextField minHeight="60.0" minWidth="300.0" text="push me" GridPane.columnIndex="1" />
-         </children>
-      </GridPane>
-      <Button minHeight="60.0" minWidth="600.0" mnemonicParsing="false" text="Pop" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label minHeight="60.0" minWidth="600.0" text="Top: top" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField text="Push me!" GridPane.columnIndex="1" />
+      <TextField editable="false" text="Top: toptoptop" GridPane.columnSpan="2" GridPane.rowIndex="2" />
    </children>
 </GridPane>

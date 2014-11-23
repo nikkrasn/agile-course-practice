@@ -1,6 +1,7 @@
 package ru.unn.agile.Converter.viewmodel;
 
 import ru.unn.agile.Converter.Model.LengthConverter;
+import ru.unn.agile.Converter.Model.LengthConverter.*;
 
 public class ViewModel {
     private String inputValue;
@@ -36,7 +37,7 @@ public class ViewModel {
         double input = Double.parseDouble(inputValue);
         double output = 0;
         try {
-            switch (inputMeasure) {
+            /*switch (inputMeasure) {
                 case METER:
                     if (outputMeasure == Measure.KILOMETER) {
                         output = LengthConverter.meterToKilometer(input);
@@ -74,7 +75,8 @@ public class ViewModel {
                     } else { output = input; }
                     break;
                 default:
-                    throw new IllegalArgumentException(); }
+                    throw new IllegalArgumentException(); }*/
+            output = LengthConverter.convertFromTo(inputMeasure, outputMeasure, input);
             result = String.valueOf(output);
         } catch (IllegalArgumentException e) {
             result = "получилось слишком много";
@@ -112,22 +114,7 @@ public class ViewModel {
         this.inputValue = inputValue;
     }
 
-    public enum Measure {
-        METER("Meter"),
-        KILOMETER("Kilometer"),
-        MILE("Mile"),
-        INCH("Inch");
 
-        public String toString() {
-            return name;
-        }
-
-        private final String name;
-
-        private Measure(final String name) {
-            this.name = name;
-        }
-    }
 
     private void enterPressed() {
         if (isConvertButtonEnabled()) {

@@ -1,5 +1,6 @@
 package ru.unn.agile.Converter.view;
 
+import ru.unn.agile.Converter.Model.LengthConverter.Measure;
 import ru.unn.agile.Converter.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.*;
@@ -7,8 +8,8 @@ import java.awt.event.*;
 public final class LenghtConverterGUI {
 
     private JPanel mainPanel;
-    private JComboBox<ViewModel.Measure> cbFrom;
-    private JComboBox<ViewModel.Measure> cbTo;
+    private JComboBox<Measure> cbFrom;
+    private JComboBox<Measure> cbTo;
     private JButton btnConvert;
     private JTextField txtInput;
     private JTextField txtResult;
@@ -79,14 +80,14 @@ public final class LenghtConverterGUI {
     }
 
     private void loadListOfOperations() {
-        ViewModel.Measure[] operations = ViewModel.Measure.values();
-        cbFrom.setModel(new JComboBox<ViewModel.Measure>(operations).getModel());
-        cbTo.setModel(new JComboBox<ViewModel.Measure>(operations).getModel());
+        Measure[] operations = Measure.values();
+        cbFrom.setModel(new JComboBox<Measure>(operations).getModel());
+        cbTo.setModel(new JComboBox<Measure>(operations).getModel());
     }
 
     private void bind() {
         viewModel.setInputValue(txtInput.getText());
-        viewModel.setInputMeasure((ViewModel.Measure) cbFrom.getSelectedItem());
-        viewModel.setOutputMeasure((ViewModel.Measure) cbTo.getSelectedItem());
+        viewModel.setInputMeasure((Measure) cbFrom.getSelectedItem());
+        viewModel.setOutputMeasure((Measure) cbTo.getSelectedItem());
     }
 }

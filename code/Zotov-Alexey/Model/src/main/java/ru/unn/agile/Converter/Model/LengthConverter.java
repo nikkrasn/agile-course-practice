@@ -10,65 +10,34 @@ public final class LengthConverter {
     private static final double KOEF_MILE = 1609.344;
     private static final double KOEF_INCH = 0.0254;
 
-    private static Map<String, Double> koef = new HashMap<String, Double>();
+    private static Map<Measure, Double> koef = new HashMap<Measure, Double>();
     static {
-        koef.put("m", KOEF_M);
-        koef.put("km", KOEF_KM);
-        koef.put("mile", KOEF_MILE);
-        koef.put("inch", KOEF_INCH);
+        koef.put(Measure.METER, KOEF_M);
+        koef.put(Measure.KILOMETER, KOEF_KM);
+        koef.put(Measure.MILE, KOEF_MILE);
+        koef.put(Measure.INCH, KOEF_INCH);
     }
 
-    public static double meterToKilometer(final double val) {
-        return convertFromTo("m", "km", val);
-    }
+    public enum Measure {
+        METER("Meter"),
+        KILOMETER("Kilometer"),
+        MILE("Mile"),
+        INCH("Inch");
 
-    public static double meterToMile(final double val) {
-        return convertFromTo("m", "mile", val);
-    }
+        public String toString() {
+            return name;
+        }
 
-    public static double meterToInch(final double val) {
-        return convertFromTo("m", "inch", val);
-    }
+        private final String name;
 
-    public static double kilometerToMeter(final double val) {
-        return convertFromTo("km", "m", val);
-    }
-
-    public static double kilometerToMile(final double val) {
-        return convertFromTo("km", "mile", val);
-    }
-
-    public static double kilometerToInch(final double val) {
-        return convertFromTo("km", "inch", val);
-    }
-
-    public static double mileToMeter(final double val) {
-        return convertFromTo("mile", "m", val);
-    }
-
-    public static double mileToKilometer(final double val) {
-        return convertFromTo("mile", "km", val);
-    }
-
-    public static double mileToInch(final double val) {
-        return convertFromTo("mile", "inch", val);
-    }
-
-    public static double inchToMeter(final double val) {
-        return convertFromTo("inch", "m", val);
-    }
-
-    public static double inchToKilometer(final double val) {
-        return convertFromTo("inch", "km", val);
-    }
-
-    public static double inchToMile(final double val) {
-        return convertFromTo("inch", "mile", val);
+        private Measure(final String name) {
+            this.name = name;
+        }
     }
 
     private LengthConverter() { }
 
-    private static double convertFromTo(final String from, final String to, final double value) {
+    public static double convertFromTo(final Measure from, final Measure to, final double value) {
 
         double check = koef.get(from) / koef.get(to);
 

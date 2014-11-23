@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import ru.unn.agile.Converter.Model.LengthConverter.*;
 
 public class ViewModelTests {
 
@@ -23,8 +24,8 @@ public class ViewModelTests {
     @Test
     public void canSetDefaultValues() {
         assertEquals("", viewModel.getInputValue());
-        assertEquals(ViewModel.Measure.METER, viewModel.getInputMeasure());
-        assertEquals(ViewModel.Measure.METER, viewModel.getOutputMeasure());
+        assertEquals(Measure.METER, viewModel.getInputMeasure());
+        assertEquals(Measure.METER, viewModel.getOutputMeasure());
         assertEquals("", viewModel.getResult());
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
@@ -36,34 +37,34 @@ public class ViewModelTests {
 
     @Test
     public void canGetMeasureName() {
-        String addName = ViewModel.Measure.METER.toString();
+        String addName = Measure.METER.toString();
         assertEquals("Meter", addName);
     }
 
     @Test
     public void canGetNumberOfMeasures() {
-        int nMeasures = ViewModel.Measure.values().length;
+        int nMeasures = Measure.values().length;
         assertEquals(4, nMeasures);
     }
 
     @Test
     public void canGetListOfMeasures() {
-        ViewModel.Measure[] measures = ViewModel.Measure.values();
-        ViewModel.Measure[] currentMeasures = new ViewModel.Measure[]{
-                ViewModel.Measure.METER,
-                ViewModel.Measure.KILOMETER,
-                ViewModel.Measure.MILE,
-                ViewModel.Measure.INCH
+        Measure[] measures = Measure.values();
+        Measure[] currentMeasures = new Measure[]{
+                Measure.METER,
+                Measure.KILOMETER,
+                Measure.MILE,
+                Measure.INCH
                 };
         assertArrayEquals(currentMeasures, measures);
     }
 
     @Test
     public void canCompareMeasuresByName() {
-        assertEquals(ViewModel.Measure.METER, ViewModel.Measure.METER);
-        assertNotEquals(ViewModel.Measure.METER, ViewModel.Measure.KILOMETER);
-        assertNotEquals(ViewModel.Measure.KILOMETER, ViewModel.Measure.INCH);
-        assertNotEquals(ViewModel.Measure.INCH, ViewModel.Measure.MILE);
+        assertEquals(Measure.METER, Measure.METER);
+        assertNotEquals(Measure.METER, Measure.KILOMETER);
+        assertNotEquals(Measure.KILOMETER, Measure.INCH);
+        assertNotEquals(Measure.INCH, Measure.MILE);
     }
 
     @Test
@@ -128,7 +129,7 @@ public class ViewModelTests {
     @Test
     public void isResultTextRightWithTooLargeResult() {
         viewModel.setInputValue("10e307");
-        viewModel.setInputMeasure(ViewModel.Measure.KILOMETER);
+        viewModel.setInputMeasure(Measure.KILOMETER);
         viewModel.processKeyInTextField(ANY);
         viewModel.convert();
         assertEquals("получилось слишком много", viewModel.getResult());
@@ -145,35 +146,35 @@ public class ViewModelTests {
 
     @Test
     public void canSetInputOutputMeasure() {
-        viewModel.setInputMeasure(ViewModel.Measure.METER);
-        viewModel.setOutputMeasure(ViewModel.Measure.METER);
-        assertEquals(ViewModel.Measure.METER, viewModel.getInputMeasure());
-        assertEquals(ViewModel.Measure.METER, viewModel.getOutputMeasure());
-        viewModel.setInputMeasure(ViewModel.Measure.KILOMETER);
-        viewModel.setOutputMeasure(ViewModel.Measure.KILOMETER);
-        assertEquals(ViewModel.Measure.KILOMETER, viewModel.getInputMeasure());
-        assertEquals(ViewModel.Measure.KILOMETER, viewModel.getOutputMeasure());
-        viewModel.setInputMeasure(ViewModel.Measure.MILE);
-        viewModel.setOutputMeasure(ViewModel.Measure.MILE);
-        assertEquals(ViewModel.Measure.MILE, viewModel.getInputMeasure());
-        assertEquals(ViewModel.Measure.MILE, viewModel.getOutputMeasure());
-        viewModel.setInputMeasure(ViewModel.Measure.INCH);
-        viewModel.setOutputMeasure(ViewModel.Measure.INCH);
-        assertEquals(ViewModel.Measure.INCH, viewModel.getInputMeasure());
-        assertEquals(ViewModel.Measure.INCH, viewModel.getOutputMeasure());
+        viewModel.setInputMeasure(Measure.METER);
+        viewModel.setOutputMeasure(Measure.METER);
+        assertEquals(Measure.METER, viewModel.getInputMeasure());
+        assertEquals(Measure.METER, viewModel.getOutputMeasure());
+        viewModel.setInputMeasure(Measure.KILOMETER);
+        viewModel.setOutputMeasure(Measure.KILOMETER);
+        assertEquals(Measure.KILOMETER, viewModel.getInputMeasure());
+        assertEquals(Measure.KILOMETER, viewModel.getOutputMeasure());
+        viewModel.setInputMeasure(Measure.MILE);
+        viewModel.setOutputMeasure(Measure.MILE);
+        assertEquals(Measure.MILE, viewModel.getInputMeasure());
+        assertEquals(Measure.MILE, viewModel.getOutputMeasure());
+        viewModel.setInputMeasure(Measure.INCH);
+        viewModel.setOutputMeasure(Measure.INCH);
+        assertEquals(Measure.INCH, viewModel.getInputMeasure());
+        assertEquals(Measure.INCH, viewModel.getOutputMeasure());
     }
 
     @Test
     public void isDefaultMeasures() {
-        assertEquals(ViewModel.Measure.METER, viewModel.getInputMeasure());
-        assertEquals(ViewModel.Measure.METER, viewModel.getOutputMeasure());
+        assertEquals(Measure.METER, viewModel.getInputMeasure());
+        assertEquals(Measure.METER, viewModel.getOutputMeasure());
     }
 
     @Test
     public void canPerformCalcAction() {
         viewModel.setInputValue("1");
-        viewModel.setInputMeasure(ViewModel.Measure.KILOMETER);
-        viewModel.setOutputMeasure(ViewModel.Measure.METER);
+        viewModel.setInputMeasure(Measure.KILOMETER);
+        viewModel.setOutputMeasure(Measure.METER);
         viewModel.convert();
         assertEquals("1000.0", viewModel.getResult());
     }

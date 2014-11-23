@@ -49,6 +49,8 @@ include "code/bobylkov-fedor/Model"
 project(":code/bobylkov-fedor/Model").name = "bobylkov-fedor-Model"
 include "code/bobylkov-fedor/View"
 project(":code/bobylkov-fedor/View").name = "bobylkov-fedor-View"
+include "code/bobylkov-fedor/ViewModel"
+project(":code/bobylkov-fedor/ViewModel").name = "bobylkov-fedor-ViewModel"
 
 // Borodulina Ljubov
 include "code/borodulina-ljubov/Model"

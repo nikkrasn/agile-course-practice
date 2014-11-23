@@ -12,28 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty planeA = new SimpleStringProperty();
-    private final StringProperty planeB = new SimpleStringProperty();
-    private final StringProperty planeC = new SimpleStringProperty();
-    private final StringProperty planeD = new SimpleStringProperty();
+    private final StringProperty planeA = new SimpleStringProperty("");
+    private final StringProperty planeB = new SimpleStringProperty("");
+    private final StringProperty planeC = new SimpleStringProperty("");
+    private final StringProperty planeD = new SimpleStringProperty("");
 
-    private final StringProperty lineVectorX = new SimpleStringProperty();
-    private final StringProperty lineVectorY = new SimpleStringProperty();
-    private final StringProperty lineVectorZ = new SimpleStringProperty();
+    private final StringProperty lineVectorX = new SimpleStringProperty("");
+    private final StringProperty lineVectorY = new SimpleStringProperty("");
+    private final StringProperty lineVectorZ = new SimpleStringProperty("");
 
-    private final StringProperty linePointX = new SimpleStringProperty();
-    private final StringProperty linePointY = new SimpleStringProperty();
-    private final StringProperty linePointZ = new SimpleStringProperty();
+    private final StringProperty linePointX = new SimpleStringProperty("");
+    private final StringProperty linePointY = new SimpleStringProperty("");
+    private final StringProperty linePointZ = new SimpleStringProperty("");
 
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty("");
+    private final StringProperty status = new SimpleStringProperty(Status.WAITING.toString());
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     private final BooleanProperty determinateDisabled = new SimpleBooleanProperty();
 
     public ViewModel() {
-        setDefaultFieldsValue();
         bindDeterminateDisable();
         createFieldsValuesChangingListeners();
     }
@@ -155,21 +154,6 @@ public class ViewModel {
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
-    }
-
-    private void setDefaultFieldsValue() {
-        planeA.set("");
-        planeB.set("");
-        planeC.set("");
-        planeD.set("");
-        lineVectorX.set("");
-        lineVectorY.set("");
-        lineVectorZ.set("");
-        linePointX.set("");
-        linePointY.set("");
-        linePointZ.set("");
-        result.set("");
-        status.set(Status.WAITING.toString());
     }
 
     private Status getInputStatus() {

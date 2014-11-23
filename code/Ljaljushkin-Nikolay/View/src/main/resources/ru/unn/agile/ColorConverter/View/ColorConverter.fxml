@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="173.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ColorConverter.View.ColorConverter">
+   <children>
+      <HBox alignment="TOP_CENTER" prefHeight="141.0" prefWidth="687.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="290.0" prefWidth="186.0">
+               <children>
+                  <ComboBox fx:id="cbSrcColor" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="268.0" promptText="RGB">
+                  </ComboBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="R" />
+                        <TextField fx:id="txtFirstChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="G" />
+                        <TextField fx:id="txtSecondChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
+                        <TextField fx:id="txtThirdChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="290.0" prefWidth="186.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="38.0" prefWidth="176.0" text="LAB" textAlignment="CENTER">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Label>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="L" />
+                        <TextField fx:id="txtLabL" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="A" />
+                        <TextField fx:id="txtLabA" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
+                        <TextField fx:id="txtLabB" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="290.0" prefWidth="186.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="38.0" prefWidth="176.0" text="HSV">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Label>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="H" />
+                        <TextField fx:id="txtHsvH" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="S" />
+                        <TextField fx:id="txtHsvS" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="V" />
+                        <TextField fx:id="txtHsvV" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="290.0" prefWidth="186.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="38.0" prefWidth="175.0" text="RGB">
+                     <font>
+                        <Font size="30.0" />
+                     </font></Label>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="R" />
+                        <TextField fx:id="txtRgbR" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="G" />
+                        <TextField fx:id="txtRgbG" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="31.0" prefWidth="265.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
+                        <TextField fx:id="txtRgbB" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor></TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox layoutY="132.0" prefHeight="24.0" prefWidth="691.0" AnchorPane.bottomAnchor="1.0">
+         <children>
+            <Button fx:id="btConvert" mnemonicParsing="false" prefHeight="25.0" prefWidth="176.0" text="Convert" />
+            <Label fx:id="lbStatus" alignment="CENTER" prefHeight="25.0" prefWidth="521.0" text="Status:" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

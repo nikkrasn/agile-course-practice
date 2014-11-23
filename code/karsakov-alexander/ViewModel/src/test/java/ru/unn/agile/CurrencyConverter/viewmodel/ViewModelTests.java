@@ -38,10 +38,45 @@ public class ViewModelTests {
     }
 
     @Test
+    public void convertButtonIsDisabledInitially() {
+        assertTrue(viewModel.getCalculationDisabled());
+    }
+
+    @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
 
         assertEquals(ViewModelStatus.READY.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void convertButtonIsDisabledWhenInputIsEmpty() {
+        viewModel.inputValueProperty().set("");
+
+        assertTrue(viewModel.getCalculationDisabled());
+    }
+
+    @Test
+    public void convertButtonIsDisabledWhenInputBecomeEmpty() {
+        setInputData();
+        viewModel.inputValueProperty().set("");
+
+        assertTrue(viewModel.getCalculationDisabled());
+    }
+
+    @Test
+    public void convertButtonIsDisabledWhenFormatIsBad() {
+        setInputData();
+        viewModel.inputValueProperty().set("abba");
+
+        assertTrue(viewModel.getCalculationDisabled());
+    }
+
+    @Test
+    public void convertButtonIsEnabledWhenCorrectInput() {
+        setInputData();
+
+        assertFalse(viewModel.getCalculationDisabled());
     }
 
     private void setInputData() {

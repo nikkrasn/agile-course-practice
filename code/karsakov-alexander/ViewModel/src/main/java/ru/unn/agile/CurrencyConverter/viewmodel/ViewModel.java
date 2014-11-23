@@ -43,7 +43,16 @@ public class ViewModel {
 
         status.set(ViewModelStatus.WAITING.toString());
 
-        convertButtonDisabled.set(true);
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(inputValue);
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == ViewModelStatus.READY;
+            }
+        };
+        convertButtonDisabled.bind(couldCalculate.not());
 
         // Add listeners to the input text fields
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {

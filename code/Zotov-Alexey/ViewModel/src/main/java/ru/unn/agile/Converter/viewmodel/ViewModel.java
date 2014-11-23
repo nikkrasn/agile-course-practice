@@ -37,45 +37,6 @@ public class ViewModel {
         double input = Double.parseDouble(inputValue);
         double output = 0;
         try {
-            /*switch (inputMeasure) {
-                case METER:
-                    if (outputMeasure == Measure.KILOMETER) {
-                        output = LengthConverter.meterToKilometer(input);
-                    } else if (outputMeasure == Measure.MILE) {
-                        output = LengthConverter.meterToMile(input);
-                    } else if (outputMeasure == Measure.INCH) {
-                        output = LengthConverter.meterToInch(input);
-                    } else { output = input; }
-                    break;
-                case KILOMETER:
-                    if (outputMeasure == Measure.METER) {
-                        output = LengthConverter.kilometerToMeter(input);
-                    } else if (outputMeasure == Measure.MILE) {
-                        output = LengthConverter.kilometerToMile(input);
-                    } else if (outputMeasure == Measure.INCH) {
-                        output = LengthConverter.kilometerToInch(input);
-                    } else { output = input; }
-                    break;
-                case MILE:
-                    if (outputMeasure == Measure.METER) {
-                        output = LengthConverter.mileToMeter(input);
-                    } else if (outputMeasure == Measure.KILOMETER) {
-                        output = LengthConverter.mileToKilometer(input);
-                    } else if (outputMeasure == Measure.INCH) {
-                        output = LengthConverter.mileToInch(input);
-                    } else { output = input; }
-                    break;
-                case INCH:
-                    if (outputMeasure == Measure.METER) {
-                        output = LengthConverter.inchToMeter(input);
-                    } else if (outputMeasure == Measure.KILOMETER) {
-                        output = LengthConverter.inchToKilometer(input);
-                    } else if (outputMeasure == Measure.MILE) {
-                        output = LengthConverter.inchToMile(input);
-                    } else { output = input; }
-                    break;
-                default:
-                    throw new IllegalArgumentException(); }*/
             output = LengthConverter.convertFromTo(inputMeasure, outputMeasure, input);
             result = String.valueOf(output);
         } catch (IllegalArgumentException e) {

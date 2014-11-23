@@ -73,8 +73,8 @@ include "code/krasnoyarov-nikita/Model"
 project(":code/krasnoyarov-nikita/Model").name = "krasnoyarov-nikita-Model"
 
 // Lazarev Anton
-include "lazarev-anton-lab2"
-project(":lazarev-anton-lab2").name = "lazarev-anton-lab2-Model"
+include "code/lazarev-anton/Model"
+project(":code/lazarev-anton/Model").name = "lazarev-anton-Model"
 
 // Ljaljushkin Nikolay
 include "code/Ljaljushkin-Nikolay/Model"

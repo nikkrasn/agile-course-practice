@@ -161,5 +161,4 @@ public class ViewModelTests {
         viewModel.getLineVYProperty().set("1");
         viewModel.getLineVZProperty().set("0");
     }
-
 }

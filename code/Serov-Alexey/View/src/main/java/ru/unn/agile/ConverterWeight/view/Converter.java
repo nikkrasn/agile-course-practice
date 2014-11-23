@@ -1,7 +1,7 @@
 package ru.unn.agile.ConverterWeight.view;
 
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel;
-
+import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.UnitWeight;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +15,8 @@ public final class Converter {
     private JTextField txtResult;
     private JButton btnConvert;
     private JTextField txtStatusWindow;
-    private JComboBox<ViewModel.UnitWeight> cbSourceUnit;
-    private JComboBox<ViewModel.UnitWeight> cbEndUnit;
+    private JComboBox<UnitWeight> cbSourceUnit;
+    private JComboBox<UnitWeight> cbEndUnit;
 
     private Converter(final ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -70,15 +70,15 @@ public final class Converter {
     }
 
     private void loadListOfUnitWeight() {
-        ViewModel.UnitWeight[] unitWeights = ViewModel.UnitWeight.values();
+        ViewModel.UnitWeight[] unitWeights = UnitWeight.values();
         cbSourceUnit.setModel(new JComboBox<>(unitWeights).getModel());
         cbEndUnit.setModel(new JComboBox<>(unitWeights).getModel());
     }
 
     private void bind() {
         viewModel.setValue(txtValues.getText());
-        viewModel.setValueUnit((ViewModel.UnitWeight) cbSourceUnit.getSelectedItem());
-        viewModel.setResultUnit((ViewModel.UnitWeight) cbEndUnit.getSelectedItem());
+        viewModel.setValueUnit((UnitWeight) cbSourceUnit.getSelectedItem());
+        viewModel.setResultUnit((UnitWeight) cbEndUnit.getSelectedItem());
     }
 
     private void backBind() {
@@ -86,6 +86,4 @@ public final class Converter {
         txtResult.setText(viewModel.getResult());
         txtStatusWindow.setText(viewModel.getStatus());
     }
-
-   // private Converter() { }
 }

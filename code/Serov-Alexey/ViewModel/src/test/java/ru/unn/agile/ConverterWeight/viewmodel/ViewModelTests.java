@@ -103,33 +103,33 @@ public class ViewModelTests {
     }
 
     @Test
-    public void inputRightValueReturnTrue() {
+    public void isReturnTrueWhenSetRightValue() {
         viewModel.setValue("1");
         assertEquals(true, viewModel.isRightValue());
     }
 
     @Test
-    public void inputNotRightValueReturnFalse() {
+    public void isReturnFalseWhenSetNotRightValue() {
         viewModel.setValue("a");
         assertEquals(false, viewModel.isRightValue());
     }
 
     @Test
-    public void inputRightValueReturnReady() {
+    public void isStatusReadyWhenSetRightValue() {
         viewModel.setValue("1");
         viewModel.prepareForConvert();
         assertEquals(Status.READY, viewModel.getStatus());
     }
 
     @Test
-    public void inputNotRightValueReturnBadFormat() {
+    public void isStatusBadFormatWhenSetInputNotRightValue() {
         viewModel.setValue("a");
         viewModel.prepareForConvert();
         assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
-    public void grammCovertGramm() {
+    public void canGrammConvertGramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.GRAMM);
         viewModel.setResultUnit(UnitWeight.GRAMM);
@@ -138,7 +138,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void grammCovertKilogram() {
+    public void canGrammConvertKilogram() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.GRAMM);
         viewModel.setResultUnit(UnitWeight.KILOGRAM);
@@ -147,7 +147,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void grammCovertCentner() {
+    public void canGrammConvertCentner() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.GRAMM);
         viewModel.setResultUnit(UnitWeight.CENTNER);
@@ -156,7 +156,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void grammCovertTon() {
+    public void canGrammConvertTon() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.GRAMM);
         viewModel.setResultUnit(UnitWeight.TON);
@@ -165,7 +165,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void kilogramCovertGramm() {
+    public void canKilogramConvertGramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.KILOGRAM);
         viewModel.setResultUnit(UnitWeight.GRAMM);
@@ -174,7 +174,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void kilogramCovertKilogram() {
+    public void canKilogramConvertKilogram() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.KILOGRAM);
         viewModel.setResultUnit(UnitWeight.KILOGRAM);
@@ -183,7 +183,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void kilogramCovertCentner() {
+    public void canKilogramConvertCentner() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.KILOGRAM);
         viewModel.setResultUnit(UnitWeight.CENTNER);
@@ -192,7 +192,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void kilogramCovertTon() {
+    public void canKilogramConvertTon() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.KILOGRAM);
         viewModel.setResultUnit(UnitWeight.TON);
@@ -201,7 +201,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void centnerCovertGramm() {
+    public void canCentnerConvertGramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.CENTNER);
         viewModel.setResultUnit(UnitWeight.GRAMM);
@@ -210,7 +210,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void centnerCovertKilogram() {
+    public void canCentnerConvertKilogram() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.CENTNER);
         viewModel.setResultUnit(UnitWeight.KILOGRAM);
@@ -219,7 +219,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void centnerCovertCentner() {
+    public void canCentnerConvertCentner() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.CENTNER);
         viewModel.setResultUnit(UnitWeight.CENTNER);
@@ -228,7 +228,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void centnerCovertTon() {
+    public void canCentnerConvertTon() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.CENTNER);
         viewModel.setResultUnit(UnitWeight.TON);
@@ -237,7 +237,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void tonCovertGramm() {
+    public void canTonConvertGramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.TON);
         viewModel.setResultUnit(UnitWeight.GRAMM);
@@ -246,7 +246,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void tonCovertKilogram() {
+    public void canTonConvertKilogram() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.TON);
         viewModel.setResultUnit(UnitWeight.KILOGRAM);
@@ -255,7 +255,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void tonCovertCentner() {
+    public void canTonConvertCentner() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.TON);
         viewModel.setResultUnit(UnitWeight.CENTNER);
@@ -263,7 +263,7 @@ public class ViewModelTests {
         assertEquals("10.0", viewModel.getResult());
     }
     @Test
-    public void tonCovertTon() {
+    public void canTonConvertTon() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.TON);
         viewModel.setResultUnit(UnitWeight.TON);
@@ -272,9 +272,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void inputRightValueReturnSeccess() {
+    public void isStatusSuccessWhenConverted() {
         viewModel.setValue("1");
         viewModel.convert();
-        assertEquals(Status.SECCESS, viewModel.getStatus());
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
 }

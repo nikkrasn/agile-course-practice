@@ -80,7 +80,7 @@ public class ViewModel {
                 default:
                     throw new IllegalArgumentException("Supported: GRAMM, KILOGRAM, CENTNER, TON");
             }
-            status = Status.SECCESS;
+            status = Status.SUCCESS;
         }
     }
 
@@ -199,7 +199,7 @@ public class ViewModel {
         public static final String WAITING = "Please, input value";
         public static final String BAD_FORMAT = "Bad format";
         public static final String READY = "Please, press 'Convert'";
-        public static final String SECCESS = "Seccess";
+        public static final String SUCCESS = "Success";
 
         private Status() { }
     }

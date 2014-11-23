@@ -49,7 +49,7 @@ public class NumberInPositionalNotation {
     }
 
     public NumberInPositionalNotation convertFromDecimal(final Notation notation) {
-        if (checkInputData(getNotation())) {
+        if (checkInputData()) {
             String [] parts = getValue().split("\\.");
             int indexOfPoint = getValue().indexOf('.');
             int integerPart = Integer.parseInt(parts[0]);
@@ -108,7 +108,7 @@ public class NumberInPositionalNotation {
     }
 
     public NumberInPositionalNotation convertToDecimal() {
-        if (checkInputData(getNotation())
+        if (checkInputData()
                 && getNotation() != DECIMAL) {
             int indexOfPoint = getValue().indexOf('.');
             String [] parts = getValue().split("\\.");
@@ -130,11 +130,11 @@ public class NumberInPositionalNotation {
         }
     }
 
-    private boolean checkInputData(final Notation notation) {
+    public boolean checkInputData() {
         int numberOfSymbols;
         String symbols;
-        symbols = notation.getSymbols();
-        numberOfSymbols = notation.getBase() + 1;
+        symbols = getNotation().getSymbols();
+        numberOfSymbols = getNotation().getBase() + 1;
         int count = 0;
         for (int i = 1; i < (getValue()).length() + 1; i++) {
             count = 0;
@@ -152,7 +152,7 @@ public class NumberInPositionalNotation {
     }
 
     public NumberInPositionalNotation convertToNotation(final Notation notation) {
-        if (checkInputData(getNotation())) {
+        if (checkInputData()) {
             NumberInPositionalNotation out;
             if (getNotation() == notation) {
                 out = new NumberInPositionalNotation(getValue(), getNotation());

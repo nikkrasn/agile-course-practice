@@ -40,6 +40,87 @@ public class ViewModel {
         createFieldsValuesChangingListeners();
     }
 
+    public void determinate() {
+        if (determinateDisabled.get()) {
+            return;
+        }
+        Point3D linePoint = new Point3D(getDoubleLinePX(), getDoubleLinePY(), getDoubleLinePZ());
+        Point3D lineVector = new Point3D(getDoubleLineVX(), getDoubleLineVY(), getDoubleLineVZ());
+        Line3D line = new Line3D(linePoint, lineVector);
+        Plane plane = new Plane(getDoublePlA(), getDoublePlB(), getDoublePlC(), getDoublePlD());
+        DeterminatorIntersection determ = new DeterminatorIntersection(line, plane);
+        if (determ.isIntersection()) {
+            result.set("Intersection determinate");
+        } else {
+            result.set("No intersection determinate");
+        }
+        status.set(Status.SUCCESS.toString());
+    }
+
+    public StringProperty planeAProperty() {
+        return planeA;
+    }
+
+    public StringProperty planeBProperty() {
+        return planeB;
+    }
+
+    public StringProperty planeCProperty() {
+        return planeC;
+    }
+
+    public StringProperty planeDProperty() {
+        return planeD;
+    }
+
+    public StringProperty getLineVXProperty() {
+        return lineVectorX;
+    }
+
+    public StringProperty getLineVYProperty() {
+        return lineVectorY;
+    }
+
+    public StringProperty getLineVZProperty() {
+        return lineVectorZ;
+    }
+
+    public StringProperty getLinePXProperty() {
+        return linePointX;
+    }
+
+    public StringProperty getLinePYProperty() {
+        return linePointY;
+    }
+
+    public StringProperty getLinePZProperty() {
+        return linePointZ;
+    }
+
+    public BooleanProperty determinateDisabledProperty() {
+        return determinateDisabled;
+    }
+
+    public final boolean getDeterminateDisabled() {
+        return determinateDisabled.get();
+    }
+
+    public StringProperty resultProperty() {
+        return result;
+    }
+
+    public final String getResult() {
+        return result.get();
+    }
+
+    public StringProperty statusProperty() {
+        return status;
+    }
+
+    public final String getStatus() {
+        return status.get();
+    }
+
     private void bindDeterminateDisable() {
         BooleanBinding couldDeterminate = new BooleanBinding() {
             {
@@ -47,6 +128,7 @@ public class ViewModel {
                         linePointX, linePointY, linePointZ,
                         lineVectorX, lineVectorY, lineVectorZ);
             }
+
             @Override
             protected boolean computeValue() {
                 return getInputStatus() == Status.READY;
@@ -56,18 +138,20 @@ public class ViewModel {
     }
 
     private void createFieldsValuesChangingListeners() {
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(planeA);
-            add(planeB);
-            add(planeC);
-            add(planeD);
-            add(lineVectorX);
-            add(lineVectorY);
-            add(lineVectorZ);
-            add(linePointX);
-            add(linePointY);
-            add(linePointZ);
-        } };
+        final List<StringProperty> fields = new ArrayList<StringProperty>() {
+            {
+                add(planeA);
+                add(planeB);
+                add(planeC);
+                add(planeD);
+                add(lineVectorX);
+                add(lineVectorY);
+                add(lineVectorZ);
+                add(linePointX);
+                add(linePointY);
+                add(linePointZ);
+            }
+        };
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);
@@ -89,28 +173,6 @@ public class ViewModel {
         result.set("");
         status.set(Status.WAITING.toString());
     }
-
-    public StringProperty planeAProperty() { return planeA; }
-    public StringProperty planeBProperty() { return planeB; }
-    public StringProperty planeCProperty() { return planeC; }
-    public StringProperty planeDProperty() { return planeD; }
-
-    public StringProperty getLineVXProperty() { return lineVectorX; }
-    public StringProperty getLineVYProperty() { return lineVectorY; }
-    public StringProperty getLineVZProperty() { return lineVectorZ; }
-
-    public StringProperty getLinePXProperty() { return linePointX; }
-    public StringProperty getLinePYProperty() { return linePointY; }
-    public StringProperty getLinePZProperty() { return linePointZ; }
-
-    public BooleanProperty determinateDisabledProperty() { return determinateDisabled; }
-    public final boolean getDeterminateDisabled() { return determinateDisabled.get(); }
-
-    public StringProperty resultProperty() { return result; }
-    public final String getResult() { return result.get(); }
-
-    public StringProperty statusProperty() { return status; }
-    public final String getStatus() { return status.get(); }
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
@@ -163,28 +225,11 @@ public class ViewModel {
     }
 
     private boolean isSomeOfFieldsValueEmpty() {
-        return  planeA.get().isEmpty() || planeB.get().isEmpty()
+        return planeA.get().isEmpty() || planeB.get().isEmpty()
                 || planeC.get().isEmpty() || planeD.get().isEmpty()
                 || linePointX.get().isEmpty() || linePointY.get().isEmpty()
                 || linePointY.get().isEmpty() || lineVectorX.get().isEmpty()
                 || lineVectorY.get().isEmpty() || lineVectorZ.get().isEmpty();
-    }
-
-    public void determinate() {
-        if (determinateDisabled.get()) {
-            return;
-        }
-        Point3D linePoint = new Point3D(getDoubleLinePX(), getDoubleLinePY(), getDoubleLinePZ());
-        Point3D lineVector = new Point3D(getDoubleLineVX(), getDoubleLineVY(), getDoubleLineVZ());
-        Line3D line = new Line3D(linePoint, lineVector);
-        Plane plane = new Plane(getDoublePlA(), getDoublePlB(), getDoublePlC(), getDoublePlD());
-        DeterminatorIntersection determ = new DeterminatorIntersection(line, plane);
-        if (determ.isIntersection()) {
-            result.set("Intersection determinate");
-        } else {
-            result.set("No intersection determinate");
-        }
-        status.set(Status.SUCCESS.toString());
     }
 
     private double getDoublePlD() {
@@ -243,9 +288,11 @@ enum Status {
     SUCCESS("Success");
 
     private final String name;
+
     private Status(final String name) {
         this.name = name;
     }
+
     public String toString() {
         return name;
     }

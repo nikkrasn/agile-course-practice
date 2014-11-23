@@ -5,8 +5,8 @@ public class DeterminatorIntersection {
     private final Plane plane;
 
     public DeterminatorIntersection(final Line3D inputLine, final Plane inputPlane) {
-        this.line = inputLine;
-        this.plane = inputPlane;
+        line = inputLine;
+        plane = inputPlane;
     }
 
     public Line3D getLine() {

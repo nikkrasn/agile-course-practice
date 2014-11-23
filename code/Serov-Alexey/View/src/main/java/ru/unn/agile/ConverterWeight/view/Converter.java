@@ -28,7 +28,7 @@ public final class Converter {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
-                Converter.this.viewModel.convert();
+                viewModel.convert();
                 backBind();
             }
         });
@@ -52,7 +52,7 @@ public final class Converter {
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 bind();
-                Converter.this.viewModel.prepareForConvert();
+                viewModel.prepareForConvert();
                 backBind();
             }
         };

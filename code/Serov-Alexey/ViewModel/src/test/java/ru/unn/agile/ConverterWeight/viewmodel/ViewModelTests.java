@@ -3,11 +3,10 @@ package ru.unn.agile.ConverterWeight.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
-
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.Status;
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.UnitWeight;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -100,6 +99,34 @@ public class ViewModelTests {
     public void getGrammFromValueUnit() {
     String grammName = UnitWeight.GRAMM.toString();
     assertEquals("Gramm", grammName);
+    }
+
+    @Test
+    public void canCompareNameUntilWeight() {
+        assertEquals(UnitWeight.GRAMM, UnitWeight.GRAMM);
+        assertEquals(UnitWeight.KILOGRAM, UnitWeight.KILOGRAM);
+        assertEquals(UnitWeight.CENTNER, UnitWeight.CENTNER);
+        assertEquals(UnitWeight.TON, UnitWeight.TON);
+        assertNotEquals(UnitWeight.CENTNER, UnitWeight.GRAMM);
+    }
+
+    @Test
+    public void canGetListOfUntilWeight() {
+        UnitWeight[] unitWeights = UnitWeight.values();
+        UnitWeight[] currentUntilWeight = new UnitWeight[]{
+                UnitWeight.GRAMM,
+                UnitWeight.KILOGRAM,
+                UnitWeight.CENTNER,
+                UnitWeight.TON};
+        assertArrayEquals(currentUntilWeight, unitWeights);
+    }
+
+    @Test
+    public void canSetUntilWeight() {
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        viewModel.setResultUnit(UnitWeight.TON);
+        assertEquals(UnitWeight.CENTNER, viewModel.getValueUnit());
+        assertEquals(UnitWeight.TON, viewModel.getResultUnit());
     }
 
     @Test

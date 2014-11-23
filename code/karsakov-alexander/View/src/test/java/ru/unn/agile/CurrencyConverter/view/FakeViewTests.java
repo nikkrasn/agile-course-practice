@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.view;
+package ru.unn.agile.CurrencyConverter.view;
 
 import org.junit.Ignore;
 import org.junit.Test;

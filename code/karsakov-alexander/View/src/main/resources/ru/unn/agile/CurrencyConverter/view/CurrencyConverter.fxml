@@ -14,7 +14,7 @@
       </TextFlow>
       <ComboBox id="fromCurrencyComboBox" layoutX="79.0" layoutY="25.0" prefHeight="39.0" prefWidth="179.0" />
       <Label id="valueLabel" layoutX="25.0" layoutY="83.0" prefHeight="27.0" prefWidth="54.0" text="Value:" />
-      <TextField id="valueComboBox" layoutX="79.0" layoutY="77.0" prefHeight="39.0" prefWidth="179.0" />
+      <TextField id="valueTextField" layoutX="79.0" layoutY="77.0" prefHeight="39.0" prefWidth="179.0" />
       <Button id="convertButton" layoutX="337.0" layoutY="77.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="179.0" text="Convert" />
       <ComboBox id="toCurrencyComboBox" layoutX="337.0" layoutY="25.0" prefHeight="39.0" prefWidth="179.0" />
       <Label id="toLabel" layoutX="303.0" layoutY="31.0" text="To:" />

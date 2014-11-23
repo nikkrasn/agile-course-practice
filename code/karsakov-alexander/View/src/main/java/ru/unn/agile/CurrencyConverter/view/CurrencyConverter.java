@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 import ru.unn.agile.CurrencyConverter.viewmodel.ViewModel;
 
@@ -13,26 +14,27 @@ public class CurrencyConverter {
     @FXML
     private ViewModel viewModel;
     @FXML
-    private TextField txtZ1Re;
+    private TextField valueTextField;
     @FXML
-    private TextField txtZ1Im;
+    private TextField resultTextField;
     @FXML
-    private TextField txtZ2Re;
+    private Label resultCurrencyLabel;
     @FXML
-    private TextField txtZ2Im;
+    private Label statusLabelText;
     @FXML
-    private ComboBox<CurrencyIndexes> fromCurrency;
+    private ComboBox<CurrencyIndexes> fromCurrencyComboBox;
     @FXML
-    private ComboBox<CurrencyIndexes> toCurrency;
+    private ComboBox<CurrencyIndexes> toCurrencyComboBox;
     @FXML
-    private Button btnCalc;
+    private Button convertButton;
+
 
     @FXML
     void initialize() {
 
         // Two-way binding hasn't supported by FXML yet, so place it in code-behind
 
-        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
+        convertButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.convert();

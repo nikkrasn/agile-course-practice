@@ -86,6 +86,16 @@ public class ViewModelTests {
     }
 
     @Test
+    public void canSetAnotherConvertMode() {
+        setInputData();
+        viewModel.fromCurrencyProperty().set(currencyList.get(CurrencyIndexes.EUR.getIndex()));
+        viewModel.toCurrencyProperty().set(currencyList.get(CurrencyIndexes.RUB.getIndex()));
+
+        assertEquals(currencyList.get(CurrencyIndexes.EUR.getIndex()),
+                     viewModel.fromCurrencyProperty().get());
+    }
+
+    @Test
     public void canConvertCorrectly() {
         setInputData();
 
@@ -95,7 +105,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetCorrectResultCurrencyName() {
+    public void correctCurrencyNameAfterConvert() {
         setInputData();
 
         viewModel.convert();

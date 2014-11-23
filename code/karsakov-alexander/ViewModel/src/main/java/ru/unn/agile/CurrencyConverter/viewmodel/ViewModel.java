@@ -16,17 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private ArrayList<Currency> actualRates;
-
     private final StringProperty inputValue = new SimpleStringProperty();
 
     private final ObjectProperty<ObservableList<Currency>> fromCurrencyList =
             new SimpleObjectProperty<>();
-    private ObjectProperty<Currency> fromCurrency = new SimpleObjectProperty<>();
+    private final ObjectProperty<Currency> fromCurrency = new SimpleObjectProperty<>();
 
     private final ObjectProperty<ObservableList<Currency>> toCurrencyList =
             new SimpleObjectProperty<>();
-    private ObjectProperty<Currency> toCurrency = new SimpleObjectProperty<>();
+    private final ObjectProperty<Currency> toCurrency = new SimpleObjectProperty<>();
 
     private final BooleanProperty convertButtonDisabled = new SimpleBooleanProperty();
 
@@ -44,7 +42,7 @@ public class ViewModel {
         resultCurrency.set("");
 
         ICurrencyProvider provider = new FixedCurrencyProvider();
-        actualRates = provider.getActualCurrencyRates();
+        ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
         fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
         toCurrencyList.set(FXCollections.observableArrayList(actualRates));
         fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));

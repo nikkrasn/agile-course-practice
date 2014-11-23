@@ -1,6 +1,5 @@
 package ru.unn.agile.TemperatureConverter.viewmodel;
 
-
 import ru.unn.agile.TemperatureConverter.Model.TemperatureConverter;
 
 public class ViewModel {
@@ -50,31 +49,6 @@ public class ViewModel {
         this.scale = scale;
     }
 
-    private boolean isInputValueNotEmpty() {
-        return !inputValue.isEmpty();
-    }
-
-    private boolean parseInput() {
-        try {
-            if (isInputValueNotEmpty()) {
-                Double.parseDouble(inputValue);
-            }
-        } catch (Exception e) {
-            status = Status.WRONG_FORMAT;
-            isConvertButtonEnable = false;
-            return false;
-        }
-
-       isConvertButtonEnable = isInputValueNotEmpty();
-
-        if (isConvertButtonEnable) {
-            status = Status.READY;
-        } else {
-            status = Status.WAITING;
-        }
-        return isConvertButtonEnable;
-    }
-
     public void convert() {
         if (!parseInput()) {
            return;
@@ -101,6 +75,31 @@ public class ViewModel {
         status = Status.SUCCESS;
     }
 
+    private boolean isInputValueNotEmpty() {
+        return !inputValue.isEmpty();
+    }
+
+    private boolean parseInput() {
+        try {
+            if (isInputValueNotEmpty()) {
+                Double.parseDouble(inputValue);
+            }
+        } catch (Exception e) {
+            status = Status.WRONG_FORMAT;
+            isConvertButtonEnable = false;
+            return false;
+        }
+
+        isConvertButtonEnable = isInputValueNotEmpty();
+
+        if (isConvertButtonEnable) {
+            status = Status.READY;
+        } else {
+            status = Status.WAITING;
+        }
+        return isConvertButtonEnable;
+    }
+
     public final class Status {
        public static final String WAITING = "Please, enter value";
        public static final String READY = "Press 'Convert'";
@@ -125,4 +124,3 @@ public class ViewModel {
         }
     }
 }
-

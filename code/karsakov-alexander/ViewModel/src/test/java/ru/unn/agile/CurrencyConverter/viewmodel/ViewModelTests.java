@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 public class ViewModelTests {
     private ViewModel viewModel;
     private ObservableList<Currency> currencyList;
+    private final double delta = 0.0001;
 
     @Before
     public void setUp() {
@@ -98,10 +99,11 @@ public class ViewModelTests {
     @Test
     public void canConvertCorrectly() {
         setInputData();
+        double expectResult = 0.23918;
 
         viewModel.convert();
 
-        assertEquals("0,23918", viewModel.resultProperty().get());
+        assertEquals(String.format("%.5f", expectResult), viewModel.resultProperty().get());
     }
 
     @Test

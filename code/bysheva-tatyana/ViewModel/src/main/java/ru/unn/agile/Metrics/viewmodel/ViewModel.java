@@ -1,22 +1,16 @@
 package ru.unn.agile.Metrics.viewmodel;
 
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-
 public class ViewModel {
     private final StringProperty vectorsDimension = new SimpleStringProperty();
 
-    private final ObservableList<Pair<Float, Float>> vectorsValues = FXCollections.observableArrayList();
+    private final ObservableList<Pair<Float, Float>> vectorsValues =
+            FXCollections.observableArrayList();
 
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
@@ -25,6 +19,42 @@ public class ViewModel {
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
+
+    public StringProperty vectorsDimensionProperty() {
+        return vectorsDimension;
+    }
+    public ObservableList vectorsValuesProperty() {
+        return vectorsValues;
+    }
+    public ObjectProperty<Operation> operationProperty() {
+        return operation;
+    }
+
+    public StringProperty resultProperty() {
+        return result;
+    }
+    public final String getResult() {
+        return result.get();
+    }
+    public StringProperty statusProperty() {
+        return status;
+    }
+    public final String getStatus() {
+        return status.get();
+    }
+
+    // FXML needs default c-tor for binding
+    public ViewModel() {
+        vectorsDimension.set("3");
+
+        vectorsValues.add(new Pair<>(0.0f, 0.0f));
+        vectorsValues.add(new Pair<>(0.0f, 0.0f));
+        vectorsValues.add(new Pair<>(0.0f, 0.0f));
+
+        operation.set(Operation.METRIC_L1);
+        result.set("");
+        status.set(Status.WAITING.toString());
+    }
 }
 
 enum Status {

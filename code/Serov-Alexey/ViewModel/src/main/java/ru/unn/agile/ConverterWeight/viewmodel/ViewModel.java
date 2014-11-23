@@ -86,8 +86,10 @@ public class ViewModel {
 
     public boolean isRightValue() {
         try {
-            if (!value.isEmpty()) {
+            if (valueIsNotEmpty()) {
                 Double.parseDouble(value);
+            } else {
+                status = Status.WAITING;
             }
         } catch (Exception e) {
             return false;
@@ -103,6 +105,10 @@ public class ViewModel {
             convertButton = false;
             status = Status.BAD_FORMAT;
         }
+    }
+
+    private boolean valueIsNotEmpty() {
+        return !value.isEmpty();
     }
 
     private void computationFromGramm() {

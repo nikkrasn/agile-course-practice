@@ -129,12 +129,57 @@ public class ViewModelTests {
     }
 
     @Test
+    public void grammCovertGramm() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        assertEquals("1", viewModel.getResult());
+    }
+
+    @Test
     public void grammCovertKilogram() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.GRAMM);
         viewModel.setResultUnit(UnitWeight.KILOGRAM);
         viewModel.convert();
         assertEquals("0.001", viewModel.getResult());
+    }
+
+    @Test
+    public void grammCovertCentner() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        viewModel.setResultUnit(UnitWeight.CENTNER);
+        viewModel.convert();
+        assertEquals("1.0E-5", viewModel.getResult());
+    }
+
+    @Test
+    public void grammCovertTon() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        viewModel.setResultUnit(UnitWeight.TON);
+        viewModel.convert();
+        assertEquals("1.0E-6", viewModel.getResult());
+    }
+
+    @Test
+    public void kilogramCovertGramm() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        assertEquals("1000.0", viewModel.getResult());
+    }
+
+    @Test
+    public void kilogramCovertKilogram() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.convert();
+        assertEquals("1", viewModel.getResult());
     }
 
     @Test
@@ -147,6 +192,15 @@ public class ViewModelTests {
     }
 
     @Test
+    public void kilogramCovertTon() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.TON);
+        viewModel.convert();
+        assertEquals("0.001", viewModel.getResult());
+    }
+
+    @Test
     public void centnerCovertGramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.CENTNER);
@@ -155,6 +209,59 @@ public class ViewModelTests {
         assertEquals("100000.0", viewModel.getResult());
     }
 
+    @Test
+    public void centnerCovertKilogram() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.convert();
+        assertEquals("100.0", viewModel.getResult());
+    }
+
+    @Test
+    public void centnerCovertCentner() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        viewModel.setResultUnit(UnitWeight.CENTNER);
+        viewModel.convert();
+        assertEquals("1", viewModel.getResult());
+    }
+
+    @Test
+    public void centnerCovertTon() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        viewModel.setResultUnit(UnitWeight.TON);
+        viewModel.convert();
+        assertEquals("0.1", viewModel.getResult());
+    }
+
+    @Test
+    public void tonCovertGramm() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.TON);
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        assertEquals("1000000.0", viewModel.getResult());
+    }
+
+    @Test
+    public void tonCovertKilogram() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.TON);
+        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.convert();
+        assertEquals("1000.0", viewModel.getResult());
+    }
+
+    @Test
+    public void tonCovertCentner() {
+        viewModel.setValue("1");
+        viewModel.setValueUnit(UnitWeight.TON);
+        viewModel.setResultUnit(UnitWeight.CENTNER);
+        viewModel.convert();
+        assertEquals("10.0", viewModel.getResult());
+    }
     @Test
     public void tonCovertTon() {
         viewModel.setValue("1");

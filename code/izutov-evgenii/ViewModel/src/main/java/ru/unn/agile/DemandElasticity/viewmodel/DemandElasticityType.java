@@ -5,18 +5,6 @@ import ru.unn.agile.DemandElasticity.Model.*;
 public enum DemandElasticityType {
     ByCrossPrice("By cross price") {
         @Override
-        public Coefficient calculate(final IPositiveRange firstRange,
-                                     final IPositiveRange secondRange) {
-            DemandElasticityMethod method = new DemandElasticityMethodByCrossPrice();
-            return method.calculate(firstRange, secondRange);
-        }
-
-        @Override
-        public IPositiveRange getFirstRange(final double start, final double finish) {
-            return new DemandRange(start, finish);
-        }
-
-        @Override
         public IPositiveRange getSecondRange(final double start, final double finish) {
             return new PriceRange(start, finish);
         }
@@ -30,20 +18,13 @@ public enum DemandElasticityType {
         public String getSecondRangeName() {
             return "Price range of second good";
         }
+
+        @Override
+        protected DemandElasticityMethod getMethod() {
+            return new DemandElasticityMethodByCrossPrice();
+        }
     },
     ByIncome("By income") {
-        @Override
-        public Coefficient calculate(final IPositiveRange firstRange,
-                                     final IPositiveRange secondRange) {
-            DemandElasticityMethod method = new DemandElasticityMethodByIncome();
-            return method.calculate(firstRange, secondRange);
-        }
-
-        @Override
-        public IPositiveRange getFirstRange(final double start, final double finish) {
-            return new DemandRange(start, finish);
-        }
-
         @Override
         public IPositiveRange getSecondRange(final double start, final double finish) {
             return new IncomeRange(start, finish);
@@ -58,20 +39,13 @@ public enum DemandElasticityType {
         public String getSecondRangeName() {
             return "Income range";
         }
+
+        @Override
+        protected DemandElasticityMethod getMethod() {
+            return new DemandElasticityMethodByIncome();
+        }
     },
     ByPrice("By price") {
-        @Override
-        public Coefficient calculate(final IPositiveRange firstRange,
-                                     final IPositiveRange secondRange) {
-            DemandElasticityMethod method = new DemandElasticityMethodByPrice();
-            return method.calculate(firstRange, secondRange);
-        }
-
-        @Override
-        public IPositiveRange getFirstRange(final double start, final double finish) {
-            return new DemandRange(start, finish);
-        }
-
         @Override
         public IPositiveRange getSecondRange(final double start, final double finish) {
             return new PriceRange(start, finish);
@@ -86,6 +60,11 @@ public enum DemandElasticityType {
         public String getSecondRangeName() {
             return "Price range";
         }
+
+        @Override
+        protected DemandElasticityMethod getMethod() {
+            return new DemandElasticityMethodByPrice();
+        }
     };
 
     private final String name;
@@ -98,10 +77,16 @@ public enum DemandElasticityType {
         return name;
     }
 
-    public abstract Coefficient calculate(final IPositiveRange firstRange,
-                                          final IPositiveRange secondRange);
-    public abstract IPositiveRange getFirstRange(final double start, final double finish);
+    public Coefficient calculate(final IPositiveRange firstRange,
+                                 final IPositiveRange secondRange) {
+        DemandElasticityMethod method = getMethod();
+        return method.calculate(firstRange, secondRange);
+    }
+    public IPositiveRange getFirstRange(final double start, final double finish) {
+        return new DemandRange(start, finish);
+    }
     public abstract IPositiveRange getSecondRange(final double start, final double finish);
     public abstract String getFirstRangeName();
     public abstract String getSecondRangeName();
+    protected abstract DemandElasticityMethod getMethod();
 }

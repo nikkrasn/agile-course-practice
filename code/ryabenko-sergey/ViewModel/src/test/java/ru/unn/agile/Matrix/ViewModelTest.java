@@ -24,16 +24,11 @@ public class ViewModelTest {
         assertEquals("", viewModel.getTextInput());
         assertEquals("", viewModel.getResult());
         assertEquals(Status.EMPTY_INPUT, viewModel.getStatus());
+        assertEquals(false, viewModel.isCalculateButtonEnabled());
     }
 
     @Test
     public void isStatusEmptyInTheBeginning() {
-        assertEquals(Status.EMPTY_INPUT, viewModel.getStatus());
-    }
-
-    @Test
-    public void isStatusEmptyIfStringEmpty() {
-        viewModel.calculate();
         assertEquals(Status.EMPTY_INPUT, viewModel.getStatus());
     }
 
@@ -84,7 +79,7 @@ public class ViewModelTest {
     @Test
     public void isCalculateButtonEnabledIfInputIsCorrect() {
         viewModel.setTextInput("1.0 \n 7");
-        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        viewModel.processKeyInTextField(12345);
         assertTrue(viewModel.isCalculateButtonEnabled());
     }
 
@@ -103,81 +98,85 @@ public class ViewModelTest {
     }
 
     @Test
-    public void canCalculateCorrectMatrix() {
-        viewModel.setTextInput("7 8\n-0.1 4");
-        viewModel.calculate();
-        assertEquals(viewModel.getResult(), "28.8");
+    public void canCalculateCorrectMatrixWithShiftKey() {
+        viewModel.setTextInput("1");
+        viewModel.processKeyInTextField(16);
+        assertEquals("1.0", viewModel.getResult());
     }
 
     @Test
-    public void canCalculateCorrectMatrixWithShiftKey() {
-        viewModel.setTextInput("1");
+    public void canGetEmptyStatusWithShiftKey() {
         viewModel.processKeyInTextField(viewModel.SHIFT);
-        assertEquals(Status.CALCULATED, viewModel.getStatus());
+        assertTrue(Status.EMPTY_INPUT == viewModel.getStatus()
+                && viewModel.getResult() ==  "");
     }
 
     @Test
     public void canReportBadInputWithShiftKey() {
         viewModel.setTextInput("n");
         viewModel.processKeyInTextField(viewModel.SHIFT);
-        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+        assertTrue(Status.BAD_INPUT == viewModel.getStatus()
+                && viewModel.getResult() ==  "");
     }
 
     @Test
-    public void isStatusCalculatedIfWasCorrectInput() {
+    public void isStatusEmptyIfStringEmpty() {
+        viewModel.calculate();
+        assertTrue(Status.EMPTY_INPUT == viewModel.getStatus()
+                && viewModel.getResult() == "");
+    }
+
+    @Test
+    public void canCalculateCorrectMatrix() {
         viewModel.setTextInput("7 8\n-0.1 4");
         viewModel.calculate();
-        assertEquals(Status.CALCULATED, viewModel.getStatus());
+        assertEquals("28.8", viewModel.getResult());
+    }
+
+    @Test
+    public void isStatusCalculatedIfStringIsCorrect() {
+        viewModel.setTextInput("7 8\n-0.1 4");
+        viewModel.calculate();
+        assertTrue(Status.CALCULATED == viewModel.getStatus());
     }
 
     @Test
     public void canReportBadInputWithNonSquareMatrix() {
         viewModel.setTextInput("7 8 0\n-0.1 4 0");
         viewModel.calculate();
-        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+        assertTrue(Status.BAD_INPUT == viewModel.getStatus()
+                && viewModel.getResult() ==  "");
     }
 
     @Test
     public void canConvertIncorrectStringToArray() {
         viewModel.setTextInput("    7  8   \n\n\n  -1          0.5    ");
         viewModel.calculate();
-        assertEquals(viewModel.getResult(), "11.5");
+        assertEquals("11.5", viewModel.getResult());
     }
 
     @Test
     public void isIncorrectStringIfEmptyLineWithIndent() {
         viewModel.setTextInput("    7  8   \n \n\n  -1          0.5    ");
         viewModel.calculate();
-        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
-    }
-
-    @Test
-    public void canConvertIncorrectStringToArrayWithIntegerValues() {
-        viewModel.setTextInput("  -1   0 0 0\n\n    1 0 1 7\n 1 1 1 0  \n 0");
-        viewModel.calculate();
-        assertEquals(Status.CALCULATED, viewModel.getStatus());
-    }
-
-    @Test
-    public void canConvertIncorrectStringToArrayWithDoubleValues() {
-        viewModel.setTextInput("  1.0   0.8 0.8 -0.7\n\n    1.8 0.6 1.5 7.868\n 1.65 1.4 1.4 0.6"
-               + "  \n 0.7 7.5 1.2 1.5");
-        viewModel.calculate();
-        assertEquals(Status.CALCULATED, viewModel.getStatus());
+        assertTrue(Status.BAD_INPUT == viewModel.getStatus()
+                && viewModel.getResult() ==  "");
     }
 
     @Test
     public void isStatusEmptyIfStringWithNewLinesOnly() {
         viewModel.setTextInput("\n\n\n");
         viewModel.calculate();
-        assertEquals(Status.EMPTY_INPUT, viewModel.getStatus());
+        assertTrue(Status.EMPTY_INPUT == viewModel.getStatus()
+                && viewModel.getResult() ==  "");
     }
 
     @Test
     public void isStatusEmptyIfStringWithIndentsOnly() {
         viewModel.setTextInput("              ");
         viewModel.calculate();
-        assertEquals(Status.EMPTY_INPUT, viewModel.getStatus());
+        assertTrue(Status.EMPTY_INPUT == viewModel.getStatus()
+                && viewModel.getResult() ==  "");
     }
 
 }

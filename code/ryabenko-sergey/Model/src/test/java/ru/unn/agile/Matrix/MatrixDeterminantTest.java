@@ -61,40 +61,4 @@ public class MatrixDeterminantTest {
         double det = MatrixDeterminant.calculation(mat);
     }
 
-    @Test
-     public void canCreateSubMatrix() {
-
-        SquareMatrix mat = new SquareMatrix(new double[][]{{1, 0, 0}, {0, 1, 1}, {0, 1, 6}});
-        SquareMatrix shortMatrix = new SquareMatrix(new double[][]{{1, 1}, {1, 6}});
-
-        SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
-
-        assertTrue(subMat.getValueAt(0, 0) == shortMatrix.getValueAt(0, 0)
-                        && subMat.getValueAt(0, 1) == shortMatrix.getValueAt(0, 1)
-                        && subMat.getValueAt(1, 0) == shortMatrix.getValueAt(1, 0)
-                        && subMat.getValueAt(1, 1) == shortMatrix.getValueAt(1, 1)
-        );
-    }
-
-    @Test
-    public void canCreateFirstOrderSubMatrix() {
-        SquareMatrix mat = new SquareMatrix(new double[][]{{1, 2}, {3, -1}});
-        SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 1);
-        assertTrue(subMat.getValueAt(0, 0) == 3 && subMat.getCountRows() == 1);
-    }
-
-    @Test
-    public void canCreateEmptiesSubMatrix() {
-        SquareMatrix mat = new SquareMatrix(new double[][]{{-10}});
-        SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
-        assertTrue(subMat.getCountRows() == 0);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void cannotCreateSubMatrixIfDefaultMatrixIsEmpty() {
-        SquareMatrix mat = new SquareMatrix(0);
-        SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
-    }
-
-
 }

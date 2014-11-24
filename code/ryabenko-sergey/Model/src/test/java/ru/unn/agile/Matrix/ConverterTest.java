@@ -13,15 +13,29 @@ public class ConverterTest {
         double[][] data = Converter.stringToArray(text);
     }
 
+    @Test
+    public void canConvertCorrectStringToSymbol() {
+        String text = "1";
+        double[][] data = Converter.stringToArray(text);
+        assertTrue(data[0][0] == 1);
+    }
+
+    @Test
+    public void canConvertIncorrectStringToSymbol() {
+        String text = "   -1.8    ";
+        double[][] data = Converter.stringToArray(text);
+        assertTrue(data[0][0] == -1.8);
+    }
+
     @Test (expected = IllegalArgumentException.class)
     public void canCheckEmptyString() {
         String text = "           ";
         double[][] data = Converter.stringToArray(text);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void canCheckEmptyLines() {
-        String text = " \n\n\n";
+    @Test
+    public void canConvertEmptyLinesToEmptyArray() {
+        String text = "\n\n\n";
         double[][] data = Converter.stringToArray(text);
     }
 
@@ -43,8 +57,8 @@ public class ConverterTest {
     public void canConvertStringWithIncorrectTabulation() {
         String text = "    7  8   \n\n\n  -1          0.5    ";
         double[][] data = Converter.stringToArray(text);
-        SquareMatrix mat = new SquareMatrix(data);
-        assertEquals(11.5, MatrixDeterminant.calculation(mat), delta);
+        assertTrue(data[0][0] == 7 && data[0][1] == 8
+                && data[1][0] == -1 && data[1][1] == 0.5);
     }
 
     @Test (expected = IllegalArgumentException.class)

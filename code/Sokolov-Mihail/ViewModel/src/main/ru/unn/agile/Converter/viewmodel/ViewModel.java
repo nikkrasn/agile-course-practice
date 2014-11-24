@@ -1,11 +1,12 @@
 package ru.unn.agile.Converter.viewmodel;
 
 import ru.unn.agile.Converter.Model.AreaConverter;
+import ru.unn.agile.Converter.Model.AreaConverter.Measures;
 
 public class ViewModel {
     private String value;
-    private AreaConverter.MeasureOfArea measureFrom;
-    private AreaConverter.MeasureOfArea measureTo;
+    private Measures measureFrom;
+    private Measures measureTo;
     private String result;
     private boolean isCalculateButtonEnabled;
 
@@ -13,8 +14,8 @@ public class ViewModel {
 
     public ViewModel() {
         value = "";
-        measureFrom = AreaConverter.MeasureOfArea.SquareMeter;
-        measureTo = AreaConverter.MeasureOfArea.SquareMeter;
+        measureFrom = Measures.SquareMeter;
+        measureTo = Measures.SquareMeter;
         result = "";
 
         isCalculateButtonEnabled = false;
@@ -36,21 +37,21 @@ public class ViewModel {
         return value;
     }
 
-    public AreaConverter.MeasureOfArea getMeasureOfAreaFrom() {
+    public Measures getMeasureOfAreaFrom() {
         return measureFrom;
     }
 
-    public void setMeasureOfAreaFrom(final AreaConverter.MeasureOfArea measure) {
+    public void setMeasureOfAreaFrom(final Measures measure) {
         if (this.measureFrom != measure) {
             this.measureFrom = measure;
         }
     }
 
-    public AreaConverter.MeasureOfArea getMeasureOfAreaTo() {
+    public Measures getMeasureOfAreaTo() {
         return measureTo;
     }
 
-    public void setMeasureOfAreaTo(final AreaConverter.MeasureOfArea measure) {
+    public void setMeasureOfAreaTo(final Measures measure) {
         if (this.measureTo != measure) {
             this.measureTo = measure;
         }

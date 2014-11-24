@@ -9,19 +9,19 @@ public final class AreaConverter {
     private static final double KOEF_HA = 10000.0;
     private static final double KOEF_ARE = 100.0;
 
-    private static Map<MeasureOfArea, Double> koef = new HashMap<MeasureOfArea, Double>();
+    private static Map<Measures, Double> koef = new HashMap<Measures, Double>();
     static {
-        koef.put(MeasureOfArea.SquareMeter, KOEF_SQM);
-        koef.put(MeasureOfArea.SquareKilometer, KOEF_SQKM);
-        koef.put(MeasureOfArea.Hectare, KOEF_HA);
-        koef.put(MeasureOfArea.Are, KOEF_ARE);
+        koef.put(Measures.SquareMeter, KOEF_SQM);
+        koef.put(Measures.SquareKilometer, KOEF_SQKM);
+        koef.put(Measures.Hectare, KOEF_HA);
+        koef.put(Measures.Are, KOEF_ARE);
     };
 
     private AreaConverter() { }
 
     public static double fromTo(final double val,
-                                final MeasureOfArea from,
-                                final MeasureOfArea to) {
+                                final Measures from,
+                                final Measures to) {
         if (val < 0) {
             throw new IllegalArgumentException();
         }
@@ -35,7 +35,7 @@ public final class AreaConverter {
         return val * k;
     }
 
-    public enum MeasureOfArea {
+    public enum Measures {
         SquareMeter("Square meter"),
         SquareKilometer("Square kilometer"),
         Hectare("Hectare"),
@@ -43,7 +43,7 @@ public final class AreaConverter {
 
         private final String name;
 
-        private MeasureOfArea(final String name) {
+        private Measures(final String name) {
             this.name = name;
         }
 

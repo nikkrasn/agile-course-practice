@@ -131,6 +131,32 @@ public class ViewModelTest {
     }
 
     @Test
+    public void statusIsWrongArgumentsOnWrongDataCalculation() {
+        viewModel.start1Property().set("0");
+        viewModel.finish1Property().set("0");
+        viewModel.start2Property().set("13");
+        viewModel.finish2Property().set("11");
+        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
+
+        viewModel.calculate();
+
+        assertEquals(Status.WRONG_ARGUMENTS.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void descriptionIsUndefinedOnEqualDataCalculation() {
+        viewModel.start1Property().set("12");
+        viewModel.finish1Property().set("12");
+        viewModel.start2Property().set("100");
+        viewModel.finish2Property().set("100");
+        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
+
+        viewModel.calculate();
+
+        assertEquals("Demand is undefined", viewModel.descriptionProperty().get());
+    }
+
+    @Test
     public void statusIsReadyWhenSetProperData() {
         setCorrectInputData();
 

@@ -76,10 +76,21 @@ public class ViewModel {
         IPositiveRange range2 = demandElasticityType.get().
                 getSecondRange(Double.parseDouble(start2.get()), Double.parseDouble(finish2.get()));
 
-        Coefficient answer = demandElasticityType.get().calculate(range1, range2);
-        result.set(Double.toString(answer.getValue()));
-        description.set(answer.getDescription());
-        status.set(Status.SUCCESS.toString());
+        Coefficient answer;
+        try {
+            answer = demandElasticityType.get().calculate(range1, range2);
+        } catch (ArithmeticException ae) {
+            answer = null;
+            result.set("");
+            description.set("");
+            status.set(Status.WRONG_ARGUMENTS.toString());
+        }
+
+        if (answer != null) {
+            result.set(Double.toString(answer.getValue()));
+            description.set(answer.getDescription());
+            status.set(Status.SUCCESS.toString());
+        }
     }
 
     public StringProperty start1Property() {

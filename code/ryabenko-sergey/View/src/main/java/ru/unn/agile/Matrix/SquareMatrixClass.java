@@ -6,7 +6,7 @@ import java.awt.event.*;
 public final class SquareMatrixClass {
 
     private JPanel mainPanel;
-    private ViewModel viewModel;
+    private final ViewModel viewModel;
     private JButton buttonCalculate;
     private JLabel labelStatus;
     private JTextField textStatus;
@@ -21,8 +21,6 @@ public final class SquareMatrixClass {
         frame.pack();
         frame.setVisible(true);
     }
-
-    private SquareMatrixClass() { }
 
     private SquareMatrixClass(final ViewModel viewModel) {
         this.viewModel = viewModel;

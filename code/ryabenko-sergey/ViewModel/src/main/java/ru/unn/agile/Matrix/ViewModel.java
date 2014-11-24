@@ -5,10 +5,12 @@ import java.util.regex.*;
 public class ViewModel {
     private String textInput = "";
     private String result = "";
-    private String status = Status.EMPTY_INPUT;
+    private String status = Status.EMPTY_INPUT.toString();
     private boolean isCalculateButtonEnabled = false;
     public static final int SHIFT = 16;
     public static final int ANY_KEY = 12345;
+    public static final Pattern ONLY_NEW_LINES = Pattern.compile("[\n]+");
+    public static final Pattern ONLY_INDENTS = Pattern.compile(" +");
 
     public boolean isCalculateButtonEnabled() {
         return isCalculateButtonEnabled;
@@ -25,10 +27,10 @@ public class ViewModel {
         if (!parseInput()) {
             return;
         }
-        double[][] array = Converter.stringToArray(textInput);
-        SquareMatrix mat = new SquareMatrix(array);
+        Converter converter = new Converter(textInput);
+        SquareMatrix mat = new SquareMatrix(converter.getData());
         result = String.valueOf(MatrixDeterminant.calculation(mat));
-        status = Status.CALCULATED;
+        status = Status.CALCULATED.toString();
     }
 
     public String getResult() {
@@ -43,15 +45,6 @@ public class ViewModel {
         return textInput;
     }
 
-    public final class Status {
-        public static final String EMPTY_INPUT = "Enter the data and press 'Calculate'.";
-        public static final String READY = "Press 'Calculate' or SHIFT";
-        public static final String BAD_INPUT = "Bad input";
-        public static final String CALCULATED = "Calculation was carried out";
-        private Status() {
-        }
-    }
-
     public void setTextInput(final String text) {
         if (text.equals(this.textInput)) {
             return;
@@ -59,16 +52,9 @@ public class ViewModel {
         this.textInput = text;
     }
 
-    private static final class Patterns {
-        public static final Pattern ONLY_NEW_LINES = Pattern.compile("[\n]+");
-        public static final Pattern ONLY_INDENTS = Pattern.compile(" +");
-        private Patterns() {
-        }
-    }
-
     private boolean isInputEmpty() {
-        Matcher m1 = Patterns.ONLY_NEW_LINES.matcher(textInput);
-        Matcher m2 = Patterns.ONLY_INDENTS.matcher(textInput);
+        Matcher m1 = ONLY_NEW_LINES.matcher(textInput);
+        Matcher m2 = ONLY_INDENTS.matcher(textInput);
         return  !textInput.isEmpty() && !m1.matches() && !m2.matches();
     }
 
@@ -82,20 +68,35 @@ public class ViewModel {
     private boolean parseInput() {
         try {
             if (isInputEmpty()) {
-                double[][] array = Converter.stringToArray(textInput);
+                Converter converter = new Converter(textInput);
             }
         } catch (Exception e) {
-            status = Status.BAD_INPUT;
+            status = Status.BAD_INPUT.toString();
             isCalculateButtonEnabled = false;
             return false;
         }
         isCalculateButtonEnabled = isInputEmpty();
         if (isCalculateButtonEnabled) {
-            status = Status.READY;
+            status = Status.READY.toString();
         } else {
-            status = Status.EMPTY_INPUT;
+            status = Status.EMPTY_INPUT.toString();
         }
         return isCalculateButtonEnabled;
+    }
+
+    enum  Status {
+        EMPTY_INPUT ("Enter the data and press 'Calculate'."),
+        READY ("Press 'Calculate' or SHIFT"),
+        BAD_INPUT ("Bad input"),
+        CALCULATED ("Calculation was carried out");
+
+        private final String name;
+        Status(final String name) {
+            this.name = name;
+        }
+        public String toString() {
+            return name;
+        }
     }
 }
 

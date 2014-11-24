@@ -26,7 +26,7 @@ public final class MatrixDeterminant {
         return sum;
     }
 
-    private static SquareMatrix createSubMatrix(final SquareMatrix matrix,
+    public static SquareMatrix createSubMatrix(final SquareMatrix matrix,
                                          final int excludingRow, final int excludingCol) {
         SquareMatrix mat = new SquareMatrix(matrix.getCountRows() - 1);
         int row = -1;

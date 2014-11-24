@@ -27,9 +27,10 @@ public class ViewModel {
         if (!parseInput()) {
             return;
         }
-        Converter converter = new Converter(textInput);
-        SquareMatrix mat = new SquareMatrix(converter.getData());
-        result = String.valueOf(MatrixDeterminant.calculation(mat));
+        Converter stringToArray = new Converter(textInput);
+        SquareMatrix mat = new SquareMatrix(stringToArray.getData());
+        MatrixDeterminant determinant = new MatrixDeterminant(mat);
+        result = String.valueOf(determinant.getSum());
         status = Status.CALCULATED.toString();
     }
 
@@ -68,7 +69,7 @@ public class ViewModel {
     private boolean parseInput() {
         try {
             if (isInputEmpty()) {
-                Converter converter = new Converter(textInput);
+                Converter stringToArray = new Converter(textInput);
             }
         } catch (Exception e) {
             status = Status.BAD_INPUT.toString();

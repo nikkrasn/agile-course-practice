@@ -4,7 +4,7 @@ public final class Converter {
     private final double[][] data;
 
     public Converter(final String text) {
-        this.data = stringToArray(text);
+        data = stringToArray(text);
     }
 
     private static double[][] stringToArray(final String text) {

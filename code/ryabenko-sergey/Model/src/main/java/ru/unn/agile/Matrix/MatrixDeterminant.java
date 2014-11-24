@@ -1,8 +1,11 @@
 package ru.unn.agile.Matrix;
 
 public final class MatrixDeterminant {
+    private final double sum;
 
-    private MatrixDeterminant() { }
+    public MatrixDeterminant(final SquareMatrix matrix) {
+        sum = calculation(matrix);
+    }
 
     public static double calculation(final SquareMatrix matrix) {
         double sum = 0;
@@ -45,6 +48,10 @@ public final class MatrixDeterminant {
             }
         }
         return mat;
+    }
+
+    public double getSum() {
+        return sum;
     }
 
     private static int changeSign(final int i) {

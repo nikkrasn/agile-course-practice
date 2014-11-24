@@ -145,22 +145,26 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetInputOutputMeasure() {
+    public void canSetInputMeasure() {
         viewModel.setInputMeasure(Measure.METER);
-        viewModel.setOutputMeasure(Measure.METER);
         assertEquals(Measure.METER, viewModel.getInputMeasure());
-        assertEquals(Measure.METER, viewModel.getOutputMeasure());
         viewModel.setInputMeasure(Measure.KILOMETER);
-        viewModel.setOutputMeasure(Measure.KILOMETER);
         assertEquals(Measure.KILOMETER, viewModel.getInputMeasure());
-        assertEquals(Measure.KILOMETER, viewModel.getOutputMeasure());
         viewModel.setInputMeasure(Measure.MILE);
-        viewModel.setOutputMeasure(Measure.MILE);
         assertEquals(Measure.MILE, viewModel.getInputMeasure());
-        assertEquals(Measure.MILE, viewModel.getOutputMeasure());
         viewModel.setInputMeasure(Measure.INCH);
-        viewModel.setOutputMeasure(Measure.INCH);
         assertEquals(Measure.INCH, viewModel.getInputMeasure());
+    }
+
+    @Test
+    public void canSetOutputMeasure() {
+        viewModel.setOutputMeasure(Measure.METER);
+        assertEquals(Measure.METER, viewModel.getOutputMeasure());
+        viewModel.setOutputMeasure(Measure.KILOMETER);
+        assertEquals(Measure.KILOMETER, viewModel.getOutputMeasure());
+        viewModel.setOutputMeasure(Measure.MILE);
+        assertEquals(Measure.MILE, viewModel.getOutputMeasure());
+        viewModel.setOutputMeasure(Measure.INCH);
         assertEquals(Measure.INCH, viewModel.getOutputMeasure());
     }
 

@@ -98,9 +98,14 @@ project(":code/pogorelsky-iliya/Model").name = "pogorelsky-iliya-Model"
 include "code/ryabenko-sergey/Model"
 project(":code/ryabenko-sergey/Model").name = "ryabenko-sergey-Model"
 
+
 // Ryabusheva Anna
 include "code/Ryabusheva-Anna/Model"
 project(":code/Ryabusheva-Anna/Model").name = "Ryabusheva-Anna-Model"
+include "code/Ryabusheva-Anna/ViewModel"
+project(":code/Ryabusheva-Anna/ViewModel").name = "Ryabusheva-Anna-ViewModel"
+include "code/Ryabusheva-Anna/View"
+project(":code/Ryabusheva-Anna/View").name = "Ryabusheva-Anna-View"
 
 // Samokhvalov Maxim
 include "code/samokhvalov-maxim/Model"

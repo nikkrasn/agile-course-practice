@@ -1,5 +1,6 @@
 package ru.unn.agile.Converter.view;
 
+import ru.unn.agile.Converter.Model.AreaConverter;
 import ru.unn.agile.Converter.viewmodel.ViewModel;
 
 import javax.swing.*;
@@ -7,8 +8,8 @@ import java.awt.event.*;
 
 public final class SimpleAreaConverter {
     private JTextField tbValue;
-    private JComboBox<ViewModel.MeasureOfArea> cbFrom;
-    private JComboBox<ViewModel.MeasureOfArea> cbTo;
+    private JComboBox<AreaConverter.MeasureOfArea> cbFrom;
+    private JComboBox<AreaConverter.MeasureOfArea> cbTo;
     private JTextField tbResult;
 
     private JButton btnConvert;
@@ -68,16 +69,16 @@ public final class SimpleAreaConverter {
     }
 
     private void loadListAreaMeasures() {
-        ViewModel.MeasureOfArea[] measures = ViewModel.MeasureOfArea.values();
-        cbFrom.setModel(new JComboBox<ViewModel.MeasureOfArea>(measures).getModel());
-        cbTo.setModel(new JComboBox<ViewModel.MeasureOfArea>(measures).getModel());
+        AreaConverter.MeasureOfArea[] measures = AreaConverter.MeasureOfArea.values();
+        cbFrom.setModel(new JComboBox<AreaConverter.MeasureOfArea>(measures).getModel());
+        cbTo.setModel(new JComboBox<AreaConverter.MeasureOfArea>(measures).getModel());
     }
 
     private void bind() {
         viewModel.setValue(tbValue.getText());
 
-        viewModel.setMeasureOfAreaFrom((ViewModel.MeasureOfArea) cbFrom.getSelectedItem());
-        viewModel.setMeasureOfAreaTo((ViewModel.MeasureOfArea) cbTo.getSelectedItem());
+        viewModel.setMeasureOfAreaFrom((AreaConverter.MeasureOfArea) cbFrom.getSelectedItem());
+        viewModel.setMeasureOfAreaTo((AreaConverter.MeasureOfArea) cbTo.getSelectedItem());
     }
 
     private void backBind() {

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty inputValue = new SimpleStringProperty();
+    private final StringProperty inputValue = new SimpleStringProperty("");
 
     private final ObjectProperty<ObservableList<Currency>> fromCurrencyList =
             new SimpleObjectProperty<>();
@@ -28,27 +28,22 @@ public class ViewModel {
 
     private final BooleanProperty convertButtonDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty resultCurrency = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty("");
+    private final StringProperty resultCurrency = new SimpleStringProperty("");
 
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty status =
+            new SimpleStringProperty(ViewModelStatus.WAITING.toString());
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     // FXML needs default c-tor for binding
     public ViewModel() {
-        inputValue.set("");
-        result.set("");
-        resultCurrency.set("");
-
         ICurrencyProvider provider = new FixedCurrencyProvider();
         ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
         fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
         toCurrencyList.set(FXCollections.observableArrayList(actualRates));
         fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));
         toCurrency.set(actualRates.get(CurrencyIndexes.USD.getIndex()));
-
-        status.set(ViewModelStatus.WAITING.toString());
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -61,17 +56,9 @@ public class ViewModel {
         };
         convertButtonDisabled.bind(couldCalculate.not());
 
-        // Add listeners to the input text fields
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(inputValue);
-        } };
-
-        for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
-
+        // Add listener to the input text field
+        final ValueChangeListener inputValueListener = new ValueChangeListener();
+        inputValue.addListener(inputValueListener);
     }
 
     public StringProperty inputValueProperty() {
@@ -105,6 +92,7 @@ public class ViewModel {
     public BooleanProperty convertButtonDisabledProperty() {
         return convertButtonDisabled;
     }
+
     public final boolean getConvertButtonDisabled() {
         return convertButtonDisabled.get();
     }
@@ -154,7 +142,6 @@ public class ViewModel {
         if (inputValue.get().isEmpty()) {
             inputStatus = ViewModelStatus.WAITING;
         }
-
         try {
             if (!inputValue.get().isEmpty()) {
                 Double.parseDouble(inputValue.get());

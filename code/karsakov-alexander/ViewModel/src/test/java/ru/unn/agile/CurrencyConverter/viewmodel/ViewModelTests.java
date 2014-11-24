@@ -53,7 +53,7 @@ public class ViewModelTests {
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
 
-        assertEquals(ViewModelStatus.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(ViewModelStatus.READY.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -122,21 +122,21 @@ public class ViewModelTests {
 
         viewModel.convert();
 
-        assertEquals(ViewModelStatus.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(ViewModelStatus.SUCCESS.toString(), viewModel.getStatus());
     }
 
     @Test
     public void canSetBadFormatMessage() {
         viewModel.inputValueProperty().set("incorrect");
 
-        assertEquals(ViewModelStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(ViewModelStatus.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
     public void canSetReadyStatusOnProperInput() {
         setInputData();
 
-        assertEquals(ViewModelStatus.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(ViewModelStatus.READY.toString(), viewModel.getStatus());
     }
 
     private void setInputData() {

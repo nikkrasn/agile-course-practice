@@ -1,6 +1,6 @@
 package ru.unn.agile.DemandElasticity.Model;
 
-public class Coefficient {
+public abstract class Coefficient {
     private final double value;
 
     public Coefficient(final double value) {
@@ -14,4 +14,6 @@ public class Coefficient {
     public boolean isValueUndefined() {
         return Double.isNaN(value);
     }
+
+    public abstract String getDescription();
 }

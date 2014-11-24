@@ -77,7 +77,7 @@
                <children>
                   <ComboBox prefWidth="200.0" />
                   <Separator prefWidth="200.0" visible="false" />
-                  <Button mnemonicParsing="false" defaultButton="true" text="Calculate" HBox.hgrow="ALWAYS"/>
+                  <Button defaultButton="true" mnemonicParsing="false" text="Calculate" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox>
@@ -87,7 +87,20 @@
                         <Insets right="5.0" />
                      </HBox.margin></Label>
                   <Label minWidth="-Infinity" text="Label" HBox.hgrow="ALWAYS" />
-                  <Separator prefWidth="200.0" visible="false" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label minWidth="-Infinity" text="Description:">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label minWidth="-Infinity" text="Label" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
                   <Label minWidth="-Infinity" text="Status:">
                      <HBox.margin>
                         <Insets right="5.0" />

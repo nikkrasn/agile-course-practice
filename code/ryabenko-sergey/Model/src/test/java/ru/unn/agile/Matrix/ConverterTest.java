@@ -25,6 +25,12 @@ public class ConverterTest {
         double[][] data = Converter.stringToArray(text);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void canCheckEmptyLinesWithIndent() {
+        String text = " \n \n";
+        double[][] data = Converter.stringToArray(text);
+    }
+
     @Test
     public void canConvertCorrectString() {
         String text = "7 8\n-0.1 4";

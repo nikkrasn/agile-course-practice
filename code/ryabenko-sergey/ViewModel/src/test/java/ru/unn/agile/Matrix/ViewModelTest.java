@@ -85,14 +85,21 @@ public class ViewModelTest {
     public void isCalculateButtonEnabledIfInputIsCorrect() {
         viewModel.setTextInput("1.0 \n 7");
         viewModel.processKeyInTextField(viewModel.ANY_KEY);
-        assertEquals(true, viewModel.isCalculateButtonEnabled());
+        assertTrue(viewModel.isCalculateButtonEnabled());
     }
 
     @Test
-    public void canReportBadInputWithIncorrectValue() {
+    public void isCalculateButtonDisabledIfMatrixNonSquare() {
+        viewModel.setTextInput("1.0 -7");
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertFalse(viewModel.isCalculateButtonEnabled());
+    }
+
+    @Test
+    public void isCalculateButtonDisabledIfInputIsIncorrect() {
         viewModel.setTextInput("n");
-        viewModel.calculate();
-        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+        viewModel.processKeyInTextField(viewModel.ANY_KEY);
+        assertFalse(viewModel.isCalculateButtonEnabled());
     }
 
     @Test
@@ -138,8 +145,23 @@ public class ViewModelTest {
     }
 
     @Test
-    public void canConvertIncorrectStringToHigherOrderMatrix() {
-        viewModel.setTextInput("  1   0 0 0\n\n    1 0 1 7\n 1 1 1 0  \n 0");
+    public void isIncorrectStringIfEmptyLineWithIndent() {
+        viewModel.setTextInput("    7  8   \n \n\n  -1          0.5    ");
+        viewModel.calculate();
+        assertEquals(Status.BAD_INPUT, viewModel.getStatus());
+    }
+
+    @Test
+    public void canConvertIncorrectStringToArrayWithIntegerValues() {
+        viewModel.setTextInput("  -1   0 0 0\n\n    1 0 1 7\n 1 1 1 0  \n 0");
+        viewModel.calculate();
+        assertEquals(Status.CALCULATED, viewModel.getStatus());
+    }
+
+    @Test
+    public void canConvertIncorrectStringToArrayWithDoubleValues() {
+        viewModel.setTextInput("  1.0   0.8 0.8 -0.7\n\n    1.8 0.6 1.5 7.868\n 1.65 1.4 1.4 0.6"
+               + "  \n 0.7 7.5 1.2 1.5");
         viewModel.calculate();
         assertEquals(Status.CALCULATED, viewModel.getStatus());
     }

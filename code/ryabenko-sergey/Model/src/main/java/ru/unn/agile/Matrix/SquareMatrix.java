@@ -27,18 +27,6 @@ public class SquareMatrix {
 
     }
 
-    private void initializeMatrix(final double[][] data) {
-        for (int i = 0; i < countRows; i++) {
-            for (int j = 0; j < countRows; j++) {
-                this.data[i][j] = data[i][j];
-            }
-        }
-    }
-
-    public int getCountRows() {
-        return countRows;
-    }
-
     public static void checkLengthRows(final double[][] data) {
         int row = data.length;
         for (int i = 1; i < row; i++) {
@@ -48,12 +36,24 @@ public class SquareMatrix {
         }
     }
 
+    public int getCountRows() {
+        return countRows;
+    }
+
     public void setValueAt(final int row, final int col, final double value) {
         data[row][col] = value;
     }
 
     public double getValueAt(final int row, final int col) {
         return data[row][col];
+    }
+
+    private void initializeMatrix(final double[][] data) {
+        for (int i = 0; i < countRows; i++) {
+            for (int j = 0; j < countRows; j++) {
+                this.data[i][j] = data[i][j];
+            }
+        }
     }
 
 }

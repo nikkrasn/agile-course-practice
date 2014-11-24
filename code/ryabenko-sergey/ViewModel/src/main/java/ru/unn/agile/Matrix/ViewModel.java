@@ -3,32 +3,21 @@ package ru.unn.agile.Matrix;
 import java.util.regex.*;
 
 public class ViewModel {
-    private String textInput;
-    private String result;
-    private String status;
-    private boolean isCalculateButtonEnabled;
+    private String textInput = "";
+    private String result = "";
+    private String status = Status.EMPTY_INPUT;
+    private boolean isCalculateButtonEnabled = false;
     public static final int SHIFT = 16;
     public static final int ANY_KEY = 12345;
 
-    public ViewModel() {
-        textInput = "";
-        result = "";
-        status = Status.EMPTY_INPUT;
-        isCalculateButtonEnabled = false;
+    public boolean isCalculateButtonEnabled() {
+        return isCalculateButtonEnabled;
     }
 
     public void processKeyInTextField(final int keyCode) {
         parseInput();
-
         if (keyCode == SHIFT) {
             shiftPressed();
-        }
-    }
-
-    private void shiftPressed() {
-
-        if (isCalculateButtonEnabled()) {
-            calculate();
         }
     }
 
@@ -63,18 +52,18 @@ public class ViewModel {
         }
     }
 
-    private static final class Patterns {
-        public static final Pattern ONLY_NEW_LINES = Pattern.compile("[\n]+");
-        public static final Pattern ONLY_INDENTS = Pattern.compile(" +");
-        private Patterns() {
-        }
-    }
-
     public void setTextInput(final String text) {
         if (text.equals(this.textInput)) {
             return;
         }
         this.textInput = text;
+    }
+
+    private static final class Patterns {
+        public static final Pattern ONLY_NEW_LINES = Pattern.compile("[\n]+");
+        public static final Pattern ONLY_INDENTS = Pattern.compile(" +");
+        private Patterns() {
+        }
     }
 
     private boolean isInputEmpty() {
@@ -83,8 +72,11 @@ public class ViewModel {
         return  !textInput.isEmpty() && !m1.matches() && !m2.matches();
     }
 
-    public boolean isCalculateButtonEnabled() {
-        return isCalculateButtonEnabled;
+    private void shiftPressed() {
+
+        if (isCalculateButtonEnabled()) {
+            calculate();
+        }
     }
 
     private boolean parseInput() {

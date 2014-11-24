@@ -14,6 +14,18 @@ public class MatrixDeterminantTest {
         double det = MatrixDeterminant.calculation(mat);
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void canFindDeterminantForEmptyMatrix() {
+        SquareMatrix mat = new SquareMatrix(0);
+        double det = MatrixDeterminant.calculation(mat);
+    }
+
+    @Test
+    public void canFindDeterminantForMatrixWithEmptyValues() {
+        SquareMatrix mat = new SquareMatrix(1);
+        double det = MatrixDeterminant.calculation(mat);
+        assertTrue(det == 0);
+    }
 
     @Test
     public void canFindDeterminantForFirstOrderMatrix() {
@@ -77,5 +89,12 @@ public class MatrixDeterminantTest {
         SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
         assertTrue(subMat.getCountRows() == 0);
     }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void cannotCreateSubMatrixIfDefaultMatrixIsEmpty() {
+        SquareMatrix mat = new SquareMatrix(0);
+        SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
+    }
+
 
 }

@@ -26,13 +26,6 @@ public final class MatrixDeterminant {
         return sum;
     }
 
-    private static int changeSign(final int i) {
-        if (i % 2 == 0) {
-            return 1;
-        }
-        return -1;
-    }
-
     public static SquareMatrix createSubMatrix(final SquareMatrix matrix,
                                          final int excludingRow, final int excludingCol) {
         SquareMatrix mat = new SquareMatrix(matrix.getCountRows() - 1);
@@ -52,6 +45,13 @@ public final class MatrixDeterminant {
             }
         }
         return mat;
+    }
+
+    private static int changeSign(final int i) {
+        if (i % 2 == 0) {
+            return 1;
+        }
+        return -1;
     }
 
 }

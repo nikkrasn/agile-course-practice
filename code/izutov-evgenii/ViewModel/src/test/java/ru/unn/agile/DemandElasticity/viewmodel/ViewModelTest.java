@@ -24,6 +24,10 @@ public class ViewModelTest {
 
     @Test
     public void canSetDefaultValues() {
+        assertEquals(DemandElasticityType.ByPrice.getFirstRangeName(),
+                viewModel.firstRangeProperty().get());
+        assertEquals(DemandElasticityType.ByPrice.getSecondRangeName(),
+                viewModel.secondRangeProperty().get());
         assertEquals("", viewModel.start1Property().get());
         assertEquals("", viewModel.finish1Property().get());
         assertEquals("", viewModel.start2Property().get());
@@ -100,6 +104,16 @@ public class ViewModelTest {
         viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
 
         assertEquals(DemandElasticityType.ByPrice, viewModel.demandElasticityTypeProperty().get());
+    }
+
+    @Test
+    public void rangeNamesChangedOnSetByIncomeDemandElasticityType() {
+        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
+
+        assertEquals(DemandElasticityType.ByIncome.getFirstRangeName(),
+                viewModel.firstRangeProperty().get());
+        assertEquals(DemandElasticityType.ByIncome.getSecondRangeName(),
+                viewModel.secondRangeProperty().get());
     }
 
     @Test

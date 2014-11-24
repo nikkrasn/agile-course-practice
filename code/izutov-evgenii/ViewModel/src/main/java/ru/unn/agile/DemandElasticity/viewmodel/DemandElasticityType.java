@@ -20,6 +20,16 @@ public enum DemandElasticityType {
         public IPositiveRange getSecondRange(final double start, final double finish) {
             return new PriceRange(start, finish);
         }
+
+        @Override
+        public String getFirstRangeName() {
+            return "Demand range of first good";
+        }
+
+        @Override
+        public String getSecondRangeName() {
+            return "Price range of second good";
+        }
     },
     ByIncome("By income") {
         @Override
@@ -37,6 +47,16 @@ public enum DemandElasticityType {
         @Override
         public IPositiveRange getSecondRange(final double start, final double finish) {
             return new IncomeRange(start, finish);
+        }
+
+        @Override
+        public String getFirstRangeName() {
+            return "Demand range";
+        }
+
+        @Override
+        public String getSecondRangeName() {
+            return "Income range";
         }
     },
     ByPrice("By price") {
@@ -56,6 +76,16 @@ public enum DemandElasticityType {
         public IPositiveRange getSecondRange(final double start, final double finish) {
             return new PriceRange(start, finish);
         }
+
+        @Override
+        public String getFirstRangeName() {
+            return "Demand range";
+        }
+
+        @Override
+        public String getSecondRangeName() {
+            return "Price range";
+        }
     };
 
     private final String name;
@@ -72,4 +102,6 @@ public enum DemandElasticityType {
                                           final IPositiveRange secondRange);
     public abstract IPositiveRange getFirstRange(final double start, final double finish);
     public abstract IPositiveRange getSecondRange(final double start, final double finish);
+    public abstract String getFirstRangeName();
+    public abstract String getSecondRangeName();
 }

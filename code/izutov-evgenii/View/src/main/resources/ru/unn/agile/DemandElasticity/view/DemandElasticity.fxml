@@ -23,7 +23,7 @@
                <children>
                   <VBox>
                      <children>
-                        <Label minWidth="-Infinity" text="First field" HBox.hgrow="ALWAYS">
+                        <Label fx:id="firstRange"  minWidth="-Infinity" text="${viewModel.firstRange}" HBox.hgrow="ALWAYS">
                            <VBox.margin>
                               <Insets bottom="4.0" />
                            </VBox.margin>
@@ -53,7 +53,7 @@
                <children>
                   <VBox>
                      <children>
-                        <Label minWidth="-Infinity" text="Second field" HBox.hgrow="ALWAYS">
+                        <Label fx:id="secondRange" minWidth="-Infinity" text="${viewModel.secondRange}" HBox.hgrow="ALWAYS">
                            <VBox.margin>
                               <Insets bottom="4.0" />
                            </VBox.margin></Label>

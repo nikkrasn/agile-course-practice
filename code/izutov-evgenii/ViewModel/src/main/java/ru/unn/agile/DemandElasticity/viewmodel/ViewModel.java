@@ -29,9 +29,16 @@ public class ViewModel {
     private final StringProperty description = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<TextFieldChangeListener> textFieldChangedListeners = new ArrayList<>();
+
+    private final StringProperty firstRange = new SimpleStringProperty();
+    private final StringProperty secondRange = new SimpleStringProperty();
+
+    private final ComboBoxChangeListener comboBoxChangedListener = new ComboBoxChangeListener();
 
     public ViewModel() {
+        firstRange.set(DemandElasticityType.ByPrice.getFirstRangeName());
+        secondRange.set(DemandElasticityType.ByPrice.getSecondRangeName());
         start1.set("");
         finish1.set("");
         start2.set("");
@@ -60,10 +67,12 @@ public class ViewModel {
         } };
 
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final TextFieldChangeListener listener = new TextFieldChangeListener();
             field.addListener(listener);
-            valueChangedListeners.add(listener);
+            textFieldChangedListeners.add(listener);
         }
+
+        demandElasticityType.addListener(comboBoxChangedListener);
     }
 
     public void calculate() {
@@ -139,6 +148,18 @@ public class ViewModel {
     public final String getStatus() {
         return status.get();
     }
+    public StringProperty firstRangeProperty() {
+        return firstRange;
+    }
+    public final String getFirstRange() {
+        return firstRange.get();
+    }
+    public StringProperty secondRangeProperty() {
+        return secondRange;
+    }
+    public final String getSecondRange() {
+        return secondRange.get();
+    }
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
@@ -171,11 +192,21 @@ public class ViewModel {
         }
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class TextFieldChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
             status.set(getInputStatus().toString());
+        }
+    }
+
+    private class ComboBoxChangeListener implements ChangeListener<DemandElasticityType> {
+        @Override
+        public void changed(final ObservableValue<? extends DemandElasticityType> observable,
+                            final DemandElasticityType oldValue,
+                            final DemandElasticityType newValue) {
+            firstRange.set(newValue.getFirstRangeName());
+            secondRange.set(newValue.getSecondRangeName());
         }
     }
 }

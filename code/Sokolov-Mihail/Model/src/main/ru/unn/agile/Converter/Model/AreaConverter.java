@@ -19,7 +19,9 @@ public final class AreaConverter {
 
     private AreaConverter() { }
 
-    public static double fromTo(final double val, final MeasureOfArea from, final MeasureOfArea to) {
+    public static double fromTo(final double val,
+                                final MeasureOfArea from,
+                                final MeasureOfArea to) {
         if (val < 0) {
             throw new IllegalArgumentException();
         }

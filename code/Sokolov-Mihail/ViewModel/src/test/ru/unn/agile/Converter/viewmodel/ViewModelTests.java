@@ -61,8 +61,10 @@ public class ViewModelTests {
 
     @Test
     public void canCompareMeasuresOfAreaByName() {
-        assertEquals(AreaConverter.MeasureOfArea.SquareMeter, AreaConverter.MeasureOfArea.SquareMeter);
-        assertNotEquals(AreaConverter.MeasureOfArea.SquareMeter, AreaConverter.MeasureOfArea.Are);
+        assertEquals(AreaConverter.MeasureOfArea.SquareMeter,
+                     AreaConverter.MeasureOfArea.SquareMeter);
+        assertNotEquals(AreaConverter.MeasureOfArea.SquareMeter,
+                        AreaConverter.MeasureOfArea.Are);
     }
 
     @Test
@@ -134,41 +136,51 @@ public class ViewModelTests {
     @Test
     public void canSetMeasureOfAreaFrom() {
         viewModel.setMeasureOfAreaFrom(AreaConverter.MeasureOfArea.SquareMeter);
-        assertEquals(AreaConverter.MeasureOfArea.SquareMeter, viewModel.getMeasureOfAreaFrom());
+        assertEquals(AreaConverter.MeasureOfArea.SquareMeter,
+                     viewModel.getMeasureOfAreaFrom());
 
         viewModel.setMeasureOfAreaFrom(AreaConverter.MeasureOfArea.SquareKilometer);
-        assertEquals(AreaConverter.MeasureOfArea.SquareKilometer, viewModel.getMeasureOfAreaFrom());
+        assertEquals(AreaConverter.MeasureOfArea.SquareKilometer,
+                     viewModel.getMeasureOfAreaFrom());
 
         viewModel.setMeasureOfAreaFrom(AreaConverter.MeasureOfArea.Are);
-        assertEquals(AreaConverter.MeasureOfArea.Are, viewModel.getMeasureOfAreaFrom());
+        assertEquals(AreaConverter.MeasureOfArea.Are,
+                     viewModel.getMeasureOfAreaFrom());
 
         viewModel.setMeasureOfAreaFrom(AreaConverter.MeasureOfArea.Hectare);
-        assertEquals(AreaConverter.MeasureOfArea.Hectare, viewModel.getMeasureOfAreaFrom());
+        assertEquals(AreaConverter.MeasureOfArea.Hectare,
+                     viewModel.getMeasureOfAreaFrom());
     }
 
     @Test
     public void canSetMeasureOfAreaTo() {
         viewModel.setMeasureOfAreaTo(AreaConverter.MeasureOfArea.SquareMeter);
-        assertEquals(AreaConverter.MeasureOfArea.SquareMeter, viewModel.getMeasureOfAreaTo());
+        assertEquals(AreaConverter.MeasureOfArea.SquareMeter,
+                     viewModel.getMeasureOfAreaTo());
 
         viewModel.setMeasureOfAreaTo(AreaConverter.MeasureOfArea.SquareKilometer);
-        assertEquals(AreaConverter.MeasureOfArea.SquareKilometer, viewModel.getMeasureOfAreaTo());
+        assertEquals(AreaConverter.MeasureOfArea.SquareKilometer,
+                     viewModel.getMeasureOfAreaTo());
 
         viewModel.setMeasureOfAreaTo(AreaConverter.MeasureOfArea.Are);
-        assertEquals(AreaConverter.MeasureOfArea.Are, viewModel.getMeasureOfAreaTo());
+        assertEquals(AreaConverter.MeasureOfArea.Are,
+                     viewModel.getMeasureOfAreaTo());
 
         viewModel.setMeasureOfAreaTo(AreaConverter.MeasureOfArea.Hectare);
-        assertEquals(AreaConverter.MeasureOfArea.Hectare, viewModel.getMeasureOfAreaTo());
+        assertEquals(AreaConverter.MeasureOfArea.Hectare,
+                     viewModel.getMeasureOfAreaTo());
     }
 
     @Test
     public void isDefaultMeasureOfAreaToSquareMeter() {
-        assertEquals(AreaConverter.MeasureOfArea.SquareMeter, viewModel.getMeasureOfAreaTo());
+        assertEquals(AreaConverter.MeasureOfArea.SquareMeter,
+                     viewModel.getMeasureOfAreaTo());
     }
 
     @Test
     public void isDefaultMeasureOfAreaFromSquareMeter() {
-        assertEquals(AreaConverter.MeasureOfArea.SquareMeter, viewModel.getMeasureOfAreaFrom());
+        assertEquals(AreaConverter.MeasureOfArea.SquareMeter,
+                viewModel.getMeasureOfAreaFrom());
     }
 
     @Test

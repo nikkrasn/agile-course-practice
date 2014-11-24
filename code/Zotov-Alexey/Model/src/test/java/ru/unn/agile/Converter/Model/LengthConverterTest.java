@@ -34,6 +34,13 @@ public class LengthConverterTest {
     }
 
     @Test
+    public void isCorrectConvertationMToMile() {
+        double m = 2.;
+        double mile = convertFromTo(Measure.METER, Measure.MILE, m);
+        assertEquals(mile, 2. / 1609.344, DELTA);
+    }
+
+    @Test
     public void isCorrectConvertationKmToMile() {
         double km = 2.;
         double mile = convertFromTo(Measure.KILOMETER, Measure.MILE, km);

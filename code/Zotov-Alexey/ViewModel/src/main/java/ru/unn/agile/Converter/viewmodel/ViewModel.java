@@ -75,16 +75,10 @@ public class ViewModel {
         this.inputValue = inputValue;
     }
 
-
-
     private void enterPressed() {
         if (isConvertButtonEnabled()) {
             convert();
         }
-    }
-
-    private boolean isInputAvailable() {
-        return !inputValue.isEmpty();
     }
 
     private boolean parseInput() {
@@ -105,7 +99,7 @@ public class ViewModel {
             result = e.getMessage();
             return false;
         }
-        isConvertButtonEnabled = isInputAvailable();
+        isConvertButtonEnabled = !inputValue.isEmpty();
         return isConvertButtonEnabled;
     }
 }

@@ -14,7 +14,7 @@ public class ViewModel {
 
     private final StringProperty status = new SimpleStringProperty();
 
-    private ValueChangeListener listener = null;
+    private InputChangeListener listener = null;
     private double[] unsortedArray = new double[0];
 
     public ViewModel() {
@@ -33,7 +33,7 @@ public class ViewModel {
         };
         sortingDisabled.bind(couldCalculate.not());
 
-        listener = new ValueChangeListener();
+        listener = new InputChangeListener();
         unsortedValues.addListener(listener);
     }
 
@@ -107,7 +107,7 @@ public class ViewModel {
         }
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class InputChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
@@ -117,10 +117,10 @@ public class ViewModel {
 }
 
 enum Status {
-    WAITING("Please provide input values separated with SPACE"),
     READY("Press 'Sort' or Enter"),
     BAD_FORMAT("Bad format"),
-    SUCCESS("Success");
+    SUCCESS("Success"),
+    WAITING("Please provide input values separated with SPACE");
 
     private final String name;
     private Status(final String name) {

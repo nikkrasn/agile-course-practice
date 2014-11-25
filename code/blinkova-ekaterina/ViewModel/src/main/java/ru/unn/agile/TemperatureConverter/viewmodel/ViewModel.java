@@ -17,6 +17,57 @@ public class ViewModel {
         isConvertButtonEnable = false;
     }
 
+    public void convert() {
+        if (!parseInput()) {
+            return;
+        }
+
+        TemperatureConverter converter = new TemperatureConverter();
+        double temperature;
+
+        double input = Double.parseDouble(inputValue);
+
+        switch (scale) {
+            case FAHRENHEIT:
+                temperature = converter.celsiusToFahrenheit(input);
+                break;
+            case KELVIN:
+                temperature = converter.celsiusToKelvin(input);
+                break;
+            case NEWTON:
+                temperature = converter.celsiusToNewton(input);
+                break;
+            default:
+                throw new IllegalArgumentException("You can use only Fahrenheit, Kelvin or Newton");
+        }
+
+        result = Double.toString(temperature);
+        status = Status.SUCCESS;
+    }
+
+    public boolean parseInput() {
+        try {
+            if (inputValue.isEmpty()) {
+                return false;
+            } else {
+                Double.parseDouble(inputValue);
+            }
+        } catch (Exception e) {
+            status = Status.WRONG_FORMAT;
+            isConvertButtonEnable = false;
+            return false;
+        }
+
+        if (inputValue.isEmpty()) {
+            isConvertButtonEnable = false;
+            status = Status.WAITING;
+        } else {
+            isConvertButtonEnable = true;
+            status = Status.READY;
+        }
+        return isConvertButtonEnable;
+    }
+
     public String getInputValue() {
         return inputValue;
     }
@@ -47,64 +98,6 @@ public class ViewModel {
 
     public void setScale(final Scale scale) {
         this.scale = scale;
-    }
-
-    public void convert() {
-        if (!parseInput()) {
-           return;
-       }
-
-        TemperatureConverter converter = new TemperatureConverter();
-        double temperature;
-
-        double input = Double.parseDouble(inputValue);
-
-        switch (scale) {
-            case FAHRENHEIT:
-                temperature = converter.celsiusToFahrenheit(input);
-                break;
-            case KELVIN:
-                temperature = converter.celsiusToKelvin(input);
-                break;
-            case NEWTON:
-                temperature = converter.celsiusToNewton(input);
-                break;
-            default:
-                throw new IllegalArgumentException("You can use only Fahrenheit, Kelvin or Newton");
-        }
-
-        result = Double.toString(temperature);
-        status = Status.SUCCESS;
-    }
-
-    public void processKeyInTextField() {
-        parseInput();
-    }
-
-
-    private boolean isInputValueNotEmpty() {
-        return !inputValue.isEmpty();
-    }
-
-    private boolean parseInput() {
-        try {
-            if (isInputValueNotEmpty()) {
-                Double.parseDouble(inputValue);
-            }
-        } catch (Exception e) {
-            status = Status.WRONG_FORMAT;
-            isConvertButtonEnable = false;
-            return false;
-        }
-
-        isConvertButtonEnable = isInputValueNotEmpty();
-
-        if (isConvertButtonEnable) {
-            status = Status.READY;
-        } else {
-            status = Status.WAITING;
-        }
-        return isConvertButtonEnable;
     }
 
     public final class Status {

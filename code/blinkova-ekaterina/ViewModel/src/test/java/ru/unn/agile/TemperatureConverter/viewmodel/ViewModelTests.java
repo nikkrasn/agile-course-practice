@@ -128,21 +128,21 @@ public class ViewModelTests {
     @Test
     public void ifGoodInputValueThenStatusReady() {
         viewModel.setInputValue("1.0");
-        viewModel.processKeyInTextField();
+        viewModel.parseInput();
         assertEquals(Status.READY, viewModel.getStatus());
     }
 
     @Test
     public void isConvertButtonEnableWithCorrectInput() {
         viewModel.setInputValue("1.0");
-        viewModel.processKeyInTextField();
+        viewModel.parseInput();
         assertEquals(true, viewModel.isConvertButtonEnabled());
     }
 
     @Test
     public void isConvertButtonDisableWithIncorrectInput() {
         viewModel.setInputValue("q");
-        viewModel.processKeyInTextField();
+        viewModel.parseInput();
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 

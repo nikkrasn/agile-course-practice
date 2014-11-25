@@ -9,7 +9,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public final class Converter {
-
     private JPanel mainJPanel;
     private JTextField txtValue;
     private JTextField txtResult;
@@ -47,7 +46,7 @@ public final class Converter {
             @Override
             public void keyReleased(final KeyEvent keyEvent) {
                 bind();
-                viewModel.processKeyInTextField();
+                viewModel.parseInput();
                 backBind();
             }
         };

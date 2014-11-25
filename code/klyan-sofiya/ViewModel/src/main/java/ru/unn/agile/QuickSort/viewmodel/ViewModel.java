@@ -98,8 +98,14 @@ public class ViewModel {
     }
 
     private Status getInputStatus() {
-        if (unsortedValues.get().isEmpty()) { return Status.WAITING; }
-        else { return parseInputValues(); }
+        Status status;
+        if (unsortedValues.get().isEmpty()) {
+            status = Status.WAITING;
+        }
+        else {
+            status = parseInputValues();
+        }
+        return status;
     }
 
     private class InputChangeListener implements ChangeListener<String> {

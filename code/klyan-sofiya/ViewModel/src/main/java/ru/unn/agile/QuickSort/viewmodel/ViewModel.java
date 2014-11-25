@@ -101,7 +101,7 @@ public class ViewModel {
         if (unsortedValues.get().isEmpty()) {
             return Status.WAITING;
         }
-        return parseInputValues();       
+        return parseInputValues();
     }
 
     private class InputChangeListener implements ChangeListener<String> {

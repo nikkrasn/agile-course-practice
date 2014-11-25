@@ -2,7 +2,6 @@ package ru.unn.agile.Converter.view;
 
 import ru.unn.agile.Converter.Model.AreaConverter.Measures;
 import ru.unn.agile.Converter.viewmodel.ViewModel;
-
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -37,7 +36,7 @@ public final class SimpleAreaConverter {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
-                SimpleAreaConverter.this.viewModel.convert();
+                viewModel.convert();
                 backBind();
             }
         });
@@ -49,7 +48,6 @@ public final class SimpleAreaConverter {
                 backBind();
             }
         });
-
         cbTo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -61,7 +59,7 @@ public final class SimpleAreaConverter {
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 bind();
-                SimpleAreaConverter.this.viewModel.processKeyInTextField();
+                viewModel.processKeyInTextField();
                 backBind();
             }
         };
@@ -76,14 +74,12 @@ public final class SimpleAreaConverter {
 
     private void bind() {
         viewModel.setValue(tbValue.getText());
-
         viewModel.setMeasureOfAreaFrom((Measures) cbFrom.getSelectedItem());
         viewModel.setMeasureOfAreaTo((Measures) cbTo.getSelectedItem());
     }
 
     private void backBind() {
         btnConvert.setEnabled(viewModel.isCalculateButtonEnabled());
-
         tbResult.setText(viewModel.getResult());
     }
 }

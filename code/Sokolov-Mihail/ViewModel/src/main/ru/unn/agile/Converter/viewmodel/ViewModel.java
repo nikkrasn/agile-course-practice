@@ -9,7 +9,6 @@ public class ViewModel {
     private Measures measureTo;
     private String result;
     private boolean isCalculateButtonEnabled;
-
     private double dvalue;
 
     public ViewModel() {
@@ -26,10 +25,6 @@ public class ViewModel {
     }
 
     public void setValue(final String value) {
-        if (value.equals(this.value)) {
-            return;
-        }
-
         this.value = value;
     }
 
@@ -42,9 +37,7 @@ public class ViewModel {
     }
 
     public void setMeasureOfAreaFrom(final Measures measure) {
-        if (this.measureFrom != measure) {
-            this.measureFrom = measure;
-        }
+        this.measureFrom = measure;
     }
 
     public Measures getMeasureOfAreaTo() {
@@ -52,9 +45,7 @@ public class ViewModel {
     }
 
     public void setMeasureOfAreaTo(final Measures measure) {
-        if (this.measureTo != measure) {
-            this.measureTo = measure;
-        }
+        this.measureTo = measure;
     }
 
     public String getResult() {

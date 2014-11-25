@@ -69,8 +69,7 @@ public class ViewModel {
         return status.get();
     }
 
-    private String createOutputFromArray (double[] values)
-    {
+    private String createOutputFromArray(final double[] values) {
         String output = "";
         if (values.length > 0) {
             for (int i = 0; i < values.length - 1; i++) {
@@ -81,7 +80,7 @@ public class ViewModel {
         return output;
     }
 
-    private Status parseInputValues () {
+    private Status parseInputValues() {
         Status inputStatus = Status.READY;
         String[] splitValues = unsortedValues.get().split(" ");
         unsortedArray = new double[splitValues.length];
@@ -102,9 +101,7 @@ public class ViewModel {
         if (unsortedValues.get().isEmpty()) {
             return Status.WAITING;
         }
-        else {
-            return parseInputValues();
-        }
+        else return parseInputValues();
     }
 
     private class InputChangeListener implements ChangeListener<String> {

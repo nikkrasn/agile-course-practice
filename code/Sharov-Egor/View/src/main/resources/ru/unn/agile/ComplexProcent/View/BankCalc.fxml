@@ -7,17 +7,15 @@
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.ComplexProcent.ViewModel.*?>
 
-
-
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="ru.unn.agile.ComplexProcent.View.ComplexPercent">
+<AnchorPane prefHeight="411.0" prefWidth="588.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ComplexProcent.View.ComplexPercent">
    <fx:define>
       <ViewModel fx:id="viewModel" />
    </fx:define>
    <children>
-      <Button fx:id="btnCount" layoutX="85.0" layoutY="326.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Расчитать" />
-      <Label layoutX="392.0" layoutY="323.0" text="Сумма">
+      <Button fx:id="btnCount" layoutX="83.0" layoutY="310.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="133.0" text="Рассчитать" disable="${viewModel.calculationDisabled}"/>
+      <Label fx:id="lbResult" layoutX="391.0" layoutY="307.0" text="${viewModel.result}">
          <font>
-            <Font size="27.0" />
+            <Font size="18.0" />
          </font>
       </Label>
       <HBox layoutX="24.0" layoutY="25.0" prefHeight="263.0" prefWidth="564.0">
@@ -66,5 +64,6 @@
             </VBox>
          </children>
       </HBox>
+      <Label fx:id="lblStatus" layoutX="183.0" layoutY="369.0" text="${viewModel.status}" />
    </children>
 </AnchorPane>

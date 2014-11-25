@@ -4,42 +4,133 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="495.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="ru.unn.agile.LeftistHeap.view.LeftistHeap">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.LeftistHeap.view.LeftistHeap">
    <children>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="368.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" text="Add" />
-            <Label text="Key:" />
-            <TextField />
-            <Label text="Value:" />
-            <TextField />
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="368.0" prefWidth="310.0" style="-fx-border-color: red;">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Button mnemonicParsing="false" text="Add" />
+                        <VBox prefHeight="100.0" prefWidth="261.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Key:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Value:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="85.0" prefWidth="304.0" style="-fx-background-color: grey;">
+                     <children>
+                        <Button mnemonicParsing="false" text="Get minimum" />
+                        <Label text="Label" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="250.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Delete" />
+                        <Label text="Key: " />
+                        <TextField />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: grey;">
+                     <children>
+                        <Button mnemonicParsing="false" text="Decrease key" />
+                        <VBox prefHeight="100.0" prefWidth="208.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Key:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="New key:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Merge with right heap" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="368.0" prefWidth="304.0" style="-fx-border-color: red;">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+                     <children>
+                        <Button mnemonicParsing="false" text="Add" />
+                        <VBox prefHeight="100.0" prefWidth="236.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Key:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Value:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="85.0" prefWidth="257.0" style="-fx-background-color: grey;">
+                     <children>
+                        <Button mnemonicParsing="false" text="Get minimum" />
+                        <Label text="Label" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="294.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Delete" />
+                        <Label text="Key: " />
+                        <TextField />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: grey;">
+                     <children>
+                        <Button mnemonicParsing="false" text="Decrease key" />
+                        <VBox prefHeight="100.0" prefWidth="208.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Key:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="New key:" />
+                                    <TextField />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" text="Merge with left heap" />
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: grey;">
-         <children>
-            <Button mnemonicParsing="false" text="Get minimum" />
-            <Label text="Label" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Button mnemonicParsing="false" text="Delete" />
-            <Label text="Key: " />
-            <TextField />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: grey;">
-         <children>
-            <Button mnemonicParsing="false" text="Decrease key" />
-            <Label text="Key:" />
-            <TextField />
-            <Label text="New key:" />
-            <TextField />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="38.0" prefWidth="600.0">
          <children>
             <Label text="Status" />
          </children>

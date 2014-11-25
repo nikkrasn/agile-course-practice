@@ -45,7 +45,7 @@ public class ViewModelTests {
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
-    
+
     @Test
     public void sortButtonIsDisabledInitially() {
         assertTrue(viewModel.sortingDisabledProperty().get());
@@ -53,12 +53,11 @@ public class ViewModelTests {
 
     @Test
     public void sortButtonIsDisabledWhenFormatIsBad() {
-        
         viewModel.unsortedArrayProperty().set("trash");
 
         assertTrue(viewModel.sortingDisabledProperty().get());
     }
-    
+
     @Test
     public void sortButtonIsEnabledWithCorrectInput() {
         setCorrectInputData();

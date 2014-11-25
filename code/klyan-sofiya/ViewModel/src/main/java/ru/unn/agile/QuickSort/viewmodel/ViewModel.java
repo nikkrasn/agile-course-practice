@@ -14,7 +14,7 @@ public class ViewModel {
 
     private final StringProperty status = new SimpleStringProperty();
 
-    private InputChangeListener listener = null;
+    private final InputChangeListener listener;
     private double[] unsortedArray = new double[0];
 
     public ViewModel() {

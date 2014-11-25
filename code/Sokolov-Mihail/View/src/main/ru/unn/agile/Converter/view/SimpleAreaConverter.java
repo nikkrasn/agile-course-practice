@@ -10,14 +10,12 @@ public final class SimpleAreaConverter {
     private JComboBox<Measures> cbFrom;
     private JComboBox<Measures> cbTo;
     private JTextField tbResult;
-
     private JButton btnConvert;
     private JPanel mainPanel;
     private ViewModel viewModel;
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Simple area converter");
-
         frame.setContentPane(new SimpleAreaConverter(new ViewModel()).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

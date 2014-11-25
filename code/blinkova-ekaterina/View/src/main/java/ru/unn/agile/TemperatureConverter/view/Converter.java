@@ -53,8 +53,6 @@ public final class Converter {
         txtValue.addKeyListener(keyListener);
    }
 
-
-
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Converter");
         frame.setContentPane(new Converter(new ViewModel()).mainJPanel);

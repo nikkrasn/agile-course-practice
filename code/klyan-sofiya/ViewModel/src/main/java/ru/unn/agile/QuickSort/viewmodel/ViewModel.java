@@ -14,7 +14,6 @@ public class ViewModel {
 
     private final StringProperty status = new SimpleStringProperty();
 
-    private final InputChangeListener listener;
     private double[] unsortedArray = new double[0];
 
     public ViewModel() {
@@ -33,7 +32,7 @@ public class ViewModel {
         };
         sortingDisabled.bind(couldCalculate.not());
 
-        listener = new InputChangeListener();
+        InputChangeListener listener = new InputChangeListener();
         unsortedValues.addListener(listener);
     }
 

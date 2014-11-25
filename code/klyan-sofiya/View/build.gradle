@@ -1,7 +1,7 @@
 apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
 
 dependencies {
-
+	compile project(':klyan-sofiya-ViewModel')
 }
 
 sourceSets {

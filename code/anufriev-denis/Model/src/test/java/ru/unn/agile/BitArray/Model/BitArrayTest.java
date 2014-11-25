@@ -1,4 +1,4 @@
-package ru.unn.agile.BitArray.Model;
+package ru.unn.agile.BitArray.model;
 
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canSetLastBit() {
+      public void canSetLastBit() {
         BitArray array = new BitArray(32);
 
         array.setBit(31);
@@ -54,6 +54,52 @@ public class BitArrayTest {
         BitArray array = new BitArray(30);
 
         array.setBit(31);
+    }
+
+    @Test
+    public void canSetBits() {
+        BitArray array = new BitArray(6);
+        String str = "111001";
+
+        array.setBits(str.toCharArray());
+
+        assertEquals("111001", array.toString());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cantSetOutOfArrayBits() {
+        BitArray array = new BitArray(6);
+        String str = "1110011";
+
+        array.setBits(str.toCharArray());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cantSetIncorrectBits() {
+        BitArray array = new BitArray(6);
+        String str = "abcdef";
+
+        array.setBits(str.toCharArray());
+    }
+
+    @Test
+    public void canFormatToString() {
+        BitArray array = new BitArray(6);
+        String str = "111001";
+        array.setBits(str.toCharArray());
+
+        String result = array.toString();
+
+        assertEquals("111001", result);
+    }
+
+    @Test
+    public void canFormatEmptyArrayToString() {
+        BitArray array = new BitArray(6);
+
+        String result = array.toString();
+
+        assertEquals("000000", result);
     }
 
     @Test

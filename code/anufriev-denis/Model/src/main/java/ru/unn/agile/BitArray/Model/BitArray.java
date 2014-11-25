@@ -1,4 +1,4 @@
-package ru.unn.agile.BitArray.Model;
+package ru.unn.agile.BitArray.model;
 
 public class BitArray {
 
@@ -38,6 +38,19 @@ public class BitArray {
         bitMask = ~bitMask;
 
         this.array[intArrayIndex] = this.array[intArrayIndex] & bitMask;
+        return this;
+    }
+
+    public BitArray setBits(final char[] array) {
+        checkOutOfArray(array.length - 1);
+        checkStringCorrectness(array);
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == '1') {
+                this.setBit(i);
+            } else {
+                this.clearBit(i);
+            }
+        }
         return this;
     }
 
@@ -81,9 +94,58 @@ public class BitArray {
         return this;
     }
 
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < this.size; i++) {
+            if (this.get(i)) {
+                result += "1";
+            } else {
+                result += "0";
+            }
+        }
+        return result;
+    }
+
+    public enum Operation {
+        AND("And") {
+            public BitArray apply(final BitArray l, final BitArray r) {
+                return l.and(r);
+            }
+        },
+        OR("Or") {
+            public BitArray apply(final BitArray l, final BitArray r) {
+                return l.or(r);
+            }
+        },
+        XOR("Xor") {
+            public BitArray apply(final BitArray l, final BitArray r) {
+                return l.xor(r);
+            }
+        };
+
+        private final String name;
+        Operation(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        public abstract BitArray apply(final BitArray l, final BitArray r);
+    }
+
     private void checkOutOfArray(final int index) {
         if (index >= this.size || index < 0) {
             throw new IllegalArgumentException("Out of array");
+        }
+    }
+
+    private void checkStringCorrectness(final char[] array) {
+        String s = String.copyValueOf(array);
+        if (!s.matches("(0|1)*")) {
+            throw new IllegalArgumentException("String should consist of following characters:0,1");
         }
     }
 

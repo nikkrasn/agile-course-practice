@@ -13,7 +13,6 @@ import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
 import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewModel {
     private final StringProperty inputValue = new SimpleStringProperty("");
@@ -33,8 +32,6 @@ public class ViewModel {
 
     private final StringProperty status =
             new SimpleStringProperty(ViewModelStatus.WAITING.toString());
-
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     // FXML needs default c-tor for binding
     public ViewModel() {
@@ -57,7 +54,13 @@ public class ViewModel {
         convertButtonDisabled.bind(couldCalculate.not());
 
         // Add listener to the input text field
-        final ValueChangeListener inputValueListener = new ValueChangeListener();
+        final ChangeListener<String> inputValueListener = new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue, final String newValue) {
+                status.set(getInputStatus().toString());
+            }
+        };
         inputValue.addListener(inputValueListener);
     }
 
@@ -151,12 +154,19 @@ public class ViewModel {
         }
         return inputStatus;
     }
+}
 
-    private class ValueChangeListener implements ChangeListener<String> {
-        @Override
-        public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
-        }
+enum ViewModelStatus {
+    WAITING("Please enter amount of money"),
+    READY("Please select convert mode and press 'Convert'"),
+    BAD_FORMAT("Bad format"),
+    SUCCESS("Success");
+
+    private final String name;
+    private ViewModelStatus(final String name) {
+        this.name = name;
+    }
+    public String toString() {
+        return name;
     }
 }

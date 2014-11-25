@@ -35,6 +35,10 @@ project(":code/kornyakov-kirill-lab2/View").name = "kornyakov-kirill-lab2-View"
 // Abramov Dmitry
 include "code/abramov-dmitry/Model"
 project(":code/abramov-dmitry/Model").name = "abramov-dmitry-Model"
+include "code/abramov-dmitry/ViewModel"
+project(":code/abramov-dmitry/ViewModel").name = "abramov-dmitry-ViewModel"
+include "code/abramov-dmitry/View"
+project(":code/abramov-dmitry/View").name = "abramov-dmitry-View"
 
 // Anufriev Denis
 include "code/anufriev-denis/Model"

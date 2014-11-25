@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="495.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="ru.unn.agile.LeftistHeap.view.LeftistHeap">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
+         <children>
+            <Button mnemonicParsing="false" text="Add" />
+            <Label text="Key:" />
+            <TextField />
+            <Label text="Value:" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: grey;">
+         <children>
+            <Button mnemonicParsing="false" text="Get minimum" />
+            <Label text="Label" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" text="Delete" />
+            <Label text="Key: " />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: grey;">
+         <children>
+            <Button mnemonicParsing="false" text="Decrease key" />
+            <Label text="Key:" />
+            <TextField />
+            <Label text="New key:" />
+            <TextField />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Status" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

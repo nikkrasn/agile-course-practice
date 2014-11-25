@@ -1,0 +1,9 @@
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
+
+javafx {
+    mainClass 'ru.unn.agile.BitArray.viewModel.ViewModel'
+}
+
+dependencies {
+    compile project(':anufriev-denis-Model')
+}

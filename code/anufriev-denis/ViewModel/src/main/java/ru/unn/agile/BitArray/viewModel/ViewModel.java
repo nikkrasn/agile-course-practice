@@ -1,0 +1,216 @@
+package ru.unn.agile.BitArray.viewModel;
+
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import ru.unn.agile.BitArray.model.BitArray;
+import ru.unn.agile.BitArray.model.BitArray.Operation;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
+import static java.lang.Math.max;
+
+public class ViewModel {
+    private static final int ARRAYS_COUNT = 3;
+    private final ObjectProperty<ObservableList<Operation>> operations =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
+    private final ObjectProperty<Operation> operation1 = new SimpleObjectProperty<>();
+    private final ObjectProperty<Operation> operation2 = new SimpleObjectProperty<>();
+    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    private final StringProperty result = new SimpleStringProperty();
+    private final StringProperty status = new SimpleStringProperty();
+    private final Vector<StringProperty> arrays = new Vector<>();
+
+    private int arraysSize;
+
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+
+    private class ValueChangeListener implements ChangeListener<String> {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getInputStatus().toString());
+
+        }
+    }
+
+    public ViewModel() {
+        arraysSize = 0;
+        for (int i = 0; i < ARRAYS_COUNT; i++) {
+            arrays.add(new SimpleStringProperty(""));
+        }
+        operation1.set(Operation.AND);
+        operation2.set(Operation.OR);
+        result.set("");
+        status.set(Status.WAITING.toString());
+
+        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+            for (StringProperty array : arrays) {
+                add(array);
+            }
+        } };
+
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(arrays.get(0), arrays.get(1), arrays.get(2));
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == Status.READY;
+            }
+        };
+        calculationDisabled.bind(couldCalculate.not());
+
+        addListenersToInputTextFields(fields);
+    }
+
+    public void performNot(final int buttonNum) {
+        if (arrays.get(buttonNum).get().isEmpty()) {
+            return;
+        }
+
+        arraysSize = getArraysSize();
+
+        BitArray bitArray = new BitArray(arraysSize);
+        bitArray.setBits(arrays.get(buttonNum).get().toCharArray());
+
+        arrays.get(buttonNum).set(bitArray.not().toString());
+
+    }
+
+    public void calculate() {
+        if (calculationDisabled.get()) {
+            return;
+        }
+
+        arraysSize = getArraysSize();
+
+        BitArray b1 = new BitArray(arraysSize);
+        BitArray b2 = new BitArray(arraysSize);
+        BitArray res = new BitArray(arraysSize);
+        b1.setBits(arrays.get(0).get().toCharArray());
+        b2.setBits(arrays.get(1).get().toCharArray());
+
+        res = operation1.get().apply(b1, b2);
+
+        if (getArrayInputStatus(arrays.get(2)) == Status.READY) {
+            BitArray b3 = new BitArray(arraysSize);
+            b3.setBits(arrays.get(2).get().toCharArray());
+
+            result.set(operation2.get().apply(res, b3).toString());
+        } else {
+            result.set(res.toString());
+        }
+
+        status.set(Status.SUCCESS.toString());
+    }
+
+    public StringProperty array1Property() {
+        return arrays.get(0);
+    }
+    public StringProperty array2Property() {
+        return arrays.get(1);
+    }
+    public StringProperty array3Property() {
+        return arrays.get(2);
+    }
+
+    public ObjectProperty<ObservableList<Operation>> operationsProperty() {
+        return operations;
+    }
+
+    public final ObservableList<Operation> getOperations() {
+        return operations.get();
+    }
+
+    public ObjectProperty<Operation> operation1Property() {
+        return operation1;
+    }
+    public ObjectProperty<Operation> operation2Property() {
+        return operation2;
+    }
+    public BooleanProperty calculationDisabledProperty() {
+        return calculationDisabled;
+    }
+    public final boolean getCalculationDisabled() {
+        return calculationDisabled.get();
+    }
+
+    public final String getStatus() {
+        return status.get();
+    }
+    public StringProperty statusProperty() {
+        return status;
+    }
+    public final String getResult() {
+        return result.get();
+    }
+    public StringProperty resultProperty() {
+        return result;
+    }
+
+    private Status getInputStatus() {
+        Status inputStatus = Status.READY;
+        if (arrays.get(0).get().isEmpty() || arrays.get(1).get().isEmpty()) {
+            inputStatus = Status.WAITING;
+        }
+
+        if (!arrays.get(0).get().isEmpty() && !arrays.get(0).get().matches("(0|1)*")) {
+            inputStatus = Status.BAD_FORMAT;
+        }
+        if (!arrays.get(1).get().isEmpty() && !arrays.get(1).get().matches("(0|1)*")) {
+            inputStatus = Status.BAD_FORMAT;
+        }
+        if (!arrays.get(2).get().isEmpty() && !arrays.get(2).get().matches("(0|1)*")) {
+            inputStatus = Status.BAD_FORMAT;
+        }
+
+        return inputStatus;
+    }
+
+    private int getArraysSize() {
+        return max(max(arrays.get(0).get().length(), arrays.get(1).get().length()),
+                arrays.get(2).get().length());
+    }
+
+    private Status getArrayInputStatus(final StringProperty array) {
+        Status inputStatus = Status.READY;
+        if (array.get().isEmpty()) {
+            inputStatus = Status.WAITING;
+        }
+
+        if (!array.get().isEmpty() && !array.get().matches("(0|1)*")) {
+            inputStatus = Status.BAD_FORMAT;
+        }
+
+        return inputStatus;
+    }
+
+    private void addListenersToInputTextFields(final List<StringProperty> fields) {
+        for (StringProperty field : fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
+    }
+}
+
+enum Status {
+    WAITING("Please input data to text fields"),
+    READY("Press 'Calculate' or Enter"),
+    BAD_FORMAT("Bad format of BitArray"),
+    SUCCESS("Complete");
+
+    private final String name;
+    private Status(final String name) {
+        this.name = name;
+    }
+    public String toString() {
+        return name;
+    }
+}

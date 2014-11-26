@@ -1,7 +1,7 @@
 package ru.unn.agile.DemandElasticity.Model;
 
 public enum GoodsPairType {
-    Undefined("Demand is undefined"),
+    Undefined("Type of goods pair is undefined"),
     Substitute("Substitute good"),
     Complementary("Complementary good"),
     Independent("Independent goods");

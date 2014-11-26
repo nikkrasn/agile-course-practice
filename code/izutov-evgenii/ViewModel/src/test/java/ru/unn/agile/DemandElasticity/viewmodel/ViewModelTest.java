@@ -167,7 +167,7 @@ public class ViewModelTest {
 
         viewModel.calculate();
 
-        assertEquals("Demand is undefined", viewModel.descriptionProperty().get());
+        assertEquals(DemandType.Undefined.toString(), viewModel.descriptionProperty().get());
     }
 
     @Test

@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
+    private static final DemandElasticityType DEFAULT_DEMAND_ELASTICITY_TYPE =
+            DemandElasticityType.ByPrice;
+    private static final String DEFAULT_TEXT_VALUE = "";
+
     private final StringProperty start1 = new SimpleStringProperty();
     private final StringProperty finish1 = new SimpleStringProperty();
     private final StringProperty start2 = new SimpleStringProperty();
@@ -37,15 +41,15 @@ public class ViewModel {
     private final ComboBoxChangeListener comboBoxChangedListener = new ComboBoxChangeListener();
 
     public ViewModel() {
-        firstRange.set(DemandElasticityType.ByPrice.getFirstRangeName());
-        secondRange.set(DemandElasticityType.ByPrice.getSecondRangeName());
-        start1.set("");
-        finish1.set("");
-        start2.set("");
-        finish2.set("");
-        demandElasticityType.set(DemandElasticityType.ByPrice);
-        result.set("");
-        description.set("");
+        firstRange.set(DEFAULT_DEMAND_ELASTICITY_TYPE.getFirstRangeName());
+        secondRange.set(DEFAULT_DEMAND_ELASTICITY_TYPE.getSecondRangeName());
+        start1.set(DEFAULT_TEXT_VALUE);
+        finish1.set(DEFAULT_TEXT_VALUE);
+        start2.set(DEFAULT_TEXT_VALUE);
+        finish2.set(DEFAULT_TEXT_VALUE);
+        demandElasticityType.set(DEFAULT_DEMAND_ELASTICITY_TYPE);
+        result.set(DEFAULT_TEXT_VALUE);
+        description.set(DEFAULT_TEXT_VALUE);
         status.set(Status.WAITING.toString());
 
         BooleanBinding couldCalculate = new BooleanBinding() {

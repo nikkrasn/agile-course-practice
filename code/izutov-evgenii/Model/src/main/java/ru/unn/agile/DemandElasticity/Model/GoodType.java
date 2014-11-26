@@ -1,7 +1,7 @@
 package ru.unn.agile.DemandElasticity.Model;
 
 public enum GoodType {
-    Undefined("Demand is undefined"),
+    Undefined("Type of good is undefined"),
     Luxury("luxury item"),
     FirstNeed("Essential goods"),
     Inferior("Inferior good"),

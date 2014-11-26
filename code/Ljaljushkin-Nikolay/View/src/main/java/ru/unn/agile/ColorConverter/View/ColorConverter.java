@@ -1,4 +1,4 @@
-package ru.unn.agile.ColorConverter.View;
+package ru.unn.agile.ColorConverter.view;
 
 //import javafx.event.ActionEvent;
 //import javafx.event.EventHandler;
@@ -7,16 +7,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 // import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
-// import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
+
+//import ru.unn.agile.ColorConverter.viewmodel.ViewModel;
 
 public class ColorConverter {
 
     @FXML
-    private TextField txtFirstChannel;
+    private TextField txtFirstChannelSrcColor;
     @FXML
-    private TextField txtSecondChannel;
+    private TextField txtSecondChannelSrcColor;
     @FXML
-    private TextField txtThirdChannel;
+    private TextField txtThirdChannelSrcColor;
 
     @FXML
     private TextField txtRgbR;
@@ -48,6 +49,6 @@ public class ColorConverter {
 
     @FXML
     void initialize() {
-        //txtFirstChannel.setTooltip(new Tooltip("0 to 255"));
+        //txtFirstChannelSrcColor.setTooltip(new Tooltip("0 to 255"));
     }
 }

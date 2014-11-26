@@ -1,6 +1,6 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.HsvConverter;
+import ru.unn.agile.ColorConverter.model.Converters.HsvConverter;
 
 public class Hsv extends ColorSpace {
 

@@ -1,6 +1,6 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.XyzConverter;
+import ru.unn.agile.ColorConverter.model.Converters.XyzConverter;
 
 public class Xyz extends ColorSpace {
 

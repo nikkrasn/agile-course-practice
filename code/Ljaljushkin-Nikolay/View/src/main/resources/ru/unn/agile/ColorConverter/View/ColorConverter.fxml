@@ -4,8 +4,12 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import ru.unn.agile.ColorConverter.viewmodel.*?>
 
-<AnchorPane prefHeight="173.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ColorConverter.View.ColorConverter">
+<AnchorPane prefHeight="173.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ColorConverter.view.ColorConverter">
+   <fx:define>
+       <ViewModel fx:id="viewModel" />
+   </fx:define>
    <children>
       <HBox alignment="TOP_CENTER" prefHeight="141.0" prefWidth="687.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -16,19 +20,19 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="R" />
-                        <TextField fx:id="txtFirstChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
+                        <TextField fx:id="txtSrcFirstChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="G" />
-                        <TextField fx:id="txtSecondChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
+                        <TextField fx:id="txtSrcSecondChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
-                        <TextField fx:id="txtThirdChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
+                        <TextField fx:id="txtSrcThirdChannel" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" text="0" />
                      </children>
                   </HBox>
                </children>
@@ -42,7 +46,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="L" />
-                        <TextField fx:id="txtLabL" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstLabL" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -51,7 +55,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="A" />
-                        <TextField fx:id="txtLabA" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstLabA" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -60,7 +64,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
-                        <TextField fx:id="txtLabB" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstLabB" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -77,7 +81,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="H" />
-                        <TextField fx:id="txtHsvH" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstHsvH" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -86,7 +90,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="S" />
-                        <TextField fx:id="txtHsvS" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstHsvS" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -95,7 +99,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="V" />
-                        <TextField fx:id="txtHsvV" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstHsvV" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -112,7 +116,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="R" />
-                        <TextField fx:id="txtRgbR" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstRgbR" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -121,7 +125,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="G" />
-                        <TextField fx:id="txtRgbG" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstRgbG" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>
@@ -130,7 +134,7 @@
                   <HBox prefHeight="31.0" prefWidth="265.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
-                        <TextField fx:id="txtRgbB" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
+                        <TextField fx:id="txtDstRgbB" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="170.0" text="0">
                            <cursor>
                               <Cursor fx:constant="DEFAULT" />
                            </cursor></TextField>

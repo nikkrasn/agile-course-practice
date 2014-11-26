@@ -1,6 +1,6 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.RgbConverter;
+import ru.unn.agile.ColorConverter.model.Converters.RgbConverter;
 
 public class Rgb extends ColorSpace {
 
@@ -13,7 +13,6 @@ public class Rgb extends ColorSpace {
     public Rgb toRgb() {
         return RgbConverter.toRgbColor(this);
     }
-
 
     private double r;
     private double g;

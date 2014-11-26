@@ -1,4 +1,4 @@
-package ru.unn.agile.ColorConverter.View;
+package ru.unn.agile.ColorConverter.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

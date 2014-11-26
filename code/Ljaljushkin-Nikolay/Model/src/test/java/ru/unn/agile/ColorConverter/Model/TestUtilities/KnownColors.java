@@ -1,6 +1,6 @@
-package ru.unn.agile.ColorConverter.Model.TestUtilities;
+package ru.unn.agile.ColorConverter.model.TestUtilities;
 
-import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
+import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
 
 public final class KnownColors {
 

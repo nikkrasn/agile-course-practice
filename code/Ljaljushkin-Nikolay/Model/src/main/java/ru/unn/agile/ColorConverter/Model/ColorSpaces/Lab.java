@@ -1,6 +1,6 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.LabConverter;
+import ru.unn.agile.ColorConverter.model.Converters.LabConverter;
 
 public class Lab extends ColorSpace {
 

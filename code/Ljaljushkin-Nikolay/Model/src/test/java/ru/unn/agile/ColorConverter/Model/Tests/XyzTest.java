@@ -1,9 +1,9 @@
-package ru.unn.agile.ColorConverter.Model.Tests;
+package ru.unn.agile.ColorConverter.model.Tests;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
-import ru.unn.agile.ColorConverter.Model.TestUtilities.*;
+import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
+import ru.unn.agile.ColorConverter.model.TestUtilities.*;
 
 public class XyzTest {
 

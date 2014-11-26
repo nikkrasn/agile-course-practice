@@ -65,23 +65,17 @@ public class ViewModel {
 
     }
 
-    public GregorianCalendar getStartDate(final LocalDate dtPkr) {
+    private GregorianCalendar convertToGregorian(final LocalDate dtPkr) {
         GregorianCalendar startDate = new GregorianCalendar();
         startDate.set(dtPkr.getYear(), dtPkr.getMonthValue(), dtPkr.getDayOfMonth());
         return startDate;
     }
 
-    public GregorianCalendar getEndDate(final LocalDate dtPkr) {
-        GregorianCalendar endDate = new GregorianCalendar();
-        endDate.set(dtPkr.getYear(), dtPkr.getMonthValue(), dtPkr.getDayOfMonth());
-        return endDate;
-    }
-
     public void calculate() {
         ComplexDeposit calcDeposit =
                 new ComplexDeposit(txtBase.get(), txtPercent.get(), txtIntCount.get());
-        GregorianCalendar startDate = getStartDate(dtPkrStart.get());
-        GregorianCalendar endDate = getStartDate(dtPkrEnd.get());
+        GregorianCalendar startDate = convertToGregorian(dtPkrStart.get());
+        GregorianCalendar endDate = convertToGregorian(dtPkrEnd.get());
         calcDeposit.setStartDate(startDate);
         calcDeposit.setFinishDate(endDate);
         result.set(String.format("%.2f", calcDeposit.getCapitalizedBase()));

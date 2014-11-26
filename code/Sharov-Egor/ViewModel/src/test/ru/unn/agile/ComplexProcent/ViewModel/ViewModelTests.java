@@ -48,7 +48,7 @@ public class ViewModelTests {
     public void canCalcCapitalizeInOnePeriodFewYearsVM() {
         setTxtFields("1000", "4.5", "1");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
-        viewModel.dtPkrEndProperty().set(LocalDate.of(2016, 7 , 10));
+        viewModel.dtPkrEndProperty().set(LocalDate.of(2016, 7, 10));
         viewModel.calculate();
         assertEquals("1092.16", viewModel.getResult());
     }
@@ -172,6 +172,14 @@ public class ViewModelTests {
     }
 
     @Test
+    public void canSetBadDateStatus() {
+        setTxtFields("1000", "4", "1");
+        viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
+        viewModel.dtPkrEndProperty().set(LocalDate.of(2013, 7 , 10));
+        assertEquals(Status.BAD_DATE.toString(), viewModel.getStatus());
+    }
+
+    @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
 
@@ -183,6 +191,7 @@ public class ViewModelTests {
         viewModel.getTxtInterestCountProperty().set(interestCount);
         viewModel.getTxtPercentProperty().set(percent);
 }
+
 
     private void setInputData() {
         viewModel.getTxtBaseProperty().set("1000");

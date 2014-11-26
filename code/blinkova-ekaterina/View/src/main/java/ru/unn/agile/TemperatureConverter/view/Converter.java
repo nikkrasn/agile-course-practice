@@ -17,6 +17,14 @@ public final class Converter {
     private JComboBox<Scale> cbScale;
     private ViewModel viewModel;
 
+    public static void main(final String[] args) {
+        JFrame frame = new JFrame("Converter");
+        frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
     private Converter() { }
 
     private Converter(final ViewModel viewModel) {
@@ -51,14 +59,6 @@ public final class Converter {
             }
         };
         txtValue.addKeyListener(keyListener);
-   }
-
-    public static void main(final String[] args) {
-        JFrame frame = new JFrame("Converter");
-        frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
     }
 
     private void loadListOfScales() {

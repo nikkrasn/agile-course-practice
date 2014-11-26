@@ -106,7 +106,7 @@ public class ViewModel {
        public static final String WRONG_FORMAT = "Wrong input values";
        public static final String SUCCESS = "Success";
 
-        private Status() { }
+       private Status() { }
     }
 
     public enum Scale {

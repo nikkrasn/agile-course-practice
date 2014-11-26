@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import ru.unn.agile.ComplexProcent.Model.ComplexDeposit;
 
@@ -34,7 +35,7 @@ public class ViewModel {
         result.set("");
         dtPkrStart.set(LocalDate.now());
         status.set(Status.WAITING.toString());
-
+        Locale.setDefault(Locale.ENGLISH);
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(txtBase, txtIntCount, txtPercent, dtPkrEnd, dtPkrStart);

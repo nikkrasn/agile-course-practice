@@ -3,7 +3,7 @@ jdk:
   - oraclejdk8
 script:
   - TERM=dumb
-  - gradle check jacocoTestReport --debug
+  - gradle check jacocoTestReport --info
 after_success:
   - gradle jacocoRootReport coveralls
 notifications:

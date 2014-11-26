@@ -37,9 +37,24 @@ public class ViewModel {
 
     // FXML needs default c-tor for binding
     public ViewModel() {
+        srcFirstChannel.set("0");
+        srcSecondChannel.set("0");
+        srcThirdChannel.set("0");
 
-//        sourceColors.set(SourceColor.LAB);
+        dstLabL.set("0");
+        dstLabA.set("0");
+        dstLabB.set("0");
+
+        dstRgbR.set("0");
+        dstRgbG.set("0");
+        dstRgbB.set("0");
+
+        dstHsvH.set("0");
+        dstHsvS.set("0");
+        dstHsvV.set("0");
+
         status.set(Status.WAITING.toString());
+        sourceColor.set(SourceColor.HSV);
     }
 
     public StringProperty srcFirstChannelProperty() {

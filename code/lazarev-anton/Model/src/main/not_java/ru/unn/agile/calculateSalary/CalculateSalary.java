@@ -14,6 +14,32 @@ public class CalculateSalary {
     private double payForOneJobHour;
     private int amountOfJobHours;
 
+    public double calculate() {
+        if (salary <= 0) {
+            return 0;
+        }
+        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth)
+                .setStartVacation(startOfVacation)
+                .setLengthOfVacation(lengthOfVacation);
+        double cashForPay = 0;
+        int jobDaysInCountMonth = countMonth.countJobDaysInMonth();
+        int cashDaysInMonth = countMonth.countCashDaysInMonth();
+        payForOneJobHour = calcCashForOneJobHour(jobDaysInCountMonth);
+        amountOfJobHours = summJobHours(cashDaysInMonth);
+        String comparedWorkAndJobHours = compareWorkAndJobHours();
+        switch (comparedWorkAndJobHours) {
+            case "overtime":
+                cashForPay = calcCashWithOvertime();
+                break;
+            case "less":
+                cashForPay = calcCashForLessHours();
+                break;
+            default:
+                cashForPay = calcCashForNormalHours();
+        }
+        return cashForPay * NDS;
+    }
+
     public CalculateSalary setSalary(final double inSalary) {
         salary = inSalary;
         return this;
@@ -39,26 +65,14 @@ public class CalculateSalary {
         return this;
     }
 
-    public double calculate() {
-        if (salary <= 0) {
-            return 0;
-        }
-        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth)
-                .setStartVacation(startOfVacation)
-                .setLengthOfVacation(lengthOfVacation);
-        double cashForPay = 0;
-        int jobDaysInCountMonth = countMonth.countJobDaysInMonth();
-        int cashDaysInMonth = countMonth.countCashDaysInMonth();
-        payForOneJobHour = calcCashForOneJobHour(jobDaysInCountMonth);
-        amountOfJobHours = summJobHours(cashDaysInMonth);
+    private String compareWorkAndJobHours() {
         if (workedHourInMonth > amountOfJobHours) {
-            cashForPay = calcCashWithOvertime();
-        } else if (workedHourInMonth < amountOfJobHours) {
-            cashForPay = calcCashForLessHours();
-        } else {
-            cashForPay = calcCashForNormalHours();
+            return "overtime";
         }
-        return cashForPay * NDS;
+        if (workedHourInMonth < amountOfJobHours) {
+            return "less";
+        }
+        return "";
     }
 
     private double calcCashForLessHours() {

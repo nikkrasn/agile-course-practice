@@ -11,6 +11,42 @@ public class WorkWithCalendar {
     private LocalDate startVacation = LocalDate.of(DEFAULT_VACATION_YEAR, 1, 1);
     private LocalDate vacationEnd;
 
+    public int countJobDaysInMonth() {
+        int jobDaysInMonth = 0;
+        for (int i = 1; i <= countMonth.lengthOfMonth(); i++) {
+            if (isNotDayOff(i)) {
+                jobDaysInMonth++;
+            }
+        }
+        return jobDaysInMonth;
+    }
+
+    public int countCashDaysInMonth() {
+        vacationEnd = startVacation.plusDays(lengthOfVacation);
+        int cashDaysInMonth = countJobDaysInMonth();
+        int dayStartSubtract = getStartDay();
+        int dayEndSubtract = getEndDay();
+        if (isCountYearNotVacationYear()) {
+            return cashDaysInMonth;
+        }
+        if (isAllVacationInCashMonth()) {
+            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth,
+                                                               dayStartSubtract,
+                                                               dayEndSubtract);
+        }
+        if (vacationStartInCashMonthAndEndInAnother()) {
+            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth,
+                                                               dayStartSubtract,
+                                                               dayEndSubtract);
+        }
+        if (vacationEndInCashMonthButStartInAnother()) {
+            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth,
+                                                               dayStartSubtract,
+                                                               dayEndSubtract);
+        }
+        return cashDaysInMonth;
+    }
+
     public WorkWithCalendar setCountMonth(final LocalDate inCountMonth) {
         countMonth = inCountMonth;
         return this;
@@ -26,51 +62,21 @@ public class WorkWithCalendar {
         return this;
     }
 
-    public int countJobDaysInMonth() {
-        int jobDaysInMonth = 0;
-        for (int i = 1; i <= countMonth.lengthOfMonth(); i++) {
-            LocalDate checkDate = LocalDate.of(countMonth.getYear(),
-                    countMonth.getMonth(),
-                    i);
-            if (isNotDayOff(checkDate)) {
-                jobDaysInMonth++;
-            }
-        }
-        return jobDaysInMonth;
-    }
-
-    public int countCashDaysInMonth() {
-        vacationEnd = startVacation.plusDays(lengthOfVacation);
-        int cashDaysInMonth = countJobDaysInMonth();
-        int begin = getBegin();
-        int end = getEnd();
-        if (isCountYearNotVacationYear()) {
-            return cashDaysInMonth;
-        } else if (allVacationIncludeInCashMonth()) {
-            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth, begin, end);
-        } else if (vacationStartInCashMonthAndEndInAnother()) {
-            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth, begin, end);
-        } else if (vacationEndInCashMonthButStartInAnother()) {
-            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth, begin, end);
-        }
-        return cashDaysInMonth;
-    }
 
     private int cashDaysSubtractUntilVacationEnd(final int cashDaysInMonth,
-                                                 final int begin,
-                                                 final int end) {
+                                                 final int dayStartSubtract,
+                                                 final int dayEndStartSubtract) {
         int tempCashDaysInMonth = cashDaysInMonth;
-        for (int i = begin; i < end; i++) {
-            LocalDate checkDate = LocalDate.of(countMonth.getYear(), countMonth.getMonth(), i);
-            if (isNotDayOff(checkDate)) {
+        for (int i = dayStartSubtract; i < dayEndStartSubtract; i++) {
+            if (isNotDayOff(i)) {
                 tempCashDaysInMonth--;
             }
         }
         return tempCashDaysInMonth;
     }
 
-    private int getBegin() {
-        if (allVacationIncludeInCashMonth()) {
+    private int getStartDay() {
+        if (isAllVacationInCashMonth()) {
             return startVacation.getDayOfMonth();
         }
         if (vacationStartInCashMonthAndEndInAnother()) {
@@ -82,8 +88,8 @@ public class WorkWithCalendar {
         return 0;
     }
 
-    private int getEnd() {
-        if (allVacationIncludeInCashMonth()) {
+    private int getEndDay() {
+        if (isAllVacationInCashMonth()) {
             return vacationEnd.getDayOfMonth();
         }
         if (vacationStartInCashMonthAndEndInAnother()) {
@@ -103,7 +109,7 @@ public class WorkWithCalendar {
         return isCountMonthEqualStartVacationMonth() && isCountMonthNotVacationEndMonth();
     }
 
-    private boolean allVacationIncludeInCashMonth() {
+    private boolean isAllVacationInCashMonth() {
         return isCountMonthEqualStartVacationMonth() && isCountMonthEqualVacationEndMonth();
     }
 
@@ -127,8 +133,11 @@ public class WorkWithCalendar {
         return countMonth.getMonth() != startVacation.getMonth();
     }
 
-    private static boolean isNotDayOff(final LocalDate checkDay) {
-        return isDayNotSaturday(checkDay) && isDayNotSunday(checkDay);
+    private boolean isNotDayOff(final int checkDayNumber) {
+        LocalDate checkDate = LocalDate.of(countMonth.getYear(),
+                                           countMonth.getMonth(),
+                                           checkDayNumber);
+        return isDayNotSaturday(checkDate) && isDayNotSunday(checkDate);
     }
 
     private static boolean isDayNotSunday(final LocalDate checkDay) {

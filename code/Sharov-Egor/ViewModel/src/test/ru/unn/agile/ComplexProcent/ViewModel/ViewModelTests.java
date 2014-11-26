@@ -30,7 +30,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCalculateViewModel() {
+    public void canCalculate() {
         setInputData();
         viewModel.calculate();
         assertNotNull(viewModel.getResult());

@@ -160,7 +160,7 @@ public class ViewModel {
         if (hasEmptyFields()) {
             inputStatus = Status.WAITING;
         }
-        if (incorrectData()) return inputStatus.BAD_FORMAT;
+        if (incorrectData()) { return Status.BAD_FORMAT; }
 
         if (incorrectDate()) {
                 return Status.BAD_DATE;

@@ -104,9 +104,11 @@ public class ViewModel {
     public StringProperty array1Property() {
         return arrays.get(0);
     }
+
     public StringProperty array2Property() {
         return arrays.get(1);
     }
+
     public StringProperty array3Property() {
         return arrays.get(2);
     }
@@ -114,12 +116,15 @@ public class ViewModel {
     public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
     }
+
     public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
+
     public ObjectProperty<Operation> operation1Property() {
         return operation1;
     }
+
     public ObjectProperty<Operation> operation2Property() {
         return operation2;
     }
@@ -127,6 +132,7 @@ public class ViewModel {
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
     }
+
     public final boolean getCalculationDisabled() {
         return calculationDisabled.get();
     }
@@ -134,6 +140,7 @@ public class ViewModel {
     public final String getStatus() {
         return status.get();
     }
+
     public StringProperty statusProperty() {
         return status;
     }
@@ -141,6 +148,7 @@ public class ViewModel {
     public final String getResult() {
         return result.get();
     }
+
     public StringProperty resultProperty() {
         return result;
     }

@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import java.time.LocalDate;
-
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
@@ -191,7 +190,6 @@ public class ViewModelTests {
         viewModel.getTxtInterestCountProperty().set(interestCount);
         viewModel.getTxtPercentProperty().set(percent);
 }
-
 
     private void setInputData() {
         viewModel.getTxtBaseProperty().set("1000");

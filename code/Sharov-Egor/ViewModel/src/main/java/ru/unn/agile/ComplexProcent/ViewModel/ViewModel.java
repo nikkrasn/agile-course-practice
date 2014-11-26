@@ -14,12 +14,12 @@ import java.util.Locale;
 import ru.unn.agile.ComplexProcent.Model.ComplexDeposit;
 
 public class ViewModel {
-    private final StringProperty txtBase = new SimpleStringProperty();
-    private final StringProperty txtIntCount = new SimpleStringProperty();
-    private final StringProperty txtPercent = new SimpleStringProperty();
+    private final StringProperty txtBase = new SimpleStringProperty("");
+    private final StringProperty txtIntCount = new SimpleStringProperty("");
+    private final StringProperty txtPercent = new SimpleStringProperty("");
 
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty("");
+    private final StringProperty status = new SimpleStringProperty(Status.WAITING.toString());
 
     private final ObjectProperty<LocalDate> dtPkrStart = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> dtPkrEnd = new SimpleObjectProperty<>();
@@ -29,17 +29,13 @@ public class ViewModel {
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
-        txtBase.set("");
-        txtIntCount.set("");
-        txtPercent.set("");
-        result.set("");
-        dtPkrStart.set(LocalDate.now());
-        status.set(Status.WAITING.toString());
         Locale.setDefault(Locale.ENGLISH);
+        dtPkrStart.set(LocalDate.now());
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(txtBase, txtIntCount, txtPercent, dtPkrEnd, dtPkrStart);
             }
+
             @Override
             protected boolean computeValue() {
                 return getInputStatus() == Status.READY;
@@ -47,11 +43,13 @@ public class ViewModel {
         };
         calculationDisabled.bind(couldCalculate.not());
 
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(txtBase);
-            add(txtIntCount);
-            add(txtPercent);
-        } };
+        final List<StringProperty> fields = new ArrayList<StringProperty>() {
+            {
+                add(txtBase);
+                add(txtIntCount);
+                add(txtPercent);
+            }
+        };
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);
@@ -61,8 +59,6 @@ public class ViewModel {
         dtPkrEnd.addListener(endDataListener);
         final DataValueChangeListener startDataListener = new DataValueChangeListener();
         dtPkrEnd.addListener(startDataListener);
-
-
     }
 
     private GregorianCalendar convertToGregorian(final LocalDate dtPkr) {
@@ -110,7 +106,9 @@ public class ViewModel {
         return result;
     }
 
-    public StringProperty statusProperty() { return status; }
+    public StringProperty statusProperty() {
+        return status;
+    }
 
     public final String getResult() {
         return result.get();
@@ -120,12 +118,14 @@ public class ViewModel {
         return calculationDisabled;
     }
 
-    public final String getStatus() { return status.get(); }
+    public final String getStatus() {
+        return status.get();
+    }
 
     private boolean hasEmptyFields() {
         if (txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
                 || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null) {
-        return true;
+            return true;
         }
         return false;
     }
@@ -148,15 +148,12 @@ public class ViewModel {
         } catch (NumberFormatException nfe) {
             return Status.BAD_FORMAT;
         }
-            if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
-                Integer.parseInt(txtIntCount.get());
-                if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
-                    return Status.BAD_DATE;
-                }
+        if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
+            Integer.parseInt(txtIntCount.get());
+            if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
+                return Status.BAD_DATE;
             }
-
-
-
+        }
         return inputStatus;
     }
 
@@ -185,9 +182,11 @@ enum Status {
     BAD_DATE("Неверная дата конца вклада");
 
     private final String name;
+
     private Status(final String name) {
         this.name = name;
     }
+
     public String toString() {
         return name;
     }

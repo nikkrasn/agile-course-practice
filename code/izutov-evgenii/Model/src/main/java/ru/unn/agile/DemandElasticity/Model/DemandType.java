@@ -1,7 +1,7 @@
 package ru.unn.agile.DemandElasticity.Model;
 
 public enum DemandType {
-    Undefined("Demand is undefined"),
+    Undefined("Type of demand is undefined"),
     GiffenGood("Giffen good"),
     PerfectlyInelastic("Perfectly inelastic demand"),
     Inelastic("Inelastic demand"),

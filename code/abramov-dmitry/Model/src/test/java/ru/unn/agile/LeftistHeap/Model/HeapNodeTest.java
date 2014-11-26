@@ -44,4 +44,11 @@ public class HeapNodeTest {
         assertNotNull(node.getLeftChild());
         assertNull(node.getRightChild());
     }
+
+    @Test
+    public void testToStringOverride() {
+        HeapNode<String> node = new HeapNode<String>(1, "it is string");
+
+        assertEquals("Key: 1, Value: it is string", node.toString());
+    }
 }

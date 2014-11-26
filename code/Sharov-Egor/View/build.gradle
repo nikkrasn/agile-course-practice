@@ -7,5 +7,5 @@ dependencies {
 sourceSets {
     main.java.srcDir 'src/main/java'
     main.java.srcDir 'src/main/resources'
-    test.java.srcDir 'src/test'
+    test.java.srcDir 'src/test/java'
 }

@@ -1,8 +1,7 @@
-package ru.unn.agile.ComplexNumber.view;
+package ru.unn.agile.BitArray.view;
 
 import org.junit.Ignore;
 import org.junit.Test;
-
 import static org.junit.Assert.fail;
 
 public class FakeViewTests {

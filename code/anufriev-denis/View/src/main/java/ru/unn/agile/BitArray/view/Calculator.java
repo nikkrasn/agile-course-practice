@@ -36,11 +36,9 @@ public class Calculator {
 
     @FXML
     void initialize() {
-
         txtArray1.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
         txtArray2.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
         txtArray3.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
-
 
         txtArray1.textProperty().bindBidirectional(viewModel.array1Property());
         txtArray2.textProperty().bindBidirectional(viewModel.array2Property());

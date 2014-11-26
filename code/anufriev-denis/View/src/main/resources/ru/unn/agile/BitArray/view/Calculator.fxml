@@ -21,7 +21,6 @@
                                 maxWidth="40.0" mnemonicParsing="false" text="Not" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-
                 <HBox GridPane.rowIndex="1">
                     <children>
                         <ComboBox GridPane.columnIndex="0" fx:id="cbOperation1" items="${viewModel.operations}" prefWidth="64.0" prefHeight="24.0" />
@@ -37,13 +36,11 @@
                                 maxWidth="40.0" mnemonicParsing="false" text="Not" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-
                 <HBox GridPane.rowIndex="3">
                     <children>
                         <ComboBox GridPane.columnIndex="0" fx:id="cbOperation2" items="${viewModel.operations}" prefWidth="64.0" prefHeight="24.0" />
                     </children>
                 </HBox>
-
                 <HBox GridPane.rowIndex="4">
                     <children>
                         <Label GridPane.columnIndex="0" GridPane.halignment="LEFT" minWidth="-Infinity" text="BitArray3:"/>
@@ -54,7 +51,6 @@
                             maxWidth="40.0" mnemonicParsing="false" text="Not" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
-
                 <HBox GridPane.rowIndex="5" GridPane.valignment="BOTTOM" prefHeight="35.0">
                     <children>
 

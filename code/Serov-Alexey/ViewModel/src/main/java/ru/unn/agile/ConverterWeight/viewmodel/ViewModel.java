@@ -10,7 +10,6 @@ public class ViewModel {
     private UnitWeight resultUnit;
     private boolean convertButton;
 
-
     public ViewModel() {
         value = "";
         result = "";

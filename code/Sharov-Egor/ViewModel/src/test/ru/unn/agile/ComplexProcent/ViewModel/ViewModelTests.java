@@ -50,7 +50,6 @@ public class ViewModelTests {
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2016, 7 , 10));
         viewModel.calculate();
-        System.out.printf("Should be %s ; Deposit: %s \n", "1092,16", viewModel.getResult());
         assertEquals("1092.16", viewModel.getResult());
     }
 
@@ -60,7 +59,6 @@ public class ViewModelTests {
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2015, 7, 10));
         viewModel.calculate();
-        System.out.printf("Should be %s ; Deposit: %s \n", "1045,94", viewModel.getResult());
         assertEquals("1045.94", viewModel.getResult());
     }
 
@@ -70,7 +68,6 @@ public class ViewModelTests {
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2018, 7, 10));
         viewModel.calculate();
-        System.out.printf("Should be %s ; Deposit: %s \n", "1196.95", viewModel.getResult());
         assertEquals("1196.95", viewModel.getResult());
     }
 
@@ -80,7 +77,6 @@ public class ViewModelTests {
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2015, 5, 11));
         viewModel.calculate();
-        System.out.printf("Should be %s ; Deposit: %s \n", "1038,27", viewModel.getResult());
         assertEquals("1038.27", viewModel.getResult());
     }
 

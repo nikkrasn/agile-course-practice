@@ -1,9 +1,7 @@
 package ru.unn.agile.ComplexProcent.Model;
 
 import org.junit.Test;
-
 import java.util.GregorianCalendar;
-
 import static org.junit.Assert.*;
 
 public class ComplexDepositTest {
@@ -16,6 +14,16 @@ public class ComplexDepositTest {
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 11);
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertNotNull(deposit);
+    }
+
+    @Test
+    public void canGetStartAndEndDate() {
+        ComplexDeposit deposit = new ComplexDeposit("1000", "4", "1");
+        GregorianCalendar startDeposit = new GregorianCalendar(2010, 6, 12);
+        GregorianCalendar finalDeposit = new GregorianCalendar(2014, 6, 13);
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+        assertTrue(deposit.getStartDate() == startDeposit);
+        assertTrue(deposit.getFinishDate() == finalDeposit);
     }
 
     @Test

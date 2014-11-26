@@ -30,21 +30,21 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCalculateModel() {
+    public void canCalculateViewModel() {
         setInputData();
         viewModel.calculate();
         assertNotNull(viewModel.getResult());
     }
 
     @Test
-    public void canCalcCapitalizeInOnePeriodVM() {
+    public void canCalcCapitalizeInOnePeriod() {
         setInputData();
         viewModel.calculate();
         assertEquals("1045.00", viewModel.getResult());
     }
 
     @Test
-    public void canCalcCapitalizeInOnePeriodFewYearsVM() {
+    public void canCalcCapitalizeInOnePeriodFewYears() {
         setTxtFields("1000", "4.5", "1");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2016, 7, 10));
@@ -53,7 +53,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCalcCapitalizeInFewPeriodForYearVM() {
+    public void canCalcCapitalizeInFewPeriodForYear() {
         setTxtFields("1000", "4.5", "3");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2015, 7, 10));
@@ -62,7 +62,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCalcCapitalizeInFewPeriodForFewYearsVM() {
+    public void canCalcCapitalizeInFewPeriodForFewYears() {
         setTxtFields("1000", "4.5", "3");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2018, 7, 10));
@@ -71,7 +71,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCalcCapitalizeInLessThenYearVM() {
+    public void canCalcCapitalizeInLessThenYear() {
         setTxtFields("1000", "4.5", "3");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2015, 5, 11));
@@ -160,7 +160,6 @@ public class ViewModelTests {
     @Test
     public void canSetBadFormatMessage() {
         viewModel.getTxtPercentProperty().set("www.google.ru");
-
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
@@ -181,7 +180,6 @@ public class ViewModelTests {
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
-
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
@@ -189,7 +187,7 @@ public class ViewModelTests {
         viewModel.getTxtBaseProperty().set(base);
         viewModel.getTxtInterestCountProperty().set(interestCount);
         viewModel.getTxtPercentProperty().set(percent);
-}
+    }
 
     private void setInputData() {
         viewModel.getTxtBaseProperty().set("1000");

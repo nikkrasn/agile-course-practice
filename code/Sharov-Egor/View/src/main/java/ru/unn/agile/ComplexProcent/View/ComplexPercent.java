@@ -24,6 +24,7 @@ public class ComplexPercent extends VBox {
     private DatePicker dtPkrStart;
     @FXML
     private DatePicker dtPkrEnd;
+
     @FXML
     void initialize() {
         txtBase.textProperty().bindBidirectional(viewModel.getTxtBaseProperty());
@@ -38,5 +39,4 @@ public class ComplexPercent extends VBox {
             }
         });
     }
-
 }

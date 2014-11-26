@@ -4,13 +4,11 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
-
 import ru.unn.agile.ComplexProcent.Model.ComplexDeposit;
 
 public class ViewModel {
@@ -59,12 +57,6 @@ public class ViewModel {
         dtPkrEnd.addListener(endDataListener);
         final DataValueChangeListener startDataListener = new DataValueChangeListener();
         dtPkrEnd.addListener(startDataListener);
-    }
-
-    private GregorianCalendar convertToGregorian(final LocalDate dtPkr) {
-        GregorianCalendar startDate = new GregorianCalendar();
-        startDate.set(dtPkr.getYear(), dtPkr.getMonthValue(), dtPkr.getDayOfMonth());
-        return startDate;
     }
 
     public void calculate() {
@@ -122,6 +114,12 @@ public class ViewModel {
         return status.get();
     }
 
+    private GregorianCalendar convertToGregorian(final LocalDate dtPkr) {
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.set(dtPkr.getYear(), dtPkr.getMonthValue(), dtPkr.getDayOfMonth());
+        return startDate;
+    }
+
     private boolean hasEmptyFields() {
         if (txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
                 || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null) {
@@ -130,11 +128,17 @@ public class ViewModel {
         return false;
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
-        if (hasEmptyFields()) {
-            inputStatus = Status.WAITING;
+    private boolean incorrectDate() {
+        if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
+            Integer.parseInt(txtIntCount.get());
+            if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    private boolean incorrectData() {
         try {
             if (!txtIntCount.get().isEmpty()) {
                 Integer.parseInt(txtIntCount.get());
@@ -146,14 +150,21 @@ public class ViewModel {
                 Double.parseDouble(txtBase.get());
             }
         } catch (NumberFormatException nfe) {
-            return Status.BAD_FORMAT;
+            return true;
         }
-        if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
-            Integer.parseInt(txtIntCount.get());
-            if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
+        return false;
+    }
+
+    private Status getInputStatus() {
+        Status inputStatus = Status.READY;
+        if (hasEmptyFields()) {
+            inputStatus = Status.WAITING;
+        }
+        if (incorrectData()) return inputStatus.BAD_FORMAT;
+
+        if (incorrectDate()) {
                 return Status.BAD_DATE;
             }
-        }
         return inputStatus;
     }
 

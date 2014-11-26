@@ -46,7 +46,7 @@ public class ViewModelTests {
 
     @Test
     public void canCalcCapitalizeInOnePeriodFewYearsVM() {
-        setTxtFields("1000", "4.5", "1");
+        setTxtFields("1000", "4,5", "1");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7 , 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2016, 7 , 10));
         viewModel.calculate();
@@ -188,7 +188,7 @@ public class ViewModelTests {
 
     private void setInputData() {
         viewModel.getTxtBaseProperty().set("1000");
-        viewModel.getTxtPercentProperty().set("4.5");
+        viewModel.getTxtPercentProperty().set("4,5");
         viewModel.getTxtInterestCountProperty().set("1");
         viewModel.dtPkrStartProperty().set(LocalDate.of(2014, 7, 10));
         viewModel.dtPkrEndProperty().set(LocalDate.of(2015, 7, 10));

@@ -98,7 +98,25 @@ public class ViewModelTests {
     @Test
     public void getGrammFromValueUnit() {
     String grammName = UnitWeight.GRAMM.toString();
-    assertEquals("Gramm", grammName);
+    assertEquals("GRAMM", grammName);
+    }
+
+    @Test
+    public void getKilogramFromValueUnit() {
+        String kilogramName = UnitWeight.KILOGRAM.toString();
+        assertEquals("KILOGRAM", kilogramName);
+    }
+
+    @Test
+    public void getCentnerFromValueUnit() {
+        String centnerName = UnitWeight.CENTNER.toString();
+        assertEquals("CENTNER", centnerName);
+    }
+
+    @Test
+    public void getTonFromValueUnit() {
+        String tonName = UnitWeight.TON.toString();
+        assertEquals("TON", tonName);
     }
 
     @Test
@@ -161,7 +179,7 @@ public class ViewModelTests {
         viewModel.setValueUnit(UnitWeight.GRAMM);
         viewModel.setResultUnit(UnitWeight.GRAMM);
         viewModel.convert();
-        assertEquals("1", viewModel.getResult());
+        assertEquals("1.0", viewModel.getResult());
     }
 
     @Test
@@ -206,7 +224,7 @@ public class ViewModelTests {
         viewModel.setValueUnit(UnitWeight.KILOGRAM);
         viewModel.setResultUnit(UnitWeight.KILOGRAM);
         viewModel.convert();
-        assertEquals("1", viewModel.getResult());
+        assertEquals("1.0", viewModel.getResult());
     }
 
     @Test
@@ -251,7 +269,7 @@ public class ViewModelTests {
         viewModel.setValueUnit(UnitWeight.CENTNER);
         viewModel.setResultUnit(UnitWeight.CENTNER);
         viewModel.convert();
-        assertEquals("1", viewModel.getResult());
+        assertEquals("1.0", viewModel.getResult());
     }
 
     @Test
@@ -295,7 +313,7 @@ public class ViewModelTests {
         viewModel.setValueUnit(UnitWeight.TON);
         viewModel.setResultUnit(UnitWeight.TON);
         viewModel.convert();
-        assertEquals("1", viewModel.getResult());
+        assertEquals("1.0", viewModel.getResult());
     }
 
     @Test

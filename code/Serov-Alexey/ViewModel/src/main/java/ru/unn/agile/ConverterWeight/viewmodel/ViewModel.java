@@ -63,22 +63,10 @@ public class ViewModel {
         prepareForConvert();
 
         if (status == Status.READY && convertButton) {
-            switch (valueUnit) {
-                case GRAMM:
-                    computationFromGramm();
-                    break;
-                case KILOGRAM:
-                    computationFromKilogram();
-                    break;
-                case CENTNER:
-                    computationFromCentner();
-                    break;
-                case TON:
-                    computationFromTon();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Supported: GRAMM, KILOGRAM, CENTNER, TON");
-            }
+            ConverterWeight converterWeight = new ConverterWeight();
+            result = Double.toString(converterWeight.converter(valueUnit.toString(),
+                                                               resultUnit.toString(),
+                                                               Double.parseDouble(value)));
             status = Status.SUCCESS;
         }
     }
@@ -106,90 +94,6 @@ public class ViewModel {
         }
     }
 
-    private void computationFromGramm() {
-        ConverterWeight converter = new ConverterWeight();
-
-        switch (resultUnit) {
-            case GRAMM:
-                result = getValue();
-                break;
-            case KILOGRAM:
-                result = Double.toString(converter.grammToKilogram(value));
-                break;
-            case CENTNER:
-                result = Double.toString(converter.grammToCentner(value));
-                break;
-            case TON:
-                result = Double.toString(converter.grammToTon(value));
-                break;
-            default:
-                throw new IllegalArgumentException("Supported: GRAMM, KILOGRAM, CENTNER, TON");
-        }
-    }
-
-    private void computationFromKilogram() {
-        ConverterWeight converter = new ConverterWeight();
-
-        switch (resultUnit) {
-            case GRAMM:
-                result = Double.toString(converter.kilogramToGram(value));
-                break;
-            case KILOGRAM:
-                result = getValue();
-                break;
-            case CENTNER:
-                result = Double.toString(converter.kilogramToCentner(value));
-                break;
-            case TON:
-                result = Double.toString(converter.kilogramToTon(value));
-                break;
-            default:
-                throw new IllegalArgumentException("Supported: GRAMM, KILOGRAM, CENTNER, TON");
-        }
-    }
-
-    private void computationFromCentner() {
-        ConverterWeight converter = new ConverterWeight();
-
-        switch (resultUnit) {
-            case GRAMM:
-                result = Double.toString(converter.centnerToGram(value));
-                break;
-            case KILOGRAM:
-                result = Double.toString(converter.centnerToKilogram(value));
-                break;
-            case CENTNER:
-                result = getValue();
-                break;
-            case TON:
-                result = Double.toString(converter.centnerToTon(value));
-                break;
-            default:
-                throw new IllegalArgumentException("Supported: GRAMM, KILOGRAM, CENTNER, TON");
-        }
-    }
-
-    private void computationFromTon() {
-        ConverterWeight converter = new ConverterWeight();
-
-        switch (resultUnit) {
-            case GRAMM:
-                result = Double.toString(converter.tonToGram(value));
-                break;
-            case KILOGRAM:
-                result = Double.toString(converter.tonToKilogram(value));
-                break;
-            case CENTNER:
-                result = Double.toString(converter.tonToCentner(value));
-                break;
-            case TON:
-                result = getValue();
-                break;
-            default:
-                throw new IllegalArgumentException("Supported: GRAMM, KILOGRAM, CENTNER, TON");
-        }
-    }
-
     public final class Status {
         public static final String WAITING = "Please, input value";
         public static final String BAD_FORMAT = "Bad format";
@@ -200,10 +104,10 @@ public class ViewModel {
     }
 
     public enum UnitWeight {
-        GRAMM("Gramm"),
-        KILOGRAM("Kilogram"),
-        CENTNER("Centner"),
-        TON("Ton");
+        GRAMM("GRAMM"),
+        KILOGRAM("KILOGRAM"),
+        CENTNER("CENTNER"),
+        TON("TON");
         private final String name;
 
         private UnitWeight(final String name) {

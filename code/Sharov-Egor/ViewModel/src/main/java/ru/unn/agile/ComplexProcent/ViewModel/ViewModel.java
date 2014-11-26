@@ -51,7 +51,6 @@ public class ViewModel {
             add(txtIntCount);
             add(txtPercent);
         } };
-        
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);

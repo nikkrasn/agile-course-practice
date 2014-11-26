@@ -26,4 +26,5 @@ public final class Converter {
     public double[][] getData() {
         return data;
     }
+
 }

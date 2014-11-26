@@ -9,8 +9,6 @@ public class ViewModel {
     private boolean isCalculateButtonEnabled = false;
     public static final int SHIFT = 16;
     public static final int ANY_KEY = 12345;
-    public static final Pattern ONLY_NEW_LINES = Pattern.compile("[\n]+");
-    public static final Pattern ONLY_INDENTS = Pattern.compile(" +");
 
     public boolean isCalculateButtonEnabled() {
         return isCalculateButtonEnabled;
@@ -47,41 +45,36 @@ public class ViewModel {
     }
 
     public void setTextInput(final String text) {
-        if (text.equals(this.textInput)) {
+        if (text.equals(textInput)) {
             return;
         }
-        this.textInput = text;
+        textInput = text;
     }
 
     private boolean isInputEmpty() {
-        Matcher m1 = ONLY_NEW_LINES.matcher(textInput);
-        Matcher m2 = ONLY_INDENTS.matcher(textInput);
-        return  !textInput.isEmpty() && !m1.matches() && !m2.matches();
+        return  !textInput.isEmpty() && !textInput.matches("[\n]+") && !textInput.matches(" +");
     }
 
     private void shiftPressed() {
-
         if (isCalculateButtonEnabled()) {
             calculate();
         }
     }
 
     private boolean parseInput() {
-        try {
-            if (isInputEmpty()) {
+        if (isInputEmpty()) {
+            try {
                 Converter stringToArray = new Converter(textInput);
+            } catch (Exception e) {
+                status = Status.BAD_INPUT.toString();
+                isCalculateButtonEnabled = false;
+                return false;
             }
-        } catch (Exception e) {
-            status = Status.BAD_INPUT.toString();
-            isCalculateButtonEnabled = false;
-            return false;
-        }
-        isCalculateButtonEnabled = isInputEmpty();
-        if (isCalculateButtonEnabled) {
             status = Status.READY.toString();
         } else {
             status = Status.EMPTY_INPUT.toString();
         }
+        isCalculateButtonEnabled = isInputEmpty();
         return isCalculateButtonEnabled;
     }
 
@@ -99,5 +92,5 @@ public class ViewModel {
             return name;
         }
     }
-}
 
+}

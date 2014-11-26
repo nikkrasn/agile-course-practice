@@ -1,7 +1,6 @@
 package ru.unn.agile.Matrix;
 
 public class SquareMatrix {
-
     private final int countRows;
     private double[][] data;
 
@@ -24,7 +23,6 @@ public class SquareMatrix {
         checkLengthRows(data);
         this.data = new double[countRows][countRows];
         initializeMatrix(data);
-
     }
 
     public static void checkLengthRows(final double[][] data) {

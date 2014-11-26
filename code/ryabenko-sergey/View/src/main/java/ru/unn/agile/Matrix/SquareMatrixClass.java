@@ -64,5 +64,4 @@ public final class SquareMatrixClass {
         textResult.setText(viewModel.getResult());
         textStatus.setText(viewModel.getStatus());
     }
-
 }

@@ -28,21 +28,10 @@ public class WorkWithCalendar {
         int dayEndSubtract = getEndDay();
         if (isCountYearNotVacationYear()) {
             return cashDaysInMonth;
-        }
-        if (isAllVacationInCashMonth()) {
+        } else {
             cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth,
-                                                               dayStartSubtract,
-                                                               dayEndSubtract);
-        }
-        if (vacationStartInCashMonthAndEndInAnother()) {
-            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth,
-                                                               dayStartSubtract,
-                                                               dayEndSubtract);
-        }
-        if (vacationEndInCashMonthButStartInAnother()) {
-            cashDaysInMonth = cashDaysSubtractUntilVacationEnd(cashDaysInMonth,
-                                                               dayStartSubtract,
-                                                               dayEndSubtract);
+                    dayStartSubtract,
+                    dayEndSubtract);
         }
         return cashDaysInMonth;
     }
@@ -135,8 +124,8 @@ public class WorkWithCalendar {
 
     private boolean isNotDayOff(final int checkDayNumber) {
         LocalDate checkDate = LocalDate.of(countMonth.getYear(),
-                                           countMonth.getMonth(),
-                                           checkDayNumber);
+                countMonth.getMonth(),
+                checkDayNumber);
         return isDayNotSaturday(checkDate) && isDayNotSunday(checkDate);
     }
 

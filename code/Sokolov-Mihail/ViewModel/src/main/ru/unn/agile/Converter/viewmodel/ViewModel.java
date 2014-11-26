@@ -4,15 +4,15 @@ import ru.unn.agile.Converter.Model.AreaConverter;
 import ru.unn.agile.Converter.Model.AreaConverter.Measures;
 
 public class ViewModel {
-    private String value;
+    private String input;
     private Measures measureFrom;
     private Measures measureTo;
     private String result;
     private boolean isCalculateButtonEnabled;
-    private double dvalue;
+    private double dinput;
 
     public ViewModel() {
-        value = "";
+        input = "";
         measureFrom = Measures.SquareMeter;
         measureTo = Measures.SquareMeter;
         result = "";
@@ -24,12 +24,12 @@ public class ViewModel {
         parseInput();
     }
 
-    public void setValue(final String value) {
-        this.value = value;
+    public void setInput(final String input) {
+        this.input = input;
     }
 
-    public String getValue() {
-        return value;
+    public String getInput() {
+        return input;
     }
 
     public Measures getMeasureOfAreaFrom() {
@@ -62,7 +62,7 @@ public class ViewModel {
         }
 
         try {
-            double dresult = AreaConverter.fromTo(dvalue, measureFrom, measureTo);
+            double dresult = AreaConverter.fromTo(dinput, measureFrom, measureTo);
             result = Double.toString(dresult);
         } catch (IllegalArgumentException e) {
             result = "Result is too much";
@@ -71,13 +71,13 @@ public class ViewModel {
 
     private boolean parseInput() {
         try {
-            if (!value.isEmpty()) {
-                dvalue = Double.parseDouble(value);
-                if (Double.isInfinite(dvalue)) {
+            if (!input.isEmpty()) {
+                dinput = Double.parseDouble(input);
+                if (Double.isInfinite(dinput)) {
                     throw new IllegalArgumentException("Input is too much");
                 }
             }
-            isCalculateButtonEnabled = isInputAvailable();
+            isCalculateButtonEnabled = !input.isEmpty();
             result = "";
         } catch (NumberFormatException e) {
             result = "Wrong input";
@@ -90,9 +90,5 @@ public class ViewModel {
         }
 
         return isCalculateButtonEnabled;
-    }
-
-    private boolean isInputAvailable() {
-        return !value.isEmpty();
     }
 }

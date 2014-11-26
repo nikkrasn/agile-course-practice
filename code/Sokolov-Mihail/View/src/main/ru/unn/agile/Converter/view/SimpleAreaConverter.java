@@ -71,7 +71,7 @@ public final class SimpleAreaConverter {
     }
 
     private void bind() {
-        viewModel.setValue(tbValue.getText());
+        viewModel.setInput(tbValue.getText());
         viewModel.setMeasureOfAreaFrom((Measures) cbFrom.getSelectedItem());
         viewModel.setMeasureOfAreaTo((Measures) cbTo.getSelectedItem());
     }

@@ -27,7 +27,7 @@ public class ViewModelTests {
 
     @Test
     public void canSetInitialValues() {
-        assertEquals("", viewModel.getValue());
+        assertEquals("", viewModel.getInput());
         assertEquals(Measures.SquareMeter, viewModel.getMeasureOfAreaFrom());
         assertEquals(Measures.SquareMeter, viewModel.getMeasureOfAreaTo());
         assertEquals(false, viewModel.isCalculateButtonEnabled());
@@ -172,7 +172,7 @@ public class ViewModelTests {
 
     @Test
     public void canPerformAreaConvertAction() {
-        viewModel.setValue("12000000");
+        viewModel.setInput("12000000");
         viewModel.setMeasureOfAreaFrom(Measures.SquareMeter);
         viewModel.setMeasureOfAreaTo(Measures.SquareKilometer);
 
@@ -182,31 +182,31 @@ public class ViewModelTests {
     }
 
     private void fillFieldsGood() {
-        viewModel.setValue("123");
+        viewModel.setInput("123");
         viewModel.setMeasureOfAreaFrom(Measures.SquareMeter);
         viewModel.setMeasureOfAreaTo(Measures.SquareMeter);
     }
 
     private void fillFieldsNullInput() {
-        viewModel.setValue("");
+        viewModel.setInput("");
         viewModel.setMeasureOfAreaFrom(Measures.SquareMeter);
         viewModel.setMeasureOfAreaTo(Measures.SquareMeter);
     }
 
     private void fillFieldsWrongInput() {
-        viewModel.setValue("123dfg");
+        viewModel.setInput("123dfg");
         viewModel.setMeasureOfAreaFrom(Measures.SquareMeter);
         viewModel.setMeasureOfAreaTo(Measures.SquareMeter);
     }
 
     private void fillFieldsInputIsTooMuch() {
-        viewModel.setValue("12E5555");
+        viewModel.setInput("12E5555");
         viewModel.setMeasureOfAreaFrom(Measures.SquareMeter);
         viewModel.setMeasureOfAreaTo(Measures.SquareMeter);
     }
 
     private void fillFieldsResultIsTooMuch() {
-        viewModel.setValue("12E307");
+        viewModel.setInput("12E307");
         viewModel.setMeasureOfAreaFrom(Measures.SquareKilometer);
         viewModel.setMeasureOfAreaTo(Measures.SquareMeter);
     }

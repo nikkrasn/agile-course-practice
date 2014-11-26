@@ -33,7 +33,6 @@ public class ComplexDepositTest {
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertEquals(1045, deposit.getCapitalizedBase(), DELTA);
-
     }
 
     @Test

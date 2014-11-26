@@ -32,6 +32,11 @@ public class ComplexDeposit {
         return this;
     }
 
+    public ComplexDeposit setBase(final String base) {
+        this.base = Double.parseDouble(base);
+        return this;
+    }
+
     public double getPercent() {
         return percent;
     }
@@ -41,12 +46,22 @@ public class ComplexDeposit {
         return this;
     }
 
+    public ComplexDeposit setPercent(final String percent) {
+        this.percent = Double.parseDouble(percent);
+        return this;
+    }
+
     public double getInterestCountInYear() {
         return interestCountInYear;
     }
 
     public ComplexDeposit setInterestCountInYear(final int interestCountInYear) {
         this.interestCountInYear = interestCountInYear;
+        return this;
+    }
+
+    public ComplexDeposit setInterestCountInYear(final String interestCountInYear) {
+        this.interestCountInYear = Integer.parseInt(interestCountInYear);
         return this;
     }
 

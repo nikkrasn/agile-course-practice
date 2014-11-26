@@ -14,7 +14,7 @@ import ru.unn.agile.ComplexProcent.Model.ComplexDeposit;
 
 public class ViewModel {
     private final StringProperty txtBase = new SimpleStringProperty();
-    private final StringProperty txtInterestCount = new SimpleStringProperty();
+    private final StringProperty txtIntCount = new SimpleStringProperty();
     private final StringProperty txtPercent = new SimpleStringProperty();
 
     private final StringProperty result = new SimpleStringProperty();
@@ -29,7 +29,7 @@ public class ViewModel {
 
     public ViewModel() {
         txtBase.set("");
-        txtInterestCount.set("");
+        txtIntCount.set("");
         txtPercent.set("");
         result.set("");
         dtPkrStart.set(LocalDate.now());
@@ -37,7 +37,7 @@ public class ViewModel {
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
-                super.bind(txtBase, txtInterestCount, txtPercent, dtPkrEnd, dtPkrStart);
+                super.bind(txtBase, txtIntCount, txtPercent, dtPkrEnd, dtPkrStart);
             }
             @Override
             protected boolean computeValue() {
@@ -48,7 +48,7 @@ public class ViewModel {
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             add(txtBase);
-            add(txtInterestCount);
+            add(txtIntCount);
             add(txtPercent);
         } };
 
@@ -56,7 +56,7 @@ public class ViewModel {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);
             valueChangedListeners.add(listener);
-        };
+        }
         final DataValueChangeListener endDataListener = new DataValueChangeListener();
         dtPkrEnd.addListener(endDataListener);
         final DataValueChangeListener startDataListener = new DataValueChangeListener();
@@ -65,59 +65,28 @@ public class ViewModel {
 
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
-        if (txtBase.get().isEmpty() || txtPercent.get().isEmpty()
-                || txtInterestCount.get().isEmpty() || (dtPkrEnd.getValue()==null)
-                || (dtPkrStart.getValue()==null)) {
-            inputStatus = Status.WAITING;
-        }
-        try {
-            if (!txtInterestCount.get().isEmpty()) {
-                Integer.parseInt(txtInterestCount.get());
-            }
-            if (!txtPercent.get().isEmpty()) {
-                Double.parseDouble(txtPercent.get());
-            }
-            if (!txtBase.get().isEmpty()) {
-                Double.parseDouble(txtBase.get());
-            }
-        }
-        catch (NumberFormatException nfe) {
-            return Status.BAD_FORMAT;
-        }
-            if (!((dtPkrEnd.getValue()==null) || (dtPkrEnd.getValue()==null))) {
-                Integer.parseInt(txtInterestCount.get());
-                if(dtPkrEnd.get().compareTo(dtPkrStart.get())<0)
-                    return Status.BAD_DATE;
-            }
-
-
-
-        return inputStatus;
-    }
-
     public GregorianCalendar getStartDate(final LocalDate dtPkr) {
-        GregorianCalendar startDate= new GregorianCalendar();
-        startDate.set(dtPkr.getYear(),dtPkr.getMonthValue(),dtPkr.getDayOfMonth());
+        GregorianCalendar startDate = new GregorianCalendar();
+        startDate.set(dtPkr.getYear(), dtPkr.getMonthValue(), dtPkr.getDayOfMonth());
         return startDate;
     }
 
     public GregorianCalendar getEndDate(final LocalDate dtPkr) {
-        GregorianCalendar endDate= new GregorianCalendar();
+        GregorianCalendar endDate = new GregorianCalendar();
         endDate.set(dtPkr.getYear(), dtPkr.getMonthValue(), dtPkr.getDayOfMonth());
         return endDate;
     }
 
     public void calculate() {
-        ComplexDeposit calculatedDeposit = new ComplexDeposit(txtBase.get(),txtPercent.get(),txtInterestCount.get());
+        ComplexDeposit calcDeposit =
+                new ComplexDeposit(txtBase.get(), txtPercent.get(), txtIntCount.get());
         GregorianCalendar startDate = getStartDate(dtPkrStart.get());
         GregorianCalendar endDate = getStartDate(dtPkrEnd.get());
-        calculatedDeposit.setStartDate(startDate);
-        calculatedDeposit.setFinishDate(endDate);
-        result.set(String.format("%.2f", calculatedDeposit.getCapitalizedBase()));
+        calcDeposit.setStartDate(startDate);
+        calcDeposit.setFinishDate(endDate);
+        result.set(String.format("%.2f", calcDeposit.getCapitalizedBase()));
         status.set(Status.SUCCESS.toString());
-    };
+    }
 
     public final boolean getCalculationDisabled() {
         return calculationDisabled.get();
@@ -136,7 +105,7 @@ public class ViewModel {
     }
 
     public StringProperty getTxtInterestCountProperty() {
-        return txtInterestCount;
+        return txtIntCount;
     }
 
     public StringProperty getTxtPercentProperty() {
@@ -147,7 +116,7 @@ public class ViewModel {
         return result;
     }
 
-    public StringProperty statusProperty() {return status;}
+    public StringProperty statusProperty() { return status; }
 
     public final String getResult() {
         return result.get();
@@ -157,7 +126,45 @@ public class ViewModel {
         return calculationDisabled;
     }
 
-    public final String getStatus(){return status.get();}
+    public final String getStatus() { return status.get(); }
+
+    private boolean hasEmptyFields() {
+        if (txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
+                || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null) {
+        return true;
+        }
+        return false;
+    }
+
+    private Status getInputStatus() {
+        Status inputStatus = Status.READY;
+        if (hasEmptyFields()) {
+            inputStatus = Status.WAITING;
+        }
+        try {
+            if (!txtIntCount.get().isEmpty()) {
+                Integer.parseInt(txtIntCount.get());
+            }
+            if (!txtPercent.get().isEmpty()) {
+                Double.parseDouble(txtPercent.get());
+            }
+            if (!txtBase.get().isEmpty()) {
+                Double.parseDouble(txtBase.get());
+            }
+        } catch (NumberFormatException nfe) {
+            return Status.BAD_FORMAT;
+        }
+            if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
+                Integer.parseInt(txtIntCount.get());
+                if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
+                    return Status.BAD_DATE;
+                }
+            }
+
+
+
+        return inputStatus;
+    }
 
     private class ValueChangeListener implements ChangeListener<String> {
         @Override

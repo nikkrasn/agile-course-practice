@@ -31,7 +31,7 @@ public class ComplexPercent extends VBox {
         txtPercent.textProperty().bindBidirectional(viewModel.getTxtPercentProperty());
         dtPkrStart.valueProperty().bindBidirectional(viewModel.dtPkrStartProperty());
         dtPkrEnd.valueProperty().bindBidirectional(viewModel.dtPkrEndProperty());
-        btnCount.setOnAction(new EventHandler< ActionEvent >() {
+        btnCount.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.calculate();

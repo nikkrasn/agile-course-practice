@@ -61,8 +61,8 @@ public class ViewModelTests {
 
     @Test
     public void setValueUnitCentner() {
-    viewModel.setValueUnit(UnitWeight.CENTNER);
-    assertEquals(UnitWeight.CENTNER, viewModel.getValueUnit());
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        assertEquals(UnitWeight.CENTNER, viewModel.getValueUnit());
     }
 
     @Test

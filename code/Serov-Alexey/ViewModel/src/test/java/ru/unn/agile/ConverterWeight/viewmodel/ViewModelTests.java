@@ -96,9 +96,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void getGrammFromValueUnit() {
-    String grammName = UnitWeight.GRAMM.toString();
-    assertEquals("GRAMM", grammName);
+        public void getGrammFromValueUnit() {
+        String grammName = UnitWeight.GRAMM.toString();
+        assertEquals("GRAMM", grammName);
     }
 
     @Test

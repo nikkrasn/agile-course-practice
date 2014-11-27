@@ -14,8 +14,7 @@ import ru.unn.agile.Triangle.Model.StringFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewModel
-{
+public class ViewModel {
     private final StringProperty aX = new SimpleStringProperty();
     private final StringProperty aY = new SimpleStringProperty();
     private final StringProperty bX = new SimpleStringProperty();
@@ -28,7 +27,7 @@ public class ViewModel
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
     private final BooleanProperty computationDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty result = new SimpleStringProperty();
+    private final StringProperty values = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
@@ -41,8 +40,8 @@ public class ViewModel
         cX.set("");
         cY.set("");
         operation.set(Operation.PERIMETER);
-        result.set("");
-        status.set(Status.WAITING.toString());
+        values.set("");
+        status.set(CurrentStatus.WAITING.toString());
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -50,7 +49,7 @@ public class ViewModel
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
+                return getInputStatus() == CurrentStatus.READY;
             }
         };
         computationDisabled.bind(couldCalculate.not());
@@ -81,10 +80,10 @@ public class ViewModel
         Point c = new Point(cX.get(), cY.get());
         Triangle triangle = new Triangle(a, b, c);
 
-        double[] doubleResult = operation.get().apply(triangle);
+        double[] doubleValues = operation.get().apply(triangle);
 
-        result.set(StringFormatter.arrayFormat(doubleResult));
-        status.set(Status.SUCCESS.toString());
+        values.set(StringFormatter.arrayFormat(doubleValues));
+        status.set(CurrentStatus.SUCCESS.toString());
     }
 
     public StringProperty aXProperty() {
@@ -117,15 +116,15 @@ public class ViewModel
     public BooleanProperty computationDisabledProperty() {
         return computationDisabled;
     }
-    public final boolean getCalculationDisabled() {
+    public final boolean getComputationDisabled() {
         return computationDisabled.get();
     }
 
-    public StringProperty resultProperty() {
-        return result;
+    public StringProperty valuesProperty() {
+        return values;
     }
-    public final String getResult() {
-        return result.get();
+    public final String getValues() {
+        return values.get();
     }
     public StringProperty statusProperty() {
         return status;
@@ -134,12 +133,12 @@ public class ViewModel
         return status.get();
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+    private CurrentStatus getInputStatus() {
+        CurrentStatus inputStatus = CurrentStatus.READY;
         if (aX.get().isEmpty() || aY.get().isEmpty()
          || bX.get().isEmpty() || bY.get().isEmpty()
          || cX.get().isEmpty() || cY.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            inputStatus = CurrentStatus.WAITING;
         }
         try {
             if (!aX.get().isEmpty()) {
@@ -161,7 +160,7 @@ public class ViewModel
                 Double.parseDouble(cY.get());
             }
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+            inputStatus = CurrentStatus.BAD_FORMAT;
         }
 
         return inputStatus;
@@ -176,14 +175,14 @@ public class ViewModel
     }
 }
 
-enum Status {
+enum CurrentStatus {
     WAITING("Please provide input data"),
     READY("Press 'Calculate' or Enter"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Success");
 
     private final String name;
-    private Status(final String name) {
+    private CurrentStatus(final String name) {
         this.name = name;
     }
     public String toString() {

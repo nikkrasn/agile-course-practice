@@ -5,14 +5,14 @@ import java.util.Map;
 
 public final class ConverterWeight {
     private static final double GRAMM           = 1.;
-    private static final double KILOGRAM       = 1000.;
+    private static final double KILOGRAMM       = 1000.;
     private static final double CENTNER         = 100000.;
     private static final double TON             = 1000000.;
 
     private static Map<UnitWeight, Double> koef = new HashMap<UnitWeight, Double>();
     static {
         koef.put(UnitWeight.GRAMM, GRAMM);
-        koef.put(UnitWeight.KILOGRAM, KILOGRAM);
+        koef.put(UnitWeight.KILOGRAMM, KILOGRAMM);
         koef.put(UnitWeight.CENTNER, CENTNER);
         koef.put(UnitWeight.TON, TON);
     }
@@ -28,7 +28,7 @@ public final class ConverterWeight {
 
     public enum UnitWeight {
         GRAMM("GRAMM"),
-        KILOGRAM("KILOGRAM"),
+        KILOGRAMM("KILOGRAMM"),
         CENTNER("CENTNER"),
         TON("TON");
         private final String name;

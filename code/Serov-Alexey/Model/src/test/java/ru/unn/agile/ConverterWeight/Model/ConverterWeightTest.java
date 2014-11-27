@@ -6,28 +6,28 @@ import static ru.unn.agile.ConverterWeight.Model.ConverterWeight.converter;
 import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
 
 public class ConverterWeightTest {
-    private final double delta = 0.0;
+    private static final double DELTA = 0.0001;
 
     @Test
-    public void grammToKilogramInputNumberReturnInKilogram() {
-        double result = converter(UnitWeight.GRAMM, UnitWeight.KILOGRAM, 1);
-        assertEquals(0.001, result, delta);
+    public void grammToKilogrammInputNumberReturnInKilogram() {
+        double result = converter(UnitWeight.GRAMM, UnitWeight.KILOGRAMM, 1);
+        assertEquals(0.001, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void grammToKilogramInputNegativNumberReturnExeption() {
-        converter(UnitWeight.GRAMM, UnitWeight.KILOGRAM, -1);
+    public void grammToKilogrammInputNegativNumberReturnExeption() {
+        converter(UnitWeight.GRAMM, UnitWeight.KILOGRAMM, -1);
     }
 
     @Test
-    public void grammToKilogramInputMaxDoubleReturnExeption() {
-        converter(UnitWeight.GRAMM, UnitWeight.KILOGRAM, Double.MAX_VALUE);
+    public void grammToKilogrammInputMaxDoubleReturnExeption() {
+        converter(UnitWeight.GRAMM, UnitWeight.KILOGRAMM, Double.MAX_VALUE);
     }
 
     @Test
     public void grammToCentnerInputNumberReturnInCentner() {
         double result = converter(UnitWeight.GRAMM, UnitWeight.CENTNER, 1);
-        assertEquals(0.00001, result, delta);
+        assertEquals(0.00001, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -43,7 +43,7 @@ public class ConverterWeightTest {
     @Test
     public void grammToTonInputNumberReturnInTon() {
         double result = converter(UnitWeight.GRAMM, UnitWeight.TON, 1);
-        assertEquals(0.000001, result, delta);
+        assertEquals(0.000001, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -57,57 +57,57 @@ public class ConverterWeightTest {
     }
 
     @Test
-    public void kilogramToGrammInputNumberReturnInGram() {
-        double result = converter(UnitWeight.KILOGRAM, UnitWeight.GRAMM, 1);
-        assertEquals(1000, result, delta);
+    public void kilogrammToGrammInputNumberReturnInGram() {
+        double result = converter(UnitWeight.KILOGRAMM, UnitWeight.GRAMM, 1);
+        assertEquals(1000, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void kilogramToGrammInputNegativNumberReturnExeption() {
-        converter(UnitWeight.KILOGRAM, UnitWeight.GRAMM, -1);
+    public void kilogrammToGrammInputNegativNumberReturnExeption() {
+        converter(UnitWeight.KILOGRAMM, UnitWeight.GRAMM, -1);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void kilogramToGrammInputMaxDoubleReturnExeption() {
-        converter(UnitWeight.KILOGRAM, UnitWeight.GRAMM, Double.MAX_VALUE);
+    public void kilogrammToGrammInputMaxDoubleReturnExeption() {
+        converter(UnitWeight.KILOGRAMM, UnitWeight.GRAMM, Double.MAX_VALUE);
     }
 
     @Test
-    public void kilogramToCentnerInputNumberReturnInCentner() {
-        double result = converter(UnitWeight.KILOGRAM, UnitWeight.CENTNER, 1);
-        assertEquals(0.01, result, delta);
+    public void kilogrammToCentnerInputNumberReturnInCentner() {
+        double result = converter(UnitWeight.KILOGRAMM, UnitWeight.CENTNER, 1);
+        assertEquals(0.01, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void kilogramToCentnerInputNegativNumberReturnExeption() {
-        converter(UnitWeight.KILOGRAM, UnitWeight.CENTNER, -1);
+    public void kilogrammToCentnerInputNegativNumberReturnExeption() {
+        converter(UnitWeight.KILOGRAMM, UnitWeight.CENTNER, -1);
     }
 
     @Test
-    public void kilogramToCentnerInputMaxDoubleReturnExeption() {
-        converter(UnitWeight.KILOGRAM, UnitWeight.CENTNER, Double.MAX_VALUE);
+    public void kilogrammToCentnerInputMaxDoubleReturnExeption() {
+        converter(UnitWeight.KILOGRAMM, UnitWeight.CENTNER, Double.MAX_VALUE);
     }
 
     @Test
-    public void kilogramToTonInputNumberReturnInTon() {
-        double result = converter(UnitWeight.KILOGRAM, UnitWeight.TON, 1);
-        assertEquals(0.001, result, delta);
+    public void kilogrammToTonInputNumberReturnInTon() {
+        double result = converter(UnitWeight.KILOGRAMM, UnitWeight.TON, 1);
+        assertEquals(0.001, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void kilogramToTonInputNegativNumberReturnExeption() {
-        converter(UnitWeight.KILOGRAM, UnitWeight.TON, -1);
+    public void kilogrammToTonInputNegativNumberReturnExeption() {
+        converter(UnitWeight.KILOGRAMM, UnitWeight.TON, -1);
     }
 
     @Test
-    public void kilogramToTonInputMaxDoubleReturnExeption() {
-        converter(UnitWeight.KILOGRAM, UnitWeight.TON, Double.MAX_VALUE);
+    public void kilogrammToTonInputMaxDoubleReturnExeption() {
+        converter(UnitWeight.KILOGRAMM, UnitWeight.TON, Double.MAX_VALUE);
     }
 
     @Test
     public void centnerToGrammInputNumberReturnInGram() {
         double result = converter(UnitWeight.CENTNER, UnitWeight.GRAMM, 1);
-        assertEquals(100000, result, delta);
+        assertEquals(100000, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -121,25 +121,25 @@ public class ConverterWeightTest {
     }
 
     @Test
-    public void centnerToKilogramInputNumberReturnInKilogram() {
-        double result = converter(UnitWeight.CENTNER, UnitWeight.KILOGRAM, 1);
-        assertEquals(100, result, delta);
+    public void centnerToKilogrammInputNumberReturnInKilogram() {
+        double result = converter(UnitWeight.CENTNER, UnitWeight.KILOGRAMM, 1);
+        assertEquals(100, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void centnerToKilogramInputNegativNumberReturnExeption() {
-        converter(UnitWeight.CENTNER, UnitWeight.KILOGRAM, -1);
+    public void centnerToKilogrammInputNegativNumberReturnExeption() {
+        converter(UnitWeight.CENTNER, UnitWeight.KILOGRAMM, -1);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void centnerToKillogramInputMaxDoubleReturnExeption() {
-        converter(UnitWeight.CENTNER, UnitWeight.KILOGRAM, Double.MAX_VALUE);
+    public void centnerToKillogrammInputMaxDoubleReturnExeption() {
+        converter(UnitWeight.CENTNER, UnitWeight.KILOGRAMM, Double.MAX_VALUE);
     }
 
     @Test
     public void centnerToTonInputNumberReturnInTon() {
         double result = converter(UnitWeight.CENTNER, UnitWeight.TON, 1);
-        assertEquals(0.1, result, delta);
+        assertEquals(0.1, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -155,7 +155,7 @@ public class ConverterWeightTest {
     @Test
     public void tonToGrammInputNumberReturnInGram() {
         double result = converter(UnitWeight.TON, UnitWeight.GRAMM, 1);
-        assertEquals(1000000, result, delta);
+        assertEquals(1000000, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -169,25 +169,25 @@ public class ConverterWeightTest {
     }
 
     @Test
-    public void tonToKilogramInputNumberReturnInKilogram() {
-        double result = converter(UnitWeight.TON, UnitWeight.KILOGRAM, 1);
-        assertEquals(1000, result, delta);
+    public void tonToKilogrammInputNumberReturnInKilogram() {
+        double result = converter(UnitWeight.TON, UnitWeight.KILOGRAMM, 1);
+        assertEquals(1000, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void tonToKilogramInputNegativNumberReturnExeption() {
-        converter(UnitWeight.TON, UnitWeight.KILOGRAM, -1);
+    public void tonToKilogrammInputNegativNumberReturnExeption() {
+        converter(UnitWeight.TON, UnitWeight.KILOGRAMM, -1);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void tonToKilogramInputMaxDoubleReturnExeption() {
-        converter(UnitWeight.TON, UnitWeight.KILOGRAM, Double.MAX_VALUE);
+    public void tonToKilogrammInputMaxDoubleReturnExeption() {
+        converter(UnitWeight.TON, UnitWeight.KILOGRAMM, Double.MAX_VALUE);
     }
 
     @Test
     public void tonToCentnerInputNumberReturnInCentner() {
         double result = converter(UnitWeight.TON, UnitWeight.CENTNER, 1);
-        assertEquals(10, result, delta);
+        assertEquals(10, result, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)

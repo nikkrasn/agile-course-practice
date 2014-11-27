@@ -54,9 +54,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void setValueUnitKilogram() {
-        viewModel.setValueUnit(UnitWeight.KILOGRAM);
-        assertEquals(UnitWeight.KILOGRAM, viewModel.getValueUnit());
+    public void setValueUnitKilogramm() {
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
+        assertEquals(UnitWeight.KILOGRAMM, viewModel.getValueUnit());
     }
 
     @Test
@@ -78,9 +78,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void setResultUnitKilogram() {
-        viewModel.setResultUnit(UnitWeight.KILOGRAM);
-        assertEquals(UnitWeight.KILOGRAM, viewModel.getResultUnit());
+    public void setResultUnitKilogramm() {
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
+        assertEquals(UnitWeight.KILOGRAMM, viewModel.getResultUnit());
     }
 
     @Test
@@ -102,9 +102,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void getKilogramFromValueUnit() {
-        String kilogramName = UnitWeight.KILOGRAM.toString();
-        assertEquals("KILOGRAM", kilogramName);
+    public void getKilogrammFromValueUnit() {
+        String kilogrammName = UnitWeight.KILOGRAMM.toString();
+        assertEquals("KILOGRAMM", kilogrammName);
     }
 
     @Test
@@ -122,7 +122,7 @@ public class ViewModelTests {
     @Test
     public void canCompareNameUntilWeight() {
         assertEquals(UnitWeight.GRAMM, UnitWeight.GRAMM);
-        assertEquals(UnitWeight.KILOGRAM, UnitWeight.KILOGRAM);
+        assertEquals(UnitWeight.KILOGRAMM, UnitWeight.KILOGRAMM);
         assertEquals(UnitWeight.CENTNER, UnitWeight.CENTNER);
         assertEquals(UnitWeight.TON, UnitWeight.TON);
         assertNotEquals(UnitWeight.CENTNER, UnitWeight.GRAMM);
@@ -133,7 +133,7 @@ public class ViewModelTests {
         UnitWeight[] unitWeights = UnitWeight.values();
         UnitWeight[] currentUntilWeight = new UnitWeight[]{
                 UnitWeight.GRAMM,
-                UnitWeight.KILOGRAM,
+                UnitWeight.KILOGRAMM,
                 UnitWeight.CENTNER,
                 UnitWeight.TON};
         assertArrayEquals(currentUntilWeight, unitWeights);
@@ -177,7 +177,7 @@ public class ViewModelTests {
     public void isStatusLargeWhenSetInputBigValue() {
         double tmp = Double.MAX_VALUE;
         viewModel.setValue(Double.toString(tmp));
-        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
         viewModel.setResultUnit(UnitWeight.GRAMM);
         viewModel.convert();
         assertEquals(Status.LARGE, viewModel.getStatus());
@@ -203,7 +203,7 @@ public class ViewModelTests {
     public void canGrammConvertKilogram() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.GRAMM);
-        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
         viewModel.convert();
         assertEquals("0.001", viewModel.getResult());
     }
@@ -227,36 +227,36 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canKilogramConvertGramm() {
+    public void canKilogrammConvertGramm() {
         viewModel.setValue("1");
-        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
         viewModel.setResultUnit(UnitWeight.GRAMM);
         viewModel.convert();
         assertEquals("1000.0", viewModel.getResult());
     }
 
     @Test
-    public void canKilogramConvertKilogram() {
+    public void canKilogramConvertKilogramm() {
         viewModel.setValue("1");
-        viewModel.setValueUnit(UnitWeight.KILOGRAM);
-        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
         viewModel.convert();
         assertEquals("1.0", viewModel.getResult());
     }
 
     @Test
-    public void canKilogramConvertCentner() {
+    public void canKilogrammConvertCentner() {
         viewModel.setValue("1");
-        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
         viewModel.setResultUnit(UnitWeight.CENTNER);
         viewModel.convert();
         assertEquals("0.01", viewModel.getResult());
     }
 
     @Test
-    public void canKilogramConvertTon() {
+    public void canKilogrammConvertTon() {
         viewModel.setValue("1");
-        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
         viewModel.setResultUnit(UnitWeight.TON);
         viewModel.convert();
         assertEquals("0.001", viewModel.getResult());
@@ -272,10 +272,10 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCentnerConvertKilogram() {
+    public void canCentnerConvertKilogramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.CENTNER);
-        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
         viewModel.convert();
         assertEquals("100.0", viewModel.getResult());
     }
@@ -308,10 +308,10 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canTonConvertKilogram() {
+    public void canTonConvertKilogramm() {
         viewModel.setValue("1");
         viewModel.setValueUnit(UnitWeight.TON);
-        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
         viewModel.convert();
         assertEquals("1000.0", viewModel.getResult());
     }
@@ -351,7 +351,7 @@ public class ViewModelTests {
         assertEquals(Status.SUCCESS, viewModel.getStatus());
 
         viewModel.setValue("12e308");
-        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
         viewModel.setResultUnit(UnitWeight.GRAMM);
         viewModel.convert();
         assertEquals(Status.LARGE,  viewModel.getStatus());

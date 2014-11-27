@@ -18,6 +18,16 @@ public final class Converter {
     private JComboBox<UnitWeight> cbSourceUnit;
     private JComboBox<UnitWeight> cbEndUnit;
 
+    public static void main(final String[] args) {
+        JFrame frame = new JFrame("Converter");
+        frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private Converter() { }
+
     private Converter(final ViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
@@ -59,16 +69,6 @@ public final class Converter {
 
         txtValues.addKeyListener(keyListener);
     }
-
-    public static void main(final String[] args) {
-        JFrame frame = new JFrame("Converter");
-        frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private Converter() { }
 
     private void loadListOfUnitWeight() {
         UnitWeight[] unitWeights = UnitWeight.values();

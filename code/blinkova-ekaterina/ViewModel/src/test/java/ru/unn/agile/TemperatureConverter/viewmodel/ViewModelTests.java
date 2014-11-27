@@ -81,9 +81,9 @@ public class ViewModelTests {
     public void canCreateListOfScales() {
         ViewModel.Scale[] scales = ViewModel.Scale.values();
         ViewModel.Scale[] realScales = new Scale[]{
-                Scale.NEWTON,
                 Scale.FAHRENHEIT,
-                Scale.KELVIN};
+                Scale.KELVIN,
+                Scale.NEWTON};
         assertArrayEquals(realScales, scales);
     }
 

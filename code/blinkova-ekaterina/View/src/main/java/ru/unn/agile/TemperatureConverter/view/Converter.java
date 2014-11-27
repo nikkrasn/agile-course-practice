@@ -32,6 +32,7 @@ public final class Converter {
         backBind();
 
         loadListOfScales();
+        cbScale.setSelectedItem(viewModel.getScale());
 
         btnConvert.addActionListener(new ActionListener() {
             @Override

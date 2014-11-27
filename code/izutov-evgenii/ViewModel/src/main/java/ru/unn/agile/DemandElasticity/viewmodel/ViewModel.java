@@ -13,45 +13,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private static final DemandElasticityType DEFAULT_DEMAND_ELASTICITY_TYPE =
-            DemandElasticityType.ByPrice;
-    private static final String DEFAULT_TEXT_VALUE = "";
-
-    private final StringProperty start1 = new SimpleStringProperty();
-    private final StringProperty finish1 = new SimpleStringProperty();
-    private final StringProperty start2 = new SimpleStringProperty();
-    private final StringProperty finish2 = new SimpleStringProperty();
+    private final StringProperty start1 = new SimpleStringProperty("");
+    private final StringProperty finish1 = new SimpleStringProperty("");
+    private final StringProperty start2 = new SimpleStringProperty("");
+    private final StringProperty finish2 = new SimpleStringProperty("");
 
     private final ObjectProperty<ObservableList<DemandElasticityType>> demandElasticityTypes =
             new SimpleObjectProperty<>(
                     FXCollections.observableArrayList(DemandElasticityType.values()));
     private final ObjectProperty<DemandElasticityType> demandElasticityType =
-            new SimpleObjectProperty<>();
+            new SimpleObjectProperty<>(DemandElasticityType.ByPrice);
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty description = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty("");
+    private final StringProperty description = new SimpleStringProperty("");
+    private final StringProperty status = new SimpleStringProperty(Status.WAITING.toString());
 
     private final List<TextFieldChangeListener> textFieldChangedListeners = new ArrayList<>();
 
-    private final StringProperty firstRange = new SimpleStringProperty();
-    private final StringProperty secondRange = new SimpleStringProperty();
+    private final StringProperty firstRange =
+            new SimpleStringProperty(DemandElasticityType.ByPrice.getFirstRangeName());
+    private final StringProperty secondRange =
+            new SimpleStringProperty(DemandElasticityType.ByPrice.getSecondRangeName());
 
     private final ComboBoxChangeListener comboBoxChangedListener = new ComboBoxChangeListener();
 
     public ViewModel() {
-        firstRange.set(DEFAULT_DEMAND_ELASTICITY_TYPE.getFirstRangeName());
-        secondRange.set(DEFAULT_DEMAND_ELASTICITY_TYPE.getSecondRangeName());
-        start1.set(DEFAULT_TEXT_VALUE);
-        finish1.set(DEFAULT_TEXT_VALUE);
-        start2.set(DEFAULT_TEXT_VALUE);
-        finish2.set(DEFAULT_TEXT_VALUE);
-        demandElasticityType.set(DEFAULT_DEMAND_ELASTICITY_TYPE);
-        result.set(DEFAULT_TEXT_VALUE);
-        description.set(DEFAULT_TEXT_VALUE);
-        status.set(Status.WAITING.toString());
-
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(start1, finish1, start2, finish2);

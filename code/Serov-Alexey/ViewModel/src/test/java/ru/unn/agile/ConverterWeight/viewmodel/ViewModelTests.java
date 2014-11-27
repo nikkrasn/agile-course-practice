@@ -66,9 +66,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void setValueUnitTon() {
-    viewModel.setValueUnit(UnitWeight.TON);
-    assertEquals(UnitWeight.TON, viewModel.getValueUnit());
+        public void setValueUnitTon() {
+        viewModel.setValueUnit(UnitWeight.TON);
+        assertEquals(UnitWeight.TON, viewModel.getValueUnit());
     }
 
     @Test

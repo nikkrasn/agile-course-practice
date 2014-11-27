@@ -9,18 +9,24 @@ public class ComplexDepositTest {
 
     @Test
     public void canCreateDeposit() {
-        ComplexDeposit deposit = new ComplexDeposit("1000", "4", "1");
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 11);
+        ComplexDeposit deposit = new ComplexDeposit();
+        deposit.setBase("1000")
+                .setPercent("4")
+                .setInterestCountInYear("1");
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertNotNull(deposit);
     }
 
     @Test
     public void canGetStartAndEndDate() {
-        ComplexDeposit deposit = new ComplexDeposit("1000", "4", "1");
         GregorianCalendar startDeposit = new GregorianCalendar(2010, 6, 12);
         GregorianCalendar finalDeposit = new GregorianCalendar(2014, 6, 13);
+        ComplexDeposit deposit = new ComplexDeposit();
+        deposit.setBase("1000")
+                .setPercent("4")
+                .setInterestCountInYear("1");
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertTrue(deposit.getStartDate() == startDeposit);
         assertTrue(deposit.getFinishDate() == finalDeposit);
@@ -28,36 +34,49 @@ public class ComplexDepositTest {
 
     @Test
     public void canCalcCapitalizedBaseInOnePeriod() {
-        ComplexDeposit deposit = new ComplexDeposit("1000", "4.5", "1");
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
+        ComplexDeposit deposit = new ComplexDeposit();
+        deposit.setBase("1000")
+                .setInterestCountInYear("1")
+                .setPercent("4.5");
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertEquals(1045, deposit.getCapitalizedBase(), DELTA);
     }
 
     @Test
     public void canCalcCapitalizedBaseInOnePeriodForFewYears() {
-        ComplexDeposit deposit = new ComplexDeposit("1000", "4.5", "1");
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2016, 7, 10);
+        ComplexDeposit deposit = new ComplexDeposit();
+        deposit.setBase("1000")
+                .setInterestCountInYear("1")
+                .setPercent("4.5");
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertEquals(1092.15, deposit.getCapitalizedBase(), DELTA);
     }
 
     @Test
     public void canCalcCapitalizedBaseInFewPeriodForYear() {
-        ComplexDeposit deposit = new ComplexDeposit("1000", "4.5", "3");
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
+        ComplexDeposit deposit = new ComplexDeposit();
+        deposit.setBase("1000")
+                .setInterestCountInYear("3")
+                .setPercent("4.5");
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertEquals(1045.93, deposit.getCapitalizedBase(), DELTA);
     }
 
     @Test
     public void canCalcCapitalizedBaseInFewPeriodForFewYears() {
-        ComplexDeposit deposit = new ComplexDeposit("1000", "4.5", "3");
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2018, 7, 10);
+        ComplexDeposit deposit = new ComplexDeposit();
+        deposit.setBase("1000")
+                .setInterestCountInYear("3")
+                .setPercent("4.5");
+        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
         assertEquals(1196.95, deposit.getCapitalizedBase(), DELTA);
     }

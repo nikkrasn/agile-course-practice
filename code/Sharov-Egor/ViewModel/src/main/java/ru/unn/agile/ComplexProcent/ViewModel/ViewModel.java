@@ -60,12 +60,14 @@ public class ViewModel {
     }
 
     public void calculate() {
-        ComplexDeposit calcDeposit =
-                new ComplexDeposit(txtBase.get(), txtPercent.get(), txtIntCount.get());
         GregorianCalendar startDate = convertToGregorian(dtPkrStart.get());
         GregorianCalendar endDate = convertToGregorian(dtPkrEnd.get());
-        calcDeposit.setStartDate(startDate);
-        calcDeposit.setFinishDate(endDate);
+        ComplexDeposit calcDeposit = new ComplexDeposit();
+        calcDeposit.setPercent(txtPercent.get())
+                .setBase(txtBase.get())
+                .setInterestCountInYear(txtIntCount.get())
+                .setStartDate(startDate)
+                .setFinishDate(endDate);
         result.set(String.format("%.2f", calcDeposit.getCapitalizedBase()));
         status.set(Status.SUCCESS.toString());
     }

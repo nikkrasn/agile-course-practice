@@ -19,6 +19,12 @@ public class ComplexDeposit {
         setInterestCountInYear(Integer.parseInt(interestCount));
     }
 
+    public ComplexDeposit() {
+        this.base = 0;
+        this.percent = 0;
+        this.interestCountInYear = 1;
+    }
+
     public double getCapitalizedBase() {
         return this.base * capitalizedPercentsFullInterest() * restPercents();
     }
@@ -32,6 +38,11 @@ public class ComplexDeposit {
         return this;
     }
 
+    public ComplexDeposit setBase(final String base) {
+        this.base = Double.parseDouble(base);
+        return this;
+    }
+
     public double getPercent() {
         return percent;
     }
@@ -41,12 +52,22 @@ public class ComplexDeposit {
         return this;
     }
 
+    public ComplexDeposit setPercent(final String percent) {
+        this.percent = Double.parseDouble(percent) / ENTIRE_PERCENT;
+        return this;
+    }
+
     public double getInterestCountInYear() {
         return interestCountInYear;
     }
 
     public ComplexDeposit setInterestCountInYear(final int interestCountInYear) {
         this.interestCountInYear = interestCountInYear;
+        return this;
+    }
+
+    public ComplexDeposit setInterestCountInYear(final String interestCountInYear) {
+        this.interestCountInYear = Integer.parseInt(interestCountInYear);
         return this;
     }
 

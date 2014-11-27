@@ -69,9 +69,9 @@ public class ViewModel {
                                                    resultUnit,
                                                    Double.parseDouble(value)));
                 status = Status.SUCCESS;
-                } catch (Exception e) {
+            } catch (Exception e) {
                      status = Status.LARGE;
-                }
+            }
         }
     }
 

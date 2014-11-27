@@ -20,6 +20,7 @@ public class ViewModelTests {
     public void tearDown() {
         viewModel = null;
     }
+
     @Test
     public void canSetDefaultValues() {
         assertEquals("", viewModel.getValue());
@@ -96,7 +97,7 @@ public class ViewModelTests {
     }
 
     @Test
-        public void getGrammFromValueUnit() {
+    public void getGrammFromValueUnit() {
         String grammName = UnitWeight.GRAMM.toString();
         assertEquals("GRAMM", grammName);
     }
@@ -356,5 +357,4 @@ public class ViewModelTests {
         viewModel.convert();
         assertEquals(Status.LARGE,  viewModel.getStatus());
     }
-
 }

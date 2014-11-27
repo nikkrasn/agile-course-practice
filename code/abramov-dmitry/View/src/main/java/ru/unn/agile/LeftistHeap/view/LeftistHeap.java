@@ -5,10 +5,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import ru.unn.agile.LeftistHeap.viewmodel.ViewModel;
 
-public class LeftistHeap extends VBox {
+public class LeftistHeap {
     @FXML
     private ViewModel viewModel;
     @FXML

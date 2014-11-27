@@ -2,7 +2,12 @@ package ru.unn.agile.LeftistHeap.viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import ru.unn.agile.LeftistHeap.Model.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewModel {
     private final StringProperty key1 = new SimpleStringProperty();
@@ -22,6 +27,8 @@ public class ViewModel {
     private final LeftistHeap<String> heap1 = new LeftistHeap<String>();
     private final LeftistHeap<String> heap2 = new LeftistHeap<String>();
 
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+
     public ViewModel() {
         key1.set("");
         key2.set("");
@@ -36,6 +43,22 @@ public class ViewModel {
         result2.set("");
 
         status.set("");
+
+        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+            add(key1);
+            add(value1);
+            add(newKey1);
+
+            add(key2);
+            add(value2);
+            add(newKey2);
+        } };
+
+        for (StringProperty field : fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
     }
 
     public StringProperty key1Property() {
@@ -204,5 +227,13 @@ public class ViewModel {
         }
 
         return true;
+    }
+
+    private class ValueChangeListener implements ChangeListener<String> {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getStatus());
+        }
     }
 }

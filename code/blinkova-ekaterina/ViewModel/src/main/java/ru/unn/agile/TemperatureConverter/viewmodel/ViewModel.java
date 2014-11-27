@@ -6,7 +6,7 @@ public class ViewModel {
     private String inputValue;
     private String result;
     private String status;
-    private Scale scale = Scale.NEWTON;
+    private Scale scale;
     private boolean isConvertButtonEnable;
 
     public ViewModel() {

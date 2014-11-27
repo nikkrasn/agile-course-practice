@@ -13,7 +13,7 @@ public class ViewModel {
         inputValue = "";
         result = "";
         status = Status.WAITING;
-        scale = Scale.NEWTON;
+        scale = Scale.FAHRENHEIT;
         isConvertButtonEnable = false;
     }
 
@@ -105,8 +105,8 @@ public class ViewModel {
     }
 
     public enum Scale {
-        FAHRENHEIT("Fahrenheit"),
         KELVIN("Kelvin"),
+        FAHRENHEIT("Fahrenheit"),
         NEWTON("Newton");
         private final String name;
 

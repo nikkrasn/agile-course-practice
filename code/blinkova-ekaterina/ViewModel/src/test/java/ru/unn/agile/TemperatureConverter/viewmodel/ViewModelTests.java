@@ -26,7 +26,7 @@ public class ViewModelTests {
         assertEquals("", viewModel.getInputValue());
         assertEquals("", viewModel.getResult());
         assertEquals(Status.WAITING, viewModel.getStatus());
-        assertEquals(Scale.NEWTON, viewModel.getScale());
+        assertEquals(Scale.FAHRENHEIT, viewModel.getScale());
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
@@ -81,8 +81,8 @@ public class ViewModelTests {
     public void canCreateListOfScales() {
         ViewModel.Scale[] scales = ViewModel.Scale.values();
         ViewModel.Scale[] realScales = new Scale[]{
-                Scale.FAHRENHEIT,
                 Scale.KELVIN,
+                Scale.FAHRENHEIT,
                 Scale.NEWTON};
         assertArrayEquals(realScales, scales);
     }
@@ -164,7 +164,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isNewtonDefaultScale() {
-        assertEquals(Scale.NEWTON, viewModel.getScale());
+    public void isFahrenheitDefaultScale() {
+        assertEquals(Scale.FAHRENHEIT, viewModel.getScale());
     }
 }

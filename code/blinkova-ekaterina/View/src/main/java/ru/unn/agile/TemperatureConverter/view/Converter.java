@@ -1,8 +1,9 @@
 package ru.unn.agile.TemperatureConverter.view;
 
-import javax.swing.*;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel.Scale;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -29,10 +30,8 @@ public final class Converter {
 
     private Converter(final ViewModel viewModel) {
         this.viewModel = viewModel;
-        backBind();
-
         loadListOfScales();
-        cbScale.setSelectedItem(viewModel.getScale());
+        backBind();
 
         btnConvert.addActionListener(new ActionListener() {
             @Override
@@ -73,6 +72,7 @@ public final class Converter {
     }
 
     private void backBind() {
+        cbScale.setSelectedItem(viewModel.getScale());
         btnConvert.setEnabled(viewModel.isConvertButtonEnabled());
         txtResult.setText(viewModel.getResult());
         txtStatus.setText(viewModel.getStatus());

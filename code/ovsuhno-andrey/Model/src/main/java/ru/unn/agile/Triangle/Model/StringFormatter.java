@@ -1,4 +1,4 @@
-package ru.unn.agile.Triangle;
+package ru.unn.agile.Triangle.Model;
 
 public final class StringFormatter {
 
@@ -29,6 +29,16 @@ public final class StringFormatter {
         builder.append(x + ", ");
         String y = precisionFormat(certainPoint.getY());
         builder.append(y + ")");
+        return builder.toString();
+    }
+
+    public static String arrayFormat(final double[] values) {
+        StringBuilder builder = new StringBuilder();
+        int i, l1 = values.length - 1;
+        for(i = 0; i < l1; i++) {
+            builder.append(precisionFormat(values[i]) + " ");
+        }
+        builder.append(precisionFormat(values[l1]));
         return builder.toString();
     }
 }

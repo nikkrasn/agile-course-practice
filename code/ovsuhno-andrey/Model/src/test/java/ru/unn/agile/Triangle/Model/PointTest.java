@@ -1,4 +1,4 @@
-package ru.unn.agile.Triangle;
+package ru.unn.agile.Triangle.Model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -111,5 +111,14 @@ public class PointTest {
         Point pointB = new Point(3, 5);
         Point pointC = new Point(2, 4);
         assertFalse(pointC.isOnStraightLine(pointA, pointB));
+    }
+
+    @Test
+    public void canConvertStringToPoint() {
+        String re = "1";
+        String im = "2";
+        Point z = new Point(re, im);
+
+        assertEquals(new Point(1, 2), z);
     }
 }

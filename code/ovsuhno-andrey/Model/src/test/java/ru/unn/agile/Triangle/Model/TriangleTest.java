@@ -1,4 +1,4 @@
-package ru.unn.agile.Triangle;
+package ru.unn.agile.Triangle.Model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

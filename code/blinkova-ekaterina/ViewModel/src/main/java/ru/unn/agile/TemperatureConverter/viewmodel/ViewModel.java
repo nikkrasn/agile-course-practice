@@ -48,24 +48,19 @@ public class ViewModel {
     public boolean parseInput() {
         try {
             if (inputValue.isEmpty()) {
-                return false;
+                isConvertButtonEnable = false;
+                status = Status.WAITING;
             } else {
                 Double.parseDouble(inputValue);
+                isConvertButtonEnable = true;
+                status = Status.READY;
             }
+            return isConvertButtonEnable;
         } catch (Exception e) {
             status = Status.WRONG_FORMAT;
             isConvertButtonEnable = false;
             return false;
         }
-
-        if (inputValue.isEmpty()) {
-            isConvertButtonEnable = false;
-            status = Status.WAITING;
-        } else {
-            isConvertButtonEnable = true;
-            status = Status.READY;
-        }
-        return isConvertButtonEnable;
     }
 
     public String getInputValue() {

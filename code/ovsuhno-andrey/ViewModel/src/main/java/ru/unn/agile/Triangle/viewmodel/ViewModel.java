@@ -30,7 +30,7 @@ public class ViewModel {
     private final StringProperty values = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<VariableListener> variableListeners = new ArrayList<>();
 
     public ViewModel() {
         aX.set("");
@@ -43,16 +43,16 @@ public class ViewModel {
         values.set("");
         status.set(CurrentStatus.WAITING.toString());
 
-        BooleanBinding couldCalculate = new BooleanBinding() {
+        BooleanBinding couldCompute = new BooleanBinding() {
             {
                 super.bind(aX, aY, bX, bY, cX, cY);
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == CurrentStatus.READY;
+                return getDataStatus() == CurrentStatus.READY;
             }
         };
-        computationDisabled.bind(couldCalculate.not());
+        computationDisabled.bind(couldCompute.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             add(aX);
@@ -64,9 +64,9 @@ public class ViewModel {
         } };
 
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final VariableListener listener = new VariableListener();
             field.addListener(listener);
-            valueChangedListeners.add(listener);
+            variableListeners.add(listener);
         }
     }
 
@@ -133,7 +133,7 @@ public class ViewModel {
         return status.get();
     }
 
-    private CurrentStatus getInputStatus() {
+    private CurrentStatus getDataStatus() {
         CurrentStatus inputStatus = CurrentStatus.READY;
         if (aX.get().isEmpty() || aY.get().isEmpty()
          || bX.get().isEmpty() || bY.get().isEmpty()
@@ -166,11 +166,11 @@ public class ViewModel {
         return inputStatus;
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class VariableListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
+            status.set(getDataStatus().toString());
         }
     }
 }

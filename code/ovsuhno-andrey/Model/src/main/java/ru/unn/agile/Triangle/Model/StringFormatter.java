@@ -35,7 +35,7 @@ public final class StringFormatter {
     public static String arrayFormat(final double[] values) {
         StringBuilder builder = new StringBuilder();
         int i, l1 = values.length - 1;
-        for(i = 0; i < l1; i++) {
+        for (i = 0; i < l1; i++) {
             builder.append(precisionFormat(values[i]) + " ");
         }
         builder.append(precisionFormat(values[l1]));

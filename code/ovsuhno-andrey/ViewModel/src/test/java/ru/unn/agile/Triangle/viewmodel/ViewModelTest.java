@@ -29,35 +29,35 @@ public class ViewModelTest {
         assertEquals("", viewModel.cXProperty().get());
         assertEquals("", viewModel.cYProperty().get());
         assertEquals(Operation.PERIMETER, viewModel.operationProperty().get());
-        assertEquals("", viewModel.resultProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals("", viewModel.valuesProperty().get());
+        assertEquals(CurrentStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void statusIsWaitingWhenCalculateWithEmptyFields() {
+    public void statusIsWaitingWhenComputeWithEmptyFields() {
         viewModel.compute();
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
         viewModel.aXProperty().set("bad");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
         viewModel.aXProperty().set("1");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -104,39 +104,39 @@ public class ViewModelTest {
 
         viewModel.compute();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canSetBadFormatMessage() {
         viewModel.aXProperty().set("bad");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(CurrentStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void perimeterComputationHasCorrectResult() {
-        viewModel.aXProperty().set("1");
-        viewModel.aYProperty().set("1");
-        viewModel.bXProperty().set("1");
+    public void perimeterComputationHasCorrectValues() {
+        viewModel.aXProperty().set("2");
+        viewModel.aYProperty().set("2");
+        viewModel.bXProperty().set("4");
         viewModel.bYProperty().set("4");
-        viewModel.cXProperty().set("2");
-        viewModel.cYProperty().set("1");
+        viewModel.cXProperty().set("4");
+        viewModel.cYProperty().set("2");
 
         viewModel.compute();
 
-        assertEquals("7.16", viewModel.resultProperty().get());
+        assertEquals("6.83", viewModel.valuesProperty().get());
     }
 
     @Test
-    public void lengthsComputationHasCorrectResult() {
+    public void lengthsComputationHasCorrectValues() {
         viewModel.aXProperty().set("1");
         viewModel.aYProperty().set("2");
         viewModel.bXProperty().set("1");
@@ -147,11 +147,11 @@ public class ViewModelTest {
 
         viewModel.compute();
 
-        assertEquals("2.00 2.24 1.00", viewModel.resultProperty().get());
+        assertEquals("2.00 2.24 1.00", viewModel.valuesProperty().get());
     }
 
     @Test
-    public void spaceComputationHasCorrectResult() {
+    public void spaceComputationHasCorrectValues() {
         viewModel.aXProperty().set("1");
         viewModel.aYProperty().set("1");
         viewModel.bXProperty().set("1");
@@ -162,11 +162,11 @@ public class ViewModelTest {
 
         viewModel.compute();
 
-        assertEquals("1.00", viewModel.resultProperty().get());
+        assertEquals("1.00", viewModel.valuesProperty().get());
     }
 
     @Test
-    public void anglesComputationHasCorrectResult() {
+    public void anglesComputationHasCorrectValues() {
         viewModel.aXProperty().set("1");
         viewModel.aYProperty().set("1");
         viewModel.bXProperty().set("1");
@@ -177,7 +177,7 @@ public class ViewModelTest {
 
         viewModel.compute();
 
-        assertEquals("0.00 0.71 0.71", viewModel.resultProperty().get());
+        assertEquals("0.00 0.71 0.71", viewModel.valuesProperty().get());
     }
 
     private void setInputData() {

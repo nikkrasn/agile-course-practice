@@ -134,7 +134,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="txtResult" text="${viewModel.result}" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea fx:id="txtResult" text="${viewModel.values}" prefHeight="200.0" prefWidth="200.0" />
          </children>
       </VBox>
    </children>

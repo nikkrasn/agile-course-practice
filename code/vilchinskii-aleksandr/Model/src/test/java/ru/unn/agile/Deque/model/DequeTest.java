@@ -1,4 +1,4 @@
-package ru.unn.agile.Deque.Model;
+package ru.unn.agile.Deque.model;
 
 import org.junit.After;
 import org.junit.Before;
@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
@@ -78,15 +79,25 @@ public class DequeTest {
     }
 
     @Test
-    public void cannotGetFirstItemFromEmptyDeque() {
-        Object item = deque.getFirst();
+    public void cannotPeekFirstItemFromEmptyDeque() {
+        Object item = deque.peekFirst();
         assertNull(item);
     }
 
     @Test
+    public void cannotPeekLastItemFromEmptyDeque() {
+        Object item = deque.peekLast();
+        assertNull(item);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void cannotGetFirstItemFromEmptyDeque() {
+        Object item = deque.getFirst();
+    }
+
+    @Test(expected = NoSuchElementException.class)
     public void cannotGetLastItemFromEmptyDeque() {
         Object item = deque.getLast();
-        assertNull(item);
     }
 
     @Test
@@ -104,15 +115,25 @@ public class DequeTest {
     }
 
     @Test
-    public void cannotRemoveFirstItemFromEmptyDeque() {
-        Object item = deque.removeFirst();
+    public void cannotPollFirstItemFromEmptyDeque() {
+        Object item = deque.pollFirst();
         assertNull(item);
     }
 
     @Test
+    public void cannotPollLastItemFromEmptyDeque() {
+        Object item = deque.pollLast();
+        assertNull(item);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void cannotRemoveFirstItemFromEmptyDeque() {
+        Object item = deque.removeFirst();
+    }
+
+    @Test(expected = NoSuchElementException.class)
     public void cannotRemoveLastItemFromEmptyDeque() {
         Object item = deque.removeLast();
-        assertNull(item);
     }
 
     @Test

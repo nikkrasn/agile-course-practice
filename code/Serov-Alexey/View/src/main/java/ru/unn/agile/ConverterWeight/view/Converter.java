@@ -1,7 +1,7 @@
 package ru.unn.agile.ConverterWeight.view;
 
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel;
-import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.UnitWeight;
+import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -69,7 +69,7 @@ public final class Converter {
     }
 
     private void loadListOfUnitWeight() {
-        ViewModel.UnitWeight[] unitWeights = UnitWeight.values();
+        UnitWeight[] unitWeights = UnitWeight.values();
         cbSourceUnit.setModel(new JComboBox<>(unitWeights).getModel());
         cbEndUnit.setModel(new JComboBox<>(unitWeights).getModel());
     }

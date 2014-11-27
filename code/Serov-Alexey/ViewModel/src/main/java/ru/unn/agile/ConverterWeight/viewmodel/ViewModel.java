@@ -1,6 +1,7 @@
 package ru.unn.agile.ConverterWeight.viewmodel;
 
-import ru.unn.agile.ConverterWeight.Model.ConverterWeight;
+import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
+import static ru.unn.agile.ConverterWeight.Model.ConverterWeight.converter;
 
 public class ViewModel {
     private String value;
@@ -64,10 +65,9 @@ public class ViewModel {
 
         if (status == Status.READY && convertButton) {
             try {
-                ConverterWeight converterWeight = new ConverterWeight();
-                result = Double.toString(converterWeight.converter(valueUnit.toString(),
-                                                                   resultUnit.toString(),
-                                                                   Double.parseDouble(value)));
+                result = Double.toString(converter(valueUnit,
+                                                   resultUnit,
+                                                   Double.parseDouble(value)));
                 status = Status.SUCCESS;
                 } catch (Exception e) {
                      status = Status.LARGE;
@@ -106,21 +106,5 @@ public class ViewModel {
         public static final String LARGE = "A large number in result";
 
         private Status() { }
-    }
-
-    public enum UnitWeight {
-        GRAMM("GRAMM"),
-        KILOGRAM("KILOGRAM"),
-        CENTNER("CENTNER"),
-        TON("TON");
-        private final String name;
-
-        private UnitWeight(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
     }
 }

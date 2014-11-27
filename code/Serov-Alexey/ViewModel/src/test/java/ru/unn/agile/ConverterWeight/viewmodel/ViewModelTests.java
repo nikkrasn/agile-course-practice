@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.Status;
-import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.UnitWeight;
+import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 

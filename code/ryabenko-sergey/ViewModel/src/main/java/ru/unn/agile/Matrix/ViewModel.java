@@ -17,7 +17,7 @@ public class ViewModel {
     public void processKeyInTextField(final int keyCode) {
         parseInput();
         if (keyCode == SHIFT) {
-            shiftPressed();
+            calculate();
         }
     }
 
@@ -25,8 +25,7 @@ public class ViewModel {
         if (!parseInput()) {
             return;
         }
-        Converter stringToArray = new Converter(textInput);
-        SquareMatrix mat = new SquareMatrix(stringToArray.getData());
+        SquareMatrix mat = new SquareMatrix(Converter.stringToArray(textInput));
         MatrixDeterminant determinant = new MatrixDeterminant(mat);
         result = String.valueOf(determinant.getSum());
         status = Status.CALCULATED.toString();
@@ -51,31 +50,26 @@ public class ViewModel {
         textInput = text;
     }
 
-    private boolean isInputEmpty() {
-        return  !textInput.isEmpty() && !textInput.matches("[\n]+") && !textInput.matches(" +");
-    }
-
-    private void shiftPressed() {
-        if (isCalculateButtonEnabled()) {
-            calculate();
-        }
+    private boolean isInputNonempty() {
+        return  !textInput.isEmpty() && !textInput.matches("[\n ]+");
     }
 
     private boolean parseInput() {
-        if (isInputEmpty()) {
-            try {
-                Converter stringToArray = new Converter(textInput);
-            } catch (Exception e) {
-                status = Status.BAD_INPUT.toString();
+        try {
+            if (isInputNonempty()) {
+                Converter.stringToArray(textInput);
+                isCalculateButtonEnabled = true;
+                status = Status.READY.toString();
+            } else {
                 isCalculateButtonEnabled = false;
-                return false;
+                status = Status.EMPTY_INPUT.toString();
             }
-            status = Status.READY.toString();
-        } else {
-            status = Status.EMPTY_INPUT.toString();
+            return isCalculateButtonEnabled;
+        } catch (Exception e) {
+            status = Status.BAD_INPUT.toString();
+            isCalculateButtonEnabled = false;
+            return false;
         }
-        isCalculateButtonEnabled = isInputEmpty();
-        return isCalculateButtonEnabled;
     }
 
     enum  Status {

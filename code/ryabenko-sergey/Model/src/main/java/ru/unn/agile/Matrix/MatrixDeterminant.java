@@ -20,7 +20,7 @@ public final class MatrixDeterminant {
                     * matrix.getValueAt(1, 0);
         }
         for (int i = 0; i < matrix.getCountRows(); i++) {
-            sum += changeSign(i) * matrix.getValueAt(0, i)
+            sum += getRowSign(i) * matrix.getValueAt(0, i)
                     * calculation(createSubMatrix(matrix, 0, i));
         }
         return sum;
@@ -50,8 +50,8 @@ public final class MatrixDeterminant {
         return sum;
     }
 
-    private static int changeSign(final int i) {
-        if (i % 2 == 0) {
+    private static int getRowSign(final int rowId) {
+        if (rowId % 2 == 0) {
             return 1;
         }
         return -1;

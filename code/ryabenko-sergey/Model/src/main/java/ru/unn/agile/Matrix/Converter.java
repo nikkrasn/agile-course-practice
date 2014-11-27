@@ -1,13 +1,14 @@
 package ru.unn.agile.Matrix;
 
 public final class Converter {
-    private final double[][] data;
 
-    public Converter(final String text) {
-        data = stringToArray(text);
+    private Converter() {
     }
 
-    private static double[][] stringToArray(final String text) {
+    public static double[][] stringToArray(final String text) {
+        if (text == null) {
+            throw new IllegalArgumentException();
+        }
         String[] textLine = text.split("[\n]+");
         double[][] data = new double[textLine.length][textLine.length];
         for (int i = 0; i < textLine.length; i++) {
@@ -21,10 +22,6 @@ public final class Converter {
             }
         }
         return  data;
-    }
-
-    public double[][] getData() {
-        return data;
     }
 
 }

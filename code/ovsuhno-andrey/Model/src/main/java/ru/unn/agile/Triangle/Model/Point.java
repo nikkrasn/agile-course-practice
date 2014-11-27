@@ -1,4 +1,4 @@
-package ru.unn.agile.Triangle;
+package ru.unn.agile.Triangle.Model;
 
 public class Point {
     private double x;
@@ -7,6 +7,11 @@ public class Point {
     public Point(final double x, final double y) {
         this.x = x;
         this.y = y;
+    }
+
+    public Point(final String x, final String y) {
+        this.x = Double.parseDouble(x);
+        this.y = Double.parseDouble(y);
     }
 
     @Override

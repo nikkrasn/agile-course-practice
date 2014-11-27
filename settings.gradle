@@ -97,6 +97,10 @@ project(":code/myasnikov-alexander/Model").name = "myasnikov-alexander-Model"
 // Ovsuhno Andrey
 include "code/ovsuhno-andrey/Model"
 project(":code/ovsuhno-andrey/Model").name = "ovsuhno-andrey-Model"
+include "code/ovsuhno-andrey/View"
+project(":code/ovsuhno-andrey/View").name = "ovsuhno-andrey-View"
+include "code/ovsuhno-andrey/ViewModel"
+project(":code/ovsuhno-andrey/ViewModel").name = "ovsuhno-andrey-ViewModel"
 
 // Pashko Alena
 include "code/pashko-alena/Model"

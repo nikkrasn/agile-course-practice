@@ -1,4 +1,4 @@
-package ru.unn.agile.Triangle;
+package ru.unn.agile.Triangle.Model;
 
 public class Triangle {
     private final Point pointA;
@@ -112,5 +112,44 @@ public class Triangle {
 
     public Point getC() {
         return pointC;
+    }
+
+    public enum Operation {
+        LENGTHS("Lengths") {
+            public double[] apply(final Triangle triangle) {
+                return triangle.countLengths();
+            }
+        },
+        PERIMETER("Perimeter") {
+            public double[] apply(final Triangle triangle) {
+                double[] result = new double[1];
+                result[0] = triangle.countPerimeter();
+                return result;
+            }
+        },
+        SPACE("Space") {
+            public double[] apply(final Triangle triangle) {
+                double[] result = new double[1];
+                result[0] = triangle.countSpace();
+                return result;
+            }
+        },
+        ANGLES("Angles") {
+            public double[] apply(final Triangle triangle) {
+                return triangle.countAnglesCosine();
+            }
+        };
+
+        private final String name;
+        Operation(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        public abstract double[] apply(final Triangle triangle);
     }
 }

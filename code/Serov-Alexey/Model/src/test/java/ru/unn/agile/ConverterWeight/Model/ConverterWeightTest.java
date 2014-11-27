@@ -2,6 +2,7 @@ package ru.unn.agile.ConverterWeight.Model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 public class ConverterWeightTest {
     private final double delta = 0.0;
 

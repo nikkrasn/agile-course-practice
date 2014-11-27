@@ -167,6 +167,23 @@ public class ViewModelTests {
     }
 
     @Test
+    public void isStatusBadFormatWhenSetInputNotPositiveValue() {
+        viewModel.setValue("-1");
+        viewModel.prepareForConvert();
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusLargeWhenSetInputBigValue() {
+        double tmp = Double.MAX_VALUE;
+        viewModel.setValue(Double.toString(tmp));
+        viewModel.setValueUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        assertEquals(Status.LARGE, viewModel.getStatus());
+    }
+
+    @Test
     public void isStatusBadFormatWhenSetInputNotRightValue() {
         viewModel.setValue("a");
         viewModel.prepareForConvert();

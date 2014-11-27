@@ -63,11 +63,15 @@ public class ViewModel {
         prepareForConvert();
 
         if (status == Status.READY && convertButton) {
+            try {
             ConverterWeight converterWeight = new ConverterWeight();
             result = Double.toString(converterWeight.converter(valueUnit.toString(),
                                                                resultUnit.toString(),
                                                                Double.parseDouble(value)));
             status = Status.SUCCESS;
+            } catch (Exception e) {
+                status = Status.LARGE;
+            }
         }
     }
 
@@ -75,8 +79,8 @@ public class ViewModel {
         try {
             if (value.isEmpty()) {
                 status = Status.WAITING;
-            } else {
-                Double.parseDouble(value);
+            } else if (Double.parseDouble(value) < 0) {
+                return false;
             }
         } catch (Exception e) {
             return false;
@@ -99,6 +103,7 @@ public class ViewModel {
         public static final String BAD_FORMAT = "Bad format";
         public static final String READY = "Please, press 'Convert'";
         public static final String SUCCESS = "Success";
+        public static final String LARGE = "A large number of outlet";
 
         private Status() { }
     }

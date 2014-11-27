@@ -61,7 +61,6 @@ public final class Converter {
     }
 
     public static void main(final String[] args) {
-
         JFrame frame = new JFrame("Converter");
         frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

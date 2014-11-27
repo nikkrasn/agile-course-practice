@@ -339,4 +339,22 @@ public class ViewModelTests {
         viewModel.convert();
         assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
+
+    @Test
+    public void isRightStatusWhenInputAllOptions() {
+        viewModel.setValue("-1");
+        viewModel.convert();
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+
+        viewModel.setValue("1");
+        viewModel.convert();
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
+
+        viewModel.setValue("12e308");
+        viewModel.setResultUnit(UnitWeight.KILOGRAM);
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        assertEquals(Status.LARGE,  viewModel.getStatus());
+    }
+
 }

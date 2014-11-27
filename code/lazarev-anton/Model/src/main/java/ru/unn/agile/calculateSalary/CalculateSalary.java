@@ -10,7 +10,7 @@ public class CalculateSalary {
     private LocalDate countingMonth;
     private int workedHourInMonth;
     private LocalDate startOfVacation = LocalDate.of(DEFAULT_VACATION_YEAR, 1, 1);
-    private int lengthOfVacation = 0;
+    private int lengthOfVacation;
     private double payForOneJobHour;
     private int amountOfJobHours;
 

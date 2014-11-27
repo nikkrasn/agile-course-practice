@@ -12,8 +12,8 @@ public class WorkWithCalendarTests {
     @Test
     public void checkJobDaysInSeptember() {
         WorkWithCalendar countMonth = new WorkWithCalendar()
-                .setCountMonth(LocalDate.of(2014, Month.SEPTEMBER, 1));
-        assertEquals(22, countMonth.countJobDaysInMonth());
+                .setCountMonth(LocalDate.of(2014, Month.OCTOBER, 1));
+        assertEquals(23, countMonth.countJobDaysInMonth());
     }
 
     @Test

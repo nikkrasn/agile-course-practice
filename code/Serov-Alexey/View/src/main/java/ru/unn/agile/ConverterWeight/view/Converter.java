@@ -19,11 +19,11 @@ public final class Converter {
     private JComboBox<UnitWeight> cbEndUnit;
 
     public static void main(final String[] args) {
-        JFrame frame = new JFrame("Converter");
+        JFrame frame = new JFrame("ConverterWeight");
         frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
         frame.setVisible(true);
+        frame.pack();
     }
 
     private Converter() { }
@@ -70,12 +70,6 @@ public final class Converter {
         txtValues.addKeyListener(keyListener);
     }
 
-    private void loadListOfUnitWeight() {
-        UnitWeight[] unitWeights = UnitWeight.values();
-        cbSourceUnit.setModel(new JComboBox<>(unitWeights).getModel());
-        cbEndUnit.setModel(new JComboBox<>(unitWeights).getModel());
-    }
-
     private void bind() {
         viewModel.setValue(txtValues.getText());
         viewModel.setValueUnit((UnitWeight) cbSourceUnit.getSelectedItem());
@@ -86,5 +80,11 @@ public final class Converter {
         btnConvert.setEnabled(viewModel.isConvertButton());
         txtResult.setText(viewModel.getResult());
         txtStatusWindow.setText(viewModel.getStatus());
+    }
+
+    private void loadListOfUnitWeight() {
+        UnitWeight[] unitWeights = UnitWeight.values();
+        cbSourceUnit.setModel(new JComboBox<>(unitWeights).getModel());
+        cbEndUnit.setModel(new JComboBox<>(unitWeights).getModel());
     }
 }

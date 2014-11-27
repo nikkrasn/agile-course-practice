@@ -4,22 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class ConverterWeight {
-
     private static final double GRAMM           = 1.;
-    private static final double KILLOGRAM       = 1000.;
+    private static final double KILOGRAM       = 1000.;
     private static final double CENTNER         = 100000.;
     private static final double TON             = 1000000.;
 
-    private static Map<String, Double> koef = new HashMap<String, Double>();
+    private static Map<UnitWeight, Double> koef = new HashMap<UnitWeight, Double>();
     static {
-        koef.put("GRAMM", GRAMM);
-        koef.put("KILOGRAM", KILLOGRAM);
-        koef.put("CENTNER", CENTNER);
-        koef.put("TON", TON);
+        koef.put(UnitWeight.GRAMM, GRAMM);
+        koef.put(UnitWeight.KILOGRAM, KILOGRAM);
+        koef.put(UnitWeight.CENTNER, CENTNER);
+        koef.put(UnitWeight.TON, TON);
     }
 
     public static double converter(final UnitWeight from, final UnitWeight to, final double input) {
-        double coefficient = koef.get(from.toString()) / koef.get(to.toString());
+        double coefficient = koef.get(from) / koef.get(to);
 
         if (input < 0 || input * coefficient > Double.MAX_VALUE) {
             throw new IllegalArgumentException();

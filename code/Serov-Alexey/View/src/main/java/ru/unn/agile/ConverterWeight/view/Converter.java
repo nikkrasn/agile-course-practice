@@ -9,7 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public final class Converter {
-    private final ViewModel viewModel;
+    private ViewModel viewModel;
     private JPanel mainJPanel;
     private JTextField txtValues;
     private JTextField txtResult;
@@ -67,6 +67,8 @@ public final class Converter {
         frame.pack();
         frame.setVisible(true);
     }
+
+    private Converter() { }
 
     private void loadListOfUnitWeight() {
         UnitWeight[] unitWeights = UnitWeight.values();

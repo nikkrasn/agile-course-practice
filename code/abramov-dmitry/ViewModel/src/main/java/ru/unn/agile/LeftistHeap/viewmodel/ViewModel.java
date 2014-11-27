@@ -49,6 +49,7 @@ public class ViewModel {
     public StringProperty value1Property() {
         return value1;
     }
+
     public StringProperty value2Property() {
         return value2;
     }
@@ -71,6 +72,18 @@ public class ViewModel {
 
     public StringProperty statusProperty() {
         return status;
+    }
+
+    public String getStatus() {
+        return statusProperty().get();
+    }
+
+    public String getResult1() {
+        return result1Property().get();
+    }
+
+    public String getResult2() {
+        return result2Property().get();
     }
 
     public void add1() {
@@ -158,6 +171,24 @@ public class ViewModel {
         } else {
             result2.set(result.toString());
         }
+
+        status.set("OK");
+    }
+
+    public void merge1() {
+        heap2.merge(heap1);
+
+        result2.set("Merged with left heap");
+        result1.set("Now is empty");
+
+        status.set("OK");
+    }
+
+    public void merge2() {
+        heap1.merge(heap2);
+
+        result1.set("Merged with right heap");
+        result2.set("Now is empty");
 
         status.set("OK");
     }

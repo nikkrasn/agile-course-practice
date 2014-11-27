@@ -102,4 +102,13 @@ public class ViewModelTests {
         assertEquals("Heap is empty", viewModel.result1Property().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
+
+    @Test
+    public void merge() {
+        viewModel.merge1();
+
+        assertEquals("Merged with left heap", viewModel.result2Property().get());
+        assertEquals("Now is empty", viewModel.result1Property().get());
+        assertEquals("OK", viewModel.statusProperty().get());
+    }
 }

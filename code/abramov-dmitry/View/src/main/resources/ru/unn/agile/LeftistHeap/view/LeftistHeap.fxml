@@ -3,8 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import ru.unn.agile.LeftistHeap.viewmodel.ViewModel?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.LeftistHeap.view.LeftistHeap">
+   <fx:define>
+       <ViewModel fx:id="viewModel" />
+   </fx:define>
    <children>
       <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="235.0" prefWidth="611.0">
          <children>
@@ -13,31 +17,31 @@
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
                      <children>
                         <Label text="Key:" />
-                        <TextField />
+                        <TextField fx:id="key1"/>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
                      <children>
                         <Label text="Value:" />
-                        <TextField />
+                        <TextField fx:id="value1"/>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
                      <children>
                         <Label text="New key:" />
-                        <TextField />
+                        <TextField fx:id="newKey1"/>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="307.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add" />
-                        <Button mnemonicParsing="false" text="Get minimum" />
-                        <Button mnemonicParsing="false" text="Delete" />
-                        <Button mnemonicParsing="false" text="Decrease key" />
+                        <Button fx:id="add1" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="getMinimum1" mnemonicParsing="false" text="Get minimum" />
+                        <Button fx:id="delete1" mnemonicParsing="false" text="Delete" />
+                        <Button fx:id="decrease1" mnemonicParsing="false" text="Decrease key" />
                      </children>
                   </HBox>
                   <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Merge with right heap" />
-                  <Label text="Result" />
+                  <Label text="${viewModel.result1}" />
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="368.0" prefWidth="304.0" style="-fx-border-color: red;">
@@ -45,38 +49,38 @@
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
                      <children>
                         <Label text="Key:" />
-                        <TextField />
+                        <TextField fx:id="key2"/>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
                      <children>
                         <Label text="Value:" />
-                        <TextField />
+                        <TextField fx:id="value2"/>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
                      <children>
                         <Label text="New key:" />
-                        <TextField />
+                        <TextField fx:id="newKey2"/>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="60.0" prefWidth="307.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add" />
-                        <Button mnemonicParsing="false" text="Get minimum" />
-                        <Button mnemonicParsing="false" text="Delete" />
-                        <Button mnemonicParsing="false" text="Decrease key" />
+                        <Button fx:id="add2" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="getMinimum2" mnemonicParsing="false" text="Get minimum" />
+                        <Button fx:id="delete2" mnemonicParsing="false" text="Delete" />
+                        <Button fx:id="decrease2" mnemonicParsing="false" text="Decrease key" />
                      </children>
                   </HBox>
                   <Button mnemonicParsing="false" text="Merge with left heap" />
-                  <Label text="Result" />
+                  <Label text="${viewModel.result2}" />
                </children>
             </VBox>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="611.0">
          <children>
-            <Label text="Status" />
+            <Label text="${viewModel.status}"/>
          </children>
       </HBox>
    </children>

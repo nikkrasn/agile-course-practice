@@ -41,7 +41,7 @@ public class ViewModelTest {
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
-        setInputData();
+        setTestData();
 
         assertEquals(CurrentStatus.READY.toString(), viewModel.statusProperty().get());
     }
@@ -55,7 +55,7 @@ public class ViewModelTest {
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.aXProperty().set("1");
+        viewModel.aXProperty().set("0");
 
         assertEquals(CurrentStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
@@ -67,7 +67,7 @@ public class ViewModelTest {
 
     @Test
     public void computeButtonIsDisabledWhenFormatIsBad() {
-        setInputData();
+        setTestData();
         viewModel.aXProperty().set("bad");
 
         assertTrue(viewModel.computationDisabledProperty().get());
@@ -82,7 +82,7 @@ public class ViewModelTest {
 
     @Test
     public void computeButtonIsEnabledWithCorrectInput() {
-        setInputData();
+        setTestData();
 
         assertFalse(viewModel.computationDisabledProperty().get());
     }
@@ -100,7 +100,7 @@ public class ViewModelTest {
 
     @Test
     public void canSetSuccessMessage() {
-        setInputData();
+        setTestData();
 
         viewModel.compute();
 
@@ -116,7 +116,7 @@ public class ViewModelTest {
 
     @Test
     public void statusIsReadyWhenSetProperData() {
-        setInputData();
+        setTestData();
 
         assertEquals(CurrentStatus.READY.toString(), viewModel.statusProperty().get());
     }
@@ -180,7 +180,7 @@ public class ViewModelTest {
         assertEquals("0.00 0.71 0.71", viewModel.valuesProperty().get());
     }
 
-    private void setInputData() {
+    private void setTestData() {
         viewModel.aXProperty().set("1");
         viewModel.aYProperty().set("2");
         viewModel.bXProperty().set("3");

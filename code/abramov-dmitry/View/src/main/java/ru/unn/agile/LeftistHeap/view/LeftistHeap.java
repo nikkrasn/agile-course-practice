@@ -80,14 +80,14 @@ public class LeftistHeap {
             }
         });
 
-        getMinimum1.setOnAction(new EventHandler<ActionEvent>() {
+        getMinimum2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.getMinimum2();
             }
         });
 
-        delete1.setOnAction(new EventHandler<ActionEvent>() {
+        delete2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.delete2();

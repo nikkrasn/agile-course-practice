@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import ru.unn.agile.LeftistHeap.viewmodel.ViewModel?>
+<?import ru.unn.agile.LeftistHeap.viewmodel.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.LeftistHeap.view.LeftistHeap">
     <fx:define>

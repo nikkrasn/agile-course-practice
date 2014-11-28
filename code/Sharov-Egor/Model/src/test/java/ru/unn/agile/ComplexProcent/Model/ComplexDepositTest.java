@@ -65,8 +65,7 @@ public class ComplexDepositTest {
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
         ComplexDeposit deposit = new ComplexDeposit();
-        deposit
-                .setBase("1000")
+        deposit.setBase("1000")
                 .setInterestCountInYear("3")
                 .setPercent("4.5")
                 .setFinishDate(finalDeposit)

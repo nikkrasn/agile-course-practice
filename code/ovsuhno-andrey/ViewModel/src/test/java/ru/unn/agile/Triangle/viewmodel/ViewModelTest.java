@@ -90,6 +90,7 @@ public class ViewModelTest {
     @Test
     public void canSetPerimeterOperation() {
         viewModel.operationProperty().set(Operation.PERIMETER);
+
         assertEquals(Operation.PERIMETER, viewModel.operationProperty().get());
     }
 

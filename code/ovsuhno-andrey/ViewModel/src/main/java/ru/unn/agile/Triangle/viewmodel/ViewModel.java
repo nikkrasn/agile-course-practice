@@ -15,34 +15,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty aX = new SimpleStringProperty();
-    private final StringProperty aY = new SimpleStringProperty();
-    private final StringProperty bX = new SimpleStringProperty();
-    private final StringProperty bY = new SimpleStringProperty();
-    private final StringProperty cX = new SimpleStringProperty();
-    private final StringProperty cY = new SimpleStringProperty();
+    private final StringProperty aX = new SimpleStringProperty("");
+    private final StringProperty aY = new SimpleStringProperty("");
+    private final StringProperty bX = new SimpleStringProperty("");
+    private final StringProperty bY = new SimpleStringProperty("");
+    private final StringProperty cX = new SimpleStringProperty("");
+    private final StringProperty cY = new SimpleStringProperty("");
 
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
-    private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
+    private final ObjectProperty<Operation> operation =
+            new SimpleObjectProperty<>(Operation.PERIMETER);
     private final BooleanProperty computationDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty values = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty values = new SimpleStringProperty("");
+    private final StringProperty status =
+            new SimpleStringProperty(CurrentStatus.WAITING.toString());
 
     private final List<VariableListener> variableListeners = new ArrayList<>();
 
     public ViewModel() {
-        aX.set("");
-        aY.set("");
-        bX.set("");
-        bY.set("");
-        cX.set("");
-        cY.set("");
-        operation.set(Operation.PERIMETER);
-        values.set("");
-        status.set(CurrentStatus.WAITING.toString());
-
         BooleanBinding couldCompute = new BooleanBinding() {
             {
                 super.bind(aX, aY, bX, bY, cX, cY);

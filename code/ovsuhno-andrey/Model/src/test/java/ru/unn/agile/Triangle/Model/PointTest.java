@@ -115,10 +115,10 @@ public class PointTest {
 
     @Test
     public void canConvertStringToPoint() {
-        String re = "1";
-        String im = "2";
-        Point z = new Point(re, im);
+        String x = "1";
+        String y = "2";
+        Point newPoint = new Point(x, y);
 
-        assertEquals(new Point(1, 2), z);
+        assertEquals(new Point(1, 2), newPoint);
     }
 }

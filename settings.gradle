@@ -43,6 +43,10 @@ project(":code/anufriev-denis/Model").name = "anufriev-denis-Model"
 // Blinkova Ekaterina
 include "code/blinkova-ekaterina/Model"
 project(":code/blinkova-ekaterina/Model").name = "blinkova-ekaterina-Model"
+include "code/blinkova-ekaterina/View"
+project(":code/blinkova-ekaterina/View").name = "blinkova-ekaterina-View"
+include "code/blinkova-ekaterina/ViewModel"
+project(":code/blinkova-ekaterina/ViewModel").name = "blinkova-ekaterina-ViewModel"
 
 // Bobylkov Fedor
 include "code/bobylkov-fedor/Model"
@@ -63,10 +67,18 @@ project(":code/izutov-evgenii/Model").name = "izutov-evgenii-Model"
 // Karsakov Alexander
 include "code/karsakov-alexander/Model"
 project(":code/karsakov-alexander/Model").name = "karsakov-alexander-Model"
+include "code/karsakov-alexander/ViewModel"
+project(":code/karsakov-alexander/ViewModel").name = "karsakov-alexander-ViewModel"
+include "code/karsakov-alexander/View"
+project(":code/karsakov-alexander/View").name = "karsakov-alexander-View"
 
 // Klyan Sofiya
 include "code/klyan-sofiya/Model"
 project(":code/klyan-sofiya/Model").name = "klyan-sofiya-Model"
+include "code/klyan-sofiya/View"
+project(":code/klyan-sofiya/View").name = "klyan-sofiya-View"
+include "code/klyan-sofiya/ViewModel"
+project(":code/klyan-sofiya/ViewModel").name = "klyan-sofiya-ViewModel"
 
 // Krasnoyarov Nikita
 include "code/krasnoyarov-nikita/Model"
@@ -97,10 +109,19 @@ project(":code/pogorelsky-iliya/Model").name = "pogorelsky-iliya-Model"
 // Ryabenko Sergey
 include "code/ryabenko-sergey/Model"
 project(":code/ryabenko-sergey/Model").name = "ryabenko-sergey-Model"
+include "code/ryabenko-sergey/ViewModel"
+project(":code/ryabenko-sergey/ViewModel").name = "ryabenko-sergey-ViewModel"
+include "code/ryabenko-sergey/View"
+project(":code/ryabenko-sergey/View").name = "ryabenko-sergey-View"
+
 
 // Ryabusheva Anna
 include "code/Ryabusheva-Anna/Model"
 project(":code/Ryabusheva-Anna/Model").name = "Ryabusheva-Anna-Model"
+include "code/Ryabusheva-Anna/ViewModel"
+project(":code/Ryabusheva-Anna/ViewModel").name = "Ryabusheva-Anna-ViewModel"
+include "code/Ryabusheva-Anna/View"
+project(":code/Ryabusheva-Anna/View").name = "Ryabusheva-Anna-View"
 
 // Samokhvalov Maxim
 include "code/samokhvalov-maxim/Model"
@@ -109,16 +130,17 @@ project(":code/samokhvalov-maxim/Model").name = "samokhvalov-maxim-Model"
 // Serov Alexey
 include "code/Serov-Alexey/Model"
 project(":code/Serov-Alexey/Model").name = "serov-alexey-Model"
-
+include "code/Serov-Alexey/View"
+project(":code/Serov-Alexey/View").name = "serov-alexey-View"
+include "code/Serov-Alexey/ViewModel"
+project(":code/Serov-Alexey/ViewModel").name = "serov-alexey-ViewModel"
 // Sharov Egor
 include "code/Sharov-Egor/Model"
 project(":code/Sharov-Egor/Model").name = "Sharov—Egor-Model"
-include "code/Sharov-Egor/View"
-project(":code/Sharov-Egor/View").name = "Sharov—Egor-View"
-include "code/Sharov-Egor/ViewModel"
-project(":code/Sharov-Egor/ViewModel").name = "Sharov-Egor-ViewModel"
 
 // Skachkova Natalia
+include "code/Skachkova-Natalia/Model"
+project(":code/Skachkova-Natalia/Model").name = "Skachkova-Natalia-Model"
 
 // Sokolov Mihail
 include "code/Sokolov-Mihail/Model"

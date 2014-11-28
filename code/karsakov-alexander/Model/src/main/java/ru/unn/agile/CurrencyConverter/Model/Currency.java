@@ -83,6 +83,11 @@ public final class Currency {
         return this.hashCode() == o.hashCode();
     }
 
+    @Override
+    public String toString() {
+        return charCode;
+    }
+
     public static Builder builder() {
         return new Builder();
     }

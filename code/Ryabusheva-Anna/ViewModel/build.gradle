@@ -1,0 +1,14 @@
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
+
+javafx {
+    mainClass 'ru.unn.agile.DeterminatorIntesection.viewmodel.ViewModel'
+}
+
+dependencies {
+    compile project(':Ryabusheva-Anna-Model')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
+}

@@ -1,0 +1,145 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'de.aaschmid.gradle.plugins:gradle-cpd-plugin:0.1'
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.0'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'cpd'
+apply plugin: 'com.github.kt3k.coveralls'
+
+allprojects {
+    apply plugin: 'jacoco'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.sourceforge.pmd:pmd:5.1.0'
+}
+
+tasks.cpd {
+    doFirst {
+        println '[**************** Copy/paste analysis ****************]'
+    }
+
+    def reportName = 'cpd.xml'
+    reports {
+        xml.enabled = true
+        xml.destination = reportName
+    }
+
+    minimumTokenCount = 50
+
+    source files{ allprojects.findAll{ p -> p.hasProperty('sourceSets') }.collect { p -> p.sourceSets.collect { (it.java) } } }
+          .filter{ !it.path.contains('kornyakov-kirill') }
+
+    doLast {
+        def copyPasted = new XmlParser().parse(reportName)
+        def rate = copyPasted.duplication.size()
+        println 'Copy-paste rate: '  + rate + ' times'
+        copyPasted.duplication.each { d -> println '[**************** Found in: ****************]'
+            d.file.each { f -> println f.'@path' + ', started @' + f.'@line' + ' line' }
+            println d.codefragment.text() }
+        if (rate == 0) {
+            println '[**************** WELL DONE! ****************]'
+            println '[****************  ᕦ(ò‿ó)ᕤ  ****************]'
+        } else {
+            println '[**************** (ノಠ益ಠ)ノ彡 ****************]'
+            throw new RuntimeException("Cannot proceed with non zero copy-paste rate!")
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
+
+    repositories {
+       mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.11'
+    }
+
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        options.compilerArgs << "-Werror"
+    }
+
+    test {
+        afterTest { desc, result ->
+            //if (result.resultType == TestResult.ResultType.SUCCESS) {
+            //    println "."
+            //}
+            //else {
+                String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
+                println "[${suiteName}]: ${result.resultType} in ${desc.name}"
+            //}
+        }
+    }
+
+    checkstyle {
+        checkstyleMain.configFile = new File("code/config/checkstyle/", "main.xml")
+        checkstyleTest.configFile = new File("code/config/checkstyle/", "test.xml")
+        // ignoreFailures = true
+    }
+
+    pmd {
+        pmdMain.ruleSetFiles = files(rootDir.getAbsolutePath() + "/code/config/pmd/rules.xml")
+        pmdTest.ruleSets = [ "java-basic", "java-braces" ]
+        // ignoreFailures = true
+    }
+
+    gradle.taskGraph.afterTask { Task task, TaskState state ->
+        if ((task.name == 'pmdMain' || task.name == 'pmdTest') && state.failure) {
+            def outFile = task.name == 'pmdMain' ? 'main.xml' : 'test.xml'
+            def reportFile = file("${buildDir}/reports/pmd/${outFile}")
+            if (reportFile.exists()) {
+                def result = new XmlParser().parse(reportFile)
+                result.file.each { file ->
+                    file.violation.each { violation ->
+                        println "${file.'@name'}:${violation.'@beginline'}: ${violation.text()}"
+                    }
+                }
+                reportFile.delete()
+            }
+        }
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled = true
+            xml.enabled = true
+            csv.enabled = false
+        }
+    }
+}
+
+coveralls {
+    sourceDirs = files(subprojects.sourceSets.main.allSource.srcDirs).files.absolutePath
+}
+
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories = files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+        xml.destination = "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+    }
+}

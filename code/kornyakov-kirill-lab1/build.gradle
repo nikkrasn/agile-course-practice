@@ -1,4 +1,4 @@
 sourceSets {
-    main.java.srcDir 'Model/src/main'
-    test.java.srcDir 'Model/src/test'
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
 }

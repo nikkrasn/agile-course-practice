@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import ru.unn.agile.CurrencyConverter.viewmodel.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="135.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.unn.agile.CurrencyConverter.view.CurrencyConverter">
+   <fx:define>
+       <ViewModel fx:id="viewModel" />
+   </fx:define>
+   <children>
+      <VBox layoutX="8.0" layoutY="7.0" prefHeight="130.0" prefWidth="335.0">
+         <children>
+            <HBox prefHeight="33.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="20.0" text="From: ">
+                     <padding>
+                        <Insets left="15.0" />
+                     </padding>
+                  </Label>
+                  <ComboBox fx:id="fromCurrencyComboBox" items="${viewModel.fromCurrencyList}" prefHeight="25.0" prefWidth="110.0" />
+                  <Separator orientation="VERTICAL" prefHeight="24.0" prefWidth="30.0" visible="false" />
+                  <Label text="To: " />
+                  <ComboBox fx:id="toCurrencyComboBox" items="${viewModel.toCurrencyList}" prefHeight="25.0" prefWidth="110.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="30.0" prefWidth="357.0">
+               <children>
+                  <Label text="Amount: " />
+                  <TextField fx:id="valueTextField" prefHeight="25.0" prefWidth="111.0" />
+                  <Separator orientation="VERTICAL" prefHeight="25.0" prefWidth="50.0" visible="false" />
+                  <Button fx:id="convertButton" defaultButton="true" disable="${viewModel.convertButtonDisabled}" mnemonicParsing="false" prefWidth="110.0" text="Calculate" />
+               </children>
+            </HBox>
+            <HBox prefHeight="34.0" prefWidth="335.0">
+               <children>
+                  <Label text="Result: ">
+                     <padding>
+                        <Insets left="170.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="resultTextField" text="${viewModel.result}" prefHeight="25.0" prefWidth="88.0" />
+                  <Label fx:id="resultCurrencyLabel" text="${viewModel.resultCurrency}"/>
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="335.0">
+               <children>
+                  <Label text="Status:" />
+                  <Label fx:id="statusLabelText" text="${viewModel.status}"/>
+               </children>
+            </HBox>
+         </children>
+         <opaqueInsets>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </opaqueInsets>
+      </VBox>
+   </children>
+</AnchorPane>

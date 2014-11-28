@@ -130,7 +130,10 @@ project(":code/samokhvalov-maxim/Model").name = "samokhvalov-maxim-Model"
 // Serov Alexey
 include "code/Serov-Alexey/Model"
 project(":code/Serov-Alexey/Model").name = "serov-alexey-Model"
-
+include "code/Serov-Alexey/View"
+project(":code/Serov-Alexey/View").name = "serov-alexey-View"
+include "code/Serov-Alexey/ViewModel"
+project(":code/Serov-Alexey/ViewModel").name = "serov-alexey-ViewModel"
 // Sharov Egor
 include "code/Sharov-Egor/Model"
 project(":code/Sharov-Egor/Model").name = "Sharov—Egor-Model"

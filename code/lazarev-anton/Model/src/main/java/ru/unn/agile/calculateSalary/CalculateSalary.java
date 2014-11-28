@@ -26,8 +26,7 @@ public class CalculateSalary {
         int cashDaysInMonth = countMonth.countCashDaysInMonth();
         payForOneJobHour = calcCashForOneJobHour(jobDaysInCountMonth);
         amountOfJobHours = summJobHours(cashDaysInMonth);
-        String comparedWorkAndJobHours = compareWorkAndJobHours();
-        switch (comparedWorkAndJobHours) {
+        switch (getCompareWorkAndJobHours()) {
             case "overtime":
                 cashForPay = calcCashWithOvertime();
                 break;
@@ -65,7 +64,7 @@ public class CalculateSalary {
         return this;
     }
 
-    private String compareWorkAndJobHours() {
+    private String getCompareWorkAndJobHours() {
         if (workedHourInMonth > amountOfJobHours) {
             return "overtime";
         }

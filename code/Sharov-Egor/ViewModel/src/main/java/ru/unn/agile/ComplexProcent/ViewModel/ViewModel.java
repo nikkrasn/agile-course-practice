@@ -29,33 +29,8 @@ public class ViewModel {
     public ViewModel() {
         Locale.setDefault(Locale.ENGLISH);
         dtPkrStart.set(LocalDate.now());
-        BooleanBinding couldCalculate = new BooleanBinding() {
-            {
-                super.bind(txtBase, txtIntCount, txtPercent, dtPkrEnd, dtPkrStart);
-            }
-
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
-            }
-        };
-        calculationDisabled.bind(couldCalculate.not());
-        final List<StringProperty> fields = new ArrayList<StringProperty>() {
-            {
-                add(txtBase);
-                add(txtIntCount);
-                add(txtPercent);
-            }
-        };
-        for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
-        final DataValueChangeListener endDataListener = new DataValueChangeListener();
-        dtPkrEnd.addListener(endDataListener);
-        final DataValueChangeListener startDataListener = new DataValueChangeListener();
-        dtPkrEnd.addListener(startDataListener);
+        bindDeterminateDisable();
+        createFieldsValueChangingListeners();
     }
 
     public void calculate() {
@@ -181,6 +156,39 @@ public class ViewModel {
                             final String oldValue, final String newValue) {
             status.set(getInputStatus().toString());
         }
+    }
+
+    private void createFieldsValueChangingListeners() {
+        final List<StringProperty> fields = new ArrayList<StringProperty>() {
+            {
+                add(txtBase);
+                add(txtIntCount);
+                add(txtPercent);
+            }
+        };
+        for (StringProperty field : fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
+        final DataValueChangeListener endDataListener = new DataValueChangeListener();
+        dtPkrEnd.addListener(endDataListener);
+        final DataValueChangeListener startDataListener = new DataValueChangeListener();
+        dtPkrEnd.addListener(startDataListener);
+    }
+
+    private void bindDeterminateDisable() {
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(txtBase, txtIntCount, txtPercent, dtPkrEnd, dtPkrStart);
+            }
+
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == Status.READY;
+            }
+        };
+        calculationDisabled.bind(couldCalculate.not());
     }
 
     private class DataValueChangeListener implements ChangeListener<LocalDate> {

@@ -14,7 +14,7 @@ public class ComplexDeposit {
     private GregorianCalendar finishDate;
 
     public double getCapitalizedBase() {
-        return this.base * capitalizedPercentsFullInterest() * restPercents();
+        return base * capitalizedPercentsFullInterest() * restPercents();
     }
 
     public double getBase() {

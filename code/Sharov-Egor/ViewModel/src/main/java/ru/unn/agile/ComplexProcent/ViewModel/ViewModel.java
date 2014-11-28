@@ -4,11 +4,13 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+
 import ru.unn.agile.ComplexProcent.Model.ComplexDeposit;
 
 public class ViewModel {
@@ -122,6 +124,19 @@ public class ViewModel {
         return startDate;
     }
 
+    private boolean hasNegativeFields() {
+        try {
+            if (Double.parseDouble(txtBase.get()) < 0
+                    || Double.parseDouble(txtPercent.get()) < 0
+                    || Integer.parseInt(txtIntCount.get()) < 0) {
+                return true;
+            }
+            return false;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     private boolean hasEmptyFields() {
         if (txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
                 || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null) {
@@ -140,7 +155,7 @@ public class ViewModel {
         return false;
     }
 
-    private boolean incorrectData() {
+    private boolean incorrectTxtData() {
         try {
             if (!txtIntCount.get().isEmpty()) {
                 Integer.parseInt(txtIntCount.get());
@@ -162,12 +177,12 @@ public class ViewModel {
         if (hasEmptyFields()) {
             inputStatus = Status.WAITING;
         }
-        if (incorrectData()) {
+        if (incorrectTxtData() || hasNegativeFields()) {
             return Status.BAD_FORMAT;
         }
         if (incorrectDate()) {
-                return Status.BAD_DATE;
-            }
+            return Status.BAD_DATE;
+        }
         return inputStatus;
     }
 

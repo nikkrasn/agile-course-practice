@@ -86,6 +86,14 @@ public class ViewModelTests {
     }
 
     @Test
+    public void statusIsBadFormatWhenHasNegative() {
+        setInputData();
+        assertEquals(viewModel.getStatus(), Status.READY.toString());
+        viewModel.getTxtPercentProperty().set("-100");
+        assertEquals(viewModel.getStatus(), Status.BAD_FORMAT.toString());
+    }
+
+    @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());

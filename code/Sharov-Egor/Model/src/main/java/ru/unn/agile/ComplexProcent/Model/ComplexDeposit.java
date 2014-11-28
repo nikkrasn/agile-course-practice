@@ -14,9 +14,9 @@ public class ComplexDeposit {
     private GregorianCalendar finishDate;
 
     public ComplexDeposit(final String base, final String percent, final String interestCount) {
-        setBase(Double.parseDouble(base));
-        setPercent(Double.parseDouble(percent));
-        setInterestCountInYear(Integer.parseInt(interestCount));
+        setBase(base);
+        setPercent(percent);
+        setInterestCountInYear(interestCount);
     }
 
     public ComplexDeposit() {
@@ -33,10 +33,6 @@ public class ComplexDeposit {
         return base;
     }
 
-    public ComplexDeposit setBase(final double base) {
-        this.base = base;
-        return this;
-    }
 
     public ComplexDeposit setBase(final String base) {
         this.base = Double.parseDouble(base);
@@ -47,11 +43,6 @@ public class ComplexDeposit {
         return percent;
     }
 
-    public ComplexDeposit setPercent(final double percent) {
-        this.percent = percent / ENTIRE_PERCENT;
-        return this;
-    }
-
     public ComplexDeposit setPercent(final String percent) {
         this.percent = Double.parseDouble(percent) / ENTIRE_PERCENT;
         return this;
@@ -59,11 +50,6 @@ public class ComplexDeposit {
 
     public double getInterestCountInYear() {
         return interestCountInYear;
-    }
-
-    public ComplexDeposit setInterestCountInYear(final int interestCountInYear) {
-        this.interestCountInYear = interestCountInYear;
-        return this;
     }
 
     public ComplexDeposit setInterestCountInYear(final String interestCountInYear) {

@@ -123,36 +123,28 @@ public class ViewModel {
 
     private boolean hasNegativeFields() {
         try {
-            if (Double.parseDouble(txtBase.get()) < 0
+             return Double.parseDouble(txtBase.get()) < 0
                     || Double.parseDouble(txtPercent.get()) < 0
-                    || Integer.parseInt(txtIntCount.get()) < 0) {
-                return true;
-            }
-            return false;
+                    || Integer.parseInt(txtIntCount.get()) < 0;
         } catch (NumberFormatException nfe) {
             return false;
         }
     }
 
     private boolean hasEmptyFields() {
-        if (txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
-                || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null) {
-            return true;
-        }
-        return false;
+        return txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
+                || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null;
     }
 
-    private boolean incorrectDate() {
+    private boolean isIncorrectDate() {
         if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
             Integer.parseInt(txtIntCount.get());
-            if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
-                return true;
-            }
+            return dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0;
         }
         return false;
     }
 
-    private boolean incorrectTxtData() {
+    private boolean isIncorrectTxtData() {
         try {
             if (!txtIntCount.get().isEmpty()) {
                 Integer.parseInt(txtIntCount.get());
@@ -174,10 +166,10 @@ public class ViewModel {
         if (hasEmptyFields()) {
             inputStatus = Status.WAITING;
         }
-        if (incorrectTxtData() || hasNegativeFields()) {
+        if (isIncorrectTxtData() || hasNegativeFields()) {
             return Status.BAD_FORMAT;
         }
-        if (incorrectDate()) {
+        if (isIncorrectDate()) {
             return Status.BAD_DATE;
         }
         return inputStatus;

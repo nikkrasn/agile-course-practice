@@ -13,18 +13,6 @@ public class ComplexDeposit {
     private GregorianCalendar startDate;
     private GregorianCalendar finishDate;
 
-    public ComplexDeposit(final String base, final String percent, final String interestCount) {
-        setBase(base);
-        setPercent(percent);
-        setInterestCountInYear(interestCount);
-    }
-
-    public ComplexDeposit() {
-        this.base = 0;
-        this.percent = 0;
-        this.interestCountInYear = 1;
-    }
-
     public double getCapitalizedBase() {
         return this.base * capitalizedPercentsFullInterest() * restPercents();
     }

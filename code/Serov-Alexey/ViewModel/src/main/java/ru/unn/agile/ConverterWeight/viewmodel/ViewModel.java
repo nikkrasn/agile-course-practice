@@ -70,7 +70,7 @@ public class ViewModel {
                                                    Double.parseDouble(value)));
                 status = Status.SUCCESS;
             } catch (Exception e) {
-                     status = Status.LARGE;
+                status = Status.LARGE;
             }
         }
     }

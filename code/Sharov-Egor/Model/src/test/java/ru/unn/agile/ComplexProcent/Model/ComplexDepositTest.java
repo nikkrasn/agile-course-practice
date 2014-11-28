@@ -14,8 +14,9 @@ public class ComplexDepositTest {
         ComplexDeposit deposit = new ComplexDeposit();
         deposit.setBase("1000")
                 .setPercent("4")
-                .setInterestCountInYear("1");
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+                .setInterestCountInYear("1")
+                .setFinishDate(finalDeposit)
+                .setStartDate(startDeposit);
         assertNotNull(deposit);
     }
 
@@ -26,8 +27,9 @@ public class ComplexDepositTest {
         ComplexDeposit deposit = new ComplexDeposit();
         deposit.setBase("1000")
                 .setPercent("4")
-                .setInterestCountInYear("1");
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+                .setInterestCountInYear("1")
+                .setFinishDate(finalDeposit)
+                .setStartDate(startDeposit);
         assertTrue(deposit.getStartDate() == startDeposit);
         assertTrue(deposit.getFinishDate() == finalDeposit);
     }
@@ -39,8 +41,9 @@ public class ComplexDepositTest {
         ComplexDeposit deposit = new ComplexDeposit();
         deposit.setBase("1000")
                 .setInterestCountInYear("1")
-                .setPercent("4.5");
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+                .setPercent("4.5")
+                .setFinishDate(finalDeposit)
+                .setStartDate(startDeposit);
         assertEquals(1045, deposit.getCapitalizedBase(), DELTA);
     }
 
@@ -51,8 +54,9 @@ public class ComplexDepositTest {
         ComplexDeposit deposit = new ComplexDeposit();
         deposit.setBase("1000")
                 .setInterestCountInYear("1")
-                .setPercent("4.5");
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+                .setPercent("4.5")
+                .setFinishDate(finalDeposit)
+                .setStartDate(startDeposit);
         assertEquals(1092.15, deposit.getCapitalizedBase(), DELTA);
     }
 
@@ -61,10 +65,12 @@ public class ComplexDepositTest {
         GregorianCalendar startDeposit = new GregorianCalendar(2014, 7, 10);
         GregorianCalendar finalDeposit = new GregorianCalendar(2015, 7, 10);
         ComplexDeposit deposit = new ComplexDeposit();
-        deposit.setBase("1000")
+        deposit
+                .setBase("1000")
                 .setInterestCountInYear("3")
-                .setPercent("4.5");
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+                .setPercent("4.5")
+                .setFinishDate(finalDeposit)
+                .setStartDate(startDeposit);
         assertEquals(1045.93, deposit.getCapitalizedBase(), DELTA);
     }
 
@@ -75,9 +81,9 @@ public class ComplexDepositTest {
         ComplexDeposit deposit = new ComplexDeposit();
         deposit.setBase("1000")
                 .setInterestCountInYear("3")
-                .setPercent("4.5");
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
-        deposit.setFinishDate(finalDeposit).setStartDate(startDeposit);
+                .setPercent("4.5")
+                .setFinishDate(finalDeposit)
+                .setStartDate(startDeposit);
         assertEquals(1196.95, deposit.getCapitalizedBase(), DELTA);
     }
 

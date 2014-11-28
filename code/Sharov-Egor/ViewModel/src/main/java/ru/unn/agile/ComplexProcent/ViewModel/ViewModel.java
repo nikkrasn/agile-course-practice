@@ -42,7 +42,6 @@ public class ViewModel {
             }
         };
         calculationDisabled.bind(couldCalculate.not());
-
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
             {
                 add(txtBase);
@@ -66,10 +65,10 @@ public class ViewModel {
         GregorianCalendar endDate = convertToGregorian(dtPkrEnd.get());
         ComplexDeposit calcDeposit = new ComplexDeposit();
         calcDeposit.setPercent(txtPercent.get())
-                .setBase(txtBase.get())
-                .setInterestCountInYear(txtIntCount.get())
-                .setStartDate(startDate)
-                .setFinishDate(endDate);
+                    .setBase(txtBase.get())
+                    .setInterestCountInYear(txtIntCount.get())
+                    .setStartDate(startDate)
+                    .setFinishDate(endDate);
         result.set(String.format("%.2f", calcDeposit.getCapitalizedBase()));
         status.set(Status.SUCCESS.toString());
     }

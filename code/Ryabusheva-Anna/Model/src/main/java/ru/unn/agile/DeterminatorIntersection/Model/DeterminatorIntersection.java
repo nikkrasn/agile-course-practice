@@ -4,9 +4,9 @@ public class DeterminatorIntersection {
     private final Line3D line;
     private final Plane plane;
 
-    DeterminatorIntersection(final Line3D inputLine, final Plane inputPlane) {
-        this.line = inputLine;
-        this.plane = inputPlane;
+    public DeterminatorIntersection(final Line3D inputLine, final Plane inputPlane) {
+        line = inputLine;
+        plane = inputPlane;
     }
 
     public Line3D getLine() {
@@ -37,3 +37,4 @@ public class DeterminatorIntersection {
         return planeNormal.scalarMultiplication(line.getVector()) != 0;
     }
 }
+

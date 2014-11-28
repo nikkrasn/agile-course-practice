@@ -1,0 +1,9 @@
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
+
+javafx {
+    mainClass 'ru.unn.agile.QuickSort.viewmodel.ViewModel'
+}
+
+dependencies {
+    compile project(':klyan-sofiya-Model')
+}

@@ -4,7 +4,7 @@ public class Line3D {
     private final Point3D point;
     private final Point3D vector;
 
-    Line3D(final Point3D inputPoint, final Point3D inputVector) {
+    public Line3D(final Point3D inputPoint, final Point3D inputVector) {
         this.point = inputPoint;
         this.vector = inputVector;
     }

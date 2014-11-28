@@ -20,13 +20,13 @@ public class ComplexDeposit {
     }
 
     public ComplexDeposit() {
-        base = 0;
-        percent = 0;
-        interestCountInYear = 1;
+        this.base = 0;
+        this.percent = 0;
+        this.interestCountInYear = 1;
     }
 
     public double getCapitalizedBase() {
-        return base * capitalizedPercentsFullInterest() * restPercents();
+        return this.base * capitalizedPercentsFullInterest() * restPercents();
     }
 
     public double getBase() {
@@ -97,19 +97,19 @@ public class ComplexDeposit {
     }
 
     private boolean isSameBase(final ComplexDeposit depositToCompare) {
-        return getBase() == depositToCompare.getBase();
+        return this.getBase() == depositToCompare.getBase();
     }
 
     private boolean isSamePercent(final ComplexDeposit depositToCompare) {
-        return getPercent() == depositToCompare.getPercent();
+        return this.getPercent() == depositToCompare.getPercent();
     }
 
     private boolean isSameInterestCount(final ComplexDeposit depositToCompare) {
-        return getInterestCountInYear() == depositToCompare.getInterestCountInYear();
+        return this.getInterestCountInYear() == depositToCompare.getInterestCountInYear();
     }
 
     private double getPercentsInOnePeriod() {
-        return getPercent() / getInterestCountInYear();
+        return this.getPercent() / this.getInterestCountInYear();
     }
 
     private long getDaysInInterest() {

@@ -123,23 +123,31 @@ public class ViewModel {
 
     private boolean hasNegativeFields() {
         try {
-            return  Double.parseDouble(txtBase.get()) < 0
+            if (Double.parseDouble(txtBase.get()) < 0
                     || Double.parseDouble(txtPercent.get()) < 0
-                    || Integer.parseInt(txtIntCount.get()) < 0;
+                    || Integer.parseInt(txtIntCount.get()) < 0) {
+                return true;
+            }
+            return false;
         } catch (NumberFormatException nfe) {
             return false;
         }
     }
 
     private boolean hasEmptyFields() {
-        return txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
-                || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null;
+        if (txtBase.get().isEmpty() || txtPercent.get().isEmpty() || txtIntCount.get().isEmpty()
+                || dtPkrEnd.getValue() == null || dtPkrStart.getValue() == null) {
+            return true;
+        }
+        return false;
     }
 
-    private boolean isIncorrectDate() {
+    private boolean incorrectDate() {
         if (!(dtPkrEnd.getValue() == null || dtPkrEnd.getValue() == null)) {
             Integer.parseInt(txtIntCount.get());
-            return dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0;
+            if (dtPkrEnd.get().compareTo(dtPkrStart.get()) < 0) {
+                return true;
+            }
         }
         return false;
     }
@@ -169,7 +177,7 @@ public class ViewModel {
         if (incorrectTxtData() || hasNegativeFields()) {
             return Status.BAD_FORMAT;
         }
-        if (isIncorrectDate()) {
+        if (incorrectDate()) {
             return Status.BAD_DATE;
         }
         return inputStatus;

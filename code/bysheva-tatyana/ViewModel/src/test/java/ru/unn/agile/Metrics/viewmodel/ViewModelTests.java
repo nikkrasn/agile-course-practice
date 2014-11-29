@@ -145,6 +145,46 @@ public class ViewModelTests {
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
+    @Test
+    public void operationL2HasCorrectResult() {
+        setInputData();
+        viewModel.operationProperty().set(Metrics.Operation.METRIC_L2);
+
+        viewModel.calculate();
+
+        assertEquals("3.0", viewModel.resultProperty().get());
+    }
+
+    @Test
+    public void operationL3HasCorrectResult() {
+        setInputData();
+        viewModel.operationProperty().set(Metrics.Operation.METRIC_L3);
+
+        viewModel.calculate();
+
+        assertEquals("3.0", viewModel.resultProperty().get());
+    }
+
+    @Test
+    public void operationL4HasCorrectResult() {
+        setInputData();
+        viewModel.operationProperty().set(Metrics.Operation.METRIC_L4);
+
+        viewModel.calculate();
+
+        assertEquals("3.0", viewModel.resultProperty().get());
+    }
+
+    @Test
+    public void operationLInfHasCorrectResult() {
+        setInputData();
+        viewModel.operationProperty().set(Metrics.Operation.METRIC_LINF);
+
+        viewModel.calculate();
+
+        assertEquals("1.0", viewModel.resultProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

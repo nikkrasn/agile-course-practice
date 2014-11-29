@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Dichotomy.fxml"));
-        primaryStage.setTitle("Dichotomy search");
+        primaryStage.setTitle("Dichotomy");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

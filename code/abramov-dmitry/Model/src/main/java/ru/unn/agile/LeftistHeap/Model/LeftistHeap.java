@@ -101,11 +101,19 @@ public class LeftistHeap<TValue> {
             final HeapNode<TValue> root,
             final int key,
             final Stack<HeapNode<TValue>> path) {
+        if (heapRoot == null) {
+            return null;
+        }
+
         HeapNode<TValue> nodeToDecreaseKey = heapRoot;
 
         if (nodeToDecreaseKey.getKey() != key) {
             path.push(nodeToDecreaseKey);
             while (!path.empty()) {
+                if (nodeToDecreaseKey.getKey() > key) {
+                    return null;
+                }
+
                 if (nodeToDecreaseKey.getRightChild() != null
                         && nodeToDecreaseKey.getRightChild().getKey() <= key) {
                     nodeToDecreaseKey = nodeToDecreaseKey.getRightChild();

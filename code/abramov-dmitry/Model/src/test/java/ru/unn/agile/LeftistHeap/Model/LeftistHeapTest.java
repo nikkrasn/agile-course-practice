@@ -230,6 +230,25 @@ public class LeftistHeapTest {
         assertArrayEquals(new int[] {0, 2, 5}, getKeys(heap1));
     }
 
+    @Test
+    public void canNotDecreaseKeyInEmpryHeap() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+
+        boolean result = heap.decreaseKey(2, 1);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void canNotDecreaseKeyIfNewKeyLessThanAllKeysInHeap() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(5, "five");
+
+        boolean result = heap.decreaseKey(4, 1);
+
+        assertFalse(result);
+    }
+
     private <TValue> int[] getKeys(final LeftistHeap<TValue> heap) {
         List<Integer> listOfKeys = new ArrayList<Integer>();
 

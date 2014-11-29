@@ -138,6 +138,13 @@ public class ViewModelTests {
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
+    @Test
+    public void statusIsReadyWhenSetProperData() {
+        setInputData();
+
+        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

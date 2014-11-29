@@ -141,6 +141,10 @@ project(":code/Sharov-Egor/Model").name = "Sharov—Egor-Model"
 // Skachkova Natalia
 include "code/Skachkova-Natalia/Model"
 project(":code/Skachkova-Natalia/Model").name = "Skachkova-Natalia-Model"
+include "code/Skachkova-Natalia/ViewModel"
+project(":code/Skachkova-Natalia/ViewModel").name = "Skachkova-Natalia-ViewModel"
+include "code/Skachkova-Natalia/View"
+project(":code/Skachkova-Natalia/View").name = "Skachkova-Natalia-View"
 
 // Sokolov Mihail
 include "code/Sokolov-Mihail/Model"

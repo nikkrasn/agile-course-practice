@@ -131,6 +131,13 @@ public class ViewModelTests {
         assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
+    @Test
+    public void canSetBadFormatMessage() {
+        viewModel.vectorsDimensionProperty().set("lalala");
+
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

@@ -2,6 +2,8 @@ package ru.unn.agile.Metrics.viewmodel;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
@@ -24,12 +26,14 @@ public class ViewModel {
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+
     public StringProperty vectorsDimensionProperty() {
         return vectorsDimension;
     }
-    public ObservableList vectorsValuesProperty() {
-        return vectorsValues;
-    }
+    public SimpleListProperty vectorsValuesProperty =
+            new SimpleListProperty(this,"vectorsValues", vectorsValues);
+
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
@@ -65,6 +69,18 @@ public class ViewModel {
             }
         };
         calculationDisabled.bind(couldCalculate.not());
+
+        // Add listeners to the input text fields
+        final List<Property> fields = new ArrayList<Property>() { {
+            add(vectorsDimensionProperty());
+            add(vectorsValuesProperty);
+         } };
+
+        for (Property field : fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
     }
 
     public void calculate() {
@@ -106,6 +122,13 @@ public class ViewModel {
         return inputStatus;
     }
 
+    private class ValueChangeListener implements ChangeListener<Object> {
+        @Override
+        public void changed(final ObservableValue<? extends Object> observable,
+                            final Object oldValue, final Object newValue) {
+            status.set(getInputStatus().toString());
+        }
+    }
 }
 
 enum Status {

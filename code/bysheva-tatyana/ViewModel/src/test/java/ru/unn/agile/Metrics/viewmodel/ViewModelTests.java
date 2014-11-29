@@ -79,6 +79,14 @@ public class ViewModelTests {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
+    @Test
+    public void calculateButtonIsDisabledWhenFormatIsBad() {
+        setInputData();
+        viewModel.vectorsDimensionProperty().set("lalala");
+
+        assertTrue(viewModel.calculationDisabledProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

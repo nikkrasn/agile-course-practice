@@ -8,8 +8,8 @@ import java.awt.event.*;
 public final class LenghtConverterGUI {
 
     private JPanel mainPanel;
-    private JComboBox<Measure> cbFrom;
-    private JComboBox<Measure> cbTo;
+    private JComboBox<Measure> cbFromMeasure;
+    private JComboBox<Measure> cbToMeasure;
     private JButton btnConvert;
     private JTextField txtInput;
     private JTextField txtResult;
@@ -40,7 +40,7 @@ public final class LenghtConverterGUI {
             }
         });
 
-        cbFrom.addActionListener(new ActionListener() {
+        cbFromMeasure.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
@@ -48,7 +48,7 @@ public final class LenghtConverterGUI {
             }
         });
 
-        cbTo.addActionListener(new ActionListener() {
+        cbToMeasure.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
@@ -81,13 +81,13 @@ public final class LenghtConverterGUI {
 
     private void loadListOfMeasures() {
         Measure[] operations = Measure.values();
-        cbFrom.setModel(new JComboBox<Measure>(operations).getModel());
-        cbTo.setModel(new JComboBox<Measure>(operations).getModel());
+        cbFromMeasure.setModel(new JComboBox<Measure>(operations).getModel());
+        cbToMeasure.setModel(new JComboBox<Measure>(operations).getModel());
     }
 
     private void bind() {
         viewModel.setInputValue(txtInput.getText());
-        viewModel.setInputMeasure((Measure) cbFrom.getSelectedItem());
-        viewModel.setOutputMeasure((Measure) cbTo.getSelectedItem());
+        viewModel.setInputMeasure((Measure) cbFromMeasure.getSelectedItem());
+        viewModel.setOutputMeasure((Measure) cbToMeasure.getSelectedItem());
     }
 }

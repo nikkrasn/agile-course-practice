@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="225.0" prefWidth="457.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.BinaryTree.view.BinaryTree">
+    <children>
+      <HBox prefHeight="225.0" prefWidth="457.0">
+          <padding>
+              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+          </padding>
+         <children>
+            <VBox prefHeight="132.0" prefWidth="130.0" spacing="10">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+               <children>
+                  <Label text="Key" />
+                  <TextField />
+                  <Label text="Value" />
+                  <TextField />
+                       <Button mnemonicParsing="false" pickOnBounds="false" prefHeight="25.0" prefWidth="91.0" text="Insert node" />
+               </children>
+            </VBox>
+            <VBox prefHeight="205.0" prefWidth="130.0" spacing="10">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+               <children>
+                  <Label text="Key" />
+                  <TextField />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Delete node" />
+               </children>
+            </VBox>
+            <VBox prefHeight="205.0" prefWidth="130.0" spacing="10">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+               <children>
+                  <Label text="Value" />
+                  <TextField />
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Find node" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="130.0" spacing="10">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                </padding>
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Get root" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

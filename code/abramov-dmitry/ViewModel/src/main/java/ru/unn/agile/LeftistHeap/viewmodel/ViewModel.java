@@ -126,7 +126,7 @@ public class ViewModel {
         String key = key2Property().get();
 
         if (validNumber(key)) {
-            heap1.add(Integer.parseInt(key2Property().get()), value2Property().get());
+            heap2.add(Integer.parseInt(key2Property().get()), value2Property().get());
             status.set("OK");
             return;
         }
@@ -202,7 +202,7 @@ public class ViewModel {
         heap2.merge(heap1);
 
         result2.set("Merged with left heap");
-        result1.set("Now is empty");
+        result1.set("Heap is empty");
 
         status.set("OK");
     }
@@ -211,9 +211,61 @@ public class ViewModel {
         heap1.merge(heap2);
 
         result1.set("Merged with right heap");
-        result2.set("Now is empty");
+        result2.set("Heap is empty");
 
         status.set("OK");
+    }
+
+    public void decreaseKey1() {
+        String key = key1Property().get();
+        String newKey = newKey1Property().get();
+
+        if (validNumber(key) && validNumber(newKey)) {
+            try {
+                if (heap1.decreaseKey(Integer.parseInt(key), Integer.parseInt(newKey))) {
+                    result1.set("Key decreased");
+                    status.set("OK");
+                    return;
+                } else {
+                    result1.set("Key not found");
+                    status.set("OK");
+                    return;
+                }
+            } catch (IllegalArgumentException exception) {
+                result1.set("New key must be less than current");
+                status.set("OK");
+                return;
+            }
+        }
+
+        result1.set("");
+        status.set("Bad input");
+    }
+
+    public void decreaseKey2() {
+        String key = key2Property().get();
+        String newKey = newKey2Property().get();
+
+        if (validNumber(key) && validNumber(newKey)) {
+            try {
+                if (heap2.decreaseKey(Integer.parseInt(key), Integer.parseInt(newKey))) {
+                    result2.set("Key decreased");
+                    status.set("OK");
+                    return;
+                } else {
+                    result2.set("Key not found");
+                    status.set("OK");
+                    return;
+                }
+            } catch (IllegalArgumentException exception) {
+                result2.set("New key must be less than current");
+                status.set("OK");
+                return;
+            }
+        }
+
+        result2.set("");
+        status.set("Bad input");
     }
 
     private Boolean validNumber(final String number) {

@@ -32,6 +32,8 @@ public class LeftistHeap {
     private Button delete1;
     @FXML
     private Button decrease1;
+    @FXML
+    private Button merge1;
 
     @FXML
     private Button add2;
@@ -41,6 +43,8 @@ public class LeftistHeap {
     private Button delete2;
     @FXML
     private Button decrease2;
+    @FXML
+    private Button merge2;
 
     @FXML
     void initialize() {
@@ -73,6 +77,20 @@ public class LeftistHeap {
             }
         });
 
+        merge1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.merge1();
+            }
+        });
+
+        decrease1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.decreaseKey1();
+            }
+        });
+
         add2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
@@ -91,6 +109,20 @@ public class LeftistHeap {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.delete2();
+            }
+        });
+
+        merge2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.merge2();
+            }
+        });
+
+        decrease2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.decreaseKey2();
             }
         });
     }

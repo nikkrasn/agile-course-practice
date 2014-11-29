@@ -43,7 +43,7 @@
                         <Button fx:id="decrease1" mnemonicParsing="false" text="Decrease key" />
                      </children>
                   </HBox>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Merge with right heap" />
+                  <Button fx:id="merge1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Merge with right heap" />
                   <Label text="${viewModel.result1}" />
                </children>
             </VBox>
@@ -75,7 +75,7 @@
                         <Button fx:id="decrease2" mnemonicParsing="false" text="Decrease key" />
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" text="Merge with left heap" />
+                  <Button fx:id="merge2" mnemonicParsing="false" text="Merge with left heap" />
                   <Label text="${viewModel.result2}" />
                </children>
             </VBox>

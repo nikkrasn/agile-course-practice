@@ -113,6 +113,15 @@ public class ViewModelTests {
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
     }
 
+    @Test
+    public void operationL1HasCorrectResult() {
+        setInputData();
+
+        viewModel.calculate();
+
+        assertEquals("3.0", viewModel.resultProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

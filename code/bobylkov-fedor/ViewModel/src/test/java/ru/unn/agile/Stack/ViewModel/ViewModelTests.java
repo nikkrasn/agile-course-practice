@@ -15,7 +15,8 @@ public class ViewModelTests {
 
     @Test
     public void checkDefaultValues() {
-        assertEquals("", viewModel.top().get());
-        assertEquals("Push me!", viewModel.push().get());
+        assertEquals("", viewModel.topProperty().get());
+        assertEquals("Push me!", viewModel.pushProperty().get());
+        assertFalse(viewModel.isEmptyProperty().get());
     }
 }

@@ -5,10 +5,19 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import ru.unn.agile.Metrics.viewmodel.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <ViewModel fx:id="viewModel" />
+    </fx:define>
    <children>
-      <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane layoutX="10.0"
+                layoutY="10.0"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Enter vectors dimension :" GridPane.halignment="RIGHT">
                <padding>
@@ -20,32 +29,88 @@
                   <Insets right="20.0" />
                </padding>
             </Label>
-            <AnchorPane prefHeight="60.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <AnchorPane prefHeight="60.0"
+                        prefWidth="200.0"
+                        GridPane.columnIndex="1">
                <children>
-                  <TextField layoutX="-18.0" layoutY="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField layoutX="-18.0"
+                             layoutY="3.0"
+                             AnchorPane.bottomAnchor="0.0"
+                             AnchorPane.leftAnchor="0.0"
+                             AnchorPane.rightAnchor="0.0"
+                             AnchorPane.topAnchor="0.0"
+                             fx:id="vectorsDimension"/>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="60.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <AnchorPane prefHeight="60.0"
+                        prefWidth="200.0"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="1">
                <children>
-                  <ComboBox layoutX="-13.0" layoutY="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ComboBox layoutX="-13.0"
+                            layoutY="2.0"
+                            AnchorPane.bottomAnchor="0.0"
+                            AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="0.0"
+                            fx:id="cbOperation"
+                            items="${viewModel.operations}"/>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="60.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <AnchorPane prefHeight="60.0"
+                        prefWidth="200.0"
+                        GridPane.columnSpan="2"
+                        GridPane.rowIndex="2">
                <children>
-                  <Button layoutX="123.0" layoutY="6.0" mnemonicParsing="false" text="Calculate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="123.0"
+                          layoutY="6.0"
+                          mnemonicParsing="false"
+                          text="Calculate"
+                          AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0"
+                          AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="0.0"
+                          fx:id="btnCalc"
+                          disable="${viewModel.calculationDisabled}"/>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="60.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <AnchorPane prefHeight="60.0"
+                        prefWidth="200.0"
+                        GridPane.columnSpan="2"
+                        GridPane.rowIndex="3">
                <children>
-                  <TableView layoutX="26.0" layoutY="-14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView layoutX="26.0"
+                             layoutY="-14.0"
+                             AnchorPane.bottomAnchor="0.0"
+                             AnchorPane.leftAnchor="0.0"
+                             AnchorPane.rightAnchor="0.0"
+                             AnchorPane.topAnchor="0.0"
+                             fx:id="tableView">
                      <columns>
-                        <TableColumn maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" sortable="false" text="Vector 1" />
-                        <TableColumn maxWidth="-1.0" minWidth="200.0" prefWidth="200.0" sortable="false" text="Vector2" />
+                        <TableColumn maxWidth="-1.0"
+                                     minWidth="200.0"
+                                     prefWidth="200.0"
+                                     sortable="false"
+                                     text="Vector 1" />
+                        <TableColumn maxWidth="-1.0"
+                                     minWidth="200.0"
+                                     prefWidth="200.0"
+                                     sortable="false"
+                                     text="Vector2" />
                      </columns>
                   </TableView>
                </children>
             </AnchorPane>
-            <Label GridPane.rowIndex="4" />
+            <Label text="Status:" GridPane.rowIndex="4" />
+            <Label text="Result:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label GridPane.halignment="RIGHT"
+                   GridPane.rowIndex="4"
+                   GridPane.valignment="CENTER"
+                   fx:id="lbStatus" text="${viewModel.status}"/>
+            <Label GridPane.columnIndex="1"
+                   GridPane.halignment="RIGHT"
+                   GridPane.rowIndex="4"
+                   fx:id="lbResult" text="${viewModel.result}"/>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" prefWidth="200.0" />

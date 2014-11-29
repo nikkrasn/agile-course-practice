@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,23 +23,33 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-    public BooleanProperty calculationDisabledProperty() {
-        return calculationDisabled;
-    }
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
+    private final SimpleListProperty<Pair<String, String>> vectorsValuesProperty =
+            new SimpleListProperty<>(this, "vectorsValues", vectorsValues);
 
+    public BooleanProperty calculationDisabledProperty() {
+        return calculationDisabled;
+    }
     public StringProperty vectorsDimensionProperty() {
         return vectorsDimension;
     }
-    public SimpleListProperty vectorsValuesProperty =
-            new SimpleListProperty(this,"vectorsValues", vectorsValues);
-
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
-
+    public final SimpleListProperty<Pair<String, String>> getVectorsValuesProperty() {
+        return vectorsValuesProperty;
+    }
+    public ObjectProperty<ObservableList<Operation>> operationsProperty() {
+        return operations;
+    }
+    public final ObservableList<Operation> getOperations() {
+        return operations.get();
+    }
+    public final boolean getCalculationDisabled() {
+        return calculationDisabled.get();
+    }
     public StringProperty resultProperty() {
         return result;
     }
@@ -133,9 +142,11 @@ public class ViewModel {
         }
     }
 
-    private class ListValuesPropertyChangeListener implements ListChangeListener<Pair<String, String>> {
+    private class ListValuesPropertyChangeListener implements
+            ListChangeListener<Pair<String, String>> {
         @Override
-        public void onChanged(ListChangeListener.Change<? extends Pair<String, String>> change) {
+        public void onChanged(final ListChangeListener.Change<?
+                extends Pair<String, String>> change) {
             status.set(getInputStatus().toString());
         }
     }

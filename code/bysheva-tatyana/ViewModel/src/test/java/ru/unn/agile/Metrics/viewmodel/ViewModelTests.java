@@ -103,8 +103,13 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canSetAddOperation() {
+    public void canSetL1Operation() {
         viewModel.operationProperty().set(Metrics.Operation.METRIC_L1);
+        assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
+    }
+
+    @Test
+    public void l1IsDefaultOperation() {
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
     }
 

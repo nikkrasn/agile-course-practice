@@ -122,6 +122,15 @@ public class ViewModelTests {
         assertEquals("3.0", viewModel.resultProperty().get());
     }
 
+    @Test
+    public void canSetSuccessMessage() {
+        setInputData();
+
+        viewModel.calculate();
+
+        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

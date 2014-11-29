@@ -102,6 +102,12 @@ public class ViewModelTests {
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
 
+    @Test
+    public void canSetAddOperation() {
+        viewModel.operationProperty().set(Metrics.Operation.METRIC_L1);
+        assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

@@ -67,6 +67,13 @@ public class ViewModelTests {
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
+    @Test
+    public void statusIsWaitingIfNotEnoughCorrectData() {
+        viewModel.vectorsDimensionProperty().set("1");
+
+        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

@@ -91,27 +91,27 @@ public final class Metrics {
 
     public enum Operation {
         METRIC_L1("L1") {
-            public float apply(final List<Float> vector1, final List<Float> vector2) {
+            public Float apply(final List<Float> vector1, final List<Float> vector2) {
                 return Metrics.l1(vector1, vector2);
             }
         },
         METRIC_L2("L2") {
-            public float apply(final List<Float> vector1, final List<Float> vector2) {
+            public Float apply(final List<Float> vector1, final List<Float> vector2) {
                 return Metrics.l2(vector1, vector2);
             }
         },
         METRIC_L3("L3") {
-            public float apply(final List<Float> vector1, final List<Float> vector2) {
+            public Float apply(final List<Float> vector1, final List<Float> vector2) {
                 return Metrics.l3(vector1, vector2);
             }
         },
         METRIC_L4("L4") {
-            public float apply(final List<Float> vector1, final List<Float> vector2) {
+            public Float apply(final List<Float> vector1, final List<Float> vector2) {
                 return Metrics.l4(vector1, vector2);
             }
         },
         METRIC_LINF("LINF") {
-            public float apply(final List<Float> vector1, final List<Float> vector2) {
+            public Float apply(final List<Float> vector1, final List<Float> vector2) {
                 return Metrics.lInf(vector1, vector2);
             }
         };
@@ -126,7 +126,7 @@ public final class Metrics {
             return name;
         }
 
-        public abstract float apply(final List<Float> vector1, final List<Float> vector2);
+        public abstract Float apply(final List<Float> vector1, final List<Float> vector2);
     }
 
 }

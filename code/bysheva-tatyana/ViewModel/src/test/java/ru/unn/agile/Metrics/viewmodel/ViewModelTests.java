@@ -28,15 +28,17 @@ public class ViewModelTests {
     public void canSetDefaultValues() {
         final ObservableList<Pair<Float, Float>> vectorsValues =
                 FXCollections.observableArrayList();
-        assertEquals("3", viewModel.vectorsDimensionProperty().get());
-
-        vectorsValues.add(new Pair<>(0.0f, 0.0f));
-        vectorsValues.add(new Pair<>(0.0f, 0.0f));
-        vectorsValues.add(new Pair<>(0.0f, 0.0f));
+        assertEquals("", viewModel.vectorsDimensionProperty().get());
 
         assertTrue(viewModel.vectorsValuesProperty().equals(vectorsValues));
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
         assertEquals("", viewModel.resultProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void statusIsWaitingWhenCalculateWithEmptyFields() {
+        viewModel.calculate();
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 }

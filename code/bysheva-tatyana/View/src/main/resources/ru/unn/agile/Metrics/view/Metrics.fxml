@@ -45,6 +45,7 @@
                   </TableView>
                </children>
             </AnchorPane>
+            <Label GridPane.rowIndex="4" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" prefWidth="200.0" />

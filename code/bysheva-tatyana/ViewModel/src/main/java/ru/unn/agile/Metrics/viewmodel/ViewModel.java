@@ -5,17 +5,19 @@ import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
     private final StringProperty vectorsDimension = new SimpleStringProperty();
 
-    private final ObservableList<Pair<Float, Float>> vectorsValues =
+    private final ObservableList<Pair<String, String>> vectorsValues =
             FXCollections.observableArrayList();
 
     private final ObjectProperty<ObservableList<Operation>> operations =
@@ -26,7 +28,7 @@ public class ViewModel {
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<ChangeListener> valueChangedListeners = new ArrayList<>();
 
     public StringProperty vectorsDimensionProperty() {
         return vectorsDimension;
@@ -71,17 +73,17 @@ public class ViewModel {
         calculationDisabled.bind(couldCalculate.not());
 
         // Add listeners to the input text fields
-        final List<Property> fields = new ArrayList<Property>() { {
-            add(vectorsDimensionProperty());
-            add(vectorsValuesProperty);
-         } };
+        final StringPropertyChangeListener stringPropertyChangeListener
+                = new StringPropertyChangeListener();
 
-        for (Property field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
+        vectorsDimensionProperty().addListener(stringPropertyChangeListener);
+
+        final ListValuesPropertyChangeListener listValuesPropertyChangeListener
+                = new ListValuesPropertyChangeListener();
+
+        vectorsValuesProperty.addListener(listValuesPropertyChangeListener);
     }
+
 
     public void calculate() {
         if (calculationDisabled.get()) {
@@ -92,8 +94,8 @@ public class ViewModel {
         List<Float> vector2 = new ArrayList<Float>();
 
         for (int i = 0; i < vectorsValues.size(); i++) {
-            vector1.add(vectorsValues.get(i).getKey());
-            vector2.add(vectorsValues.get(i).getValue());
+            vector1.add(Float.parseFloat(vectorsValues.get(i).getKey()));
+            vector2.add(Float.parseFloat(vectorsValues.get(i).getValue()));
         }
 
         result.set(operation.get().apply(vector1, vector2).toString());
@@ -111,8 +113,8 @@ public class ViewModel {
             }
             if (!vectorsValues.isEmpty()) {
                 for (int i = 0; i < vectorsValues.size(); i++) {
-                   vectorsValues.get(i).getKey();
-                   vectorsValues.get(i).getValue();
+                   Float.parseFloat(vectorsValues.get(i).getKey());
+                   Float.parseFloat(vectorsValues.get(i).getValue());
                 }
             }
         } catch (NumberFormatException nfe) {
@@ -122,10 +124,17 @@ public class ViewModel {
         return inputStatus;
     }
 
-    private class ValueChangeListener implements ChangeListener<Object> {
+    private class StringPropertyChangeListener implements ChangeListener<String> {
         @Override
-        public void changed(final ObservableValue<? extends Object> observable,
-                            final Object oldValue, final Object newValue) {
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getInputStatus().toString());
+        }
+    }
+
+    private class ListValuesPropertyChangeListener implements ListChangeListener<Pair<String, String>> {
+        @Override
+        public void onChanged(ListChangeListener.Change<? extends Pair<String, String>> change) {
             status.set(getInputStatus().toString());
         }
     }

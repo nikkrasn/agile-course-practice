@@ -53,8 +53,16 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canReportBadFormat() {
+    public void canReportBadFormatDimension() {
         viewModel.vectorsDimensionProperty().set("a");
+
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void canReportBadFormatVectorsValues() {
+        viewModel.vectorsDimensionProperty().set("1");
+        viewModel.vectorsValuesProperty.add(new Pair<>("a", "b"));
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
@@ -62,8 +70,8 @@ public class ViewModelTests {
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 
-        viewModel.vectorsValuesProperty.add(new Pair<>(1.0f, 0.0f));
-        viewModel.vectorsValuesProperty.add(new Pair<>(2.0f, 1.0f));
-        viewModel.vectorsValuesProperty.add(new Pair<>(3.0f, 2.0f));
+        viewModel.vectorsValuesProperty.add(new Pair<>("1.0f", "0.0f"));
+        viewModel.vectorsValuesProperty.add(new Pair<>("2.0f", "1.0f"));
+        viewModel.vectorsValuesProperty.add(new Pair<>("3.0f", "2.0f"));
     }
 }

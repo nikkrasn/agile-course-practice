@@ -33,24 +33,24 @@ public final class LenghtConverterGUI {
 
         btnConvert.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent event) {
                 bind();
                 viewModel.convert();
                 backBind();
             }
         });
 
-        cbFromMeasure.addActionListener(new ActionListener() {
+        cbToMeasure.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent event) {
                 bind();
                 backBind();
             }
         });
 
-        cbToMeasure.addActionListener(new ActionListener() {
+        cbFromMeasure.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(final ActionEvent actionEvent) {
+            public void actionPerformed(final ActionEvent event) {
                 bind();
                 backBind();
             }

@@ -95,6 +95,13 @@ public class ViewModelTests {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
+    @Test
+    public void calculateButtonIsEnabledWithCorrectInput() {
+        setInputData();
+
+        assertFalse(viewModel.calculationDisabledProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

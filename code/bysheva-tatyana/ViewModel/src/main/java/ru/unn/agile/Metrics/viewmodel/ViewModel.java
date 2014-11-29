@@ -24,11 +24,12 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
     private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    public BooleanProperty calculationDisabledProperty() {
+        return calculationDisabled;
+    }
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-
-    private final List<ChangeListener> valueChangedListeners = new ArrayList<>();
 
     public StringProperty vectorsDimensionProperty() {
         return vectorsDimension;

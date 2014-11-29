@@ -74,6 +74,11 @@ public class ViewModelTests {
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
 
+    @Test
+    public void calculateButtonIsDisabledInitially() {
+        assertTrue(viewModel.calculationDisabledProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

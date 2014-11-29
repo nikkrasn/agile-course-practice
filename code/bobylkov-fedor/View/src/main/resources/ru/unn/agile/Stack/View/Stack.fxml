@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="ALWAYS" />
+    <ColumnConstraints hgrow="ALWAYS" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="150.0" prefHeight="300.0" vgrow="ALWAYS" />
+  </rowConstraints>
+   <children>
+      <TableView GridPane.columnSpan="2" GridPane.rowIndex="3">
+        <columns>
+          <TableColumn editable="false" maxWidth="-1.0" minWidth="20.0" prefWidth="-1.0" resizable="false" sortable="false" text="#" />
+          <TableColumn editable="false" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Value" />
+        </columns>
+      </TableView>
+      <AnchorPane maxHeight="60.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <children>
+            <Button layoutX="95.0" layoutY="16.0" mnemonicParsing="false" text="Pop" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="300.0">
+         <children>
+            <Button layoutX="114.0" layoutY="16.0" mnemonicParsing="false" text="Push" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="300.0" GridPane.columnIndex="1">
+         <children>
+            <TextField layoutX="65.0" layoutY="16.0" text="Push me!" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="60.0" prefHeight="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Label layoutX="35.0" layoutY="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane maxHeight="60.0" prefHeight="60.0" GridPane.rowIndex="2">
+         <children>
+            <Label alignment="CENTER_RIGHT" layoutX="143.0" layoutY="21.0" text="Top:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

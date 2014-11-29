@@ -87,6 +87,14 @@ public class ViewModelTests {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
+    @Test
+    public void calculateButtonIsDisabledWithIncompleteInput() {
+        viewModel.vectorsDimensionProperty().set("1");
+        viewModel.vectorsValuesProperty.add(new Pair<>("1.0", ""));
+
+        assertTrue(viewModel.calculationDisabledProperty().get());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

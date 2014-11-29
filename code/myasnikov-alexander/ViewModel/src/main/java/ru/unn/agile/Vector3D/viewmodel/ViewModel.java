@@ -4,8 +4,6 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import ru.unn.agile.Vector3D.Model.Vector3D;
 
 import java.util.ArrayList;
@@ -25,6 +23,8 @@ public class ViewModel {
 
     private final StringProperty status = new SimpleStringProperty();
 
+    private VectorOperation operation = VectorOperation.NORM;
+
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
@@ -33,17 +33,20 @@ public class ViewModel {
         vector1CoordinateY.setValue("");
         vector1CoordinateZ.setValue("");
 
-        vector2CoordinateX.setValue("0");
-        vector2CoordinateY.setValue("0");
-        vector2CoordinateZ.setValue("0");
+        vector2CoordinateX.setValue("");
+        vector2CoordinateY.setValue("");
+        vector2CoordinateZ.setValue("");
 
         result.setValue("");
         status.setValue(Status.WAITING.toString());
+
+        operation = VectorOperation.NORM;
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(vector1CoordinateX, vector1CoordinateY, vector1CoordinateZ,
                             vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ);
+
             }
             @Override
             protected boolean computeValue() {
@@ -82,6 +85,10 @@ public class ViewModel {
 
     public StringProperty getStatusProperty() { return status; }
 
+    public VectorOperation getOperation() { return operation; }
+    public void setOperation(final VectorOperation newOperation) {
+        operation = newOperation;
+    }
 
     public void calculate() {
         if (calculationDisabled.get()) {
@@ -93,14 +100,34 @@ public class ViewModel {
                 Double.parseDouble(vector1CoordinateY.get()),
                 Double.parseDouble(vector1CoordinateZ.get()));
 
-        Vector3D v2 = new Vector3D(
-                Double.parseDouble(vector2CoordinateX.get()),
-                Double.parseDouble(vector2CoordinateY.get()),
-                Double.parseDouble(vector2CoordinateZ.get()));
-
-        Vector3D v3 = Vector3D.crossProduct(v1, v2);
-
-        result.set(String.format("(%f, %f, %f)", v3.getCoordinateX(), v3.getCoordinateY(), v3.getCoordinateZ()));
+        if (operation == VectorOperation.NORM) {
+            result.set(String.format("%f", v1.getNorm()));
+        } else {
+            if (operation == VectorOperation.NORMALAZE) {
+                v1.normalize();
+                result.set(String.format("(%f, %f, %f)",
+                        v1.getCoordinateX(),
+                        v1.getCoordinateY(),
+                        v1.getCoordinateZ()));
+            } else {
+                Vector3D v2 = new Vector3D(
+                        Double.parseDouble(vector2CoordinateX.get()),
+                        Double.parseDouble(vector2CoordinateY.get()),
+                        Double.parseDouble(vector2CoordinateZ.get()));
+                if (operation == VectorOperation.DOTPRODUCT) {
+                    double dotProduct = Vector3D.dotProduct(v1, v2);
+                    result.set(String.format("%f", dotProduct));
+                } else {
+                    if (operation == VectorOperation.CROSSPRODUCT) {
+                        Vector3D v3 = Vector3D.crossProduct(v1, v2);
+                        result.set(String.format("(%f, %f, %f)",
+                                v1.getCoordinateX(),
+                                v1.getCoordinateY(),
+                                v1.getCoordinateZ()));
+                    }
+                }
+            }
+        }
         status.set(Status.SUCCESS.toString());
     }
 
@@ -113,10 +140,18 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (vector1CoordinateX.get().isEmpty() || vector1CoordinateY.get().isEmpty() ||
-                vector1CoordinateZ.get().isEmpty() || vector2CoordinateX.get().isEmpty() ||
-                vector2CoordinateY.get().isEmpty() || vector2CoordinateZ.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+        if (vector1CoordinateX.get().isEmpty() || vector1CoordinateY.get().isEmpty()
+                || vector1CoordinateZ.get().isEmpty()) {
+            if (operation == VectorOperation.DOTPRODUCT
+                    || operation == VectorOperation.CROSSPRODUCT) {
+                if (vector2CoordinateX.get().isEmpty()
+                        || vector2CoordinateY.get().isEmpty()
+                        || vector2CoordinateZ.get().isEmpty()) {
+                    inputStatus = Status.WAITING;
+                }
+            } else {
+                inputStatus = Status.WAITING;
+            }
         }
         try {
             if (!vector1CoordinateX.get().isEmpty()) {
@@ -128,14 +163,17 @@ public class ViewModel {
             if (!vector1CoordinateZ.get().isEmpty()) {
                 Double.parseDouble(vector1CoordinateZ.get());
             }
-            if (!vector2CoordinateX.get().isEmpty()) {
-                Double.parseDouble(vector2CoordinateX.get());
-            }
-            if (!vector2CoordinateY.get().isEmpty()) {
-                Double.parseDouble(vector2CoordinateY.get());
-            }
-            if (!vector2CoordinateZ.get().isEmpty()) {
-                Double.parseDouble(vector2CoordinateZ.get());
+            if (operation == VectorOperation.DOTPRODUCT
+                    || operation == VectorOperation.CROSSPRODUCT) {
+                if (!vector2CoordinateX.get().isEmpty()) {
+                    Double.parseDouble(vector2CoordinateX.get());
+                }
+                if (!vector2CoordinateY.get().isEmpty()) {
+                    Double.parseDouble(vector2CoordinateY.get());
+                }
+                if (!vector2CoordinateZ.get().isEmpty()) {
+                    Double.parseDouble(vector2CoordinateZ.get());
+                }
             }
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
@@ -152,6 +190,13 @@ public class ViewModel {
         }
     }
 
+}
+
+enum VectorOperation {
+    NORM,
+    NORMALAZE,
+    DOTPRODUCT,
+    CROSSPRODUCT;
 }
 
 enum Status {

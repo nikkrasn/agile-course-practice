@@ -101,9 +101,8 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Label text="Status:" GridPane.rowIndex="4" />
             <Label text="Result:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label GridPane.halignment="RIGHT"
+            <Label GridPane.halignment="LEFT"
                    GridPane.rowIndex="4"
                    GridPane.valignment="CENTER"
                    fx:id="lbStatus" text="${viewModel.status}"/>

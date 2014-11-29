@@ -73,7 +73,7 @@ public class ViewModel {
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
-                super.bind(vectorsValues);
+                super.bind(vectorsValues, vectorsDimension);
             }
             @Override
             protected boolean computeValue() {

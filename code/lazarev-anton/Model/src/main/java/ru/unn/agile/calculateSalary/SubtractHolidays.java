@@ -10,12 +10,14 @@ public class SubtractHolidays {
     private LocalDate startVacation = LocalDate.of(DEFAULT_VACATION_YEAR, 1, 1);
     private int lengthOfVacation = 0;
     private LocalDate endVacation;
+    private int dayStartSubtract;
+    private int dayEndSubtract;
 
     public int getHolidaysInVacation() {
         endVacation = startVacation.plusDays(lengthOfVacation);
-        int dayStartSubtract = getStartDay();
-        int dayEndSubtract = getEndDay();
-        return summVacationDaysToSubtract(dayStartSubtract, dayEndSubtract);
+        dayStartSubtract = getStartDay();
+        dayEndSubtract = getEndDay();
+        return summVacationDaysToSubtract();
     }
 
     public boolean isNotDayOff(final int checkDayNumber) {
@@ -40,8 +42,7 @@ public class SubtractHolidays {
         return this;
     }
 
-    private int summVacationDaysToSubtract(final int dayStartSubtract,
-                                           final int dayEndSubtract) {
+    private int summVacationDaysToSubtract() {
         if (checkMonth.getYear() != startVacation.getYear()) {
             return 0;
         }
@@ -58,32 +59,20 @@ public class SubtractHolidays {
     }
 
     private int getStartDay() {
-        if (isAllCashMonthInVacation()) {
+        if (isAllCashMonthInVacation() || vacationInAnotherMonthButEndInCashMonth()) {
             return 1;
         }
-        if (isAllVacationInCashMonth()) {
+        if (isAllVacationInCashMonth() || vacationInCashMonthButEndInAnother()) {
             return startVacation.getDayOfMonth();
-        }
-        if (vacationInCashMonthButEndInAnother()) {
-            return startVacation.getDayOfMonth();
-        }
-        if (vacationInAnotherMonthButEndInCashMonth()) {
-            return 1;
         }
         return 0;
     }
 
     private int getEndDay() {
-        if (isAllCashMonthInVacation()) {
+        if (isAllCashMonthInVacation() || vacationInCashMonthButEndInAnother()) {
             return checkMonth.lengthOfMonth();
         }
-        if (isAllVacationInCashMonth()) {
-            return endVacation.getDayOfMonth();
-        }
-        if (vacationInCashMonthButEndInAnother()) {
-            return endVacation.lengthOfMonth();
-        }
-        if (vacationInAnotherMonthButEndInCashMonth()) {
+        if (isAllVacationInCashMonth() || vacationInAnotherMonthButEndInCashMonth()) {
             return endVacation.getDayOfMonth();
         }
         return 0;

@@ -27,10 +27,10 @@ public class CalculateSalary {
         payForOneJobHour = calcCashForOneJobHour(jobDaysInCountMonth);
         amountOfJobHours = summJobHours(cashDaysInMonth);
         switch (getCompareWorkAndJobHours()) {
-            case "overtime":
+            case "employeeWorkedMoreThanNormHoursInMonth":
                 cashForPay = calcCashWithOvertime();
                 break;
-            case "less":
+            case "employeeWorkedLessThanNormHoursInMonth":
                 cashForPay = calcCashForLessHours();
                 break;
             default:
@@ -66,10 +66,10 @@ public class CalculateSalary {
 
     private String getCompareWorkAndJobHours() {
         if (workedHourInMonth > amountOfJobHours) {
-            return "overtime";
+            return "employeeWorkedMoreThanNormHoursInMonth";
         }
         if (workedHourInMonth < amountOfJobHours) {
-            return "less";
+            return "employeeWorkedLessThanNormHoursInMonth";
         }
         return "";
     }

@@ -96,4 +96,14 @@ public class CalculateSalaryTests {
                 .setWorkedHourInMonth(160);
         assertEquals(8700.0, calculator.calculate(), 1.0);
     }
+
+    @Test
+    public void countCashInMonthWhichAllInVacation() {
+        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+                .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
+                .setWorkedHourInMonth(0)
+                .setStartOfVacation(LocalDate.of(2015, Month.SEPTEMBER, 27))
+                .setLengthOfVacation(50);
+        assertEquals(0.0, calculator.calculate(), 1.0);
+    }
 }

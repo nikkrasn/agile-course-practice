@@ -74,4 +74,13 @@ public class WorkWithCalendarTests {
                 .setLengthOfVacation(14);
         assertEquals(22, countMonth.countCashDaysInMonth());
     }
+
+    @Test
+    public void checkCashDaysWhenAllCountMonthInVacation() {
+        WorkWithCalendar countMonth = new WorkWithCalendar()
+                .setCountMonth(LocalDate.of(2014, Month.OCTOBER, 1))
+                .setStartVacation(LocalDate.of(2014, Month.SEPTEMBER, 25))
+                .setLengthOfVacation(50);
+        assertEquals(0, countMonth.countCashDaysInMonth());
+    }
 }

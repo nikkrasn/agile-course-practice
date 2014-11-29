@@ -1,58 +1,61 @@
 package ru.unn.agile.LeftistHeap.viewmodel;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import ru.unn.agile.LeftistHeap.Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import ru.unn.agile.LeftistHeap.Model.HeapNode;
+import ru.unn.agile.LeftistHeap.Model.LeftistHeap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty key1 = new SimpleStringProperty();
-    private final StringProperty key2 = new SimpleStringProperty();
+    private final StringProperty key;
 
-    private final StringProperty value1 = new SimpleStringProperty();
-    private final StringProperty value2 = new SimpleStringProperty();
+    private final StringProperty value;
 
-    private final StringProperty newKey1 = new SimpleStringProperty();
-    private final StringProperty newKey2 = new SimpleStringProperty();
+    private final StringProperty newKey;
 
-    private final StringProperty result1 = new SimpleStringProperty();
-    private final StringProperty result2 = new SimpleStringProperty();
+    private final StringProperty result;
 
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty status;
 
-    private final LeftistHeap<String> heap1 = new LeftistHeap<String>();
-    private final LeftistHeap<String> heap2 = new LeftistHeap<String>();
+    private final ObjectProperty<ObservableList<LeftistHeap<String>>> heaps;
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final ObjectProperty<LeftistHeap<String>> heap;
 
     public ViewModel() {
-        key1.set("");
-        key2.set("");
+        key = new SimpleStringProperty("");
+        newKey = new SimpleStringProperty("");
+        value = new SimpleStringProperty("");
+        result = new SimpleStringProperty("");
+        status = new SimpleStringProperty("");
 
-        value1.set("");
-        value2.set("");
+        LeftistHeap<String> defaultSelectedHeap = new LeftistHeap<String>("heap 1");
 
-        newKey1.set("");
-        newKey2.set("");
+        heaps = new SimpleObjectProperty<ObservableList<LeftistHeap<String>>>(
+                FXCollections.observableArrayList(
+                        Arrays.asList(
+                                defaultSelectedHeap,
+                                new LeftistHeap<String>("heap 2"))));
 
-        result1.set("");
-        result2.set("");
-
-        status.set("");
+        heap = new SimpleObjectProperty<>();
+        heap.set(defaultSelectedHeap);
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(key1);
-            add(value1);
-            add(newKey1);
-
-            add(key2);
-            add(value2);
-            add(newKey2);
+            add(key);
+            add(value);
+            add(newKey);
         } };
+
+        List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
@@ -61,36 +64,20 @@ public class ViewModel {
         }
     }
 
-    public StringProperty key1Property() {
-        return key1;
+    public StringProperty keyProperty() {
+        return key;
     }
 
-    public StringProperty key2Property() {
-        return key2;
+    public StringProperty valueProperty() {
+        return value;
     }
 
-    public StringProperty value1Property() {
-        return value1;
+    public StringProperty newKeyProperty() {
+        return newKey;
     }
 
-    public StringProperty value2Property() {
-        return value2;
-    }
-
-    public StringProperty newKey1Property() {
-        return newKey1;
-    }
-
-    public StringProperty newKey2Property() {
-        return newKey2;
-    }
-
-    public StringProperty result1Property() {
-        return result1;
-    }
-
-    public StringProperty result2Property() {
-        return result2;
+    public StringProperty resultProperty() {
+        return result;
     }
 
     public StringProperty statusProperty() {
@@ -101,170 +88,96 @@ public class ViewModel {
         return statusProperty().get();
     }
 
-    public String getResult1() {
-        return result1Property().get();
+    public String getResult() {
+        return resultProperty().get();
     }
 
-    public String getResult2() {
-        return result2Property().get();
+    public ObjectProperty<ObservableList<LeftistHeap<String>>> heapsProperty() {
+        return heaps;
+    }
+    public final ObservableList<LeftistHeap<String>> getHeaps() {
+        return heaps.get();
     }
 
-    public void add1() {
-        String key = key1Property().get();
+    public ObjectProperty<LeftistHeap<String>> operationProperty() {
+        return heap;
+    }
+
+    public void add() {
+        String key = keyProperty().get();
 
         if (validNumber(key)) {
-            heap1.add(Integer.parseInt(key1Property().get()), value1Property().get());
+            heap.get().add(Integer.parseInt(keyProperty().get()), valueProperty().get());
             status.set("OK");
             return;
         }
 
-        result1.set("");
+        result.set("");
         status.set("Bad input");
     }
 
-    public void add2() {
-        String key = key2Property().get();
+    public void delete() {
+        String key = keyProperty().get();
 
         if (validNumber(key)) {
-            heap2.add(Integer.parseInt(key2Property().get()), value2Property().get());
-            status.set("OK");
-            return;
-        }
-
-        result2.set("");
-        status.set("Bad input");
-    }
-
-    public void delete1() {
-        String key = key1Property().get();
-
-        if (validNumber(key)) {
-            HeapNode<String> result = heap1.extractElementWithKey(
-                    Integer.parseInt(key1Property().get()));
+            HeapNode<String> result = heap.get().extractElementWithKey(
+                    Integer.parseInt(keyProperty().get()));
 
             if (result == null) {
-                result1.set(String.format("Heap not contain elements with key '%s'", key));
+                this.result.set(String.format("Heap not contain elements with key '%s'", key));
             } else {
-                result1.set(result.toString());
+                this.result.set(result.toString());
             }
             status.set("OK");
             return;
         }
 
-        result1.set("");
+        result.set("");
         status.set("Bad input");
     }
 
-    public void delete2() {
-        String key = key2Property().get();
-
-        if (validNumber(key)) {
-            HeapNode<String> result = heap2.extractElementWithKey(
-                    Integer.parseInt(key2Property().get()));
-
-            if (result == null) {
-                result2.set(String.format("Heap not contain elements with key '%s'", key));
-            } else {
-                result2.set(result.toString());
-            }
-
-            status.set("OK");
-            return;
-        }
-
-        result1.set("");
-        status.set("Bad input");
-    }
-
-    public void getMinimum1() {
-        HeapNode<String> result = heap1.extractMin();
+    public void getMinimum() {
+        HeapNode<String> result = heap.get().extractMin();
         if (result == null) {
-            result1.set("Heap is empty");
+            this.result.set("Heap is empty");
         } else {
-            result1.set(result.toString());
+            this.result.set(result.toString());
         }
 
         status.set("OK");
     }
 
-    public void getMinimum2() {
-        HeapNode<String> result = heap2.extractMin();
-        if (result == null) {
-            result2.set("Heap is empty");
-        } else {
-            result2.set(result.toString());
-        }
+    public void merge() {
+        heaps.get().get(1).merge(heaps.get().get(0));
+
+        result.set("Merged");
 
         status.set("OK");
     }
 
-    public void merge1() {
-        heap2.merge(heap1);
-
-        result2.set("Merged with left heap");
-        result1.set("Heap is empty");
-
-        status.set("OK");
-    }
-
-    public void merge2() {
-        heap1.merge(heap2);
-
-        result1.set("Merged with right heap");
-        result2.set("Heap is empty");
-
-        status.set("OK");
-    }
-
-    public void decreaseKey1() {
-        String key = key1Property().get();
-        String newKey = newKey1Property().get();
+    public void decreaseKey() {
+        String key = keyProperty().get();
+        String newKey = newKeyProperty().get();
 
         if (validNumber(key) && validNumber(newKey)) {
             try {
-                if (heap1.decreaseKey(Integer.parseInt(key), Integer.parseInt(newKey))) {
-                    result1.set("Key decreased");
+                if (heap.get().decreaseKey(Integer.parseInt(key), Integer.parseInt(newKey))) {
+                    result.set("Key decreased");
                     status.set("OK");
                     return;
                 } else {
-                    result1.set("Key not found");
+                    result.set("Key not found");
                     status.set("OK");
                     return;
                 }
             } catch (IllegalArgumentException exception) {
-                result1.set("New key must be less than current");
+                result.set("New key must be less than current");
                 status.set("OK");
                 return;
             }
         }
 
-        result1.set("");
-        status.set("Bad input");
-    }
-
-    public void decreaseKey2() {
-        String key = key2Property().get();
-        String newKey = newKey2Property().get();
-
-        if (validNumber(key) && validNumber(newKey)) {
-            try {
-                if (heap2.decreaseKey(Integer.parseInt(key), Integer.parseInt(newKey))) {
-                    result2.set("Key decreased");
-                    status.set("OK");
-                    return;
-                } else {
-                    result2.set("Key not found");
-                    status.set("OK");
-                    return;
-                }
-            } catch (IllegalArgumentException exception) {
-                result2.set("New key must be less than current");
-                status.set("OK");
-                return;
-            }
-        }
-
-        result2.set("");
+        result.set("");
         status.set("Bad input");
     }
 

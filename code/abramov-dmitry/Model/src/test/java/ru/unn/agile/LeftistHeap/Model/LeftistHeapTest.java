@@ -11,6 +11,20 @@ public class LeftistHeapTest {
     public void canCreateLeftistHeap() {
         LeftistHeap<String> heap = new LeftistHeap<String>();
         assertNotNull(heap);
+        assertEquals("heap", heap.getName());
+    }
+
+    @Test
+    public void canCreateLeftistHeapWithName() {
+        LeftistHeap<String> heap = new LeftistHeap<String>("Best heap");
+        assertNotNull(heap);
+        assertEquals("Best heap", heap.getName());
+    }
+
+    @Test
+    public void checkToStringOverride() {
+        LeftistHeap<String> heap = new LeftistHeap<String>("I am heap");
+        assertEquals("I am heap", heap.toString());
     }
 
     @Test

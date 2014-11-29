@@ -21,167 +21,163 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("", viewModel.key1Property().get());
-        assertEquals("", viewModel.key2Property().get());
-        assertEquals("", viewModel.value1Property().get());
-        assertEquals("", viewModel.value2Property().get());
-        assertEquals("", viewModel.newKey1Property().get());
-        assertEquals("", viewModel.newKey2Property().get());
-        assertEquals("", viewModel.result1Property().get());
-        assertEquals("", viewModel.result2Property().get());
+        assertNotNull(viewModel.heapsProperty());
+        assertEquals("", viewModel.keyProperty().get());
+        assertEquals("", viewModel.valueProperty().get());
+        assertEquals("", viewModel.newKeyProperty().get());
+        assertEquals("", viewModel.resultProperty().get());
         assertEquals("", viewModel.statusProperty().get());
     }
 
     @Test
     public void canAddElement() {
-        viewModel.key1Property().set("1");
-        viewModel.add1();
+        viewModel.keyProperty().set("1");
+        viewModel.add();
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canValidateBeforeAddElement() {
-        viewModel.add1();
+        viewModel.add();
         assertEquals("Bad input", viewModel.statusProperty().get());
     }
 
     @Test
     public void canExtractByKey() {
-        viewModel.key1Property().set("1");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
+        viewModel.keyProperty().set("1");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
 
-        viewModel.delete1();
+        viewModel.delete();
 
-        assertEquals("Key: 1, Value: value", viewModel.result1Property().get());
+        assertEquals("Key: 1, Value: value", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canValidateBeforeExtractByKey() {
-        viewModel.key1Property().set("1");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
-        viewModel.key1Property().set("abra-kadabra");
+        viewModel.keyProperty().set("1");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
+        viewModel.keyProperty().set("abra-kadabra");
 
-        viewModel.delete1();
+        viewModel.delete();
 
-        assertEquals("", viewModel.result1Property().get());
+        assertEquals("", viewModel.resultProperty().get());
         assertEquals("Bad input", viewModel.statusProperty().get());
     }
 
     @Test
     public void canCorrectExtractByNotContainedKey() {
-        viewModel.key1Property().set("3");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
-        viewModel.key1Property().set("7");
+        viewModel.keyProperty().set("3");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
+        viewModel.keyProperty().set("7");
 
-        viewModel.delete1();
+        viewModel.delete();
 
-        assertEquals("Heap not contain elements with key '7'", viewModel.result1Property().get());
+        assertEquals("Heap not contain elements with key '7'", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canGetMinimum() {
-        viewModel.key1Property().set("1");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
+        viewModel.keyProperty().set("1");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
 
-        viewModel.getMinimum1();
+        viewModel.getMinimum();
 
-        assertEquals("Key: 1, Value: value", viewModel.result1Property().get());
+        assertEquals("Key: 1, Value: value", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canGetMinimumFromEmptyHeap() {
-        viewModel.getMinimum1();
+        viewModel.getMinimum();
 
-        assertEquals("Heap is empty", viewModel.result1Property().get());
+        assertEquals("Heap is empty", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canCorrectGetMinimumFromEmptyHeap() {
-        viewModel.getMinimum1();
+        viewModel.getMinimum();
 
-        assertEquals("Heap is empty", viewModel.result1Property().get());
+        assertEquals("Heap is empty", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canMerge() {
-        viewModel.merge1();
+        viewModel.merge();
 
-        assertEquals("Merged with left heap", viewModel.result2Property().get());
-        assertEquals("Heap is empty", viewModel.result1Property().get());
+        assertEquals("Merged", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canDecreaseKey() {
-        viewModel.key1Property().set("5");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
+        viewModel.keyProperty().set("5");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
 
-        viewModel.newKey1Property().set("2");
+        viewModel.newKeyProperty().set("2");
 
-        viewModel.decreaseKey1();
+        viewModel.decreaseKey();
 
-        assertEquals("Key decreased", viewModel.result1Property().get());
+        assertEquals("Key decreased", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canNotDecreaseNotExistKey() {
-        viewModel.key1Property().set("3");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
+        viewModel.keyProperty().set("3");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
 
-        viewModel.key1Property().set("4");
-        viewModel.newKey1Property().set("2");
+        viewModel.keyProperty().set("4");
+        viewModel.newKeyProperty().set("2");
 
-        viewModel.decreaseKey1();
+        viewModel.decreaseKey();
 
-        assertEquals("Key not found", viewModel.result1Property().get());
+        assertEquals("Key not found", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canNotDecreaseToBiggerKey() {
-        viewModel.key1Property().set("2");
-        viewModel.value1Property().set("value");
-        viewModel.add1();
+        viewModel.keyProperty().set("2");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
 
-        viewModel.newKey1Property().set("6");
+        viewModel.newKeyProperty().set("6");
 
-        viewModel.decreaseKey1();
+        viewModel.decreaseKey();
 
-        assertEquals("New key must be less than current", viewModel.result1Property().get());
+        assertEquals("New key must be less than current", viewModel.resultProperty().get());
         assertEquals("OK", viewModel.statusProperty().get());
     }
 
     @Test
     public void canValidateNewKeyInputBeforDecrease() {
-        viewModel.key1Property().set("1");
-        viewModel.newKey1Property().set("words");
+        viewModel.keyProperty().set("1");
+        viewModel.newKeyProperty().set("words");
 
-        viewModel.decreaseKey1();
+        viewModel.decreaseKey();
 
-        assertEquals("", viewModel.result1Property().get());
+        assertEquals("", viewModel.resultProperty().get());
         assertEquals("Bad input", viewModel.statusProperty().get());
     }
 
     @Test
     public void canValidateKeyInputBeforDecrease() {
-        viewModel.key1Property().set("this key");
-        viewModel.newKey1Property().set("4");
+        viewModel.keyProperty().set("this key");
+        viewModel.newKeyProperty().set("4");
 
-        viewModel.decreaseKey1();
+        viewModel.decreaseKey();
 
-        assertEquals("", viewModel.result1Property().get());
+        assertEquals("", viewModel.resultProperty().get());
         assertEquals("Bad input", viewModel.statusProperty().get());
     }
 }

@@ -3,10 +3,29 @@ package ru.unn.agile.LeftistHeap.Model;
 import java.util.Stack;
 
 public class LeftistHeap<TValue> {
+    private final String name;
+
     private HeapNode<TValue> heapRoot;
+
+    public LeftistHeap() {
+        name = "heap";
+    }
+
+    public LeftistHeap(final String heapName) {
+        name = heapName;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 
     public boolean isEmpty() {
         return heapRoot == null;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void add(final int key, final TValue value) {

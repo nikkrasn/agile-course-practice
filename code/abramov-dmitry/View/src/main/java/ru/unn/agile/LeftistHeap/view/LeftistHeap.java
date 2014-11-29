@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import ru.unn.agile.LeftistHeap.viewmodel.ViewModel;
 
@@ -18,111 +19,60 @@ public class LeftistHeap {
     private TextField newKey1;
 
     @FXML
-    private TextField key2;
+    private Button add;
     @FXML
-    private TextField value2;
+    private Button getMinimum;
     @FXML
-    private TextField newKey2;
+    private Button delete;
+    @FXML
+    private Button decrease;
+    @FXML
+    private Button merge;
+
 
     @FXML
-    private Button add1;
-    @FXML
-    private Button getMinimum1;
-    @FXML
-    private Button delete1;
-    @FXML
-    private Button decrease1;
-    @FXML
-    private Button merge1;
-
-    @FXML
-    private Button add2;
-    @FXML
-    private Button getMinimum2;
-    @FXML
-    private Button delete2;
-    @FXML
-    private Button decrease2;
-    @FXML
-    private Button merge2;
+    private ComboBox<ru.unn.agile.LeftistHeap.Model.LeftistHeap<String>> cbHeap;
 
     @FXML
     void initialize() {
-        key1.textProperty().bindBidirectional(viewModel.key1Property());
-        value1.textProperty().bindBidirectional(viewModel.value1Property());
-        newKey1.textProperty().bindBidirectional(viewModel.newKey1Property());
+        key1.textProperty().bindBidirectional(viewModel.keyProperty());
+        value1.textProperty().bindBidirectional(viewModel.valueProperty());
+        newKey1.textProperty().bindBidirectional(viewModel.newKeyProperty());
 
-        key2.textProperty().bindBidirectional(viewModel.key2Property());
-        value2.textProperty().bindBidirectional(viewModel.value2Property());
-        newKey2.textProperty().bindBidirectional(viewModel.newKey2Property());
+        cbHeap.valueProperty().bindBidirectional(viewModel.operationProperty());
 
-        add1.setOnAction(new EventHandler<ActionEvent>() {
+        add.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.add1();
+                viewModel.add();
             }
         });
 
-        getMinimum1.setOnAction(new EventHandler<ActionEvent>() {
+        getMinimum.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.getMinimum1();
+                viewModel.getMinimum();
             }
         });
 
-        delete1.setOnAction(new EventHandler<ActionEvent>() {
+        delete.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.delete1();
+                viewModel.delete();
             }
         });
 
-        merge1.setOnAction(new EventHandler<ActionEvent>() {
+        merge.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.merge1();
+                viewModel.merge();
             }
         });
 
-        decrease1.setOnAction(new EventHandler<ActionEvent>() {
+        decrease.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.decreaseKey1();
-            }
-        });
-
-        add2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                viewModel.add2();
-            }
-        });
-
-        getMinimum2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                viewModel.getMinimum2();
-            }
-        });
-
-        delete2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                viewModel.delete2();
-            }
-        });
-
-        merge2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                viewModel.merge2();
-            }
-        });
-
-        decrease2.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(final ActionEvent event) {
-                viewModel.decreaseKey2();
+                viewModel.decreaseKey();
             }
         });
     }

@@ -29,13 +29,13 @@ public final class LenghtConverterGUI {
         this.viewModel = viewModel;
         backBind();
 
-        loadListOfOperations();
+        loadListOfMeasures();
 
         btnConvert.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
-                LenghtConverterGUI.this.viewModel.convert();
+                viewModel.convert();
                 backBind();
             }
         });
@@ -59,7 +59,7 @@ public final class LenghtConverterGUI {
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
                 bind();
-                LenghtConverterGUI.this.viewModel.processKeyInTextField(e.getKeyCode());
+                viewModel.processKeyInTextField(e.getKeyCode());
                 backBind();
             }
         };
@@ -79,7 +79,7 @@ public final class LenghtConverterGUI {
         txtResult.setText(viewModel.getResult());
     }
 
-    private void loadListOfOperations() {
+    private void loadListOfMeasures() {
         Measure[] operations = Measure.values();
         cbFrom.setModel(new JComboBox<Measure>(operations).getModel());
         cbTo.setModel(new JComboBox<Measure>(operations).getModel());

@@ -23,4 +23,17 @@ public class ViewModelTests {
     public void canSetDefaultValue() {
         assertEquals("", viewModel.txtValueProperty().get());
     }
+
+    @Test
+    public void statusIsWaitingWhenAddingWithEmptyField() {
+        viewModel.addFirst();
+        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void statusIsReadyWithNotEmptyField() {
+        viewModel.txtValueProperty().set("1");
+
+        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+    }
 }

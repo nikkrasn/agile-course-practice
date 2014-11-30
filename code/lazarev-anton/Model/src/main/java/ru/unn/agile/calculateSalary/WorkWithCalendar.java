@@ -9,7 +9,8 @@ public class WorkWithCalendar {
     private int lengthOfVacation = 0;
 
     public int countJobDaysInMonth() {
-        SubtractHolidays checkingPeriod = new SubtractHolidays().setCheckMonth(countMonth);
+        SubtractHolidays checkingPeriod = new SubtractHolidays()
+                                              .setCheckMonth(countMonth);
         int jobDaysInMonth = 0;
         for (int i = 1; i <= countMonth.lengthOfMonth(); i++) {
             if (checkingPeriod.isNotDayOff(i)) {
@@ -20,9 +21,10 @@ public class WorkWithCalendar {
     }
 
     public int countCashDaysInMonth() {
-        SubtractHolidays checkingPeriod = new SubtractHolidays().setCheckMonth(countMonth)
-                                                                .setStartVacation(startVacation)
-                                                               .setLengthVacation(lengthOfVacation);
+        SubtractHolidays checkingPeriod = new SubtractHolidays()
+                                              .setCheckMonth(countMonth)
+                                              .setStartVacation(startVacation)
+                                              .setLengthVacation(lengthOfVacation);
         int cashDaysInMonth = countJobDaysInMonth();
         if (!isCountYearNotVacationYear()) {
             return cashDaysInMonth - checkingPeriod.getHolidaysInVacation();

@@ -67,15 +67,17 @@ public class CalculateSalary {
     }
 
     private double calcCashForOneJobHour() {
-        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth);
+        WorkWithCalendar countMonth = new WorkWithCalendar()
+                                          .setCountMonth(countingMonth);
         int jobDaysInCountMonth = countMonth.countJobDaysInMonth();
         return salary / (summJobHours(jobDaysInCountMonth));
     }
 
     private int getSummOfWorkedHours() {
-        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth)
-                                                            .setStartVacation(startOfVacation)
-                                                            .setLengthOfVacation(lengthOfVacation);
+        WorkWithCalendar countMonth = new WorkWithCalendar()
+                                          .setCountMonth(countingMonth)
+                                          .setStartVacation(startOfVacation)
+                                          .setLengthOfVacation(lengthOfVacation);
         int cashDaysInMonth = countMonth.countCashDaysInMonth();
         return summJobHours(cashDaysInMonth);
     }

@@ -33,7 +33,7 @@ public class ViewModelTests {
         assertEquals("", viewModel.getResult());
         assertEquals(Status.WAITING, viewModel.getStatus());
     }
-/*
+
     @Test
     public void isStatusWaitingInTheBeginning() {
         assertEquals(Status.WAITING, viewModel.getStatus());
@@ -45,147 +45,81 @@ public class ViewModelTests {
 
         assertEquals(Status.WAITING, viewModel.getStatus());
     }
-
     @Test
-    public void isStatusReadyWhenFieldsAreFill() {
-        fillInputFields();
-
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(Status.READY, viewModel.getStatus());
-    }
-
-    private void fillInputFields() {
-        viewModel.setRe1("1");
-        viewModel.setIm1("1");
-        viewModel.setRe2("3");
-        viewModel.setIm2("3");
-    }
-
-    @Test
-    public void canReportBadFormat() {
-        viewModel.setRe1("a");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
-    }
-
-    @Test
-    public void canCleanStatusIfParseIsOK() {
-        viewModel.setRe1("a");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-        viewModel.setRe1("1.0");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(Status.WAITING, viewModel.getStatus());
-    }
-
-    @Test
-    public void isCalculateButtonDisabledInitially() {
-        assertEquals(false, viewModel.isCalculateButtonEnabled());
-    }
-
-    @Test
-    public void isCalculateButtonDisabledWhenFormatIsBad() {
-        fillInputFields();
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-        assertEquals(true, viewModel.isCalculateButtonEnabled());
-
-        viewModel.setRe1("trash");
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(false, viewModel.isCalculateButtonEnabled());
-    }
-
-    @Test
-    public void isCalculateButtonDisabledWithIncompleteInput() {
-        viewModel.setRe1("1");
-        viewModel.setIm1("1");
-
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(false, viewModel.isCalculateButtonEnabled());
-    }
-
-    @Test
-    public void canGetOperationName() {
-        String addName = Operation.ADD.toString();
-        assertEquals("Add", addName);
-    }
-
-    @Test
-    public void canGetNumberOfOperations() {
-        int nOperations = Operation.values().length;
-        assertEquals(2, nOperations);
-    }
-
-    @Test
-    public void canGetListOfOperations() {
-        ViewModel.Operation[] operations = ViewModel.Operation.values();
-        ViewModel.Operation[] currentOperations = new ViewModel.Operation[]{
-                Operation.ADD,
-                Operation.MULTIPLY};
-
-        assertArrayEquals(currentOperations, operations);
-    }
-
-    @Test
-    public void canCompareOperationsByName() {
-        assertEquals(Operation.ADD, Operation.ADD);
-        assertNotEquals(Operation.ADD, Operation.MULTIPLY);
-    }
-
-    @Test
-    public void isCalculateButtonEnabledWithCorrectInput() {
-        fillInputFields();
-
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(true, viewModel.isCalculateButtonEnabled());
-    }
-
-    @Test
-    public void canSetAddOperation() {
-        viewModel.setOperation(Operation.ADD);
-        assertEquals(Operation.ADD, viewModel.getOperation());
-    }
-
-    @Test
-    public void canSetMulOperation() {
-        viewModel.setOperation(Operation.MULTIPLY);
-        assertEquals(Operation.MULTIPLY, viewModel.getOperation());
-    }
-
-    @Test
-    public void isDefaultOperationAdd() {
-        assertEquals(Operation.ADD, viewModel.getOperation());
-    }
-
-    @Test
-    public void canPerformCalcAction() {
-        viewModel.setRe1("1");
-        viewModel.setIm1("2");
-        viewModel.setRe2("-10");
-        viewModel.setIm2("-20");
-        viewModel.setOperation(Operation.ADD);
-
-        viewModel.calculate();
-
-        assertEquals("-9.0 - 18.0i", viewModel.getResult());
-    }
-
-    @Test
-    public void canSetSuccessMessage() {
-        fillInputFields();
-
+    public void isStatusSuccessAnnuity() {
+        viewModel.setSum("1");
+        viewModel.setPaymentPeriod("1");
+        viewModel.setInterestRate("16.1");
+        viewModel.setStartMonth("4");
+        viewModel.setTypePayment(TypePayment.Annuity);
+        viewModel.setCurrency(Currency.RUB);
         viewModel.calculate();
 
         assertEquals(Status.SUCCESS, viewModel.getStatus());
     }
-
     @Test
-    public void canSetBadFormatMessage() {
-        viewModel.setRe1("a");
+    public void isStatusSuccessDifferentiated() {
+        viewModel.setSum("1");
+        viewModel.setPaymentPeriod("1");
+        viewModel.setInterestRate("16.1");
+        viewModel.setStartMonth("4");
+        viewModel.setTypePayment(TypePayment.Differentiated);
+        viewModel.setCurrency(Currency.RUB);
+        viewModel.calculate();
+
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
+    }
+    @Test
+    public void isStatusSuccessDollar() {
+        viewModel.setSum("1");
+        viewModel.setPaymentPeriod("1");
+        viewModel.setInterestRate("16.1");
+        viewModel.setStartMonth("4");
+        viewModel.setTypePayment(TypePayment.Differentiated);
+        viewModel.setCurrency(Currency.Dollar);
+        viewModel.calculate();
+
+        assertEquals(Status.SUCCESS, viewModel.getStatus());
+    }
+    @Test
+    public void isBadFormatSum() {
+        viewModel.setSum("test");
+        viewModel.setPaymentPeriod("4");
+        viewModel.setInterestRate("16.1");
+        viewModel.setStartMonth("4");
+
+        viewModel.calculate();
+
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+    }
+    @Test
+    public void isBadFormatPaymentPeriod() {
+        viewModel.setSum("1");
+        viewModel.setPaymentPeriod("test");
+        viewModel.setInterestRate("16.1");
+        viewModel.setStartMonth("4");
+
+        viewModel.calculate();
+
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+    }
+    @Test
+    public void isBadFormatInterestRate() {
+        viewModel.setSum("1");
+        viewModel.setPaymentPeriod("4");
+        viewModel.setInterestRate("test");
+        viewModel.setStartMonth("4");
+
+        viewModel.calculate();
+
+        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+    }
+    @Test
+    public void isBadFormatStartMonth() {
+        viewModel.setSum("1");
+        viewModel.setPaymentPeriod("4");
+        viewModel.setInterestRate("16.1");
+        viewModel.setStartMonth("test");
 
         viewModel.calculate();
 
@@ -193,46 +127,28 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusReadyWhenKeyIsNotEnter() {
-        fillInputFields();
-
-        viewModel.processKeyInTextField(KeyboardKeys.ANY);
-
-        assertEquals(Status.READY, viewModel.getStatus());
+    public void canSetAddTypePaymentAnnuity() {
+        viewModel.setTypePayment(TypePayment.Annuity);
+        assertEquals(TypePayment.Annuity, viewModel.getTypePayment());
     }
 
     @Test
-    public void isStatusSuccessWhenKeyIsEnter() {
-        fillInputFields();
-
-        viewModel.processKeyInTextField(KeyboardKeys.ENTER);
-
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+    public void canSetAddTypePaymentDifferentiated() {
+        viewModel.setTypePayment(TypePayment.Differentiated);
+        assertEquals(TypePayment.Differentiated, viewModel.getTypePayment());
     }
 
     @Test
-    public void canMultiplyNumbers() {
-        viewModel.setRe1("1");
-        viewModel.setIm1("0");
-        viewModel.setRe2("2");
-        viewModel.setIm2("0");
-        viewModel.setOperation(Operation.MULTIPLY);
-
-        viewModel.calculate();
-
-        assertEquals("2.0 + 0.0i", viewModel.getResult());
+    public void canSetCurrencyDollar() {
+        viewModel.setCurrency(Currency.Dollar);
+        assertEquals(Currency.Dollar, viewModel.getCurrency());
     }
 
     @Test
-    public void canPerformAddWithArbitraryNumbers() {
-        viewModel.setRe1("1.2");
-        viewModel.setIm1("2.3");
-        viewModel.setRe2("-10.4");
-        viewModel.setIm2("-20.5");
-        viewModel.setOperation(Operation.ADD);
+    public void canSetCurrencyRub() {
+        viewModel.setCurrency(Currency.RUB);
+        assertEquals(Currency.RUB, viewModel.getCurrency());
+    }
 
-        viewModel.calculate();
 
-        assertEquals("-9.2 - 18.2i", viewModel.getResult());
-    }*/
 }

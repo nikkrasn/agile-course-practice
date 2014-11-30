@@ -39,10 +39,14 @@ public final class LengthConverter {
 
     public static double convertFromTo(final Measure from, final Measure to, final double value) {
 
+        if (koef.get(to) <= 0 || koef.get(from) <= 0) {
+            throw new IllegalArgumentException("плохие коэффициенты");
+        }
+
         double check = koef.get(from) / koef.get(to);
 
         if (value < 0 || Double.MAX_VALUE / check < value) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("плохой вход");
         }
 
         return value * check;

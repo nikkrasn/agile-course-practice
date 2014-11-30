@@ -6,7 +6,7 @@ import static ru.unn.agile.Converter.Model.LengthConverter.*;
 
 
 public class LengthConverterTest {
-    private static final double DELTA = 0.001;
+    private static final double DELTA = 1e-100;
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsOnNegativeDouble() {

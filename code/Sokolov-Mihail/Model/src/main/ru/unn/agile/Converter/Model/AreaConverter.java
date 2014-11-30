@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class AreaConverter {
+    private static final double ADELTA = 1e-100;
+    private static final double AZERO = 0.0;
     private static final double KOEF_SQM = 1.0;
     private static final double KOEF_SQKM = 1000000.0;
     private static final double KOEF_HA = 10000.0;
@@ -23,15 +25,13 @@ public final class AreaConverter {
                                 final Measures from,
                                 final Measures to) {
         if (val < 0) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("negative input");
+        }
+        if (koef.get(to) < ADELTA || koef.get(from) < AZERO) {
+            throw new IllegalArgumentException("Wrong koeffs");
         }
 
-        double k = -1.0;
-        try {
-            k = koef.get(from) / koef.get(to);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Zero division which can't be physically");
-        }
+        double k = koef.get(from) / koef.get(to);
 
         if (Double.MAX_VALUE / k < val) {
             throw new IllegalArgumentException();

@@ -6,17 +6,17 @@ import javax.swing.*;
 import java.awt.event.*;
 
 public final class SimpleAreaConverter {
-    private JTextField tbValue;
-    private JComboBox<Measures> cbFrom;
-    private JComboBox<Measures> cbTo;
-    private JTextField tbResult;
-    private JButton btnConvert;
-    private JPanel mainPanel;
-    private ViewModel viewModel;
+    private JTextField tbValueA;
+    private JComboBox<Measures> cbFromA;
+    private JComboBox<Measures> cbToA;
+    private JTextField tbResultA;
+    private JButton btnConvertA;
+    private JPanel mainPanelA;
+    private ViewModel viewModelA;
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Simple area converter");
-        frame.setContentPane(new SimpleAreaConverter(new ViewModel()).mainPanel);
+        frame.setContentPane(new SimpleAreaConverter(new ViewModel()).mainPanelA);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -25,12 +25,12 @@ public final class SimpleAreaConverter {
     private  SimpleAreaConverter() { }
 
     private SimpleAreaConverter(final ViewModel viewModel) {
-        this.viewModel = viewModel;
+        this.viewModelA = viewModel;
         backBind();
 
         loadListAreaMeasures();
 
-        btnConvert.addActionListener(new ActionListener() {
+        btnConvertA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
@@ -39,14 +39,14 @@ public final class SimpleAreaConverter {
             }
         });
 
-        cbFrom.addActionListener(new ActionListener() {
+        cbFromA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
                 backBind();
             }
         });
-        cbTo.addActionListener(new ActionListener() {
+        cbToA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
                 bind();
@@ -61,23 +61,23 @@ public final class SimpleAreaConverter {
                 backBind();
             }
         };
-        tbValue.addKeyListener(keyListener);
+        tbValueA.addKeyListener(keyListener);
     }
 
     private void loadListAreaMeasures() {
         Measures[] measures = Measures.values();
-        cbFrom.setModel(new JComboBox<Measures>(measures).getModel());
-        cbTo.setModel(new JComboBox<Measures>(measures).getModel());
+        cbFromA.setModel(new JComboBox<Measures>(measures).getModel());
+        cbToA.setModel(new JComboBox<Measures>(measures).getModel());
     }
 
     private void bind() {
-        viewModel.setInput(tbValue.getText());
-        viewModel.setMeasureOfAreaFrom((Measures) cbFrom.getSelectedItem());
-        viewModel.setMeasureOfAreaTo((Measures) cbTo.getSelectedItem());
+        viewModelA.setInput(tbValueA.getText());
+        viewModelA.setMeasureOfAreaFrom((Measures) cbFromA.getSelectedItem());
+        viewModelA.setMeasureOfAreaTo((Measures) cbToA.getSelectedItem());
     }
 
     private void backBind() {
-        btnConvert.setEnabled(viewModel.isCalculateButtonEnabled());
-        tbResult.setText(viewModel.getResult());
+        btnConvertA.setEnabled(viewModelA.isCalculateButtonEnabled());
+        tbResultA.setText(viewModelA.getResult());
     }
 }

@@ -35,14 +35,14 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txtRange1Start" />
+                              <TextField fx:id="txtFirstRangeStart" />
                               <Separator prefWidth="70.0" visible="false" />
                               <Label minWidth="-Infinity" text="Finish">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txtRange1Finish" />
+                              <TextField fx:id="txtFirstRangeFinish" />
                            </children>
                         </HBox>
                      </children>
@@ -63,13 +63,13 @@
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin></Label>
-                              <TextField fx:id="txtRange2Start" />
+                              <TextField fx:id="txtSecondRangeStart" />
                               <Separator prefWidth="70.0" visible="false" />
                               <Label minWidth="-Infinity" text="Finish">
                                  <HBox.margin>
                                     <Insets right="5.0" />
                                  </HBox.margin></Label>
-                              <TextField fx:id="txtRange2Finish" />
+                              <TextField fx:id="txtSecondRangeFinish" />
                            </children>
                         </HBox>
                      </children>
@@ -89,7 +89,7 @@
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin></Label>
-                  <Label fx:id="lbResult" minWidth="-Infinity" text="${viewModel.result}" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lbResult" minWidth="-Infinity" text="${viewModel.calcResult}" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox>
@@ -99,7 +99,7 @@
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="lbDescription" minWidth="-Infinity" text="${viewModel.description}" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lbDescription" minWidth="-Infinity" text="${viewModel.calcDescription}" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox>
@@ -108,7 +108,7 @@
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin></Label>
-                  <Label fx:id="lbStatus" minWidth="-Infinity" text="${viewModel.status}" HBox.hgrow="ALWAYS" />
+                  <Label fx:id="lbStatus" minWidth="-Infinity" text="${viewModel.calcStatus}" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>

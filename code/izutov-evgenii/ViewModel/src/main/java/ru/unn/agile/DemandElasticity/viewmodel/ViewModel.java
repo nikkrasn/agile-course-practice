@@ -13,10 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty start1 = new SimpleStringProperty("");
-    private final StringProperty finish1 = new SimpleStringProperty("");
-    private final StringProperty start2 = new SimpleStringProperty("");
-    private final StringProperty finish2 = new SimpleStringProperty("");
+    private final StringProperty firstRangeStart = new SimpleStringProperty("");
+    private final StringProperty firstRangeFinish = new SimpleStringProperty("");
+    private final StringProperty secondRangeStart = new SimpleStringProperty("");
+    private final StringProperty secondRangeFinish = new SimpleStringProperty("");
 
     private final ObjectProperty<ObservableList<DemandElasticityType>> demandElasticityTypes =
             new SimpleObjectProperty<>(
@@ -25,9 +25,9 @@ public class ViewModel {
             new SimpleObjectProperty<>(DemandElasticityType.ByPrice);
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty result = new SimpleStringProperty("");
-    private final StringProperty description = new SimpleStringProperty("");
-    private final StringProperty status = new SimpleStringProperty(Status.WAITING.toString());
+    private final StringProperty calcResult = new SimpleStringProperty("");
+    private final StringProperty calcDescription = new SimpleStringProperty("");
+    private final StringProperty calcStatus = new SimpleStringProperty(Status.WAITING.toString());
 
     private final List<TextFieldChangeListener> textFieldChangedListeners = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class ViewModel {
     public ViewModel() {
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
-                super.bind(start1, finish1, start2, finish2);
+                super.bind(firstRangeStart, firstRangeFinish, secondRangeStart, secondRangeFinish);
             }
             @Override
             protected boolean computeValue() {
@@ -51,10 +51,10 @@ public class ViewModel {
         calculationDisabled.bind(couldCalculate.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(start1);
-            add(finish1);
-            add(start2);
-            add(finish2);
+            add(firstRangeStart);
+            add(firstRangeFinish);
+            add(secondRangeStart);
+            add(secondRangeFinish);
         } };
 
         for (StringProperty field : fields) {
@@ -71,42 +71,44 @@ public class ViewModel {
             return;
         }
 
-        IPositiveRange range1 = demandElasticityType.get().
-                getFirstRange(Double.parseDouble(start1.get()), Double.parseDouble(finish1.get()));
-        IPositiveRange range2 = demandElasticityType.get().
-                getSecondRange(Double.parseDouble(start2.get()), Double.parseDouble(finish2.get()));
+        IPositiveRange firstRange = demandElasticityType.get().
+                getFirstRange(Double.parseDouble(firstRangeStart.get()),
+                              Double.parseDouble(firstRangeFinish.get()));
+        IPositiveRange secondRange = demandElasticityType.get().
+                getSecondRange(Double.parseDouble(secondRangeStart.get()),
+                               Double.parseDouble(secondRangeFinish.get()));
 
         Coefficient answer;
         try {
-            answer = demandElasticityType.get().calculate(range1, range2);
+            answer = demandElasticityType.get().calculate(firstRange, secondRange);
         } catch (ArithmeticException ae) {
             answer = null;
-            result.set("");
-            description.set("");
-            status.set(Status.WRONG_ARGUMENTS.toString());
+            calcResult.set("");
+            calcDescription.set("");
+            calcStatus.set(Status.WRONG_ARGUMENTS.toString());
         }
 
         if (answer != null) {
-            result.set(Double.toString(answer.getValue()));
-            description.set(answer.getDescription());
-            status.set(Status.SUCCESS.toString());
+            calcResult.set(Double.toString(answer.getValue()));
+            calcDescription.set(answer.getDescription());
+            calcStatus.set(Status.SUCCESS.toString());
         }
     }
 
-    public StringProperty start1Property() {
-        return start1;
+    public StringProperty firstRangeStartProperty() {
+        return firstRangeStart;
     }
 
-    public StringProperty finish1Property() {
-        return finish1;
+    public StringProperty firstRangeFinishProperty() {
+        return firstRangeFinish;
     }
 
-    public StringProperty start2Property() {
-        return start2;
+    public StringProperty secondRangeStartProperty() {
+        return secondRangeStart;
     }
 
-    public StringProperty finish2Property() {
-        return finish2;
+    public StringProperty secondRangeFinishProperty() {
+        return secondRangeFinish;
     }
 
     public ObjectProperty<ObservableList<DemandElasticityType>> demandElasticityTypesProperty() {
@@ -129,28 +131,28 @@ public class ViewModel {
         return calculationDisabled.get();
     }
 
-    public StringProperty resultProperty() {
-        return result;
+    public StringProperty calcResultProperty() {
+        return calcResult;
     }
 
-    public final String getResult() {
-        return result.get();
+    public final String getCalcResult() {
+        return calcResult.get();
     }
 
-    public StringProperty descriptionProperty() {
-        return description;
+    public StringProperty calcDescriptionProperty() {
+        return calcDescription;
     }
 
-    public final String getDescription() {
-        return description.get();
+    public final String getCalcDescription() {
+        return calcDescription.get();
     }
 
-    public StringProperty statusProperty() {
-        return status;
+    public StringProperty calcStatusProperty() {
+        return calcStatus;
     }
 
-    public final String getStatus() {
-        return status.get();
+    public final String getCalcStatus() {
+        return calcStatus.get();
     }
 
     public StringProperty firstRangeProperty() {
@@ -171,16 +173,16 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (start1.get().isEmpty() || finish1.get().isEmpty()
-                || start2.get().isEmpty() || finish2.get().isEmpty()) {
+        if (firstRangeStart.get().isEmpty() || firstRangeFinish.get().isEmpty()
+                || secondRangeStart.get().isEmpty() || secondRangeFinish.get().isEmpty()) {
             inputStatus = Status.WAITING;
         }
 
         try {
-            checkStringNumber(start1.get());
-            checkStringNumber(finish1.get());
-            checkStringNumber(start2.get());
-            checkStringNumber(finish2.get());
+            checkStringNumber(firstRangeStart.get());
+            checkStringNumber(firstRangeFinish.get());
+            checkStringNumber(secondRangeStart.get());
+            checkStringNumber(secondRangeFinish.get());
         } catch (NumberFormatException nfe) {
             inputStatus = Status.NOT_NUMBER;
         } catch (IllegalArgumentException iae) {
@@ -204,7 +206,7 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
+            calcStatus.set(getInputStatus().toString());
         }
     }
 

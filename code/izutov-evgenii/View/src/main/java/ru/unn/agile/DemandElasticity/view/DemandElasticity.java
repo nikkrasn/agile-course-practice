@@ -13,13 +13,13 @@ public class DemandElasticity {
     @FXML
     private ViewModel viewModel;
     @FXML
-    private TextField txtRange1Start;
+    private TextField txtFirstRangeStart;
     @FXML
-    private TextField txtRange1Finish;
+    private TextField txtFirstRangeFinish;
     @FXML
-    private TextField txtRange2Start;
+    private TextField txtSecondRangeStart;
     @FXML
-    private TextField txtRange2Finish;
+    private TextField txtSecondRangeFinish;
     @FXML
     private ComboBox<DemandElasticityType> cbDemandElasticityType;
     @FXML
@@ -27,10 +27,11 @@ public class DemandElasticity {
 
     @FXML
     void initialize() {
-        txtRange1Start.textProperty().bindBidirectional(viewModel.start1Property());
-        txtRange1Finish.textProperty().bindBidirectional(viewModel.finish1Property());
-        txtRange2Start.textProperty().bindBidirectional(viewModel.start2Property());
-        txtRange2Finish.textProperty().bindBidirectional(viewModel.finish2Property());
+        txtFirstRangeStart.textProperty().bindBidirectional(viewModel.firstRangeStartProperty());
+        txtFirstRangeFinish.textProperty().bindBidirectional(viewModel.firstRangeFinishProperty());
+        txtSecondRangeStart.textProperty().bindBidirectional(viewModel.secondRangeStartProperty());
+        txtSecondRangeFinish.textProperty().bindBidirectional(
+                viewModel.secondRangeFinishProperty());
 
         cbDemandElasticityType.valueProperty().bindBidirectional(
                 viewModel.demandElasticityTypeProperty());

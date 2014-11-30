@@ -2,27 +2,27 @@ package ru.unn.agile.CreditCalculator.view;
 
 //import ru.unn.agile.ComplexNumber.viewmodel.legacy.ViewModel;
 
-/*import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;*/
+import javax.swing.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.awt.event.KeyAdapter;
+//import java.awt.event.KeyEvent;
 
 public final class Calculator {
-/*
+
     private JPanel mainPanel;
     private JButton btnCalc;
-    private ViewModel viewModel;
+   // private ViewModel viewModel;
 
-    private JTextField txtZ1Re;
-    private JTextField txtZ1Im;
-    private JTextField txtZ2Re;
-    private JTextField txtZ2Im;
-    private JComboBox<ViewModel.Operation> cbOperation;
+    private JTextField sum;
+    private JTextField paymentPeriod;
+    private JTextField intereatRate;
+    private JTextField startMonth;
+    //private JComboBox<ViewModel.Operation> cbOperation;
     private JTextField txtResult;
     private JLabel lbStatus;
-
-    private Calculator() { }
+/*
+   private Calculator() { }
 
     private Calculator(final ViewModel viewModel) {
         this.viewModel = viewModel;

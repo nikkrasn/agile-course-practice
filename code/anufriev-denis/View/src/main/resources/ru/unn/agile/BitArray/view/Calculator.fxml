@@ -15,9 +15,9 @@
                     <children>
                         <Label GridPane.columnIndex="0" GridPane.halignment="LEFT" minWidth="-Infinity" text="BitArray1:"/>
                         <Separator  GridPane.columnIndex="1" prefWidth="20.0" visible="false"/>
-                        <TextField GridPane.columnIndex="2" fx:id="txtArray1"/>
+                        <TextField GridPane.columnIndex="2" fx:id="txtBitArray1"/>
                         <Separator GridPane.columnIndex="3" prefWidth="10.0" visible="false" />
-                        <Button GridPane.columnIndex="4" GridPane.halignment="RIGHT" fx:id="btnNot1" defaultButton="true"
+                        <Button GridPane.columnIndex="4" GridPane.halignment="RIGHT" fx:id="btnOperationNotForBitArray1" defaultButton="true"
                                 maxWidth="40.0" mnemonicParsing="false" text="Not" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
@@ -30,9 +30,9 @@
                     <children>
                         <Label GridPane.columnIndex="0" minWidth="-Infinity" text="BitArray2:" />
                         <Separator  GridPane.columnIndex="1" prefWidth="20.0" visible="false"/>
-                        <TextField GridPane.columnIndex="2" fx:id="txtArray2" />
+                        <TextField GridPane.columnIndex="2" fx:id="txtBitArray2" />
                         <Separator  GridPane.columnIndex="3" prefWidth="10.0" visible="false"/>
-                        <Button GridPane.columnIndex="4" fx:id="btnNot2" defaultButton="true"
+                        <Button GridPane.columnIndex="4" fx:id="btnOperationNotForBitArray2" defaultButton="true"
                                 maxWidth="40.0" mnemonicParsing="false" text="Not" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
@@ -45,9 +45,9 @@
                     <children>
                         <Label GridPane.columnIndex="0" GridPane.halignment="LEFT" minWidth="-Infinity" text="BitArray3:"/>
                         <Separator  GridPane.columnIndex="1" prefWidth="20.0" visible="false"/>
-                        <TextField GridPane.columnIndex="2" fx:id="txtArray3"/>
+                        <TextField GridPane.columnIndex="2" fx:id="txtBitArray3"/>
                         <Separator GridPane.columnIndex="3" prefWidth="10.0" visible="false" />
-                        <Button GridPane.columnIndex="4" GridPane.halignment="RIGHT" fx:id="btnNot3" defaultButton="true"
+                        <Button GridPane.columnIndex="4" GridPane.halignment="RIGHT" fx:id="btnOperationNotForBitArray3" defaultButton="true"
                             maxWidth="40.0" mnemonicParsing="false" text="Not" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
@@ -65,7 +65,7 @@
                         <Label GridPane.columnIndex="0" text="Status: " />
                         <Label GridPane.columnIndex="1" fx:id="lbStatus" text="${viewModel.status}" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                         <Separator GridPane.columnIndex="2" prefWidth="40.0" visible="false" />
-                        <Button GridPane.columnIndex="3" fx:id="btnCalc" defaultButton="true" disable="${viewModel.calculationDisabled}"
+                        <Button GridPane.columnIndex="3" fx:id="btnCalculate" defaultButton="true" disable="${viewModel.calculationDisabled}"
                                 maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Calculate" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>

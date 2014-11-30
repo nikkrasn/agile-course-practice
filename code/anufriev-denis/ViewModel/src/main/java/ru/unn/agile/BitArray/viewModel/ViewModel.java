@@ -101,19 +101,19 @@ public class ViewModel {
         status.set(Status.SUCCESS.toString());
     }
 
-    public StringProperty array1Property() {
+    public StringProperty bitArray1StrValue() {
         return arrays.get(0);
     }
 
-    public StringProperty array2Property() {
+    public StringProperty bitArray2StrValue() {
         return arrays.get(1);
     }
 
-    public StringProperty array3Property() {
+    public StringProperty bitArray3StrValue() {
         return arrays.get(2);
     }
 
-    public ObjectProperty<ObservableList<Operation>> operationsProperty() {
+    public ObjectProperty<ObservableList<Operation>> bitOperations() {
         return operations;
     }
 
@@ -121,11 +121,11 @@ public class ViewModel {
         return operations.get();
     }
 
-    public ObjectProperty<Operation> operation1Property() {
+    public ObjectProperty<Operation> bitOperation1() {
         return operation1;
     }
 
-    public ObjectProperty<Operation> operation2Property() {
+    public ObjectProperty<Operation> bitOperation2() {
         return operation2;
     }
 

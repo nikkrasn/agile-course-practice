@@ -16,59 +16,59 @@ public class Calculator {
     @FXML
     private ViewModel viewModel;
     @FXML
-    private TextField txtArray1;
+    private TextField txtBitArray1;
     @FXML
-    private TextField txtArray2;
+    private TextField txtBitArray2;
     @FXML
-    private TextField txtArray3;
+    private TextField txtBitArray3;
     @FXML
     private ComboBox<BitArray.Operation> cbOperation1;
     @FXML
     private ComboBox<BitArray.Operation> cbOperation2;
     @FXML
-    private Button btnCalc;
+    private Button btnCalculate;
     @FXML
-    private Button btnNot1;
+    private Button btnOperationNotForBitArray1;
     @FXML
-    private Button btnNot2;
+    private Button btnOperationNotForBitArray2;
     @FXML
-    private Button btnNot3;
+    private Button btnOperationNotForBitArray3;
 
     @FXML
     void initialize() {
-        txtArray1.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
-        txtArray2.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
-        txtArray3.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
+        txtBitArray1.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
+        txtBitArray2.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
+        txtBitArray3.addEventFilter(KeyEvent.KEY_TYPED , numericValidation(ARRAY_SIZE));
 
-        txtArray1.textProperty().bindBidirectional(viewModel.array1Property());
-        txtArray2.textProperty().bindBidirectional(viewModel.array2Property());
-        txtArray3.textProperty().bindBidirectional(viewModel.array3Property());
+        txtBitArray1.textProperty().bindBidirectional(viewModel.bitArray1StrValue());
+        txtBitArray2.textProperty().bindBidirectional(viewModel.bitArray2StrValue());
+        txtBitArray3.textProperty().bindBidirectional(viewModel.bitArray3StrValue());
 
-        cbOperation1.valueProperty().bindBidirectional(viewModel.operation1Property());
-        cbOperation2.valueProperty().bindBidirectional(viewModel.operation2Property());
+        cbOperation1.valueProperty().bindBidirectional(viewModel.bitOperation1());
+        cbOperation2.valueProperty().bindBidirectional(viewModel.bitOperation2());
 
-        btnCalc.setOnAction(new EventHandler<ActionEvent>() {
+        btnCalculate.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.calculate();
             }
         });
 
-        btnNot1.setOnAction(new EventHandler<ActionEvent>() {
+        btnOperationNotForBitArray1.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.performNot(0);
             }
         });
 
-        btnNot2.setOnAction(new EventHandler<ActionEvent>() {
+        btnOperationNotForBitArray2.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.performNot(1);
             }
         });
 
-        btnNot3.setOnAction(new EventHandler<ActionEvent>() {
+        btnOperationNotForBitArray3.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.performNot(2);

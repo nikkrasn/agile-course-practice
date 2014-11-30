@@ -22,9 +22,9 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("", viewModel.array1Property().get());
-        assertEquals("", viewModel.array2Property().get());
-        assertEquals(Operation.AND, viewModel.operation1Property().get());
+        assertEquals("", viewModel.bitArray1StrValue().get());
+        assertEquals("", viewModel.bitArray2StrValue().get());
+        assertEquals(Operation.AND, viewModel.bitOperation1().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
@@ -37,21 +37,21 @@ public class ViewModelTests {
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
-        setInputData();
+        setInputDataForTwoArrays();
 
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
-        viewModel.array1Property().set("daasa");
+        viewModel.bitArray1StrValue().set("daasa");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.array1Property().set("1");
+        viewModel.bitArray1StrValue().set("1");
 
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }
@@ -63,41 +63,41 @@ public class ViewModelTests {
 
     @Test
     public void calculateButtonIsDisabledWhenFormatIsBad() {
-        setInputData();
-        viewModel.array1Property().set("trash");
+        setInputDataForTwoArrays();
+        viewModel.bitArray1StrValue().set("trash");
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
-        viewModel.array1Property().set("1111");
+        viewModel.bitArray1StrValue().set("1111");
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsEnabledWithCorrectInput() {
-        setInputData();
+        setInputDataForTwoArrays();
 
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void canSetAndOperation() {
-        viewModel.operation1Property().set(Operation.AND);
-        assertEquals(Operation.AND, viewModel.operation1Property().get());
+        viewModel.bitOperation1().set(Operation.AND);
+        assertEquals(Operation.AND, viewModel.bitOperation1().get());
     }
 
     @Test
     public void addIsDefaultOperation() {
-        assertEquals(Operation.AND, viewModel.operation1Property().get());
+        assertEquals(Operation.AND, viewModel.bitOperation1().get());
     }
 
     @Test
     public void operationAndHasCorrectResult() {
-        viewModel.array1Property().set("1111");
-        viewModel.array2Property().set("0000");
+        viewModel.bitArray1StrValue().set("1111");
+        viewModel.bitArray2StrValue().set("0000");
 
         viewModel.calculate();
 
@@ -106,7 +106,7 @@ public class ViewModelTests {
 
     @Test
     public void canSetSuccessMessage() {
-        setInputData();
+        setInputDataForTwoArrays();
 
         viewModel.calculate();
 
@@ -115,23 +115,23 @@ public class ViewModelTests {
 
     @Test
     public void canSetBadFormatMessage() {
-        viewModel.array1Property().set("#selfie");
+        viewModel.bitArray1StrValue().set("#selfie");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
-        setInputData();
+        setInputDataForTwoArrays();
 
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void operationXorHasCorrectResult() {
-        viewModel.array1Property().set("1111");
-        viewModel.array2Property().set("1010");
-        viewModel.operation1Property().set(Operation.XOR);
+        viewModel.bitArray1StrValue().set("1111");
+        viewModel.bitArray2StrValue().set("1010");
+        viewModel.bitOperation1().set(Operation.XOR);
 
         viewModel.calculate();
 
@@ -140,17 +140,30 @@ public class ViewModelTests {
 
     @Test
     public void operationOrHasCorrectResult() {
-        viewModel.array1Property().set("1010");
-        viewModel.array2Property().set("0110");
-        viewModel.operation1Property().set(Operation.OR);
+        viewModel.bitArray1StrValue().set("1010");
+        viewModel.bitArray2StrValue().set("0110");
+        viewModel.bitOperation1().set(Operation.OR);
 
         viewModel.calculate();
 
         assertEquals("1110", viewModel.resultProperty().get());
     }
 
-    private void setInputData() {
-        viewModel.array1Property().set("1101");
-        viewModel.array2Property().set("1011");
+    @Test
+    public void canCalculate() {
+        viewModel.bitArray1StrValue().set("1010");
+        viewModel.bitArray2StrValue().set("0110");
+        viewModel.bitArray3StrValue().set("0110");
+        viewModel.bitOperation1().set(Operation.OR);
+        viewModel.bitOperation2().set(Operation.XOR);
+
+        viewModel.calculate();
+
+        assertEquals("1000", viewModel.resultProperty().get());
+    }
+
+    private void setInputDataForTwoArrays() {
+        viewModel.bitArray1StrValue().set("1101");
+        viewModel.bitArray2StrValue().set("1011");
     }
 }

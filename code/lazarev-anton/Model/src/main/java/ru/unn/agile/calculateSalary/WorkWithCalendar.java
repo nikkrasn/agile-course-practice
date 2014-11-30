@@ -22,7 +22,7 @@ public class WorkWithCalendar {
     public int countCashDaysInMonth() {
         SubtractHolidays checkingPeriod = new SubtractHolidays().setCheckMonth(countMonth)
                                                                 .setStartVacation(startVacation)
-                                                                .setLengthVacation(lengthOfVacation);
+                                                               .setLengthVacation(lengthOfVacation);
         int cashDaysInMonth = countJobDaysInMonth();
         if (!isCountYearNotVacationYear()) {
             return cashDaysInMonth - checkingPeriod.getHolidaysInVacation();

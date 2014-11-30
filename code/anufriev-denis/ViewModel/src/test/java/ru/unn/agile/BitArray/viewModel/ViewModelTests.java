@@ -51,7 +51,7 @@ public class ViewModelTests {
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.bitArray1StrValue().set("1");
+        viewModel.bitArray1StrValue().set("10011");
 
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
     }

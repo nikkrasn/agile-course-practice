@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 public class ColorConverter {
 
     @FXML
+    private ComboBox cbSrcColor;
+    @FXML
     private TextField txtFirstChannelSrcColor;
     @FXML
     private TextField txtSecondChannelSrcColor;
@@ -20,32 +22,18 @@ public class ColorConverter {
     private TextField txtThirdChannelSrcColor;
 
     @FXML
-    private TextField txtRgbR;
+    private ComboBox cbDstColor;
     @FXML
-    private TextField txtRgbB;
+    private TextField txtFirstChannelDstColor;
     @FXML
-    private TextField txtRgbG;
-
+    private TextField txtSecondChannelDstColor;
     @FXML
-    private TextField txtLabL;
-    @FXML
-    private TextField txtLabA;
-    @FXML
-    private TextField txtLabB;
-
-    @FXML
-    private TextField txtHsvH;
-    @FXML
-    private TextField txtHsvS;
-    @FXML
-    private TextField txtHsvV;
+    private TextField txtThirdChannelDstColor;
 
     @FXML
     private Button btConvert;
     @FXML
     private Label lbStatus;
-    @FXML
-    private ComboBox cbSrcColor;
 
     @FXML
     void initialize() {

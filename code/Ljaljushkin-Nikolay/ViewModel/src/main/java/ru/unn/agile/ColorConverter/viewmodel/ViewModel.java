@@ -10,26 +10,23 @@ import ru.unn.agile.ColorConverter.model.ColorSpaces.ColorSpace;
 
 public class ViewModel {
 
-    private final StringProperty srcFirstChannel = new SimpleStringProperty();
-    private final StringProperty srcSecondChannel = new SimpleStringProperty();
-    private final StringProperty srcThirdChannel = new SimpleStringProperty();
+    private final StringProperty firstChannelSrcColor = new SimpleStringProperty();
+    private final StringProperty secondChannelSrcColor = new SimpleStringProperty();
+    private final StringProperty thirdChannelSrcColor = new SimpleStringProperty();
 
-    private final StringProperty dstRgbR = new SimpleStringProperty();
-    private final StringProperty dstRgbG = new SimpleStringProperty();
-    private final StringProperty dstRgbB = new SimpleStringProperty();
+    private final StringProperty firstChannelDstColor = new SimpleStringProperty();
+    private final StringProperty secondChannelDstColor = new SimpleStringProperty();
+    private final StringProperty thirdChannelDstColor = new SimpleStringProperty();
 
-    private final StringProperty dstLabL = new SimpleStringProperty();
-    private final StringProperty dstLabA = new SimpleStringProperty();
-    private final StringProperty dstLabB = new SimpleStringProperty();
+    private final ObjectProperty<ObservableList<Color>> srcColors =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
 
-    private final StringProperty dstHsvH = new SimpleStringProperty();
-    private final StringProperty dstHsvS = new SimpleStringProperty();
-    private final StringProperty dstHsvV = new SimpleStringProperty();
+    private final ObjectProperty<Color> srcColor = new SimpleObjectProperty<>();
 
-    private final ObjectProperty<ObservableList<SourceColor>> sourceColors =
-            new SimpleObjectProperty<>(FXCollections.observableArrayList(SourceColor.values()));
+    private final ObjectProperty<ObservableList<Color>> dstColors =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
 
-    private final ObjectProperty<SourceColor> sourceColor = new SimpleObjectProperty<>();
+    private final ObjectProperty<Color> dstColor = new SimpleObjectProperty<>();
 
     //    private final BooleanProperty convertionDisabled = new SimpleBooleanProperty();
     private final StringProperty status = new SimpleStringProperty();
@@ -37,80 +34,57 @@ public class ViewModel {
 
     // FXML needs default c-tor for binding
     public ViewModel() {
-        srcFirstChannel.set("0");
-        srcSecondChannel.set("0");
-        srcThirdChannel.set("0");
+        firstChannelSrcColor.set("");
+        secondChannelSrcColor.set("");
+        thirdChannelSrcColor.set("");
 
-        dstLabL.set("0");
-        dstLabA.set("0");
-        dstLabB.set("0");
-
-        dstRgbR.set("0");
-        dstRgbG.set("0");
-        dstRgbB.set("0");
-
-        dstHsvH.set("0");
-        dstHsvS.set("0");
-        dstHsvV.set("0");
+        firstChannelDstColor.set("");
+        secondChannelDstColor.set("");
+        thirdChannelDstColor.set("");
 
         status.set(Status.WAITING.toString());
-        sourceColor.set(SourceColor.HSV);
+        srcColor.set(Color.RGB);
+        dstColor.set(Color.RGB);
     }
 
-    public StringProperty srcFirstChannelProperty() {
-        return srcFirstChannel;
+    public StringProperty firstChannelSrcColorProperty() {
+        return firstChannelSrcColor;
     }
 
-    public StringProperty srcSecondChannelProperty() {
-        return srcSecondChannel;
+    public StringProperty secondChannelSrcColorProperty() {
+        return secondChannelSrcColor;
     }
 
-    public StringProperty srcThirdChannelProperty() {
-        return srcThirdChannel;
+    public StringProperty thirdChannelSrcColorProperty() {
+        return thirdChannelSrcColor;
     }
 
-    public StringProperty dstRgbRProperty() {
-        return dstRgbR;
+    public StringProperty firstChannelDstColorProperty() {
+        return firstChannelDstColor;
     }
 
-    public StringProperty dstRgbGProperty() {
-        return dstRgbG;
+    public StringProperty secondChannelDstColorProperty() {
+        return secondChannelDstColor;
     }
 
-    public StringProperty dstRgbBProperty() {
-        return dstRgbB;
+    public StringProperty thirdChannelDstColorProperty() {
+        return thirdChannelDstColor;
     }
 
-    public StringProperty dstLabLProperty() {
-        return dstLabL;
+    public ObjectProperty<ObservableList<Color>> srcColorsProperty() {
+        return srcColors;
     }
 
-    public StringProperty dstLabAProperty() {
-        return dstLabA;
+    public ObjectProperty<Color> srcColorProperty() {
+        return srcColor;
     }
 
-    public StringProperty dstLabBProperty() {
-        return dstLabB;
+    public ObjectProperty<ObservableList<Color>> dstColorsProperty() {
+        return dstColors;
     }
 
-    public StringProperty dstHsvHProperty() {
-        return dstHsvH;
-    }
-
-    public StringProperty dstHsvSProperty() {
-        return dstHsvS;
-    }
-
-    public StringProperty dstHsvVProperty() {
-        return dstHsvV;
-    }
-
-    public ObjectProperty<ObservableList<SourceColor>> sourceColorsProperty() {
-        return sourceColors;
-    }
-
-    public ObjectProperty<SourceColor> sourceColorProperty() {
-        return sourceColor;
+    public ObjectProperty<Color> dstColorProperty() {
+        return dstColor;
     }
 
     public StringProperty statusProperty() {
@@ -118,14 +92,14 @@ public class ViewModel {
     }
 }
 
-enum SourceColor { //TODO replace to the ColorSpace and rename?
+enum Color { //TODO replace to the ColorSpace and rename?
     HSV("HSV"),
     LAB("LAB"),
     RGB("RGB");
 
     private final String name;
 
-    SourceColor(final String name) {
+    Color(final String name) {
         this.name = name;
     }
 

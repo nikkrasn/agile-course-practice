@@ -68,8 +68,8 @@ public class ViewModel {
                 if (nodes.isEmpty()) {
                     statusResult = Status.NODE_NOT_FOUND.toString();
                 } else {
-                    tempKey = Integer.toString(nodes.get(0).getKey());
-                    tempValue = nodes.get(0).getValue().toString();
+                    tempKey = Integer.toString(getFirstNodeKey(nodes));
+                    tempValue = getFirstNodeValue(nodes).toString();
                 }
                 break;
             case DELETE:
@@ -223,6 +223,14 @@ public class ViewModel {
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
+    }
+
+    private int getFirstNodeKey(ArrayList<Node> nodes) {
+        return nodes.get(0).getKey();
+    }
+
+    private Object getFirstNodeValue(ArrayList<Node> nodes) {
+        return nodes.get(0).getValue();
     }
 }
 

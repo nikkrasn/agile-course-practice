@@ -178,20 +178,19 @@ public class ViewModel {
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
         VectorOperation operation = operationList.get();
+        boolean isEmptyVector1 = vector1CoordinateX.get().isEmpty()
+                                || vector1CoordinateY.get().isEmpty()
+                                || vector1CoordinateZ.get().isEmpty();
+        boolean isEmptyVector2 = vector2CoordinateX.get().isEmpty()
+                                || vector2CoordinateY.get().isEmpty()
+                                || vector2CoordinateZ.get().isEmpty();
         if (operation == VectorOperation.DOTPRODUCT
                 || operation == VectorOperation.CROSSPRODUCT) {
-            if (vector1CoordinateX.get().isEmpty()
-                    || vector1CoordinateY.get().isEmpty()
-                    || vector1CoordinateZ.get().isEmpty()
-                    || vector2CoordinateX.get().isEmpty()
-                    || vector2CoordinateY.get().isEmpty()
-                    || vector2CoordinateZ.get().isEmpty()) {
+            if (isEmptyVector1 || isEmptyVector2) {
                 inputStatus = Status.WAITING;
             }
         } else {
-            if (vector1CoordinateX.get().isEmpty()
-                    || vector1CoordinateY.get().isEmpty()
-                    || vector1CoordinateZ.get().isEmpty()) {
+            if (isEmptyVector1) {
                 inputStatus = Status.WAITING;
             }
         }

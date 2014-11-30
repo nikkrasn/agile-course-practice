@@ -121,39 +121,41 @@ public class ViewModel {
             return;
         }
 
-        VectorOperation operation = operationList.get();
         Vector3D v1 = new Vector3D(
                 Double.parseDouble(vector1CoordinateX.get()),
                 Double.parseDouble(vector1CoordinateY.get()),
                 Double.parseDouble(vector1CoordinateZ.get()));
-
-        if (operation == VectorOperation.NORM) {
-            result.set(String.format("%.3f", v1.getNorm()));
-        } else {
-            if (operation == VectorOperation.NORMALAZE) {
+        Vector3D v2;
+        switch (operationList.get()) {
+            case NORM:
+                result.set(String.format("%.3f", v1.getNorm()));
+                break;
+            case NORMALAZE:
                 v1.normalize();
                 result.set(String.format("(%.3f, %.3f, %.3f)",
                         v1.getCoordinateX(),
                         v1.getCoordinateY(),
                         v1.getCoordinateZ()));
-            } else {
-                Vector3D v2 = new Vector3D(
+                break;
+            case DOTPRODUCT:
+                v2 = new Vector3D(
                         Double.parseDouble(vector2CoordinateX.get()),
                         Double.parseDouble(vector2CoordinateY.get()),
                         Double.parseDouble(vector2CoordinateZ.get()));
-                if (operation == VectorOperation.DOTPRODUCT) {
-                    double dotProduct = Vector3D.dotProduct(v1, v2);
-                    result.set(String.format("%.3f", dotProduct));
-                } else {
-                    if (operation == VectorOperation.CROSSPRODUCT) {
-                        Vector3D v3 = Vector3D.crossProduct(v1, v2);
-                        result.set(String.format("(%.3f, %.3f, %.3f)",
-                                v1.getCoordinateX(),
-                                v1.getCoordinateY(),
-                                v1.getCoordinateZ()));
-                    }
-                }
-            }
+                double dotProduct = Vector3D.dotProduct(v1, v2);
+                result.set(String.format("%.3f", dotProduct));
+                break;
+            case CROSSPRODUCT:
+                v2 = new Vector3D(
+                        Double.parseDouble(vector2CoordinateX.get()),
+                        Double.parseDouble(vector2CoordinateY.get()),
+                        Double.parseDouble(vector2CoordinateZ.get()));
+                Vector3D v3 = Vector3D.crossProduct(v1, v2);
+                result.set(String.format("(%.3f, %.3f, %.3f)",
+                        v1.getCoordinateX(),
+                        v1.getCoordinateY(),
+                        v1.getCoordinateZ()));
+                break;
         }
         status.set(Status.SUCCESS.toString());
     }

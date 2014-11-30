@@ -39,6 +39,17 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
+        if (txtValueProperty().get().isEmpty()) {
+            inputStatus = Status.WAITING;
+            return inputStatus;
+        }
+
+        try {
+            Double.parseDouble(txtValue.get());
+        } catch (NumberFormatException nfe) {
+            inputStatus = Status.BAD_FORMAT;
+        }
+
         return inputStatus;
     }
 

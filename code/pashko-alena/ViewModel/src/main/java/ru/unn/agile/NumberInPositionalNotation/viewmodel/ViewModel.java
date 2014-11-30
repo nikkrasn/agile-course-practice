@@ -26,7 +26,7 @@ public class ViewModel {
     private final StringProperty status = new SimpleStringProperty();
     private final StringProperty outputNumber = new SimpleStringProperty();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final List<NumberInPosNotationListener> valueChangedListeners = new ArrayList<>();
 
     public ViewModel() {
         inputNumber.set("");
@@ -34,7 +34,7 @@ public class ViewModel {
         outputNotation.set(Notation.DECIMAL);
         inputNotationStr.set(inputNotation.toString());
         outputNumber.set("");
-        status.set(Status.WAITING.toString());
+        status.set(InputStatus.WAITING.toString());
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -42,7 +42,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
+                return getInputStatus() == InputStatus.READY;
             }
         };
         convertDisabled.bind(couldCalculate.not());
@@ -53,7 +53,7 @@ public class ViewModel {
         } };
 
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final NumberInPosNotationListener listener = new NumberInPosNotationListener();
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
@@ -69,7 +69,7 @@ public class ViewModel {
         output = input.convertToNotation(outputNotation.get());
 
         outputNumber.set(output.getValue());
-        status.set(Status.SUCCESS.toString());
+        status.set(InputStatus.SUCCESS.toString());
     }
 
     public StringProperty inputNumberProperty() {
@@ -117,24 +117,24 @@ public class ViewModel {
         return status.get();
     }
 
-    private Status getInputStatus() {
-        Status inputStatus;
+    private InputStatus getInputStatus() {
+        InputStatus inputInputStatus;
         if (inputNumber.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            inputInputStatus = InputStatus.WAITING;
         } else {
             NumberInPositionalNotation number =
                     new NumberInPositionalNotation(inputNumber.get(), inputNotation.get());
             if (number.checkInputData()) {
-                inputStatus = Status.READY;
+                inputInputStatus = InputStatus.READY;
             } else {
-                inputStatus = Status.BAD_FORMAT;
+                inputInputStatus = InputStatus.BAD_FORMAT;
             }
         }
-        return inputStatus;
+        return inputInputStatus;
     }
 
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class NumberInPosNotationListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
@@ -143,7 +143,7 @@ public class ViewModel {
     }
 }
 
-enum Status {
+enum InputStatus {
     WAITING("Please provide input data"),
     READY("Press 'Convert' or Enter"),
     BAD_FORMAT("Bad format"),
@@ -151,7 +151,7 @@ enum Status {
 
     private final String name;
 
-    private Status(final String name) {
+    private InputStatus(final String name) {
         this.name = name;
     }
 

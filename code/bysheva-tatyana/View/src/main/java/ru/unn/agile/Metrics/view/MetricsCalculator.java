@@ -1,6 +1,5 @@
 package ru.unn.agile.Metrics.view;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,8 +32,6 @@ public class MetricsCalculator {
 
     @FXML
     void initialize() {
-
-        // Two-way binding hasn't supported by FXML yet, so place it in code-behind
         tableView.setEditable(true);
         tableView.setVisible(true);
 
@@ -62,8 +59,8 @@ public class MetricsCalculator {
                     }
                 }
         );
-        tableView.setItems(viewModel.getVectorsValuesProperty.get());
-        tableView.itemsProperty().bindBidirectional(viewModel.getVectorsValuesProperty);
+        tableView.setItems(viewModel.vectorsValuesProperty.get());
+        tableView.itemsProperty().bindBidirectional(viewModel.vectorsValuesProperty);
 
         vectorsDimension.textProperty().bindBidirectional(viewModel.vectorsDimensionProperty());
 

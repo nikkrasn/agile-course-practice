@@ -3,7 +3,6 @@ package ru.unn.agile.Metrics.viewmodel;
 import static org.junit.Assert.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,11 +25,10 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        final ObservableList<Float> vectorsValues =
-                FXCollections.observableArrayList();
+        final ObservableList<Float> vectorsValues = FXCollections.observableArrayList();
         assertEquals("", viewModel.vectorsDimensionProperty().get());
 
-        assertTrue(viewModel.getVectorsValuesProperty.equals(vectorsValues));
+        assertTrue(viewModel.vectorsValuesProperty.equals(vectorsValues));
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
@@ -59,7 +57,7 @@ public class ViewModelTests {
     @Test
     public void canReportBadFormatVectorsValues() {
         viewModel.vectorsDimensionProperty().set("1");
-        viewModel.getVectorsValuesProperty.get().add(new Components("a", "b"));
+        viewModel.vectorsValuesProperty.get().add(new Components("a", "b"));
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
@@ -87,7 +85,7 @@ public class ViewModelTests {
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
         viewModel.vectorsDimensionProperty().set("1");
-        viewModel.getVectorsValuesProperty.get().add(new Components("1.0", ""));
+        viewModel.vectorsValuesProperty.get().add(new Components("1.0", ""));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -185,8 +183,8 @@ public class ViewModelTests {
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 
-        viewModel.getVectorsValuesProperty.get().add(new Components("1.0f", "0.0f"));
-        viewModel.getVectorsValuesProperty.get().add(new Components("2.0f", "1.0f"));
-        viewModel.getVectorsValuesProperty.get().add(new Components("3.0f", "2.0f"));
+        viewModel.vectorsValuesProperty.get().add(new Components("1.0f", "0.0f"));
+        viewModel.vectorsValuesProperty.get().add(new Components("2.0f", "1.0f"));
+        viewModel.vectorsValuesProperty.get().add(new Components("3.0f", "2.0f"));
     }
 }

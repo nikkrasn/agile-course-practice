@@ -46,21 +46,35 @@ public class ViewModelTests {
 
     @Test
     public void areAddButtonsDisabledInitially() {
-        assertTrue(viewModel.isAddingDisabledProperty().get());
+        assertTrue(viewModel.getIsAddingDisabled());
     }
 
     @Test
     public void areAddButtonsDisabledWhenFormatIsBad() {
         setInputData("a");
 
-        assertTrue(viewModel.isAddingDisabledProperty().get());
+        assertTrue(viewModel.getIsAddingDisabled());
     }
 
     @Test
-    public void calculateButtonIsEnabledWithCorrectInput() {
+    public void areAddButtonsEnabledWithCorrectInput() {
         setInputData("1");
 
-        assertFalse(viewModel.isAddingDisabledProperty().get());
+        assertFalse(viewModel.getIsAddingDisabled());
+    }
+
+    @Test
+    public void areGetButtonsDisabledInitially() {
+        assertTrue(viewModel.getIsGettingDisabled());
+    }
+
+    @Test
+    public void areGetButtonsEnabledWhenDequeIsNotEmpty() {
+        setInputData("1");
+
+        viewModel.addFirst();
+
+        assertFalse(viewModel.getIsGettingDisabled());
     }
 
     private void setInputData(String input) {

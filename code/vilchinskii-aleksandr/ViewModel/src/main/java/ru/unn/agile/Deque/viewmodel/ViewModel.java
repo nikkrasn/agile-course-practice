@@ -7,12 +7,16 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import ru.unn.agile.Deque.model.Deque;
 
 public class ViewModel {
     private final StringProperty txtValue = new SimpleStringProperty();
     private final StringProperty status   = new SimpleStringProperty();
 
-    private final BooleanProperty isAddingDisabled = new SimpleBooleanProperty();
+    private Deque<Integer> deque = Deque.create();
+
+    private final BooleanProperty isAddingDisabled  = new SimpleBooleanProperty();
+    private final BooleanProperty isGettingDisabled = new SimpleBooleanProperty();
 
     private final ValueChangeListener valueChangedListener = new ValueChangeListener();
 
@@ -31,6 +35,17 @@ public class ViewModel {
         };
         isAddingDisabled.bind(canAdd.not());
 
+        BooleanBinding canGet = new BooleanBinding() {
+            {
+                super.bind(txtValue);
+            }
+            @Override
+            protected boolean computeValue() {
+                return !deque.isEmpty();
+            }
+        };
+        isGettingDisabled.bind(canGet.not());
+
         txtValue.addListener(valueChangedListener);
     }
 
@@ -39,7 +54,8 @@ public class ViewModel {
             return;
         }
 
-        return;
+        Integer item = Integer.parseInt(txtValue.get());
+        deque.addFirst(item);
     }
 
     public StringProperty txtValueProperty() {
@@ -58,6 +74,14 @@ public class ViewModel {
         return isAddingDisabled.get();
     }
 
+    public BooleanProperty isGettingDisabledProperty() {
+        return isGettingDisabled;
+    }
+
+    public final boolean getIsGettingDisabled() {
+        return isGettingDisabled.get();
+    }
+
     public StringProperty statusProperty() {
         return status;
     }
@@ -73,7 +97,7 @@ public class ViewModel {
         }
 
         try {
-            Double.parseDouble(txtValue.get());
+            Integer.parseInt(txtValue.get());
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
         }

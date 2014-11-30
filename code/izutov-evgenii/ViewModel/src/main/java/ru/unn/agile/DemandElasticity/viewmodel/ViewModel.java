@@ -96,27 +96,35 @@ public class ViewModel {
     public StringProperty start1Property() {
         return start1;
     }
+
     public StringProperty finish1Property() {
         return finish1;
     }
+
     public StringProperty start2Property() {
         return start2;
     }
+
     public StringProperty finish2Property() {
         return finish2;
     }
+
     public ObjectProperty<ObservableList<DemandElasticityType>> demandElasticityTypesProperty() {
         return demandElasticityTypes;
     }
+
     public final ObservableList<DemandElasticityType> getDemandElasticityTypes() {
         return demandElasticityTypes.get();
     }
+
     public ObjectProperty<DemandElasticityType> demandElasticityTypeProperty() {
         return demandElasticityType;
     }
+
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
     }
+
     public final boolean getCalculationDisabled() {
         return calculationDisabled.get();
     }
@@ -124,30 +132,39 @@ public class ViewModel {
     public StringProperty resultProperty() {
         return result;
     }
+
     public final String getResult() {
         return result.get();
     }
+
     public StringProperty descriptionProperty() {
         return description;
     }
+
     public final String getDescription() {
         return description.get();
     }
+
     public StringProperty statusProperty() {
         return status;
     }
+
     public final String getStatus() {
         return status.get();
     }
+
     public StringProperty firstRangeProperty() {
         return firstRange;
     }
+
     public final String getFirstRange() {
         return firstRange.get();
     }
+
     public StringProperty secondRangeProperty() {
         return secondRange;
     }
+
     public final String getSecondRange() {
         return secondRange.get();
     }

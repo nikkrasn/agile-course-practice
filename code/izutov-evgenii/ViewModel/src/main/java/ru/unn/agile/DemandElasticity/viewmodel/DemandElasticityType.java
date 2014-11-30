@@ -77,16 +77,20 @@ public enum DemandElasticityType {
         return name;
     }
 
-    public Coefficient calculate(final IPositiveRange firstRange,
-                                 final IPositiveRange secondRange) {
+    public Coefficient calculate(final IPositiveRange first, final IPositiveRange second) {
         DemandElasticityMethod method = getMethod();
-        return method.calculate(firstRange, secondRange);
+        return method.calculate(first, second);
     }
+
     public IPositiveRange getFirstRange(final double start, final double finish) {
         return new DemandRange(start, finish);
     }
+
     public abstract IPositiveRange getSecondRange(final double start, final double finish);
+
     public abstract String getFirstRangeName();
+
     public abstract String getSecondRangeName();
+
     protected abstract DemandElasticityMethod getMethod();
 }

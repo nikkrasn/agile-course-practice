@@ -27,7 +27,6 @@ public class DemandElasticity {
 
     @FXML
     void initialize() {
-        // Two-way binding hasn't supported by FXML yet, so place it in code-behind
         txtRange1Start.textProperty().bindBidirectional(viewModel.start1Property());
         txtRange1Finish.textProperty().bindBidirectional(viewModel.finish1Property());
         txtRange2Start.textProperty().bindBidirectional(viewModel.start2Property());

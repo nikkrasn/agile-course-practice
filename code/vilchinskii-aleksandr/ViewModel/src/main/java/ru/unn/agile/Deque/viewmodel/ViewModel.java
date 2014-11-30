@@ -116,6 +116,7 @@ public class ViewModel {
     public StringProperty statusProperty() {
         return status;
     }
+
     public final String getStatus() {
         return status.get();
     }
@@ -153,9 +154,11 @@ enum Status {
     SUCCESS("Success");
 
     private final String name;
+
     private Status(final String name) {
         this.name = name;
     }
+
     public String toString() {
         return name;
     }

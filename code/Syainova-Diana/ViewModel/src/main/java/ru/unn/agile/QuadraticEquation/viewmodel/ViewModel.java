@@ -34,7 +34,7 @@ public class ViewModel {
         firstRootResult.set("");
         secondRootResult.set("");
 
-        status.set(Status.WAITING.toString());
+        status.set(systemStatus.WAITING.toString());
 
         BooleanBinding couldSolve = new BooleanBinding() {
             {
@@ -43,7 +43,7 @@ public class ViewModel {
             @Override
             protected boolean computeValue() {
 
-                return getInputStatus() == Status.READY;
+                return getEquationStatus() == systemStatus.READY;
             }
         };
         solvingDisabled.bind(couldSolve.not());
@@ -78,10 +78,10 @@ public class ViewModel {
             if (!(firstRoot.isEmpty()) && !(secondRoot.isEmpty())) {
                 firstRootResult.set("x = " + firstRoot);
                 secondRootResult.set("x = " + secondRoot);
-                status.set(Status.SUCCESS.toString());
+                status.set(systemStatus.SUCCESS.toString());
             }
         } catch (IllegalArgumentException iag) {
-            status.set(Status.NO_ROOTS.toString());
+            status.set(systemStatus.NO_ROOTS.toString());
         }
     }
 
@@ -129,10 +129,10 @@ public class ViewModel {
         return solvingDisabled.get();
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+    private systemStatus getEquationStatus() {
+        systemStatus equationStatus = systemStatus.READY;
         if (fCoef.get().isEmpty() || sCoef.get().isEmpty() || fTerm.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            equationStatus = systemStatus.WAITING;
         }
         try {
             double valueFirstCoefficient = Double.parseDouble(fCoef.get());
@@ -141,11 +141,11 @@ public class ViewModel {
                         "The first coefficient can't be null in quadratic equation");
             }
         } catch (IllegalArgumentException iae) {
-            inputStatus = Status.INCORRECT_COEFFICIENT;
+            equationStatus = systemStatus.INCORRECT_COEF;
         }
         try {
             if (!fCoef.get().isEmpty()) {
-                    Double.parseDouble(fCoef.get());
+                Double.parseDouble(fCoef.get());
                 }
             if (!sCoef.get().isEmpty()) {
                 Double.parseDouble(sCoef.get());
@@ -154,10 +154,10 @@ public class ViewModel {
                 Double.parseDouble(fTerm.get());
             }
         } catch (NumberFormatException nfe) {
-                inputStatus = Status.BAD_FORMAT;
+                equationStatus = systemStatus.BAD_FORMAT;
         }
 
-        return inputStatus;
+        return equationStatus;
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
@@ -165,25 +165,7 @@ public class ViewModel {
         public void changed(final ObservableValue<? extends String> observable,
                         final String oldValue,
                         final String newValue) {
-            status.set(getInputStatus().toString());
+            status.set(getEquationStatus().toString());
     }
 }
 }
-    enum Status {
-        WAITING("Please provide input data"),
-        READY("Press 'solve the equation' or Enter"),
-        BAD_FORMAT("Bad format"),
-        SUCCESS("Success"),
-        INCORRECT_COEFFICIENT("The first coefficient can't be null"),
-        NO_ROOTS("The quadratic equation hasn't real roots");
-
-        private final String name;
-
-        private Status(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
-    }

@@ -25,44 +25,44 @@ public class ViewModelTests {
         assertEquals("", viewModel.secondCoefficientProperty().get());
         assertEquals("", viewModel.firstRootResultProperty().get());
         assertEquals("", viewModel.secondRootResultProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenSolveWithEmptyFields() {
         viewModel.solve();
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
-        setInputData();
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        setEquationData();
+        assertEquals(systemStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsIncorrectWhenFirstCoefficientIsNull() {
         viewModel.firstCoefficientProperty().set("0");
-        assertEquals(Status.INCORRECT_COEFFICIENT.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.INCORRECT_COEF.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void solveIsIncorrectWhenFirstCoefficientIsNullOtherKind() {
         viewModel.firstCoefficientProperty().set("00.0");
-        assertEquals(Status.INCORRECT_COEFFICIENT.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.INCORRECT_COEF.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canReportWhenTheInputCoefficientHasBadFormat() {
         viewModel.firstCoefficientProperty().set("/");
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenNotAllCoefficientsIntroduced() {
         viewModel.firstCoefficientProperty().set("2");
         viewModel.secondCoefficientProperty().set("1");
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -72,14 +72,14 @@ public class ViewModelTests {
 
     @Test
     public void solveButtonIsDisabledWhenFormatIsBad() {
-        setInputData();
+        setEquationData();
         viewModel.freeTermProperty().set("ttt");
         assertTrue(viewModel.solvingDisabledProperty().get());
     }
 
     @Test
     public void solveButtonIsDisabledWhenFirstCoefficientIsNull() {
-        setInputData();
+        setEquationData();
         viewModel.firstCoefficientProperty().set("0");
         assertTrue(viewModel.solvingDisabledProperty().get());
     }
@@ -93,7 +93,7 @@ public class ViewModelTests {
 
     @Test
     public void solveButtonIsEnabledWhenAllCorrectCoefficientIntroduced() {
-        setInputData();
+        setEquationData();
         assertFalse(viewModel.solvingDisabledProperty().get());
     }
 
@@ -109,21 +109,21 @@ public class ViewModelTests {
 
     @Test
     public void statusIsSuccessWhenEquationCorrectlySolved() {
-        setInputData();
+        setEquationData();
         viewModel.solve();
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void statusIsReadyWhenSetProperData() {
-        setInputData();
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+    public void statusIsReadyWhenEnterCorrectCoefficients() {
+        setEquationData();
+        assertEquals(systemStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void canSetBadFormatMessage() {
-        viewModel.firstCoefficientProperty().set("incorrect data");
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+    public void canReportBadFormatCoefficients() {
+        viewModel.firstCoefficientProperty().set("incorrect coefficients");
+        assertEquals(systemStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -142,10 +142,10 @@ public class ViewModelTests {
         viewModel.secondCoefficientProperty().set("1");
         viewModel.freeTermProperty().set("2");
         viewModel.solve();
-        assertEquals(Status.NO_ROOTS.toString(), viewModel.statusProperty().get());
+        assertEquals(systemStatus.NO_ROOTS.toString(), viewModel.statusProperty().get());
     }
 
-    public void setInputData() {
+    public void setEquationData() {
         viewModel.firstCoefficientProperty().set("5");
         viewModel.secondCoefficientProperty().set("-4");
         viewModel.freeTermProperty().set("-3");

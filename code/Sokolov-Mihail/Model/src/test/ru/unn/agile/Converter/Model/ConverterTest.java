@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import ru.unn.agile.Converter.Model.AreaConverter.Measures;
 
 public class ConverterTest {
-    private static final double DELTA = 0.001;
+    private static final double DELTA = 1e-100;
 
     @Test (expected = IllegalArgumentException.class)
     public void throwsOnNegativeDouble() {

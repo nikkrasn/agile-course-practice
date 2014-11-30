@@ -26,7 +26,12 @@ public final class AreaConverter {
             throw new IllegalArgumentException();
         }
 
-        double k = koef.get(from) / koef.get(to);
+        double k = -1.0;
+        try {
+            k = koef.get(from) / koef.get(to);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Zero division which can't be physically");
+        }
 
         if (Double.MAX_VALUE / k < val) {
             throw new IllegalArgumentException();

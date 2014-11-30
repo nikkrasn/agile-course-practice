@@ -59,7 +59,6 @@ public class MetricsCalculator {
                     }
                 }
         );
-        tableView.setItems(viewModel.vectorsValuesProperty.get());
         tableView.itemsProperty().bindBidirectional(viewModel.vectorsValuesProperty);
 
         vectorsDimension.textProperty().bindBidirectional(viewModel.vectorsDimensionProperty());

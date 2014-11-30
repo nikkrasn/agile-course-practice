@@ -30,7 +30,7 @@ public class ViewModelTests {
                 FXCollections.observableArrayList();
         assertEquals("", viewModel.vectorsDimensionProperty().get());
 
-        assertTrue(viewModel.getVectorsValuesProperty().equals(vectorsValues));
+        assertTrue(viewModel.getVectorsValuesProperty.equals(vectorsValues));
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
@@ -59,7 +59,7 @@ public class ViewModelTests {
     @Test
     public void canReportBadFormatVectorsValues() {
         viewModel.vectorsDimensionProperty().set("1");
-        viewModel.getVectorsValuesProperty().add(new Pair<>("a", "b"));
+        viewModel.getVectorsValuesProperty.get().add(new Components("a", "b"));
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
@@ -87,7 +87,7 @@ public class ViewModelTests {
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
         viewModel.vectorsDimensionProperty().set("1");
-        viewModel.getVectorsValuesProperty().add(new Pair<>("1.0", ""));
+        viewModel.getVectorsValuesProperty.get().add(new Components("1.0", ""));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -185,8 +185,8 @@ public class ViewModelTests {
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 
-        viewModel.getVectorsValuesProperty().add(new Pair<>("1.0f", "0.0f"));
-        viewModel.getVectorsValuesProperty().add(new Pair<>("2.0f", "1.0f"));
-        viewModel.getVectorsValuesProperty().add(new Pair<>("3.0f", "2.0f"));
+        viewModel.getVectorsValuesProperty.get().add(new Components("1.0f", "0.0f"));
+        viewModel.getVectorsValuesProperty.get().add(new Components("2.0f", "1.0f"));
+        viewModel.getVectorsValuesProperty.get().add(new Components("3.0f", "2.0f"));
     }
 }

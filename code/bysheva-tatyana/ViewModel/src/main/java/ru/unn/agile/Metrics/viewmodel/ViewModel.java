@@ -16,7 +16,7 @@ import java.util.List;
 public class ViewModel {
     private final StringProperty vectorsDimension = new SimpleStringProperty();
 
-    private final ObservableList<Pair<String, String>> vectorsValues =
+    private final ObservableList<Components> vectorsValues =
             FXCollections.observableArrayList();
 
     private final ObjectProperty<ObservableList<Operation>> operations =
@@ -26,8 +26,8 @@ public class ViewModel {
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-    private final SimpleListProperty<Pair<String, String>> vectorsValuesProperty =
-            new SimpleListProperty<Pair<String, String>>(this, "vectorsValues", vectorsValues);
+    private final SimpleListProperty<Components> vectorsValuesProperty =
+            new SimpleListProperty<Components>(this, "vectorsValues", vectorsValues);
 
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
@@ -38,9 +38,7 @@ public class ViewModel {
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
-    public final SimpleListProperty<Pair<String, String>> getVectorsValuesProperty() {
-        return vectorsValuesProperty;
-    }
+    public final ObjectProperty<ObservableList<Components>> getVectorsValuesProperty = new SimpleObjectProperty<>(vectorsValues);
     public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
     }
@@ -104,8 +102,8 @@ public class ViewModel {
         List<Float> vector2 = new ArrayList<Float>();
 
         for (int i = 0; i < vectorsValues.size(); i++) {
-            vector1.add(Float.parseFloat(vectorsValues.get(i).getKey()));
-            vector2.add(Float.parseFloat(vectorsValues.get(i).getValue()));
+            vector1.add(Float.parseFloat(vectorsValues.get(i).getComponent1()));
+            vector2.add(Float.parseFloat(vectorsValues.get(i).getComponent2()));
         }
 
         result.set(operation.get().apply(vector1, vector2).toString());
@@ -123,8 +121,8 @@ public class ViewModel {
             }
             if (!vectorsValues.isEmpty()) {
                 for (int i = 0; i < vectorsValues.size(); i++) {
-                    Float.parseFloat(vectorsValues.get(i).getKey());
-                    Float.parseFloat(vectorsValues.get(i).getValue());
+                    Float.parseFloat(vectorsValues.get(i).getComponent1());
+                    Float.parseFloat(vectorsValues.get(i).getComponent2());
                 }
             }
         } catch (NumberFormatException nfe) {
@@ -139,14 +137,17 @@ public class ViewModel {
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
             status.set(getInputStatus().toString());
+            vectorsDimensionProperty().set("3");
+
+            getVectorsValuesProperty.get().add(new Components("1.0f", "0.0f"));
+            getVectorsValuesProperty.get().add(new Components("2.0f", "1.0f"));
+            getVectorsValuesProperty.get().add(new Components("3.0f", "2.0f"));
         }
     }
 
-    private class ListValuesPropertyChangeListener implements
-            ListChangeListener<Pair<String, String>> {
+    private class ListValuesPropertyChangeListener implements ListChangeListener<Components> {
         @Override
-        public void onChanged(final ListChangeListener.Change<?
-                extends Pair<String, String>> change) {
+        public void onChanged(final ListChangeListener.Change<? extends Components> change) {
             status.set(getInputStatus().toString());
         }
     }

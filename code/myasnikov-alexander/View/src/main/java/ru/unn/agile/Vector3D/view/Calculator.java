@@ -33,7 +33,6 @@ public class Calculator {
 
     @FXML
     void initialize() {
-        // Two-way binding hasn't supported by FXML yet, so place it in code-behind
         vec1X.textProperty().bindBidirectional(viewModel.getVector1CoordinateX());
         vec1Y.textProperty().bindBidirectional(viewModel.getVector1CoordinateY());
         vec1Z.textProperty().bindBidirectional(viewModel.getVector1CoordinateZ());

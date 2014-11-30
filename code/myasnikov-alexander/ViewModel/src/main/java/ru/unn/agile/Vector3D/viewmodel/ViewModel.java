@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-
     private final StringProperty vector1CoordinateX = new SimpleStringProperty();
     private final StringProperty vector1CoordinateY = new SimpleStringProperty();
     private final StringProperty vector1CoordinateZ = new SimpleStringProperty();
@@ -76,29 +75,51 @@ public class ViewModel {
         }
     }
 
-    public StringProperty getVector1CoordinateX() { return vector1CoordinateX; }
-    public StringProperty getVector1CoordinateY() { return vector1CoordinateY; }
-    public StringProperty getVector1CoordinateZ() { return vector1CoordinateZ; }
+    public StringProperty getVector1CoordinateX() {
+        return vector1CoordinateX;
+    }
 
-    public StringProperty getVector2CoordinateX() { return vector2CoordinateX; }
-    public StringProperty getVector2CoordinateY() { return vector2CoordinateY; }
-    public StringProperty getVector2CoordinateZ() { return vector2CoordinateZ; }
+    public StringProperty getVector1CoordinateY() {
+        return vector1CoordinateY;
+    }
+
+    public StringProperty getVector1CoordinateZ() {
+        return vector1CoordinateZ;
+    }
+
+    public StringProperty getVector2CoordinateX() {
+        return vector2CoordinateX;
+    }
+
+    public StringProperty getVector2CoordinateY() {
+        return vector2CoordinateY;
+    }
+
+    public StringProperty getVector2CoordinateZ() {
+        return vector2CoordinateZ;
+    }
 
     public StringProperty resultProperty() {
         return result;
     }
-    public final String getResult() { return result.get(); }
 
-    public StringProperty statusProperty() { return status; }
+    public final String getResult() {
+        return result.get();
+    }
+
+    public StringProperty statusProperty() {
+        return status;
+    }
+
     public final String getStatus() {
         return status.get();
     }
 
     public ObjectProperty<ObservableList<VectorOperation>> operationsProperty() {
-        return operations;
+     return operations;
     }
     public final ObservableList<VectorOperation> getOperations() {
-        return operations.get();
+       return operations.get();
     }
 
     public ObjectProperty<VectorOperation> operationProperty() {

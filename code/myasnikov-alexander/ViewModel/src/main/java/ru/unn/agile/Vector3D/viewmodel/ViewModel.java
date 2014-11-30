@@ -156,6 +156,8 @@ public class ViewModel {
                         v1.getCoordinateY(),
                         v1.getCoordinateZ()));
                 break;
+            default:
+                break;
         }
         status.set(Status.SUCCESS.toString());
     }

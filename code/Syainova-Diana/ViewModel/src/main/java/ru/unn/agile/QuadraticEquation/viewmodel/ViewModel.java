@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty fCoef = new SimpleStringProperty();
-    private final StringProperty sCoef = new SimpleStringProperty();
-    private final StringProperty fTerm = new SimpleStringProperty();
+    private final StringProperty fCoef = new SimpleStringProperty("");
+    private final StringProperty sCoef = new SimpleStringProperty("");
+    private final StringProperty fTerm = new SimpleStringProperty("");
 
-    private final StringProperty firstRootResult = new SimpleStringProperty();
-    private final StringProperty secondRootResult = new SimpleStringProperty();
+    private final StringProperty firstRootResult = new SimpleStringProperty("");
+    private final StringProperty secondRootResult = new SimpleStringProperty("");
 
     private final BooleanProperty solvingDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty status = new SimpleStringProperty(systemStatus.WAITING.toString());
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
@@ -27,15 +27,6 @@ public class ViewModel {
     private static final double DELTA = 0.0001;
 
     public ViewModel() {
-        fCoef.set("");
-        sCoef.set("");
-        fTerm.set("");
-
-        firstRootResult.set("");
-        secondRootResult.set("");
-
-        status.set(systemStatus.WAITING.toString());
-
         BooleanBinding couldSolve = new BooleanBinding() {
             {
                 super.bind(fCoef, sCoef, fTerm);
@@ -164,6 +155,6 @@ public class ViewModel {
                         final String oldValue,
                         final String newValue) {
             status.set(getEquationStatus().toString());
+        }
     }
-}
 }

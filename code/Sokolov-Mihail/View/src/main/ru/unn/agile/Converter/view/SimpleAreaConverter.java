@@ -26,39 +26,39 @@ public final class SimpleAreaConverter {
 
     private SimpleAreaConverter(final ViewModel viewModel) {
         this.viewModelA = viewModel;
-        backBind();
+        backBindAreaConverter();
 
         loadListAreaMeasures();
 
         btnConvertA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
+                bindAreaConverter();
                 viewModel.convert();
-                backBind();
+                backBindAreaConverter();
             }
         });
 
         cbFromA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
-                backBind();
+                bindAreaConverter();
+                backBindAreaConverter();
             }
         });
         cbToA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
-                bind();
-                backBind();
+                bindAreaConverter();
+                backBindAreaConverter();
             }
         });
 
         KeyAdapter keyListener = new KeyAdapter() {
             public void keyReleased(final KeyEvent e) {
-                bind();
+                bindAreaConverter();
                 viewModel.processKeyInTextField();
-                backBind();
+                backBindAreaConverter();
             }
         };
         tbValueA.addKeyListener(keyListener);
@@ -70,13 +70,13 @@ public final class SimpleAreaConverter {
         cbToA.setModel(new JComboBox<Measures>(measures).getModel());
     }
 
-    private void bind() {
+    private void bindAreaConverter() {
         viewModelA.setInput(tbValueA.getText());
         viewModelA.setMeasureOfAreaFrom((Measures) cbFromA.getSelectedItem());
         viewModelA.setMeasureOfAreaTo((Measures) cbToA.getSelectedItem());
     }
 
-    private void backBind() {
+    private void backBindAreaConverter() {
         btnConvertA.setEnabled(viewModelA.isCalculateButtonEnabled());
         tbResultA.setText(viewModelA.getResult());
     }

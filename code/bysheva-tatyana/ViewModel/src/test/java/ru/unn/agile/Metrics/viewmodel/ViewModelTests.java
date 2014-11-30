@@ -182,8 +182,6 @@ public class ViewModelTests {
         assertEquals("1.0", viewModel.resultProperty().get());
     }
 
-
-
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

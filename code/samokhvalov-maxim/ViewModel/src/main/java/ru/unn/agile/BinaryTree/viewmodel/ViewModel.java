@@ -225,11 +225,15 @@ public class ViewModel {
     }
 
     private int getFirstNodeKey(final ArrayList<Node> nodes) {
-        return nodes.get(0).getKey();
+        return getFirstNode(nodes).getKey();
     }
 
     private Object getFirstNodeValue(final ArrayList<Node> nodes) {
-        return nodes.get(0).getValue();
+        return getFirstNode(nodes).getValue();
+    }
+
+    private Node getFirstNode(final ArrayList<Node> nodes) {
+        return nodes.get(0);
     }
 }
 

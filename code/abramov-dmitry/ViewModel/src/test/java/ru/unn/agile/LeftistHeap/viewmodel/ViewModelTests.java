@@ -42,6 +42,7 @@ public class ViewModelTests {
     @Test
     public void canValidateBeforeAddElement() {
         viewModel.add();
+
         assertEquals(Status.BAD_INPUT.toString(), viewModel.statusProperty().get());
     }
 

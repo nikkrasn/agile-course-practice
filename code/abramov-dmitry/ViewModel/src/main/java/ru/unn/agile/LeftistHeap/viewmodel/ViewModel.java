@@ -132,9 +132,7 @@ public class ViewModel {
                                 key)
                             : node.toString();
 
-            setOutput(
-                    message,
-                    Status.OK);
+            setOutput(message, Status.OK);
 
             return;
         }

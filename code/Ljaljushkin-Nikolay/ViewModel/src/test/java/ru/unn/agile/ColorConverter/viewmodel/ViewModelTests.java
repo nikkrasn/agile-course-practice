@@ -49,7 +49,13 @@ public class ViewModelTests {
     @Test
     public void statusIsWaitingWhenNotAllFieldsAreFill() {
         fillNotAllFields();
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void canReportBadFormat() {
+        fillFieldInBadFormat();
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     private void fillInputFields() {
@@ -63,5 +69,9 @@ public class ViewModelTests {
 
     private void fillNotAllFields() {
         viewModel.setFirstChannelSrcColor("0");
+    }
+
+    private void fillFieldInBadFormat() {
+        viewModel.setFirstChannelSrcColor("0trash$");
     }
 }

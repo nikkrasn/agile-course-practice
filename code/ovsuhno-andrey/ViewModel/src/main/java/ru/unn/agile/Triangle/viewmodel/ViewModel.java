@@ -29,7 +29,7 @@ public class ViewModel {
     private final BooleanProperty computationDisabled = new SimpleBooleanProperty();
 
     private final StringProperty values = new SimpleStringProperty("");
-    private final StringProperty status =
+    private final StringProperty dataStatus =
             new SimpleStringProperty(CurrentStatus.WAITING.toString());
 
     private final List<VariableListener> variableListeners = new ArrayList<>();
@@ -75,7 +75,7 @@ public class ViewModel {
         double[] doubleValues = operation.get().apply(triangle);
 
         values.set(StringFormatter.arrayFormat(doubleValues));
-        status.set(CurrentStatus.SUCCESS.toString());
+        dataStatus.set(CurrentStatus.SUCCESS.toString());
     }
 
     public StringProperty aXProperty() {
@@ -131,11 +131,11 @@ public class ViewModel {
     }
 
     public StringProperty statusProperty() {
-        return status;
+        return dataStatus;
     }
 
     public final String getStatus() {
-        return status.get();
+        return dataStatus.get();
     }
 
     private CurrentStatus getDataStatus() {
@@ -175,7 +175,7 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            status.set(getDataStatus().toString());
+            dataStatus.set(getDataStatus().toString());
         }
     }
 }

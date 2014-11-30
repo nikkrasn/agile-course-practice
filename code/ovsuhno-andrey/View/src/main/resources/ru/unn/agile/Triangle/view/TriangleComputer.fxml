@@ -124,7 +124,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label alignment="TOP_LEFT" text="${viewModel.status}" textFill="WHITE">
+            <Label alignment="TOP_LEFT" text="${viewModel.dataStatus}" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

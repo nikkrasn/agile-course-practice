@@ -87,7 +87,7 @@ public class ViewModel {
         return typePayment;
     }
 
-    public boolean getIsCalculateButtonEnabled() {
+    public boolean isCalculateButtonEnabled() {
         return isCalculateButtonEnabled;
     }
 
@@ -191,4 +191,5 @@ public class ViewModel {
         }
         status = Status.SUCCESS;
     }
+
 }

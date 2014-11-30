@@ -27,14 +27,14 @@ public class ViewModelTests {
         assertEquals(Notation.BINARY, viewModel.inputNotationProperty().get());
         assertEquals(Notation.DECIMAL, viewModel.outputNotationProperty().get());
         assertEquals("", viewModel.outputNumberProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenConvertWithEmptyFields() {
         viewModel.convert();
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     private void setInputData() {
@@ -47,14 +47,14 @@ public class ViewModelTests {
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
         viewModel.inputNumberProperty().set("f");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ViewModelTests {
         viewModel.inputNotationProperty().set(Notation.OCTAL);
         viewModel.outputNotationProperty().set(Notation.BINARY);
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -132,21 +132,21 @@ public class ViewModelTests {
 
         viewModel.convert();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canSetBadFormatMessage() {
         viewModel.inputNumberProperty().set("smthng");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test

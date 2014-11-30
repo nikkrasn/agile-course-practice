@@ -3,7 +3,6 @@ package ru.unn.agile.Metrics.viewmodel;
 import static org.junit.Assert.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,11 +25,14 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        final ObservableList<Pair<Float, Float>> vectorsValues =
+        final ObservableList<Float> vector1Values =
+                FXCollections.observableArrayList();
+        final ObservableList<Float> vector2Values =
                 FXCollections.observableArrayList();
         assertEquals("", viewModel.vectorsDimensionProperty().get());
 
-        assertTrue(viewModel.getVectorsValuesProperty().equals(vectorsValues));
+        assertTrue(viewModel.getVector1ValuesProperty().equals(vector1Values));
+        assertTrue(viewModel.getVector2ValuesProperty().equals(vector2Values));
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.operationProperty().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
@@ -59,7 +61,8 @@ public class ViewModelTests {
     @Test
     public void canReportBadFormatVectorsValues() {
         viewModel.vectorsDimensionProperty().set("1");
-        viewModel.getVectorsValuesProperty().add(new Pair<>("a", "b"));
+        viewModel.getVector1ValuesProperty().add("a");
+        viewModel.getVector2ValuesProperty().add("a");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
@@ -87,7 +90,8 @@ public class ViewModelTests {
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
         viewModel.vectorsDimensionProperty().set("1");
-        viewModel.getVectorsValuesProperty().add(new Pair<>("1.0", ""));
+        viewModel.getVector1ValuesProperty().add("1.0");
+        viewModel.getVector1ValuesProperty().add("");
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -187,8 +191,12 @@ public class ViewModelTests {
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 
-        viewModel.getVectorsValuesProperty().add(new Pair<>("1.0f", "0.0f"));
-        viewModel.getVectorsValuesProperty().add(new Pair<>("2.0f", "1.0f"));
-        viewModel.getVectorsValuesProperty().add(new Pair<>("3.0f", "2.0f"));
+        viewModel.getVector1ValuesProperty().add("1.0");
+        viewModel.getVector1ValuesProperty().add("2.0");
+        viewModel.getVector1ValuesProperty().add("3.0");
+
+        viewModel.getVector2ValuesProperty().add("0.0");
+        viewModel.getVector2ValuesProperty().add("1.0");
+        viewModel.getVector2ValuesProperty().add("2.0");
     }
 }

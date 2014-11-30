@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.Metrics.viewmodel.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Metrics.view.MetricsCalculator">
     <fx:define>
         <ViewModel fx:id="viewModel" />
     </fx:define>
@@ -91,12 +89,14 @@
                                      minWidth="200.0"
                                      prefWidth="200.0"
                                      sortable="false"
-                                     text="Vector 1" />
+                                     text="Vector 1"
+                                     fx:id="vector1"/>
                         <TableColumn maxWidth="-1.0"
                                      minWidth="200.0"
                                      prefWidth="200.0"
                                      sortable="false"
-                                     text="Vector2" />
+                                     text="Vector2"
+                                     fx:id="vector2"/>
                      </columns>
                   </TableView>
                </children>

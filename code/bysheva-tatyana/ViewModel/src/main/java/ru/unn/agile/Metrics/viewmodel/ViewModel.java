@@ -7,7 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 
 import java.util.ArrayList;
@@ -16,7 +15,10 @@ import java.util.List;
 public class ViewModel {
     private final StringProperty vectorsDimension = new SimpleStringProperty();
 
-    private final ObservableList<Pair<String, String>> vectorsValues =
+    private final ObservableList<String> vector1Column =
+            FXCollections.observableArrayList();
+
+    private final ObservableList<String> vector2Column =
             FXCollections.observableArrayList();
 
     private final ObjectProperty<ObservableList<Operation>> operations =
@@ -26,8 +28,10 @@ public class ViewModel {
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-    private final SimpleListProperty<Pair<String, String>> vectorsValuesProperty =
-            new SimpleListProperty<>(this, "vectorsValues", vectorsValues);
+    private final SimpleListProperty<String> vector1Property =
+            new SimpleListProperty<>(this, "vector1Column", vector1Column);
+    private final SimpleListProperty<String> vector2Property =
+            new SimpleListProperty<>(this, "vector2Column", vector2Column);
 
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
@@ -38,8 +42,11 @@ public class ViewModel {
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
-    public final SimpleListProperty<Pair<String, String>> getVectorsValuesProperty() {
-        return vectorsValuesProperty;
+    public final SimpleListProperty<String> getVector1ValuesProperty() {
+        return vector1Property;
+    }
+    public final SimpleListProperty<String> getVector2ValuesProperty() {
+        return vector2Property;
     }
     public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
@@ -73,7 +80,7 @@ public class ViewModel {
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
-                super.bind(vectorsValues, vectorsDimension);
+                super.bind(vector1Column, vector2Column, vectorsDimension);
             }
             @Override
             protected boolean computeValue() {
@@ -91,7 +98,18 @@ public class ViewModel {
         final ListValuesPropertyChangeListener listValuesPropertyChangeListener
                 = new ListValuesPropertyChangeListener();
 
-        vectorsValuesProperty.addListener(listValuesPropertyChangeListener);
+        vector1Property.addListener(listValuesPropertyChangeListener);
+        vector2Property.addListener(listValuesPropertyChangeListener);
+
+        vectorsDimensionProperty().set("3");
+
+        getVector1ValuesProperty().add("1.0");
+        getVector1ValuesProperty().add("2.0");
+        getVector1ValuesProperty().add("3.0");
+
+        getVector2ValuesProperty().add("0.0");
+        getVector2ValuesProperty().add("1.0");
+        getVector2ValuesProperty().add("2.0");
     }
 
 
@@ -103,9 +121,9 @@ public class ViewModel {
         List<Float> vector1 = new ArrayList<Float>();
         List<Float> vector2 = new ArrayList<Float>();
 
-        for (int i = 0; i < vectorsValues.size(); i++) {
-            vector1.add(Float.parseFloat(vectorsValues.get(i).getKey()));
-            vector2.add(Float.parseFloat(vectorsValues.get(i).getValue()));
+        for (int i = 0; i < vector1Column.size(); i++) {
+            vector1.add(Float.parseFloat(vector1Column.get(i)));
+            vector2.add(Float.parseFloat(vector2Column.get(i)));
         }
 
         result.set(operation.get().apply(vector1, vector2).toString());
@@ -114,17 +132,19 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (vectorsValues.isEmpty() || vectorsDimension.get().isEmpty()) {
+        if (vector1Column.isEmpty() || vector2Column.isEmpty() ||
+                vectorsDimension.get().isEmpty() ||
+                vector1Column.size() != vector2Column.size()) {
             inputStatus = Status.WAITING;
         }
         try {
             if (!vectorsDimension.get().isEmpty()) {
                 Integer.parseInt(vectorsDimension.get());
             }
-            if (!vectorsValues.isEmpty()) {
-                for (int i = 0; i < vectorsValues.size(); i++) {
-                   Float.parseFloat(vectorsValues.get(i).getKey());
-                   Float.parseFloat(vectorsValues.get(i).getValue());
+            if (!vector1Column.isEmpty() && !vector2Column.isEmpty()) {
+                for (int i = 0; i < vector1Column.size(); i++) {
+                   Float.parseFloat(vector1Column.get(i));
+                   Float.parseFloat(vector2Column.get(i));
                 }
             }
         } catch (NumberFormatException nfe) {
@@ -143,10 +163,10 @@ public class ViewModel {
     }
 
     private class ListValuesPropertyChangeListener implements
-            ListChangeListener<Pair<String, String>> {
+            ListChangeListener<String> {
         @Override
         public void onChanged(final ListChangeListener.Change<?
-                extends Pair<String, String>> change) {
+                extends String> change) {
             status.set(getInputStatus().toString());
         }
     }

@@ -57,15 +57,15 @@ public class ViewModelTests {
     }
 
     @Test
-    public void calculateButtonIsDisabledInitially() {
-        assertTrue(viewModel.calculationDisabledProperty().get());
-    }
-
-    @Test
     public void calculateButtonIsDisabledWhenFormatIsBad() {
         setInputDataForTwoArrays();
         viewModel.bitArray1StrValue().set("trash");
 
+        assertTrue(viewModel.calculationDisabledProperty().get());
+    }
+
+    @Test
+    public void calculateButtonIsDisabledWhenInitialized() {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 

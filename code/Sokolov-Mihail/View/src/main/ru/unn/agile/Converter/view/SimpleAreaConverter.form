@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ru.unn.agile.Converter.view.SimpleAreaConverter">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanelA" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -149,7 +149,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="e824e" class="javax.swing.JTextField" binding="tbValue">
+              <component id="e824e" class="javax.swing.JTextField" binding="tbValueA">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -167,7 +167,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="34162" class="javax.swing.JTextField" binding="tbResult">
+              <component id="34162" class="javax.swing.JTextField" binding="tbResultA">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -187,7 +187,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="7bdf0" class="javax.swing.JComboBox" binding="cbTo">
+              <component id="7bdf0" class="javax.swing.JComboBox" binding="cbToA">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -203,7 +203,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="f3e24" class="javax.swing.JComboBox" binding="cbFrom">
+              <component id="f3e24" class="javax.swing.JComboBox" binding="cbFromA">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -219,7 +219,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="5379d" class="javax.swing.JButton" binding="btnConvert">
+              <component id="5379d" class="javax.swing.JButton" binding="btnConvertA">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>

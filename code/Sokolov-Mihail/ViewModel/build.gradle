@@ -1,3 +1,7 @@
+dependencies {
+    compile project(':Sokolov-Mihail-lab2-Model')
+}
+
 sourceSets {
     main.java.srcDir 'src/main'
     test.java.srcDir 'src/test'

@@ -1,10 +1,8 @@
 package ru.unn.agile.calculateSalary;
 
 import org.junit.Test;
-
 import java.time.LocalDate;
 import java.time.Month;
-
 import static org.junit.Assert.*;
 
 public class WorkWithCalendarTests {

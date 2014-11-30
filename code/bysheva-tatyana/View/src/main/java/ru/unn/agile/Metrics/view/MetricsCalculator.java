@@ -8,7 +8,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 import ru.unn.agile.Metrics.viewmodel.ViewModel;
 
@@ -18,7 +17,7 @@ public class MetricsCalculator {
     @FXML
     private TextField vectorsDimension;
     @FXML
-    private TableView tableView;
+    private TableView<javafx.util.Pair<String, String>> tableView;
     @FXML
     private ComboBox<Operation> cbOperation;
     @FXML

@@ -92,12 +92,6 @@ public class ViewModel {
                 = new ListValuesPropertyChangeListener();
 
         vectorsValues.addListener(listValuesPropertyChangeListener);
-
-        vectorsDimensionProperty().set("3");
-
-        getVectorsValuesProperty().add(new Pair<>("1.0f", "0.0f"));
-        getVectorsValuesProperty().add(new Pair<>("2.0f", "1.0f"));
-        getVectorsValuesProperty().add(new Pair<>("3.0f", "2.0f"));
     }
 
 
@@ -120,8 +114,7 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (vectorsValues.isEmpty() ||
-                vectorsDimension.get().isEmpty()) {
+        if (vectorsValues.isEmpty() || vectorsDimension.get().isEmpty()) {
             inputStatus = Status.WAITING;
         }
         try {

@@ -12,31 +12,21 @@ public class CalculateSalary {
     private LocalDate startOfVacation = LocalDate.of(DEFAULT_VACATION_YEAR, 1, 1);
     private int lengthOfVacation;
     private double payForOneJobHour;
-    private int amountOfJobHours;
+    private int summOfWorkedHours;
 
     public double calculate() {
         if (salary <= 0) {
             return 0;
         }
-        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth)
-                .setStartVacation(startOfVacation)
-                .setLengthOfVacation(lengthOfVacation);
-        double cashForPay = 0;
-        int jobDaysInCountMonth = countMonth.countJobDaysInMonth();
-        int cashDaysInMonth = countMonth.countCashDaysInMonth();
-        payForOneJobHour = calcCashForOneJobHour(jobDaysInCountMonth);
-        amountOfJobHours = summJobHours(cashDaysInMonth);
-        switch (getCompareWorkAndJobHours()) {
-            case "employeeWorkedMoreThanNormHoursInMonth":
-                cashForPay = calcCashWithOvertime();
-                break;
-            case "employeeWorkedLessThanNormHoursInMonth":
-                cashForPay = calcCashForLessHours();
-                break;
-            default:
-                cashForPay = calcCashForNormalHours();
+        payForOneJobHour = calcCashForOneJobHour();
+        summOfWorkedHours = getSummOfWorkedHours();
+        if (isEmployeeWorkedMoreThanNormHoursInMonth()) {
+            return calcCashWithOvertime() * NDS;
         }
-        return cashForPay * NDS;
+        if (isEmployeeWorkedLessThanNormHoursInMonth()) {
+            return calcCashForLessHours() * NDS;
+        }
+        return calcCashForNormalHours() * NDS;
     }
 
     public CalculateSalary setSalary(final double inSalary) {
@@ -64,14 +54,12 @@ public class CalculateSalary {
         return this;
     }
 
-    private String getCompareWorkAndJobHours() {
-        if (workedHourInMonth > amountOfJobHours) {
-            return "employeeWorkedMoreThanNormHoursInMonth";
-        }
-        if (workedHourInMonth < amountOfJobHours) {
-            return "employeeWorkedLessThanNormHoursInMonth";
-        }
-        return "";
+    private boolean isEmployeeWorkedLessThanNormHoursInMonth() {
+        return workedHourInMonth < summOfWorkedHours;
+    }
+
+    private boolean isEmployeeWorkedMoreThanNormHoursInMonth() {
+        return workedHourInMonth > summOfWorkedHours;
     }
 
     private double calcCashForLessHours() {
@@ -79,19 +67,29 @@ public class CalculateSalary {
     }
 
     private double calcCashForNormalHours() {
-        return amountOfJobHours * payForOneJobHour;
+        return summOfWorkedHours * payForOneJobHour;
     }
 
     private double calcCashWithOvertime() {
         return calcCashForNormalHours() + cashForOvertime();
     }
 
-    private double calcCashForOneJobHour(final int jobDaysInCurrentMonth) {
-        return salary / (summJobHours(jobDaysInCurrentMonth));
+    private double calcCashForOneJobHour() {
+        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth);
+        int jobDaysInCountMonth = countMonth.countJobDaysInMonth();
+        return salary / (summJobHours(jobDaysInCountMonth));
+    }
+
+    private int getSummOfWorkedHours() {
+        WorkWithCalendar countMonth = new WorkWithCalendar().setCountMonth(countingMonth)
+                .setStartVacation(startOfVacation)
+                .setLengthOfVacation(lengthOfVacation);
+        int cashDaysInMonth = countMonth.countCashDaysInMonth();
+        return summJobHours(cashDaysInMonth);
     }
 
     private double cashForOvertime() {
-        return (payForOneJobHour * 2) * (workedHourInMonth - amountOfJobHours);
+        return (payForOneJobHour * 2) * (workedHourInMonth - summOfWorkedHours);
     }
 
     private int summJobHours(final int amountDays) {

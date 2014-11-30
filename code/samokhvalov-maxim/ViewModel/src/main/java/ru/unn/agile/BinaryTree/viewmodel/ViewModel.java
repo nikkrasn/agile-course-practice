@@ -9,8 +9,7 @@ import javafx.collections.ObservableList;
 import ru.unn.agile.BinaryTree.model.BinaryTree;
 import ru.unn.agile.BinaryTree.model.Node;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ViewModel {
     private final StringProperty key = new SimpleStringProperty();

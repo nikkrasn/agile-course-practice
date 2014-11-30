@@ -22,8 +22,8 @@ public class SubtractHolidays {
 
     public boolean isNotDayOff(final int checkDayNumber) {
         LocalDate checkDate = LocalDate.of(checkMonth.getYear(),
-                checkMonth.getMonth(),
-                checkDayNumber);
+                                           checkMonth.getMonth(),
+                                           checkDayNumber);
         return isDayNotSaturday(checkDate) && isDayNotSunday(checkDate);
     }
 

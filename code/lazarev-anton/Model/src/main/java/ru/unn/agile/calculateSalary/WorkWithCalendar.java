@@ -21,13 +21,11 @@ public class WorkWithCalendar {
 
     public int countCashDaysInMonth() {
         SubtractHolidays checkingPeriod = new SubtractHolidays().setCheckMonth(countMonth)
-                .setStartVacation(startVacation)
-                .setLengthVacation(lengthOfVacation);
+                                                                .setStartVacation(startVacation)
+                                                                .setLengthVacation(lengthOfVacation);
         int cashDaysInMonth = countJobDaysInMonth();
-        if (isCountYearNotVacationYear()) {
-            return cashDaysInMonth;
-        } else {
-            cashDaysInMonth = cashDaysInMonth - checkingPeriod.getHolidaysInVacation();
+        if (!isCountYearNotVacationYear()) {
+            return cashDaysInMonth - checkingPeriod.getHolidaysInVacation();
         }
         return cashDaysInMonth;
     }

@@ -29,7 +29,6 @@ public class LeftistHeap {
     @FXML
     private Button merge;
 
-
     @FXML
     private ComboBox<ru.unn.agile.LeftistHeap.Model.LeftistHeap<String>> cbHeap;
 
@@ -39,7 +38,7 @@ public class LeftistHeap {
         value1.textProperty().bindBidirectional(viewModel.valueProperty());
         newKey1.textProperty().bindBidirectional(viewModel.newKeyProperty());
 
-        cbHeap.valueProperty().bindBidirectional(viewModel.operationProperty());
+        cbHeap.valueProperty().bindBidirectional(viewModel.heapProperty());
 
         add.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -51,14 +50,14 @@ public class LeftistHeap {
         getMinimum.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.getMinimum();
+                viewModel.extractMinimum();
             }
         });
 
         delete.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {
-                viewModel.delete();
+                viewModel.extract();
             }
         });
 

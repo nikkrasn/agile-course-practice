@@ -99,7 +99,7 @@ public class ViewModel {
         return heaps.get();
     }
 
-    public ObjectProperty<LeftistHeap<String>> operationProperty() {
+    public ObjectProperty<LeftistHeap<String>> heapProperty() {
         return heap;
     }
 
@@ -107,52 +107,61 @@ public class ViewModel {
         String key = keyProperty().get();
 
         if (validNumber(key)) {
-            heap.get().add(Integer.parseInt(keyProperty().get()), valueProperty().get());
-            status.set("OK");
+            getSelectedHeap().add(Integer.parseInt(keyProperty().get()), valueProperty().get());
+            setOutput(
+                    String.format("New element added to heap '%s'", getSelectedHeap().getName()),
+                    Status.OK);
             return;
         }
 
-        result.set("");
-        status.set("Bad input");
+        setOutput("Element was not added", Status.BAD_INPUT);
     }
 
-    public void delete() {
+    public void extract() {
         String key = keyProperty().get();
 
         if (validNumber(key)) {
-            HeapNode<String> result = heap.get().extractElementWithKey(
+            HeapNode<String> node = getSelectedHeap().extractElementWithKey(
                     Integer.parseInt(keyProperty().get()));
 
-            if (result == null) {
-                this.result.set(String.format("Heap not contain elements with key '%s'", key));
-            } else {
-                this.result.set(result.toString());
-            }
-            status.set("OK");
+            String message =
+                    node == null
+                            ? String.format(
+                                "Heap '%s' not contain elements with key '%s'",
+                                getSelectedHeap().getName(),
+                                key)
+                            : node.toString();
+
+            setOutput(
+                    message,
+                    Status.OK);
+
             return;
         }
 
-        result.set("");
-        status.set("Bad input");
+        setOutput("Any element was not deleted", Status.BAD_INPUT);
     }
 
-    public void getMinimum() {
-        HeapNode<String> result = heap.get().extractMin();
-        if (result == null) {
-            this.result.set("Heap is empty");
-        } else {
-            this.result.set(result.toString());
-        }
+    public void extractMinimum() {
+        HeapNode<String> node = getSelectedHeap().extractMin();
 
-        status.set("OK");
+        String message =
+                node == null
+                        ? String.format("Heap '%s' is empty", getSelectedHeap().getName())
+                        : node.toString();
+
+        setOutput(message, Status.OK);
     }
 
     public void merge() {
         heaps.get().get(1).merge(heaps.get().get(0));
 
-        result.set("Merged");
-
-        status.set("OK");
+        setOutput(
+                String.format(
+                        "Merged heap '%s' with heap '%s'",
+                        getHeap(1).getName(),
+                        getHeap(0).getName()),
+                Status.OK);
     }
 
     public void decreaseKey() {
@@ -161,24 +170,28 @@ public class ViewModel {
 
         if (validNumber(key) && validNumber(newKey)) {
             try {
-                if (heap.get().decreaseKey(Integer.parseInt(key), Integer.parseInt(newKey))) {
-                    result.set("Key decreased");
-                    status.set("OK");
+                if (getSelectedHeap().decreaseKey(
+                        Integer.parseInt(key),
+                        Integer.parseInt(newKey))) {
+
+                    setOutput("Key decreased", Status.OK);
                     return;
                 } else {
-                    result.set("Key not found");
-                    status.set("OK");
+                    setOutput(
+                            String.format(
+                                    "Key '%s' not found in heap '%s'",
+                                    key,
+                                    getSelectedHeap().getName()),
+                            Status.OK);
                     return;
                 }
             } catch (IllegalArgumentException exception) {
-                result.set("New key must be less than current");
-                status.set("OK");
+                setOutput("New key must be less than current", Status.OK);
                 return;
             }
         }
 
-        result.set("");
-        status.set("Bad input");
+        setOutput("Any key was not decreased", Status.BAD_INPUT);
     }
 
     private Boolean validNumber(final String number) {
@@ -194,11 +207,37 @@ public class ViewModel {
         return true;
     }
 
+    private void setOutput(final String message, final Status actionStatus) {
+        result.set(message);
+        status.set(actionStatus.toString());
+    }
+
+    private LeftistHeap<String> getSelectedHeap() {
+        return heap.get();
+    }
+
+    private LeftistHeap<String> getHeap(final int index) {
+        return heaps.get().get(index);
+    }
+
     private class ValueChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
             status.set(getStatus());
         }
+    }
+}
+
+enum Status {
+    BAD_INPUT("Bad input"),
+    OK("OK");
+
+    private final String name;
+    private Status(final String name) {
+        this.name = name;
+    }
+    public String toString() {
+        return name;
     }
 }

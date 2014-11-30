@@ -3,6 +3,7 @@ package ru.unn.agile.LeftistHeap.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.LeftistHeap.Model.LeftistHeap;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +22,7 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertNotNull(viewModel.heapsProperty());
+        assertNotNull(viewModel.heapProperty());
         assertEquals("", viewModel.keyProperty().get());
         assertEquals("", viewModel.valueProperty().get());
         assertEquals("", viewModel.newKeyProperty().get());
@@ -33,13 +34,15 @@ public class ViewModelTests {
     public void canAddElement() {
         viewModel.keyProperty().set("1");
         viewModel.add();
-        assertEquals("OK", viewModel.statusProperty().get());
+
+        assertEquals("New element added to heap 'heap 1'", viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canValidateBeforeAddElement() {
         viewModel.add();
-        assertEquals("Bad input", viewModel.statusProperty().get());
+        assertEquals(Status.BAD_INPUT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -48,10 +51,10 @@ public class ViewModelTests {
         viewModel.valueProperty().set("value");
         viewModel.add();
 
-        viewModel.delete();
+        viewModel.extract();
 
         assertEquals("Key: 1, Value: value", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -61,10 +64,12 @@ public class ViewModelTests {
         viewModel.add();
         viewModel.keyProperty().set("abra-kadabra");
 
-        viewModel.delete();
+        viewModel.extract();
 
-        assertEquals("", viewModel.resultProperty().get());
-        assertEquals("Bad input", viewModel.statusProperty().get());
+        assertEquals(
+                "Any element was not deleted",
+                viewModel.resultProperty().get());
+        assertEquals(Status.BAD_INPUT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -74,46 +79,40 @@ public class ViewModelTests {
         viewModel.add();
         viewModel.keyProperty().set("7");
 
-        viewModel.delete();
+        viewModel.extract();
 
-        assertEquals("Heap not contain elements with key '7'", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals(
+                "Heap 'heap 1' not contain elements with key '7'",
+                viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canGetMinimum() {
-        viewModel.keyProperty().set("1");
-        viewModel.valueProperty().set("value");
+        viewModel.keyProperty().set("2");
+        viewModel.valueProperty().set("big value");
         viewModel.add();
 
-        viewModel.getMinimum();
+        viewModel.extractMinimum();
 
-        assertEquals("Key: 1, Value: value", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals("Key: 2, Value: big value", viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canGetMinimumFromEmptyHeap() {
-        viewModel.getMinimum();
+        viewModel.extractMinimum();
 
-        assertEquals("Heap is empty", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void canCorrectGetMinimumFromEmptyHeap() {
-        viewModel.getMinimum();
-
-        assertEquals("Heap is empty", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals("Heap 'heap 1' is empty", viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canMerge() {
         viewModel.merge();
 
-        assertEquals("Merged", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals("Merged heap 'heap 2' with heap 'heap 1'", viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -127,7 +126,7 @@ public class ViewModelTests {
         viewModel.decreaseKey();
 
         assertEquals("Key decreased", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -141,8 +140,8 @@ public class ViewModelTests {
 
         viewModel.decreaseKey();
 
-        assertEquals("Key not found", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals("Key '4' not found in heap 'heap 1'", viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -156,28 +155,39 @@ public class ViewModelTests {
         viewModel.decreaseKey();
 
         assertEquals("New key must be less than current", viewModel.resultProperty().get());
-        assertEquals("OK", viewModel.statusProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void canValidateNewKeyInputBeforDecrease() {
+    public void canValidateNewKeyInputBeforeDecrease() {
         viewModel.keyProperty().set("1");
         viewModel.newKeyProperty().set("words");
 
         viewModel.decreaseKey();
 
-        assertEquals("", viewModel.resultProperty().get());
-        assertEquals("Bad input", viewModel.statusProperty().get());
+        assertEquals("Any key was not decreased", viewModel.resultProperty().get());
+        assertEquals(Status.BAD_INPUT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
-    public void canValidateKeyInputBeforDecrease() {
+    public void canValidateKeyInputBeforeDecrease() {
         viewModel.keyProperty().set("this key");
         viewModel.newKeyProperty().set("4");
 
         viewModel.decreaseKey();
 
-        assertEquals("", viewModel.resultProperty().get());
-        assertEquals("Bad input", viewModel.statusProperty().get());
+        assertEquals("Any key was not decreased", viewModel.resultProperty().get());
+        assertEquals(Status.BAD_INPUT.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void canChangeSelectedHeap() {
+        viewModel.heapProperty().set(new LeftistHeap<String>("new heap"));
+        viewModel.keyProperty().set("5");
+        viewModel.valueProperty().set("value");
+        viewModel.add();
+
+        assertEquals("New element added to heap 'new heap'", viewModel.resultProperty().get());
+        assertEquals(Status.OK.toString(), viewModel.statusProperty().get());
     }
 }

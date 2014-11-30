@@ -3,13 +3,10 @@ package ru.unn.agile.CreditCalculator.ViewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-//import ru.unn.agile.ComplexNumber.viewmodel.legacy.ViewModel.Operation;
-//import ru.unn.agile.ComplexNumber.viewmodel.legacy.ViewModel.Status;
+import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.Currency;
+import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.Status;
+import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.TypePayment;
 
-//private Operation operation;
-//private String result;
-//private String status;
-//private boolean isCalculateButtonEnabled;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
@@ -31,9 +28,10 @@ public class ViewModelTests {
         assertEquals("", viewModel.getPaymentPeriod());
         assertEquals("", viewModel.getInterestRate());
         assertEquals("", viewModel.getStartMonth());
-        //assertEquals(Operation.ADD, viewModel.getOperation());
+        assertEquals(Currency.RUB, viewModel.getCurrency());
+        assertEquals(TypePayment.Annuity, viewModel.getTypePayment());
         assertEquals("", viewModel.getResult());
-        //assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(Status.WAITING, viewModel.getStatus());
     }
 /*
     @Test

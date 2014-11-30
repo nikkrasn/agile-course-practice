@@ -1,5 +1,3 @@
-apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
-
 //dependencies {
   //  compile project(':Zolotov-Andrey-ViewModel')
 //}

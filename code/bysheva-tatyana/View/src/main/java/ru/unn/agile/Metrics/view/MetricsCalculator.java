@@ -24,18 +24,18 @@ public class MetricsCalculator {
     @FXML
     private Button btnCalc;
     @FXML
-    private TableColumn<String, String> vector1;
+    private TableColumn vector1;
     @FXML
-    private TableColumn<String, String> vector2;
+    private TableColumn vector2;
 
     @FXML
     void initialize() {
 
         // Two-way binding hasn't supported by FXML yet, so place it in code-behind
-        vector1.setCellValueFactory(new PropertyValueFactory<String,String>("vector1Column"));
-        vector2.setCellValueFactory(new PropertyValueFactory<String,String>("vector2Column"));
         tableView.setEditable(true);
         tableView.setVisible(true);
+
+        tableView.setItems(viewModel.getVectorsValuesProperty());
 
         vectorsDimension.textProperty().bindBidirectional(viewModel.vectorsDimensionProperty());
 

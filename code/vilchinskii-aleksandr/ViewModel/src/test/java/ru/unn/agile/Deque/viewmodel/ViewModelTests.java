@@ -32,15 +32,38 @@ public class ViewModelTests {
 
     @Test
     public void statusIsReadyWithNotEmptyField() {
-        viewModel.txtValueProperty().set("1");
+        setInputData("1");
 
         assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
-        viewModel.txtValueProperty().set("a");
+        setInputData("a");
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void areAddButtonsDisabledInitially() {
+        assertTrue(viewModel.isAddingDisabledProperty().get());
+    }
+
+    @Test
+    public void areAddButtonsDisabledWhenFormatIsBad() {
+        setInputData("a");
+
+        assertTrue(viewModel.isAddingDisabledProperty().get());
+    }
+
+    @Test
+    public void calculateButtonIsEnabledWithCorrectInput() {
+        setInputData("1");
+
+        assertFalse(viewModel.isAddingDisabledProperty().get());
+    }
+
+    private void setInputData(String input) {
+        viewModel.txtValueProperty().set(input);
     }
 }

@@ -1,5 +1,8 @@
 package ru.unn.agile.Deque.viewmodel;
 
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -9,16 +12,33 @@ public class ViewModel {
     private final StringProperty txtValue = new SimpleStringProperty();
     private final StringProperty status   = new SimpleStringProperty();
 
+    private final BooleanProperty isAddingDisabled = new SimpleBooleanProperty();
+
     private final ValueChangeListener valueChangedListener = new ValueChangeListener();
 
     public ViewModel() {
         txtValue.set("");
         status.set(Status.WAITING.toString());
 
+        BooleanBinding canAdd = new BooleanBinding() {
+            {
+                super.bind(txtValue);
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == Status.READY;
+            }
+        };
+        isAddingDisabled.bind(canAdd.not());
+
         txtValue.addListener(valueChangedListener);
     }
 
     public void addFirst() {
+        if (isAddingDisabled.get()) {
+            return;
+        }
+
         return;
     }
 
@@ -28,6 +48,14 @@ public class ViewModel {
 
     public final String getTxtValue() {
         return txtValue.get();
+    }
+
+    public BooleanProperty isAddingDisabledProperty() {
+        return isAddingDisabled;
+    }
+
+    public final boolean getIsAddingDisabled() {
+        return isAddingDisabled.get();
     }
 
     public StringProperty statusProperty() {

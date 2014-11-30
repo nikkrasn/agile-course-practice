@@ -45,54 +45,8 @@ public class ViewModel {
         resultKey.set("—");
         resultValue.set("—");
         status.set(Status.WAITING.toString());
-
-        BooleanBinding couldExecute = new BooleanBinding() {
-            {
-                super.bind(key, value, operation);
-            }
-            @Override
-            protected boolean computeValue() {
-                Status tempStatus = getInputStatus();
-                status.set(tempStatus.toString());
-                return tempStatus == Status.READY;
-            }
-        };
-        executeDisabled.bind(couldExecute.not());
-
-        BooleanBinding couldChangeKeyField = new BooleanBinding() {
-            {
-                super.bind(operation);
-            }
-            @Override
-            protected boolean computeValue() {
-                return operation.get() != Operation.FIND && operation.get() != Operation.GET_ROOT;
-            }
-        };
-
-        keyFieldDisabled.bind(couldChangeKeyField.not());
-
-        BooleanBinding couldChangeValueField = new BooleanBinding() {
-            {
-                super.bind(operation);
-            }
-            @Override
-            protected boolean computeValue() {
-                return operation.get() == Operation.INSERT || operation.get() == Operation.FIND;
-            }
-        };
-
-        valueFieldDisabled.bind(couldChangeValueField.not());
-
-        final List<StringProperty> stringFields = new ArrayList<StringProperty>() { {
-            add(key);
-            add(value);
-        } };
-
-        for (StringProperty field : stringFields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
+        bindDeterminate();
+        createFieldsValueChangingListeners();
     }
 
     public void execute() {
@@ -217,6 +171,58 @@ public class ViewModel {
 
         status.set(inputStatus.toString());
         return inputStatus;
+    }
+
+    private void bindDeterminate() {
+        BooleanBinding couldExecute = new BooleanBinding() {
+            {
+                super.bind(key, value, operation);
+            }
+            @Override
+            protected boolean computeValue() {
+                Status tempStatus = getInputStatus();
+                status.set(tempStatus.toString());
+                return tempStatus == Status.READY;
+            }
+        };
+        executeDisabled.bind(couldExecute.not());
+
+        BooleanBinding couldChangeKeyField = new BooleanBinding() {
+            {
+                super.bind(operation);
+            }
+            @Override
+            protected boolean computeValue() {
+                return operation.get() != Operation.FIND && operation.get() != Operation.GET_ROOT;
+            }
+        };
+
+        keyFieldDisabled.bind(couldChangeKeyField.not());
+
+        BooleanBinding couldChangeValueField = new BooleanBinding() {
+            {
+                super.bind(operation);
+            }
+            @Override
+            protected boolean computeValue() {
+                return operation.get() == Operation.INSERT || operation.get() == Operation.FIND;
+            }
+        };
+
+        valueFieldDisabled.bind(couldChangeValueField.not());
+    }
+
+    private void createFieldsValueChangingListeners() {
+        final List<StringProperty> stringFields = new ArrayList<StringProperty>() { {
+            add(key);
+            add(value);
+        } };
+
+        for (StringProperty field : stringFields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
     }
 }
 

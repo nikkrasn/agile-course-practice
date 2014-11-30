@@ -4,6 +4,8 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.collections.FXCollections;
 import ru.unn.agile.Vector3D.Model.Vector3D;
 
 import java.util.ArrayList;
@@ -20,13 +22,14 @@ public class ViewModel {
     private final StringProperty vector2CoordinateZ = new SimpleStringProperty();
 
     private final StringProperty result = new SimpleStringProperty();
-
     private final StringProperty status = new SimpleStringProperty();
 
-    private VectorOperation operation = VectorOperation.NORM;
-
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final ObjectProperty<VectorOperation> operationList = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+
+    private final ObjectProperty<ObservableList<VectorOperation>> operations =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList(VectorOperation.values()));
 
     public ViewModel() {
         vector1CoordinateX.setValue("");
@@ -40,7 +43,7 @@ public class ViewModel {
         result.setValue("");
         status.setValue(Status.WAITING.toString());
 
-        operation = VectorOperation.NORM;
+        operationList.set(VectorOperation.NORM);
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
@@ -81,13 +84,25 @@ public class ViewModel {
     public StringProperty getVector2CoordinateY() { return vector2CoordinateY; }
     public StringProperty getVector2CoordinateZ() { return vector2CoordinateZ; }
 
-    public StringProperty getResult() { return result; }
+    public StringProperty resultProperty() {
+        return result;
+    }
+    public final String getResult() { return result.get(); }
 
-    public StringProperty getStatusProperty() { return status; }
+    public StringProperty statusProperty() { return status; }
+    public final String getStatus() {
+        return status.get();
+    }
 
-    public VectorOperation getOperation() { return operation; }
-    public void setOperation(final VectorOperation newOperation) {
-        operation = newOperation;
+    public ObjectProperty<ObservableList<VectorOperation>> operationsProperty() {
+        return operations;
+    }
+    public final ObservableList<VectorOperation> getOperations() {
+        return operations.get();
+    }
+
+    public ObjectProperty<VectorOperation> operationProperty() {
+        return operationList;
     }
 
     public void calculate() {
@@ -95,17 +110,18 @@ public class ViewModel {
             return;
         }
 
+        VectorOperation operation = operationList.get();
         Vector3D v1 = new Vector3D(
                 Double.parseDouble(vector1CoordinateX.get()),
                 Double.parseDouble(vector1CoordinateY.get()),
                 Double.parseDouble(vector1CoordinateZ.get()));
 
         if (operation == VectorOperation.NORM) {
-            result.set(String.format("%f", v1.getNorm()));
+            result.set(String.format("%.3f", v1.getNorm()));
         } else {
             if (operation == VectorOperation.NORMALAZE) {
                 v1.normalize();
-                result.set(String.format("(%f, %f, %f)",
+                result.set(String.format("(%.3f, %.3f, %.3f)",
                         v1.getCoordinateX(),
                         v1.getCoordinateY(),
                         v1.getCoordinateZ()));
@@ -116,11 +132,11 @@ public class ViewModel {
                         Double.parseDouble(vector2CoordinateZ.get()));
                 if (operation == VectorOperation.DOTPRODUCT) {
                     double dotProduct = Vector3D.dotProduct(v1, v2);
-                    result.set(String.format("%f", dotProduct));
+                    result.set(String.format("%.3f", dotProduct));
                 } else {
                     if (operation == VectorOperation.CROSSPRODUCT) {
                         Vector3D v3 = Vector3D.crossProduct(v1, v2);
-                        result.set(String.format("(%f, %f, %f)",
+                        result.set(String.format("(%.3f, %.3f, %.3f)",
                                 v1.getCoordinateX(),
                                 v1.getCoordinateY(),
                                 v1.getCoordinateZ()));
@@ -140,18 +156,23 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (vector1CoordinateX.get().isEmpty() || vector1CoordinateY.get().isEmpty()
-                || vector1CoordinateZ.get().isEmpty()) {
-            if (operation == VectorOperation.DOTPRODUCT
-                    || operation == VectorOperation.CROSSPRODUCT) {
-                if (vector2CoordinateX.get().isEmpty()
+        VectorOperation operation = operationList.get();
+        if (operation == VectorOperation.DOTPRODUCT
+                || operation == VectorOperation.CROSSPRODUCT) {
+                if (vector1CoordinateX.get().isEmpty()
+                        || vector1CoordinateY.get().isEmpty()
+                        || vector1CoordinateZ.get().isEmpty()
+                        || vector2CoordinateX.get().isEmpty()
                         || vector2CoordinateY.get().isEmpty()
                         || vector2CoordinateZ.get().isEmpty()) {
                     inputStatus = Status.WAITING;
                 }
             } else {
-                inputStatus = Status.WAITING;
-            }
+                if (vector1CoordinateX.get().isEmpty()
+                        || vector1CoordinateY.get().isEmpty()
+                        || vector1CoordinateZ.get().isEmpty()) {
+                    inputStatus = Status.WAITING;
+                }
         }
         try {
             if (!vector1CoordinateX.get().isEmpty()) {
@@ -189,14 +210,6 @@ public class ViewModel {
             status.set(getInputStatus().toString());
         }
     }
-
-}
-
-enum VectorOperation {
-    NORM,
-    NORMALAZE,
-    DOTPRODUCT,
-    CROSSPRODUCT;
 }
 
 enum Status {

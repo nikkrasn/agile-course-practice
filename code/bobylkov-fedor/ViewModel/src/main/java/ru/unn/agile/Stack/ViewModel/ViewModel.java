@@ -1,27 +1,48 @@
 package ru.unn.agile.Stack.ViewModel;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import ru.unn.agile.Stack.Model.Stack;
+import javafx.scene.control.TableView;
 
 public class ViewModel {
+    private final ObjectProperty<ObservableList<String>> stackTable = new SimpleObjectProperty<>();
     private final StringProperty top = new SimpleStringProperty();
-    private final StringProperty push = new SimpleStringProperty();
+    private final StringProperty pushText = new SimpleStringProperty();
     private final BooleanProperty isEmpty = new SimpleBooleanProperty();
+    private final ObjectProperty<Stack<String>> stack = new SimpleObjectProperty<>();
     public StringProperty topProperty() {
         return top;
     }
-    public StringProperty pushProperty() {
-        return push;
+    public StringProperty pushTextProperty() {
+        return pushText;
     }
     public BooleanProperty isEmptyProperty() {
         return isEmpty;
     }
+    public ObjectProperty<ObservableList<String>> stackTableProperty() {
+        return stackTable;
+    }
 
     public ViewModel() {
-        top.set("");
-        push.set("Push me!");
-        isEmpty.set(false);
+        stack.addListener(new ChangeListener<Stack<String>>() {
+            @Override
+            public void changed(final ObservableValue<? extends Stack<String>> observable,
+                                final Stack<String> oldValue, final Stack<String> newValue) {
+                isEmpty.set(newValue.isEmpty());
+                top.set(isEmpty.get() ? "" : newValue.top());
+                stackTable.set(FXCollections.observableList(stack.get().toList()));
+            }
+        });
+
+        stack.set(new Stack<>());
+        pushText.set("Push me!");
+    }
+
+    public void push() {
+        stack.get().push(pushText.get());
     }
 }

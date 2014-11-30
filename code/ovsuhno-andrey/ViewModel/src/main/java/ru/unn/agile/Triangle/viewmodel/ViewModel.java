@@ -184,7 +184,7 @@ enum CurrentStatus {
     WAITING("Please provide input data"),
     READY("Press 'Calculate' or Enter"),
     BAD_FORMAT("Bad format"),
-    SUCCESS("Success");
+    SUCCESS("Successful computation");
 
     private final String name;
     private CurrentStatus(final String name) {

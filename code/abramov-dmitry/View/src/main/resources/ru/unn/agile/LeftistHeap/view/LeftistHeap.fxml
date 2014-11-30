@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import ru.unn.agile.LeftistHeap.viewmodel.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.LeftistHeap.view.LeftistHeap">
+    
+    <children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="354.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <ViewModel fx:id="viewModel" />
+    </fx:define>
+   <children>
+      <HBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="235.0" prefWidth="504.0">
+         <children>
+            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="368.0" prefWidth="310.0" style="-fx-border-color: red;">
+               <children>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Current heap:" />
+                        <ComboBox fx:id="cbHeap" items="${viewModel.heaps}" />
+                           </children>
+                        </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
+                     <children>
+                        <Label text="Key:" />
+                        <TextField fx:id="key1" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
+                     <children>
+                        <Label text="Value:" />
+                        <TextField fx:id="value1" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="307.0">
+                     <children>
+                        <Label text="New key:" />
+                        <TextField fx:id="newKey1" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="60.0" prefWidth="307.0">
+                     <children>
+                        <Button fx:id="add" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="getMinimum" mnemonicParsing="false" text="Get minimum" />
+                        <Button fx:id="delete" mnemonicParsing="false" text="Delete" />
+                        <Button fx:id="decrease" mnemonicParsing="false" text="Decrease key" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="merge" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Merge" />
+                  <Label text="${viewModel.result}" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="611.0">
+         <children>
+            <Label text="${viewModel.status}" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
+    </children>
+</AnchorPane>

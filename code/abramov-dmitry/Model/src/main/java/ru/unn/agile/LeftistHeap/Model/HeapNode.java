@@ -27,6 +27,11 @@ public class HeapNode<TValue> {
         this.distValue = 0;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Key: %s, Value: %s", key, value.toString());
+    }
+
     public int getKey() {
         return key;
     }

@@ -3,10 +3,29 @@ package ru.unn.agile.LeftistHeap.Model;
 import java.util.Stack;
 
 public class LeftistHeap<TValue> {
+    private final String name;
+
     private HeapNode<TValue> heapRoot;
+
+    public LeftistHeap() {
+        name = "heap";
+    }
+
+    public LeftistHeap(final String heapName) {
+        name = heapName;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 
     public boolean isEmpty() {
         return heapRoot == null;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void add(final int key, final TValue value) {
@@ -101,11 +120,19 @@ public class LeftistHeap<TValue> {
             final HeapNode<TValue> root,
             final int key,
             final Stack<HeapNode<TValue>> path) {
+        if (heapRoot == null) {
+            return null;
+        }
+
         HeapNode<TValue> nodeToDecreaseKey = heapRoot;
 
         if (nodeToDecreaseKey.getKey() != key) {
             path.push(nodeToDecreaseKey);
             while (!path.empty()) {
+                if (nodeToDecreaseKey.getKey() > key) {
+                    return null;
+                }
+
                 if (nodeToDecreaseKey.getRightChild() != null
                         && nodeToDecreaseKey.getRightChild().getKey() <= key) {
                     nodeToDecreaseKey = nodeToDecreaseKey.getRightChild();

@@ -10,7 +10,24 @@ public class LeftistHeapTest {
     @Test
     public void canCreateLeftistHeap() {
         LeftistHeap<String> heap = new LeftistHeap<String>();
+
         assertNotNull(heap);
+        assertEquals("heap", heap.getName());
+    }
+
+    @Test
+    public void canCreateLeftistHeapWithName() {
+        LeftistHeap<String> heap = new LeftistHeap<String>("Best heap");
+
+        assertNotNull(heap);
+        assertEquals("Best heap", heap.getName());
+    }
+
+    @Test
+    public void checkToStringOverride() {
+        LeftistHeap<String> heap = new LeftistHeap<String>("I am heap");
+
+        assertEquals("I am heap", heap.toString());
     }
 
     @Test
@@ -228,6 +245,25 @@ public class LeftistHeapTest {
         heap1.merge(null);
 
         assertArrayEquals(new int[] {0, 2, 5}, getKeys(heap1));
+    }
+
+    @Test
+    public void canNotDecreaseKeyInEmpryHeap() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+
+        boolean result = heap.decreaseKey(2, 1);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void canNotDecreaseKeyIfNewKeyLessThanAllKeysInHeap() {
+        LeftistHeap<String> heap = new LeftistHeap<String>();
+        heap.add(5, "five");
+
+        boolean result = heap.decreaseKey(4, 1);
+
+        assertFalse(result);
     }
 
     private <TValue> int[] getKeys(final LeftistHeap<TValue> heap) {

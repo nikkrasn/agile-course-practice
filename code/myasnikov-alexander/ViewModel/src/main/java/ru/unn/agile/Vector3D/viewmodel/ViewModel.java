@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty vector1CoordinateX = new SimpleStringProperty();
-    private final StringProperty vector1CoordinateY = new SimpleStringProperty();
-    private final StringProperty vector1CoordinateZ = new SimpleStringProperty();
+    private final StringProperty vector1CoordinateX = new SimpleStringProperty("");
+    private final StringProperty vector1CoordinateY = new SimpleStringProperty("");
+    private final StringProperty vector1CoordinateZ = new SimpleStringProperty("");
 
-    private final StringProperty vector2CoordinateX = new SimpleStringProperty();
-    private final StringProperty vector2CoordinateY = new SimpleStringProperty();
-    private final StringProperty vector2CoordinateZ = new SimpleStringProperty();
+    private final StringProperty vector2CoordinateX = new SimpleStringProperty("");
+    private final StringProperty vector2CoordinateY = new SimpleStringProperty("");
+    private final StringProperty vector2CoordinateZ = new SimpleStringProperty("");
 
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty("");
+    private final StringProperty status = new SimpleStringProperty("");
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final ObjectProperty<VectorOperation> operationList = new SimpleObjectProperty<>();
@@ -31,15 +31,6 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList(VectorOperation.values()));
 
     public ViewModel() {
-        vector1CoordinateX.setValue("");
-        vector1CoordinateY.setValue("");
-        vector1CoordinateZ.setValue("");
-
-        vector2CoordinateX.setValue("");
-        vector2CoordinateY.setValue("");
-        vector2CoordinateZ.setValue("");
-
-        result.setValue("");
         status.setValue(Status.WAITING.toString());
 
         operationList.set(VectorOperation.NORM);
@@ -48,7 +39,6 @@ public class ViewModel {
             {
                 super.bind(vector1CoordinateX, vector1CoordinateY, vector1CoordinateZ,
                             vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ);
-
             }
             @Override
             protected boolean computeValue() {

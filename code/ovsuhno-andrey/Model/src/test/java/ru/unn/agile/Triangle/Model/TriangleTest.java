@@ -13,6 +13,7 @@ public class TriangleTest {
         Point pointB = new Point(3, 4);
         Point pointC = new Point(2, 1);
         Triangle newTriangle = new Triangle(pointA, pointB, pointC);
+
         assertNotNull(newTriangle);
     }
 
@@ -47,6 +48,7 @@ public class TriangleTest {
         Point pointC = new Point(2, 1);
         Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         Point correctA = new Point(1, 2);
+
         assertEquals(correctA, newTriangle.getA());
     }
 
@@ -57,6 +59,7 @@ public class TriangleTest {
         Point pointC = new Point(2, 1);
         Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         Point correctB = new Point(3, 4);
+
         assertEquals(correctB, newTriangle.getB());
     }
 
@@ -67,6 +70,7 @@ public class TriangleTest {
         Point pointC = new Point(2, 1);
         Triangle newTriangle = new Triangle(pointA, pointB, pointC);
         Point correctC = new Point(2, 1);
+
         assertEquals(correctC, newTriangle.getC());
     }
 
@@ -76,6 +80,7 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         certainTriangle.setA(1, 4);
     }
 
@@ -85,6 +90,7 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         certainTriangle.setB(2, 2);
     }
 
@@ -94,6 +100,7 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         certainTriangle.setC(1, 2);
     }
 
@@ -103,6 +110,7 @@ public class TriangleTest {
         Point pointB = new Point(3, 5);
         Point pointC = new Point(3, 1);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         certainTriangle.setA(3, 3);
     }
 
@@ -112,6 +120,7 @@ public class TriangleTest {
         Point pointB = new Point(3, 5);
         Point pointC = new Point(3, 1);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         certainTriangle.setB(2, 1);
     }
 
@@ -121,6 +130,7 @@ public class TriangleTest {
         Point pointB = new Point(3, 5);
         Point pointC = new Point(3, 1);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         certainTriangle.setC(2, 3);
     }
 
@@ -130,6 +140,7 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         assertArrayEquals(new double[]{2, 2.2361, 1}, certainTriangle.countLengths(), roughDelta);
     }
 
@@ -139,7 +150,9 @@ public class TriangleTest {
         Point pointB = new Point(2, 4);
         Point pointC = new Point(5, 3);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         double[] correctLengths = {2.2361, 3.1623, 4.1231};
+
         assertArrayEquals(correctLengths, certainTriangle.countLengths(), roughDelta);
     }
 
@@ -149,6 +162,7 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         assertEquals(5.2361, certainTriangle.countPerimeter(), roughDelta);
     }
 
@@ -158,6 +172,7 @@ public class TriangleTest {
         Point pointB = new Point(2, 4);
         Point pointC = new Point(5, 3);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         assertEquals(9.5215, certainTriangle.countPerimeter(), roughDelta);
     }
 
@@ -167,6 +182,7 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         assertEquals(1.0, certainTriangle.countSpace(), accurateDelta);
     }
 
@@ -176,6 +192,7 @@ public class TriangleTest {
         Point pointB = new Point(2, 4);
         Point pointC = new Point(5, 3);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         assertEquals(3.5, certainTriangle.countSpace(), roughDelta);
     }
 
@@ -185,7 +202,9 @@ public class TriangleTest {
         Point pointB = new Point(1, 4);
         Point pointC = new Point(2, 2);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         double[] correctAngles = {0.0, 0.8944, 0.4472};
+
         assertArrayEquals(correctAngles, certainTriangle.countAnglesCosine(), roughDelta);
     }
 
@@ -195,7 +214,9 @@ public class TriangleTest {
         Point pointB = new Point(2, 4);
         Point pointC = new Point(5, 3);
         Triangle certainTriangle = new Triangle(pointA, pointB, pointC);
+
         double[] correctAngles = {0.6508, -0.1414, 0.8437};
+
         assertArrayEquals(correctAngles, certainTriangle.countAnglesCosine(), roughDelta);
     }
 }

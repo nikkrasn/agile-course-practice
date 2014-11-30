@@ -81,33 +81,43 @@ public class ViewModel {
     public StringProperty aXProperty() {
         return aX;
     }
+
     public StringProperty aYProperty() {
         return aY;
     }
+
     public StringProperty bXProperty() {
         return bX;
     }
+
     public StringProperty bYProperty() {
         return bY;
     }
+
     public StringProperty cXProperty() {
         return cX;
     }
+
     public StringProperty cYProperty() {
         return cY;
     }
+
     public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
     }
+
     public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
+
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
+
     public BooleanProperty computationDisabledProperty() {
         return computationDisabled;
     }
+
     public final boolean getComputationDisabled() {
         return computationDisabled.get();
     }
@@ -115,12 +125,15 @@ public class ViewModel {
     public StringProperty valuesProperty() {
         return values;
     }
+
     public final String getValues() {
         return values.get();
     }
+
     public StringProperty statusProperty() {
         return status;
     }
+
     public final String getStatus() {
         return status.get();
     }

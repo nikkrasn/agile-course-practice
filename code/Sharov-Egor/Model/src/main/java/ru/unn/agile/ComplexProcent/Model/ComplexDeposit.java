@@ -13,59 +13,28 @@ public class ComplexDeposit {
     private GregorianCalendar startDate;
     private GregorianCalendar finishDate;
 
-    public ComplexDeposit(final double base, final double percent, final int interestCount) {
-        this.setBase(base);
-        this.setPercent(percent);
-        this.setInterestCountInYear(interestCount);
-    }
-
     public double getCapitalizedBase() {
-        return this.base * capitalizedPercentsFullInterest() * restPercents();
+        return base * capitalizedPercentsFullInterest() * restPercents();
     }
 
     public double getBase() {
         return base;
     }
 
-    public ComplexDeposit setBase(final double base) {
-        this.base = base;
-        return this;
-    }
-
     public double getPercent() {
         return percent;
-    }
-
-    public ComplexDeposit setPercent(final double percent) {
-        this.percent = percent / ENTIRE_PERCENT;
-        return this;
     }
 
     public double getInterestCountInYear() {
         return interestCountInYear;
     }
 
-    public ComplexDeposit setInterestCountInYear(final int interestCountInYear) {
-        this.interestCountInYear = interestCountInYear;
-        return this;
-    }
-
     public GregorianCalendar getStartDate() {
         return startDate;
     }
 
-    public ComplexDeposit setStartDate(final GregorianCalendar startDate) {
-        this.startDate = startDate;
-       return this;
-    }
-
     public GregorianCalendar getFinishDate() {
         return finishDate;
-    }
-
-    public ComplexDeposit setFinishDate(final GregorianCalendar finishDate) {
-        this.finishDate = finishDate;
-        return this;
     }
 
     @Override
@@ -83,6 +52,31 @@ public class ComplexDeposit {
         if (!(depositObject instanceof ComplexDeposit)) { return false; }
         ComplexDeposit deposit = (ComplexDeposit) depositObject;
         return isSameBase(deposit) && isSamePercent(deposit) && isSameInterestCount(deposit);
+    }
+
+    public ComplexDeposit setBase(final String base) {
+        this.base = Double.parseDouble(base);
+        return this;
+    }
+
+    public ComplexDeposit setPercent(final String percent) {
+        this.percent = Double.parseDouble(percent) / ENTIRE_PERCENT;
+        return this;
+    }
+
+    public ComplexDeposit setInterestCountInYear(final String interestCountInYear) {
+        this.interestCountInYear = Integer.parseInt(interestCountInYear);
+        return this;
+    }
+
+    public ComplexDeposit setStartDate(final GregorianCalendar startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public ComplexDeposit setFinishDate(final GregorianCalendar finishDate) {
+        this.finishDate = finishDate;
+        return this;
     }
 
     private int accrualCount() {

@@ -1,4 +1,4 @@
-package ru.unn.agile.BinaryTree.Model;
+package ru.unn.agile.BinaryTree.model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

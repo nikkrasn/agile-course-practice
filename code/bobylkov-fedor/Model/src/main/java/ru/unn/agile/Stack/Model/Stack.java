@@ -1,5 +1,9 @@
 package ru.unn.agile.Stack.Model;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
+
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;

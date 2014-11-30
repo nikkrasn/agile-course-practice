@@ -154,25 +154,33 @@ public class ViewModel {
         return calculationDisabled.get();
     }
 
+    private class ValueChangeListener implements ChangeListener<String> {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getInputStatus().toString());
+        }
+    }
+
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
         VectorOperation operation = operationList.get();
         if (operation == VectorOperation.DOTPRODUCT
                 || operation == VectorOperation.CROSSPRODUCT) {
-                if (vector1CoordinateX.get().isEmpty()
-                        || vector1CoordinateY.get().isEmpty()
-                        || vector1CoordinateZ.get().isEmpty()
-                        || vector2CoordinateX.get().isEmpty()
-                        || vector2CoordinateY.get().isEmpty()
-                        || vector2CoordinateZ.get().isEmpty()) {
-                    inputStatus = Status.WAITING;
-                }
-            } else {
-                if (vector1CoordinateX.get().isEmpty()
-                        || vector1CoordinateY.get().isEmpty()
-                        || vector1CoordinateZ.get().isEmpty()) {
-                    inputStatus = Status.WAITING;
-                }
+            if (vector1CoordinateX.get().isEmpty()
+                    || vector1CoordinateY.get().isEmpty()
+                    || vector1CoordinateZ.get().isEmpty()
+                    || vector2CoordinateX.get().isEmpty()
+                    || vector2CoordinateY.get().isEmpty()
+                    || vector2CoordinateZ.get().isEmpty()) {
+                inputStatus = Status.WAITING;
+            }
+        } else {
+            if (vector1CoordinateX.get().isEmpty()
+                    || vector1CoordinateY.get().isEmpty()
+                    || vector1CoordinateZ.get().isEmpty()) {
+                inputStatus = Status.WAITING;
+            }
         }
         try {
             if (!vector1CoordinateX.get().isEmpty()) {
@@ -202,19 +210,11 @@ public class ViewModel {
 
         return inputStatus;
     }
-
-    private class ValueChangeListener implements ChangeListener<String> {
-        @Override
-        public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
-        }
-    }
 }
 
 enum Status {
-    WAITING("Please provide input data"),
     READY("Press 'Calculate' or Enter"),
+    WAITING("Please provide input data"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Success");
 

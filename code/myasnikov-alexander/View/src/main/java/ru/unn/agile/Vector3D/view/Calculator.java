@@ -8,7 +8,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import ru.unn.agile.Vector3D.viewmodel.*;
-import ru.unn.agile.Vector3D.viewmodel.ViewModel;
 
 public class Calculator {
     @FXML

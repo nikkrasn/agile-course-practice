@@ -150,6 +150,18 @@ public class StackTest {
         assertArrayEquals(new Object[] {"str"}, stringList.toArray());
     }
 
+    @Test
+    public void canStackBeCorruptedAfterCallingToList() {
+        stack.push(1);
+        stack.push(2);
+
+        List<Object> list = stack.toList();
+        list.clear();
+
+        assertArrayEquals(new Object[] {}, list.toArray());
+        assertStackEquals(new Object[] {1, 2}, stack);
+    }
+
     private void assertStackEquals(final Object[] expected, final Stack actual) {
         assertArrayEquals(expected, actual.toList().toArray());
     }

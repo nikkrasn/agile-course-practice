@@ -28,7 +28,7 @@
       </TableView>
       <AnchorPane maxHeight="60.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
-            <Button fx:id="popButton" layoutX="95.0" layoutY="16.0" mnemonicParsing="false" text="Pop" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button fx:id="popButton" disable="${viewModel.isEmpty}" layoutX="95.0" layoutY="16.0" mnemonicParsing="false" text="Pop" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="300.0">
@@ -43,7 +43,7 @@
       </AnchorPane>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Label fx:id="topLabel" layoutX="35.0" layoutY="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="topLabel" text="${viewModel.top}" layoutX="35.0" layoutY="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets left="5.0" />
                </padding>

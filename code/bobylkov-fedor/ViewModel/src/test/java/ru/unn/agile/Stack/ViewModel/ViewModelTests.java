@@ -14,24 +14,50 @@ public class ViewModelTests {
     }
 
     @Test
-    public void checkDefaultValues() {
-        assertEquals("", viewModel.topProperty().get());
+    public void checkDefaultPushValue() {
         assertEquals("Push me!", viewModel.pushTextProperty().get());
-        assertTrue(viewModel.isEmptyProperty().get());
+    }
+
+    @Test
+    public void isTopEmptyStringInitially() {
+        assertEquals("", viewModel.topProperty().get());
+    }
+
+    @Test
+    public void isStackTableEmptyInitially() {
         assertArrayEquals(new String[] {}, viewModel.stackTableProperty().get().toArray());
+    }
+
+    @Test
+    public void isPopButtonDisabledInitially() {
+        assertTrue(viewModel.isPopButtonDisabled().get());
     }
 
     @Test
     public void canPushDefaultValue() {
         viewModel.push();
-        assertArrayEquals(new String[] {"Push me!"}, viewModel.stackTableProperty().get().toArray());
+        assertArrayEquals(new String[] {"Push me!"},
+                viewModel.stackTableProperty().get().toArray());
     }
 
     @Test
-    public void canPush() {
+    public void isPopButtonEnabledInNotEmptyStack() {
+        viewModel.push();
+        assertFalse(viewModel.isPopButtonDisabled().get());
+    }
+
+    @Test
+    public void isTopCorrectAfterPush() {
+        viewModel.push();
+        assertEquals("Push me!", viewModel.topProperty().get());
+    }
+
+    @Test
+    public void canPushSomeValue() {
         viewModel.pushTextProperty().set("something");
         viewModel.push();
-        assertArrayEquals(new String[] {"something"}, viewModel.stackTableProperty().get().toArray());
+        assertArrayEquals(new String[] {"something"},
+                viewModel.stackTableProperty().get().toArray());
     }
 
     @Test
@@ -39,6 +65,7 @@ public class ViewModelTests {
         viewModel.push();
         viewModel.pushTextProperty().set("something");
         viewModel.push();
-        assertArrayEquals(new String[] {"Push me!", "something"}, viewModel.stackTableProperty().get().toArray());
+        assertArrayEquals(new String[] {"Push me!", "something"},
+                viewModel.stackTableProperty().get().toArray());
     }
 }

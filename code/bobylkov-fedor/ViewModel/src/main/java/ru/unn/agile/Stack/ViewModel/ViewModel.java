@@ -6,7 +6,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import ru.unn.agile.Stack.Model.Stack;
-import javafx.scene.control.TableView;
 
 public class ViewModel {
     private final ObjectProperty<ObservableList<String>> stackTable = new SimpleObjectProperty<>();
@@ -20,11 +19,11 @@ public class ViewModel {
     public StringProperty pushTextProperty() {
         return pushText;
     }
-    public BooleanProperty isEmptyProperty() {
-        return isEmpty;
-    }
     public ObjectProperty<ObservableList<String>> stackTableProperty() {
         return stackTable;
+    }
+    public BooleanProperty isPopButtonDisabled() {
+        return isEmpty;
     }
 
     public ViewModel() {
@@ -34,7 +33,7 @@ public class ViewModel {
                                 final Stack<String> oldValue, final Stack<String> newValue) {
                 isEmpty.set(newValue.isEmpty());
                 top.set(isEmpty.get() ? "" : newValue.top());
-                stackTable.set(FXCollections.observableList(stack.get().toList()));
+                stackTable.set(FXCollections.observableList(newValue.toList()));
             }
         });
 

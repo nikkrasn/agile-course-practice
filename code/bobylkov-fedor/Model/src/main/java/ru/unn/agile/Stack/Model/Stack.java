@@ -45,7 +45,7 @@ public class Stack<T> {
     }
 
     public List<T> toList() {
-        return elements;
+        return new ArrayList<>(elements);
     }
 
     private int size() {

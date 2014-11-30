@@ -1,6 +1,5 @@
 package ru.unn.agile.Deque.viewmodel;
 
-import ru.unn.agile.Deque.viewmodel.ViewModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,27 +20,27 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValue() {
-        assertEquals("", viewModel.txtValueProperty().get());
+        assertEquals("", viewModel.getTxtValue());
     }
 
     @Test
-    public void statusIsWaitingWhenAddingWithEmptyField() {
+    public void isStatusWaitingWhenAddingWithEmptyField() {
         viewModel.addFirst();
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
-    public void statusIsReadyWithNotEmptyField() {
+    public void isStatusReadyWithNotEmptyField() {
         setInputData("1");
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.READY.toString(), viewModel.getStatus());
     }
 
     @Test
     public void canReportBadFormat() {
         setInputData("a");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -64,17 +63,61 @@ public class ViewModelTests {
     }
 
     @Test
-    public void areGetButtonsDisabledInitially() {
-        assertTrue(viewModel.getIsGettingDisabled());
+    public void isStatusEmptyIfToGetFromEmptyDeque() {
+        viewModel.getFirst();
+        assertEquals(Status.EMPTY.toString(), viewModel.getStatus());
     }
 
     @Test
-    public void areGetButtonsEnabledWhenDequeIsNotEmpty() {
-        setInputData("1");
+    public void canGetFirst() {
+        String item = addOneAsFirst();
 
+        viewModel.getFirst();
+
+        assertEquals(item, viewModel.getTxtValue());
+    }
+
+    @Test
+    public void canGetLast() {
+        String item = addOneAsLast();
+
+        viewModel.getLast();
+
+        assertEquals(item, viewModel.getTxtValue());
+    }
+
+    @Test
+    public void canRemoveFirst() {
+        String item = addOneAsFirst();
+
+        viewModel.removeFirst();
+
+        assertEquals(item, viewModel.getTxtValue());
+        assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void canRemoveLast() {
+        String item = addOneAsLast();
+
+        viewModel.removeLast();
+
+        assertEquals(item, viewModel.getTxtValue());
+        assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
+    }
+
+    private String addOneAsFirst() {
+        String item = "1";
+        setInputData(item);
         viewModel.addFirst();
+        return item;
+    }
 
-        assertFalse(viewModel.getIsGettingDisabled());
+    private String addOneAsLast() {
+        String item = "1";
+        setInputData(item);
+        viewModel.addLast();
+        return item;
     }
 
     private void setInputData(String input) {

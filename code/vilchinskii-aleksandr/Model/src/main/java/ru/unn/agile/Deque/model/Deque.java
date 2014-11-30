@@ -78,15 +78,7 @@ public final class Deque<Item> {
             throw new NoSuchElementException();
         }
 
-        Item itemToReturn = first.item;
-        if (first.equals(last)) {
-            first = null;
-            last  = null;
-        } else {
-            first = first.next;
-            first.prev = null;
-        }
-        return itemToReturn;
+        return getFirstItemToReturn();
     }
 
     public Item removeLast() {
@@ -94,15 +86,7 @@ public final class Deque<Item> {
             throw new NoSuchElementException();
         }
 
-        Item itemToReturn = last.item;
-        if (first.equals(last)) {
-            first = null;
-            last  = null;
-        } else {
-            last = last.prev;
-            last.next = null;
-        }
-        return itemToReturn;
+        return getLastItemToReturn();
     }
 
     public Item peekFirst() {
@@ -124,15 +108,7 @@ public final class Deque<Item> {
             return null;
         }
 
-        Item itemToReturn = first.item;
-        if (first.equals(last)) {
-            first = null;
-            last  = null;
-        } else {
-            first = first.next;
-            first.prev = null;
-        }
-        return itemToReturn;
+        return getFirstItemToReturn();
     }
 
     public Item pollLast() {
@@ -140,15 +116,7 @@ public final class Deque<Item> {
             return null;
         }
 
-        Item itemToReturn = last.item;
-        if (first.equals(last)) {
-            first = null;
-            last  = null;
-        } else {
-            last = last.prev;
-            last.next = null;
-        }
-        return itemToReturn;
+        return getLastItemToReturn();
     }
 
     public void clear() {
@@ -161,5 +129,29 @@ public final class Deque<Item> {
                 first.prev = null;
             }
         }
+    }
+
+    private Item getFirstItemToReturn() {
+        Item itemToReturn = first.item;
+        if (first.equals(last)) {
+            first = null;
+            last  = null;
+        } else {
+            first = first.next;
+            first.prev = null;
+        }
+        return itemToReturn;
+    }
+
+    private Item getLastItemToReturn() {
+        Item itemToReturn = last.item;
+        if (first.equals(last)) {
+            first = null;
+            last  = null;
+        } else {
+            last = last.prev;
+            last.next = null;
+        }
+        return itemToReturn;
     }
 }

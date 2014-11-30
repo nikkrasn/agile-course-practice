@@ -9,6 +9,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Deque.model.Deque;
 
+import java.util.NoSuchElementException;
+
 public class ViewModel {
     private final StringProperty txtValue = new SimpleStringProperty();
     private final StringProperty status   = new SimpleStringProperty();
@@ -16,7 +18,6 @@ public class ViewModel {
     private Deque<Integer> deque = Deque.create();
 
     private final BooleanProperty isAddingDisabled  = new SimpleBooleanProperty();
-    private final BooleanProperty isGettingDisabled = new SimpleBooleanProperty();
 
     private final ValueChangeListener valueChangedListener = new ValueChangeListener();
 
@@ -35,17 +36,6 @@ public class ViewModel {
         };
         isAddingDisabled.bind(canAdd.not());
 
-        BooleanBinding canGet = new BooleanBinding() {
-            {
-                super.bind(txtValue);
-            }
-            @Override
-            protected boolean computeValue() {
-                return !deque.isEmpty();
-            }
-        };
-        isGettingDisabled.bind(canGet.not());
-
         txtValue.addListener(valueChangedListener);
     }
 
@@ -54,8 +44,57 @@ public class ViewModel {
             return;
         }
 
-        Integer item = Integer.parseInt(txtValue.get());
+        Integer item = Integer.parseInt(getTxtValue());
         deque.addFirst(item);
+    }
+
+    public void addLast() {
+        if (isAddingDisabled.get()) {
+            return;
+        }
+
+        Integer item = Integer.parseInt(getTxtValue());
+        deque.addLast(item);
+    }
+
+    public void getFirst() {
+        try {
+            Integer item = deque.getFirst();
+            txtValue.set(item.toString());
+            status.set(Status.SUCCESS.toString());
+        } catch (NoSuchElementException nsee) {
+            status.set(Status.EMPTY.toString());
+        }
+    }
+
+    public void getLast() {
+        try {
+            Integer item = deque.getLast();
+            txtValue.set(item.toString());
+            status.set(Status.SUCCESS.toString());
+        } catch (NoSuchElementException nsee) {
+            status.set(Status.EMPTY.toString());
+        }
+    }
+
+    public void removeFirst() {
+        try {
+            Integer item = deque.removeFirst();
+            txtValue.set(item.toString());
+            status.set(Status.SUCCESS.toString());
+        } catch (NoSuchElementException nsee) {
+            status.set(Status.EMPTY.toString());
+        }
+    }
+
+    public void removeLast() {
+        try {
+            Integer item = deque.removeLast();
+            txtValue.set(item.toString());
+            status.set(Status.SUCCESS.toString());
+        } catch (NoSuchElementException nsee) {
+            status.set(Status.EMPTY.toString());
+        }
     }
 
     public StringProperty txtValueProperty() {
@@ -74,14 +113,6 @@ public class ViewModel {
         return isAddingDisabled.get();
     }
 
-    public BooleanProperty isGettingDisabledProperty() {
-        return isGettingDisabled;
-    }
-
-    public final boolean getIsGettingDisabled() {
-        return isGettingDisabled.get();
-    }
-
     public StringProperty statusProperty() {
         return status;
     }
@@ -91,13 +122,13 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (txtValueProperty().get().isEmpty()) {
+        if (getTxtValue().isEmpty()) {
             inputStatus = Status.WAITING;
             return inputStatus;
         }
 
         try {
-            Integer.parseInt(txtValue.get());
+            Integer.parseInt(getTxtValue());
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
         }
@@ -116,8 +147,9 @@ public class ViewModel {
 
 enum Status {
     WAITING("Please provide input data"),
-    READY("Press any button"),
+    READY("Press add button"),
     BAD_FORMAT("Bad format"),
+    EMPTY("Container is empty"),
     SUCCESS("Success");
 
     private final String name;

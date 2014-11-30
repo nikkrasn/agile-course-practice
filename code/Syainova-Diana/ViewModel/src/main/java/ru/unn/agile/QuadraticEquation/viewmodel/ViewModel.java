@@ -42,7 +42,6 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-
                 return getEquationStatus() == systemStatus.READY;
             }
         };
@@ -156,7 +155,6 @@ public class ViewModel {
         } catch (NumberFormatException nfe) {
                 equationStatus = systemStatus.BAD_FORMAT;
         }
-
         return equationStatus;
     }
 

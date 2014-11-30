@@ -224,11 +224,11 @@ public class ViewModel {
         }
     }
 
-    private int getFirstNodeKey(ArrayList<Node> nodes) {
+    private int getFirstNodeKey(final ArrayList<Node> nodes) {
         return nodes.get(0).getKey();
     }
 
-    private Object getFirstNodeValue(ArrayList<Node> nodes) {
+    private Object getFirstNodeValue(final ArrayList<Node> nodes) {
         return nodes.get(0).getValue();
     }
 }

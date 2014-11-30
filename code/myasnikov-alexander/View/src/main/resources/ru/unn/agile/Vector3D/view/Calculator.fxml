@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import ru.unn.agile.Vector3D.viewmodel.*?>
+
+<AnchorPane prefHeight="221.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Vector3D.view.Calculator">
+    <fx:define>
+        <ViewModel fx:id="viewModel" />
+    </fx:define>
+    <children>
+      <VBox prefHeight="112.0" prefWidth="336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="25.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="55.0" text="Vector1">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="vec1X" prefWidth="50.0" text="1" />
+                  <TextField fx:id="vec1Y" prefWidth="50.0" text="2" />
+                  <TextField fx:id="vec1Z" prefWidth="50.0" text="3" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="25.0">
+               <children>
+                  <Label prefHeight="25.0" prefWidth="55.0" text="Vector 2" />
+                  <TextField fx:id="vec2X" prefWidth="50.0" text="4" />
+                  <TextField fx:id="vec2Y" prefWidth="50.0" text="5" />
+                  <TextField fx:id="vec2Z" prefWidth="50.0" text="6" />
+               </children>
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="25.0">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <ComboBox fx:id="operation" items="${viewModel.operations}" prefHeight="25.0" prefWidth="200.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="25.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <children>
+                  <Button fx:id="solve" disable="${viewModel.calculationDisabled}" mnemonicParsing="false" prefWidth="200.0" text="Solve" />
+               </children>
+            </HBox>
+            <HBox>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+               <children>
+                  <Label prefHeight="25.0" prefWidth="50.0" text="Result:">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="resultLabel" prefHeight="25.0" prefWidth="150.0" text="${viewModel.result}" />
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label prefHeight="25.0" prefWidth="50.0" text="Status:" />
+                  <Label fx:id="status" prefHeight="25.0" prefWidth="150.0" text="" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

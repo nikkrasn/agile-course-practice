@@ -1,9 +1,8 @@
 package ru.unn.agile.Stack.ViewModel;
 
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import ru.unn.agile.Stack.Model.Stack;
 
@@ -12,9 +11,12 @@ public class ViewModel {
     private final StringProperty top = new SimpleStringProperty();
     private final StringProperty pushText = new SimpleStringProperty();
     private final BooleanProperty isEmpty = new SimpleBooleanProperty();
-    private final ObjectProperty<Stack<String>> stack = new SimpleObjectProperty<>();
+    private final Stack<String> stack = new Stack<>();
     public StringProperty topProperty() {
         return top;
+    }
+    public final String getTop() {
+        return top.get();
     }
     public StringProperty pushTextProperty() {
         return pushText;
@@ -22,26 +24,35 @@ public class ViewModel {
     public ObjectProperty<ObservableList<String>> stackTableProperty() {
         return stackTable;
     }
-    public BooleanProperty isPopButtonDisabled() {
+    public Boolean isPopButtonDisabled() {
+        return isEmptyProperty().get();
+    }
+    public BooleanProperty isEmptyProperty() {
         return isEmpty;
+    }
+    public final Boolean getIsEmpty() {
+        return isEmpty.get();
     }
 
     public ViewModel() {
-        stack.addListener(new ChangeListener<Stack<String>>() {
+        stack.addListener(new ListChangeListener<String>() {
             @Override
-            public void changed(final ObservableValue<? extends Stack<String>> observable,
-                                final Stack<String> oldValue, final Stack<String> newValue) {
-                isEmpty.set(newValue.isEmpty());
-                top.set(isEmpty.get() ? "" : newValue.top());
-                stackTable.set(FXCollections.observableList(newValue.toList()));
+            public void onChanged(final Change<? extends String> c) {
+                updateProperties();
             }
         });
 
-        stack.set(new Stack<>());
+        updateProperties();
         pushText.set("Push me!");
     }
 
     public void push() {
-        stack.get().push(pushText.get());
+        stack.push(pushText.get());
+    }
+
+    private void updateProperties() {
+        isEmpty.set(stack.isEmpty());
+        top.set(isEmpty.get() ? "" : stack.top());
+        stackTable.set(FXCollections.observableList(stack.toList()));
     }
 }

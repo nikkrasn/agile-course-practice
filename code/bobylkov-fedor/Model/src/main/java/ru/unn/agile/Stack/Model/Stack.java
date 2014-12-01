@@ -1,27 +1,37 @@
 package ru.unn.agile.Stack.Model;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
 public class Stack<T> {
-    private final List<T> elements;
+    private final ListProperty<T> elementsProperty = new SimpleListProperty<>();
 
     public Stack() {
-        elements = new ArrayList<>();
+        elementsProperty.set(FXCollections.observableList(new ArrayList<>()));
     }
 
     public Stack(final Stack<T> otherStack) {
         if (otherStack == null) {
             throw new IllegalArgumentException(
-                    "Cannot create stack with copy-constructor: argument is null.");
+                    "Cannot create stack from stack: argument is null.");
         }
 
-        elements = otherStack.toList();
+        elementsProperty.set(FXCollections.observableList(otherStack.toList()));
+    }
+
+    public Stack(final List<T> list) {
+        if (list == null) {
+            throw new IllegalArgumentException(
+                    "Cannot create stack from list: argument is null.");
+        }
+
+        elementsProperty.set(FXCollections.observableList(list));
     }
 
     public boolean isEmpty() {
@@ -33,7 +43,7 @@ public class Stack<T> {
             throw new EmptyStackException();
         }
 
-        return elements.get(lastElementIndex());
+        return elements().get(lastElementIndex());
     }
 
     public T pop() {
@@ -41,19 +51,31 @@ public class Stack<T> {
             throw new EmptyStackException();
         }
 
-        return elements.remove(lastElementIndex());
+        return elements().remove(lastElementIndex());
     }
 
     public void push(final T element) {
-        elements.add(element);
+        elements().add(element);
     }
 
     public List<T> toList() {
-        return new ArrayList<>(elements);
+        return new ArrayList<>(elements());
+    }
+
+    public void addListener(final ListChangeListener<T> listener) {
+        elementsProperty.addListener(listener);
+    }
+
+    public void removeListener(final ListChangeListener<T> listener) {
+        elementsProperty.removeListener(listener);
+    }
+
+    private List<T> elements() {
+        return elementsProperty.get();
     }
 
     private int size() {
-        return elements.size();
+        return elements().size();
     }
 
     private int lastElementIndex() {

@@ -104,7 +104,7 @@ public class StackTest {
     }
 
     @Test
-    public void canCopyStack() {
+    public void canCopyStackFromStack() {
         stack.push(1);
         stack.push(2);
 
@@ -112,17 +112,30 @@ public class StackTest {
         assertStackEquals(new Object[] {1, 2}, stackFromStack);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void cannotCopyStackFromNull() {
-        stack = new Stack<>(null);
+    @Test
+    public void canCopyStackFromList() {
+        stack.push(1);
+        stack.push(2);
+
+        Stack<Object> stackFromList = new Stack<>(stack.toList());
+        assertStackEquals(new Object[] {1, 2}, stackFromList);
     }
 
     @Test
-    public void isOriginalStackCorrectAfterCopying() {
+         public void isOriginalStackCorrectAfterCopyingFromStack() {
         stack.push(1);
         stack.push(2);
 
         Stack<Object> stackFromStack = new Stack<>(stack);
+        assertStackEquals(new Object[] {1, 2}, stack);
+    }
+
+    @Test
+    public void isOriginalStackCorrectAfterCopyingFromList() {
+        stack.push(1);
+        stack.push(2);
+
+        Stack<Object> stackFromList = new Stack<>(stack.toList());
         assertStackEquals(new Object[] {1, 2}, stack);
     }
 

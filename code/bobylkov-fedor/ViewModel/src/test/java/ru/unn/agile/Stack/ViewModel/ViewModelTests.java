@@ -30,7 +30,7 @@ public class ViewModelTests {
 
     @Test
     public void isPopButtonDisabledInitially() {
-        assertTrue(viewModel.isPopButtonDisabled().get());
+        assertTrue(viewModel.isPopButtonDisabled());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ViewModelTests {
     @Test
     public void isPopButtonEnabledInNotEmptyStack() {
         viewModel.push();
-        assertFalse(viewModel.isPopButtonDisabled().get());
+        assertFalse(viewModel.isPopButtonDisabled());
     }
 
     @Test

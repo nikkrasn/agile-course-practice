@@ -13,16 +13,7 @@ public class CalculateSalary {
     private int lengthOfVacation;
 
     public double calculate() {
-        if (isIncorrectInput()) {
-            return 0;
-        }
-        if (isEmployeeWorkedMoreThanNormHoursInMonth()) {
-            return calcCashWithOvertime() * NDS;
-        }
-        if (isEmployeeWorkedLessThanNormHoursInMonth()) {
-            return calcCashForLessHours() * NDS;
-        }
-        return calcCashForNormalHours() * NDS;
+        return calcCashWithoutNDS() * NDS;
     }
 
     public CalculateSalary setSalary(final double inSalary) {
@@ -48,6 +39,19 @@ public class CalculateSalary {
     public CalculateSalary setLengthOfVacation(final int inLengthOfVacation) {
         lengthOfVacation = inLengthOfVacation;
         return this;
+    }
+
+    private double calcCashWithoutNDS() {
+        if (isIncorrectInput()) {
+            return 0;
+        }
+        if (isEmployeeWorkedMoreThanNormHoursInMonth()) {
+            return calcCashWithOvertime();
+        }
+        if (isEmployeeWorkedLessThanNormHoursInMonth()) {
+            return calcCashForLessHours();
+        }
+        return calcCashForNormalHours();
     }
 
     private double calcCashForLessHours() {

@@ -21,8 +21,10 @@ public class ViewModel {
 
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
-    private final ObjectProperty<Operation> bitOperationOnTwoFirstBitArrays = new SimpleObjectProperty<>();
-    private final ObjectProperty<Operation> bitOperationWithThirdBitArray = new SimpleObjectProperty<>();
+    private final ObjectProperty<Operation> bitOperationOnTwoFirstBitArrays =
+            new SimpleObjectProperty<>();
+    private final ObjectProperty<Operation> bitOperationWithThirdBitArray =
+            new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();

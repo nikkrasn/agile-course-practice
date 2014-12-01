@@ -46,4 +46,26 @@ public class XyzTest {
         Lab targetColor = (Lab) xyzColor.toColor(expectedColor.getClass());
         assertTrue(expectedColor.isEqual(targetColor));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateXyzWithValuesLessThanMinimum() {
+        new Xyz(Xyz.MIN_X - 1, Xyz.MIN_Y - 1, Xyz.MIN_Z - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateXyzWithValuesMoreThatMaximum() {
+        new Xyz(Xyz.MAX_X + 1, Xyz.MAX_Y + 1, Xyz.MAX_Z + 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetValuesLessThanMinimum() {
+        Xyz color = new Xyz();
+        color.setValues(Xyz.MIN_X - 1, Xyz.MIN_Y - 1, Xyz.MIN_Z - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetValuesMoreThatMaximum() {
+        Xyz color = new Xyz();
+        color.setValues(Xyz.MAX_X + 1, Xyz.MAX_Y + 1, Xyz.MAX_Z + 1);
+    }
 }

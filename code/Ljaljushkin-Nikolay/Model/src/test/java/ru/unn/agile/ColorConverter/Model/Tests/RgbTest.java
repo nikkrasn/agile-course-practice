@@ -79,4 +79,26 @@ public class RgbTest {
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
         assertTrue(expectedColor.isEqual(targetColor));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateRgbWithValuesLessThanMinimum() {
+        new Rgb(Rgb.MIN_R - 1, Rgb.MIN_G - 1, Rgb.MIN_B - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateRgbWithValuesMoreThatMaximum() {
+        new Rgb(Rgb.MAX_R + 1, Rgb.MAX_G + 1, Rgb.MAX_B + 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetValuesLessThanMinimum() {
+        Rgb color = new Rgb();
+        color.setValues(Rgb.MIN_R - 1, Rgb.MIN_G - 1, Rgb.MIN_B - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetValuesMoreThatMaximum() {
+        Rgb color = new Rgb();
+        color.setValues(Rgb.MAX_R + 1, Rgb.MAX_G + 1, Rgb.MAX_B + 1);
+    }
 }

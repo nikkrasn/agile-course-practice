@@ -29,9 +29,7 @@ public final class XyzConverter {
     public static final double RGB_FACTOR = 12.92;
     public static final double MAX_RGB = 255.0;
 
-    public static final double X_WHITE = 95.05;
-    public static final double Y_WHITE = 100.0;
-    public static final double Z_WHITE = 108.9;
+
 
     private XyzConverter() {
     }
@@ -115,7 +113,7 @@ public final class XyzConverter {
     }
 
     public static Xyz getWhiteReference() {
-        return new Xyz(X_WHITE, Y_WHITE, Z_WHITE);
+        return new Xyz(Xyz.MAX_X, Xyz.MAX_Y, Xyz.MAX_Z);
     }
 
 }

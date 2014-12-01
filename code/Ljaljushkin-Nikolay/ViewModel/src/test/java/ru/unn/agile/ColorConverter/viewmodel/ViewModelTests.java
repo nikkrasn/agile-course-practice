@@ -35,7 +35,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusWaitingWhenCalculateWithEmptyFields() {
+    public void isStatusWaitingWhenConvertWithEmptyFields() {
         viewModel.convert();
         assertEquals(Status.WAITING.toString(), viewModel.getStatus());
     }
@@ -56,6 +56,18 @@ public class ViewModelTests {
     public void canReportBadFormat() {
         fillFieldInBadFormat();
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
+    }
+
+//    @Test
+//    public void canReportOutOfRangeForRgb() {
+//        fillFieldOutsideAcceptableRangesForRgb();
+//        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+//    }
+
+    private void fillFieldOutsideAcceptableRangesForRgb() {
+        viewModel.setFirstChannelSrcColor("-1");
+        viewModel.setSecondChannelSrcColor("0");
+        viewModel.setThirdChannelSrcColor("256");
     }
 
     private void fillInputFields() {

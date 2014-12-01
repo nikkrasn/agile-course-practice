@@ -103,6 +103,8 @@ project(":code/lazarev-anton/Model").name = "lazarev-anton-Model"
 // Ljaljushkin Nikolay
 include "code/Ljaljushkin-Nikolay/Model"
 project(":code/Ljaljushkin-Nikolay/Model").name = "ljaljushkin-nikolay-Model"
+include "code/Ljaljushkin-Nikolay/ViewModel"
+project(":code/Ljaljushkin-Nikolay/ViewModel").name = "ljaljushkin-nikolay-ViewModel"
 include "code/Ljaljushkin-Nikolay/View"
 project(":code/Ljaljushkin-Nikolay/View").name = "ljaljushkin-nikolay-View"
 

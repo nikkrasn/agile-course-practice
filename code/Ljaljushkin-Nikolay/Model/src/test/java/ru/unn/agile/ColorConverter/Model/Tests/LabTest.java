@@ -78,4 +78,26 @@ public class LabTest {
         Hsv targetColor = (Hsv) labColor.toColor(expectedColor.getClass());
         assertTrue(expectedColor.isEqual(targetColor));
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateLabWithValuesLessThanMinimum() {
+        new Lab(Lab.MIN_L - 1, Lab.MIN_A - 1, Lab.MIN_B - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateLabWithValuesMoreThatMaximum() {
+        new Lab(Lab.MAX_L + 1, Lab.MAX_A + 1, Lab.MAX_B + 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetValuesLessThanMinimum() {
+        Lab color = new Lab();
+        color.setValues(Lab.MIN_L - 1, Lab.MIN_A - 1, Lab.MIN_B - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetValuesMoreThatMaximum() {
+        Lab color = new Lab();
+        color.setValues(Lab.MAX_L + 1, Lab.MAX_A + 1, Lab.MAX_B + 1);
+    }
 }

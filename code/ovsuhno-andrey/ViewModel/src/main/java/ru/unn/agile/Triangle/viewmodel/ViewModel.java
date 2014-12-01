@@ -182,7 +182,7 @@ public class ViewModel {
 
 enum CurrentStatus {
     WAITING("Please provide input data"),
-    READY("Press 'Calculate' or Enter"),
+    READY("Press 'Compute!'"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Successful computation");
 

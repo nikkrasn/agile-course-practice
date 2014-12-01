@@ -24,7 +24,7 @@ public class ViewModelTests {
     public void canSetDefaultValues() {
         assertEquals("", viewModel.bitArray1StrValue().get());
         assertEquals("", viewModel.bitArray2StrValue().get());
-        assertEquals(Operation.AND, viewModel.bitOperation1().get());
+        assertEquals(Operation.AND, viewModel.firstBitOperation().get());
         assertEquals("", viewModel.resultProperty().get());
         assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
@@ -85,13 +85,13 @@ public class ViewModelTests {
 
     @Test
     public void canSetAndOperation() {
-        viewModel.bitOperation1().set(Operation.AND);
-        assertEquals(Operation.AND, viewModel.bitOperation1().get());
+        viewModel.firstBitOperation().set(Operation.AND);
+        assertEquals(Operation.AND, viewModel.firstBitOperation().get());
     }
 
     @Test
     public void addIsDefaultOperation() {
-        assertEquals(Operation.AND, viewModel.bitOperation1().get());
+        assertEquals(Operation.AND, viewModel.firstBitOperation().get());
     }
 
     @Test
@@ -131,7 +131,7 @@ public class ViewModelTests {
     public void operationXorHasCorrectResult() {
         viewModel.bitArray1StrValue().set("1111");
         viewModel.bitArray2StrValue().set("1010");
-        viewModel.bitOperation1().set(Operation.XOR);
+        viewModel.firstBitOperation().set(Operation.XOR);
 
         viewModel.calculate();
 
@@ -142,7 +142,7 @@ public class ViewModelTests {
     public void operationOrHasCorrectResult() {
         viewModel.bitArray1StrValue().set("1010");
         viewModel.bitArray2StrValue().set("0110");
-        viewModel.bitOperation1().set(Operation.OR);
+        viewModel.firstBitOperation().set(Operation.OR);
 
         viewModel.calculate();
 
@@ -154,8 +154,8 @@ public class ViewModelTests {
         viewModel.bitArray1StrValue().set("1010");
         viewModel.bitArray2StrValue().set("0110");
         viewModel.bitArray3StrValue().set("0110");
-        viewModel.bitOperation1().set(Operation.OR);
-        viewModel.bitOperation2().set(Operation.XOR);
+        viewModel.firstBitOperation().set(Operation.OR);
+        viewModel.secondBitOperation().set(Operation.XOR);
 
         viewModel.calculate();
 

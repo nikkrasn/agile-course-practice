@@ -44,8 +44,8 @@ public class Calculator {
         txtBitArray2.textProperty().bindBidirectional(viewModel.bitArray2StrValue());
         txtBitArray3.textProperty().bindBidirectional(viewModel.bitArray3StrValue());
 
-        cbOperation1.valueProperty().bindBidirectional(viewModel.bitOperation1());
-        cbOperation2.valueProperty().bindBidirectional(viewModel.bitOperation2());
+        cbOperation1.valueProperty().bindBidirectional(viewModel.firstBitOperation());
+        cbOperation2.valueProperty().bindBidirectional(viewModel.secondBitOperation());
 
         btnCalculate.setOnAction(new EventHandler<ActionEvent>() {
             @Override

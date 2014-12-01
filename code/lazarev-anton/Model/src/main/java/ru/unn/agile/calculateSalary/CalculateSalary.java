@@ -13,7 +13,7 @@ public class CalculateSalary {
     private int lengthOfVacation;
 
     public double calculate() {
-        if (salary <= 0) {
+        if (isIncorrectInput()) {
             return 0;
         }
         if (isEmployeeWorkedMoreThanNormHoursInMonth()) {
@@ -92,5 +92,11 @@ public class CalculateSalary {
 
     private boolean isEmployeeWorkedMoreThanNormHoursInMonth() {
         return workedHourInMonth > getSummOfWorkedHours();
+    }
+
+    private boolean isIncorrectInput() {
+        return salary <= 0
+                || lengthOfVacation < 0
+                || workedHourInMonth < 0;
     }
 }

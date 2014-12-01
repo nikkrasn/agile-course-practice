@@ -14,8 +14,30 @@ public class CalculateSalaryTests {
     }
 
     @Test
+    public void inputNegativeLengthOfVacation() {
+        CalculateSalary calculator = new CalculateSalary().setLengthOfVacation(-14);
+        assertEquals(0, calculator.calculate(), 0);
+    }
+
+    @Test
+    public void inputNegativeWorkedHours() {
+        CalculateSalary calculator = new CalculateSalary().setWorkedHourInMonth(-180);
+        assertEquals(0, calculator.calculate(), 0);
+    }
+
+    @Test
+    public void inputOnlyNegativeWorkedHours() {
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
+                .setCountingMonth(LocalDate.of(2014, Month.APRIL, 1))
+                .setWorkedHourInMonth(-200);
+        assertEquals(0, calculator.calculate(), 0);
+    }
+
+    @Test
     public void canCalculateCashInNormalMonth() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(184);
         assertEquals(8700.0, calculator.calculate(), 0.1);
@@ -23,7 +45,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void canCalculateCashInNormalMonthWithOvertime() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(200);
         assertEquals(10213.0, calculator.calculate(), 0.1);
@@ -31,7 +54,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void canCalculateCashInNormalMonthWithLessHours() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(154);
         assertEquals(7281.0, calculator.calculate(), 1.0);
@@ -39,7 +63,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWith14DaysOfVacation() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(104)
                 .setStartOfVacation(LocalDate.of(2014, Month.OCTOBER, 6))
@@ -49,7 +74,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWithStartOfVacationAndFinishInAnother() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(104)
                 .setStartOfVacation(LocalDate.of(2014, Month.OCTOBER, 27))
@@ -59,7 +85,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWithEndOfVacation() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(144)
                 .setStartOfVacation(LocalDate.of(2014, Month.OCTOBER, 27))
@@ -69,7 +96,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWithEndOfVacationFromAnotherMonth() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.NOVEMBER, 1))
                 .setWorkedHourInMonth(120)
                 .setStartOfVacation(LocalDate.of(2014, Month.OCTOBER, 27))
@@ -79,7 +107,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWhichInYearNotEqualYearOfVacation() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.NOVEMBER, 1))
                 .setWorkedHourInMonth(160)
                 .setStartOfVacation(LocalDate.of(2015, Month.OCTOBER, 27))
@@ -89,7 +118,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWithOvertimeAndWithoutVacation() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.NOVEMBER, 1))
                 .setWorkedHourInMonth(160);
         assertEquals(8700.0, calculator.calculate(), 1.0);
@@ -97,7 +127,8 @@ public class CalculateSalaryTests {
 
     @Test
     public void countCashInMonthWhichAllInVacation() {
-        CalculateSalary calculator = new CalculateSalary().setSalary(10000)
+        CalculateSalary calculator = new CalculateSalary()
+                .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(0)
                 .setStartOfVacation(LocalDate.of(2015, Month.SEPTEMBER, 27))

@@ -230,7 +230,7 @@ enum Status {
     READY("Press 'Calculate' or Enter"),
     WAITING("Please provide input data"),
     BAD_FORMAT("Bad format"),
-    SUCCESS("Success");
+    SUCCESS("Success ");
 
     private final String name;
     private Status(final String name) {

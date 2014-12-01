@@ -16,4 +16,9 @@ public class CoefficientDescription<T extends Enum> extends Coefficient {
     public T getType() {
         return type;
     }
+
+    @Override
+    public String getDescription() {
+        return type.toString();
+    }
 }

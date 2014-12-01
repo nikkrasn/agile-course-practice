@@ -209,7 +209,7 @@ public class ViewModel {
             calcStatus.set(getInputStatus().toString());
         }
     }
-    
+
     private class ComboBoxChangeListener implements ChangeListener<DemandElasticityType> {
         @Override
         public void changed(final ObservableValue<? extends DemandElasticityType> observable,

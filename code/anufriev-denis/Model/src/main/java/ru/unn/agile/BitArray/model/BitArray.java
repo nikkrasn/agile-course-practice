@@ -1,10 +1,8 @@
 package ru.unn.agile.BitArray.model;
 
 public class BitArray {
-
     public static final int BIT_PER_INT = 32;
     public static final int BIT_MASK = 0x00000001;
-
 
     private final int size;
     private int[] array;

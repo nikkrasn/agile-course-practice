@@ -21,8 +21,8 @@ public class ViewModel {
 
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
-    private final ObjectProperty<Operation> operation1 = new SimpleObjectProperty<>();
-    private final ObjectProperty<Operation> operation2 = new SimpleObjectProperty<>();
+    private final ObjectProperty<Operation> bitOperation1 = new SimpleObjectProperty<>();
+    private final ObjectProperty<Operation> bitOperation2 = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
@@ -43,8 +43,8 @@ public class ViewModel {
         for (int i = 0; i < ARRAYS_COUNT; i++) {
             arrays.add(new SimpleStringProperty(""));
         }
-        operation1.set(Operation.AND);
-        operation2.set(Operation.OR);
+        bitOperation1.set(Operation.AND);
+        bitOperation2.set(Operation.OR);
         result.set("");
         status.set(InputStatus.WAITING.toString());
 
@@ -90,11 +90,11 @@ public class ViewModel {
         b1.setBits(getCharArrayFromField(arrays.get(0)));
         b2.setBits(getCharArrayFromField(arrays.get(1)));
 
-        res = operationApplying(operation1, b1, b2);
+        res = operationApplying(bitOperation1, b1, b2);
         if (getArrayInputStatus(arrays.get(2)) == InputStatus.READY) {
             BitArray b3 = new BitArray(arraysSize);
             b3.setBits(getCharArrayFromField(arrays.get(2)));
-            result.set(operationApplying(operation2, res, b3).toString());
+            result.set(operationApplying(bitOperation2, res, b3).toString());
         } else {
             result.set(res.toString());
         }
@@ -122,11 +122,11 @@ public class ViewModel {
     }
 
     public ObjectProperty<Operation> bitOperation1() {
-        return operation1;
+        return bitOperation1;
     }
 
     public ObjectProperty<Operation> bitOperation2() {
-        return operation2;
+        return bitOperation2;
     }
 
     public BooleanProperty calculationDisabledProperty() {

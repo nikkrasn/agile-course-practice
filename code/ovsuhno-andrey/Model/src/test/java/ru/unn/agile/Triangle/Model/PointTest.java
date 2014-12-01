@@ -131,11 +131,4 @@ public class PointTest {
 
         assertFalse(pointC.isOnStraightLine(pointA, pointB));
     }
-
-    @Test
-    public void canConvertStringToPoint() {
-        Point newPoint = new Point("1", "2");
-
-        assertEquals(new Point(1, 2), newPoint);
-    }
 }

@@ -9,11 +9,6 @@ public class Point {
         this.y = y;
     }
 
-    public Point(final String x, final String y) {
-        this.x = Double.parseDouble(x);
-        this.y = Double.parseDouble(y);
-    }
-
     @Override
     public int hashCode() {
         final int shift = 32;

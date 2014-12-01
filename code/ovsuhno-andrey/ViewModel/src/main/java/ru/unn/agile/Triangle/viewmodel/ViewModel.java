@@ -67,9 +67,9 @@ public class ViewModel {
             return;
         }
 
-        Point a = new Point(aX.get(), aY.get());
-        Point b = new Point(bX.get(), bY.get());
-        Point c = new Point(cX.get(), cY.get());
+        Point a = new Point(Double.parseDouble(aX.get()), Double.parseDouble(aY.get()));
+        Point b = new Point(Double.parseDouble(bX.get()), Double.parseDouble(bY.get()));
+        Point c = new Point(Double.parseDouble(cX.get()), Double.parseDouble(cY.get()));
         Triangle triangle = new Triangle(a, b, c);
 
         double[] doubleValues = operation.get().apply(triangle);

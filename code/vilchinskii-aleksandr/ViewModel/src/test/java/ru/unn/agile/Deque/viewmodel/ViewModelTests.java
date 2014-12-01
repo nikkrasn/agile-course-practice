@@ -120,7 +120,7 @@ public class ViewModelTests {
         return item;
     }
 
-    private void setInputData(String input) {
+    private void setInputData(final String input) {
         viewModel.txtItemProperty().set(input);
     }
 }

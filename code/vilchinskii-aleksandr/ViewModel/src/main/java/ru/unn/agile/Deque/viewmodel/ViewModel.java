@@ -14,10 +14,9 @@ import java.util.NoSuchElementException;
 public class ViewModel {
     private final StringProperty txtItem = new SimpleStringProperty();
     private final StringProperty status   = new SimpleStringProperty();
-
-    private Deque<Integer> deque = Deque.create();
-
     private final BooleanProperty isAddingDisabled  = new SimpleBooleanProperty();
+
+    private final Deque<Integer> deque = Deque.create();
 
     private final ValueChangeListener valueChangedListener = new ValueChangeListener();
 

@@ -36,7 +36,7 @@ public class ViewModelTest {
     @Test
     public void statusIsWaitingWhenComputeWithEmptyFields() {
         viewModel.compute();
-        
+
         assertEquals(CurrentStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 

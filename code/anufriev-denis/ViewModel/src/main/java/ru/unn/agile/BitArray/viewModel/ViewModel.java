@@ -46,7 +46,7 @@ public class ViewModel {
         operation1.set(Operation.AND);
         operation2.set(Operation.OR);
         result.set("");
-        status.set(Status.WAITING.toString());
+        status.set(InputStatus.WAITING.toString());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             for (StringProperty array : arrays) {
@@ -60,7 +60,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
+                return getInputStatus() == InputStatus.READY;
             }
         };
         calculationDisabled.bind(couldCalculate.not());
@@ -91,14 +91,14 @@ public class ViewModel {
         b2.setBits(getCharArrayFromField(arrays.get(1)));
 
         res = operationApplying(operation1, b1, b2);
-        if (getArrayInputStatus(arrays.get(2)) == Status.READY) {
+        if (getArrayInputStatus(arrays.get(2)) == InputStatus.READY) {
             BitArray b3 = new BitArray(arraysSize);
             b3.setBits(getCharArrayFromField(arrays.get(2)));
             result.set(operationApplying(operation2, res, b3).toString());
         } else {
             result.set(res.toString());
         }
-        status.set(Status.SUCCESS.toString());
+        status.set(InputStatus.SUCCESS.toString());
     }
 
     public StringProperty bitArray1StrValue() {
@@ -159,24 +159,24 @@ public class ViewModel {
         return op.apply(b1, b2);
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+    private InputStatus getInputStatus() {
+        InputStatus status = InputStatus.READY;
         if (checkArrayFieldIsEmpty(arrays.get(0)) || checkArrayFieldIsEmpty(arrays.get(1))) {
-            inputStatus = Status.WAITING;
+            status = InputStatus.WAITING;
         }
         if (!checkArrayFieldIsEmpty(arrays.get(0))
                 && !getFieldContent(arrays.get(0)).matches("(0|1)*")) {
-            inputStatus = Status.BAD_FORMAT;
+            status = InputStatus.BAD_FORMAT;
         }
         if (!checkArrayFieldIsEmpty(arrays.get(1))
                 && !getFieldContent(arrays.get(1)).matches("(0|1)*")) {
-            inputStatus = Status.BAD_FORMAT;
+            status = InputStatus.BAD_FORMAT;
         }
         if (!checkArrayFieldIsEmpty(arrays.get(2))
                 && !getFieldContent(arrays.get(2)).matches("(0|1)*")) {
-            inputStatus = Status.BAD_FORMAT;
+            status = InputStatus.BAD_FORMAT;
         }
-        return inputStatus;
+        return status;
     }
 
     private String getFieldContent(final StringProperty field) {
@@ -198,15 +198,15 @@ public class ViewModel {
                 getFieldContent(arrays.get(2)).length());
     }
 
-    private Status getArrayInputStatus(final StringProperty array) {
-        Status inputStatus = Status.READY;
+    private InputStatus getArrayInputStatus(final StringProperty array) {
+        InputStatus status = InputStatus.READY;
         if (array.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            status = InputStatus.WAITING;
         }
         if (!array.get().isEmpty() && !array.get().matches("(0|1)*")) {
-            inputStatus = Status.BAD_FORMAT;
+            status = InputStatus.BAD_FORMAT;
         }
-        return inputStatus;
+        return status;
     }
 
     private void addListenersToInputTextFields(final List<StringProperty> fields) {
@@ -218,14 +218,14 @@ public class ViewModel {
     }
 }
 
-enum Status {
+enum InputStatus {
     WAITING("Please input data to text fields"),
     READY("Press 'Calculate' or Enter"),
     BAD_FORMAT("Bad format of BitArray"),
     SUCCESS("Complete");
 
     private final String name;
-    private Status(final String name) {
+    private InputStatus(final String name) {
         this.name = name;
     }
     public String toString() {

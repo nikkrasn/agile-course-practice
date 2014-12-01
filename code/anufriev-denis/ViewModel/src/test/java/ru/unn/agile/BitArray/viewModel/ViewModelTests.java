@@ -26,34 +26,34 @@ public class ViewModelTests {
         assertEquals("", viewModel.bitArray2StrValue().get());
         assertEquals(Operation.AND, viewModel.bitOperation1().get());
         assertEquals("", viewModel.resultProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setInputDataForTwoArrays();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
         viewModel.bitArray1StrValue().set("daasa");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
         viewModel.bitArray1StrValue().set("10011");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -110,21 +110,21 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void canSetBadFormatMessage() {
         viewModel.bitArray1StrValue().set("#selfie");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputDataForTwoArrays();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.READY.toString(), viewModel.statusProperty().get());
     }
 
     @Test

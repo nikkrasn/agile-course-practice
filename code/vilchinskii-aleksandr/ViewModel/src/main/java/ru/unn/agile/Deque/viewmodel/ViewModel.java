@@ -12,7 +12,7 @@ import ru.unn.agile.Deque.model.Deque;
 import java.util.NoSuchElementException;
 
 public class ViewModel {
-    private final StringProperty txtValue = new SimpleStringProperty();
+    private final StringProperty txtItem = new SimpleStringProperty();
     private final StringProperty status   = new SimpleStringProperty();
 
     private Deque<Integer> deque = Deque.create();
@@ -22,12 +22,12 @@ public class ViewModel {
     private final ValueChangeListener valueChangedListener = new ValueChangeListener();
 
     public ViewModel() {
-        txtValue.set("");
+        txtItem.set("");
         status.set(Status.WAITING.toString());
 
         BooleanBinding canAdd = new BooleanBinding() {
             {
-                super.bind(txtValue);
+                super.bind(txtItem);
             }
             @Override
             protected boolean computeValue() {
@@ -36,7 +36,7 @@ public class ViewModel {
         };
         isAddingDisabled.bind(canAdd.not());
 
-        txtValue.addListener(valueChangedListener);
+        txtItem.addListener(valueChangedListener);
     }
 
     public void addFirst() {
@@ -44,7 +44,7 @@ public class ViewModel {
             return;
         }
 
-        Integer item = Integer.parseInt(getTxtValue());
+        Integer item = Integer.parseInt(getTxtItem());
         deque.addFirst(item);
     }
 
@@ -53,14 +53,14 @@ public class ViewModel {
             return;
         }
 
-        Integer item = Integer.parseInt(getTxtValue());
+        Integer item = Integer.parseInt(getTxtItem());
         deque.addLast(item);
     }
 
     public void getFirst() {
         try {
             Integer item = deque.getFirst();
-            txtValue.set(item.toString());
+            txtItem.set(item.toString());
             status.set(Status.SUCCESS.toString());
         } catch (NoSuchElementException nsee) {
             status.set(Status.EMPTY.toString());
@@ -70,7 +70,7 @@ public class ViewModel {
     public void getLast() {
         try {
             Integer item = deque.getLast();
-            txtValue.set(item.toString());
+            txtItem.set(item.toString());
             status.set(Status.SUCCESS.toString());
         } catch (NoSuchElementException nsee) {
             status.set(Status.EMPTY.toString());
@@ -80,7 +80,7 @@ public class ViewModel {
     public void removeFirst() {
         try {
             Integer item = deque.removeFirst();
-            txtValue.set(item.toString());
+            txtItem.set(item.toString());
             status.set(Status.SUCCESS.toString());
         } catch (NoSuchElementException nsee) {
             status.set(Status.EMPTY.toString());
@@ -90,19 +90,19 @@ public class ViewModel {
     public void removeLast() {
         try {
             Integer item = deque.removeLast();
-            txtValue.set(item.toString());
+            txtItem.set(item.toString());
             status.set(Status.SUCCESS.toString());
         } catch (NoSuchElementException nsee) {
             status.set(Status.EMPTY.toString());
         }
     }
 
-    public StringProperty txtValueProperty() {
-        return txtValue;
+    public StringProperty txtItemProperty() {
+        return txtItem;
     }
 
-    public final String getTxtValue() {
-        return txtValue.get();
+    public final String getTxtItem() {
+        return txtItem.get();
     }
 
     public BooleanProperty isAddingDisabledProperty() {
@@ -123,13 +123,13 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (getTxtValue().isEmpty()) {
+        if (getTxtItem().isEmpty()) {
             inputStatus = Status.WAITING;
             return inputStatus;
         }
 
         try {
-            Integer.parseInt(getTxtValue());
+            Integer.parseInt(getTxtItem());
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
         }

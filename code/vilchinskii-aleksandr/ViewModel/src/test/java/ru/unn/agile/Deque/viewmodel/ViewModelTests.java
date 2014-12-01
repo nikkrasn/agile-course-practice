@@ -20,7 +20,7 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValue() {
-        assertEquals("", viewModel.getTxtValue());
+        assertEquals("", viewModel.getTxtItem());
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ViewModelTests {
 
         viewModel.getFirst();
 
-        assertEquals(item, viewModel.getTxtValue());
+        assertEquals(item, viewModel.getTxtItem());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ViewModelTests {
 
         viewModel.getLast();
 
-        assertEquals(item, viewModel.getTxtValue());
+        assertEquals(item, viewModel.getTxtItem());
     }
 
     @Test
@@ -92,7 +92,7 @@ public class ViewModelTests {
 
         viewModel.removeFirst();
 
-        assertEquals(item, viewModel.getTxtValue());
+        assertEquals(item, viewModel.getTxtItem());
         assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
     }
 
@@ -102,7 +102,7 @@ public class ViewModelTests {
 
         viewModel.removeLast();
 
-        assertEquals(item, viewModel.getTxtValue());
+        assertEquals(item, viewModel.getTxtItem());
         assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
     }
 
@@ -121,6 +121,6 @@ public class ViewModelTests {
     }
 
     private void setInputData(String input) {
-        viewModel.txtValueProperty().set(input);
+        viewModel.txtItemProperty().set(input);
     }
 }

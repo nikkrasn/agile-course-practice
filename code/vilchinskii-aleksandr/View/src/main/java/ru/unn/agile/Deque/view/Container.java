@@ -11,7 +11,7 @@ public class Container {
     @FXML
     private ViewModel viewModel;
     @FXML
-    private TextField txtValue;
+    private TextField txtItem;
     @FXML
     private Button btnAddFirst;
     @FXML
@@ -27,7 +27,7 @@ public class Container {
 
     @FXML
     void initialize() {
-        txtValue.textProperty().bindBidirectional(viewModel.txtValueProperty());
+        txtItem.textProperty().bindBidirectional(viewModel.txtItemProperty());
 
         btnAddFirst.setOnAction(new EventHandler<ActionEvent>() {
             @Override

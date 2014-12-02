@@ -144,6 +144,10 @@ project(":code/Ryabusheva-Anna/View").name = "Ryabusheva-Anna-View"
 // Samokhvalov Maxim
 include "code/samokhvalov-maxim/Model"
 project(":code/samokhvalov-maxim/Model").name = "samokhvalov-maxim-Model"
+include "code/samokhvalov-maxim/ViewModel"
+project(":code/samokhvalov-maxim/ViewModel").name = "samokhvalov-maxim-ViewModel"
+include "code/samokhvalov-maxim/View"
+project(":code/samokhvalov-maxim/View").name = "samokhvalov-maxim-View"
 
 // Serov Alexey
 include "code/Serov-Alexey/Model"

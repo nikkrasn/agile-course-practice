@@ -39,7 +39,7 @@ public class SubtractHolidaysTests {
     }
 
     @Test
-    public void checkDayForSubtractionWitDifferentVacationMonth() {
+    public void checkDayForSubtractionWithDifferentVacationMonth() {
         SubtractHolidays countMonth = new SubtractHolidays()
                 .setCheckMonth(LocalDate.of(2014, Month.AUGUST, 1))
                 .setStartVacation(LocalDate.of(2014, Month.JULY, 28))

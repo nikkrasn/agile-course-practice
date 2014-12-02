@@ -11,19 +11,19 @@ public class CalculateSalaryTests {
     @Test
     public void canCalculateCashWithNegativeSalary() {
         CalculateSalary calculator = new CalculateSalary().setSalary(-10000);
-        assertEquals(0, calculator.calculate(), 0);
+        assertEquals(0, calculator.calculate(), delta);
     }
 
     @Test
     public void inputNegativeLengthOfVacation() {
         CalculateSalary calculator = new CalculateSalary().setLengthOfVacation(-14);
-        assertEquals(0, calculator.calculate(), 0);
+        assertEquals(0, calculator.calculate(), delta);
     }
 
     @Test
     public void inputNegativeWorkedHours() {
         CalculateSalary calculator = new CalculateSalary().setWorkedHourInMonth(-180);
-        assertEquals(0, calculator.calculate(), 0);
+        assertEquals(0, calculator.calculate(), delta);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class CalculateSalaryTests {
                 .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.APRIL, 1))
                 .setWorkedHourInMonth(-200);
-        assertEquals(0, calculator.calculate(), 0);
+        assertEquals(0, calculator.calculate(), delta);
     }
 
     @Test

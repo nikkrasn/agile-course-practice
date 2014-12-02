@@ -59,7 +59,7 @@ public class CalculateSalaryTests {
                 .setSalary(10000)
                 .setCountingMonth(LocalDate.of(2014, Month.OCTOBER, 1))
                 .setWorkedHourInMonth(154);
-        assertEquals(7281.52173913043187, calculator.calculate(), delta);
+        assertEquals(7281.5217391304318, calculator.calculate(), delta);
     }
 
     @Test

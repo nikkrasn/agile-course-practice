@@ -185,5 +185,9 @@ include "code/Zolotov-Andrey/Model"
 project(":code/Zolotov-Andrey/Model").name = "Zolotov-Andrey-Model"
 
 // Zotov Alexey
-include "code/Zotov-Alexey/Model"
-project(":code/Zotov-Alexey/Model").name = "Zotov-Alexey-Model"
+include "Zotov-Alexey/Model"
+project(":Zotov-Alexey/Model").name = "Zotov-Alexey-lab2-Model"
+include "Zotov-Alexey/View"
+project(":Zotov-Alexey/View").name = "Zotov-Alexey-lab2-View"
+include "Zotov-Alexey/ViewModel"
+project(":Zotov-Alexey/ViewModel").name = "Zotov-Alexey-lab2-ViewModel"

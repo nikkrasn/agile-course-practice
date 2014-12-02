@@ -33,7 +33,7 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
+            status.set(getState().toString());
         }
     }
 
@@ -155,24 +155,24 @@ public class ViewModel {
         return status.get();
     }
 
-    private State getInputStatus() {
+    private State getState() {
 
-        State inputStatus = State.READY;
+        State currentStatus = State.READY;
 
         if (operation.get() == Operation.INSERT && (key.get().isEmpty() || value.get().isEmpty())) {
-            inputStatus = State.WAITING;
+            currentStatus = State.WAITING;
         }
 
         if (operation.get() == Operation.DELETE && key.get().isEmpty()) {
-            inputStatus = State.WAITING;
+            currentStatus = State.WAITING;
         }
 
         if (operation.get() == Operation.FIND && value.get().isEmpty()) {
-            inputStatus = State.WAITING;
+            currentStatus = State.WAITING;
         }
 
         if (operationProperty().get() == Operation.GET_ROOT) {
-            inputStatus = State.READY;
+            currentStatus = State.READY;
         }
 
         try {
@@ -180,11 +180,11 @@ public class ViewModel {
                 Integer.parseInt(key.get());
             }
         } catch (NumberFormatException nfe) {
-            inputStatus = State.BAD_FORMAT;
+            currentStatus = State.BAD_FORMAT;
         }
 
-        status.set(inputStatus.toString());
-        return inputStatus;
+        status.set(currentStatus.toString());
+        return currentStatus;
     }
 
     private void bindDeterminate() {
@@ -194,9 +194,9 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                State tempStatus = getInputStatus();
-                status.set(tempStatus.toString());
-                return tempStatus == State.READY;
+                State currentState = getState();
+                status.set(currentState.toString());
+                return currentState == State.READY;
             }
         };
         executeDisabled.bind(couldExecute.not());

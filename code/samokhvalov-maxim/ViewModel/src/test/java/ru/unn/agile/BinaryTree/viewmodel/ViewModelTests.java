@@ -28,7 +28,7 @@ public class ViewModelTests {
         assertEquals(Operation.INSERT, viewModel.operationProperty().get());
         assertEquals("—", viewModel.resultKeyProperty().get());
         assertEquals("—", viewModel.resultValueProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(State.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -37,21 +37,21 @@ public class ViewModelTests {
 
         viewModel.execute();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(State.SUCCESS.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void cantInputGlyph() {
         viewModel.keyProperty().set("a");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(State.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
     public void cantInputIrrationalNumber() {
         viewModel.keyProperty().set("0.1");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(State.BAD_FORMAT.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class ViewModelTests {
         viewModel.operationProperty().set(Operation.INSERT);
         viewModel.valueProperty().set("1");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(State.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ViewModelTests {
         viewModel.operationProperty().set(Operation.INSERT);
         viewModel.keyProperty().set("1");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(State.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class ViewModelTests {
         viewModel.operationProperty().set(Operation.DELETE);
         viewModel.valueProperty().set("1");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(State.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class ViewModelTests {
         viewModel.operationProperty().set(Operation.FIND);
         viewModel.keyProperty().set("1");
 
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(State.WAITING.toString(), viewModel.statusProperty().get());
     }
 
     @Test
@@ -219,7 +219,7 @@ public class ViewModelTests {
         viewModel.valueProperty().set("Two");
         viewModel.execute();
 
-        assertEquals(Status.NODE_NOT_FOUND.toString(), viewModel.statusProperty().get());
+        assertEquals(State.NODE_NOT_FOUND.toString(), viewModel.statusProperty().get());
     }
 
     private void setInputData() {

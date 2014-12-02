@@ -43,7 +43,7 @@ public class ViewModel {
         operation.set(Operation.INSERT);
         resultKey.set("—");
         resultValue.set("—");
-        status.set(Status.WAITING.toString());
+        status.set(State.WAITING.toString());
         bindDeterminate();
         createFieldsValueChangingListeners();
     }
@@ -55,7 +55,7 @@ public class ViewModel {
 
         String tempKey = "—";
         String tempValue = "—";
-        String statusResult = Status.SUCCESS.toString();
+        String statusResult = State.SUCCESS.toString();
 
         switch(operation.get()) {
             case INSERT:
@@ -65,7 +65,7 @@ public class ViewModel {
             case FIND:
                 ArrayList<Node> nodes = tree.findByValue(value.get());
                 if (nodes.isEmpty()) {
-                    statusResult = Status.NODE_NOT_FOUND.toString();
+                    statusResult = State.NODE_NOT_FOUND.toString();
                 } else {
                     tempKey = Integer.toString(getFirstNodeKey(nodes));
                     tempValue = getFirstNodeValue(nodes).toString();
@@ -90,33 +90,43 @@ public class ViewModel {
     public StringProperty keyProperty() {
         return key;
     }
+
     public StringProperty valueProperty() {
         return value;
     }
+
     public ObjectProperty<ObservableList<Operation>> operationsProperty() {
         return operations;
     }
+
     public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
+
     public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
+
     public BooleanProperty executeDisabledProperty() {
         return executeDisabled;
     }
+
     public final boolean getExecuteDisabled() {
         return executeDisabled.get();
     }
+
     public BooleanProperty valueFieldDisabledProperty() {
         return valueFieldDisabled;
     }
+
     public final boolean getValueFieldDisabled() {
         return valueFieldDisabled.get();
     }
+
     public BooleanProperty keyFieldDisabledProperty() {
         return keyFieldDisabled;
     }
+
     public final boolean getKeyFieldDisabled() {
         return keyFieldDisabled.get();
     }
@@ -124,40 +134,45 @@ public class ViewModel {
     public StringProperty resultKeyProperty() {
         return resultKey;
     }
+
     public final String getResultKey() {
         return resultKey.get();
     }
+
     public StringProperty resultValueProperty() {
         return resultValue;
     }
+
     public final String getResultValue() {
         return resultValue.get();
     }
+
     public StringProperty statusProperty() {
         return status;
     }
+
     public final String getStatus() {
         return status.get();
     }
 
-    private Status getInputStatus() {
+    private State getInputStatus() {
 
-        Status inputStatus = Status.READY;
+        State inputStatus = State.READY;
 
         if (operation.get() == Operation.INSERT && (key.get().isEmpty() || value.get().isEmpty())) {
-            inputStatus = Status.WAITING;
+            inputStatus = State.WAITING;
         }
 
         if (operation.get() == Operation.DELETE && key.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            inputStatus = State.WAITING;
         }
 
         if (operation.get() == Operation.FIND && value.get().isEmpty()) {
-            inputStatus = Status.WAITING;
+            inputStatus = State.WAITING;
         }
 
         if (operationProperty().get() == Operation.GET_ROOT) {
-            inputStatus = Status.READY;
+            inputStatus = State.READY;
         }
 
         try {
@@ -165,7 +180,7 @@ public class ViewModel {
                 Integer.parseInt(key.get());
             }
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+            inputStatus = State.BAD_FORMAT;
         }
 
         status.set(inputStatus.toString());
@@ -179,9 +194,9 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                Status tempStatus = getInputStatus();
+                State tempStatus = getInputStatus();
                 status.set(tempStatus.toString());
-                return tempStatus == Status.READY;
+                return tempStatus == State.READY;
             }
         };
         executeDisabled.bind(couldExecute.not());
@@ -237,7 +252,7 @@ public class ViewModel {
     }
 }
 
-enum Status {
+enum State {
     WAITING("Please input data"),
     READY("Press 'Execute'"),
     NODE_NOT_FOUND("Node not found"),
@@ -245,7 +260,7 @@ enum Status {
     SUCCESS("Success");
 
     private final String name;
-    private Status(final String name) {
+    private State(final String name) {
         this.name = name;
     }
     public String toString() {

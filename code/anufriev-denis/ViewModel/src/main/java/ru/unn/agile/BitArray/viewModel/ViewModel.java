@@ -12,7 +12,6 @@ import ru.unn.agile.BitArray.model.BitArray.Operation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
 import static java.lang.Math.max;
 
 public class ViewModel {

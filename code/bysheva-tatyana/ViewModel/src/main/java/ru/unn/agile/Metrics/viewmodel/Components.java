@@ -21,7 +21,7 @@ public class Components {
         component1.set(string);
         return this;
     }
-    public Components  setComponent2(final String string) {
+    public Components setComponent2(final String string) {
         component2.set(string);
         return this;
     }

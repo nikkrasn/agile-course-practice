@@ -79,25 +79,25 @@ public class Rgb extends ColorSpace3D {
 
     @Override
     public void verifyFirstChannel(final double r) {
-        if (g > MAX_G || g < MIN_G) {
-            throw new IllegalArgumentException("G channel(" + r + ") of RGB should be "
-                    + MIN_G + " to " + MAX_G);
+        if (r > MAX_R || r < MIN_R) {
+            throw new IllegalArgumentException("R channel(" + r + ") of RGB should be "
+                    + MIN_R + " to " + MAX_R);
         }
     }
 
     @Override
     public void verifySecondChannel(final double g) {
-        if (b > MAX_B || b < MIN_B) {
-            throw new IllegalArgumentException("B channel(" + g + ") of RGB should be "
-                    + MIN_B + " to " + MAX_B);
+        if (g > MAX_G || g < MIN_G) {
+            throw new IllegalArgumentException("G channel(" + g + ") of RGB should be "
+                    + MIN_G + " to " + MAX_G);
         }
     }
 
     @Override
     public void verifyThirdChannel(final double b) {
-        if (r > MAX_R || r < MIN_R) {
-            throw new IllegalArgumentException("R channel(" + b + ") of RGB should be "
-                    + MIN_R + " to " + MAX_R);
+        if (b > MAX_B || b < MIN_B) {
+            throw new IllegalArgumentException("B channel(" + b + ") of RGB should be "
+                    + MIN_B + " to " + MAX_B);
         }
     }
 }

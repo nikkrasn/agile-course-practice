@@ -1,9 +1,7 @@
 package ru.unn.agile.ColorConverter.viewmodel;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,15 +12,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty firstChannelSrcColor = new SimpleStringProperty();
-    private final StringProperty secondChannelSrcColor = new SimpleStringProperty();
-    private final StringProperty thirdChannelSrcColor = new SimpleStringProperty();
-    private final StringProperty firstChannelDstColor = new SimpleStringProperty();
-    private final StringProperty secondChannelDstColor = new SimpleStringProperty();
-    private final StringProperty thirdChannelDstColor = new SimpleStringProperty();
+    private final StringProperty firstChannelSrcColorString = new SimpleStringProperty();
+    private final StringProperty secondChannelSrcColorString = new SimpleStringProperty();
+    private final StringProperty thirdChannelSrcColorString = new SimpleStringProperty();
+    private final StringProperty firstChannelDstColorString = new SimpleStringProperty();
+    private final StringProperty secondChannelDstColorString = new SimpleStringProperty();
+    private final StringProperty thirdChannelDstColorString = new SimpleStringProperty();
+
+    private double firstChannelSrcColor;
+    private double secondChannelSrcColor;
+    private double thirdChannelSrcColor;
+    private double firstChannelDstColor;
+    private double secondChannelDstColor;
+    private double thirdChannelDstColor;
 
     private final ObjectProperty<ObservableList<Color>> srcColors =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
+
     private final ObjectProperty<Color> srcColor = new SimpleObjectProperty<>();
     private final ObjectProperty<ObservableList<Color>> dstColors =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
@@ -30,29 +36,48 @@ public class ViewModel {
 
     private final StringProperty status = new SimpleStringProperty();
     private final List<StringChangeListener> valueChangedListeners = new ArrayList<>();
+    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
     // FXML needs default c-tor for binding
     public ViewModel() {
-        firstChannelSrcColor.set("");
-        secondChannelSrcColor.set("");
-        thirdChannelSrcColor.set("");
+        firstChannelSrcColorString.set("");
+        secondChannelSrcColorString.set("");
+        thirdChannelSrcColorString.set("");
 
-        firstChannelDstColor.set("");
-        secondChannelDstColor.set("");
-        thirdChannelDstColor.set("");
+        firstChannelDstColorString.set("");
+        secondChannelDstColorString.set("");
+        thirdChannelDstColorString.set("");
 
         status.set(Status.WAITING.toString());
         srcColor.set(Color.RGB);
         dstColor.set(Color.LAB);
 
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(
+                        firstChannelSrcColorString,
+                        secondChannelSrcColorString,
+                        thirdChannelSrcColorString,
+                        firstChannelDstColorString,
+                        secondChannelDstColorString,
+                        thirdChannelDstColorString);
+            }
+
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == Status.READY;
+            }
+        };
+        calculationDisabled.bind(couldCalculate.not());
+
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
             {
-                add(firstChannelSrcColor);
-                add(secondChannelSrcColor);
-                add(thirdChannelSrcColor);
-                add(firstChannelDstColor);
-                add(secondChannelDstColor);
-                add(thirdChannelDstColor);
+                add(firstChannelSrcColorString);
+                add(secondChannelSrcColorString);
+                add(thirdChannelSrcColorString);
+                add(firstChannelDstColorString);
+                add(secondChannelDstColorString);
+                add(thirdChannelDstColorString);
             }
         };
         for (StringProperty field : fields) {
@@ -63,87 +88,110 @@ public class ViewModel {
     }
 
     public void convert() {
-        dstColor.get();
-        srcColor.get();
+        if (calculationDisabled.get()) {
+            return;
+        }
+        ColorSpace3D dstColor = getDstColorValue();
+        ColorSpace3D srcColor = getSrcColorValue();
 
-//        ComplexNumber z1 = new ComplexNumber(re1.get(), im1.get());
-//        ComplexNumber z2 = new ComplexNumber(re2.get(), im2.get());
-//
-//        result.set(operation.get().apply(z1, z2).toString());
-//        status.set(Status.SUCCESS.toString());
+        try {
+            srcColor.setValues(firstChannelSrcColor, secondChannelSrcColor, thirdChannelSrcColor);
+        } catch (IllegalArgumentException iae) {
+            status.set(Status.OUT_OF_RANGE.toString());
+            return;
+        }
+
+        //dstColor = (ColorSpace3D) srcColor.toColor(dstColor.getClass());
+        status.set(Status.SUCCESS.toString());
     }
 
-    public void setFirstChannelSrcColor(final String value) {
-        firstChannelSrcColor.set(value);
+    public void setFirstChannelSrcColorString(final String value) {
+        firstChannelSrcColorString.set(value);
     }
 
-    public void setSecondChannelSrcColor(final String value) {
-        secondChannelSrcColor.set(value);
+    public void setSecondChannelSrcColorString(final String value) {
+        secondChannelSrcColorString.set(value);
     }
 
-    public void setThirdChannelSrcColor(final String value) {
-        thirdChannelSrcColor.set(value);
+    public void setThirdChannelSrcColorString(final String value) {
+        thirdChannelSrcColorString.set(value);
     }
 
-    public void setFirstChannelDstColor(final String value) {
-        firstChannelDstColor.set(value);
+    public void setFirstChannelDstColorString(final String value) {
+        firstChannelDstColorString.set(value);
     }
 
-    public void setSecondChannelDstColor(final String value) {
-        secondChannelDstColor.set(value);
+    public void setSecondChannelDstColorString(final String value) {
+        secondChannelDstColorString.set(value);
     }
 
-    public void setThirdChannelDstColor(final String value) {
-        thirdChannelDstColor.set(value);
+    public void setThirdChannelDstColorString(final String value) {
+        thirdChannelDstColorString.set(value);
     }
 
     public void setStatus(final String value) {
         status.set(value);
     }
 
-    public String getFirstChannelSrcColor() {
-        return firstChannelSrcColor.get();
+    public void setSrcColor(final Color value) {
+        srcColor.set(value);
     }
 
-    public String getSecondChannelSrcColor() {
-        return secondChannelSrcColor.get();
+    public void setDstColor(final Color value) {
+        dstColor.set(value);
     }
 
-    public String getThirdChannelSrcColor() {
-        return thirdChannelSrcColor.get();
+    public String getFirstChannelSrcColorString() {
+        return firstChannelSrcColorString.get();
     }
 
-    public String getFirstChannelDstColor() {
-        return firstChannelDstColor.get();
+    public String getSecondChannelSrcColorString() {
+        return secondChannelSrcColorString.get();
     }
 
-    public String getSecondChannelDstColor() {
-        return secondChannelDstColor.get();
+    public String getThirdChannelSrcColorString() {
+        return thirdChannelSrcColorString.get();
     }
 
-    public String getThirdChannelDstColor() {
-        return thirdChannelDstColor.get();
+    public String getFirstChannelDstColorString() {
+        return firstChannelDstColorString.get();
+    }
+
+    public String getSecondChannelDstColorString() {
+        return secondChannelDstColorString.get();
+    }
+
+    public String getThirdChannelDstColorString() {
+        return thirdChannelDstColorString.get();
     }
 
     public String getStatus() {
         return status.get();
     }
 
-    public Color getSrcColorValue() {
+    public Color getSrcColor() {
         return srcColor.get();
     }
 
-    public Color getDstColorValue() {
+    public Color getDstColor() {
         return dstColor.get();
     }
 
-    public String getSrcColor() {
-        return getSrcColorValue().toString();
+    public ColorSpace3D getSrcColorValue() {
+        return getSrcColor().getValue();
     }
 
-    public String getDstColor() {
-        return getDstColorValue().toString();
+    public ColorSpace3D getDstColorValue() {
+        return getDstColor().getValue();
     }
+
+//    public String getSrcColor() {
+//        return getSrcColorValue().toString();
+//    }
+//
+//    public String getDstColor() {
+//        return getDstColorValue().toString();
+//    }
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
@@ -160,39 +208,39 @@ public class ViewModel {
     }
 
     private void parseSrcColor() {
-        if (!getFirstChannelSrcColor().isEmpty()) {
-            Double.parseDouble(getFirstChannelSrcColor());
+        if (!getFirstChannelSrcColorString().isEmpty()) {
+            firstChannelSrcColor = Double.parseDouble(getFirstChannelSrcColorString());
         }
-        if (!getSecondChannelSrcColor().isEmpty()) {
-            Double.parseDouble(getSecondChannelSrcColor());
+        if (!getSecondChannelSrcColorString().isEmpty()) {
+            secondChannelSrcColor = Double.parseDouble(getSecondChannelSrcColorString());
         }
-        if (!getThirdChannelSrcColor().isEmpty()) {
-            Double.parseDouble(getThirdChannelSrcColor());
+        if (!getThirdChannelSrcColorString().isEmpty()) {
+            thirdChannelSrcColor = Double.parseDouble(getThirdChannelSrcColorString());
         }
     }
 
     private void parseDstColor() {
-        if (!getFirstChannelDstColor().isEmpty()) {
-            Double.parseDouble(getFirstChannelDstColor());
+        if (!getFirstChannelDstColorString().isEmpty()) {
+            firstChannelDstColor = Double.parseDouble(getFirstChannelDstColorString());
         }
-        if (!getSecondChannelDstColor().isEmpty()) {
-            Double.parseDouble(getSecondChannelDstColor());
+        if (!getSecondChannelDstColorString().isEmpty()) {
+            secondChannelDstColor = Double.parseDouble(getSecondChannelDstColorString());
         }
-        if (!getThirdChannelDstColor().isEmpty()) {
-            Double.parseDouble(getThirdChannelDstColor());
+        if (!getThirdChannelDstColorString().isEmpty()) {
+            thirdChannelDstColor = Double.parseDouble(getThirdChannelDstColorString());
         }
     }
 
     private boolean isSrcColorEmpty() {
-        return getFirstChannelSrcColor().isEmpty()
-                || getSecondChannelSrcColor().isEmpty()
-                || getThirdChannelSrcColor().isEmpty();
+        return getFirstChannelSrcColorString().isEmpty()
+                || getSecondChannelSrcColorString().isEmpty()
+                || getThirdChannelSrcColorString().isEmpty();
     }
 
     private boolean isDstColorEmpty() {
-        return getFirstChannelDstColor().isEmpty()
-                || getSecondChannelDstColor().isEmpty()
-                || getThirdChannelDstColor().isEmpty();
+        return getFirstChannelDstColorString().isEmpty()
+                || getSecondChannelDstColorString().isEmpty()
+                || getThirdChannelDstColorString().isEmpty();
     }
 
     private class StringChangeListener implements ChangeListener<String> {
@@ -214,8 +262,12 @@ enum Color { //TODO replace to the ColorSpace and rename?
     Color(final ColorSpace3D value) {
         this.color = value;
     }
-    public ColorSpace convertToColor(final Class<ColorSpace> clazz) {
-        return color.toColor(clazz);
+//    public ColorSpace convertToColor(final Class<ColorSpace> clazz) {
+//        return color.toColor(clazz);
+//    }
+
+    public ColorSpace3D getValue() {
+        return color;
     }
 }
 

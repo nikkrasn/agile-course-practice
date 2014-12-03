@@ -91,14 +91,38 @@ public class RgbTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void cannotSetValuesLessThanMinimum() {
+    public void cannotSetFirstChannelLessThanMinimum() {
         Rgb color = new Rgb();
-        color.setValues(Rgb.MIN_R - 1, Rgb.MIN_G - 1, Rgb.MIN_B - 1);
+        color.setValues(Rgb.MIN_R - 1, Rgb.MIN_G, Rgb.MIN_B);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void cannotSetValuesMoreThatMaximum() {
+    public void cannotSetSecondChannelLessThanMinimum() {
         Rgb color = new Rgb();
-        color.setValues(Rgb.MAX_R + 1, Rgb.MAX_G + 1, Rgb.MAX_B + 1);
+        color.setValues(Rgb.MIN_R, Rgb.MIN_G - 1, Rgb.MIN_B);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetThirdChannelLessThanMinimum() {
+        Rgb color = new Rgb();
+        color.setValues(Rgb.MIN_R, Rgb.MIN_G, Rgb.MIN_B - 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetFirstChannelMoreThatMaximum() {
+        Rgb color = new Rgb();
+        color.setValues(Rgb.MAX_R + 1, Rgb.MAX_G, Rgb.MAX_B);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetSecondChannelMoreThatMaximum() {
+        Rgb color = new Rgb();
+        color.setValues(Rgb.MAX_R, Rgb.MAX_G + 1, Rgb.MAX_B);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotSetThirdChannelMoreThatMaximum() {
+        Rgb color = new Rgb();
+        color.setValues(Rgb.MAX_R, Rgb.MAX_G, Rgb.MAX_B + 1);
     }
 }

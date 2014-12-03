@@ -21,16 +21,16 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("", viewModel.getFirstChannelSrcColor());
-        assertEquals("", viewModel.getSecondChannelSrcColor());
-        assertEquals("", viewModel.getThirdChannelSrcColor());
+        assertEquals("", viewModel.getFirstChannelSrcColorString());
+        assertEquals("", viewModel.getSecondChannelSrcColorString());
+        assertEquals("", viewModel.getThirdChannelSrcColorString());
 
-        assertEquals("", viewModel.getFirstChannelDstColor());
-        assertEquals("", viewModel.getSecondChannelDstColor());
-        assertEquals("", viewModel.getThirdChannelDstColor());
+        assertEquals("", viewModel.getFirstChannelDstColorString());
+        assertEquals("", viewModel.getSecondChannelDstColorString());
+        assertEquals("", viewModel.getThirdChannelDstColorString());
 
-        assertEquals(Color.RGB.toString(), viewModel.getSrcColor());
-        assertEquals(Color.LAB.toString(), viewModel.getDstColor());
+        assertEquals(Color.RGB, viewModel.getSrcColor());
+        assertEquals(Color.LAB, viewModel.getDstColor());
         assertEquals(Status.WAITING.toString(), viewModel.getStatus());
     }
 
@@ -58,32 +58,58 @@ public class ViewModelTests {
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
-//    @Test
-//    public void canReportOutOfRangeForRgb() {
-//        fillFieldOutsideAcceptableRangesForRgb();
-//        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
-//    }
+    @Test
+    public void canReportOutOfRangeForRgb() {
+        setValueOutsideAcceptableRangesForRgb();
+        viewModel.convert();
+        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+    }
 
-    private void fillFieldOutsideAcceptableRangesForRgb() {
-        viewModel.setFirstChannelSrcColor("-1");
-        viewModel.setSecondChannelSrcColor("0");
-        viewModel.setThirdChannelSrcColor("256");
+    @Test
+    public void canReportOutOfRangeForLab() {
+        viewModel.setSrcColor(Color.LAB);
+        setValueOutsideAcceptableRangesForLab();
+        viewModel.convert();
+        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void canReportOutOfRangeForHsv() {
+        viewModel.setSrcColor(Color.HSV);
+        setValueOutsideAcceptableRangesForHsv();
+        viewModel.convert();
+        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
     }
 
     private void fillInputFields() {
-        viewModel.setFirstChannelSrcColor("0");
-        viewModel.setSecondChannelSrcColor("0");
-        viewModel.setThirdChannelSrcColor("0");
-        viewModel.setFirstChannelDstColor("0");
-        viewModel.setSecondChannelDstColor("0");
-        viewModel.setThirdChannelDstColor("0");
+        viewModel.setFirstChannelSrcColorString("0");
+        viewModel.setSecondChannelSrcColorString("0");
+        viewModel.setThirdChannelSrcColorString("0");
+        viewModel.setFirstChannelDstColorString("0");
+        viewModel.setSecondChannelDstColorString("0");
+        viewModel.setThirdChannelDstColorString("0");
+    }
+
+    private void setValueOutsideAcceptableRangesForRgb() {
+        fillInputFields();
+        viewModel.setFirstChannelSrcColorString("-1");
+    }
+
+    private void setValueOutsideAcceptableRangesForLab() {
+        fillInputFields();
+        viewModel.setSecondChannelSrcColorString("-129");
+    }
+
+    private void setValueOutsideAcceptableRangesForHsv() {
+        fillInputFields();
+        viewModel.setThirdChannelSrcColorString("2");
     }
 
     private void fillNotAllFields() {
-        viewModel.setFirstChannelSrcColor("0");
+        viewModel.setFirstChannelSrcColorString("0");
     }
 
     private void fillFieldInBadFormat() {
-        viewModel.setFirstChannelSrcColor("0trash$");
+        viewModel.setFirstChannelSrcColorString("0trash$");
     }
 }

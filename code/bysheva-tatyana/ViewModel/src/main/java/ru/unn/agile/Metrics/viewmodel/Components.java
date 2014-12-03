@@ -4,10 +4,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Components {
-    public final StringProperty component1 = new SimpleStringProperty();
-    public final StringProperty component2 = new SimpleStringProperty();
+    private final StringProperty component1 = new SimpleStringProperty();
+    private final StringProperty component2 = new SimpleStringProperty();
 
-    public Components(String a, String b) {
+    public Components(final String a, final String b) {
         component1.set(a);
         component2.set(b);
     }
@@ -17,10 +17,16 @@ public class Components {
     public String getComponent2() {
         return component2.get();
     }
-    public void setComponent1(String string) {
+    public Components setComponent1(final String string) {
         component1.set(string);
+        return this;
     }
-    public void  setComponent2(String string) {
+    public Components  setComponent2(final String string) {
         component2.set(string);
+        return this;
+    }
+    public Boolean equals(final Components components) {
+        return components.getComponent1().equals(component1.get())
+                && components.getComponent2().equals(component2.get());
     }
 }

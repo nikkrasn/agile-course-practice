@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.Metrics.viewmodel.*?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Metrics.view.MetricsCalculator">
     <fx:define>
         <ViewModel fx:id="viewModel" />
@@ -90,13 +91,21 @@
                                      prefWidth="200.0"
                                      sortable="false"
                                      text="Vector 1"
-                                     fx:id="vector1"/>
+                                     fx:id="vector1">
+                             <cellValueFactory>
+                                <PropertyValueFactory property="component1"/>
+                             </cellValueFactory>
+                         </TableColumn>
                         <TableColumn maxWidth="-1.0"
                                      minWidth="200.0"
                                      prefWidth="200.0"
                                      sortable="false"
                                      text="Vector2"
-                                     fx:id="vector2"/>
+                                     fx:id="vector2">
+                             <cellValueFactory>
+                                 <PropertyValueFactory property="component2"/>
+                             </cellValueFactory>
+                        </TableColumn>
                      </columns>
                   </TableView>
                </children>
@@ -105,11 +114,13 @@
             <Label GridPane.halignment="LEFT"
                    GridPane.rowIndex="4"
                    GridPane.valignment="CENTER"
-                   fx:id="lbStatus" text="${viewModel.status}"/>
+                   fx:id="lbStatus"
+                   text="${viewModel.status}"/>
             <Label GridPane.columnIndex="1"
                    GridPane.halignment="RIGHT"
                    GridPane.rowIndex="4"
-                   fx:id="lbResult" text="${viewModel.result}"/>
+                   fx:id="lbResult"
+                   text="${viewModel.result}"/>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" prefWidth="200.0" />

@@ -88,7 +88,7 @@ public class ViewModel {
     }
 
     public void convert() {
-        if (calculationDisabled.get()) {
+        if (isCalculationDisabled()) {
             return;
         }
         ColorSpace3D dstColor = getDstColorValue();
@@ -185,6 +185,9 @@ public class ViewModel {
         return getDstColor().getValue();
     }
 
+    public boolean isCalculationDisabled() {
+        return calculationDisabled.get();
+    }
 //    public String getSrcColor() {
 //        return getSrcColorValue().toString();
 //    }

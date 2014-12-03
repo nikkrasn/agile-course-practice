@@ -59,6 +59,42 @@ public class ViewModelTests {
     }
 
     @Test
+    public void canChooseRgbAsSrcColor() {
+        viewModel.setSrcColor(Color.RGB);
+        assertEquals(Color.RGB, viewModel.getSrcColor());
+    }
+
+    @Test
+    public void canChooseHsvAsSrcColor() {
+        viewModel.setSrcColor(Color.HSV);
+        assertEquals(Color.HSV, viewModel.getSrcColor());
+    }
+
+    @Test
+    public void canChooseLabAsSrcColor() {
+        viewModel.setSrcColor(Color.LAB);
+        assertEquals(Color.LAB, viewModel.getSrcColor());
+    }
+
+    @Test
+    public void canChooseRgbAsDstColor() {
+        viewModel.setDstColor(Color.RGB);
+        assertEquals(Color.RGB, viewModel.getDstColor());
+    }
+
+    @Test
+    public void canChooseHsvAsDstColor() {
+        viewModel.setDstColor(Color.HSV);
+        assertEquals(Color.HSV, viewModel.getDstColor());
+    }
+
+    @Test
+    public void canChooseLabAsDstColor() {
+        viewModel.setDstColor(Color.LAB);
+        assertEquals(Color.LAB, viewModel.getDstColor());
+    }
+
+    @Test
     public void canReportOutOfRangeForRgb() {
         setValueOutsideAcceptableRangesForRgb();
         viewModel.convert();

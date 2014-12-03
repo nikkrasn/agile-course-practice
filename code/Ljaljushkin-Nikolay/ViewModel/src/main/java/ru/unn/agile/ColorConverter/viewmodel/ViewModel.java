@@ -85,6 +85,15 @@ public class ViewModel {
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
+
+        srcColor.addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(ObservableValue<? extends Color> observableValue, Color oldValue, Color newValue) {
+                System.out.println("old = " + oldValue + ", new = " + newValue);
+                status.set(getInputStatus().toString());
+            }
+        });
+
     }
 
     public void convert() {
@@ -93,13 +102,6 @@ public class ViewModel {
         }
         ColorSpace3D dstColor = getDstColorValue();
         ColorSpace3D srcColor = getSrcColorValue();
-
-        try {
-            srcColor.setValues(firstChannelSrcColor, secondChannelSrcColor, thirdChannelSrcColor);
-        } catch (IllegalArgumentException iae) {
-            status.set(Status.OUT_OF_RANGE.toString());
-            return;
-        }
 
         //dstColor = (ColorSpace3D) srcColor.toColor(dstColor.getClass());
         status.set(Status.SUCCESS.toString());
@@ -202,10 +204,14 @@ public class ViewModel {
             inputStatus = Status.WAITING;
         }
         try {
-            parseDstColor();
             parseSrcColor();
+            parseDstColor();
+            ColorSpace3D srcColor = getSrcColorValue();
+            srcColor.setValues(firstChannelSrcColor, secondChannelSrcColor, thirdChannelSrcColor);
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
+        } catch (IllegalArgumentException iae) {
+            inputStatus = Status.OUT_OF_RANGE;
         }
         return inputStatus;
     }

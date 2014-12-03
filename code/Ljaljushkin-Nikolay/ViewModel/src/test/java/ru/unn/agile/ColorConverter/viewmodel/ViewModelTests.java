@@ -43,13 +43,13 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusReadyWhenFieldsAreFill() {
+    public void isStatusReadyWhenFieldsAreFillCorrectly() {
         fillInputFieldsCorrectly();
         assertEquals(Status.READY.toString(), viewModel.getStatus());
     }
 
     @Test
-    public void statusIsWaitingWhenNotAllFieldsAreFill() {
+    public void isStatusWaitingWhenNotAllFieldsAreFill() {
         fillNotAllFields();
         assertEquals(Status.WAITING.toString(), viewModel.getStatus());
     }
@@ -99,15 +99,6 @@ public class ViewModelTests {
     @Test
     public void canReportOutOfRangeForRgb() {
         setValueOutsideAcceptableRangesForRgb();
-        viewModel.convert();
-        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
-    }
-
-    @Test
-    public void canReportOutOfRangeForLab() {
-        viewModel.setSrcColor(Color.LAB);
-        setValueOutsideAcceptableRangesForLab();
-        viewModel.convert();
         assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
     }
 
@@ -115,8 +106,21 @@ public class ViewModelTests {
     public void canReportOutOfRangeForHsv() {
         viewModel.setSrcColor(Color.HSV);
         setValueOutsideAcceptableRangesForHsv();
-        viewModel.convert();
         assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void canReportOutOfRangeForLab() {
+        viewModel.setSrcColor(Color.LAB);
+        setValueOutsideAcceptableRangesForLab();
+        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void canRecheckValuesAfterChangingSrcColor() {
+        setValuesOutsideAcceptableRangesForRgbAndOkForHsv();
+        viewModel.setSrcColor(Color.HSV);
+        assertEquals(Status.READY.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -145,7 +149,7 @@ public class ViewModelTests {
     @Test
     public void calculateButtonIsEnabledWithCorrectInput() {
         fillInputFieldsCorrectly();
-        assertTrue(!viewModel.isCalculationDisabled());
+        assertFalse(viewModel.isCalculationDisabled());
     }
 
     private void fillInputFieldsCorrectly() {
@@ -160,6 +164,11 @@ public class ViewModelTests {
     private void setValueOutsideAcceptableRangesForRgb() {
         fillInputFieldsCorrectly();
         viewModel.setFirstChannelSrcColorString("-1");
+    }
+
+    private void setValuesOutsideAcceptableRangesForRgbAndOkForHsv() {
+        fillInputFieldsCorrectly();
+        viewModel.setFirstChannelSrcColorString("360");
     }
 
     private void setValueOutsideAcceptableRangesForLab() {

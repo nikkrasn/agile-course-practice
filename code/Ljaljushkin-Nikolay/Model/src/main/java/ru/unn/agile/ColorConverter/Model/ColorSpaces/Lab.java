@@ -60,10 +60,11 @@ public class Lab extends ColorSpace3D {
         super(l, a, b);
     }
 
-    public boolean isEqual(final Lab comparedColor) {
-        boolean isLClose = Utils.isCloseEnough(l, comparedColor.getL());
-        boolean isAClose = Utils.isCloseEnough(a, comparedColor.getA());
-        boolean isBClose = Utils.isCloseEnough(b, comparedColor.getB());
+    @Override
+    public boolean isEqual(final ColorSpace3D comparedColor) {
+        boolean isLClose = Utils.isCloseEnough(l, ((Lab) comparedColor).getL());
+        boolean isAClose = Utils.isCloseEnough(a, ((Lab) comparedColor).getA());
+        boolean isBClose = Utils.isCloseEnough(b, ((Lab) comparedColor).getB());
         return isLClose && isAClose && isBClose;
     }
 

@@ -60,10 +60,11 @@ public class Hsv extends ColorSpace3D {
         super(h, s, v);
     }
 
-    public boolean isEqual(final Hsv comparedColor) {
-        boolean isHClose = Utils.isCloseEnough(h, comparedColor.getH());
-        boolean isSClose = Utils.isCloseEnough(s, comparedColor.getS());
-        boolean isVClose = Utils.isCloseEnough(v, comparedColor.getV());
+    @Override
+    public boolean isEqual(final ColorSpace3D comparedColor) {
+        boolean isHClose = Utils.isCloseEnough(h, ((Hsv) comparedColor).getH());
+        boolean isSClose = Utils.isCloseEnough(s, ((Hsv) comparedColor).getS());
+        boolean isVClose = Utils.isCloseEnough(v, ((Hsv) comparedColor).getV());
         return isHClose && isSClose && isVClose;
     }
 

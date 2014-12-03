@@ -61,10 +61,11 @@ public class Xyz extends ColorSpace3D {
         super(x, y, z);
     }
 
-    public boolean isEqual(final Xyz comparedColor) {
-        boolean isXClose = Utils.isCloseEnough(x, comparedColor.getX());
-        boolean isYClose = Utils.isCloseEnough(y, comparedColor.getY());
-        boolean isZClose = Utils.isCloseEnough(z, comparedColor.getZ());
+    @Override
+    public boolean isEqual(final ColorSpace3D comparedColor) {
+        boolean isXClose = Utils.isCloseEnough(x, ((Xyz) comparedColor).getX());
+        boolean isYClose = Utils.isCloseEnough(y, ((Xyz) comparedColor).getY());
+        boolean isZClose = Utils.isCloseEnough(z, ((Xyz) comparedColor).getZ());
         return isXClose && isYClose && isZClose;
     }
 

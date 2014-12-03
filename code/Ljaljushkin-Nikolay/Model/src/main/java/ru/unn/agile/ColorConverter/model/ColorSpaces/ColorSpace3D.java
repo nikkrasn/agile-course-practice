@@ -20,4 +20,6 @@ public abstract class ColorSpace3D extends ColorSpace {
     public abstract void verifySecondChannel(double value);
 
     public abstract void verifyThirdChannel(double value);
+
+    public abstract boolean isEqual(final ColorSpace3D comparedColor);
 }

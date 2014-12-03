@@ -61,10 +61,11 @@ public class Rgb extends ColorSpace3D {
         super(r, g, b);
     }
 
-    public boolean isEqual(final Rgb comparedColor) {
-        boolean isRClose = Utils.isCloseEnough(r, comparedColor.getR());
-        boolean isGClose = Utils.isCloseEnough(g, comparedColor.getG());
-        boolean isBClose = Utils.isCloseEnough(b, comparedColor.getB());
+    @Override
+    public boolean isEqual(final ColorSpace3D comparedColor) {
+        boolean isRClose = Utils.isCloseEnough(r, ((Rgb) comparedColor).getR());
+        boolean isGClose = Utils.isCloseEnough(g, ((Rgb) comparedColor).getG());
+        boolean isBClose = Utils.isCloseEnough(b, ((Rgb) comparedColor).getB());
         return isRClose && isGClose && isBClose;
     }
 

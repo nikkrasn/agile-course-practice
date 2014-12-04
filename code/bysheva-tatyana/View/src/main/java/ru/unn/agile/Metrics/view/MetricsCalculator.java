@@ -55,10 +55,10 @@ public class MetricsCalculator {
                 new EventHandler<TableColumn.CellEditEvent<Components, String>>() {
                     @Override
                     public void handle(final TableColumn.
-                            CellEditEvent<Components, String> editableComponent) {
-                        updateComponentsCell(getEditedRowIndex(editableComponent),
-                                getEditedComponents(editableComponent).
-                                        setComponent1(editableComponent.getNewValue()));
+                            CellEditEvent<Components, String> editedCell) {
+                        updateComponentsCell(getEditedRowIndex(editedCell),
+                                getEditedComponents(editedCell).
+                                        setComponent1(editedCell.getNewValue()));
                     }
                 }
         );
@@ -66,10 +66,10 @@ public class MetricsCalculator {
                 new EventHandler<TableColumn.CellEditEvent<Components, String>>() {
                     @Override
                     public void handle(final TableColumn.
-                            CellEditEvent<Components, String> editableComponent) {
-                        updateComponentsCell(getEditedRowIndex(editableComponent),
-                                getEditedComponents(editableComponent).
-                                        setComponent2(editableComponent.getNewValue()));
+                            CellEditEvent<Components, String> editedCell) {
+                        updateComponentsCell(getEditedRowIndex(editedCell),
+                                getEditedComponents(editedCell).
+                                        setComponent2(editedCell.getNewValue()));
                     }
                 }
         );

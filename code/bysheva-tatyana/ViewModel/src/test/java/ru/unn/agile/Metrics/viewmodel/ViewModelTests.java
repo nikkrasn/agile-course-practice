@@ -71,7 +71,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isBadStatusWithIncorrectVectors() {
+    public void isStatusBadFormatWithIncorrectVectors() {
         setInputData();
         viewModel.getVectorsValuesProperty().set(0, new Components("0.0f", "invalid"));
 
@@ -122,7 +122,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void calculateButtonIsEnabledWithCorrectInput() {
+    public void isCalculateButtonEnabledWithCorrectInput() {
         viewModel.getVectorsValuesProperty().set(0, new Components("invalid", "invalid"));
         setInputData();
 
@@ -136,12 +136,12 @@ public class ViewModelTests {
     }
 
     @Test
-    public void l1IsDefaultOperation() {
+    public void isL1DefaultOperation() {
         assertEquals(Metrics.Operation.METRIC_L1, viewModel.getCurrentOperationProperty());
     }
 
     @Test
-    public void operationL1HasCorrectResult() {
+    public void hasL1OperationCorrectResult() {
         setInputData();
 
         viewModel.calculate();
@@ -167,14 +167,14 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsReadyWhenSetProperData() {
+    public void isReadyStatusWhenSetProperData() {
         setInputData();
 
         assertEquals(CurrentStatus.READY.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
-    public void operationL2HasCorrectResult() {
+    public void hasL2OperationCorrectResult() {
         setInputData();
         viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_L2);
 
@@ -184,7 +184,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void operationL3HasCorrectResult() {
+    public void hasL3OperationCorrectResult() {
         setInputData();
         viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_L3);
 
@@ -194,7 +194,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void operationL4HasCorrectResult() {
+    public void hasL4OperationCorrectResult() {
         setInputData();
         viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_L4);
 
@@ -204,7 +204,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void operationLInfHasCorrectResult() {
+    public void hasLInfOperationCorrectResult() {
         setInputData();
         viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_LINF);
 

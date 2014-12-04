@@ -3,6 +3,8 @@ package ru.unn.agile.ColorConverter.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.ColorConverter.model.ColorSpaces.ColorSpace3D;
+import ru.unn.agile.ColorConverter.model.TestUtilities.KnownColors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -60,6 +62,17 @@ public class ViewModelTests {
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
+    @Test
+    public void canReportBadFormatIfThereIsNumberWithComma() {
+        fillFieldFloatingPointNumberWithComma();
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void isStatusReadyIfThereIsNumberWithDot() {
+        fillFieldFloatingPointNumberWithDot();
+        assertEquals(Status.READY.toString(), viewModel.getStatus());
+    }
     @Test
     public void canChooseRgbAsSrcColor() {
         viewModel.setSrcColor(Color.RGB);
@@ -124,41 +137,65 @@ public class ViewModelTests {
     }
 
     @Test
-    public void calculateButtonIsDisabledInitially() {
+    public void convertButtonIsDisabledInitially() {
         assertTrue(viewModel.isCalculationDisabled());
     }
 
     @Test
-    public void calculateButtonIsDisabledWhenFormatIsBad() {
+    public void convertButtonIsDisabledWhenFormatIsBad() {
         fillFieldInBadFormat();
         assertTrue(viewModel.isCalculationDisabled());
     }
 
     @Test
-    public void calculateButtonIsDisabledWithIncompleteInput() {
+    public void convertButtonIsDisabledWithIncompleteInput() {
         fillNotAllFields();
         assertTrue(viewModel.isCalculationDisabled());
     }
 
     @Test
-    public void calculateButtonIsDisabledWithOutOfRangeInput() {
+    public void convertButtonIsDisabledWithOutOfRangeInput() {
         setValueOutsideAcceptableRangesForRgb();
         assertTrue(viewModel.isCalculationDisabled());
     }
 
     @Test
-    public void calculateButtonIsEnabledWithCorrectInput() {
+    public void convertButtonIsEnabledWithCorrectInput() {
         fillInputFieldsCorrectly();
         assertFalse(viewModel.isCalculationDisabled());
+    }
+
+    @Test
+    public void convertingWhiteColorForDefaultColorSpacesHasCorrectResult() {
+        setWhiteRgbSrcColor();
+        viewModel.convert();
+        ColorSpace3D dstColor = viewModel.getDstColorValue();
+        assertTrue(dstColor.isEqual(KnownColors.WHITE_LAB));
+    }
+
+    @Test
+    public void convertingWhiteColorForRgbAndHsvHasCorrectResult() {
+        setWhiteRgbSrcColor();
+        viewModel.setDstColor(Color.HSV);
+        viewModel.convert();
+        ColorSpace3D dstColor = viewModel.getDstColorValue();
+        assertTrue(dstColor.isEqual(KnownColors.WHITE_HSV));
+    }
+
+    @Test
+    public void convertingWhiteColorForLabAndHsvHasCorrectResult() {
+        setWhiteLabSrcColor();
+        viewModel.setSrcColor(Color.LAB);
+        viewModel.setDstColor(Color.HSV);
+        viewModel.convert();
+        ColorSpace3D dstColor = viewModel.getDstColorValue();
+        assertTrue(dstColor.isEqual(KnownColors.WHITE_HSV));
     }
 
     private void fillInputFieldsCorrectly() {
         viewModel.setFirstChannelSrcColorString("0");
         viewModel.setSecondChannelSrcColorString("0");
         viewModel.setThirdChannelSrcColorString("0");
-        viewModel.setFirstChannelDstColorString("0");
-        viewModel.setSecondChannelDstColorString("0");
-        viewModel.setThirdChannelDstColorString("0");
     }
 
     private void setValueOutsideAcceptableRangesForRgb() {
@@ -188,4 +225,27 @@ public class ViewModelTests {
     private void fillFieldInBadFormat() {
         viewModel.setFirstChannelSrcColorString("0trash$");
     }
+
+    private void fillFieldFloatingPointNumberWithComma() {
+        fillInputFieldsCorrectly();
+        viewModel.setFirstChannelSrcColorString("0,01");
+    }
+
+    private void fillFieldFloatingPointNumberWithDot() {
+        fillInputFieldsCorrectly();
+        viewModel.setFirstChannelSrcColorString("0.01");
+    }
+
+    private void setWhiteRgbSrcColor() {
+        viewModel.setFirstChannelSrcColorString("255");
+        viewModel.setSecondChannelSrcColorString("255");
+        viewModel.setThirdChannelSrcColorString("255");
+    }
+
+    private void setWhiteLabSrcColor() {
+        viewModel.setFirstChannelSrcColorString("100");
+        viewModel.setSecondChannelSrcColorString("0.01");
+        viewModel.setThirdChannelSrcColorString("-0.01");
+    }
+
 }

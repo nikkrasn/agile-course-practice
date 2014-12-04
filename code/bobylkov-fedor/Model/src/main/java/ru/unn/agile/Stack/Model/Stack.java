@@ -62,6 +62,7 @@ public class Stack<T> {
         return new ArrayList<>(elements());
     }
 
+    //TBD: add tests for listeners
     public void addListener(final ListChangeListener<T> listener) {
         elementsProperty.addListener(listener);
     }

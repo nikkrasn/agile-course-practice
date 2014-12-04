@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 <?import ru.unn.agile.Stack.ViewModel.*?>
+
 <GridPane minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Stack.View.Stack">
     <fx:define>
         <ViewModel fx:id="viewModel" />
@@ -21,10 +21,11 @@
     <RowConstraints minHeight="150.0" prefHeight="300.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <TableView fx:id="stackTable" GridPane.columnSpan="2" GridPane.rowIndex="3">
-        <columns>
-          <TableColumn fx:id="valueColumn" editable="false" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" sortable="false" text="Value" />
-        </columns>
+      <TableView fx:id="stackTable" GridPane.columnSpan="2" GridPane.rowIndex="3" editable="true" visible="true">
+          <columns>
+              <TableColumn fx:id="valueColumn" editable="true" maxWidth="-1.0" minWidth="400" prefWidth="-1.0" sortable="false" text="Value" visible="true" resizable="true"/>
+          </columns>
+          <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
       </TableView>
       <AnchorPane maxHeight="60.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
@@ -43,7 +44,7 @@
       </AnchorPane>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <Label fx:id="topLabel" text="${viewModel.top}" layoutX="35.0" layoutY="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label fx:id="topLabel" layoutX="35.0" layoutY="21.0" text="${viewModel.top}" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <padding>
                   <Insets left="5.0" />
                </padding>

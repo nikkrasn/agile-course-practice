@@ -43,20 +43,6 @@ public class ViewModelTests {
     }
 
     @Test
-    public void statusIsIncorrectWhenFirstCoefficientIsNull() {
-        viewModel.firstCoefficientProperty().set("0");
-
-        assertEquals(systemStatus.INCORRECT_COEF.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
-    public void solveIsIncorrectWhenFirstCoefficientIsNullOtherKind() {
-        viewModel.firstCoefficientProperty().set("00.0");
-
-        assertEquals(systemStatus.INCORRECT_COEF.toString(), viewModel.statusProperty().get());
-    }
-
-    @Test
     public void canReportWhenTheInputCoefficientHasBadFormat() {
         viewModel.firstCoefficientProperty().set("/");
 
@@ -79,15 +65,7 @@ public class ViewModelTests {
     @Test
     public void solveButtonIsDisabledWhenFormatIsBad() {
         setEquationData();
-        viewModel.freeTermProperty().set("ttt");
-
-        assertTrue(viewModel.solvingDisabledProperty().get());
-    }
-
-    @Test
-    public void solveButtonIsDisabledWhenFirstCoefficientIsNull() {
-        setEquationData();
-        viewModel.firstCoefficientProperty().set("0");
+        viewModel.thirdCoefficientProperty().set("ttt");
 
         assertTrue(viewModel.solvingDisabledProperty().get());
     }
@@ -95,7 +73,7 @@ public class ViewModelTests {
     @Test
     public void solveButtonIsDisabledWheNotAllCoefficientsIntroduced() {
         viewModel.firstCoefficientProperty().set("4");
-        viewModel.freeTermProperty().set("2");
+        viewModel.thirdCoefficientProperty().set("2");
 
         assertTrue(viewModel.solvingDisabledProperty().get());
     }
@@ -108,10 +86,18 @@ public class ViewModelTests {
     }
 
     @Test
+    public void solveButtonIsEnabledWhenFirstCoefficientIsNull() {
+        setEquationData();
+        viewModel.firstCoefficientProperty().set("0");
+
+        assertFalse(viewModel.solvingDisabledProperty().get());
+    }
+
+    @Test
     public void solvingHasTwoDifferentRoots() {
         viewModel.firstCoefficientProperty().set("1");
         viewModel.secondCoefficientProperty().set("1");
-        viewModel.freeTermProperty().set("-2");
+        viewModel.thirdCoefficientProperty().set("-2");
 
         viewModel.solve();
 
@@ -146,7 +132,7 @@ public class ViewModelTests {
     public void solvingHasTwoSameRoots() {
         viewModel.firstCoefficientProperty().set("1");
         viewModel.secondCoefficientProperty().set("-10");
-        viewModel.freeTermProperty().set("25");
+        viewModel.thirdCoefficientProperty().set("25");
 
         viewModel.solve();
 
@@ -158,16 +144,36 @@ public class ViewModelTests {
     public void solvingHasNotRealRoots() {
         viewModel.firstCoefficientProperty().set("1");
         viewModel.secondCoefficientProperty().set("1");
-        viewModel.freeTermProperty().set("2");
+        viewModel.thirdCoefficientProperty().set("2");
 
         viewModel.solve();
 
         assertEquals(systemStatus.NO_ROOTS.toString(), viewModel.statusProperty().get());
     }
 
+    @Test
+    public void canReportStatusWhenFirstCoefficientIsNull() {
+        setEquationData();
+        viewModel.firstCoefficientProperty().set("0");
+
+        viewModel.solve();
+
+        assertEquals(systemStatus.INCORRECT_COEF.toString(), viewModel.statusProperty().get());
+    }
+
+    @Test
+    public void canReportStatusWhenFirstCoefficientIsNullOtherKind() {
+        setEquationData();
+        viewModel.firstCoefficientProperty().set("00.0");
+
+        viewModel.solve();
+
+        assertEquals(systemStatus.INCORRECT_COEF.toString(), viewModel.statusProperty().get());
+    }
+
     public void setEquationData() {
         viewModel.firstCoefficientProperty().set("5");
         viewModel.secondCoefficientProperty().set("-4");
-        viewModel.freeTermProperty().set("-3");
+        viewModel.thirdCoefficientProperty().set("-3");
     }
 }

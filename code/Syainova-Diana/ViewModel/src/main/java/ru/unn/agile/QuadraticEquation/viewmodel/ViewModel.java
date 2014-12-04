@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty fCoef = new SimpleStringProperty("");
-    private final StringProperty sCoef = new SimpleStringProperty("");
-    private final StringProperty fTerm = new SimpleStringProperty("");
+    private final StringProperty firstCoef = new SimpleStringProperty("");
+    private final StringProperty secondCoef = new SimpleStringProperty("");
+    private final StringProperty thirdCoef = new SimpleStringProperty("");
 
     private final StringProperty firstRootResult = new SimpleStringProperty("");
     private final StringProperty secondRootResult = new SimpleStringProperty("");
@@ -23,27 +23,33 @@ public class ViewModel {
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
-    private static final double ZERO = 0.0;
-    private static final double DELTA = 0.0001;
-
     public ViewModel() {
+        bindEquationDisabled();
+        createFieldsValueChangedListeners();
+    }
+
+    private void bindEquationDisabled() {
         BooleanBinding couldSolve = new BooleanBinding() {
             {
-                super.bind(fCoef, sCoef, fTerm);
+                super.bind(firstCoef, secondCoef, thirdCoef);
             }
+
             @Override
             protected boolean computeValue() {
                 return getEquationStatus() == systemStatus.READY;
             }
         };
         solvingDisabled.bind(couldSolve.not());
+    }
 
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(fCoef);
-            add(sCoef);
-            add(fTerm);
-        } };
-
+    private void createFieldsValueChangedListeners() {
+        final List<StringProperty> fields = new ArrayList<StringProperty>() {
+            {
+                add(firstCoef);
+                add(secondCoef);
+                add(thirdCoef);
+            }
+        };
         for (StringProperty field : fields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);
@@ -55,36 +61,32 @@ public class ViewModel {
         if (solvingDisabled.get()) {
             return;
         }
-
-        QuadraticEquation equation = new QuadraticEquation(
-                Double.parseDouble(fCoef.get()),
-                Double.parseDouble(sCoef.get()),
-                Double.parseDouble(fTerm.get()));
-
         try {
-            String firstRoot = Double.toString(equation.getFirstRoot());
-            String secondRoot = Double.toString(equation.getSecondRoot());
+            QuadraticEquation equation = new QuadraticEquation(
+                    Double.parseDouble(firstCoef.get()),
+                    Double.parseDouble(secondCoef.get()),
+                    Double.parseDouble(thirdCoef.get()));
 
-            if (!(firstRoot.isEmpty()) && !(secondRoot.isEmpty())) {
-                firstRootResult.set("x = " + firstRoot);
-                secondRootResult.set("x = " + secondRoot);
-                status.set(systemStatus.SUCCESS.toString());
-            }
-        } catch (IllegalArgumentException iag) {
+            firstRootResult.set("x = " + equation.getFirstRoot());
+            secondRootResult.set("x = " + equation.getSecondRoot());
+            status.set(systemStatus.SUCCESS.toString());
+        } catch (ArithmeticException iag) {
             status.set(systemStatus.NO_ROOTS.toString());
+        } catch (IllegalArgumentException ae) {
+            status.set(systemStatus.INCORRECT_COEF.toString());
         }
     }
 
     public StringProperty firstCoefficientProperty() {
-        return fCoef;
+        return firstCoef;
     }
 
     public StringProperty secondCoefficientProperty() {
-        return sCoef;
+        return secondCoef;
     }
 
-    public StringProperty freeTermProperty() {
-        return fTerm;
+    public StringProperty thirdCoefficientProperty() {
+        return thirdCoef;
     }
 
     public StringProperty firstRootResultProperty() {
@@ -121,31 +123,23 @@ public class ViewModel {
 
     private systemStatus getEquationStatus() {
         systemStatus equationStatus = systemStatus.READY;
-        if (fCoef.get().isEmpty() || sCoef.get().isEmpty() || fTerm.get().isEmpty()) {
+        if (firstCoef.get().isEmpty() || secondCoef.get().isEmpty() || thirdCoef.get().isEmpty()) {
             equationStatus = systemStatus.WAITING;
         }
         try {
-            double valueFirstCoefficient = Double.parseDouble(fCoef.get());
-            if (Math.abs(valueFirstCoefficient - ZERO) < DELTA) {
-                throw new IllegalArgumentException(
-                        "The first coefficient can't be null in quadratic equation");
+            if (!firstCoef.get().isEmpty()) {
+                Double.parseDouble(firstCoef.get());
             }
-        } catch (IllegalArgumentException iae) {
-            equationStatus = systemStatus.INCORRECT_COEF;
-        }
-        try {
-            if (!fCoef.get().isEmpty()) {
-                Double.parseDouble(fCoef.get());
-                }
-            if (!sCoef.get().isEmpty()) {
-                Double.parseDouble(sCoef.get());
+            if (!secondCoef.get().isEmpty()) {
+                Double.parseDouble(secondCoef.get());
             }
-            if (!fTerm.get().isEmpty()) {
-                Double.parseDouble(fTerm.get());
+            if (!thirdCoef.get().isEmpty()) {
+                Double.parseDouble(thirdCoef.get());
             }
         } catch (NumberFormatException nfe) {
-                equationStatus = systemStatus.BAD_FORMAT;
+            equationStatus = systemStatus.BAD_FORMAT;
         }
+
         return equationStatus;
     }
 

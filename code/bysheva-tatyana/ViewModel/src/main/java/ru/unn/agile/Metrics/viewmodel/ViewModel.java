@@ -48,23 +48,23 @@ public class ViewModel {
     public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
-    public StringProperty resultProperty() {
+    public StringProperty getResultProperty() {
         return result;
     }
-    public final String getResult() {
+    public final String getResultValue() {
         return result.get();
     }
-    public StringProperty statusProperty() {
+    public StringProperty getStatusProperty() {
         return status;
     }
-    public final String getStatus() {
+    public final String getStatusValue() {
         return status.get();
     }
 
     public ViewModel() {
         currentOperation.set(Operation.METRIC_L1);
         result.set("");
-        status.set(Status.READY.toString());
+        status.set(CurrentStatus.READY.toString());
 
         vectorsDimension.addListener(new ChangeListener<String>() {
             @Override
@@ -81,7 +81,6 @@ public class ViewModel {
             }
         });
 
-        //vectorsDimension.set("2");
         vectorsDimension.set("1");
     }
 
@@ -100,19 +99,19 @@ public class ViewModel {
         }
 
         result.set(currentOperation.get().apply(vector1, vector2).toString());
-        status.set(Status.SUCCESS.toString());
+        status.set(CurrentStatus.SUCCESS.toString());
     }
 
     private void updateStatus() {
-        status.set(Status.READY.toString());
+        status.set(CurrentStatus.READY.toString());
         if (vectorsValues.get().isEmpty() || vectorsDimension.get().equals("")) {
-            status.set(Status.WAITING.toString());
+            status.set(CurrentStatus.WAITING.toString());
         }
         try {
             if (!vectorsDimension.get().equals("")) {
                 Integer newSize = Integer.parseInt(vectorsDimension.get());
                 if (newSize <= 0) {
-                    status.set(Status.BAD_FORMAT.toString());
+                    status.set(CurrentStatus.BAD_FORMAT.toString());
                 }
                 fetchVectorsDimension(newSize);
             }
@@ -120,9 +119,9 @@ public class ViewModel {
                 parseVectorsValues();
             }
         } catch (NumberFormatException nfe) {
-            status.set(Status.BAD_FORMAT.toString());
+            status.set(CurrentStatus.BAD_FORMAT.toString());
         }
-        calculationDisabled.set(!status.get().equals(Status.READY.toString()));
+        calculationDisabled.set(!status.get().equals(CurrentStatus.READY.toString()));
     }
 
     private void parseVectorsValues() {
@@ -145,14 +144,14 @@ public class ViewModel {
     }
 }
 
-enum Status {
+enum CurrentStatus {
     WAITING("Please provide input data"),
     READY("Press 'Calculate' or Enter"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Success");
 
     private final String name;
-    private Status(final String name) {
+    private CurrentStatus(final String name) {
         this.name = name;
     }
     public String toString() {

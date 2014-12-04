@@ -24,7 +24,7 @@ public class SolutionOfQuadraticEquations {
 
         txtCoefA.textProperty().bindBidirectional(viewModel.firstCoefficientProperty());
         txtCoefB.textProperty().bindBidirectional(viewModel.secondCoefficientProperty());
-        txtCoefC.textProperty().bindBidirectional(viewModel.freeTermProperty());
+        txtCoefC.textProperty().bindBidirectional(viewModel.thirdCoefficientProperty());
 
         btnSolve.setOnAction(new EventHandler<ActionEvent>() {
             @Override

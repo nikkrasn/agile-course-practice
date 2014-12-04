@@ -87,8 +87,14 @@ public class MetricsCalculator {
         return editableComponent.getTablePosition().getRow();
     }
 
+    private ObservableList<Components> getTableViewItems(final TableColumn.
+            CellEditEvent<Components, String> editableComponent) {
+        return editableComponent.getTableView().getItems();
+    }
+
     private Components getEditedComponents(final TableColumn.
             CellEditEvent<Components, String> editableComponent) {
-        return editableComponent.getTableView().getItems().get(getEditedRowIndex(editableComponent));
+        Integer editedRowIndex = getEditedRowIndex(editableComponent);
+        return getTableViewItems(editableComponent).get(editedRowIndex);
     }
 }

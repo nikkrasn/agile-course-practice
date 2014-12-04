@@ -54,18 +54,22 @@ public class MetricsCalculator {
         vector1.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<Components, String>>() {
                     @Override
-                    public void handle(final TableColumn.CellEditEvent<Components, String> t) {
-                        updateComponentsCell(getEditedRowIndex(t),
-                                getEditedComponents(t).setComponent1(t.getNewValue()));
+                    public void handle(final TableColumn.
+                            CellEditEvent<Components, String> editableComponent) {
+                        updateComponentsCell(getEditedRowIndex(editableComponent),
+                                getEditedComponents(editableComponent).
+                                        setComponent1(editableComponent.getNewValue()));
                     }
                 }
         );
         vector2.setOnEditCommit(
                 new EventHandler<TableColumn.CellEditEvent<Components, String>>() {
                     @Override
-                    public void handle(final TableColumn.CellEditEvent<Components, String> t) {
-                        updateComponentsCell(getEditedRowIndex(t),
-                                getEditedComponents(t).setComponent2(t.getNewValue()));
+                    public void handle(final TableColumn.
+                            CellEditEvent<Components, String> editableComponent) {
+                        updateComponentsCell(getEditedRowIndex(editableComponent),
+                                getEditedComponents(editableComponent).
+                                        setComponent2(editableComponent.getNewValue()));
                     }
                 }
         );
@@ -78,11 +82,13 @@ public class MetricsCalculator {
         tableView.setItems(newTable);
     }
 
-    private Integer getEditedRowIndex(final TableColumn.CellEditEvent<Components, String> t) {
-        return t.getTablePosition().getRow();
+    private Integer getEditedRowIndex(final TableColumn.
+            CellEditEvent<Components, String> editableComponent) {
+        return editableComponent.getTablePosition().getRow();
     }
 
-    private Components getEditedComponents(final TableColumn.CellEditEvent<Components, String> t) {
-        return t.getTableView().getItems().get(getEditedRowIndex(t));
+    private Components getEditedComponents(final TableColumn.
+            CellEditEvent<Components, String> editableComponent) {
+        return editableComponent.getTableView().getItems().get(getEditedRowIndex(editableComponent));
     }
 }

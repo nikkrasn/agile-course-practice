@@ -36,9 +36,9 @@ public final class XyzConverter {
 
     public static void fromRgbToColorSpace(final Rgb srcColor, final Xyz dstColor) {
 
-        double pivotedR = pivotRgb(srcColor.getR() / MAX_RGB);
-        double pivotedG = pivotRgb(srcColor.getG() / MAX_RGB);
-        double pivotedB = pivotRgb(srcColor.getB() / MAX_RGB);
+        double pivotedR = pivotRgb(srcColor.getFirstChannel() / MAX_RGB);
+        double pivotedG = pivotRgb(srcColor.getSecondChannel() / MAX_RGB);
+        double pivotedB = pivotRgb(srcColor.getThirdChannel() / MAX_RGB);
 
         double x = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 0);
         double y = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 1);
@@ -51,9 +51,9 @@ public final class XyzConverter {
 
     public static Rgb toRgbColor(final Xyz srcColor) {
 
-        double x = srcColor.getX();
-        double y = srcColor.getY();
-        double z = srcColor.getZ();
+        double x = srcColor.getFirstChannel();
+        double y = srcColor.getSecondChannel();
+        double z = srcColor.getThirdChannel();
 
         double r = convertToRgbComponent(x, y, z, 0);
         double g = convertToRgbComponent(x, y, z, 1);

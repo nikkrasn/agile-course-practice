@@ -25,15 +25,18 @@ public class Lab extends ColorSpace3D {
     private double a;
     private double b;
 
-    public double getL() {
+    @Override
+    public double getFirstChannel() {
         return l;
     }
 
-    public double getA() {
+    @Override
+    public double getSecondChannel() {
         return a;
     }
 
-    public double getB() {
+    @Override
+    public double getThirdChannel() {
         return b;
     }
 
@@ -62,9 +65,9 @@ public class Lab extends ColorSpace3D {
 
     @Override
     public boolean isEqual(final ColorSpace3D comparedColor) {
-        boolean isLClose = Utils.isCloseEnough(l, ((Lab) comparedColor).getL());
-        boolean isAClose = Utils.isCloseEnough(a, ((Lab) comparedColor).getA());
-        boolean isBClose = Utils.isCloseEnough(b, ((Lab) comparedColor).getB());
+        boolean isLClose = Utils.isCloseEnough(l, ((Lab) comparedColor).getFirstChannel());
+        boolean isAClose = Utils.isCloseEnough(a, ((Lab) comparedColor).getSecondChannel());
+        boolean isBClose = Utils.isCloseEnough(b, ((Lab) comparedColor).getThirdChannel());
         return isLClose && isAClose && isBClose;
     }
 

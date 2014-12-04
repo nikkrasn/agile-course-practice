@@ -26,15 +26,18 @@ public class Rgb extends ColorSpace3D {
     private double g;
     private double b;
 
-    public double getR() {
+    @Override
+    public double getFirstChannel() {
         return r;
     }
 
-    public double getG() {
+    @Override
+    public double getSecondChannel() {
         return g;
     }
 
-    public double getB() {
+    @Override
+    public double getThirdChannel() {
         return b;
     }
 
@@ -63,9 +66,9 @@ public class Rgb extends ColorSpace3D {
 
     @Override
     public boolean isEqual(final ColorSpace3D comparedColor) {
-        boolean isRClose = Utils.isCloseEnough(r, ((Rgb) comparedColor).getR());
-        boolean isGClose = Utils.isCloseEnough(g, ((Rgb) comparedColor).getG());
-        boolean isBClose = Utils.isCloseEnough(b, ((Rgb) comparedColor).getB());
+        boolean isRClose = Utils.isCloseEnough(r, ((Rgb) comparedColor).getFirstChannel());
+        boolean isGClose = Utils.isCloseEnough(g, ((Rgb) comparedColor).getSecondChannel());
+        boolean isBClose = Utils.isCloseEnough(b, ((Rgb) comparedColor).getThirdChannel());
         return isRClose && isGClose && isBClose;
     }
 

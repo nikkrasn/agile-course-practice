@@ -92,4 +92,11 @@ public class XyzTest {
         Xyz color = new Xyz();
         color.setValues(Xyz.MAX_X, Xyz.MAX_Y, Xyz.MAX_Z + 2);
     }
+
+    @Test(expected = ClassCastException.class)
+    public void cannotCompareWithAnotherColorSpace() {
+        Xyz xyzColor = KnownColors.BLACK_XYZ;
+        Lab labColor = KnownColors.BLACK_LAB;
+        xyzColor.isEqual(labColor);
+    }
 }

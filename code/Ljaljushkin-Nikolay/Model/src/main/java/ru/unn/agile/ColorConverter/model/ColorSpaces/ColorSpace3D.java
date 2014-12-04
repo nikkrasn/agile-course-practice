@@ -15,6 +15,12 @@ public abstract class ColorSpace3D extends ColorSpace {
                                    final double secondChannel,
                                    final double thirdChannel);
 
+    public abstract double getFirstChannel();
+
+    public abstract double getSecondChannel();
+
+    public abstract double getThirdChannel();
+
     public abstract void verifyFirstChannel(double value);
 
     public abstract void verifySecondChannel(double value);

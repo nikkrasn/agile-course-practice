@@ -125,4 +125,11 @@ public class RgbTest {
         Rgb color = new Rgb();
         color.setValues(Rgb.MAX_R, Rgb.MAX_G, Rgb.MAX_B + 1);
     }
+
+    @Test(expected = ClassCastException.class)
+    public void cannotCompareWithAnotherColorSpace() {
+        Rgb rgbColor = KnownColors.BLACK_RGB;
+        Lab labColor = KnownColors.BLACK_LAB;
+        rgbColor.isEqual(labColor);
+    }
 }

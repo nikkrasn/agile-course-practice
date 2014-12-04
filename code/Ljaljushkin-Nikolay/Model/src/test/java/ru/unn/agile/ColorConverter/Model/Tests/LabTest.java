@@ -124,4 +124,11 @@ public class LabTest {
         Lab color = new Lab();
         color.setValues(Lab.MAX_L, Lab.MAX_A, Lab.MAX_B + 1);
     }
+
+    @Test(expected = ClassCastException.class)
+    public void cannotCompareWithAnotherColorSpace() {
+        Lab labColor = KnownColors.BLACK_LAB;
+        Hsv hsvColor = KnownColors.BLACK_HSV;
+        labColor.isEqual(hsvColor);
+    }
 }

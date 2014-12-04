@@ -26,15 +26,15 @@ public class Xyz extends ColorSpace3D {
     private double y;
     private double z;
 
-    public double getX() {
+    public double getFirstChannel() {
         return x;
     }
 
-    public double getY() {
+    public double getSecondChannel() {
         return y;
     }
 
-    public double getZ() {
+    public double getThirdChannel() {
         return z;
     }
 
@@ -63,9 +63,9 @@ public class Xyz extends ColorSpace3D {
 
     @Override
     public boolean isEqual(final ColorSpace3D comparedColor) {
-        boolean isXClose = Utils.isCloseEnough(x, ((Xyz) comparedColor).getX());
-        boolean isYClose = Utils.isCloseEnough(y, ((Xyz) comparedColor).getY());
-        boolean isZClose = Utils.isCloseEnough(z, ((Xyz) comparedColor).getZ());
+        boolean isXClose = Utils.isCloseEnough(x, ((Xyz) comparedColor).getFirstChannel());
+        boolean isYClose = Utils.isCloseEnough(y, ((Xyz) comparedColor).getSecondChannel());
+        boolean isZClose = Utils.isCloseEnough(z, ((Xyz) comparedColor).getThirdChannel());
         return isXClose && isYClose && isZClose;
     }
 

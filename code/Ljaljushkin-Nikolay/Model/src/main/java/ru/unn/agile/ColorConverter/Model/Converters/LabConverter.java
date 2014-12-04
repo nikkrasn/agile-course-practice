@@ -26,9 +26,9 @@ public final class LabConverter {
         xyz.initialize(srcColor);
 
         Xyz white = XyzConverter.getWhiteReference();
-        double pivotedX = pivotXyz(xyz.getX() / white.getX());
-        double pivotedY = pivotXyz(xyz.getY() / white.getY());
-        double pivotedZ = pivotXyz(xyz.getZ() / white.getZ());
+        double pivotedX = pivotXyz(xyz.getFirstChannel() / white.getFirstChannel());
+        double pivotedY = pivotXyz(xyz.getSecondChannel() / white.getSecondChannel());
+        double pivotedZ = pivotXyz(xyz.getThirdChannel() / white.getThirdChannel());
 
         double l = Math.max(0, DENOMINATOR * pivotedY - NOMINATOR);
         double a = A_DIVIDER * (pivotedX - pivotedY);
@@ -41,9 +41,9 @@ public final class LabConverter {
 
     public static Rgb toRgbColor(final Lab srcColor) {
 
-        double l = srcColor.getL();
-        double a = srcColor.getA();
-        double b = srcColor.getB();
+        double l = srcColor.getFirstChannel();
+        double a = srcColor.getSecondChannel();
+        double b = srcColor.getThirdChannel();
 
         double y = (l + NOMINATOR) / DENOMINATOR;
         double x = a / A_DIVIDER + y;
@@ -59,9 +59,9 @@ public final class LabConverter {
         z = (cubedZ > EPSILON ? cubedZ : (z - NOMINATOR / DENOMINATOR) / FACTOR);
 
         Xyz xyz = new Xyz(
-                white.getX() * x,
-                white.getY() * y,
-                white.getZ() * z);
+                white.getFirstChannel() * x,
+                white.getSecondChannel() * y,
+                white.getThirdChannel() * z);
 
         return xyz.toRgb();
     }

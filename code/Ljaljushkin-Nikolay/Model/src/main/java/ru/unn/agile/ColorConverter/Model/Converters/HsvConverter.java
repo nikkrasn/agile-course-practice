@@ -16,9 +16,9 @@ public final class HsvConverter {
 
     public static void fromRgbToColorSpace(final Rgb srcColor, final Hsv dstColor) {
 
-        double arithmeticR = srcColor.getR() / MAX_RGB;
-        double arithmeticG = srcColor.getG() / MAX_RGB;
-        double arithmeticB = srcColor.getB() / MAX_RGB;
+        double arithmeticR = srcColor.getFirstChannel() / MAX_RGB;
+        double arithmeticG = srcColor.getSecondChannel() / MAX_RGB;
+        double arithmeticB = srcColor.getThirdChannel() / MAX_RGB;
 
         double max = Math.max(arithmeticR, Math.max(arithmeticG, arithmeticB));
         double min = Math.min(arithmeticR, Math.min(arithmeticG, arithmeticB));
@@ -45,9 +45,9 @@ public final class HsvConverter {
 
     public static Rgb toRgbColor(final Hsv hsv) {
 
-        double h = hsv.getH();
-        double s = hsv.getS();
-        double v = hsv.getV();
+        double h = hsv.getFirstChannel();
+        double s = hsv.getSecondChannel();
+        double v = hsv.getThirdChannel();
 
         final double degrees = 60.0;
         final double maxRGB = 255.0;

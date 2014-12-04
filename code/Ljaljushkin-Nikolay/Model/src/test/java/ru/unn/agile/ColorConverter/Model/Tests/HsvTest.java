@@ -100,4 +100,11 @@ public class HsvTest {
         Hsv color = new Hsv();
         color.setValues(Hsv.MAX_H, Hsv.MAX_S, Hsv.MAX_V + 1);
     }
+
+    @Test(expected = ClassCastException.class)
+    public void cannotCompareWithAnotherColorSpace() {
+        Hsv hsvColor = KnownColors.AQUAMARINE_HSV;
+        Lab labColor = KnownColors.AQUAMARINE_LAB;
+        hsvColor.isEqual(labColor);
+    }
 }

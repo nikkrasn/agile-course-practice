@@ -1,5 +1,6 @@
 package ru.unn.agile.Stack.Model;
 
+import javafx.collections.ListChangeListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -173,6 +174,33 @@ public class StackTest {
 
         assertArrayEquals(new Object[] {}, list.toArray());
         assertStackEquals(new Object[] {1, 2}, stack);
+    }
+
+    @Test
+    public void canAddListener() {
+        stack.addListener(new ListChangeListener<Object>() {
+            @Override
+            public void onChanged(final Change<?> c) {
+                assertArrayEquals(c.getList().toArray(), stack.toList().toArray());
+            }
+        });
+
+        stack.push(1);
+        stack.push(2);
+    }
+
+    @Test
+    public void canRemoveListener() {
+        ListChangeListener<Object> listener = new ListChangeListener<Object>() {
+            @Override
+            public void onChanged(final Change<?> c) {
+                fail("Listener was removed, bus it's change method was called.");
+            }
+        };
+        stack.addListener(listener);
+
+        stack.removeListener(listener);
+        stack.push(1);
     }
 
     private void assertStackEquals(final Object[] expected, final Stack actual) {

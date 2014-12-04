@@ -21,8 +21,8 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList());
 
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty metricResult = new SimpleStringProperty();
+    private final StringProperty currentStatus = new SimpleStringProperty();
 
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
@@ -48,23 +48,23 @@ public class ViewModel {
     public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
-    public StringProperty getResultProperty() {
-        return result;
+    public StringProperty metricResultProperty() {
+        return metricResult;
     }
-    public final String getResultValue() {
-        return result.get();
+    public final String getMetricResult() {
+        return metricResult.get();
     }
-    public StringProperty getStatusProperty() {
-        return status;
+    public StringProperty currentStatusProperty() {
+        return currentStatus;
     }
-    public final String getStatusValue() {
-        return status.get();
+    public final String getCurrentStatus() {
+        return currentStatus.get();
     }
 
     public ViewModel() {
         currentOperation.set(Operation.METRIC_L1);
-        result.set("");
-        status.set(CurrentStatus.READY.toString());
+        metricResult.set("");
+        currentStatus.set(CurrentStatus.READY.toString());
 
         vectorsDimension.addListener(new ChangeListener<String>() {
             @Override
@@ -98,20 +98,20 @@ public class ViewModel {
             vector2.add(Float.parseFloat(vectorsValue.getComponent2()));
         }
 
-        result.set(currentOperation.get().apply(vector1, vector2).toString());
-        status.set(CurrentStatus.SUCCESS.toString());
+        metricResult.set(currentOperation.get().apply(vector1, vector2).toString());
+        currentStatus.set(CurrentStatus.SUCCESS.toString());
     }
 
     private void updateStatus() {
-        status.set(CurrentStatus.READY.toString());
+        currentStatus.set(CurrentStatus.READY.toString());
         if (vectorsValues.get().isEmpty() || vectorsDimension.get().equals("")) {
-            status.set(CurrentStatus.WAITING.toString());
+            currentStatus.set(CurrentStatus.WAITING.toString());
         }
         try {
             if (!vectorsDimension.get().equals("")) {
                 Integer newSize = Integer.parseInt(vectorsDimension.get());
                 if (newSize <= 0) {
-                    status.set(CurrentStatus.BAD_FORMAT.toString());
+                    currentStatus.set(CurrentStatus.BAD_FORMAT.toString());
                 }
                 fetchVectorsDimension(newSize);
             }
@@ -119,9 +119,9 @@ public class ViewModel {
                 parseVectorsValues();
             }
         } catch (NumberFormatException nfe) {
-            status.set(CurrentStatus.BAD_FORMAT.toString());
+            currentStatus.set(CurrentStatus.BAD_FORMAT.toString());
         }
-        calculationDisabled.set(!status.get().equals(CurrentStatus.READY.toString()));
+        calculationDisabled.set(!currentStatus.get().equals(CurrentStatus.READY.toString()));
     }
 
     private void parseVectorsValues() {

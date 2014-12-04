@@ -32,9 +32,6 @@ public class MetricsCalculator {
 
     @FXML
     void initialize() {
-        tableView.setEditable(true);
-        tableView.setVisible(true);
-
         vector1.setCellFactory(TextFieldTableCell.forTableColumn());
         vector2.setCellFactory(TextFieldTableCell.forTableColumn());
         setColumnsOnEditCommit();

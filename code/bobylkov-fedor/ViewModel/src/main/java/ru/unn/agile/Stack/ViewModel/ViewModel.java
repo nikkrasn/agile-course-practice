@@ -1,110 +1,78 @@
 package ru.unn.agile.Stack.ViewModel;
 
-import org.junit.Before;
-import org.junit.Test;
+import javafx.beans.property.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import ru.unn.agile.Stack.Model.Stack;
 
-import static org.junit.Assert.*;
+public class ViewModel {
+    private final ObjectProperty<ObservableList<String>> stackTable = new SimpleObjectProperty<>();
+    private final StringProperty top = new SimpleStringProperty();
+    private final StringProperty pushText = new SimpleStringProperty();
+    private final BooleanProperty isEmpty = new SimpleBooleanProperty();
+    private final Stack<String> stack = new Stack<>();
 
-public class ViewModelTests {
-    private ViewModel viewModel;
-
-    @Before
-    public void setUp() {
-        viewModel = new ViewModel();
+    public StringProperty topProperty() {
+        return top;
+    }
+    public final String getTop() {
+        return top.get();
     }
 
-    @Test
-    public void checkDefaultPushValue() {
-        assertEquals("Push me!", viewModel.getPushText());
+    public StringProperty pushTextProperty() {
+        return pushText;
+    }
+    public final String getPushText() {
+        return pushText.get();
+    }
+    public final void setPushText(final String text) {
+        pushText.set(text);
     }
 
-    @Test
-    public void isTopEmptyStringInitially() {
-        assertEquals("", viewModel.getTop());
+    public ObjectProperty<ObservableList<String>> stackTableProperty() {
+        return stackTable;
+    }
+    public final ObservableList<String> getStackTable() {
+        return stackTable.get();
     }
 
-    @Test
-    public void isStackTableEmptyInitially() {
-        assertArrayEquals(new String[] {}, viewModel.getStackTable().toArray());
+    public BooleanProperty isEmptyProperty() {
+        return isEmpty;
+    }
+    public final Boolean getIsEmpty() {
+        return isEmpty.get();
+    }
+    public Boolean isPopButtonDisabled() {
+        return getIsEmpty();
     }
 
-    @Test
-    public void isPopButtonDisabledInitially() {
-        assertTrue(viewModel.isPopButtonDisabled());
+    public ViewModel() {
+        stack.addListener(new ListChangeListener<String>() {
+            @Override
+            public void onChanged(final Change<? extends String> c) {
+                updateProperties();
+            }
+        });
+
+        updateProperties();
+        pushText.set("Push me!");
     }
 
-    @Test
-    public void canPushDefaultValue() {
-        viewModel.push();
-        assertArrayEquals(new String[] {"Push me!"},
-                viewModel.getStackTable().toArray());
+    public void push() {
+        stack.push(pushText.get());
     }
 
-    @Test
-    public void isPopButtonEnabledInNotEmptyStack() {
-        viewModel.push();
-        assertFalse(viewModel.isPopButtonDisabled());
+    public void pop() {
+        if (isPopButtonDisabled()) {
+            return;
+        }
+        stack.pop();
     }
 
-    @Test
-    public void isTopCorrectAfterPush() {
-        viewModel.push();
-        assertEquals("Push me!", viewModel.getTop());
-    }
-
-    @Test
-    public void canPushSomeValue() {
-        viewModel.setPushText("something");
-        viewModel.push();
-        assertArrayEquals(new String[] {"something"},
-                viewModel.getStackTable().toArray());
-    }
-
-    @Test
-    public void canPushManyValues() {
-        viewModel.push();
-        viewModel.setPushText("something");
-        viewModel.push();
-        assertArrayEquals(new String[] {"Push me!", "something"},
-                viewModel.getStackTable().toArray());
-    }
-
-    @Test
-    public void isTopCorrectAfterManyPushes() {
-        viewModel.push();
-        viewModel.setPushText("something");
-        viewModel.push();
-
-        assertEquals("something", viewModel.getTop());
-    }
-
-    @Test
-    public void canPop() {
-        viewModel.push();
-        viewModel.pop();
-        assertArrayEquals(new String[] {}, viewModel.getStackTable().toArray());
-    }
-
-    @Test
-    public void canDoManyPops() {
-        viewModel.push();
-        viewModel.setPushText("something");
-        viewModel.push();
-
-        viewModel.pop();
-        assertArrayEquals(new String[] {"Push me!"}, viewModel.getStackTable().toArray());
-        viewModel.pop();
-        assertArrayEquals(new String[] {}, viewModel.getStackTable().toArray());
-    }
-
-    @Test
-    public void isPopButtonDisabledAfterManyPops() {
-        viewModel.push();
-        viewModel.setPushText("something");
-        viewModel.push();
-
-        viewModel.pop();
-        viewModel.pop();
-        assertTrue(viewModel.isPopButtonDisabled());
+    private void updateProperties() {
+        isEmpty.set(stack.isEmpty());
+        top.set(getIsEmpty() ? "" : stack.top());
+        stackTable.set(FXCollections.observableList(stack.toList()));
     }
 }

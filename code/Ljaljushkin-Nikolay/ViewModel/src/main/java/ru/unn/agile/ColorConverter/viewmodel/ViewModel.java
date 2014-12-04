@@ -105,8 +105,8 @@ public class ViewModel {
         Double thirdChannel = dstColorValue.getThirdChannel();
 
         setFirstChannelDstColorString(firstChannel.toString());
-        setFirstChannelDstColorString(secondChannel.toString());
-        setFirstChannelDstColorString(thirdChannel.toString());
+        setSecondChannelDstColorString(secondChannel.toString());
+        setThirdChannelDstColorString(thirdChannel.toString());
 
         status.set(Status.SUCCESS.toString());
     }

@@ -174,12 +174,29 @@ public class ViewModelTests {
     }
 
     @Test
+    public void convertingDarkRedColorForDefaultColorSpacesHasCorrectResult() {
+        setDarkRedRgbSrcColor();
+        viewModel.convert();
+        ColorSpace3D dstColor = viewModel.getDstColorValue();
+        assertTrue(dstColor.isEqual(KnownColors.DARK_RED_LAB));
+    }
+
+    @Test
     public void convertingWhiteColorForRgbAndHsvHasCorrectResult() {
         setWhiteRgbSrcColor();
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
         assertTrue(dstColor.isEqual(KnownColors.WHITE_HSV));
+    }
+
+    @Test
+    public void convertingDarkRedColorForRgbAndHsvHasCorrectResult() {
+        setDarkRedRgbSrcColor();
+        viewModel.setDstColor(Color.HSV);
+        viewModel.convert();
+        ColorSpace3D dstColor = viewModel.getDstColorValue();
+        assertTrue(dstColor.isEqual(KnownColors.DARK_RED_HSV));
     }
 
     @Test
@@ -190,6 +207,16 @@ public class ViewModelTests {
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
         assertTrue(dstColor.isEqual(KnownColors.WHITE_HSV));
+    }
+
+    @Test
+    public void convertingDarkRedColorForLabAndHsvHasCorrectResult() {
+        setDarkRedLabSrcColor();
+        viewModel.setSrcColor(Color.LAB);
+        viewModel.setDstColor(Color.HSV);
+        viewModel.convert();
+        ColorSpace3D dstColor = viewModel.getDstColorValue();
+        assertTrue(dstColor.isEqual(KnownColors.DARK_RED_HSV));
     }
 
     private void fillInputFieldsCorrectly() {
@@ -248,4 +275,15 @@ public class ViewModelTests {
         viewModel.setThirdChannelSrcColorString("-0.01");
     }
 
+    private void setDarkRedRgbSrcColor() {
+        viewModel.setFirstChannelSrcColorString("139");
+        viewModel.setSecondChannelSrcColorString("0");
+        viewModel.setThirdChannelSrcColorString("0");
+    }
+
+    private void setDarkRedLabSrcColor() {
+        viewModel.setFirstChannelSrcColorString("28.0847");
+        viewModel.setSecondChannelSrcColorString("51.0104");
+        viewModel.setThirdChannelSrcColorString("41.2945");
+    }
 }

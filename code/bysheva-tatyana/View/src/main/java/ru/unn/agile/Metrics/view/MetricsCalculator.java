@@ -75,7 +75,7 @@ public class MetricsCalculator {
         ObservableList<Components> newTable = tableView.getItems();
         newTable.set(index, newValue);
 
-        viewModel.vectorsValuesProperty().set(newTable);
+        tableView.setItems(newTable);
     }
 
     private Integer getEditedIndex(final TableColumn.CellEditEvent<Components, String> t) {

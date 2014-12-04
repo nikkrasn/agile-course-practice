@@ -55,7 +55,7 @@ public class QuadraticEquation {
         if (discriminant >= ZERO) {
             return (-secondCoefficient + Math.sqrt(discriminant)) / (TWO * firstCoefficient);
         } else {
-            throw new IllegalArgumentException(
+            throw new ArithmeticException(
                     "The quadratic equation don't have real roots with Discriminant < 0 ");
         }
     }
@@ -65,7 +65,7 @@ public class QuadraticEquation {
         if (discriminant >= ZERO) {
             return (-secondCoefficient - Math.sqrt(discriminant)) / (TWO * firstCoefficient);
         } else {
-            throw new IllegalArgumentException(
+            throw new ArithmeticException(
                     "The quadratic equation don't have real roots with Discriminant < 0");
         }
     }

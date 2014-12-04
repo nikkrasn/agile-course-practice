@@ -15,17 +15,17 @@ public class ViewModelTests {
 
     @Test
     public void checkDefaultPushValue() {
-        assertEquals("Push me!", viewModel.pushTextProperty().get());
+        assertEquals("Push me!", viewModel.getPushText());
     }
 
     @Test
     public void isTopEmptyStringInitially() {
-        assertEquals("", viewModel.topProperty().get());
+        assertEquals("", viewModel.getTop());
     }
 
     @Test
     public void isStackTableEmptyInitially() {
-        assertArrayEquals(new String[] {}, viewModel.stackTableProperty().get().toArray());
+        assertArrayEquals(new String[] {}, viewModel.getStackTable().toArray());
     }
 
     @Test
@@ -37,7 +37,7 @@ public class ViewModelTests {
     public void canPushDefaultValue() {
         viewModel.push();
         assertArrayEquals(new String[] {"Push me!"},
-                viewModel.stackTableProperty().get().toArray());
+                viewModel.getStackTable().toArray());
     }
 
     @Test
@@ -49,23 +49,62 @@ public class ViewModelTests {
     @Test
     public void isTopCorrectAfterPush() {
         viewModel.push();
-        assertEquals("Push me!", viewModel.topProperty().get());
+        assertEquals("Push me!", viewModel.getTop());
     }
 
     @Test
     public void canPushSomeValue() {
-        viewModel.pushTextProperty().set("something");
+        viewModel.setPushText("something");
         viewModel.push();
         assertArrayEquals(new String[] {"something"},
-                viewModel.stackTableProperty().get().toArray());
+                viewModel.getStackTable().toArray());
     }
 
     @Test
     public void canPushManyValues() {
         viewModel.push();
-        viewModel.pushTextProperty().set("something");
+        viewModel.setPushText("something");
         viewModel.push();
         assertArrayEquals(new String[] {"Push me!", "something"},
-                viewModel.stackTableProperty().get().toArray());
+                viewModel.getStackTable().toArray());
+    }
+
+    @Test
+    public void isTopCorrectAfterManyPushes() {
+        viewModel.push();
+        viewModel.setPushText("something");
+        viewModel.push();
+
+        assertEquals("something", viewModel.getTop());
+    }
+
+    @Test
+    public void canPop() {
+        viewModel.push();
+        viewModel.pop();
+        assertArrayEquals(new String[] {}, viewModel.getStackTable().toArray());
+    }
+
+    @Test
+    public void canDoManyPops() {
+        viewModel.push();
+        viewModel.setPushText("something");
+        viewModel.push();
+
+        viewModel.pop();
+        assertArrayEquals(new String[] {"Push me!"}, viewModel.getStackTable().toArray());
+        viewModel.pop();
+        assertArrayEquals(new String[] {}, viewModel.getStackTable().toArray());
+    }
+
+    @Test
+    public void isPopButtonDisabledAfterManyPops() {
+        viewModel.push();
+        viewModel.setPushText("something");
+        viewModel.push();
+
+        viewModel.pop();
+        viewModel.pop();
+        assertTrue(viewModel.isPopButtonDisabled());
     }
 }

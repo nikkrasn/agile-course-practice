@@ -23,26 +23,27 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("1", viewModel.vectorsDimensionProperty().get());
-        assertTrue(viewModel.vectorsValuesProperty().get().get(0).equals(
-                new Components("0.0f", "0.0f")));
-        assertEquals(Metrics.Operation.METRIC_L1, viewModel.currentOperationProperty().get());
-        assertEquals("", viewModel.metricResultProperty().get());
-        assertEquals(CurrentStatus.READY.toString(), viewModel.currentStatusProperty().get());
+        assertEquals("1", viewModel.getVectorsDimensionProperty());
+        Components firstElement = viewModel.getVectorsValuesProperty().get(0);
+
+        assertTrue(firstElement.equals(new Components("0.0f", "0.0f")));
+        assertEquals(Metrics.Operation.METRIC_L1, viewModel.getCurrentOperationProperty());
+        assertEquals("", viewModel.getMetricResultProperty());
+        assertEquals(CurrentStatus.READY.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void statusIsWaitingWhenCalculateWithEmptyFields() {
         viewModel.vectorsDimensionProperty().set("");
         viewModel.calculate();
-        assertEquals(CurrentStatus.WAITING.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.WAITING.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
 
-        assertEquals(CurrentStatus.READY.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.READY.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
@@ -50,58 +51,58 @@ public class ViewModelTests {
         setInputData();
         viewModel.vectorsDimensionProperty().set("invalid");
 
-        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void canReportBadFormatVectorsValues() {
         setInputData();
-        viewModel.vectorsValuesProperty().get().set(0, new Components("invalid", "invalid"));
+        viewModel.getVectorsValuesProperty().set(0, new Components("invalid", "invalid"));
 
-        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void calculateButtonIsDisabledWithIncorrectVectors() {
         setInputData();
-        viewModel.vectorsValuesProperty().get().set(0, new Components("invalid", "invalid"));
+        viewModel.getVectorsValuesProperty().set(0, new Components("invalid", "invalid"));
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(viewModel.getCalculationDisabledProperty());
     }
 
     @Test
     public void isBadStatusWithIncorrectVectors() {
         setInputData();
-        viewModel.vectorsValuesProperty().get().set(0, new Components("0.0f", "invalid"));
+        viewModel.getVectorsValuesProperty().set(0, new Components("0.0f", "invalid"));
 
-        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void statusIsReadyAfterInitialDimensionChange() {
         viewModel.vectorsDimensionProperty().set("1");
 
-        assertEquals(CurrentStatus.READY.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.READY.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void canChangeVectorsValuesByDimensionChange() {
         viewModel.vectorsDimensionProperty().set("1");
+        Components firstElement = viewModel.getVectorsValuesProperty().get(0);
 
-        assertTrue(viewModel.vectorsValuesProperty().get().get(0).equals(
-                new Components("0.0f", "0.0f")));
+        assertTrue(firstElement.equals(new Components("0.0f", "0.0f")));
 
         viewModel.vectorsDimensionProperty().set("2");
+        firstElement = viewModel.getVectorsValuesProperty().get(0);
+        Components secondElement = viewModel.getVectorsValuesProperty().get(1);
 
-        assertTrue(viewModel.vectorsValuesProperty().get().get(0).equals(
-                new Components("0.0f", "0.0f")));
-        assertTrue(viewModel.vectorsValuesProperty().get().get(1).equals(
-                new Components("0.0f", "0.0f")));
+        assertTrue(firstElement.equals(new Components("0.0f", "0.0f")));
+        assertTrue(secondElement.equals(new Components("0.0f", "0.0f")));
     }
 
     @Test
     public void calculateButtonIsEnabledInitially() {
-        assertFalse(viewModel.calculationDisabledProperty().get());
+        assertFalse(viewModel.getCalculationDisabledProperty());
     }
 
     @Test
@@ -109,34 +110,34 @@ public class ViewModelTests {
         setInputData();
         viewModel.vectorsDimensionProperty().set("invalid");
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(viewModel.getCalculationDisabledProperty());
     }
 
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
         setInputData();
-        viewModel.vectorsValuesProperty().get().set(0, new Components("1.0", ""));
+        viewModel.getVectorsValuesProperty().set(0, new Components("1.0", ""));
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(viewModel.getCalculationDisabledProperty());
     }
 
     @Test
     public void calculateButtonIsEnabledWithCorrectInput() {
-        viewModel.vectorsValuesProperty().get().set(0, new Components("invalid", "invalid"));
+        viewModel.getVectorsValuesProperty().set(0, new Components("invalid", "invalid"));
         setInputData();
 
-        assertFalse(viewModel.calculationDisabledProperty().get());
+        assertFalse(viewModel.getCalculationDisabledProperty());
     }
 
     @Test
     public void canSetL1Operation() {
         viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_L1);
-        assertEquals(Metrics.Operation.METRIC_L1, viewModel.currentOperationProperty().get());
+        assertEquals(Metrics.Operation.METRIC_L1, viewModel.getCurrentOperationProperty());
     }
 
     @Test
     public void l1IsDefaultOperation() {
-        assertEquals(Metrics.Operation.METRIC_L1, viewModel.currentOperationProperty().get());
+        assertEquals(Metrics.Operation.METRIC_L1, viewModel.getCurrentOperationProperty());
     }
 
     @Test
@@ -145,7 +146,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("3.0", viewModel.metricResultProperty().get());
+        assertEquals("3.0", viewModel.getMetricResultProperty());
     }
 
     @Test
@@ -154,7 +155,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(CurrentStatus.SUCCESS.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.SUCCESS.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
@@ -162,14 +163,14 @@ public class ViewModelTests {
         setInputData();
         viewModel.vectorsDimensionProperty().set("invalid");
 
-        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.BAD_FORMAT.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
 
-        assertEquals(CurrentStatus.READY.toString(), viewModel.currentStatusProperty().get());
+        assertEquals(CurrentStatus.READY.toString(), viewModel.getCurrentStatusProperty());
     }
 
     @Test
@@ -179,7 +180,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("3.0", viewModel.metricResultProperty().get());
+        assertEquals("3.0", viewModel.getMetricResultProperty());
     }
 
     @Test
@@ -189,7 +190,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("3.0", viewModel.metricResultProperty().get());
+        assertEquals("3.0", viewModel.getMetricResultProperty());
     }
 
     @Test
@@ -199,7 +200,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("3.0", viewModel.metricResultProperty().get());
+        assertEquals("3.0", viewModel.getMetricResultProperty());
     }
 
     @Test
@@ -209,14 +210,14 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("1.0", viewModel.metricResultProperty().get());
+        assertEquals("1.0", viewModel.getMetricResultProperty());
     }
 
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 
-        viewModel.vectorsValuesProperty().get().set(0, new Components("1.0f", "0.0f"));
-        viewModel.vectorsValuesProperty().get().set(1, new Components("2.0f", "1.0f"));
-        viewModel.vectorsValuesProperty().get().set(2, new Components("3.0f", "2.0f"));
+        viewModel.getVectorsValuesProperty().set(0, new Components("1.0f", "0.0f"));
+        viewModel.getVectorsValuesProperty().set(1, new Components("2.0f", "1.0f"));
+        viewModel.getVectorsValuesProperty().set(2, new Components("3.0f", "2.0f"));
     }
 }

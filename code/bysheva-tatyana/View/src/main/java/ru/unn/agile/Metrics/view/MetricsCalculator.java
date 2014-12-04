@@ -55,7 +55,7 @@ public class MetricsCalculator {
                 new EventHandler<TableColumn.CellEditEvent<Components, String>>() {
                     @Override
                     public void handle(final TableColumn.CellEditEvent<Components, String> t) {
-                        updateComponentsCell(getEditedIndex(t),
+                        updateComponentsCell(getEditedRowIndex(t),
                                 getEditedComponents(t).setComponent1(t.getNewValue()));
                     }
                 }
@@ -64,7 +64,7 @@ public class MetricsCalculator {
                 new EventHandler<TableColumn.CellEditEvent<Components, String>>() {
                     @Override
                     public void handle(final TableColumn.CellEditEvent<Components, String> t) {
-                        updateComponentsCell(getEditedIndex(t),
+                        updateComponentsCell(getEditedRowIndex(t),
                                 getEditedComponents(t).setComponent2(t.getNewValue()));
                     }
                 }
@@ -78,11 +78,11 @@ public class MetricsCalculator {
         tableView.setItems(newTable);
     }
 
-    private Integer getEditedIndex(final TableColumn.CellEditEvent<Components, String> t) {
+    private Integer getEditedRowIndex(final TableColumn.CellEditEvent<Components, String> t) {
         return t.getTablePosition().getRow();
     }
 
     private Components getEditedComponents(final TableColumn.CellEditEvent<Components, String> t) {
-        return t.getTableView().getItems().get(getEditedIndex(t));
+        return t.getTableView().getItems().get(getEditedRowIndex(t));
     }
 }

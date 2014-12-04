@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.ColorConverter.model.ColorSpaces.ColorSpace3D;
-import ru.unn.agile.ColorConverter.model.TestUtilities.KnownColors;
+import ru.unn.agile.ColorConverter.model.TestUtilities.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -138,35 +138,35 @@ public class ViewModelTests {
 
     @Test
     public void convertButtonIsDisabledInitially() {
-        assertTrue(viewModel.isCalculationDisabled());
+        assertTrue(viewModel.getConversionDisabled());
     }
 
     @Test
     public void convertButtonIsDisabledWhenFormatIsBad() {
         fillFieldInBadFormat();
-        assertTrue(viewModel.isCalculationDisabled());
+        assertTrue(viewModel.getConversionDisabled());
     }
 
     @Test
     public void convertButtonIsDisabledWithIncompleteInput() {
         fillNotAllFields();
-        assertTrue(viewModel.isCalculationDisabled());
+        assertTrue(viewModel.getConversionDisabled());
     }
 
     @Test
     public void convertButtonIsDisabledWithOutOfRangeInput() {
         setValueOutsideAcceptableRangesForRgb();
-        assertTrue(viewModel.isCalculationDisabled());
+        assertTrue(viewModel.getConversionDisabled());
     }
 
     @Test
     public void convertButtonIsEnabledWithCorrectInput() {
         fillInputFieldsCorrectly();
-        assertFalse(viewModel.isCalculationDisabled());
+        assertFalse(viewModel.getConversionDisabled());
     }
 
     @Test
-    public void convertingWhiteColorForDefaultColorSpacesHasCorrectResult() {
+    public void conversionWhiteColorForDefaultColorSpacesHasCorrectResult() {
         setWhiteRgbSrcColor();
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
@@ -174,7 +174,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertingDarkRedColorForDefaultColorSpacesHasCorrectResult() {
+    public void conversionDarkRedColorForDefaultColorSpacesHasCorrectResult() {
         setDarkRedRgbSrcColor();
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
@@ -182,7 +182,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertingWhiteColorForRgbAndHsvHasCorrectResult() {
+    public void conversionWhiteColorForRgbAndHsvHasCorrectResult() {
         setWhiteRgbSrcColor();
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
@@ -191,7 +191,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertingDarkRedColorForRgbAndHsvHasCorrectResult() {
+    public void conversionDarkRedColorForRgbAndHsvHasCorrectResult() {
         setDarkRedRgbSrcColor();
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
@@ -200,7 +200,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertingWhiteColorForLabAndHsvHasCorrectResult() {
+    public void conversionWhiteColorForLabAndHsvHasCorrectResult() {
         setWhiteLabSrcColor();
         viewModel.setSrcColor(Color.LAB);
         viewModel.setDstColor(Color.HSV);
@@ -210,7 +210,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void convertingDarkRedColorForLabAndHsvHasCorrectResult() {
+    public void conversionDarkRedColorForLabAndHsvHasCorrectResult() {
         setDarkRedLabSrcColor();
         viewModel.setSrcColor(Color.LAB);
         viewModel.setDstColor(Color.HSV);

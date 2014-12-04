@@ -23,17 +23,17 @@ public class ViewModel {
     private double secondChannelSrcColor;
     private double thirdChannelSrcColor;
 
+    private final ObjectProperty<Color> srcColor = new SimpleObjectProperty<>();
     private final ObjectProperty<ObservableList<Color>> srcColors =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
 
-    private final ObjectProperty<Color> srcColor = new SimpleObjectProperty<>();
+    private final ObjectProperty<Color> dstColor = new SimpleObjectProperty<>();
     private final ObjectProperty<ObservableList<Color>> dstColors =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
-    private final ObjectProperty<Color> dstColor = new SimpleObjectProperty<>();
 
     private final StringProperty status = new SimpleStringProperty();
     private final List<StringChangeListener> valueChangedListeners = new ArrayList<>();
-    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    private final BooleanProperty conversionDisabled = new SimpleBooleanProperty();
 
     // FXML needs default c-tor for binding
     public ViewModel() {
@@ -63,7 +63,7 @@ public class ViewModel {
                 return getInputStatus() == Status.READY;
             }
         };
-        calculationDisabled.bind(couldCalculate.not());
+        conversionDisabled.bind(couldCalculate.not());
 
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
             {
@@ -82,15 +82,13 @@ public class ViewModel {
             @Override
             public void changed(final ObservableValue<? extends Color> observableValue,
                                 final Color oldValue, final Color newValue) {
-                System.out.println("old = " + oldValue + ", new = " + newValue);
                 status.set(getInputStatus().toString());
             }
         });
-
     }
 
     public void convert() {
-        if (isCalculationDisabled()) {
+        if (getConversionDisabled()) {
             return;
         }
 
@@ -135,10 +133,6 @@ public class ViewModel {
         thirdChannelDstColorString.set(value);
     }
 
-    public void setStatus(final String value) {
-        status.set(value);
-    }
-
     public void setSrcColor(final Color value) {
         srcColor.set(value);
     }
@@ -171,8 +165,36 @@ public class ViewModel {
         return thirdChannelDstColorString.get();
     }
 
+    public StringProperty firstChannelSrcColorStringProperty() {
+        return firstChannelSrcColorString;
+    }
+
+    public StringProperty secondChannelSrcColorStringProperty() {
+        return secondChannelSrcColorString;
+    }
+
+    public StringProperty thirdChannelSrcColorStringProperty() {
+        return thirdChannelSrcColorString;
+    }
+
+    public StringProperty firstChannelDstColorStringProperty() {
+        return firstChannelDstColorString;
+    }
+
+    public StringProperty secondChannelDstColorStringProperty() {
+        return secondChannelDstColorString;
+    }
+
+    public StringProperty thirdChannelDstColorStringProperty() {
+        return thirdChannelDstColorString;
+    }
+
     public String getStatus() {
         return status.get();
+    }
+
+    public StringProperty statusProperty() {
+        return status;
     }
 
     public Color getSrcColor() {
@@ -183,6 +205,14 @@ public class ViewModel {
         return dstColor.get();
     }
 
+    public final ObservableList<Color> getSrcColors() {
+        return srcColors.get();
+    }
+
+    public final ObservableList<Color> getDstColors() {
+        return dstColors.get();
+    }
+
     public ColorSpace3D getSrcColorValue() {
         return getSrcColor().getValue();
     }
@@ -191,16 +221,21 @@ public class ViewModel {
         return getDstColor().getValue();
     }
 
-    public boolean isCalculationDisabled() {
-        return calculationDisabled.get();
+    public ObjectProperty<Color> srcColorProperty() {
+        return srcColor;
     }
-//    public String getSrcColor() {
-//        return getSrcColorValue().toString();
-//    }
-//
-//    public String getDstColor() {
-//        return getDstColorValue().toString();
-//    }
+
+    public ObjectProperty<Color> dstColorProperty() {
+        return dstColor;
+    }
+
+    public final boolean getConversionDisabled() {
+        return conversionDisabled.get();
+    }
+
+    public BooleanProperty conversionDisabledProperty() {
+        return conversionDisabled;
+    }
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
@@ -243,26 +278,6 @@ public class ViewModel {
                             final String oldString, final String newString) {
             status.set(getInputStatus().toString());
         }
-    }
-}
-
-enum Color { //TODO replace to the ColorSpace and rename?
-    HSV(new Hsv()),
-    LAB(new Lab()),
-    RGB(new Rgb());
-
-    private ColorSpace3D color;
-
-    Color(final ColorSpace3D value) {
-        this.color = value;
-    }
-
-    public ColorSpace3D getValue() {
-        return color;
-    }
-
-    public void setColor(final ColorSpace3D value) {
-        color = value;
     }
 }
 

@@ -6,4 +6,5 @@ javafx {
 
 dependencies {
     compile project(':ljaljushkin-nikolay-Model')
+    testCompile project(':ljaljushkin-nikolay-Model').sourceSets.test.output
 }

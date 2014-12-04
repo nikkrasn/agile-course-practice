@@ -13,7 +13,7 @@
    </fx:define>
    <children>
       <Label fx:id="lbStatus" alignment="CENTER" layoutX="-1.0" layoutY="186.0" prefHeight="25.0" prefWidth="370.0" text="Status:" />
-      <Button fx:id="btConvert" layoutX="97.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="176.0" text="Convert" />
+      <Button fx:id="btConvert" disable="${viewModel.conversionDisabled}" layoutX="97.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="176.0" text="Convert" />
       <VBox layoutX="24.0" layoutY="20.0" prefHeight="130.0" prefWidth="141.0">
          <children>
             <Label alignment="CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="142.0" text="Source Color">
@@ -21,23 +21,20 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbSrcColor" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="268.0" promptText="RGB" />
+            <ComboBox fx:id="cbSrcColor" items="${viewModel.srcColors}" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="268.0" promptText="RGB" />
             <HBox prefHeight="31.0" prefWidth="265.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="R" />
-                  <TextField fx:id="txtFirstChannelSrcColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" />
+                  <TextField fx:id="txtFirstChannelSrcColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" />
                </children>
             </HBox>
             <HBox prefHeight="31.0" prefWidth="265.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="G" />
-                  <TextField fx:id="txtSecondChannelSrcColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" />
+                  <TextField fx:id="txtSecondChannelSrcColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" />
                </children>
             </HBox>
             <HBox prefHeight="31.0" prefWidth="265.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
-                  <TextField fx:id="txtThirdChannelSrcColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" />
+                  <TextField fx:id="txtThirdChannelSrcColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" />
                </children>
             </HBox>
          </children>
@@ -49,23 +46,20 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cbDstColor" prefHeight="37.0" prefWidth="268.0" promptText="RGB" />
+            <ComboBox fx:id="cbDstColor" items="${viewModel.dstColors}" prefHeight="37.0" prefWidth="268.0" promptText="RGB" />
             <HBox prefHeight="31.0" prefWidth="265.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="R" />
-                  <TextField fx:id="txtFirstChannelDstColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" />
+                  <TextField fx:id="txtFirstChannelDstColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" />
                </children>
             </HBox>
             <HBox prefHeight="31.0" prefWidth="265.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="G" />
-                  <TextField fx:id="txtSecondChannelDstColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" />
+                  <TextField fx:id="txtSecondChannelDstColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" />
                </children>
             </HBox>
             <HBox prefHeight="31.0" prefWidth="265.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="165.0" text="B" />
-                  <TextField fx:id="txtThirdChannelDstColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" promptText="0 to 255" />
+                  <TextField fx:id="txtThirdChannelDstColor" alignment="CENTER" prefHeight="30.0" prefWidth="170.0" />
                </children>
             </HBox>
          </children>

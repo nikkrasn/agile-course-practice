@@ -122,7 +122,7 @@ public class StackTest {
     }
 
     @Test
-         public void isOriginalStackCorrectAfterCopyingFromStack() {
+    public void isOriginalStackCorrectAfterCopyingFromStack() {
         stack.push(1);
         stack.push(2);
 
@@ -164,7 +164,7 @@ public class StackTest {
     }
 
     @Test
-    public void canStackBeCorruptedAfterCallingToList() {
+    public void stackCannotBeCorruptedAfterCallingToList() {
         stack.push(1);
         stack.push(2);
 

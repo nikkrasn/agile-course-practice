@@ -165,7 +165,7 @@ public class StackTest {
     }
 
     @Test
-    public void stackCannotBeCorruptedAfterCallingToList() {
+    public void isStackNotCorruptedAfterCallingToList() {
         stack.push(1);
         stack.push(2);
 

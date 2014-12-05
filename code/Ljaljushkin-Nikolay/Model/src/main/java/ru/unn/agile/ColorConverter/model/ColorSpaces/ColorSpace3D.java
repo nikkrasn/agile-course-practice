@@ -1,21 +1,39 @@
 package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
+import ru.unn.agile.ColorConverter.model.Converters.BaseConverter;
+
 public abstract class ColorSpace3D extends ColorSpace {
-    ColorSpace3D() {
+
+    private final BaseConverter converter;
+
+    ColorSpace3D(final BaseConverter converter) {
+        this.converter = converter;
         setChannels(0, 0, 0);
     }
 
-    ColorSpace3D(final double firstChannel,
+    ColorSpace3D(final BaseConverter converter,
+                 final double firstChannel,
                  final double secondChannel,
                  final double thirdChannel) {
+        this.converter = converter;
         setChannels(firstChannel, secondChannel, thirdChannel);
     }
 
-    protected abstract void setFirstChannel(final double firstChannel);
+    @Override
+    public void initialize(final Rgb color) {
+        converter.fromRgb(color, this);
+    }
 
-    protected abstract void setSecondChannel(final double secondChannel);
+    @Override
+    public Rgb toRgb() {
+        return converter.toRgbColor(this);
+    }
 
-    protected abstract void setThirdChannel(final double thirdChannel);
+    public abstract void setFirstChannel(final double firstChannel);
+
+    public abstract void setSecondChannel(final double secondChannel);
+
+    public abstract void setThirdChannel(final double thirdChannel);
 
     public void verifyFirstChannel(final double value) {
         if (Utils.isValueInRange(value, getFirstChannelMin(), getFirstChannelMax())) {
@@ -81,5 +99,9 @@ public abstract class ColorSpace3D extends ColorSpace {
         verifyFirstChannel(getFirstChannel());
         verifySecondChannel(getSecondChannel());
         verifyThirdChannel(getThirdChannel());
+    }
+
+    public BaseConverter getConverter() {
+        return converter;
     }
 }

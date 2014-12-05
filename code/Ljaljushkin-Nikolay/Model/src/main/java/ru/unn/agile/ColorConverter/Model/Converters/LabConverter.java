@@ -2,7 +2,7 @@ package ru.unn.agile.ColorConverter.model.Converters;
 
 import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
 
-public final class LabConverter {
+public final class LabConverter extends BaseConverter {
 
     public static final double EPSILON = 0.008856;
     public static final double KAPPA = 903.3;
@@ -17,10 +17,8 @@ public final class LabConverter {
 
     public static final double FACTOR = 7.787;
 
-    private LabConverter() {
-    }
-
-    public static void fromRgb(final Rgb srcColor, final Lab dstColor) {
+    @Override
+    public void fromRgb(final Rgb srcColor, final ColorSpace3D dstColor) {
 
         Xyz xyz = new Xyz();
         xyz.initialize(srcColor);
@@ -37,7 +35,8 @@ public final class LabConverter {
         dstColor.setChannels(l, a, b);
     }
 
-    public static Rgb toRgbColor(final Lab srcColor) {
+    @Override
+    public Rgb toRgbColor(final ColorSpace3D srcColor) {
 
         double l = srcColor.getFirstChannel();
         double a = srcColor.getSecondChannel();
@@ -71,5 +70,4 @@ public final class LabConverter {
     private static double cubicRoot(final double n) {
         return Math.pow(n, 1.0 / CUBIC_POWER);
     }
-
 }

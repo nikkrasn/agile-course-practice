@@ -1,19 +1,19 @@
 package ru.unn.agile.ColorConverter.model.Converters;
 
+import ru.unn.agile.ColorConverter.model.ColorSpaces.ColorSpace3D;
 import ru.unn.agile.ColorConverter.model.ColorSpaces.Rgb;
 
-public final class RgbConverter {
+public final class RgbConverter extends BaseConverter {
 
-    private RgbConverter() {
-    }
-
-    public static void fromRgb(final Rgb srcColor, final Rgb dstColor) {
+    @Override
+    public void fromRgb(final Rgb srcColor, final ColorSpace3D dstColor) {
         dstColor.setFirstChannel(srcColor.getFirstChannel());
         dstColor.setSecondChannel(srcColor.getSecondChannel());
         dstColor.setThirdChannel(srcColor.getThirdChannel());
     }
 
-    public static Rgb toRgbColor(final Rgb srcColor) {
-        return srcColor;
+    @Override
+    public Rgb toRgbColor(final ColorSpace3D srcColor) {
+        return (Rgb) srcColor;
     }
 }

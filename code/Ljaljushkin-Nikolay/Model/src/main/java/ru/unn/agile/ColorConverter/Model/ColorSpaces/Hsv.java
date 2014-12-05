@@ -11,16 +11,6 @@ public class Hsv extends ColorSpace3D {
     public static final double MIN_S = 0;
     public static final double MIN_V = 0;
 
-    @Override
-    public void initialize(final Rgb color) {
-        HsvConverter.fromRgb(color, this);
-    }
-
-    @Override
-    public Rgb toRgb() {
-        return HsvConverter.toRgbColor(this);
-    }
-
     private double h;
     private double s;
     private double v;
@@ -86,11 +76,11 @@ public class Hsv extends ColorSpace3D {
     }
 
     public Hsv() {
-        super();
+        super(new HsvConverter());
     }
 
     public Hsv(final double h, final double s, final double v) {
-        super(h, s, v);
+        super(new HsvConverter(), h, s, v);
         verifyChannels();
     }
 }

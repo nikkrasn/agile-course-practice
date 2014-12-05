@@ -12,16 +12,6 @@ public class Xyz extends ColorSpace3D {
     public static final double MIN_Y = 0;
     public static final double MIN_Z = 0;
 
-    @Override
-    public void initialize(final Rgb color) {
-        XyzConverter.fromRgb(color, this);
-    }
-
-    @Override
-    public Rgb toRgb() {
-        return XyzConverter.toRgbColor(this);
-    }
-
     private double x;
     private double y;
     private double z;
@@ -87,11 +77,11 @@ public class Xyz extends ColorSpace3D {
     }
 
     public Xyz() {
-        super();
+        super(new XyzConverter());
     }
 
     public Xyz(final double x, final double y, final double z) {
-        super(x, y, z);
+        super(new XyzConverter(), x, y, z);
         verifyChannels();
     }
 }

@@ -12,16 +12,6 @@ public class Rgb extends ColorSpace3D {
     public static final double MIN_G = 0;
     public static final double MIN_B = 0;
 
-    @Override
-    public void initialize(final Rgb color) {
-        RgbConverter.fromRgb(color, this);
-    }
-
-    @Override
-    public Rgb toRgb() {
-        return RgbConverter.toRgbColor(this);
-    }
-
     private double r;
     private double g;
     private double b;
@@ -87,11 +77,11 @@ public class Rgb extends ColorSpace3D {
     }
 
     public Rgb() {
-        super();
+        super(new RgbConverter());
     }
 
     public Rgb(final double r, final double g, final double b) {
-        super(r, g, b);
+        super(new RgbConverter(), r, g, b);
         verifyChannels();
     }
 }

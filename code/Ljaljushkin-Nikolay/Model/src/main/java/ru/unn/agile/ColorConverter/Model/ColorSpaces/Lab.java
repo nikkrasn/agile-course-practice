@@ -11,16 +11,6 @@ public class Lab extends ColorSpace3D {
     public static final double MIN_A = -128;
     public static final double MIN_B = -128;
 
-    @Override
-    public void initialize(final Rgb color) {
-        LabConverter.fromRgb(color, this);
-    }
-
-    @Override
-    public Rgb toRgb() {
-        return LabConverter.toRgbColor(this);
-    }
-
     private double l;
     private double a;
     private double b;
@@ -86,11 +76,11 @@ public class Lab extends ColorSpace3D {
     }
 
     public Lab() {
-        super();
+        super(new LabConverter());
     }
 
     public Lab(final double l, final double a, final double b) {
-        super(l, a, b);
+        super(new LabConverter(), l, a, b);
         verifyChannels();
     }
 }

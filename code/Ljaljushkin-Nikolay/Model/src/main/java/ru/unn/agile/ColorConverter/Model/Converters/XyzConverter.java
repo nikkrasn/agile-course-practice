@@ -2,7 +2,7 @@ package ru.unn.agile.ColorConverter.model.Converters;
 
 import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
 
-public final class XyzConverter {
+public final class XyzConverter extends BaseConverter {
 
     public static final double[][] TRANS_MAT_TO_RGB = {
             {3.2404542, -1.5371385, -0.4985314},
@@ -29,10 +29,8 @@ public final class XyzConverter {
     public static final double RGB_FACTOR = 12.92;
     public static final double MAX_RGB = 255.0;
 
-    private XyzConverter() {
-    }
-
-    public static void fromRgb(final Rgb srcColor, final Xyz dstColor) {
+    @Override
+    public void fromRgb(final Rgb srcColor, final ColorSpace3D dstColor) {
 
         double pivotedR = pivotRgb(srcColor.getFirstChannel() / MAX_RGB);
         double pivotedG = pivotRgb(srcColor.getSecondChannel() / MAX_RGB);
@@ -45,7 +43,8 @@ public final class XyzConverter {
         dstColor.setChannels(x, y, z);
     }
 
-    public static Rgb toRgbColor(final Xyz srcColor) {
+    @Override
+    public Rgb toRgbColor(final ColorSpace3D srcColor) {
 
         double x = srcColor.getFirstChannel();
         double y = srcColor.getSecondChannel();
@@ -111,5 +110,4 @@ public final class XyzConverter {
     public static Xyz getWhiteReference() {
         return new Xyz(Xyz.MAX_X, Xyz.MAX_Y, Xyz.MAX_Z);
     }
-
 }

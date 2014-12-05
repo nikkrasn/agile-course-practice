@@ -23,7 +23,7 @@
    <children>
       <TableView fx:id="stackTable" GridPane.columnSpan="2" GridPane.rowIndex="3" editable="true" visible="true">
           <columns>
-              <TableColumn fx:id="valueColumn" editable="true" maxWidth="-1.0" minWidth="350" prefWidth="-1.0" sortable="false" text="Value" visible="true" resizable="true"/>
+              <TableColumn fx:id="valueColumn" editable="true" maxWidth="-1.0" minWidth="400" prefWidth="-1.0" sortable="false" text="Value" visible="true" resizable="true"/>
           </columns>
           <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
       </TableView>

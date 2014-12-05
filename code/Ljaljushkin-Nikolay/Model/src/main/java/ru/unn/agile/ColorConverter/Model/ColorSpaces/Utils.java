@@ -13,6 +13,10 @@ public final class Utils {
         }
     }
 
+    public static boolean isValueInRange(final double value, final double min, final double max) {
+        return value > max || value < min;
+    }
+
     private Utils() {
     }
 }

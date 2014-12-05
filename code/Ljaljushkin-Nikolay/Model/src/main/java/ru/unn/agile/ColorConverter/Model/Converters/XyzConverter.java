@@ -29,12 +29,10 @@ public final class XyzConverter {
     public static final double RGB_FACTOR = 12.92;
     public static final double MAX_RGB = 255.0;
 
-
-
     private XyzConverter() {
     }
 
-    public static void fromRgbToColorSpace(final Rgb srcColor, final Xyz dstColor) {
+    public static void fromRgb(final Rgb srcColor, final Xyz dstColor) {
 
         double pivotedR = pivotRgb(srcColor.getFirstChannel() / MAX_RGB);
         double pivotedG = pivotRgb(srcColor.getSecondChannel() / MAX_RGB);

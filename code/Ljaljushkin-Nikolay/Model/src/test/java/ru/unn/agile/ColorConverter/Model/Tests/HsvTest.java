@@ -12,7 +12,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.WHITE_HSV;
         Rgb expectedColor = KnownColors.WHITE_RGB;
         Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -20,7 +20,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.WHITE_HSV;
         Lab expectedColor = KnownColors.WHITE_LAB;
         Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.BLACK_HSV;
         Rgb expectedColor = KnownColors.BLACK_RGB;
         Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.BLACK_HSV;
         Lab expectedColor = KnownColors.BLACK_LAB;
         Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.AQUAMARINE_HSV;
         Rgb expectedColor = KnownColors.AQUAMARINE_RGB;
         Rgb targetColor = (Rgb) hsvColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class HsvTest {
         Hsv hsvColor = KnownColors.AQUAMARINE_HSV;
         Lab expectedColor = KnownColors.AQUAMARINE_LAB;
         Lab targetColor = (Lab) hsvColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -105,12 +105,5 @@ public class HsvTest {
         Hsv color = new Hsv();
         color.setChannels(Hsv.MAX_H, Hsv.MAX_S, Hsv.MAX_V + 1);
         color.verifyChannels();
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void cannotCompareWithAnotherColorSpace() {
-        Hsv hsvColor = KnownColors.AQUAMARINE_HSV;
-        Lab labColor = KnownColors.AQUAMARINE_LAB;
-        hsvColor.isEqual(labColor);
     }
 }

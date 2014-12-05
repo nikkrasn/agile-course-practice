@@ -11,25 +11,63 @@ public abstract class ColorSpace3D extends ColorSpace {
         setChannels(firstChannel, secondChannel, thirdChannel);
     }
 
-    protected abstract void setThirdChannel(double thirdChannel);
+    protected abstract void setFirstChannel(final double firstChannel);
 
-    protected abstract void setSecondChannel(double secondChannel);
+    protected abstract void setSecondChannel(final double secondChannel);
 
-    protected abstract void setFirstChannel(double firstChannel);
+    protected abstract void setThirdChannel(final double thirdChannel);
 
-    protected abstract void verifyFirstChannel(double value);
+    public void verifyFirstChannel(final double value) {
+        if (Utils.isValueInRange(value, getFirstChannelMin(), getFirstChannelMax())) {
+            throw new IllegalArgumentException("First channel(" + value + ") should be "
+                    + getFirstChannelMin() + " to " + getFirstChannelMax());
+        }
+    }
 
-    protected abstract void verifySecondChannel(double value);
+    public void verifySecondChannel(final double value) {
+        if (Utils.isValueInRange(value, getSecondChannelMin(), getSecondChannelMax())) {
+            throw new IllegalArgumentException("Second channel(" + value + ") should be "
+                    + getSecondChannelMin() + " to " + getSecondChannelMax());
+        }
+    }
 
-    protected abstract void verifyThirdChannel(double value);
+    public void verifyThirdChannel(final double value) {
+        if (Utils.isValueInRange(value, getThirdChannelMin(), getThirdChannelMax())) {
+            throw new IllegalArgumentException("Third channel(" + value + ") should be "
+                    + getThirdChannelMin() + " to " + getThirdChannelMax());
+        }
+    }
 
     public abstract double getFirstChannel();
 
+    public abstract double getFirstChannelMax();
+
+    public abstract double getFirstChannelMin();
+
     public abstract double getSecondChannel();
+
+    public abstract double getSecondChannelMax();
+
+    public abstract double getSecondChannelMin();
 
     public abstract double getThirdChannel();
 
-    public abstract boolean isEqual(final ColorSpace3D comparedColor);
+    public abstract double getThirdChannelMax();
+
+    public abstract double getThirdChannelMin();
+
+    public Boolean equals(final ColorSpace3D comparedColor) {
+        boolean isFirstChannelsClose = Utils.isCloseEnough(
+                getFirstChannel(),
+                comparedColor.getFirstChannel());
+        boolean isSecondChannelsClose = Utils.isCloseEnough(
+                getSecondChannel(),
+                comparedColor.getSecondChannel());
+        boolean isThirdChannelsClose = Utils.isCloseEnough(
+                getThirdChannel(),
+                comparedColor.getThirdChannel());
+        return isFirstChannelsClose && isSecondChannelsClose && isThirdChannelsClose;
+    }
 
     public void setChannels(final double firstChannel,
                             final double secondChannel,

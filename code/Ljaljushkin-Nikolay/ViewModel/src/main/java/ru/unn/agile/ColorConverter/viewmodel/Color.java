@@ -13,7 +13,7 @@ public enum Color {
     private ColorSpace3D color;
 
     Color(final ColorSpace3D value) {
-        this.color = value;
+        color = value;
     }
 
     public ColorSpace3D getValue() {

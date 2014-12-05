@@ -13,7 +13,7 @@ public class Lab extends ColorSpace3D {
 
     @Override
     public void initialize(final Rgb color) {
-        LabConverter.fromRgbToColorSpace(color, this);
+        LabConverter.fromRgb(color, this);
     }
 
     @Override
@@ -31,13 +31,43 @@ public class Lab extends ColorSpace3D {
     }
 
     @Override
+    public double getFirstChannelMax() {
+        return MAX_L;
+    }
+
+    @Override
+    public double getFirstChannelMin() {
+        return MIN_L;
+    }
+
+    @Override
     public double getSecondChannel() {
         return a;
     }
 
     @Override
+    public double getSecondChannelMax() {
+        return MAX_A;
+    }
+
+    @Override
+    public double getSecondChannelMin() {
+        return MIN_A;
+    }
+
+    @Override
     public double getThirdChannel() {
         return b;
+    }
+
+    @Override
+    public double getThirdChannelMax() {
+        return MAX_B;
+    }
+
+    @Override
+    public double getThirdChannelMin() {
+        return MIN_B;
     }
 
     @Override
@@ -62,46 +92,5 @@ public class Lab extends ColorSpace3D {
     public Lab(final double l, final double a, final double b) {
         super(l, a, b);
         verifyChannels();
-    }
-
-    @Override
-    public boolean isEqual(final ColorSpace3D comparedColor) {
-        boolean isLClose = Utils.isCloseEnough(l, ((Lab) comparedColor).getFirstChannel());
-        boolean isAClose = Utils.isCloseEnough(a, ((Lab) comparedColor).getSecondChannel());
-        boolean isBClose = Utils.isCloseEnough(b, ((Lab) comparedColor).getThirdChannel());
-        return isLClose && isAClose && isBClose;
-    }
-
-    @Override
-    public void setChannels(final double firstChannel,
-                            final double secondChannel,
-                            final double thirdChannel) {
-        setFirstChannel(firstChannel);
-        setSecondChannel(secondChannel);
-        setThirdChannel(thirdChannel);
-    }
-
-    @Override
-    public void verifyFirstChannel(final double l) {
-        if (l > MAX_L || l < MIN_L) {
-            throw new IllegalArgumentException("L channel(" + l + ") of LAB should be "
-                    + MIN_L + " to " + MAX_L);
-        }
-    }
-
-    @Override
-    public void verifySecondChannel(final double a) {
-        if (a > MAX_A || a < MIN_A) {
-            throw new IllegalArgumentException("A channel(" + a + ") of LAB should be "
-                    + MIN_A + " to " + MAX_A);
-        }
-    }
-
-    @Override
-    public void verifyThirdChannel(final double b) {
-        if (b > MAX_B || b < MIN_B) {
-            throw new IllegalArgumentException("B channel(" + b + ") of LAB should be "
-                    + MIN_B + " to " + MAX_B);
-        }
     }
 }

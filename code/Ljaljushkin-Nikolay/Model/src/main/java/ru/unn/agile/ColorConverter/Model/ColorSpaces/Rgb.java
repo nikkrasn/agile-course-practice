@@ -14,7 +14,7 @@ public class Rgb extends ColorSpace3D {
 
     @Override
     public void initialize(final Rgb color) {
-        RgbConverter.fromRgbToColorSpace(color, this);
+        RgbConverter.fromRgb(color, this);
     }
 
     @Override
@@ -32,13 +32,43 @@ public class Rgb extends ColorSpace3D {
     }
 
     @Override
+    public double getFirstChannelMax() {
+        return MAX_R;
+    }
+
+    @Override
+    public double getFirstChannelMin() {
+        return MIN_R;
+    }
+
+    @Override
     public double getSecondChannel() {
         return g;
     }
 
     @Override
+    public double getSecondChannelMax() {
+        return MAX_G;
+    }
+
+    @Override
+    public double getSecondChannelMin() {
+        return MIN_G;
+    }
+
+    @Override
     public double getThirdChannel() {
         return b;
+    }
+
+    @Override
+    public double getThirdChannelMax() {
+        return MAX_B;
+    }
+
+    @Override
+    public double getThirdChannelMin() {
+        return MIN_B;
     }
 
     @Override
@@ -63,46 +93,5 @@ public class Rgb extends ColorSpace3D {
     public Rgb(final double r, final double g, final double b) {
         super(r, g, b);
         verifyChannels();
-    }
-
-    @Override
-    public boolean isEqual(final ColorSpace3D comparedColor) {
-        boolean isRClose = Utils.isCloseEnough(r, ((Rgb) comparedColor).getFirstChannel());
-        boolean isGClose = Utils.isCloseEnough(g, ((Rgb) comparedColor).getSecondChannel());
-        boolean isBClose = Utils.isCloseEnough(b, ((Rgb) comparedColor).getThirdChannel());
-        return isRClose && isGClose && isBClose;
-    }
-
-    @Override
-    public void setChannels(final double firstChannel,
-                            final double secondChannel,
-                            final double thirdChannel) {
-        setFirstChannel(firstChannel);
-        setSecondChannel(secondChannel);
-        setThirdChannel(thirdChannel);
-    }
-
-    @Override
-    public void verifyFirstChannel(final double r) {
-        if (r > MAX_R || r < MIN_R) {
-            throw new IllegalArgumentException("R channel(" + r + ") of RGB should be "
-                    + MIN_R + " to " + MAX_R);
-        }
-    }
-
-    @Override
-    public void verifySecondChannel(final double g) {
-        if (g > MAX_G || g < MIN_G) {
-            throw new IllegalArgumentException("G channel(" + g + ") of RGB should be "
-                    + MIN_G + " to " + MAX_G);
-        }
-    }
-
-    @Override
-    public void verifyThirdChannel(final double b) {
-        if (b > MAX_B || b < MIN_B) {
-            throw new IllegalArgumentException("B channel(" + b + ") of RGB should be "
-                    + MIN_B + " to " + MAX_B);
-        }
     }
 }

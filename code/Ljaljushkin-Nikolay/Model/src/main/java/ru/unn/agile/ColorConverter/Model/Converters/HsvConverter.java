@@ -14,7 +14,7 @@ public final class HsvConverter {
     private HsvConverter() {
     }
 
-    public static void fromRgbToColorSpace(final Rgb srcColor, final Hsv dstColor) {
+    public static void fromRgb(final Rgb srcColor, final Hsv dstColor) {
 
         double arithmeticR = srcColor.getFirstChannel() / MAX_RGB;
         double arithmeticG = srcColor.getSecondChannel() / MAX_RGB;

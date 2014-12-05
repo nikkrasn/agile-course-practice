@@ -14,7 +14,7 @@ public class Xyz extends ColorSpace3D {
 
     @Override
     public void initialize(final Rgb color) {
-        XyzConverter.fromRgbToColorSpace(color, this);
+        XyzConverter.fromRgb(color, this);
     }
 
     @Override
@@ -32,13 +32,43 @@ public class Xyz extends ColorSpace3D {
     }
 
     @Override
+    public double getFirstChannelMax() {
+        return MAX_X;
+    }
+
+    @Override
+    public double getFirstChannelMin() {
+        return MIN_X;
+    }
+
+    @Override
     public double getSecondChannel() {
         return y;
     }
 
     @Override
+    public double getSecondChannelMax() {
+        return MAX_Y;
+    }
+
+    @Override
+    public double getSecondChannelMin() {
+        return MIN_Y;
+    }
+
+    @Override
     public double getThirdChannel() {
         return z;
+    }
+
+    @Override
+    public double getThirdChannelMax() {
+        return MAX_Z;
+    }
+
+    @Override
+    public double getThirdChannelMin() {
+        return MIN_Z;
     }
 
     @Override
@@ -63,50 +93,6 @@ public class Xyz extends ColorSpace3D {
     public Xyz(final double x, final double y, final double z) {
         super(x, y, z);
         verifyChannels();
-    }
-
-    @Override
-    public boolean isEqual(final ColorSpace3D comparedColor) {
-        boolean isXClose = Utils.isCloseEnough(x, ((Xyz) comparedColor).getFirstChannel());
-        boolean isYClose = Utils.isCloseEnough(y, ((Xyz) comparedColor).getSecondChannel());
-        boolean isZClose = Utils.isCloseEnough(z, ((Xyz) comparedColor).getThirdChannel());
-        return isXClose && isYClose && isZClose;
-    }
-
-    @Override
-    public void setChannels(final double firstChannel,
-                            final double secondChannel,
-                            final double thirdChannel) {
-        setFirstChannel(firstChannel);
-        setSecondChannel(secondChannel);
-        setThirdChannel(thirdChannel);
-    }
-
-    @Override
-    public void verifyFirstChannel(final double x) {
-        if ((x > MAX_X || x < MIN_X)
-                && !Utils.isCloseEnough(x, MAX_X) && !Utils.isCloseEnough(x, MIN_X)) {
-            throw new IllegalArgumentException("X channel(" + x + ") of XYZ should be "
-                    + MIN_X + " to " + MAX_X);
-        }
-    }
-
-    @Override
-    public void verifySecondChannel(final double y) {
-        if ((y > MAX_Y || y < MIN_Y)
-                && !Utils.isCloseEnough(y, MAX_Y) && !Utils.isCloseEnough(y, MIN_Y)) {
-            throw new IllegalArgumentException("Y channel(" + y + ") of XYZ should be "
-                    + MIN_Y + " to " + MAX_Y);
-        }
-    }
-
-    @Override
-    public void verifyThirdChannel(final double z) {
-        if ((z > MAX_Z || z < MIN_Z)
-                && !Utils.isCloseEnough(z, MAX_Z) && !Utils.isCloseEnough(z, MIN_Z)) {
-            throw new IllegalArgumentException("Z channel(" + z + ") of XYZ should be "
-                    + MIN_Z + " to " + MAX_Z);
-        }
     }
 }
 

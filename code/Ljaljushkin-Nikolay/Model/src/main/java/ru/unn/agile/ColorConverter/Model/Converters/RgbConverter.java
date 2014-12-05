@@ -7,7 +7,7 @@ public final class RgbConverter {
     private RgbConverter() {
     }
 
-    public static void fromRgbToColorSpace(final Rgb srcColor, final Rgb dstColor) {
+    public static void fromRgb(final Rgb srcColor, final Rgb dstColor) {
         dstColor.setFirstChannel(srcColor.getFirstChannel());
         dstColor.setSecondChannel(srcColor.getSecondChannel());
         dstColor.setThirdChannel(srcColor.getThirdChannel());

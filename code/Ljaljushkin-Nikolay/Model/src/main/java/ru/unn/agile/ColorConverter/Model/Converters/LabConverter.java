@@ -20,7 +20,7 @@ public final class LabConverter {
     private LabConverter() {
     }
 
-    public static void fromRgbToColorSpace(final Rgb srcColor, final Lab dstColor) {
+    public static void fromRgb(final Rgb srcColor, final Lab dstColor) {
 
         Xyz xyz = new Xyz();
         xyz.initialize(srcColor);

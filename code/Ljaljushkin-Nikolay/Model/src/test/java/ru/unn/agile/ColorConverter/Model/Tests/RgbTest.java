@@ -12,7 +12,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Hsv expectedColor = KnownColors.WHITE_HSV;
         Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -20,7 +20,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Xyz expectedColor = KnownColors.WHITE_XYZ;
         Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.WHITE_RGB;
         Lab expectedColor = KnownColors.WHITE_LAB;
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Hsv expectedColor = KnownColors.BLACK_HSV;
         Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Xyz expectedColor = KnownColors.BLACK_XYZ;
         Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.BLACK_RGB;
         Lab expectedColor = KnownColors.BLACK_LAB;
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.DARK_RED_RGB;
         Hsv expectedColor = KnownColors.DARK_RED_HSV;
         Hsv targetColor = (Hsv) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.ORANGE_RGB;
         Xyz expectedColor = KnownColors.ORANGE_XYZ;
         Xyz targetColor = (Xyz) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class RgbTest {
         Rgb rgbColor = KnownColors.ORANGE_RGB;
         Lab expectedColor = KnownColors.ORANGE_LAB;
         Lab targetColor = (Lab) rgbColor.toColor(expectedColor.getClass());
-        assertTrue(expectedColor.isEqual(targetColor));
+        assertTrue(expectedColor.equals(targetColor));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -130,12 +130,5 @@ public class RgbTest {
         Rgb color = new Rgb();
         color.setChannels(Rgb.MAX_R, Rgb.MAX_G, Rgb.MAX_B + 1);
         color.verifyChannels();
-    }
-
-    @Test(expected = ClassCastException.class)
-    public void cannotCompareWithAnotherColorSpace() {
-        Rgb rgbColor = KnownColors.BLACK_RGB;
-        Lab labColor = KnownColors.BLACK_LAB;
-        rgbColor.isEqual(labColor);
     }
 }

@@ -73,6 +73,7 @@ public class ViewModelTests {
         fillFieldFloatingPointNumberWithDot();
         assertEquals(Status.READY.toString(), viewModel.getStatus());
     }
+
     @Test
     public void canChooseRgbAsSrcColor() {
         viewModel.setSrcColor(Color.RGB);
@@ -172,13 +173,13 @@ public class ViewModelTests {
         viewModel.setSrcColor(Color.RGB);
         assertTrue(viewModel.getConversionDisabled());
     }
-    
+
     @Test
     public void conversionWhiteColorForDefaultColorSpacesHasCorrectResult() {
         setWhiteRgbSrcColor();
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
-        assertTrue(dstColor.isEqual(KnownColors.WHITE_LAB));
+        assertTrue(dstColor.equals(KnownColors.WHITE_LAB));
     }
 
     @Test
@@ -186,7 +187,7 @@ public class ViewModelTests {
         setDarkRedRgbSrcColor();
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
-        assertTrue(dstColor.isEqual(KnownColors.DARK_RED_LAB));
+        assertTrue(dstColor.equals(KnownColors.DARK_RED_LAB));
     }
 
     @Test
@@ -195,7 +196,7 @@ public class ViewModelTests {
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
-        assertTrue(dstColor.isEqual(KnownColors.WHITE_HSV));
+        assertTrue(dstColor.equals(KnownColors.WHITE_HSV));
     }
 
     @Test
@@ -204,7 +205,7 @@ public class ViewModelTests {
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
-        assertTrue(dstColor.isEqual(KnownColors.DARK_RED_HSV));
+        assertTrue(dstColor.equals(KnownColors.DARK_RED_HSV));
     }
 
     @Test
@@ -214,7 +215,7 @@ public class ViewModelTests {
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
-        assertTrue(dstColor.isEqual(KnownColors.WHITE_HSV));
+        assertTrue(dstColor.equals(KnownColors.WHITE_HSV));
     }
 
     @Test
@@ -224,7 +225,7 @@ public class ViewModelTests {
         viewModel.setDstColor(Color.HSV);
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
-        assertTrue(dstColor.isEqual(KnownColors.DARK_RED_HSV));
+        assertTrue(dstColor.equals(KnownColors.DARK_RED_HSV));
     }
 
     private void fillInputFieldsCorrectly() {
@@ -279,8 +280,8 @@ public class ViewModelTests {
 
     private void setWhiteLabSrcColor() {
         viewModel.setFirstChannelSrcColorString("100");
-        viewModel.setSecondChannelSrcColorString("0.01");
-        viewModel.setThirdChannelSrcColorString("-0.01");
+        viewModel.setSecondChannelSrcColorString("0");
+        viewModel.setThirdChannelSrcColorString("0");
     }
 
     private void setDarkRedRgbSrcColor() {

@@ -40,17 +40,20 @@ public class Lab extends ColorSpace3D {
         return b;
     }
 
-    public void setL(final double l) {
+    @Override
+    public void setFirstChannel(final double l) {
         verifyFirstChannel(l);
         this.l = l;
     }
 
-    public void setA(final double a) {
+    @Override
+    public void setSecondChannel(final double a) {
         verifySecondChannel(a);
         this.a = a;
     }
 
-    public void setB(final double b) {
+    @Override
+    public void setThirdChannel(final double b) {
         verifyThirdChannel(b);
         this.b = b;
     }
@@ -75,9 +78,9 @@ public class Lab extends ColorSpace3D {
     public void setValues(final double firstChannel,
                           final double secondChannel,
                           final double thirdChannel) {
-        setL(firstChannel);
-        setA(secondChannel);
-        setB(thirdChannel);
+        setFirstChannel(firstChannel);
+        setSecondChannel(secondChannel);
+        setThirdChannel(thirdChannel);
     }
 
     @Override

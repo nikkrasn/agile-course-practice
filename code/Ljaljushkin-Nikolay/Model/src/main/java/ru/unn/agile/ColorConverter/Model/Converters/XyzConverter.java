@@ -44,9 +44,9 @@ public final class XyzConverter {
         double y = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 1);
         double z = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 2);
 
-        dstColor.setX(x);
-        dstColor.setY(y);
-        dstColor.setZ(z);
+        dstColor.setFirstChannel(x);
+        dstColor.setSecondChannel(y);
+        dstColor.setThirdChannel(z);
     }
 
     public static Rgb toRgbColor(final Xyz srcColor) {

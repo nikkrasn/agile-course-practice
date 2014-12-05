@@ -26,29 +26,35 @@ public class Xyz extends ColorSpace3D {
     private double y;
     private double z;
 
+    @Override
     public double getFirstChannel() {
         return x;
     }
 
+    @Override
     public double getSecondChannel() {
         return y;
     }
 
+    @Override
     public double getThirdChannel() {
         return z;
     }
 
-    public void setX(final double x) {
+    @Override
+    public void setFirstChannel(final double x) {
         verifyFirstChannel(x);
         this.x = x;
     }
 
-    public void setY(final double y) {
+    @Override
+    public void setSecondChannel(final double y) {
         verifySecondChannel(y);
         this.y = y;
     }
 
-    public void setZ(final double z) {
+    @Override
+    public void setThirdChannel(final double z) {
         verifyThirdChannel(z);
         this.z = z;
     }
@@ -73,9 +79,9 @@ public class Xyz extends ColorSpace3D {
     public void setValues(final double firstChannel,
                           final double secondChannel,
                           final double thirdChannel) {
-        setX(firstChannel);
-        setY(secondChannel);
-        setZ(thirdChannel);
+        setFirstChannel(firstChannel);
+        setSecondChannel(secondChannel);
+        setThirdChannel(thirdChannel);
     }
 
     @Override

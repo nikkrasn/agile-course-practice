@@ -11,9 +11,11 @@ public abstract class ColorSpace3D extends ColorSpace {
         setValues(firstChannel, secondChannel, thirdChannel);
     }
 
-    public abstract void setValues(final double firstChannel,
-                                   final double secondChannel,
-                                   final double thirdChannel);
+    protected abstract void setThirdChannel(double thirdChannel);
+
+    protected abstract void setSecondChannel(double secondChannel);
+
+    protected abstract void setFirstChannel(double firstChannel);
 
     public abstract double getFirstChannel();
 
@@ -28,4 +30,12 @@ public abstract class ColorSpace3D extends ColorSpace {
     public abstract void verifyThirdChannel(double value);
 
     public abstract boolean isEqual(final ColorSpace3D comparedColor);
+
+    public void setValues(final double firstChannel,
+                          final double secondChannel,
+                          final double thirdChannel) {
+        setFirstChannel(firstChannel);
+        setSecondChannel(secondChannel);
+        setThirdChannel(thirdChannel);
+    }
 }

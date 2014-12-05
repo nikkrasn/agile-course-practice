@@ -21,11 +21,11 @@ public class Stack {
     @FXML
     private TableColumn<String, String> valueColumn;
     @FXML
-    private TextField pushText;
+    private TextField textToPush;
 
     @FXML
     void initialize() {
-        pushText.textProperty().bindBidirectional(viewModel.pushTextProperty());
+        textToPush.textProperty().bindBidirectional(viewModel.textToPushProperty());
 
         valueColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>,
                 ObservableValue<String>>()

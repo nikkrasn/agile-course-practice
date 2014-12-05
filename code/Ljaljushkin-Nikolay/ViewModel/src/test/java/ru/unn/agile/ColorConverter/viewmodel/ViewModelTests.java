@@ -130,7 +130,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canRecheckValuesAfterChangingSrcColor() {
+    public void canRecheckStatusAfterChangingSrcColor() {
         setValuesOutsideAcceptableRangesForRgbAndOkForHsv();
         viewModel.setSrcColor(Color.HSV);
         assertEquals(Status.READY.toString(), viewModel.getStatus());
@@ -165,6 +165,14 @@ public class ViewModelTests {
         assertFalse(viewModel.getConversionDisabled());
     }
 
+    @Test
+    public void canResetButtonDisabilityAfterChangingSrcColor() {
+        viewModel.setSrcColor(Color.HSV);
+        setValuesOutsideAcceptableRangesForRgbAndOkForHsv();
+        viewModel.setSrcColor(Color.RGB);
+        assertTrue(viewModel.getConversionDisabled());
+    }
+    
     @Test
     public void conversionWhiteColorForDefaultColorSpacesHasCorrectResult() {
         setWhiteRgbSrcColor();

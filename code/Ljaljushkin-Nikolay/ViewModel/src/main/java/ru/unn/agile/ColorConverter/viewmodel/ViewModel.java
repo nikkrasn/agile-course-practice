@@ -54,7 +54,8 @@ public class ViewModel {
                 super.bind(
                         firstChannelSrcColorString,
                         secondChannelSrcColorString,
-                        thirdChannelSrcColorString
+                        thirdChannelSrcColorString,
+                        status
                 );
             }
 

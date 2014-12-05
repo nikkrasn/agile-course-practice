@@ -194,7 +194,7 @@ public class StackTest {
         ListChangeListener<Object> listener = new ListChangeListener<Object>() {
             @Override
             public void onChanged(final Change<?> c) {
-                fail("Listener was removed, bus it's change method was called.");
+                fail("Listener was removed, but its change method was called.");
             }
         };
         stack.addListener(listener);

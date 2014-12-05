@@ -39,7 +39,7 @@
       </AnchorPane>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" prefWidth="300.0" GridPane.columnIndex="1">
          <children>
-            <TextField fx:id="pushText" layoutX="65.0" layoutY="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <TextField fx:id="textToPush" layoutX="65.0" layoutY="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane maxHeight="60.0" prefHeight="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">

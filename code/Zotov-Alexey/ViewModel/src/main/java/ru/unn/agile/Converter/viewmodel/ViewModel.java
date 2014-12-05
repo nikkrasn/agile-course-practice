@@ -35,7 +35,7 @@ public class ViewModel {
             return;
         }
         double input = Double.parseDouble(inputValue);
-        double output = 0;
+        double output;
         try {
             output = LengthConverter.convertFromTo(inputMeasure, outputMeasure, input);
             result = String.valueOf(output);

@@ -9,7 +9,7 @@ import ru.unn.agile.Stack.Model.Stack;
 public class ViewModel {
     private final ObjectProperty<ObservableList<String>> stackTable = new SimpleObjectProperty<>();
     private final StringProperty top = new SimpleStringProperty();
-    private final StringProperty pushText = new SimpleStringProperty();
+    private final StringProperty textToPush = new SimpleStringProperty();
     private final BooleanProperty isEmpty = new SimpleBooleanProperty();
     private final Stack<String> stack = new Stack<>();
 
@@ -20,14 +20,14 @@ public class ViewModel {
         return top.get();
     }
 
-    public StringProperty pushTextProperty() {
-        return pushText;
+    public StringProperty textToPushProperty() {
+        return textToPush;
     }
-    public final String getPushText() {
-        return pushText.get();
+    public final String getTextToPush() {
+        return textToPush.get();
     }
-    public final void setPushText(final String text) {
-        pushText.set(text);
+    public final void setTextToPush(final String text) {
+        textToPush.set(text);
     }
 
     public ObjectProperty<ObservableList<String>> stackTableProperty() {
@@ -56,11 +56,11 @@ public class ViewModel {
         });
 
         updateProperties();
-        pushText.set("Push me!");
+        textToPush.set("Push me!");
     }
 
     public void push() {
-        stack.push(pushText.get());
+        stack.push(textToPush.get());
     }
 
     public void pop() {

@@ -15,7 +15,7 @@ public class ViewModelTests {
 
     @Test
     public void checkDefaultPushValue() {
-        assertEquals("Push me!", viewModel.getPushText());
+        assertEquals("Push me!", viewModel.getTextToPush());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ViewModelTests {
 
     @Test
     public void canPushSomeValue() {
-        viewModel.setPushText("something");
+        viewModel.setTextToPush("something");
         viewModel.push();
         assertArrayEquals(new String[] {"something"},
                 viewModel.getStackTable().toArray());
@@ -63,7 +63,7 @@ public class ViewModelTests {
     @Test
     public void canPushManyValues() {
         viewModel.push();
-        viewModel.setPushText("something");
+        viewModel.setTextToPush("something");
         viewModel.push();
         assertArrayEquals(new String[] {"Push me!", "something"},
                 viewModel.getStackTable().toArray());
@@ -72,7 +72,7 @@ public class ViewModelTests {
     @Test
     public void isTopCorrectAfterManyPushes() {
         viewModel.push();
-        viewModel.setPushText("something");
+        viewModel.setTextToPush("something");
         viewModel.push();
 
         assertEquals("something", viewModel.getTop());
@@ -88,7 +88,7 @@ public class ViewModelTests {
     @Test
     public void canDoManyPops() {
         viewModel.push();
-        viewModel.setPushText("something");
+        viewModel.setTextToPush("something");
         viewModel.push();
 
         viewModel.pop();
@@ -100,7 +100,7 @@ public class ViewModelTests {
     @Test
     public void isPopButtonDisabledAfterManyPops() {
         viewModel.push();
-        viewModel.setPushText("something");
+        viewModel.setTextToPush("something");
         viewModel.push();
 
         viewModel.pop();

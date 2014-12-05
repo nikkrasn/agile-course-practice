@@ -245,7 +245,8 @@ public class ViewModel {
         try {
             parseSrcColor();
             ColorSpace3D srcColor = getSrcColorValue();
-            srcColor.setValues(firstChannelSrcColor, secondChannelSrcColor, thirdChannelSrcColor);
+            srcColor.setChannels(firstChannelSrcColor, secondChannelSrcColor, thirdChannelSrcColor);
+            srcColor.verifyChannels();
         } catch (NumberFormatException nfe) {
             inputStatus = Status.BAD_FORMAT;
         } catch (IllegalArgumentException iae) {

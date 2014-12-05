@@ -92,37 +92,43 @@ public class LabTest {
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetFirstChannelLessThanMinimum() {
         Lab color = new Lab();
-        color.setValues(Lab.MIN_L - 1, Lab.MIN_A, Lab.MIN_B);
+        color.setChannels(Lab.MIN_L - 1, Lab.MIN_A, Lab.MIN_B);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetSecondChannelLessThanMinimum() {
         Lab color = new Lab();
-        color.setValues(Lab.MIN_L, Lab.MIN_A - 1, Lab.MIN_B);
+        color.setChannels(Lab.MIN_L, Lab.MIN_A - 1, Lab.MIN_B);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetThirdChannelLessThanMinimum() {
         Lab color = new Lab();
-        color.setValues(Lab.MIN_L, Lab.MIN_A, Lab.MIN_B - 1);
+        color.setChannels(Lab.MIN_L, Lab.MIN_A, Lab.MIN_B - 1);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetFirstChannelMoreThatMaximum() {
         Lab color = new Lab();
-        color.setValues(Lab.MAX_L + 1, Lab.MAX_A, Lab.MAX_B);
+        color.setChannels(Lab.MAX_L + 1, Lab.MAX_A, Lab.MAX_B);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetSecondChannelMoreThatMaximum() {
         Lab color = new Lab();
-        color.setValues(Lab.MAX_L, Lab.MAX_A + 1, Lab.MAX_B);
+        color.setChannels(Lab.MAX_L, Lab.MAX_A + 1, Lab.MAX_B);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetThirdChannelMoreThatMaximum() {
         Lab color = new Lab();
-        color.setValues(Lab.MAX_L, Lab.MAX_A, Lab.MAX_B + 1);
+        color.setChannels(Lab.MAX_L, Lab.MAX_A, Lab.MAX_B + 1);
+        color.verifyChannels();
     }
 
     @Test(expected = ClassCastException.class)

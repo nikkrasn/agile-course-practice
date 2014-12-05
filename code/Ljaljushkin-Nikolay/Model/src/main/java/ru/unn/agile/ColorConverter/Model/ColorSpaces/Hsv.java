@@ -42,19 +42,16 @@ public class Hsv extends ColorSpace3D {
 
     @Override
     public void setFirstChannel(final double h) {
-        verifyFirstChannel(h);
         this.h = h;
     }
 
     @Override
     public void setSecondChannel(final double s) {
-        verifySecondChannel(s);
         this.s = s;
     }
 
     @Override
     public void setThirdChannel(final double v) {
-        verifyThirdChannel(v);
         this.v = v;
     }
 
@@ -64,6 +61,7 @@ public class Hsv extends ColorSpace3D {
 
     public Hsv(final double h, final double s, final double v) {
         super(h, s, v);
+        verifyChannels();
     }
 
     @Override
@@ -75,9 +73,9 @@ public class Hsv extends ColorSpace3D {
     }
 
     @Override
-    public void setValues(final double firstChannel,
-                          final double secondChannel,
-                          final double thirdChannel) {
+    public void setChannels(final double firstChannel,
+                            final double secondChannel,
+                            final double thirdChannel) {
         setFirstChannel(firstChannel);
         setSecondChannel(secondChannel);
         setThirdChannel(thirdChannel);

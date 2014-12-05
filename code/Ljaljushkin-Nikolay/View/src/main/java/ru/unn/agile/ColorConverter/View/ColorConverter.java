@@ -63,6 +63,5 @@ public class ColorConverter {
         });
 
         lbStatus.textProperty().bindBidirectional(viewModel.statusProperty());
-        //txtFirstChannelSrcColor.setTooltip(new Tooltip("0 to 255"));
     }
 }

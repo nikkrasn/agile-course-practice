@@ -43,19 +43,16 @@ public class Rgb extends ColorSpace3D {
 
     @Override
     public void setFirstChannel(final double r) {
-        verifyFirstChannel(r);
         this.r = r;
     }
 
     @Override
     public void setSecondChannel(final double g) {
-        verifySecondChannel(g);
         this.g = g;
     }
 
     @Override
     public void setThirdChannel(final double b) {
-        verifyThirdChannel(b);
         this.b = b;
     }
 
@@ -65,6 +62,7 @@ public class Rgb extends ColorSpace3D {
 
     public Rgb(final double r, final double g, final double b) {
         super(r, g, b);
+        verifyChannels();
     }
 
     @Override
@@ -76,9 +74,9 @@ public class Rgb extends ColorSpace3D {
     }
 
     @Override
-    public void setValues(final double firstChannel,
-                          final double secondChannel,
-                          final double thirdChannel) {
+    public void setChannels(final double firstChannel,
+                            final double secondChannel,
+                            final double thirdChannel) {
         setFirstChannel(firstChannel);
         setSecondChannel(secondChannel);
         setThirdChannel(thirdChannel);

@@ -68,37 +68,43 @@ public class HsvTest {
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetFirstChannelLessThanMinimum() {
         Hsv color = new Hsv();
-        color.setValues(Hsv.MIN_H - 1, Hsv.MIN_S, Hsv.MIN_V);
+        color.setChannels(Hsv.MIN_H - 1, Hsv.MIN_S, Hsv.MIN_V);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetSecondChannelLessThanMinimum() {
         Hsv color = new Hsv();
-        color.setValues(Hsv.MIN_H, Hsv.MIN_S - 1, Hsv.MIN_V);
+        color.setChannels(Hsv.MIN_H, Hsv.MIN_S - 1, Hsv.MIN_V);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetThirdChannelLessThanMinimum() {
         Hsv color = new Hsv();
-        color.setValues(Hsv.MIN_H, Hsv.MIN_S, Hsv.MIN_V - 1);
+        color.setChannels(Hsv.MIN_H, Hsv.MIN_S, Hsv.MIN_V - 1);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetFirstChannelMoreThatMaximum() {
         Hsv color = new Hsv();
-        color.setValues(Hsv.MAX_H + 1, Hsv.MAX_S, Hsv.MAX_V);
+        color.setChannels(Hsv.MAX_H + 1, Hsv.MAX_S, Hsv.MAX_V);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetSecondChannelMoreThatMaximum() {
         Hsv color = new Hsv();
-        color.setValues(Hsv.MAX_H, Hsv.MAX_S + 1, Hsv.MAX_V);
+        color.setChannels(Hsv.MAX_H, Hsv.MAX_S + 1, Hsv.MAX_V);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetThirdChannelMoreThatMaximum() {
         Hsv color = new Hsv();
-        color.setValues(Hsv.MAX_H, Hsv.MAX_S, Hsv.MAX_V + 1);
+        color.setChannels(Hsv.MAX_H, Hsv.MAX_S, Hsv.MAX_V + 1);
+        color.verifyChannels();
     }
 
     @Test(expected = ClassCastException.class)

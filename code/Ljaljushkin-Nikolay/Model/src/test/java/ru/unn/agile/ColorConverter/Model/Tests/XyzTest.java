@@ -60,37 +60,43 @@ public class XyzTest {
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetFirstChannelLessThanMinimum() {
         Xyz color = new Xyz();
-        color.setValues(Xyz.MIN_X - 2, Xyz.MIN_Y, Xyz.MIN_Z);
+        color.setChannels(Xyz.MIN_X - 2, Xyz.MIN_Y, Xyz.MIN_Z);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetSecondChannelLessThanMinimum() {
         Xyz color = new Xyz();
-        color.setValues(Xyz.MIN_X, Xyz.MIN_Y - 2, Xyz.MIN_Z);
+        color.setChannels(Xyz.MIN_X, Xyz.MIN_Y - 2, Xyz.MIN_Z);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetThirdChannelLessThanMinimum() {
         Xyz color = new Xyz();
-        color.setValues(Xyz.MIN_X, Xyz.MIN_Y, Xyz.MIN_Z - 2);
+        color.setChannels(Xyz.MIN_X, Xyz.MIN_Y, Xyz.MIN_Z - 2);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetFirstChannelMoreThatMaximum() {
         Xyz color = new Xyz();
-        color.setValues(Xyz.MAX_X + 2, Xyz.MAX_Y, Xyz.MAX_Z);
+        color.setChannels(Xyz.MAX_X + 2, Xyz.MAX_Y, Xyz.MAX_Z);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetSecondChannelMoreThatMaximum() {
         Xyz color = new Xyz();
-        color.setValues(Xyz.MAX_X, Xyz.MAX_Y + 2, Xyz.MAX_Z);
+        color.setChannels(Xyz.MAX_X, Xyz.MAX_Y + 2, Xyz.MAX_Z);
+        color.verifyChannels();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void cannotSetThirdChannelMoreThatMaximum() {
         Xyz color = new Xyz();
-        color.setValues(Xyz.MAX_X, Xyz.MAX_Y, Xyz.MAX_Z + 2);
+        color.setChannels(Xyz.MAX_X, Xyz.MAX_Y, Xyz.MAX_Z + 2);
+        color.verifyChannels();
     }
 
     @Test(expected = ClassCastException.class)

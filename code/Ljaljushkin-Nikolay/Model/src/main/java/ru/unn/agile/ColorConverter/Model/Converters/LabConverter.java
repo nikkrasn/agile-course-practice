@@ -34,9 +34,7 @@ public final class LabConverter {
         double a = A_DIVIDER * (pivotedX - pivotedY);
         double b = B_DIVIDER * (pivotedY - pivotedZ);
 
-        dstColor.setFirstChannel(l);
-        dstColor.setSecondChannel(a);
-        dstColor.setThirdChannel(b);
+        dstColor.setChannels(l, a, b);
     }
 
     public static Rgb toRgbColor(final Lab srcColor) {

@@ -38,9 +38,7 @@ public final class HsvConverter {
         double s = max <= 0 ? 0 : 1 - min / max;
         double v = max;
 
-        dstColor.setFirstChannel(h);
-        dstColor.setSecondChannel(s);
-        dstColor.setThirdChannel(v);
+        dstColor.setChannels(h, s, v);
     }
 
     public static Rgb toRgbColor(final Hsv hsv) {

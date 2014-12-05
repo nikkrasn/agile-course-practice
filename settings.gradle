@@ -123,6 +123,10 @@ project(":code/pashko-alena/ViewModel").name = "pashko-alena-ViewModel"
 // Pogorelsky Iliya
 include "code/pogorelsky-iliya/Model"
 project(":code/pogorelsky-iliya/Model").name = "pogorelsky-iliya-Model"
+include "code/pogorelsky-iliya/ViewModel"
+project(":code/pogorelsky-iliya/ViewModel").name = "pogorelsky-iliya-ViewModel"
+include "code/pogorelsky-iliya/View"
+project(":code/pogorelsky-iliya/View").name = "pogorelsky-iliya-View"
 
 // Ryabenko Sergey
 include "code/ryabenko-sergey/Model"

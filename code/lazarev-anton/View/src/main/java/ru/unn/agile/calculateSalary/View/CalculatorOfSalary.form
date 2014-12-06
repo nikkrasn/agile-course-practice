@@ -61,20 +61,7 @@
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <model>
-                <item value="JANUARY"/>
-                <item value="FEBRUARY"/>
-                <item value="MARCH"/>
-                <item value="APRIL"/>
-                <item value="MAY"/>
-                <item value="JUNE"/>
-                <item value="JULY"/>
-                <item value="AUGUST"/>
-                <item value="SEPTEMBER"/>
-                <item value="OCTOBER"/>
-                <item value="NOVEMBER"/>
-                <item value="DECEMBER"/>
-              </model>
+              <model/>
             </properties>
           </component>
           <component id="6e2d8" class="javax.swing.JLabel">
@@ -131,20 +118,7 @@
               </grid>
             </constraints>
             <properties>
-              <model>
-                <item value="JANUARY"/>
-                <item value="FEBRUARY"/>
-                <item value="MARCH"/>
-                <item value="APRIL"/>
-                <item value="MAY"/>
-                <item value="JUNE"/>
-                <item value="JULY"/>
-                <item value="AUGUST"/>
-                <item value="SEPTEMBER"/>
-                <item value="OCTOBER"/>
-                <item value="NOVEMBER"/>
-                <item value="DECEMBER"/>
-              </model>
+              <model/>
             </properties>
           </component>
           <component id="4772d" class="javax.swing.JTextField" binding="txtVacationYear">

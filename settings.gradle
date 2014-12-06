@@ -97,6 +97,8 @@ include "code/lazarev-anton/Model"
 project(":code/lazarev-anton/Model").name = "lazarev-anton-Model"
 include "code/lazarev-anton/View"
 project(":code/lazarev-anton/View").name = "lazarev-anton-View"
+include "code/lazarev-anton/ViewModel"
+project(":code/lazarev-anton/ViewModel").name = "lazarev-anton-ViewModel"
 
 // Ljaljushkin Nikolay
 include "code/Ljaljushkin-Nikolay/Model"

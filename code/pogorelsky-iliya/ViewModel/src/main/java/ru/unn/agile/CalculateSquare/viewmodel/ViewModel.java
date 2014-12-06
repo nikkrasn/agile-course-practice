@@ -23,8 +23,6 @@ public class ViewModel {
     private final StringProperty txtParam2 = new SimpleStringProperty();
 
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-    //private final
-
 
     private final StringProperty resultSquare = new SimpleStringProperty();
     private final StringProperty statusMessage = new SimpleStringProperty();
@@ -37,9 +35,6 @@ public class ViewModel {
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final List<ComboBoxElementChangeListener> comboBoxElementChangeListener =
             new ArrayList<>();
-
-
-
 
     // FXML needs default c-tor for binding
     public ViewModel() {
@@ -126,7 +121,6 @@ public class ViewModel {
         statusMessage.set(MessageStatus.SUCCESS.toString());
     }
 
-
     public StringProperty lblParam1TextProperty() {
         return lblParam1Text;
     }
@@ -139,7 +133,6 @@ public class ViewModel {
     public final String getLblParam2Text() {
         return lblParam2Text.get();
     }
-
 
     public StringProperty txtParam1Property() {
         return txtParam1;
@@ -178,7 +171,6 @@ public class ViewModel {
             return statusMessage.get();
         }
 
-
     private MessageStatus getInputStatus() {
         MessageStatus inputStatus = MessageStatus.READY;
         if (txtParam1.get().isEmpty() || txtParam2.get().isEmpty()) {
@@ -194,7 +186,6 @@ public class ViewModel {
         } catch (NumberFormatException nfe) {
             inputStatus = MessageStatus.BAD_FORMAT;
         }
-
 
         return inputStatus;
     }

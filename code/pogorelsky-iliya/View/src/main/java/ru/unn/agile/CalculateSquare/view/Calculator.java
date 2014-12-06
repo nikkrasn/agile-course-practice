@@ -40,8 +40,5 @@ public class Calculator {
                 viewModel.calculate();
             }
         });
-
-
-
     }
 }

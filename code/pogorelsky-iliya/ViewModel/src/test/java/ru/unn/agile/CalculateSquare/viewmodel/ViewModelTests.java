@@ -31,6 +31,7 @@ public class ViewModelTests {
     @Test
     public void statusIsWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
+
         assertEquals(MessageStatus.WAITING.toString(), viewModel.statusMessageProperty().get());
     }
 
@@ -85,6 +86,7 @@ public class ViewModelTests {
     @Test
     public void canSetCylinderFigure() {
         viewModel.operationProperty().set("Cylinder");
+
         assertEquals("Cylinder", viewModel.operationProperty().get());
     }
 
@@ -109,7 +111,6 @@ public class ViewModelTests {
 
         viewModel.txtParam1Property().set("1");
         viewModel.txtParam2Property().set("1");
-
 
         viewModel.calculate();
 

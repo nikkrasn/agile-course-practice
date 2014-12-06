@@ -18,7 +18,7 @@ public class ViewModel {
 
     private final Deque<Integer> deque = Deque.create();
 
-    private final ValueChangeListener valueChangedListener = new ValueChangeListener();
+    private final InputChangeListener valueChangedListener = new InputChangeListener();
 
     public ViewModel() {
         txtItem.set("");
@@ -136,7 +136,7 @@ public class ViewModel {
         return inputStatus;
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private class InputChangeListener implements ChangeListener<String> {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
@@ -146,9 +146,9 @@ public class ViewModel {
 }
 
 enum Status {
-    WAITING("Please provide input data"),
+    WAITING("Insert an item please"),
     READY("Press add button"),
-    BAD_FORMAT("Bad format"),
+    BAD_FORMAT("Incorrect data"),
     EMPTY("Container is empty"),
     SUCCESS("Success");
 

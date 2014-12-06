@@ -1,7 +1,7 @@
 package ru.unn.agile.Converter.viewmodel;
 
 import ru.unn.agile.Converter.Model.LengthConverter;
-import ru.unn.agile.Converter.Model.LengthConverter.*;
+import ru.unn.agile.Converter.Model.LengthConverter.Measure;
 
 public class ViewModel {
     private String inputValue;
@@ -40,7 +40,7 @@ public class ViewModel {
             output = LengthConverter.convertFromTo(inputMeasure, outputMeasure, input);
             result = String.valueOf(output);
         } catch (IllegalArgumentException e) {
-            result = "получилось слишком много";
+            result = "result is too huge";
         }
     }
 
@@ -87,12 +87,12 @@ public class ViewModel {
             if (!inputValue.isEmpty()) {
                 Double.parseDouble(inputValue);
                if (Double.isInfinite(Double.parseDouble(inputValue))) {
-                   throw new IllegalArgumentException("слишком большой вход");
+                   throw new IllegalArgumentException("input is too huge");
                }
             }
         } catch (NumberFormatException e) {
             isConvertButtonEnabled = false;
-            result = "плохой вход";
+            result = "wrong input";
             return false;
         }   catch (IllegalArgumentException e) {
             isConvertButtonEnabled = false;

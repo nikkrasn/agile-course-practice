@@ -109,6 +109,11 @@ subprojects {
                 }
                 reportFile.delete()
             }
+        } else if (task.name == 'jacocoTestReport'
+                        && state.getExecuted() && state.getSkipped()
+                        && task.getProject().getName() != 'agile-course-practice') {
+            println '[**************** \\(°□°)/ ****************]'
+            throw new RuntimeException("Cannot proceed w/o test report!")
         }
     }
 

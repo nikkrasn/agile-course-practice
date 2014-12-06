@@ -3,8 +3,9 @@ package ru.unn.agile.Converter.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.unn.agile.Converter.Model.LengthConverter.Measure;
+
 import static org.junit.Assert.*;
-import ru.unn.agile.Converter.Model.LengthConverter.*;
 
 public class ViewModelTests {
 
@@ -116,14 +117,14 @@ public class ViewModelTests {
     public void isResultTextRightWithIncorrectInput() {
         viewModel.setInputValue("qqq");
         viewModel.processKeyInTextField(ANY);
-        assertEquals("плохой вход", viewModel.getResult());
+        assertEquals("wrong input", viewModel.getResult());
     }
 
     @Test
     public void isResultTextRightWithTooLargeInput() {
         viewModel.setInputValue("10e308");
         viewModel.processKeyInTextField(ANY);
-        assertEquals("слишком большой вход", viewModel.getResult());
+        assertEquals("input is too huge", viewModel.getResult());
     }
 
     @Test
@@ -132,7 +133,7 @@ public class ViewModelTests {
         viewModel.setInputMeasure(Measure.KILOMETER);
         viewModel.processKeyInTextField(ANY);
         viewModel.convert();
-        assertEquals("получилось слишком много", viewModel.getResult());
+        assertEquals("result is too huge", viewModel.getResult());
     }
 
     @Test

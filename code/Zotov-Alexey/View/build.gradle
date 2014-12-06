@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':Zotov-Alexey-lab2-ViewModel')
+    compile project(':Zotov-Alexey-ViewModel')
 }
 
 sourceSets {

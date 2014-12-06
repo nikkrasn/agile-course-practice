@@ -79,27 +79,21 @@ subprojects {
     }
 
     test {
+        setMaxParallelForks Runtime.runtime.availableProcessors()
         afterTest { desc, result ->
-            //if (result.resultType == TestResult.ResultType.SUCCESS) {
-            //    println "."
-            //}
-            //else {
                 String suiteName = desc.className.substring(desc.className.lastIndexOf('.') + 1)
                 println "[${suiteName}]: ${result.resultType} in ${desc.name}"
-            //}
         }
     }
 
     checkstyle {
-        checkstyleMain.configFile = new File("code/config/checkstyle/", "main.xml")
-        checkstyleTest.configFile = new File("code/config/checkstyle/", "test.xml")
-        // ignoreFailures = true
+        checkstyleMain.configFile = new File(rootDir.getAbsolutePath() + "/code/config/checkstyle/", "main.xml")
+        checkstyleTest.configFile = new File(rootDir.getAbsolutePath() + "/code/config/checkstyle/", "test.xml")
     }
 
     pmd {
         pmdMain.ruleSetFiles = files(rootDir.getAbsolutePath() + "/code/config/pmd/rules.xml")
         pmdTest.ruleSets = [ "java-basic", "java-braces" ]
-        // ignoreFailures = true
     }
 
     gradle.taskGraph.afterTask { Task task, TaskState state ->
@@ -136,6 +130,7 @@ task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
     sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
     classDirectories = files(subprojects.sourceSets.main.output)
     executionData = files(subprojects.jacocoTestReport.executionData)
+
     reports {
         html.enabled = true
         xml.enabled = true

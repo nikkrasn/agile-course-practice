@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':Zotov-Alexey-lab2-Model')
+    compile project(':Zotov-Alexey-Model')
 }
 
 sourceSets {

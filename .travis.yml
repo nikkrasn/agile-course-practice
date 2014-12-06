@@ -5,6 +5,6 @@ script:
   - TERM=dumb
   - gradle check jacocoTestReport
 after_success:
-  - gradle jacocoRootReport coveralls
+  - gradle jacocoRootReport coveralls --info --stacktrace --debug
 notifications:
   email: false

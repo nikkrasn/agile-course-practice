@@ -15,23 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-
     private final StringProperty lblParam1Text = new SimpleStringProperty();
     private final StringProperty lblParam2Text = new SimpleStringProperty();
-
     private final StringProperty txtParam1 = new SimpleStringProperty();
     private final StringProperty txtParam2 = new SimpleStringProperty();
-
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-
     private final StringProperty resultSquare = new SimpleStringProperty();
     private final StringProperty statusMessage = new SimpleStringProperty();
     private final StringProperty operation = new SimpleStringProperty();
-
     private final ObjectProperty<ObservableList<String>> operations =
             new SimpleObjectProperty<>(FXCollections.
                     observableArrayList("Cone", "Cylinder", "SphereSector", "SphereSegment"));
-
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final List<ComboBoxElementChangeListener> comboBoxElementChangeListener =
             new ArrayList<>();

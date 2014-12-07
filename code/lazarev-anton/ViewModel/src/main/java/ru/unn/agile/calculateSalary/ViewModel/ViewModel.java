@@ -2,7 +2,9 @@ package ru.unn.agile.calculateSalary.ViewModel;
 
 import ru.unn.agile.calculateSalary.CalculateSalary;
 
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.math.BigDecimal;
 
 public class ViewModel {
     private static final String DEFAULT_VACATION_YEAR = "1960";
@@ -35,7 +37,7 @@ public class ViewModel {
     public final class Status {
         public static final String WAITING = "Please provide salary and count period information";
         public static final String READY_CALCULATE = "Press 'Calculate' button";
-        public static final String BAD_FORMAT = "Wrong format of count input";
+        public static final String BAD_COUNT_FORMAT = "Wrong format of count input";
         public static final String BAD_VACATION_FORMAT = "Wrong format of vacation input";
         public static final String CASH = "This your cash";
 
@@ -50,8 +52,8 @@ public class ViewModel {
                 .setSalary(Double.parseDouble(salary))
                 .setWorkedHourInMonth(Integer.parseInt(workedHours))
                 .setCountingMonth(LocalDate.of(Integer.parseInt(countYear)
-                                               , Integer.parseInt(countMonth)
-                                               , 1))
+                                             , Integer.parseInt(countMonth)
+                                             , 1))
                 .setLengthOfVacation(0);
         if (isOneVacationFieldNotDefault()) {
             if (!isVacationInputCorrect()) {
@@ -59,11 +61,17 @@ public class ViewModel {
             }
             countPeriod.setLengthOfVacation(Integer.parseInt(vacationLength))
                     .setCountingMonth(LocalDate.of(Integer.parseInt(vacationYear)
-                            , Integer.parseInt(vacationMonth)
-                            , Integer.parseInt(startVacationDay)));
+                                                 , Integer.parseInt(vacationMonth)
+                                                 , Integer.parseInt(startVacationDay)));
         }
-        result = Double.toString(countPeriod.calculate());
+        result = formateCashInMoneyValue(countPeriod);
         status = Status.CASH;
+    }
+
+    private String formateCashInMoneyValue(final CalculateSalary countPeriod) {
+        double inResult = countPeriod.calculate();
+        inResult = new BigDecimal(inResult).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
+        return Double.toString(inResult);
     }
 
     public boolean getCalculateButtonEnable() {
@@ -181,7 +189,7 @@ public class ViewModel {
                 Integer.parseInt(countYear);
             }
         } catch (Exception e) {
-            status = Status.BAD_FORMAT;
+            status = Status.BAD_COUNT_FORMAT;
             isCalculateButtonEnabled = false;
             return false;
         }

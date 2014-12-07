@@ -71,6 +71,7 @@ public class ViewModelTests {
         viewModel.setCountYear("");
         viewModel.calculate();
         assertEquals(Status.WAITING, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
     }
 
     @Test
@@ -80,7 +81,8 @@ public class ViewModelTests {
         viewModel.setCountMonth("5");
         viewModel.setCountYear("2000");
         viewModel.calculate();
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(Status.BAD_COUNT_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
     }
 
     @Test
@@ -122,5 +124,62 @@ public class ViewModelTests {
         viewModel.calculate();
         assertEquals("8700.0", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
+        assertTrue(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test
+    public void checkResultWithOvertime() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("200");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.calculate();
+        assertEquals("10213.04", viewModel.getResult());
+        assertEquals(Status.CASH, viewModel.getStatus());
+        assertTrue(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test
+    public void checkResultWithLessTime() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("154");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.calculate();
+        assertEquals("7281.52", viewModel.getResult());
+        assertEquals(Status.CASH, viewModel.getStatus());
+        assertTrue(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test
+    public void checkResultWithVacationIncludeInCountMonth() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("104");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.setVacationLength("14");
+        viewModel.setStartVacationDay("6");
+        viewModel.setVacationMonth("10");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+        assertEquals("4917.39", viewModel.getResult());
+        assertEquals(Status.CASH, viewModel.getStatus());
+        assertTrue(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test
+    public void checkResultWithVacationStartInCountMonthAndEndInAnother() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("144");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.setVacationLength("14");
+        viewModel.setStartVacationDay("27");
+        viewModel.setVacationMonth("10");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+        assertEquals("6808.7", viewModel.getResult());
+        assertEquals(Status.CASH, viewModel.getStatus());
+        assertTrue(viewModel.getCalculateButtonEnable());
     }
 }

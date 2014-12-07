@@ -129,13 +129,13 @@ public class ViewModel {
         }
     }
 
-    public final class Status {
+    public final class StatusProcess {
         public static final String WAITING = "Please provide input data";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
         public static final String IS_NULL = "Is null";
 
-        private Status() { }
+        private StatusProcess() { }
     }
 
     private boolean parseInput() {
@@ -153,7 +153,7 @@ public class ViewModel {
                 Integer.parseInt(startMonth);
             }
         } catch (Exception e) {
-            status = Status.BAD_FORMAT;
+            status = StatusProcess.BAD_FORMAT;
             return false;
         }
 
@@ -173,7 +173,7 @@ public class ViewModel {
                 || paymentPeriod.equals(zero)
                 || interestRate.equals(zero)
                 || startMonth.equals(zero)) {
-            status = Status.IS_NULL;
+            status = StatusProcess.IS_NULL;
             return false;
         }
         return true;
@@ -227,7 +227,7 @@ public class ViewModel {
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");
         }
-        status = Status.SUCCESS;
+        status = StatusProcess.SUCCESS;
     }
 
 }

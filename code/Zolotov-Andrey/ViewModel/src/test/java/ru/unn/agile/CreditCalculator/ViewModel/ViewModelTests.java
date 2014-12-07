@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.Currency;
-import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.Status;
+import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.StatusProcess;
 import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.TypePayment;
 
 import static org.junit.Assert.assertEquals;
@@ -32,19 +32,19 @@ public class ViewModelTests {
         assertEquals(Currency.RUB, viewModel.getCurrency());
         assertEquals(TypePayment.Annuity, viewModel.getTypePayment());
         assertEquals("", viewModel.getAllSum());
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(StatusProcess.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingInTheBeginning() {
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(StatusProcess.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
 
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(StatusProcess.WAITING, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessAnnuity() {
@@ -56,7 +56,7 @@ public class ViewModelTests {
         viewModel.setCurrency(Currency.RUB);
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        assertEquals(StatusProcess.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessDifferentiated() {
@@ -68,7 +68,7 @@ public class ViewModelTests {
         viewModel.setCurrency(Currency.RUB);
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        assertEquals(StatusProcess.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessDollar() {
@@ -80,7 +80,7 @@ public class ViewModelTests {
         viewModel.setCurrency(Currency.Dollar);
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        assertEquals(StatusProcess.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isBadFormatSum() {
@@ -91,7 +91,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatPaymentPeriod() {
@@ -102,7 +102,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatInterestRate() {
@@ -113,7 +113,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatStartMonth() {
@@ -124,7 +124,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
@@ -136,7 +136,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.IS_NULL, viewModel.getStatus());
+        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -148,7 +148,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.IS_NULL, viewModel.getStatus());
+        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.IS_NULL, viewModel.getStatus());
+        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -172,7 +172,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.IS_NULL, viewModel.getStatus());
+        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
     }
 
     @Test

@@ -1,4 +1,4 @@
-package ru.unn.agile.Queue.Model;
+package ru.unn.agile.Queue.model;
 
 import java.util.NoSuchElementException;
 

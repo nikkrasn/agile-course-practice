@@ -22,4 +22,28 @@ public class ViewModelTests {
     public void canSetDefaultValue() {
         assertEquals("", viewModel.getTxtToAdd());
     }
+    @Test
+
+    public void isStatusWaitingWhenAddingWithEmptyField() {
+        viewModel.add();
+        assertEquals(State.AWAITING.toString(), viewModel.getState());
+    }
+
+    @Test
+    public void isStatusReadyWhileFieldIsNotEmpty() {
+        setInput("1");
+
+        assertEquals(State.READY.toString(), viewModel.getState());
+    }
+
+    @Test
+    public void canReportAboutBadFormat() {
+        setInput("z");
+
+        assertEquals(State.BAD_INPUT.toString(), viewModel.getState());
+    }
+
+    private void setInput(final String input) {
+        viewModel.txtToAddProperty().set(input);
+    }
 }

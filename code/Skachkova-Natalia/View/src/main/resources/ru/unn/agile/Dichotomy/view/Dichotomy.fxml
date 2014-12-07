@@ -3,28 +3,43 @@
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
+<?import ru.unn.agile.Dichotomy.viewmodel.*?>
 
-
-<AnchorPane prefHeight="200.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Dichotomy.view.Dichotomy">
-   <children>
-      <VBox prefHeight="200.0" prefWidth="403.0">
+<AnchorPane prefHeight="144.0" prefWidth="403.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Dichotomy.view.Dichotomy">
+    <fx:define>
+        <ViewModel fx:id="viewModel" />
+    </fx:define>
+    <children>
+      <VBox prefHeight="159.0" prefWidth="403.0">
          <children>
-            <HBox prefHeight="55.0" prefWidth="403.0">
+            <HBox prefHeight="44.0" prefWidth="403.0">
                <children>
-                  <Label text="Enter array" />
-                  <TextField prefHeight="25.0" prefWidth="185.0" />
-                  <Button mnemonicParsing="false" text="Apply" />
+                  <Label text="Enter array with spacing" />
+                  <TextField fx:id="txtInputArray" prefHeight="25.0" prefWidth="185.0" />
+                  <Button fx:id="btnInputArray" mnemonicParsing="false" text="Apply" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="196.0">
+            <HBox prefHeight="44.0" prefWidth="403.0">
                <children>
                   <Label text="Enter element" />
-                  <TextField />
+                  <TextField fx:id="txtInputElement"/>
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="37.0" prefWidth="403.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Search" />
+                  <Label text="Status: " />
+                  <Label text="${viewModel.dichotomyStatus}" />
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="403.0">
+               <children>
+                  <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Search" />
+               </children>
+            </HBox>
+            <HBox prefHeight="33.0" prefWidth="403.0">
+               <children>
+                  <Label text="Result: " />
+                  <Label text="${viewModel.dichotomyResult}" />
                </children>
             </HBox>
          </children>

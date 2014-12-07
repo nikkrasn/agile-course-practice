@@ -27,43 +27,43 @@ public class ViewModel {
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
     }
-    public final Boolean getCalculationDisabledProperty() {
+    public final Boolean getCalculationDisabled() {
         return calculationDisabled.get();
     }
     public StringProperty vectorsDimensionProperty() {
         return vectorsDimension;
     }
-    public String getVectorsDimensionProperty() {
+    public String getVectorsDimension() {
         return vectorsDimension.get();
     }
     public ObjectProperty<Operation> currentOperationProperty() {
         return currentOperation;
     }
-    public Operation getCurrentOperationProperty() {
+    public Operation getCurrentOperation() {
         return currentOperation.get();
     }
     public final ObjectProperty<ObservableList<Components>> vectorsValuesProperty() {
         return vectorsValues;
     }
-    public ObservableList<Components> getVectorsValuesProperty() {
+    public ObservableList<Components> getVectorsValues() {
         return vectorsValues.get();
     }
     public ListProperty<Operation> operationsProperty() {
         return operations;
     }
-    public final ObservableList<Operation> getOperationsProperty() {
+    public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
     public StringProperty metricResultProperty() {
         return metricResult;
     }
-    public final String getMetricResultProperty() {
+    public final String getMetricResult() {
         return metricResult.get();
     }
     public StringProperty currentStatusProperty() {
         return currentStatus;
     }
-    public final String getCurrentStatusProperty() {
+    public final String getCurrentStatus() {
         return currentStatus.get();
     }
 
@@ -80,7 +80,7 @@ public class ViewModel {
             }
         });
 
-        getVectorsValuesProperty().addListener(new ListChangeListener<Components>() {
+        getVectorsValues().addListener(new ListChangeListener<Components>() {
             @Override
             public void onChanged(final Change<? extends Components> c) {
                 updateStatus();
@@ -91,7 +91,7 @@ public class ViewModel {
     }
 
     public void calculate() {
-        if (getCalculationDisabledProperty()) {
+        if (getCalculationDisabled()) {
             return;
         }
 
@@ -103,16 +103,16 @@ public class ViewModel {
             vector2.add(Float.parseFloat(vectorsValue.getComponent2()));
         }
 
-        metricResult.set(getCurrentOperationProperty().apply(vector1, vector2).toString());
+        metricResult.set(getCurrentOperation().apply(vector1, vector2).toString());
         currentStatus.set(CurrentStatus.SUCCESS.toString());
     }
 
     private Boolean isVectorsValuesEmpty() {
-        return getVectorsValuesProperty().isEmpty();
+        return getVectorsValues().isEmpty();
     }
 
     private Boolean isVectorsDimensionEmpty() {
-        return getVectorsDimensionProperty().equals("");
+        return getVectorsDimension().equals("");
     }
 
     private void updateStatus() {
@@ -134,7 +134,7 @@ public class ViewModel {
         } catch (NumberFormatException nfe) {
             currentStatus.set(CurrentStatus.BAD_FORMAT.toString());
         }
-        calculationDisabled.set(!getCurrentStatusProperty().equals(CurrentStatus.READY.toString()));
+        calculationDisabled.set(!getCurrentStatus().equals(CurrentStatus.READY.toString()));
     }
 
     private void parseVectorsValues() {
@@ -149,10 +149,10 @@ public class ViewModel {
             return;
         }
         if (newSize < vectorsValues.get().size()) {
-            getVectorsValuesProperty().remove(newSize, vectorsValues.get().size());
+            getVectorsValues().remove(newSize, vectorsValues.get().size());
         }
         while (newSize > vectorsValues.get().size()) {
-            getVectorsValuesProperty().add(new Components("0.0f", "0.0f"));
+            getVectorsValues().add(new Components("0.0f", "0.0f"));
         }
     }
 }

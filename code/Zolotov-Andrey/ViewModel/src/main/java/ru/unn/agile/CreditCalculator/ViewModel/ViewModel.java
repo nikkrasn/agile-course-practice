@@ -152,7 +152,7 @@ public class ViewModel {
             if (!startMonth.isEmpty()) {
                 Integer.parseInt(startMonth);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             status = StatusProcess.BAD_FORMAT;
             return false;
         }

@@ -25,13 +25,14 @@ public class ViewModelTests {
     }
     @Test
 
-    public void isStatusWaitingWhenAddingWithEmptyField() {
+    public void isStateWaitingWhenAddingWithEmptyField() {
         viewModel.add();
+
         assertEquals(State.AWAITING.toString(), viewModel.getState());
     }
 
     @Test
-    public void isStatusReadyWhileFieldIsNotEmpty() {
+    public void isStateReadyWhileFieldIsNotEmpty() {
         setInput("1");
 
         assertEquals(State.READY.toString(), viewModel.getState());
@@ -64,8 +65,9 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusEmptyIfToRemoveFromEmptyQueue() {
+    public void isStateEmptyIfToRemoveFromEmptyQueue() {
         viewModel.remove();
+
         assertEquals(State.EMPTY.toString(), viewModel.getState());
     }
 

@@ -45,7 +45,6 @@ public class Queue<T> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
-
         return first.item;
     }
 
@@ -63,7 +62,6 @@ public class Queue<T> {
         if (isEmpty()) {
             return null;
         }
-
         return first.item;
     }
 
@@ -80,5 +78,4 @@ public class Queue<T> {
         }
         return temp;
     }
-
 }

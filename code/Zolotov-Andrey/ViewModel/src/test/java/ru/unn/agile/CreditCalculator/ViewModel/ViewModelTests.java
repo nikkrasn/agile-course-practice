@@ -177,12 +177,7 @@ public class ViewModelTests {
 
     @Test
     public void canGetAllSumPayment() {
-        viewModel.setSum("10000");
-        viewModel.setPaymentPeriod("6");
-        viewModel.setInterestRate("15");
-        viewModel.setStartMonth("11");
-        viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.Dollar);
+        setViewModelVariables(viewModel);
 
         viewModel.calculate();
         Double allSum = Double.parseDouble(viewModel.getAllSum());
@@ -205,26 +200,14 @@ public class ViewModelTests {
 
     @Test
     public void canGetFinishDateOfPayment() {
-        viewModel.setSum("10000");
-        viewModel.setPaymentPeriod("6");
-        viewModel.setInterestRate("15");
-        viewModel.setStartMonth("11");
-        viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.Dollar);
-
+        setViewModelVariables(viewModel);
         viewModel.calculate();
         assertTrue(viewModel.getFinishDateOfPayment().equals("5.2015"));
     }
 
     @Test
     public void canGetOverPayment() {
-        viewModel.setSum("10000");
-        viewModel.setPaymentPeriod("6");
-        viewModel.setInterestRate("15");
-        viewModel.setStartMonth("11");
-        viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.Dollar);
-
+        setViewModelVariables(viewModel);
         viewModel.calculate();
         Double overPayment = Double.parseDouble(viewModel.getOverPayment());
         assertTrue(overPayment > 430 && overPayment < 450);
@@ -232,13 +215,7 @@ public class ViewModelTests {
 
     @Test
     public void canGetFirstPayment() {
-        viewModel.setSum("10000");
-        viewModel.setPaymentPeriod("6");
-        viewModel.setInterestRate("15");
-        viewModel.setStartMonth("11");
-        viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.RUB);
-
+        setViewModelVariables(viewModel);
         viewModel.calculate();
         Double firstPayment = Double.parseDouble(viewModel.getFirstPayment());
         assertTrue(firstPayment > 1730 && firstPayment < 1750);
@@ -277,6 +254,15 @@ public class ViewModelTests {
     public void canSetCurrencyRub() {
         viewModel.setCurrency(Currency.RUB);
         assertEquals(Currency.RUB, viewModel.getCurrency());
+    }
+
+    public void setViewModelVariables(final ViewModel viewModel) {
+        viewModel.setSum("10000");
+        viewModel.setPaymentPeriod("6");
+        viewModel.setInterestRate("15");
+        viewModel.setStartMonth("11");
+        viewModel.setTypePayment(TypePayment.Annuity);
+        viewModel.setCurrency(Currency.Dollar);
     }
 
 }

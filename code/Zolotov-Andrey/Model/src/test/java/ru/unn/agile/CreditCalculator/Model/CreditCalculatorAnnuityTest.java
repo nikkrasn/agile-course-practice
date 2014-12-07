@@ -107,7 +107,7 @@ public class CreditCalculatorAnnuityTest {
                 .currency('R')
                 .interestRate(15)
                 .startMonth(1).build();
-        assertTrue(calculator.getSartDateOfPayment().equals("2.2014"));
+        assertTrue(calculator.getStartDateOfPayment().equals("2.2014"));
     }
 
     @Test
@@ -116,6 +116,6 @@ public class CreditCalculatorAnnuityTest {
                 .currency('R')
                 .interestRate(15)
                 .startMonth(12).build();
-        assertTrue(calculator.getSartDateOfPayment().equals("1.2015"));
+        assertTrue(calculator.getStartDateOfPayment().equals("1.2015"));
     }
 }

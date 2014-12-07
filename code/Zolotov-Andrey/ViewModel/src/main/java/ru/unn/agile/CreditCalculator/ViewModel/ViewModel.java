@@ -223,7 +223,7 @@ public class ViewModel {
     public  void setResults(final CreditCalculator calculator) {
         allSum = String.valueOf(calculator.getAllSum());
         startDateOfPayment = String.valueOf(
-                calculator.getSartDateOfPayment());
+                calculator.getStartDateOfPayment());
         finishDateOfPayment = String.valueOf(
                 calculator.getFinishDateOfPayment());
         overPayment = String.valueOf(calculator.getOverPayment());

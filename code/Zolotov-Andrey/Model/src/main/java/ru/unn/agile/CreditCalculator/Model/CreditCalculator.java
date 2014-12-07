@@ -41,7 +41,7 @@ public abstract class CreditCalculator {
         return "" + month + "." + finishYear + "";
     }
 
-    public String getSartDateOfPayment() {
+    public String getStartDateOfPayment() {
         Calendar c = Calendar.getInstance();
         int startYear = c.get(c.YEAR);
         int startPaymentMonth = startMonth + 1;

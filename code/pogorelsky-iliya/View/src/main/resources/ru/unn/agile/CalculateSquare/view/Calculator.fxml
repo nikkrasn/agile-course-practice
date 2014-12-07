@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import ru.unn.agile.CalculateSquare.viewmodel.*?>
+
+<AnchorPane prefHeight="439.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.CalculateSquare.view.Calculator">
+    <fx:define>
+        <ViewModel fx:id="viewModel"/>
+    </fx:define>
+    <children>
+      <Label layoutX="43.0" layoutY="21.0" prefHeight="21.0" prefWidth="235.0" text="Choose figure" />
+      <ComboBox layoutX="43.0" layoutY="51.0" prefHeight="31.0" prefWidth="235.0" fx:id="cbOperation" items="${viewModel.operations}"/>
+
+      <Label layoutX="43.0" layoutY="139.0" prefHeight="21.0" prefWidth="235.0" text="${viewModel.lblParam1Text}" />
+      <TextField layoutX="43.0" layoutY="160.0" prefHeight="31.0" prefWidth="235.0" fx:id="txtParam1"/>
+      <Label layoutX="43.0" layoutY="210.0" prefHeight="21.0" prefWidth="235.0" text="${viewModel.lblParam2Text}" />
+      <TextField layoutX="43.0" layoutY="231.0" prefHeight="31.0" prefWidth="235.0" fx:id="txtParam2"/>
+
+      <Button layoutX="128.0" layoutY="293.0" mnemonicParsing="false" defaultButton="true" fx:id="btnCalc" disable="${viewModel.calculationDisabled}" text="Calculate"/>
+      <Label layoutX="43.0" layoutY="365.0" text="Result:" textFill="#f50b0b" />
+      <Label layoutX="93.0" layoutY="365.0" prefHeight="21.0" prefWidth="176.0" text="${viewModel.result}" />
+      <Label layoutX="43.0" layoutY="397.0" text="Status:"/>
+      <Label layoutX="93.0" layoutY="397.0" prefHeight="21.0" prefWidth="176.0" text="${viewModel.status}" />
+   </children>
+</AnchorPane>

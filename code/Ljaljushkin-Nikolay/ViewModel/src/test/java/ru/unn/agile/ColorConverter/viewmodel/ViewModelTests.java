@@ -35,43 +35,43 @@ public class ViewModelTests {
 
         assertEquals(Color.RGB, viewModel.getSrcColor());
         assertEquals(Color.LAB, viewModel.getDstColor());
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.WAITING.toString(), viewModel.getAppStatus());
     }
 
     @Test
-    public void isStatusWaitingWhenConvertWithEmptyFields() {
+    public void isAppStatusWaitingWhenConvertWithEmptyFields() {
         viewModel.convert();
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.WAITING.toString(), viewModel.getAppStatus());
     }
 
     @Test
-    public void isStatusReadyWhenFieldsAreFillCorrectly() {
+    public void isAppStatusReadyWhenFieldsAreFillCorrectly() {
         fillInputFieldsCorrectly();
-        assertEquals(Status.READY.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.READY.toString(), viewModel.getAppStatus());
     }
 
     @Test
-    public void isStatusWaitingWhenNotAllFieldsAreFill() {
+    public void isAppStatusWaitingWhenNotAllFieldsAreFill() {
         fillNotAllFields();
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.WAITING.toString(), viewModel.getAppStatus());
     }
 
     @Test
     public void canReportBadFormat() {
         fillFieldInBadFormat();
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.BAD_FORMAT.toString(), viewModel.getAppStatus());
     }
 
     @Test
     public void canReportBadFormatIfThereIsNumberWithComma() {
         fillFieldFloatingPointNumberWithComma();
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.BAD_FORMAT.toString(), viewModel.getAppStatus());
     }
 
     @Test
-    public void isStatusReadyIfThereIsNumberWithDot() {
+    public void isAppStatusReadyIfThereIsNumberWithDot() {
         fillFieldFloatingPointNumberWithDot();
-        assertEquals(Status.READY.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.READY.toString(), viewModel.getAppStatus());
     }
 
     @Test
@@ -113,28 +113,28 @@ public class ViewModelTests {
     @Test
     public void canReportOutOfRangeForRgb() {
         setValueOutsideAcceptableRangesForRgb();
-        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.OUT_OF_RANGE.toString(), viewModel.getAppStatus());
     }
 
     @Test
     public void canReportOutOfRangeForHsv() {
         viewModel.setSrcColor(Color.HSV);
         setValueOutsideAcceptableRangesForHsv();
-        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.OUT_OF_RANGE.toString(), viewModel.getAppStatus());
     }
 
     @Test
     public void canReportOutOfRangeForLab() {
         viewModel.setSrcColor(Color.LAB);
         setValueOutsideAcceptableRangesForLab();
-        assertEquals(Status.OUT_OF_RANGE.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.OUT_OF_RANGE.toString(), viewModel.getAppStatus());
     }
 
     @Test
-    public void canRecheckStatusAfterChangingSrcColor() {
+    public void canRecheckAppStatusAfterChangingSrcColor() {
         setValuesOutsideAcceptableRangesForRgbAndOkForHsv();
         viewModel.setSrcColor(Color.HSV);
-        assertEquals(Status.READY.toString(), viewModel.getStatus());
+        assertEquals(AppStatus.READY.toString(), viewModel.getAppStatus());
     }
 
     @Test

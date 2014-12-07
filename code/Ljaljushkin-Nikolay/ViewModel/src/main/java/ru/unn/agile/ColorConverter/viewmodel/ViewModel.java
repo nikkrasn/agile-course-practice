@@ -35,7 +35,6 @@ public class ViewModel {
     private final List<StringChangeListener> valueChangedListeners = new ArrayList<>();
     private final BooleanProperty conversionDisabled = new SimpleBooleanProperty();
 
-    // FXML needs default c-tor for binding
     public ViewModel() {
         firstChannelSrcColorString.set("");
         secondChannelSrcColorString.set("");
@@ -45,7 +44,7 @@ public class ViewModel {
         secondChannelDstColorString.set("");
         thirdChannelDstColorString.set("");
 
-        status.set(Status.WAITING.toString());
+        status.set(AppStatus.WAITING.toString());
         srcColor.set(Color.RGB);
         dstColor.set(Color.LAB);
 
@@ -61,7 +60,7 @@ public class ViewModel {
 
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
+                return getInputAppStatus() == AppStatus.READY;
             }
         };
         conversionDisabled.bind(couldCalculate.not());
@@ -83,7 +82,7 @@ public class ViewModel {
             @Override
             public void changed(final ObservableValue<? extends Color> observableValue,
                                 final Color oldValue, final Color newValue) {
-                status.set(getInputStatus().toString());
+                status.set(getInputAppStatus().toString());
             }
         });
     }
@@ -107,7 +106,7 @@ public class ViewModel {
         setSecondChannelDstColorString(secondChannel.toString());
         setThirdChannelDstColorString(thirdChannel.toString());
 
-        status.set(Status.SUCCESS.toString());
+        status.set(AppStatus.SUCCESS.toString());
     }
 
     public void setFirstChannelSrcColorString(final String value) {
@@ -190,7 +189,7 @@ public class ViewModel {
         return thirdChannelDstColorString;
     }
 
-    public String getStatus() {
+    public String getAppStatus() {
         return status.get();
     }
 
@@ -238,10 +237,10 @@ public class ViewModel {
         return conversionDisabled;
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+    private AppStatus getInputAppStatus() {
+        AppStatus inputAppStatus = AppStatus.READY;
         if (isSrcColorEmpty()) {
-            inputStatus = Status.WAITING;
+            inputAppStatus = AppStatus.WAITING;
         }
         try {
             parseSrcColor();
@@ -249,11 +248,11 @@ public class ViewModel {
             srcColor.setChannels(firstChannelSrcColor, secondChannelSrcColor, thirdChannelSrcColor);
             srcColor.verifyChannels();
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+            inputAppStatus = AppStatus.BAD_FORMAT;
         } catch (IllegalArgumentException iae) {
-            inputStatus = Status.OUT_OF_RANGE;
+            inputAppStatus = AppStatus.OUT_OF_RANGE;
         }
-        return inputStatus;
+        return inputAppStatus;
     }
 
     private void parseSrcColor() {
@@ -278,21 +277,21 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldString, final String newString) {
-            status.set(getInputStatus().toString());
+            status.set(getInputAppStatus().toString());
         }
     }
 }
 
-enum Status {
+enum AppStatus {
     WAITING("Please provide input data"),
-    READY("Press 'Calculate' or Enter"),
+    READY("Press 'Convert' or Enter"),
     OUT_OF_RANGE("Values of one(several) color channel(s) out of range"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Success");
 
     private final String name;
 
-    private Status(final String name) {
+    private AppStatus(final String name) {
         this.name = name;
     }
 

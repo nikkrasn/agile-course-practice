@@ -37,7 +37,6 @@ public class ColorConverter {
     @FXML
     void initialize() {
 
-        // Two-way binding hasn't supported by FXML yet, so place it in code-behind
         txtFirstChannelSrcColor.textProperty().bindBidirectional(
                 viewModel.firstChannelSrcColorStringProperty());
         txtSecondChannelSrcColor.textProperty().bindBidirectional(

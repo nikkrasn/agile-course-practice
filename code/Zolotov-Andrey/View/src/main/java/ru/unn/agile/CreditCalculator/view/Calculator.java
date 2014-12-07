@@ -18,9 +18,14 @@ public final class Calculator {
     private JTextField startMonth;
     private JComboBox<ViewModel.TypePayment> typePayment;
     private JComboBox<ViewModel.Currency> currency;
-    private JTextField txtResult;
+    private JTextField allSum;
     private JLabel lbStatus;
-   private Calculator() { }
+    private JTextField startDateOfPayment;
+    private JTextField finishDateOfPayment;
+    private JTextField firstPayment;
+    private JTextField overPayment;
+
+    private Calculator() { }
 
     private Calculator(final ViewModel viewModel) {
         this.viewModel = viewModel;
@@ -85,9 +90,12 @@ public final class Calculator {
     }
 
     private void backBind() {
-        btnCalc.setEnabled(viewModel.isCalculateButtonEnabled());
-
-        txtResult.setText(viewModel.getResult());
+        allSum.setText(viewModel.getAllSum());
+        startDateOfPayment.setText(viewModel.getStartDateOfPayment());
+        finishDateOfPayment.setText(viewModel.getFinishDateOfPayment());
+        overPayment.setText(viewModel.getOverPayment());
+        firstPayment.setText(viewModel.getFirstPayment());
         lbStatus.setText(viewModel.getStatus());
     }
+
 }

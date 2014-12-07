@@ -28,21 +28,21 @@ public class ViewModelTests {
     public void isStateWaitingWhenAddingWithEmptyField() {
         viewModel.add();
 
-        assertEquals(State.AWAITING.toString(), viewModel.getState());
+        assertEquals(ViewState.AWAITING.toString(), viewModel.getState());
     }
 
     @Test
     public void isStateReadyWhileFieldIsNotEmpty() {
         setInput("1");
 
-        assertEquals(State.READY.toString(), viewModel.getState());
+        assertEquals(ViewState.READY.toString(), viewModel.getState());
     }
 
     @Test
     public void canReportAboutBadFormat() {
         setInput("z");
 
-        assertEquals(State.BAD_INPUT.toString(), viewModel.getState());
+        assertEquals(ViewState.BAD_INPUT.toString(), viewModel.getState());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class ViewModelTests {
     public void isStateEmptyIfToRemoveFromEmptyQueue() {
         viewModel.remove();
 
-        assertEquals(State.EMPTY.toString(), viewModel.getState());
+        assertEquals(ViewState.EMPTY.toString(), viewModel.getState());
     }
 
     @Test

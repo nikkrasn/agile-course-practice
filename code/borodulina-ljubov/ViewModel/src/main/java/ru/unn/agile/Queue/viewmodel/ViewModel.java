@@ -30,7 +30,7 @@ public class ViewModel {
     public ViewModel() {
         txtToAdd.set("");
         setElementToEmpty();
-        state.set(State.AWAITING.toString());
+        state.set(ViewState.AWAITING.toString());
 
         BooleanBinding canAdd = new BooleanBinding() {
             {
@@ -38,7 +38,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getInputState() == State.READY;
+                return getInputState() == ViewState.READY;
             }
         };
         isAddingDisabled.bind(canAdd.not());
@@ -60,10 +60,10 @@ public class ViewModel {
         try {
             Integer item = queue.remove();
             txtToAdd.set(item.toString());
-            state.set(State.OK.toString());
+            state.set(ViewState.OK.toString());
 
         } catch (NoSuchElementException nsee) {
-            state.set(State.EMPTY.toString());
+            state.set(ViewState.EMPTY.toString());
         }
         updateElement();
     }
@@ -104,17 +104,17 @@ public class ViewModel {
         return txtToAdd.get();
     }
 
-    private State getInputState() {
-        State inputState = State.READY;
+    private ViewState getInputState() {
+        ViewState inputState = ViewState.READY;
         if (getTxtToAdd().isEmpty()) {
-            inputState = State.AWAITING;
+            inputState = ViewState.AWAITING;
             return inputState;
         }
 
         try {
             Integer.parseInt(getTxtToAdd());
         } catch (NumberFormatException nfe) {
-            inputState = State.BAD_INPUT;
+            inputState = ViewState.BAD_INPUT;
         }
         return inputState;
     }
@@ -132,7 +132,7 @@ public class ViewModel {
     }
 }
 
-enum State {
+enum ViewState {
     AWAITING("Insert an item"),
     READY("Press add button"),
     BAD_INPUT("Incorrect input"),
@@ -141,7 +141,7 @@ enum State {
 
     private final String name;
 
-    private State(final String name) {
+    private ViewState(final String name) {
         this.name = name;
     }
 

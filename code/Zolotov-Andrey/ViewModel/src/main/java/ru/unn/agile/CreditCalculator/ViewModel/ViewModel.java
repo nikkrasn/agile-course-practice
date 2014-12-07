@@ -34,9 +34,6 @@ public class ViewModel {
     }
 
     public void setSum(final String sum) {
-        if (sum.equals(this.sum)) {
-            return;
-        }
         this.sum = sum;
     }
 
@@ -109,8 +106,8 @@ public class ViewModel {
         Differentiated("Differentiated");
         private final String name;
 
-        private TypePayment(final String name) {
-            this.name = name;
+        private TypePayment(final String nameGetting) {
+            this.name = nameGetting;
         }
 
         public String toString() {
@@ -123,8 +120,8 @@ public class ViewModel {
         Dollar("$");
         private final String name;
 
-        private Currency(final String name) {
-            this.name = name;
+        private Currency(final String nameGetting) {
+            this.name = nameGetting;
         }
 
         public String toString() {

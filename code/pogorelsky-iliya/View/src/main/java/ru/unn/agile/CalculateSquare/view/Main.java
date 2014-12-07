@@ -9,11 +9,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     @Override
-    public void start(final Stage primaryStage) throws Exception {
+    public void start(final Stage mainStep) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Calculator.fxml"));
-        primaryStage.setTitle("Calculator");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        mainStep.setTitle("Calculator");
+        mainStep.setScene(new Scene(root));
+        mainStep.show();
     }
 
     public static void main(final String[] args) {

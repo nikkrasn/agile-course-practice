@@ -1,8 +1,5 @@
 package ru.unn.agile.CalculateSquare.Model;
 
-/**
- * Created by Redvix on 02.12.2014.
- */
 public class SphereSector {
     private final double radiusSphere, radiusSegment;
     private static final int COEFF_SQUARE = 2;

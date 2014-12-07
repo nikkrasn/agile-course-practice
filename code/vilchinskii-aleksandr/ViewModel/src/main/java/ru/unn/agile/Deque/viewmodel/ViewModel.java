@@ -9,7 +9,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Deque.model.Deque;
 import java.util.NoSuchElementException;
-import java.util.function.Supplier;
 
 public class ViewModel {
     private final StringProperty txtItem = new SimpleStringProperty();
@@ -65,19 +64,19 @@ public class ViewModel {
     }
 
     public void getFirst() {
-        getItem(deque::getFirst);
+        getItem(new GetFirstCommand());
     }
 
     public void getLast() {
-        getItem(deque::getLast);
+        getItem(new GetLastCommand());
     }
 
     public void removeFirst() {
-        getItem(deque::removeFirst);
+        getItem(new RemoveFirstCommand());
     }
 
     public void removeLast() {
-        getItem(deque::removeLast);
+        getItem(new RemoveLastCommand());
     }
 
     public StringProperty txtItemProperty() {
@@ -108,9 +107,37 @@ public class ViewModel {
         return deque.isEmpty();
     }
 
-    private void getItem(Supplier<Integer> getter) {
+    public interface Command {
+        Integer execute(final Deque<Integer> deque);
+    }
+
+    public class GetFirstCommand implements Command {
+        public Integer execute(final Deque<Integer> deque) {
+            return deque.getFirst();
+        }
+    }
+
+    public class GetLastCommand implements Command {
+        public Integer execute(final Deque<Integer> deque) {
+            return deque.getLast();
+        }
+    }
+
+    public class RemoveFirstCommand implements Command {
+        public Integer execute(final Deque<Integer> deque) {
+            return deque.removeFirst();
+        }
+    }
+
+    public class RemoveLastCommand implements Command {
+        public Integer execute(final Deque<Integer> deque) {
+            return deque.removeLast();
+        }
+    }
+
+    private void getItem(final Command getter) {
         try {
-            Integer item = getter.get();
+            Integer item = getter.execute(deque);
             txtItem.set(item.toString());
             status.set(Status.SUCCESS.toString());
         } catch (NoSuchElementException nsee) {

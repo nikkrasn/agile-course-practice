@@ -24,12 +24,12 @@ public class ViewModel {
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
-            state.set(getInputStatus().toString());
+            state.set(getInputState().toString());
         }
     }
 
 
-    ViewModel() {
+    public ViewModel() {
         txtToAdd.set("");
         setElementToEmpty();
         state.set(State.AWAITING.toString());
@@ -40,7 +40,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == State.READY;
+                return getInputState() == State.READY;
             }
         };
         isAddingDisabled.bind(canAdd.not());
@@ -106,7 +106,7 @@ public class ViewModel {
         return txtToAdd.get();
     }
 
-    private State getInputStatus() {
+    private State getInputState() {
         State inputState = State.READY;
         if (getTxtToAdd().isEmpty()) {
             inputState = State.AWAITING;

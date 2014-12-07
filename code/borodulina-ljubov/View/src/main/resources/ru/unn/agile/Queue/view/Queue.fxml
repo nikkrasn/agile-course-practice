@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import ru.unn.agile.Queue.viewmodel.*?>
 
 <GridPane minHeight="600.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Queue.view.Queue">
+    <fx:define>
+        <ViewModel fx:id="viewModel" />
+    </fx:define>
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" />
         <ColumnConstraints hgrow="ALWAYS" />
@@ -16,12 +21,6 @@
         <RowConstraints minHeight="150.0" prefHeight="300.0" vgrow="ALWAYS" />
     </rowConstraints>
     <children>
-        <TableView fx:id="queueTable" GridPane.columnSpan="2" GridPane.rowIndex="3" editable="true" visible="true">
-            <columns>
-                <TableColumn fx:id="valueColumn" editable="true" maxWidth="-1.0" minWidth="400" prefWidth="-1.0" sortable="false" text="Value" visible="true" resizable="true"/>
-            </columns>
-            <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
-        </TableView>
         <AnchorPane maxHeight="60.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
             <children>
                 <Button fx:id="btnRemove" layoutX="95.0" layoutY="16.0" mnemonicParsing="false" text="Remove" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -39,7 +38,7 @@
         </AnchorPane>
         <AnchorPane maxHeight="60.0" prefHeight="60.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <children>
-                <Label fx:id="elementLabel" layoutX="35.0" layoutY="21.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <Label fx:id="lbElement" layoutX="35.0" layoutY="21.0" text="${viewModel.element}" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
                     <padding>
                         <Insets left="5.0" />
                     </padding>
@@ -55,5 +54,23 @@
                 </Label>
             </children>
         </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+         <children>
+             <Label alignment="CENTER_RIGHT" layoutX="143.0" layoutY="21.0" text="State:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                 <padding>
+                     <Insets right="5.0" />
+                 </padding>
+             </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <children>
+             <Label fx:id="lbState" layoutX="35.0" layoutY="21.0" text="${viewModel.state}" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" >
+                 <padding>
+                     <Insets left="5.0" />
+                 </padding>
+             </Label>
+         </children>
+      </AnchorPane>
     </children>
 </GridPane>

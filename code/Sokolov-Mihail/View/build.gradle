@@ -1,8 +1,8 @@
 dependencies {
-    compile project(':Sokolov-Mihail-lab2-ViewModel')
+    compile project(':Sokolov-Mihail-ViewModel')
 }
 
 sourceSets {
-    main.java.srcDir 'src/main'
-    test.java.srcDir 'src/test'
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
 }

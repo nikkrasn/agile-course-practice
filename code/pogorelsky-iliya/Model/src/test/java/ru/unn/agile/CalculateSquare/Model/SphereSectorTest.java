@@ -5,7 +5,7 @@ import org.junit.Test;
 
 
 public class SphereSectorTest {
-    private static final double DELTA = 0.001;
+    private static final double DELTA = 1e-10;
 
     @Test
     public void canInitializationRadiusWithObtainedIntegerValues() {

@@ -5,12 +5,14 @@ public class BitArray {
     public static final int BIT_MASK = 0x00000001;
 
     private final int size;
+    private final int reallyAllocatedSize;
     private int[] array;
 
     public BitArray(final int size) {
         checkPositiveSizeOfArray(size);
         this.size = size;
-        this.array = new int[(size + BIT_PER_INT - 1) / BIT_PER_INT];
+        this.reallyAllocatedSize = (size + BIT_PER_INT - 1) / BIT_PER_INT;
+        this.array = new int[this.reallyAllocatedSize];
     }
 
     public int[] getArray() {
@@ -63,32 +65,32 @@ public class BitArray {
     }
 
     public BitArray xor(final BitArray a) {
-        for (int i = 0; i < (size + BIT_PER_INT - 1) / BIT_PER_INT; i++) {
+        for (int i = 0; i < reallyAllocatedSize; i++) {
             array[i] = array[i] ^ a.getArray()[i];
         }
         return this;
     }
 
     public BitArray or(final BitArray a) {
-        for (int i = 0; i < (size + BIT_PER_INT - 1) / BIT_PER_INT; i++) {
+        for (int i = 0; i < reallyAllocatedSize; i++) {
             array[i] = array[i] | a.getArray()[i];
         }
         return this;
     }
 
     public BitArray and(final BitArray a) {
-        for (int i = 0; i < (size + BIT_PER_INT - 1) / BIT_PER_INT; i++) {
+        for (int i = 0; i < reallyAllocatedSize; i++) {
             array[i] = array[i] & a.getArray()[i];
         }
         return this;
     }
 
     public BitArray not() {
-        for (int i = 0; i < (size + BIT_PER_INT - 1) / BIT_PER_INT; i++) {
+        for (int i = 0; i < reallyAllocatedSize; i++) {
             array[i] = ~array[i];
         }
         int bitMask = getBitMask(size);
-        array[(size + BIT_PER_INT - 1) / BIT_PER_INT - 1] &= bitMask;
+        array[reallyAllocatedSize - 1] &= bitMask;
         return this;
     }
 

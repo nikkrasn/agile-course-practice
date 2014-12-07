@@ -29,7 +29,7 @@ public class ViewModel {
 
     public ViewModel() {
         txtItem.set("");
-        status.set(Status.WAITING.toString());
+        status.set(ViewStatus.WAITING.toString());
 
         BooleanBinding canAdd = new BooleanBinding() {
             {
@@ -37,7 +37,7 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
+                return getInputStatus() == ViewStatus.READY;
             }
         };
         isAddingDisabled.bind(canAdd.not());
@@ -139,30 +139,31 @@ public class ViewModel {
         try {
             Integer item = getter.execute(deque);
             txtItem.set(item.toString());
-            status.set(Status.SUCCESS.toString());
+            status.set(ViewStatus.SUCCESS.toString());
         } catch (NoSuchElementException nsee) {
-            status.set(Status.EMPTY.toString());
+            txtItem.set("");
+            status.set(ViewStatus.EMPTY.toString());
         }
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+    private ViewStatus getInputStatus() {
+        ViewStatus inputStatus = ViewStatus.READY;
         if (getTxtItem().isEmpty()) {
-            inputStatus = Status.WAITING;
+            inputStatus = ViewStatus.WAITING;
             return inputStatus;
         }
 
         try {
             Integer.parseInt(getTxtItem());
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+            inputStatus = ViewStatus.BAD_FORMAT;
         }
 
         return inputStatus;
     }
 }
 
-enum Status {
+enum ViewStatus {
     WAITING("Insert an item please"),
     READY("Press add button"),
     BAD_FORMAT("Incorrect data"),
@@ -171,7 +172,7 @@ enum Status {
 
     private final String name;
 
-    private Status(final String name) {
+    private ViewStatus(final String name) {
         this.name = name;
     }
 

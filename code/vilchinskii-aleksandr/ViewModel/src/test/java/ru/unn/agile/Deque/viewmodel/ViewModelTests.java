@@ -26,21 +26,21 @@ public class ViewModelTests {
     @Test
     public void isStatusWaitingWhenAddingWithEmptyField() {
         viewModel.addFirst();
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(ViewStatus.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
     public void isStatusReadyWithNotEmptyField() {
         setInputData("1");
 
-        assertEquals(Status.READY.toString(), viewModel.getStatus());
+        assertEquals(ViewStatus.READY.toString(), viewModel.getStatus());
     }
 
     @Test
     public void canReportBadFormat() {
         setInputData("a");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
+        assertEquals(ViewStatus.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -65,7 +65,13 @@ public class ViewModelTests {
     @Test
     public void isStatusEmptyIfToGetFromEmptyDeque() {
         viewModel.getFirst();
-        assertEquals(Status.EMPTY.toString(), viewModel.getStatus());
+        assertEquals(ViewStatus.EMPTY.toString(), viewModel.getStatus());
+    }
+
+    @Test
+    public void isTxtItemEmptyIfToGetFromEmptyDeque() {
+        viewModel.getFirst();
+        assertEquals("", viewModel.getTxtItem());
     }
 
     @Test

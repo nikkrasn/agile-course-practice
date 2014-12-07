@@ -93,7 +93,7 @@ public class ViewModelTests {
         viewModel.removeFirst();
 
         assertEquals(item, viewModel.getTxtItem());
-        assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
+        assertTrue(viewModel.isDequeEmpty());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class ViewModelTests {
         viewModel.removeLast();
 
         assertEquals(item, viewModel.getTxtItem());
-        assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
+        assertTrue(viewModel.isDequeEmpty());
     }
 
     private String addOneAsFirst() {

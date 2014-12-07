@@ -8,8 +8,8 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Deque.model.Deque;
-
 import java.util.NoSuchElementException;
+import java.util.function.Supplier;
 
 public class ViewModel {
     private final StringProperty txtItem = new SimpleStringProperty();
@@ -19,6 +19,14 @@ public class ViewModel {
     private final Deque<Integer> deque = Deque.create();
 
     private final InputChangeListener valueChangedListener = new InputChangeListener();
+
+    private class InputChangeListener implements ChangeListener<String> {
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getInputStatus().toString());
+        }
+    }
 
     public ViewModel() {
         txtItem.set("");
@@ -57,43 +65,19 @@ public class ViewModel {
     }
 
     public void getFirst() {
-        try {
-            Integer item = deque.getFirst();
-            txtItem.set(item.toString());
-            status.set(Status.SUCCESS.toString());
-        } catch (NoSuchElementException nsee) {
-            status.set(Status.EMPTY.toString());
-        }
+        getItem(deque::getFirst);
     }
 
     public void getLast() {
-        try {
-            Integer item = deque.getLast();
-            txtItem.set(item.toString());
-            status.set(Status.SUCCESS.toString());
-        } catch (NoSuchElementException nsee) {
-            status.set(Status.EMPTY.toString());
-        }
+        getItem(deque::getLast);
     }
 
     public void removeFirst() {
-        try {
-            Integer item = deque.removeFirst();
-            txtItem.set(item.toString());
-            status.set(Status.SUCCESS.toString());
-        } catch (NoSuchElementException nsee) {
-            status.set(Status.EMPTY.toString());
-        }
+        getItem(deque::removeFirst);
     }
 
     public void removeLast() {
-        try {
-            Integer item = deque.removeLast();
-            txtItem.set(item.toString());
-            status.set(Status.SUCCESS.toString());
-        } catch (NoSuchElementException nsee) {
-            status.set(Status.EMPTY.toString());
-        }
+        getItem(deque::removeLast);
     }
 
     public StringProperty txtItemProperty() {
@@ -120,6 +104,20 @@ public class ViewModel {
         return status.get();
     }
 
+    public boolean isDequeEmpty() {
+        return deque.isEmpty();
+    }
+
+    private void getItem(Supplier<Integer> getter) {
+        try {
+            Integer item = getter.get();
+            txtItem.set(item.toString());
+            status.set(Status.SUCCESS.toString());
+        } catch (NoSuchElementException nsee) {
+            status.set(Status.EMPTY.toString());
+        }
+    }
+
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
         if (getTxtItem().isEmpty()) {
@@ -134,14 +132,6 @@ public class ViewModel {
         }
 
         return inputStatus;
-    }
-
-    private class InputChangeListener implements ChangeListener<String> {
-        @Override
-        public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
-        }
     }
 }
 

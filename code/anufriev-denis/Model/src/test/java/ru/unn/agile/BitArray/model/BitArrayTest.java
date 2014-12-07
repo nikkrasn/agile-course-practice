@@ -1,4 +1,4 @@
-package ru.unn.agile.BitArray.Model;
+package ru.unn.agile.BitArray.model;
 
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class BitArrayTest {
     }
 
     @Test
-    public void canSetLastBit() {
+      public void canSetLastBit() {
         BitArray array = new BitArray(32);
 
         array.setBit(31);
@@ -54,6 +54,52 @@ public class BitArrayTest {
         BitArray array = new BitArray(30);
 
         array.setBit(31);
+    }
+
+    @Test
+    public void canSetBits() {
+        BitArray array = new BitArray(6);
+        String str = "111001";
+
+        array.setBits(str.toCharArray());
+
+        assertEquals("111001", array.toString());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cantSetOutOfArrayBits() {
+        BitArray array = new BitArray(6);
+        String str = "1110011";
+
+        array.setBits(str.toCharArray());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cantSetIncorrectBits() {
+        BitArray array = new BitArray(6);
+        String str = "abcdef";
+
+        array.setBits(str.toCharArray());
+    }
+
+    @Test
+    public void canFormatToString() {
+        BitArray array = new BitArray(6);
+        String str = "111001";
+        array.setBits(str.toCharArray());
+
+        String result = array.toString();
+
+        assertEquals("111001", result);
+    }
+
+    @Test
+    public void canFormatEmptyArrayToString() {
+        BitArray array = new BitArray(6);
+
+        String result = array.toString();
+
+        assertEquals("000000", result);
     }
 
     @Test
@@ -181,6 +227,48 @@ public class BitArrayTest {
         array1.not().not();
 
         assertArrayEquals(array2.getArray(), array1.getArray());
+    }
+
+    @Test
+    public void canPerformXorWithBoundarySizesOfArrays() {
+        BitArray array1 = new BitArray(31);
+        BitArray array2 = new BitArray(31);
+        BitArray array3 = new BitArray(31);
+        array1.setBits("1110011111001111100111110011000".toCharArray());
+        array2.setBits("1110011111001101100111110011010".toCharArray());
+        array3.setBits("0000000000000010000000000000010".toCharArray());
+
+        array1.xor(array2);
+
+        assertArrayEquals(array3.getArray(), array1.getArray());
+    }
+
+    @Test
+    public void canPerformOrWithBoundarySizesOfArrays() {
+        BitArray array1 = new BitArray(32);
+        BitArray array2 = new BitArray(32);
+        BitArray array3 = new BitArray(32);
+        array1.setBits("11100111110011111001111100110001".toCharArray());
+        array2.setBits("11100111110011011001111100110100".toCharArray());
+        array3.setBits("11100111110011111001111100110101".toCharArray());
+
+        array1.or(array2);
+
+        assertArrayEquals(array3.getArray(), array1.getArray());
+    }
+
+    @Test
+    public void canPerformAndWithBoundarySizesOfArrays() {
+        BitArray array1 = new BitArray(33);
+        BitArray array2 = new BitArray(33);
+        BitArray array3 = new BitArray(33);
+        array1.setBits("111001111100111110011111001100010".toCharArray());
+        array2.setBits("111001111100110110011111001101011".toCharArray());
+        array3.setBits("111001111100110110011111001100010".toCharArray());
+
+        array1.and(array2);
+
+        assertArrayEquals(array3.getArray(), array1.getArray());
     }
 
     @Test

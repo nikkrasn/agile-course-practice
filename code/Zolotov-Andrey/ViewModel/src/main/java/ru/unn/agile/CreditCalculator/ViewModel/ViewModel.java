@@ -45,16 +45,10 @@ public class ViewModel {
     }
 
     public void setPaymentPeriod(final String paymentPeriod) {
-        if (paymentPeriod.equals(this.paymentPeriod)) {
-            return;
-        }
         this.paymentPeriod = paymentPeriod;
     }
 
     public void setInterestRate(final String interestRate) {
-        if (interestRate.equals(this.interestRate)) {
-            return;
-        }
         this.interestRate = interestRate;
     }
 
@@ -63,9 +57,6 @@ public class ViewModel {
     }
 
     public void setStartMonth(final String startMonth) {
-        if (startMonth.equals(this.startMonth)) {
-            return;
-        }
         this.startMonth = startMonth;
     }
 

@@ -62,7 +62,6 @@ public class ViewModel {
             }
         };
 
-        // Add listeners to the input text fields
         final List<StringProperty> fieldsText = new ArrayList<StringProperty>() { {
             add(txtParam1);
             add(txtParam2);
@@ -83,7 +82,6 @@ public class ViewModel {
             field.addListener(listener);
             comboBoxElementChangeListener.add(listener);
         }
-
     }
 
     public void calculate() {
@@ -110,7 +108,6 @@ public class ViewModel {
             SphereSegment sphereSegment = new SphereSegment(param1, param2);
             resultSquare.set(Double.toString(sphereSegment.calculateSquare()));
         }
-
         statusMessage.set(MessageStatus.SUCCESS.toString());
     }
 
@@ -179,7 +176,6 @@ public class ViewModel {
         } catch (NumberFormatException nfe) {
             inputStatus = MessageStatus.BAD_FORMAT;
         }
-
         return inputStatus;
     }
 

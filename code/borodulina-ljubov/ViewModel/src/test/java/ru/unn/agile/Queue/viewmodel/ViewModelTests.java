@@ -43,6 +43,31 @@ public class ViewModelTests {
         assertEquals(State.BAD_INPUT.toString(), viewModel.getState());
     }
 
+    @Test
+    public void areAddButtonsDisabledInitially() {
+        assertTrue(viewModel.getIsAddingDisabled());
+    }
+
+    @Test
+    public void areAddButtonsDisabledWhenFormatIsBad() {
+        setInput("z");
+
+        assertTrue(viewModel.getIsAddingDisabled());
+    }
+
+    @Test
+    public void areAddButtonsEnabledWithCorrectInput() {
+        setInput("1");
+
+        assertFalse(viewModel.getIsAddingDisabled());
+    }
+
+    @Test
+    public void isStatusEmptyIfToGetFromEmptyDeque() {
+        viewModel.element();
+        assertEquals(State.EMPTY.toString(), viewModel.getState());
+    }
+
     private void setInput(final String input) {
         viewModel.txtToAddProperty().set(input);
     }

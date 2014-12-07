@@ -9,6 +9,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Queue.model.Queue;
 
+import java.util.NoSuchElementException;
+
 public class ViewModel {
     private final StringProperty  txtToAdd          = new SimpleStringProperty();
     private final StringProperty  state             = new SimpleStringProperty();
@@ -51,6 +53,16 @@ public class ViewModel {
 
         Integer item = Integer.parseInt(getTxtToAdd());
         queue.add(item);
+    }
+
+    public void element() {
+        try {
+            Integer item = queue.element();
+            txtToAdd.set(item.toString());
+            state.set(State.OK.toString());
+        } catch (NoSuchElementException nsee) {
+            state.set(State.EMPTY.toString());
+        }
     }
 
     public BooleanProperty isAddingDisabledProperty() {

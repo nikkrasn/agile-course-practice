@@ -26,7 +26,7 @@ public class ViewModel {
         typePayment = TypePayment.Annuity;
         currency = Currency.RUB;
         allSum = "";
-        status = Status.WAITING;
+        status = StatusProcess.WAITING;
     }
 
     public String getSum() {

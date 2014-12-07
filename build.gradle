@@ -114,6 +114,9 @@ subprojects {
                         && task.getProject().getName() != 'agile-course-practice') {
             println '[**************** \\(°□°)/ ****************]'
             throw new RuntimeException("Cannot proceed w/o test report!")
+        } else if (task.name == 'jacocoRootReport' && state.failure) {
+            println '[**************** \\(°□°)/ ****************]'
+            throw new RuntimeException("Cannot proceed w/o test report!")
         }
     }
 

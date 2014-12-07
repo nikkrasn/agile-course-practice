@@ -124,7 +124,7 @@ public class ViewModel {
             this.name = nameGetting;
         }
 
-        public String toString() {
+        public String toStringCurrency() {
             return name;
         }
     }
@@ -186,10 +186,10 @@ public class ViewModel {
         String stringCurrency = "";
         switch (currency) {
             case RUB:
-                stringCurrency = currency.RUB.toString();
+                stringCurrency = currency.RUB.toStringCurrency();
                 break;
             case Dollar:
-                stringCurrency = currency.Dollar.toString();
+                stringCurrency = currency.Dollar.toStringCurrency();
                 break;
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");

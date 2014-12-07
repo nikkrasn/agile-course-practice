@@ -1,7 +1,8 @@
 package ru.unn.agile.CreditCalculator.ViewModel;
 
-import ru.unn.agile.CreditCalculator.core.CreditCalculatorAnnuity;
-import ru.unn.agile.CreditCalculator.core.CreditCalculatorDifferentiated;
+import ru.unn.agile.CreditCalculator.Model.CreditCalculator;
+import ru.unn.agile.CreditCalculator.Model.CreditCalculatorAnnuity;
+import ru.unn.agile.CreditCalculator.Model.CreditCalculatorDifferentiated;
 
 
 public class ViewModel {
@@ -202,11 +203,7 @@ public class ViewModel {
                         .interestRate(Double.parseDouble(interestRate))
                         .startMonth(Integer.parseInt(startMonth))
                         .build();
-                allSum = String.valueOf(calculatorAnnuity.getAllSum());
-                startDateOfPayment = String.valueOf(calculatorAnnuity.getSartDateOfPayment());
-                finishDateOfPayment = String.valueOf(calculatorAnnuity.getFinishDateOfPayment());
-                overPayment = String.valueOf(calculatorAnnuity.getOverPayment());
-                firstPayment = String.valueOf(calculatorAnnuity.getMonthlyPayment(1));
+                setResults(calculatorAnnuity);
                 break;
             case Differentiated:
                 CreditCalculatorDifferentiated calculatorDiff = new CreditCalculatorDifferentiated
@@ -216,18 +213,21 @@ public class ViewModel {
                         .currency(stringCurrency.charAt(0))
                         .startMonth(Integer.parseInt(startMonth))
                         .build();
-                allSum = String.valueOf(calculatorDiff.getAllSum());
-                startDateOfPayment = String.valueOf(
-                        calculatorDiff.getSartDateOfPayment());
-                finishDateOfPayment = String.valueOf(
-                        calculatorDiff.getFinishDateOfPayment());
-                overPayment = String.valueOf(calculatorDiff.getOverPayment());
-                firstPayment = String.valueOf(calculatorDiff.getMonthlyPayment(1));
+                setResults(calculatorDiff);
                 break;
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");
         }
         status = StatusProcess.SUCCESS;
+    }
+    public  void setResults(final CreditCalculator calculator) {
+        allSum = String.valueOf(calculator.getAllSum());
+        startDateOfPayment = String.valueOf(
+                calculator.getSartDateOfPayment());
+        finishDateOfPayment = String.valueOf(
+                calculator.getFinishDateOfPayment());
+        overPayment = String.valueOf(calculator.getOverPayment());
+        firstPayment = String.valueOf(calculator.getMonthlyPayment(1));
     }
 
 }

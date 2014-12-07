@@ -1,8 +1,8 @@
-package ru.unn.agile.CreditCalculator.core;
+package ru.unn.agile.CreditCalculator.Model;
 
 import java.util.*;
 
-abstract class CreditCalculator {
+public abstract class CreditCalculator {
 
     public static final int MONTH_IN_YEAR = 12;
     public static final int PERCENT = 100;
@@ -22,9 +22,9 @@ abstract class CreditCalculator {
     }
 
 
-    abstract double getMonthlyPayment(final int numberOfPayment);
+    public abstract double getMonthlyPayment(final int numberOfPayment);
 
-    abstract double getAllSum();
+    public abstract double getAllSum();
 
     public double getOverPayment() {
         return getAllSum() - sum;

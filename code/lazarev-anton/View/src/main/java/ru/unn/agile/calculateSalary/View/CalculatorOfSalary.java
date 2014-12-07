@@ -7,12 +7,14 @@ public final class CalculatorOfSalary {
     private JTextField txtSalary;
     private JTextField txtWorkedHours;
     private JTextField txtCountYear;
-    private JComboBox cbCountMonth;
     private JTextField txtVacationLength;
-    private JComboBox cbVacationMonth;
     private JTextField txtVacationYear;
     private JTextField txtResult;
     private JButton calculateButton;
+    private JLabel lbStatus;
+    private JTextField txtVacationMonth;
+    private JTextField txtCountMonth;
+    private JTextField txtStartDayVacation;
 
     private CalculatorOfSalary() { }
 

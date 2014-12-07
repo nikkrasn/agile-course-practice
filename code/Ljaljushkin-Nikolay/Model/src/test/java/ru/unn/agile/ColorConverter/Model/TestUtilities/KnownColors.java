@@ -1,6 +1,6 @@
-package ru.unn.agile.ColorConverter.Model.TestUtilities;
+package ru.unn.agile.ColorConverter.model.TestUtilities;
 
-import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
+import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
 
 public final class KnownColors {
 
@@ -10,8 +10,8 @@ public final class KnownColors {
     public static final Xyz WHITE_XYZ = new Xyz(X_WHITE, Y_WHITE, Z_WHITE);
 
     public static final double L_WHITE = 100;
-    public static final double A_WHITE = 0.01;
-    public static final double B_WHITE = -0.01;
+    public static final double A_WHITE = 0;
+    public static final double B_WHITE = 0;
     public static final Lab WHITE_LAB = new Lab(L_WHITE, A_WHITE, B_WHITE);
 
     public static final double H_WHITE = 0;

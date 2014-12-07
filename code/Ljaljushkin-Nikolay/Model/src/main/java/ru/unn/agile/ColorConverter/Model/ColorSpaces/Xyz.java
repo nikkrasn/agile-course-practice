@@ -1,64 +1,88 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.XyzConverter;
+import ru.unn.agile.ColorConverter.model.Converters.XyzConverter;
 
-public class Xyz extends ColorSpace {
+public class Xyz extends ColorSpace3D {
 
-    @Override
-    public void initialize(final Rgb color) {
-        XyzConverter.fromRgbToColorSpace(color, this);
-    }
+    public static final double MAX_X = 95.05;
+    public static final double MAX_Y = 100.0;
+    public static final double MAX_Z = 108.9;
 
-    @Override
-    public Rgb toRgb() {
-        return XyzConverter.toRgbColor(this);
-    }
+    public static final double MIN_X = 0;
+    public static final double MIN_Y = 0;
+    public static final double MIN_Z = 0;
 
     private double x;
     private double y;
     private double z;
 
-    public double getX() {
+    @Override
+    public double getFirstChannel() {
         return x;
     }
 
-    public double getY() {
+    @Override
+    public double getFirstChannelMax() {
+        return MAX_X;
+    }
+
+    @Override
+    public double getFirstChannelMin() {
+        return MIN_X;
+    }
+
+    @Override
+    public double getSecondChannel() {
         return y;
     }
 
-    public double getZ() {
+    @Override
+    public double getSecondChannelMax() {
+        return MAX_Y;
+    }
+
+    @Override
+    public double getSecondChannelMin() {
+        return MIN_Y;
+    }
+
+    @Override
+    public double getThirdChannel() {
         return z;
     }
 
-    public void setX(final double x) {
+    @Override
+    public double getThirdChannelMax() {
+        return MAX_Z;
+    }
+
+    @Override
+    public double getThirdChannelMin() {
+        return MIN_Z;
+    }
+
+    @Override
+    public void setFirstChannel(final double x) {
         this.x = x;
     }
 
-    public void setY(final double y) {
+    @Override
+    public void setSecondChannel(final double y) {
         this.y = y;
     }
 
-    public void setZ(final double z) {
+    @Override
+    public void setThirdChannel(final double z) {
         this.z = z;
     }
 
     public Xyz() {
-        x = 0;
-        y = 0;
-        z = 0;
+        super(new XyzConverter());
     }
 
     public Xyz(final double x, final double y, final double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-
-    public boolean isEqual(final Xyz comparedColor) {
-        boolean isXClose = Utils.isCloseEnough(x, comparedColor.getX());
-        boolean isYClose = Utils.isCloseEnough(y, comparedColor.getY());
-        boolean isZClose = Utils.isCloseEnough(z, comparedColor.getZ());
-        return isXClose && isYClose && isZClose;
+        super(new XyzConverter(), x, y, z);
+        verifyChannels();
     }
 }
 

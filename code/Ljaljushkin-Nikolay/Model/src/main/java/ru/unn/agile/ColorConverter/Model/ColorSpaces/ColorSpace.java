@@ -1,4 +1,4 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
 public abstract class ColorSpace {
 
@@ -6,15 +6,15 @@ public abstract class ColorSpace {
 
     public abstract Rgb toRgb();
 
-    public <T extends ColorSpace> ColorSpace toColor(final Class<T> clazz) {
+    public <T extends ColorSpace> ColorSpace toColor(final Class<T> classOfTargetColor) {
 
         T newColorSpace = null;
         try {
 
-            if (clazz.getClass().equals(this.getClass())) {
+            if (classOfTargetColor.getClass().equals(this.getClass())) {
                 return ((ColorSpace) this.clone());
             }
-            newColorSpace = clazz.newInstance();
+            newColorSpace = classOfTargetColor.newInstance();
             newColorSpace.initialize(toRgb());
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();

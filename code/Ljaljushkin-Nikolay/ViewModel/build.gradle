@@ -1,0 +1,10 @@
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
+
+javafx {
+    mainClass 'ru.unn.agile.ColorConverter.viewmodel.ViewModel'
+}
+
+dependencies {
+    compile project(':ljaljushkin-nikolay-Model')
+    testCompile project(':ljaljushkin-nikolay-Model').sourceSets.test.output
+}

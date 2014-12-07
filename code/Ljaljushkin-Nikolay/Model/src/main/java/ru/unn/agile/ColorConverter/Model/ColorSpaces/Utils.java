@@ -1,4 +1,4 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
 public final class Utils {
 
@@ -11,6 +11,10 @@ public final class Utils {
         } else {
             return Math.abs(a - b) <= difference;
         }
+    }
+
+    public static boolean isValueInRange(final double value, final double min, final double max) {
+        return value > max || value < min;
     }
 
     private Utils() {

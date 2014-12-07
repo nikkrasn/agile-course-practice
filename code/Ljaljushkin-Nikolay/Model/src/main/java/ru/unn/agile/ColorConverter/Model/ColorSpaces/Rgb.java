@@ -1,64 +1,87 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.RgbConverter;
+import ru.unn.agile.ColorConverter.model.Converters.RgbConverter;
 
-public class Rgb extends ColorSpace {
+public class Rgb extends ColorSpace3D {
 
-    @Override
-    public void initialize(final Rgb color) {
-        RgbConverter.fromRgbToColorSpace(color, this);
-    }
+    public static final double MAX_R = 255;
+    public static final double MAX_G = 255;
+    public static final double MAX_B = 255;
 
-    @Override
-    public Rgb toRgb() {
-        return RgbConverter.toRgbColor(this);
-    }
-
+    public static final double MIN_R = 0;
+    public static final double MIN_G = 0;
+    public static final double MIN_B = 0;
 
     private double r;
     private double g;
     private double b;
 
-    public double getG() {
-        return g;
-    }
-
-    public double getR() {
+    @Override
+    public double getFirstChannel() {
         return r;
     }
 
-    public double getB() {
+    @Override
+    public double getFirstChannelMax() {
+        return MAX_R;
+    }
+
+    @Override
+    public double getFirstChannelMin() {
+        return MIN_R;
+    }
+
+    @Override
+    public double getSecondChannel() {
+        return g;
+    }
+
+    @Override
+    public double getSecondChannelMax() {
+        return MAX_G;
+    }
+
+    @Override
+    public double getSecondChannelMin() {
+        return MIN_G;
+    }
+
+    @Override
+    public double getThirdChannel() {
         return b;
     }
 
-    public void setR(final double r) {
+    @Override
+    public double getThirdChannelMax() {
+        return MAX_B;
+    }
+
+    @Override
+    public double getThirdChannelMin() {
+        return MIN_B;
+    }
+
+    @Override
+    public void setFirstChannel(final double r) {
         this.r = r;
     }
 
-    public void setG(final double g) {
+    @Override
+    public void setSecondChannel(final double g) {
         this.g = g;
     }
 
-    public void setB(final double b) {
+    @Override
+    public void setThirdChannel(final double b) {
         this.b = b;
     }
 
-    Rgb() {
-        r = 0;
-        g = 0;
-        b = 0;
+    public Rgb() {
+        super(new RgbConverter());
     }
 
     public Rgb(final double r, final double g, final double b) {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-    }
-
-    public boolean isEqual(final Rgb comparedColor) {
-        boolean isRClose = Utils.isCloseEnough(r, comparedColor.getR());
-        boolean isGClose = Utils.isCloseEnough(g, comparedColor.getG());
-        boolean isBClose = Utils.isCloseEnough(b, comparedColor.getB());
-        return isRClose && isGClose && isBClose;
+        super(new RgbConverter(), r, g, b);
+        verifyChannels();
     }
 }

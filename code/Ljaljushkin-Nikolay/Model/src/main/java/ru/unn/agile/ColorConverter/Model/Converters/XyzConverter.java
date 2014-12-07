@@ -1,8 +1,8 @@
-package ru.unn.agile.ColorConverter.Model.Converters;
+package ru.unn.agile.ColorConverter.model.Converters;
 
-import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
+import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
 
-public final class XyzConverter {
+public final class XyzConverter extends BaseConverter {
 
     public static final double[][] TRANS_MAT_TO_RGB = {
             {3.2404542, -1.5371385, -0.4985314},
@@ -29,33 +29,26 @@ public final class XyzConverter {
     public static final double RGB_FACTOR = 12.92;
     public static final double MAX_RGB = 255.0;
 
-    public static final double X_WHITE = 95.05;
-    public static final double Y_WHITE = 100.0;
-    public static final double Z_WHITE = 108.9;
+    @Override
+    public void fromRgb(final Rgb srcColor, final ColorSpace3D dstColor) {
 
-    private XyzConverter() {
-    }
-
-    public static void fromRgbToColorSpace(final Rgb srcColor, final Xyz dstColor) {
-
-        double pivotedR = pivotRgb(srcColor.getR() / MAX_RGB);
-        double pivotedG = pivotRgb(srcColor.getG() / MAX_RGB);
-        double pivotedB = pivotRgb(srcColor.getB() / MAX_RGB);
+        double pivotedR = pivotRgb(srcColor.getFirstChannel() / MAX_RGB);
+        double pivotedG = pivotRgb(srcColor.getSecondChannel() / MAX_RGB);
+        double pivotedB = pivotRgb(srcColor.getThirdChannel() / MAX_RGB);
 
         double x = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 0);
         double y = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 1);
         double z = applyTransformToXYZ(pivotedR, pivotedG, pivotedB, 2);
 
-        dstColor.setX(x);
-        dstColor.setY(y);
-        dstColor.setZ(z);
+        dstColor.setChannels(x, y, z);
     }
 
-    public static Rgb toRgbColor(final Xyz srcColor) {
+    @Override
+    public Rgb toRgbColor(final ColorSpace3D srcColor) {
 
-        double x = srcColor.getX();
-        double y = srcColor.getY();
-        double z = srcColor.getZ();
+        double x = srcColor.getFirstChannel();
+        double y = srcColor.getSecondChannel();
+        double z = srcColor.getThirdChannel();
 
         double r = convertToRgbComponent(x, y, z, 0);
         double g = convertToRgbComponent(x, y, z, 1);
@@ -115,7 +108,6 @@ public final class XyzConverter {
     }
 
     public static Xyz getWhiteReference() {
-        return new Xyz(X_WHITE, Y_WHITE, Z_WHITE);
+        return new Xyz(Xyz.MAX_X, Xyz.MAX_Y, Xyz.MAX_Z);
     }
-
 }

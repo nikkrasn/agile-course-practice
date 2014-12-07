@@ -1,8 +1,8 @@
-package ru.unn.agile.ColorConverter.Model.Converters;
+package ru.unn.agile.ColorConverter.model.Converters;
 
-import ru.unn.agile.ColorConverter.Model.ColorSpaces.*;
+import ru.unn.agile.ColorConverter.model.ColorSpaces.*;
 
-public final class HsvConverter {
+public final class HsvConverter extends BaseConverter {
 
     public static final double MAX_RGB = 255.0;
     public static final double R_DIVIDER = 6.0;
@@ -11,14 +11,12 @@ public final class HsvConverter {
     public static final int DEGREES = 60;
     public static final double EPS = 0.0001;
 
-    private HsvConverter() {
-    }
+    @Override
+    public void fromRgb(final Rgb srcColor, final ColorSpace3D dstColor) {
 
-    public static void fromRgbToColorSpace(final Rgb srcColor, final Hsv dstColor) {
-
-        double arithmeticR = srcColor.getR() / MAX_RGB;
-        double arithmeticG = srcColor.getG() / MAX_RGB;
-        double arithmeticB = srcColor.getB() / MAX_RGB;
+        double arithmeticR = srcColor.getFirstChannel() / MAX_RGB;
+        double arithmeticG = srcColor.getSecondChannel() / MAX_RGB;
+        double arithmeticB = srcColor.getThirdChannel() / MAX_RGB;
 
         double max = Math.max(arithmeticR, Math.max(arithmeticG, arithmeticB));
         double min = Math.min(arithmeticR, Math.min(arithmeticG, arithmeticB));
@@ -38,16 +36,15 @@ public final class HsvConverter {
         double s = max <= 0 ? 0 : 1 - min / max;
         double v = max;
 
-        dstColor.setH(h);
-        dstColor.setS(s);
-        dstColor.setV(v);
+        dstColor.setChannels(h, s, v);
     }
 
-    public static Rgb toRgbColor(final Hsv hsv) {
+    @Override
+    public Rgb toRgbColor(final ColorSpace3D srcColor) {
 
-        double h = hsv.getH();
-        double s = hsv.getS();
-        double v = hsv.getV();
+        double h = srcColor.getFirstChannel();
+        double s = srcColor.getSecondChannel();
+        double v = srcColor.getThirdChannel();
 
         final double degrees = 60.0;
         final double maxRGB = 255.0;

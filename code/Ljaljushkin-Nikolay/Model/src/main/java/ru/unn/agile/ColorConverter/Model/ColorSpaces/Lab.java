@@ -1,63 +1,86 @@
-package ru.unn.agile.ColorConverter.Model.ColorSpaces;
+package ru.unn.agile.ColorConverter.model.ColorSpaces;
 
-import ru.unn.agile.ColorConverter.Model.Converters.LabConverter;
+import ru.unn.agile.ColorConverter.model.Converters.LabConverter;
 
-public class Lab extends ColorSpace {
+public class Lab extends ColorSpace3D {
+    public static final double MAX_L = 100;
+    public static final double MAX_A = 128;
+    public static final double MAX_B = 128;
 
-    @Override
-    public void initialize(final Rgb color) {
-        LabConverter.fromRgbToColorSpace(color, this);
-    }
-
-    @Override
-    public Rgb toRgb() {
-        return LabConverter.toRgbColor(this);
-    }
+    public static final double MIN_L = 0;
+    public static final double MIN_A = -128;
+    public static final double MIN_B = -128;
 
     private double l;
     private double a;
     private double b;
 
-    public double getL() {
+    @Override
+    public double getFirstChannel() {
         return l;
     }
 
-    public double getA() {
+    @Override
+    public double getFirstChannelMax() {
+        return MAX_L;
+    }
+
+    @Override
+    public double getFirstChannelMin() {
+        return MIN_L;
+    }
+
+    @Override
+    public double getSecondChannel() {
         return a;
     }
 
-    public double getB() {
+    @Override
+    public double getSecondChannelMax() {
+        return MAX_A;
+    }
+
+    @Override
+    public double getSecondChannelMin() {
+        return MIN_A;
+    }
+
+    @Override
+    public double getThirdChannel() {
         return b;
     }
 
-    public void setL(final double l) {
+    @Override
+    public double getThirdChannelMax() {
+        return MAX_B;
+    }
+
+    @Override
+    public double getThirdChannelMin() {
+        return MIN_B;
+    }
+
+    @Override
+    public void setFirstChannel(final double l) {
         this.l = l;
     }
 
-    public void setA(final double a) {
+    @Override
+    public void setSecondChannel(final double a) {
         this.a = a;
     }
 
-    public void setB(final double b) {
+    @Override
+    public void setThirdChannel(final double b) {
         this.b = b;
     }
 
-    Lab() {
-        l = 0;
-        a = 0;
-        b = 0;
+    public Lab() {
+        super(new LabConverter());
     }
 
     public Lab(final double l, final double a, final double b) {
-        this.l = l;
-        this.a = a;
-        this.b = b;
-    }
-
-    public boolean isEqual(final Lab comparedColor) {
-        boolean isLClose = Utils.isCloseEnough(l, comparedColor.getL());
-        boolean isAClose = Utils.isCloseEnough(a, comparedColor.getA());
-        boolean isBClose = Utils.isCloseEnough(b, comparedColor.getB());
-        return isLClose && isAClose && isBClose;
+        super(new LabConverter(), l, a, b);
+        verifyChannels();
     }
 }

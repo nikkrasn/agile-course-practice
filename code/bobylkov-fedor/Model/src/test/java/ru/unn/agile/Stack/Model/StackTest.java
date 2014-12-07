@@ -1,5 +1,6 @@
 package ru.unn.agile.Stack.Model;
 
+import javafx.collections.ListChangeListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -104,7 +105,7 @@ public class StackTest {
     }
 
     @Test
-    public void canCopyStack() {
+    public void canCopyStackFromStack() {
         stack.push(1);
         stack.push(2);
 
@@ -112,17 +113,30 @@ public class StackTest {
         assertStackEquals(new Object[] {1, 2}, stackFromStack);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void cannotCopyStackFromNull() {
-        stack = new Stack<>(null);
+    @Test
+    public void canCopyStackFromList() {
+        stack.push(1);
+        stack.push(2);
+
+        Stack<Object> stackFromList = new Stack<>(stack.toList());
+        assertStackEquals(new Object[] {1, 2}, stackFromList);
     }
 
     @Test
-    public void isOriginalStackCorrectAfterCopying() {
+    public void isOriginalStackCorrectAfterCopyingFromStack() {
         stack.push(1);
         stack.push(2);
 
         Stack<Object> stackFromStack = new Stack<>(stack);
+        assertStackEquals(new Object[] {1, 2}, stack);
+    }
+
+    @Test
+    public void isOriginalStackCorrectAfterCopyingFromList() {
+        stack.push(1);
+        stack.push(2);
+
+        Stack<Object> stackFromList = new Stack<>(stack.toList());
         assertStackEquals(new Object[] {1, 2}, stack);
     }
 
@@ -148,6 +162,45 @@ public class StackTest {
 
         List<String> stringList = stringStack.toList();
         assertArrayEquals(new Object[] {"str"}, stringList.toArray());
+    }
+
+    @Test
+    public void isStackNotCorruptedAfterCallingToList() {
+        stack.push(1);
+        stack.push(2);
+
+        List<Object> list = stack.toList();
+        list.clear();
+
+        assertArrayEquals(new Object[] {}, list.toArray());
+        assertStackEquals(new Object[] {1, 2}, stack);
+    }
+
+    @Test
+    public void canAddListener() {
+        stack.addListener(new ListChangeListener<Object>() {
+            @Override
+            public void onChanged(final Change<?> c) {
+                assertArrayEquals(c.getList().toArray(), stack.toList().toArray());
+            }
+        });
+
+        stack.push(1);
+        stack.push(2);
+    }
+
+    @Test
+    public void canRemoveListener() {
+        ListChangeListener<Object> listener = new ListChangeListener<Object>() {
+            @Override
+            public void onChanged(final Change<?> c) {
+                fail("Listener was removed, but its change method was called.");
+            }
+        };
+        stack.addListener(listener);
+
+        stack.removeListener(listener);
+        stack.push(1);
     }
 
     private void assertStackEquals(final Object[] expected, final Stack actual) {

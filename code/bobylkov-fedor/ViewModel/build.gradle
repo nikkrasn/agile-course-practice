@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':bobylkov-fedor-Model')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
+}

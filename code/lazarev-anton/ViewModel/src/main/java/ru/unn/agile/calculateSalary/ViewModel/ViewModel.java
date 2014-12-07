@@ -24,9 +24,9 @@ public class ViewModel {
         countMonth = "";
         countYear = "";
         vacationLength = "";
-        startVacationDay = "1";
-        vacationMonth = "1";
-        vacationYear = DEFAULT_VACATION_YEAR;
+        startVacationDay = "";
+        vacationMonth = "";
+        vacationYear = "";
         result = "";
         status = Status.WAITING;
         isCalculateButtonEnabled = false;
@@ -35,14 +35,11 @@ public class ViewModel {
     public final class Status {
         public static final String WAITING = "Please provide salary and count period information";
         public static final String READY_CALCULATE = "Press 'Calculate' button";
-        public static final String BAD_FORMAT = "Wrong format of input information";
-        public static final String CASH_WITH_VACATION = "This your cash";
+        public static final String BAD_FORMAT = "Wrong format of count input";
+        public static final String BAD_VACATION_FORMAT = "Wrong format of vacation input";
+        public static final String CASH = "This your cash";
 
         private Status() { }
-    }
-
-    public boolean isCalculateButtonEnabled() {
-        return isCalculateButtonEnabled;
     }
 
     public void calculate() {
@@ -56,8 +53,21 @@ public class ViewModel {
                                                , Integer.parseInt(countMonth)
                                                , 1))
                 .setLengthOfVacation(0);
+        if (isOneVacationFieldNotDefault()) {
+            if (!isVacationInputCorrect()) {
+                return;
+            }
+            countPeriod.setLengthOfVacation(Integer.parseInt(vacationLength))
+                    .setCountingMonth(LocalDate.of(Integer.parseInt(vacationYear)
+                            , Integer.parseInt(vacationMonth)
+                            , Integer.parseInt(startVacationDay)));
+        }
         result = Double.toString(countPeriod.calculate());
-        status = Status.CASH_WITH_VACATION;
+        status = Status.CASH;
+    }
+
+    public boolean getCalculateButtonEnable() {
+        return isCalculateButtonEnabled;
     }
 
     public String getSalary() {
@@ -156,13 +166,6 @@ public class ViewModel {
         return status;
     }
 
-    private void pressButton() {
-
-        if (isCalculateButtonEnabled()) {
-            calculate();
-        }
-    }
-
     private boolean isCountInputCorrect() {
         try {
             if (!salary.isEmpty()) {
@@ -182,7 +185,7 @@ public class ViewModel {
             isCalculateButtonEnabled = false;
             return false;
         }
-        isCalculateButtonEnabled = countInputAvailable();
+        isCalculateButtonEnabled = isCountInputAvailable();
         if (isCalculateButtonEnabled) {
             status = Status.READY_CALCULATE;
         } else {
@@ -191,10 +194,52 @@ public class ViewModel {
         return isCalculateButtonEnabled;
     }
 
-    private boolean countInputAvailable() {
+    private boolean isCountInputAvailable() {
         return !salary.isEmpty()
                 && !workedHours.isEmpty()
                 && !countMonth.isEmpty()
                 && !countYear.isEmpty();
+    }
+
+    private boolean isVacationInputCorrect() {
+        try {
+            if (!vacationLength.isEmpty()) {
+                Integer.parseInt(vacationLength);
+            }
+            if (!startVacationDay.isEmpty()) {
+                Integer.parseInt(startVacationDay);
+            }
+            if (!vacationMonth.isEmpty()) {
+                Integer.parseInt(vacationMonth);
+            }
+            if (!vacationYear.isEmpty()) {
+                Integer.parseInt(vacationYear);
+            }
+        } catch (Exception e) {
+            status = Status.BAD_VACATION_FORMAT;
+            isCalculateButtonEnabled = false;
+            return false;
+        }
+        isCalculateButtonEnabled = isVacationInputAvailable();
+        if (isCalculateButtonEnabled) {
+            status = Status.READY_CALCULATE;
+        } else {
+            status = Status.WAITING;
+        }
+        return isCalculateButtonEnabled;
+    }
+
+    private boolean isVacationInputAvailable() {
+        return !vacationLength.isEmpty()
+                && !startVacationDay.isEmpty()
+                && !vacationMonth.isEmpty()
+                && !vacationYear.isEmpty();
+    }
+
+    private boolean isOneVacationFieldNotDefault() {
+        return !vacationLength.isEmpty()
+                || !startVacationDay.isEmpty()
+                || !vacationMonth.isEmpty()
+                || !vacationYear.isEmpty();
     }
 }

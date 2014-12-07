@@ -26,9 +26,9 @@ public class ViewModelTests {
         assertEquals("", viewModel.getCountMonth());
         assertEquals("", viewModel.getCountYear());
         assertEquals("", viewModel.getVacationLength());
-        assertEquals("1", viewModel.getStartVacationDay());
-        assertEquals("1", viewModel.getVacationMonth());
-        assertEquals("1960", viewModel.getVacationYear());
+        assertEquals("", viewModel.getStartVacationDay());
+        assertEquals("", viewModel.getVacationMonth());
+        assertEquals("", viewModel.getVacationYear());
         assertEquals("", viewModel.getResult());
     }
 
@@ -74,13 +74,43 @@ public class ViewModelTests {
     }
 
     @Test
-    public void checkStatusWhenIncorrectInput() {
+         public void checkStatusWhenIncorrectInput() {
         viewModel.setSalary("10000");
         viewModel.setWorkedHours("a");
         viewModel.setCountMonth("5");
         viewModel.setCountYear("2000");
         viewModel.calculate();
         assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+    }
+
+    @Test
+    public void checkStatusWhenCorrectVacationInput() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("150");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2000");
+        viewModel.setVacationLength("10");
+        viewModel.setStartVacationDay("15");
+        viewModel.setVacationMonth("3");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+        assertEquals(Status.CASH, viewModel.getStatus());
+        assertTrue(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test
+    public void checkStatusWhenIncorrectVacationInput() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("150");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2000");
+        viewModel.setVacationLength("q");
+        viewModel.setStartVacationDay("15");
+        viewModel.setVacationMonth("3");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+        assertEquals(Status.BAD_VACATION_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
     }
 
     @Test
@@ -91,6 +121,6 @@ public class ViewModelTests {
         viewModel.setCountYear("2014");
         viewModel.calculate();
         assertEquals("8700.0", viewModel.getResult());
-        assertEquals(Status.CASH_WITH_VACATION, viewModel.getStatus());
+        assertEquals(Status.CASH, viewModel.getStatus());
     }
 }

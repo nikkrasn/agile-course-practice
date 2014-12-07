@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 public class ViewModel {
     private final StringProperty  txtToAdd          = new SimpleStringProperty();
     private final StringProperty  state             = new SimpleStringProperty();
+    private final StringProperty  element           = new SimpleStringProperty();
     private final BooleanProperty isAddingDisabled  = new SimpleBooleanProperty();
     private final Queue<Integer>  queue             = new Queue<Integer>();
 
@@ -30,6 +31,7 @@ public class ViewModel {
 
     ViewModel() {
         txtToAdd.set("");
+        setElementToEmpty();
         state.set(State.AWAITING.toString());
 
         BooleanBinding canAdd = new BooleanBinding() {
@@ -53,16 +55,23 @@ public class ViewModel {
 
         Integer item = Integer.parseInt(getTxtToAdd());
         queue.add(item);
+        updateElement();
     }
 
-    public void element() {
+    public void remove() {
         try {
-            Integer item = queue.element();
+            Integer item = queue.remove();
             txtToAdd.set(item.toString());
             state.set(State.OK.toString());
+
         } catch (NoSuchElementException nsee) {
             state.set(State.EMPTY.toString());
         }
+        updateElement();
+    }
+
+    public boolean isQueueEmpty() {
+        return queue.isEmpty();
     }
 
     public BooleanProperty isAddingDisabledProperty() {
@@ -81,6 +90,13 @@ public class ViewModel {
         return state.get();
     }
 
+    public StringProperty elementProperty() {
+        return element;
+    }
+
+    public final String getElement() {
+        return element.get();
+    }
 
     public StringProperty txtToAddProperty() {
         return txtToAdd;
@@ -104,6 +120,18 @@ public class ViewModel {
         }
 
         return inputState;
+    }
+
+    private void updateElement() {
+        if (isQueueEmpty()) {
+            setElementToEmpty();
+        } else {
+            element.set(queue.element().toString());
+        }
+    }
+
+    private void setElementToEmpty() {
+        element.set("Empty");
     }
 }
 

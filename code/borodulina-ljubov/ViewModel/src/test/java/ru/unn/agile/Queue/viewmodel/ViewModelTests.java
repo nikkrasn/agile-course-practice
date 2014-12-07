@@ -21,6 +21,7 @@ public class ViewModelTests {
     @Test
     public void canSetDefaultValue() {
         assertEquals("", viewModel.getTxtToAdd());
+        assertEquals("Empty", viewModel.getElement());
     }
     @Test
 
@@ -63,9 +64,26 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isStatusEmptyIfToGetFromEmptyDeque() {
-        viewModel.element();
+    public void isStatusEmptyIfToRemoveFromEmptyQueue() {
+        viewModel.remove();
         assertEquals(State.EMPTY.toString(), viewModel.getState());
+    }
+
+    @Test
+    public void canRemove() {
+        String item = enqueueOne();
+
+        viewModel.remove();
+
+        assertEquals(item, viewModel.getTxtToAdd());
+        assertEquals("Empty", viewModel.getElement());
+    }
+
+    private String enqueueOne() {
+        String item = "1";
+        setInput(item);
+        viewModel.add();
+        return item;
     }
 
     private void setInput(final String input) {

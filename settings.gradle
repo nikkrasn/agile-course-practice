@@ -67,6 +67,8 @@ project(":code/bobylkov-fedor/ViewModel").name = "bobylkov-fedor-ViewModel"
 // Borodulina Ljubov
 include "code/borodulina-ljubov/Model"
 project(":code/borodulina-ljubov/Model").name = "borodulina-ljubov-Model"
+include "code/borodulina-ljubov/ViewModel"
+project(":code/borodulina-ljubov/ViewModel").name = "borodulina-ljubov-ViewModel"
 include "code/borodulina-ljubov/View"
 project(":code/borodulina-ljubov/View").name = "borodulina-ljubov-View"
 

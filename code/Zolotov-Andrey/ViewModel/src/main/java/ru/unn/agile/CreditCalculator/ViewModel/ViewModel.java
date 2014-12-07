@@ -183,13 +183,13 @@ public class ViewModel {
         if (!parseInput() || !isNotNullInputAvailable()) {
             return;
         }
-        String curren = "";
+        String stringCurrency = "";
         switch (currency) {
             case RUB:
-                curren = currency.RUB.toString();
+                stringCurrency = currency.RUB.toString();
                 break;
             case Dollar:
-                curren = currency.Dollar.toString();
+                stringCurrency = currency.Dollar.toString();
                 break;
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");
@@ -197,10 +197,8 @@ public class ViewModel {
         switch (typePayment) {
             case Annuity:
                 CreditCalculatorAnnuity calculatorAnnuity = new CreditCalculatorAnnuity
-                        .BuilderAnnuity(
-                        Integer.parseInt(sum),
-                        Integer.parseInt(paymentPeriod))
-                        .currency(curren.charAt(0))
+                        .BuilderAnnuity(Integer.parseInt(sum) , Integer.parseInt(paymentPeriod))
+                        .currency(stringCurrency.charAt(0))
                         .interestRate(Double.parseDouble(interestRate))
                         .startMonth(Integer.parseInt(startMonth))
                         .build();
@@ -211,19 +209,20 @@ public class ViewModel {
                 firstPayment = String.valueOf(calculatorAnnuity.getMonthlyPayment(1));
                 break;
             case Differentiated:
-                CreditCalculatorDifferentiated calculator = new CreditCalculatorDifferentiated
+                CreditCalculatorDifferentiated calculatorDiff = new CreditCalculatorDifferentiated
                         .BuilderDifferentiated(
-                        Integer.parseInt(sum),
-                        Integer.parseInt(paymentPeriod))
+                            Integer.parseInt(sum) , Integer.parseInt(paymentPeriod))
                         .interestRate(Double.parseDouble(interestRate))
-                        .currency(curren.charAt(0))
+                        .currency(stringCurrency.charAt(0))
                         .startMonth(Integer.parseInt(startMonth))
                         .build();
-                allSum = String.valueOf(calculator.getAllSum());
-                startDateOfPayment = String.valueOf(calculator.getSartDateOfPayment());
-                finishDateOfPayment = String.valueOf(calculator.getFinishDateOfPayment());
-                overPayment = String.valueOf(calculator.getOverPayment());
-                firstPayment = String.valueOf(calculator.getMonthlyPayment(1));
+                allSum = String.valueOf(calculatorDiff.getAllSum());
+                startDateOfPayment = String.valueOf(
+                        calculatorDiff.getSartDateOfPayment());
+                finishDateOfPayment = String.valueOf(
+                        calculatorDiff.getFinishDateOfPayment());
+                overPayment = String.valueOf(calculatorDiff.getOverPayment());
+                firstPayment = String.valueOf(calculatorDiff.getMonthlyPayment(1));
                 break;
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");

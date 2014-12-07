@@ -264,7 +264,7 @@ public class ViewModelTests {
 
     @Test
     public void canGetCurrencyName() {
-        String rub = Currency.RUB.toString();
+        String rub = Currency.RUB.toStringCurrency();
         assertEquals("R", rub);
     }
     @Test

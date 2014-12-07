@@ -8,7 +8,6 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import ru.unn.agile.Queue.model.Queue;
-
 import java.util.NoSuchElementException;
 
 public class ViewModel {
@@ -27,7 +26,6 @@ public class ViewModel {
             state.set(getInputState().toString());
         }
     }
-
 
     public ViewModel() {
         txtToAdd.set("");
@@ -118,7 +116,6 @@ public class ViewModel {
         } catch (NumberFormatException nfe) {
             inputState = State.BAD_INPUT;
         }
-
         return inputState;
     }
 

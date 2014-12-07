@@ -36,7 +36,6 @@ public class ViewModel {
     private final List<ComboBoxElementChangeListener> comboBoxElementChangeListener =
             new ArrayList<>();
 
-    // FXML needs default c-tor for binding
     public ViewModel() {
         txtParam1.set("");
         txtParam2.set("");

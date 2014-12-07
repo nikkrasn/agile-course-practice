@@ -96,6 +96,12 @@ subprojects {
         pmdTest.ruleSets = [ "java-basic", "java-braces" ]
     }
 
+    gradle.taskGraph.beforeTask { Task task ->
+        if (task.name == 'jfxDeploy') {
+            task.enabled = false
+        }
+    }
+
     gradle.taskGraph.afterTask { Task task, TaskState state ->
         if ((task.name == 'pmdMain' || task.name == 'pmdTest') && state.failure) {
             def outFile = task.name == 'pmdMain' ? 'main.xml' : 'test.xml'

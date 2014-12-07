@@ -18,18 +18,17 @@ public class ViewModel {
     private static final int ARRAYS_COUNT = 3;
     private int arraysSize;
 
+    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final ObjectProperty<ObservableList<Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
     private final ObjectProperty<Operation> bitOperationOnTwoFirstBitArrays =
             new SimpleObjectProperty<>();
     private final ObjectProperty<Operation> bitOperationWithThirdBitArray =
             new SimpleObjectProperty<>();
-    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
-    private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
     private final Vector<StringProperty> arrays = new Vector<>();
-
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
+    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty result = new SimpleStringProperty();
 
     private class ValueChangeListener implements ChangeListener<String> {
         @Override

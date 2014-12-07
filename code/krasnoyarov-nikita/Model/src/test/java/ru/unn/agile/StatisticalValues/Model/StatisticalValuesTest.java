@@ -1,4 +1,4 @@
-package ru.unn.agile.StatisticalValues.Model;
+package ru.unn.agile.StatisticalValues.model;
 
 import org.junit.Before;
 import org.junit.Test;

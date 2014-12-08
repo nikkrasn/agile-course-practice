@@ -25,9 +25,9 @@ public class ViewModel {
         interestRate = "";
         startMonth = "";
         typePayment = TypePayment.Annuity;
-        currency = Currency.RUB;
+        currency = Currency.RUR;
         allSum = "";
-        status = StatusProcess.WAITING;
+        status = userInputStatus.WAITING;
     }
 
     public String getSum() {
@@ -117,26 +117,26 @@ public class ViewModel {
     }
 
     public enum Currency {
-        RUB("R"),
-        Dollar("$");
+        RUR("R"),
+        USD("$");
         private final String name;
 
         private Currency(final String nameGetting) {
             this.name = nameGetting;
         }
 
-        public String toStringCurrency() {
+        public String toString() {
             return name;
         }
     }
 
-    public final class StatusProcess {
+    public final class userInputStatus {
         public static final String WAITING = "Please provide input data";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
         public static final String IS_NULL = "Is null";
 
-        private StatusProcess() { }
+        private userInputStatus() { }
     }
 
     private boolean parseInput() {
@@ -154,7 +154,7 @@ public class ViewModel {
                 Integer.parseInt(startMonth);
             }
         } catch (NumberFormatException e) {
-            status = StatusProcess.BAD_FORMAT;
+            status = userInputStatus.BAD_FORMAT;
             return false;
         }
 
@@ -174,7 +174,7 @@ public class ViewModel {
                 || paymentPeriod.equals(zero)
                 || interestRate.equals(zero)
                 || startMonth.equals(zero)) {
-            status = StatusProcess.IS_NULL;
+            status = userInputStatus.IS_NULL;
             return false;
         }
         return true;
@@ -186,11 +186,11 @@ public class ViewModel {
         }
         String stringCurrency = "";
         switch (currency) {
-            case RUB:
-                stringCurrency = currency.RUB.toStringCurrency();
+            case RUR:
+                stringCurrency = currency.RUR.toString();
                 break;
-            case Dollar:
-                stringCurrency = currency.Dollar.toStringCurrency();
+            case USD:
+                stringCurrency = currency.USD.toString();
                 break;
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");
@@ -218,7 +218,7 @@ public class ViewModel {
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");
         }
-        status = StatusProcess.SUCCESS;
+        status = userInputStatus.SUCCESS;
     }
     public  void setResults(final CreditCalculator calculator) {
         allSum = String.valueOf(calculator.getAllSum());

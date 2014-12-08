@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.Currency;
-import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.StatusProcess;
 import ru.unn.agile.CreditCalculator.ViewModel.ViewModel.TypePayment;
 
 import static org.junit.Assert.assertEquals;
@@ -29,22 +28,22 @@ public class ViewModelTests {
         assertEquals("", viewModel.getPaymentPeriod());
         assertEquals("", viewModel.getInterestRate());
         assertEquals("", viewModel.getStartMonth());
-        assertEquals(Currency.RUB, viewModel.getCurrency());
+        assertEquals(Currency.RUR, viewModel.getCurrency());
         assertEquals(TypePayment.Annuity, viewModel.getTypePayment());
         assertEquals("", viewModel.getAllSum());
-        assertEquals(StatusProcess.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingInTheBeginning() {
-        assertEquals(StatusProcess.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
 
-        assertEquals(StatusProcess.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.WAITING, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessAnnuity() {
@@ -53,10 +52,10 @@ public class ViewModelTests {
         viewModel.setInterestRate("16.1");
         viewModel.setStartMonth("4");
         viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.RUB);
+        viewModel.setCurrency(Currency.RUR);
         viewModel.calculate();
 
-        assertEquals(StatusProcess.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessDifferentiated() {
@@ -65,10 +64,10 @@ public class ViewModelTests {
         viewModel.setInterestRate("16.1");
         viewModel.setStartMonth("4");
         viewModel.setTypePayment(TypePayment.Differentiated);
-        viewModel.setCurrency(Currency.RUB);
+        viewModel.setCurrency(Currency.RUR);
         viewModel.calculate();
 
-        assertEquals(StatusProcess.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessDollar() {
@@ -77,10 +76,10 @@ public class ViewModelTests {
         viewModel.setInterestRate("16.1");
         viewModel.setStartMonth("4");
         viewModel.setTypePayment(TypePayment.Differentiated);
-        viewModel.setCurrency(Currency.Dollar);
+        viewModel.setCurrency(Currency.USD);
         viewModel.calculate();
 
-        assertEquals(StatusProcess.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isBadFormatSum() {
@@ -91,7 +90,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatPaymentPeriod() {
@@ -102,7 +101,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatInterestRate() {
@@ -113,7 +112,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatStartMonth() {
@@ -124,7 +123,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
@@ -136,7 +135,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -148,7 +147,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -160,7 +159,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -172,7 +171,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(StatusProcess.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -191,7 +190,7 @@ public class ViewModelTests {
         viewModel.setInterestRate("15");
         viewModel.setStartMonth("1");
         viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.Dollar);
+        viewModel.setCurrency(Currency.USD);
 
         viewModel.calculate();
         assertTrue(viewModel.getStartDateOfPayment().equals("2.2014"));
@@ -241,19 +240,19 @@ public class ViewModelTests {
 
     @Test
     public void canGetCurrencyName() {
-        String rub = Currency.RUB.toStringCurrency();
+        String rub = Currency.RUR.toString();
         assertEquals("R", rub);
     }
     @Test
     public void canSetCurrencyDollar() {
-        viewModel.setCurrency(Currency.Dollar);
-        assertEquals(Currency.Dollar, viewModel.getCurrency());
+        viewModel.setCurrency(Currency.USD);
+        assertEquals(Currency.USD, viewModel.getCurrency());
     }
 
     @Test
     public void canSetCurrencyRub() {
-        viewModel.setCurrency(Currency.RUB);
-        assertEquals(Currency.RUB, viewModel.getCurrency());
+        viewModel.setCurrency(Currency.RUR);
+        assertEquals(Currency.RUR, viewModel.getCurrency());
     }
 
     public void setViewModelVariables(final ViewModel viewModel) {
@@ -262,7 +261,7 @@ public class ViewModelTests {
         viewModel.setInterestRate("15");
         viewModel.setStartMonth("11");
         viewModel.setTypePayment(TypePayment.Annuity);
-        viewModel.setCurrency(Currency.Dollar);
+        viewModel.setCurrency(Currency.USD);
     }
 
 }

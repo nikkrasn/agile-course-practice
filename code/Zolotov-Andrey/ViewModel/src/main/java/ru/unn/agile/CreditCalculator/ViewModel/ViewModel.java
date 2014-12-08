@@ -27,7 +27,7 @@ public class ViewModel {
         typePayment = TypePayment.Annuity;
         currency = Currency.RUR;
         allSum = "";
-        status = userInputStatus.WAITING;
+        status = UserInputStatus.WAITING;
     }
 
     public String getSum() {
@@ -130,13 +130,13 @@ public class ViewModel {
         }
     }
 
-    public final class userInputStatus {
+    public final class UserInputStatus {
         public static final String WAITING = "Please provide input data";
         public static final String BAD_FORMAT = "Bad format";
         public static final String SUCCESS = "Success";
         public static final String IS_NULL = "Is null";
 
-        private userInputStatus() { }
+        private UserInputStatus() { }
     }
 
     private boolean parseInput() {
@@ -154,7 +154,7 @@ public class ViewModel {
                 Integer.parseInt(startMonth);
             }
         } catch (NumberFormatException e) {
-            status = userInputStatus.BAD_FORMAT;
+            status = UserInputStatus.BAD_FORMAT;
             return false;
         }
 
@@ -174,7 +174,7 @@ public class ViewModel {
                 || paymentPeriod.equals(zero)
                 || interestRate.equals(zero)
                 || startMonth.equals(zero)) {
-            status = userInputStatus.IS_NULL;
+            status = UserInputStatus.IS_NULL;
             return false;
         }
         return true;
@@ -218,7 +218,7 @@ public class ViewModel {
             default:
                 throw new IllegalArgumentException("Only Annuity and Differentiated are supported");
         }
-        status = userInputStatus.SUCCESS;
+        status = UserInputStatus.SUCCESS;
     }
     public  void setResults(final CreditCalculator calculator) {
         allSum = String.valueOf(calculator.getAllSum());

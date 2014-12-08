@@ -31,19 +31,19 @@ public class ViewModelTests {
         assertEquals(Currency.RUR, viewModel.getCurrency());
         assertEquals(TypePayment.Annuity, viewModel.getTypePayment());
         assertEquals("", viewModel.getAllSum());
-        assertEquals(ViewModel.userInputStatus.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingInTheBeginning() {
-        assertEquals(ViewModel.userInputStatus.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.WAITING, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.WAITING, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessAnnuity() {
@@ -55,7 +55,7 @@ public class ViewModelTests {
         viewModel.setCurrency(Currency.RUR);
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessDifferentiated() {
@@ -67,7 +67,7 @@ public class ViewModelTests {
         viewModel.setCurrency(Currency.RUR);
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isStatusSuccessDollar() {
@@ -79,7 +79,7 @@ public class ViewModelTests {
         viewModel.setCurrency(Currency.USD);
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.SUCCESS, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.SUCCESS, viewModel.getStatus());
     }
     @Test
     public void isBadFormatSum() {
@@ -90,7 +90,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatPaymentPeriod() {
@@ -101,7 +101,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatInterestRate() {
@@ -112,7 +112,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
     @Test
     public void isBadFormatStartMonth() {
@@ -123,7 +123,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.BAD_FORMAT, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
@@ -135,7 +135,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -147,7 +147,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -159,7 +159,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test
@@ -171,7 +171,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(ViewModel.userInputStatus.IS_NULL, viewModel.getStatus());
+        assertEquals(ViewModel.UserInputStatus.IS_NULL, viewModel.getStatus());
     }
 
     @Test

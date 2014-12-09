@@ -1,4 +1,6 @@
-package ru.unn.agile.Deque.Model;
+package ru.unn.agile.Deque.model;
+
+import java.util.NoSuchElementException;
 
 public final class Deque<Item> {
     private Node first;
@@ -59,48 +61,62 @@ public final class Deque<Item> {
 
     public Item getFirst() {
         if (isEmpty()) {
-            return null;
+            throw new NoSuchElementException();
         }
         return first.item;
     }
 
     public Item getLast() {
         if (isEmpty()) {
-            return null;
+            throw new NoSuchElementException();
         }
         return last.item;
     }
 
     public Item removeFirst() {
         if (isEmpty()) {
-            return null;
+            throw new NoSuchElementException();
         }
 
-        Item itemToReturn = first.item;
-        if (first.equals(last)) {
-            first = null;
-            last  = null;
-        } else {
-            first = first.next;
-            first.prev = null;
-        }
-        return itemToReturn;
+        return getFirstItemToReturn();
     }
 
     public Item removeLast() {
         if (isEmpty()) {
+            throw new NoSuchElementException();
+        }
+
+        return getLastItemToReturn();
+    }
+
+    public Item peekFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+        return first.item;
+    }
+
+    public Item peekLast() {
+        if (isEmpty()) {
+            return null;
+        }
+        return last.item;
+    }
+
+    public Item pollFirst() {
+        if (isEmpty()) {
             return null;
         }
 
-        Item itemToReturn = last.item;
-        if (first.equals(last)) {
-            first = null;
-            last  = null;
-        } else {
-            last = last.prev;
-            last.next = null;
+        return getFirstItemToReturn();
+    }
+
+    public Item pollLast() {
+        if (isEmpty()) {
+            return null;
         }
-        return itemToReturn;
+
+        return getLastItemToReturn();
     }
 
     public void clear() {
@@ -113,5 +129,29 @@ public final class Deque<Item> {
                 first.prev = null;
             }
         }
+    }
+
+    private Item getFirstItemToReturn() {
+        Item itemToReturn = first.item;
+        if (first.equals(last)) {
+            first = null;
+            last  = null;
+        } else {
+            first = first.next;
+            first.prev = null;
+        }
+        return itemToReturn;
+    }
+
+    private Item getLastItemToReturn() {
+        Item itemToReturn = last.item;
+        if (first.equals(last)) {
+            first = null;
+            last  = null;
+        } else {
+            last = last.prev;
+            last.next = null;
+        }
+        return itemToReturn;
     }
 }

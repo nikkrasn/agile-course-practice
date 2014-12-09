@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import ru.unn.agile.Deque.viewmodel.*?>
+
+<AnchorPane prefHeight="204.0" prefWidth="419.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Deque.view.Container">
+   <fx:define>
+       <ViewModel fx:id="viewModel" />
+   </fx:define>
+   <children>
+      <Button fx:id="btnAddFirst" defaultButton="true" disable="${viewModel.isAddingDisabled}" layoutX="52.0" layoutY="72.0" mnemonicParsing="false" text="AddFirst" />
+      <Button fx:id="btnAddLast" defaultButton="true" disable="${viewModel.isAddingDisabled}" layoutX="52.0" layoutY="119.0" mnemonicParsing="false" text="AddLast" />
+      <Button fx:id="btnGetFirst" layoutX="199.0" layoutY="72.0" mnemonicParsing="false" text="GetFirst" />
+      <Button fx:id="btnGetLast" layoutX="200.0" layoutY="119.0" mnemonicParsing="false" text="GetLast" />
+      <Button fx:id="btnRemoveLast" layoutX="286.0" layoutY="119.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="RemoveLast" />
+      <Button fx:id="btnRemoveFirst" layoutX="285.0" layoutY="72.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="101.0" text="RemoveFirst" />
+      <TextField fx:id="txtItem" layoutX="93.0" layoutY="33.0" prefHeight="25.0" prefWidth="235.0" />
+      <Label layoutX="94.0" layoutY="161.0" prefHeight="25.0" prefWidth="52.0" text="Status: " />
+      <Label fx:id="lbStatus" layoutX="153.0" layoutY="161.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="225.0" text="${viewModel.status}" />
+   </children>
+</AnchorPane>

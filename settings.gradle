@@ -206,6 +206,10 @@ project(":code/Syainova-Diana/Model").name = "Syainova-Diana-Model"
 // Vilchinskii Aleksandr
 include "code/vilchinskii-aleksandr/Model"
 project(":code/vilchinskii-aleksandr/Model").name = "vilchinskii-aleksandr-Model"
+include "code/vilchinskii-aleksandr/ViewModel"
+project(":code/vilchinskii-aleksandr/ViewModel").name = "vilchinskii-aleksandr-ViewModel"
+include "code/vilchinskii-aleksandr/View"
+project(":code/vilchinskii-aleksandr/View").name = "vilchinskii-aleksandr-View"
 
 // Zolotov Andrey
 include "code/Zolotov-Andrey/Model"

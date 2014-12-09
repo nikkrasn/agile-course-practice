@@ -72,10 +72,11 @@ public class ViewModelTests {
         viewModel.calculate();
         assertEquals(Status.WAITING, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
     }
 
     @Test
-         public void checkStatusWhenIncorrectInput() {
+     public void checkStatusWhenCountInputWithChar() {
         viewModel.setSalary("10000");
         viewModel.setWorkedHours("a");
         viewModel.setCountMonth("5");
@@ -83,6 +84,79 @@ public class ViewModelTests {
         viewModel.calculate();
         assertEquals(Status.BAD_COUNT_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+    public void checkStatusWhenCountInputWithIncorrectMonth() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("200");
+        viewModel.setCountMonth("50");
+        viewModel.setCountYear("2000");
+        viewModel.calculate();
+        assertEquals(Status.BAD_MONTH_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+    public void checkStatusWhenCountInputWithIncorrectYear() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("200");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("19191");
+        viewModel.calculate();
+        assertEquals(Status.BAD_YEAR_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+    public void checkStatusWhenVacationInputWithIncorrectYear() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("200");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2005");
+        viewModel.setVacationLength("10");
+        viewModel.setStartVacationDay("15");
+        viewModel.setVacationMonth("3");
+        viewModel.setVacationYear("2614");
+        viewModel.calculate();
+        assertEquals(Status.BAD_YEAR_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+         public void checkStatusWhenVacationInputWithIncorrectDay() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("200");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2005");
+        viewModel.setVacationLength("10");
+        viewModel.setStartVacationDay("98");
+        viewModel.setVacationMonth("3");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+        assertEquals(Status.BAD_DAY_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+    public void checkStatusWhenVacationInputWithIncorrectMonth() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("200");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2005");
+        viewModel.setVacationLength("10");
+        viewModel.setStartVacationDay("28");
+        viewModel.setVacationMonth("25");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+        assertEquals(Status.BAD_MONTH_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
     }
 
     @Test
@@ -111,6 +185,7 @@ public class ViewModelTests {
         viewModel.setVacationMonth("3");
         viewModel.setVacationYear("2014");
         viewModel.calculate();
+        assertEquals("", viewModel.getResult());
         assertEquals(Status.BAD_VACATION_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
     }

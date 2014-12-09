@@ -1,12 +1,15 @@
 package ru.unn.agile.calculateSalary.ViewModel;
 
 import ru.unn.agile.calculateSalary.CalculateSalary;
-
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.math.BigDecimal;
 
 public class ViewModel {
+    private static final int MAX_MONTH = 12;
+    private static final int MAX_YEAR = 2015;
+    private static final int MIN_YEAR = 1999;
+    private static final int MAX_MONTH_DAY = 31;
     private static final String DEFAULT_VACATION_YEAR = "1960";
     private String salary;
     private String workedHours;
@@ -39,13 +42,19 @@ public class ViewModel {
         public static final String READY_CALCULATE = "Press 'Calculate' button";
         public static final String BAD_COUNT_FORMAT = "Wrong format of count input";
         public static final String BAD_VACATION_FORMAT = "Wrong format of vacation input";
+        public static final String BAD_MONTH_FORMAT = "Month must be between 1 and 12";
+        public static final String BAD_DAY_FORMAT = "Day must be between 1 and 31";
+        public static final String BAD_YEAR_FORMAT = "Year must be between 2000 and 2015";
         public static final String CASH = "This your cash";
 
         private Status() { }
     }
 
     public void calculate() {
-        if (!isCountInputCorrect()) {
+        if (!isCountInputNumeric()) {
+            return;
+        }
+        if (!isCountDateCurrent()) {
             return;
         }
         CalculateSalary countPeriod = new CalculateSalary()
@@ -56,19 +65,22 @@ public class ViewModel {
                                              , 1))
                 .setLengthOfVacation(0);
         if (isOneVacationFieldNotDefault()) {
-            if (!isVacationInputCorrect()) {
+            if (!isVacationInputNumeric()) {
+                return;
+            }
+            if (!isVacationDateCurrent()) {
                 return;
             }
             countPeriod.setLengthOfVacation(Integer.parseInt(vacationLength))
                     .setCountingMonth(LocalDate.of(Integer.parseInt(vacationYear)
-                                                 , Integer.parseInt(vacationMonth)
-                                                 , Integer.parseInt(startVacationDay)));
+                            , Integer.parseInt(vacationMonth)
+                            , Integer.parseInt(startVacationDay)));
         }
-        result = formateCashInMoneyValue(countPeriod);
+        result = getMoneyFormatInCashValue(countPeriod);
         status = Status.CASH;
     }
 
-    private String formateCashInMoneyValue(final CalculateSalary countPeriod) {
+    private String getMoneyFormatInCashValue(final CalculateSalary countPeriod) {
         double inResult = countPeriod.calculate();
         inResult = new BigDecimal(inResult).setScale(2, RoundingMode.HALF_DOWN).doubleValue();
         return Double.toString(inResult);
@@ -174,7 +186,7 @@ public class ViewModel {
         return status;
     }
 
-    private boolean isCountInputCorrect() {
+    private boolean isCountInputNumeric() {
         try {
             if (!salary.isEmpty()) {
                 Double.parseDouble(salary);
@@ -193,6 +205,7 @@ public class ViewModel {
             isCalculateButtonEnabled = false;
             return false;
         }
+
         isCalculateButtonEnabled = isCountInputAvailable();
         if (isCalculateButtonEnabled) {
             status = Status.READY_CALCULATE;
@@ -202,6 +215,56 @@ public class ViewModel {
         return isCalculateButtonEnabled;
     }
 
+    private boolean isCountDateCurrent() {
+        int checkingValue = Integer.parseInt(countMonth);
+        if (!isCurrentMonthNumber(checkingValue)) {
+            isCalculateButtonEnabled = false;
+            status = Status.BAD_MONTH_FORMAT;
+            return false;
+        }
+        checkingValue = Integer.parseInt(countYear);
+        if (!isCurrentYearNumber(checkingValue)) {
+            isCalculateButtonEnabled = false;
+            status = Status.BAD_YEAR_FORMAT;
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isVacationDateCurrent() {
+        int checkingValue = Integer.parseInt(vacationMonth);
+        if (!isCurrentMonthNumber(checkingValue)) {
+            isCalculateButtonEnabled = false;
+            status = Status.BAD_MONTH_FORMAT;
+            return false;
+        }
+        checkingValue = Integer.parseInt(vacationYear);
+        if (!isCurrentYearNumber(checkingValue)) {
+            isCalculateButtonEnabled = false;
+            status = Status.BAD_YEAR_FORMAT;
+            return false;
+        }
+        checkingValue = Integer.parseInt(startVacationDay);
+        if (!isCurrentDayOfMonthNumber(checkingValue)) {
+            isCalculateButtonEnabled = false;
+            status = Status.BAD_DAY_FORMAT;
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isCurrentDayOfMonthNumber(final int checkingDay) {
+        return checkingDay <= MAX_MONTH_DAY && checkingDay > 0;
+    }
+
+    private boolean isCurrentMonthNumber(final int checkingMonth) {
+        return checkingMonth <= MAX_MONTH && checkingMonth > 0;
+    }
+
+    private boolean isCurrentYearNumber(final int checkingYear) {
+        return checkingYear <= MAX_YEAR && checkingYear > MIN_YEAR;
+    }
+
     private boolean isCountInputAvailable() {
         return !salary.isEmpty()
                 && !workedHours.isEmpty()
@@ -209,7 +272,7 @@ public class ViewModel {
                 && !countYear.isEmpty();
     }
 
-    private boolean isVacationInputCorrect() {
+    private boolean isVacationInputNumeric() {
         try {
             if (!vacationLength.isEmpty()) {
                 Integer.parseInt(vacationLength);

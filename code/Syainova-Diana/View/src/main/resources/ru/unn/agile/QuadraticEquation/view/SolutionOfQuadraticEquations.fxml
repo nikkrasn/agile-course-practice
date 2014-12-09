@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import ru.unn.agile.QuadraticEquation.viewmodel.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="358.0" prefWidth="493.0"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ru.unn.agile.QuadraticEquation.view.SolutionOfQuadraticEquations">
+    <fx:define>
+        <ViewModel fx:id = "viewModel"/>
+    </fx:define>
+   <children>
+      <Label alignment="CENTER" layoutY="17.0" prefHeight="17.0" prefWidth="448.0"
+             text="General view of quadratic equations:">
+         <font>
+            <Font name="System Italic" size="26.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="63.0" layoutY="65.0"
+             prefHeight="17.0" prefWidth="334.0"
+             text="ax  + bx + c = 0 , a = 0 " textAlignment="CENTER">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="150.0" layoutY="66.0" text="2">
+
+         <font>
+            <Font name="System Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="104.0" text="Select coefficients:">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+       <Label layoutX="303.0" layoutY="71.0" text="/">
+           <font>
+         </font>
+      </Label>
+      <Label layoutX="14.0" layoutY="143.0" text="a:">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCoefA" layoutX="40.0" layoutY="146.0"
+                 prefHeight="25.0" prefWidth="80.0" />
+      <Label layoutX="164.0" layoutY="143.0" prefHeight="17.0"
+             prefWidth="28.0" text="b:">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCoefB" layoutX="192.0" layoutY="146.0"
+                 prefHeight="25.0" prefWidth="80.0" />
+      <Label layoutX="321.0" layoutY="144.0" text="c:">
+         <font>
+            <Font name="System Italic" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCoefC" layoutX="347.0" layoutY="146.0"
+                 prefHeight="25.0" prefWidth="80.0" />
+      <Button fx:id="btnSolve" defaultButton="true" disable="${viewModel.solvingDisabled}" mnemonicParsing="false"
+              layoutX="145.0" layoutY="194.0"
+              prefHeight="30.0" prefWidth="174.0"
+              text="solve the equation" >
+       <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label layoutX="26.0" layoutY="245.0" text="Result:">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbFirstRootResult" text="${viewModel.firstRootResult}"
+             layoutX="70.0" layoutY="265.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label id="lbSecondRootResult" text="${viewModel.secondRootResult}" fx:id="lbSecondRootResult"
+             layoutX="70.0" layoutY="305.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="241.0" layoutY="245.0" text="Status:">
+         <font>
+            <Font name="System Italic" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lbStatus" text="${viewModel.status}" layoutX="281.0" layoutY="282.0" />
+   </children>
+</AnchorPane>

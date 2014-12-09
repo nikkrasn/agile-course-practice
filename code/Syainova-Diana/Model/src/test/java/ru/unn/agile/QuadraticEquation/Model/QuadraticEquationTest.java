@@ -1,8 +1,8 @@
 package ru.unn.agile.QuadraticEquation.Model;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class QuadraticEquationTest {
@@ -60,7 +60,7 @@ public class QuadraticEquationTest {
         assertEquals(-1.0, root, delta);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = ArithmeticException.class)
     public void canNotGetFirstRootWithNegativeDiscriminat() {
         QuadraticEquation equation = new QuadraticEquation(1, 1, 1);
         double root = equation.getFirstRoot();
@@ -80,7 +80,7 @@ public class QuadraticEquationTest {
         assertEquals(-1.0, root, delta);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = ArithmeticException.class)
     public void canNotGetSecondRootWithNegativeDiscriminat() {
         QuadraticEquation equation = new QuadraticEquation(1, 1, 1);
         double root = equation.getSecondRoot();
@@ -102,7 +102,7 @@ public class QuadraticEquationTest {
         assertArrayEquals(correctRoots, roots, delta);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = ArithmeticException.class)
     public void canNotGetTwoRootsWithNegativeDiscriminant() {
         QuadraticEquation equation = new QuadraticEquation(4, 2, 1);
         double[] roots = equation.getTwoRoots();

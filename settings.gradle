@@ -200,6 +200,10 @@ project(":code/Sokolov-Mihail/View").name = "Sokolov-Mihail-View"
 // Syainova Diana
 include "code/Syainova-Diana/Model"
 project(":code/Syainova-Diana/Model").name = "Syainova-Diana-Model"
+include "code/Syainova-Diana/View"
+project(":code/Syainova-Diana/View").name = "Syainova-Diana-View"
+include "code/Syainova-Diana/ViewModel"
+project(":code/Syainova-Diana/ViewModel").name = "Syainova-Diana-ViewModel"
 
 // Tsarev Mikhail
 

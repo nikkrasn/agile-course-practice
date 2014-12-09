@@ -1,12 +1,11 @@
 package ru.unn.agile.Dichotomy.viewmodel;
 
 import javafx.beans.property.*;
-import org.apache.tools.ant.input.InputRequest;
 import ru.unn.agile.Dichotomy.Model.Dichotomy;
 
 public class ViewModel {
 
-    public final StringProperty stringArray = new SimpleStringProperty();
+    private final StringProperty stringArray = new SimpleStringProperty();
     private final StringProperty stringElement = new SimpleStringProperty();
     private int[] array;
 
@@ -33,13 +32,13 @@ public class ViewModel {
         String[] stringElements = inputString.split(" ");
         int stringElementsLength = stringElements.length;
         int[] elements = new int[stringElementsLength];
-     //   for (int i=0;i<inputString.length();i++) {
+        //   for (int i=0;i<inputString.length();i++) {
 //            if (inputString.indexOf(0) != 1) {
 //                dichotomyStatus.set(InputStatus.BAD_FORMAT.toString());
 //                break;
 //            }
-     //   }
-        for (int i = 0; i<stringElementsLength; i++) {
+        //   }
+        for (int i = 0; i < stringElementsLength; i++) {
             elements[i] = Integer.parseInt(stringElements[i]);
         }
         return elements;
@@ -49,11 +48,10 @@ public class ViewModel {
         Dichotomy searching = new Dichotomy();
         int element = Integer.parseInt(stringElement.get());
         int result = searching.dichotomySearch(parseString(), element);
-        if (result == -1) {
-            dichotomyResult.set(ResultStatus.NOT_CONTAIN.toString());
-        }
         if (result == element) {
             dichotomyResult.set(ResultStatus.CONTAIN.toString());
+        } else {
+            dichotomyResult.set(ResultStatus.NOT_CONTAIN.toString());
         }
     }
 
@@ -76,10 +74,11 @@ public class ViewModel {
 }
 
 enum InputStatus {
-    WAITING("Please enter input data"),
+    WAITING("Please enter input sorted array"),
+    WAITING_ELEMENT("Please enter element"),
     READY("Press 'Search'"),
-    UNSORTED("Array is unsorted"),
-    BAD_FORMAT("Bad format"),
+    BAD_FORMAT_ARRAY("Bad format of array"),
+    BAD_FORMAT_ELEMENT("Bad format of element"),
     SUCCESS("Success");
 
     private final String name;

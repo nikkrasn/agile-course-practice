@@ -38,7 +38,8 @@ public class ViewModel {
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(vector1CoordinateX, vector1CoordinateY, vector1CoordinateZ,
-                            vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ);
+                            vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ,
+                            operationList);
             }
             @Override
             protected boolean computeValue() {

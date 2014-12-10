@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.Vector3D.viewmodel.*?>
 
-<AnchorPane prefHeight="221.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Vector3D.view.CalculatorVector3D">
+<AnchorPane prefHeight="221.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Vector3D.view.Calculator">
     <fx:define>
         <ViewModel fx:id="viewModel" />
     </fx:define>

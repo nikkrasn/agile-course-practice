@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import ru.unn.agile.Vector3D.viewmodel.*;
 
-public class CalculatorVector3D {
+public class Calculator {
     @FXML
     private ViewModel viewModel;
     @FXML

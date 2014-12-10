@@ -31,7 +31,7 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList(VectorOperation.values()));
 
     public ViewModel() {
-        status.setValue(Status.WAITING.toString());
+        status.setValue(StatusOperation.WAITING.toString());
 
         operationList.set(VectorOperation.NORM);
 
@@ -42,12 +42,11 @@ public class ViewModel {
             }
             @Override
             protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
+                return getInputStatus() == StatusOperation.READY;
             }
         };
         calculationDisabled.bind(couldCalculate.not());
 
-        // Add listeners to the input text fields
         final List<StringProperty> fields = new ArrayList<StringProperty>() { {
             add(vector1CoordinateX);
             add(vector1CoordinateY);
@@ -159,7 +158,7 @@ public class ViewModel {
             default:
                 break;
         }
-        status.set(Status.SUCCESS.toString());
+        status.set(StatusOperation.SUCCESS.toString());
     }
 
     public BooleanProperty calculationDisabledProperty() {
@@ -177,8 +176,8 @@ public class ViewModel {
         }
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
+    private StatusOperation getInputStatus() {
+        StatusOperation inputStatus = StatusOperation.READY;
         VectorOperation operation = operationList.get();
         boolean isEmptyVector1 = vector1CoordinateX.get().isEmpty()
                                 || vector1CoordinateY.get().isEmpty()
@@ -189,11 +188,11 @@ public class ViewModel {
         if (operation == VectorOperation.DOTPRODUCT
                 || operation == VectorOperation.CROSSPRODUCT) {
             if (isEmptyVector1 || isEmptyVector2) {
-                inputStatus = Status.WAITING;
+                inputStatus = StatusOperation.WAITING;
             }
         } else {
             if (isEmptyVector1) {
-                inputStatus = Status.WAITING;
+                inputStatus = StatusOperation.WAITING;
             }
         }
         try {
@@ -219,21 +218,21 @@ public class ViewModel {
                 }
             }
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+            inputStatus = StatusOperation.BAD_FORMAT;
         }
 
         return inputStatus;
     }
 }
 
-enum Status {
+enum StatusOperation {
     READY("Press 'Calculate' or Enter"),
     WAITING("Please provide input data"),
     BAD_FORMAT("Bad format"),
     SUCCESS("Success");
 
     private final String name;
-    private Status(final String name) {
+    private StatusOperation(final String name) {
         this.name = name;
     }
     public String toString() {

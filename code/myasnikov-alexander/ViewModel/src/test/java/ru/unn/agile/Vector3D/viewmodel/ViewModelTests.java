@@ -30,21 +30,21 @@ public class ViewModelTests {
         assertEquals("", viewModel.getVector2CoordinateZ().get());
 
         assertEquals("", viewModel.getResult());
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(StatusOperation.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
     public void canReportBadFormat() {
         viewModel.getVector1CoordinateX().set("Bad value");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatus());
+        assertEquals(StatusOperation.BAD_FORMAT.toString(), viewModel.getStatus());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
         viewModel.getVector1CoordinateZ().set("3");
 
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(StatusOperation.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class ViewModelTests {
         viewModel.operationProperty().setValue(VectorOperation.NORM);
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.getStatus());
+        assertEquals(StatusOperation.SUCCESS.toString(), viewModel.getStatus());
     }
 
     @Test
@@ -62,14 +62,14 @@ public class ViewModelTests {
         setInputOneVectors();
         viewModel.calculate();
 
-        assertEquals(Status.WAITING.toString(), viewModel.getStatus());
+        assertEquals(StatusOperation.WAITING.toString(), viewModel.getStatus());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputTwoVectors();
 
-        assertEquals(Status.READY.toString(), viewModel.getStatus());
+        assertEquals(StatusOperation.READY.toString(), viewModel.getStatus());
     }
 
     @Test

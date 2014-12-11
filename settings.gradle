@@ -123,6 +123,10 @@ project(":code/Ljaljushkin-Nikolay/View").name = "ljaljushkin-nikolay-View"
 // Myasnikov Alexander
 include "code/myasnikov-alexander/Model"
 project(":code/myasnikov-alexander/Model").name = "myasnikov-alexander-Model"
+include "code/myasnikov-alexander/View"
+project(":code/myasnikov-alexander/View").name = "myasnikov-alexander-View"
+include "code/myasnikov-alexander/ViewModel"
+project(":code/myasnikov-alexander/ViewModel").name = "myasnikov-alexander-ViewModel"
 
 // Ovsuhno Andrey
 include "code/ovsuhno-andrey/Model"

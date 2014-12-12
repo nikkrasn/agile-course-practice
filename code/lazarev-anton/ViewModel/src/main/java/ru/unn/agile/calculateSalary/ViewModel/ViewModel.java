@@ -10,7 +10,6 @@ public class ViewModel {
     private static final int MAX_YEAR = 2015;
     private static final int MIN_YEAR = 1999;
     private static final int MAX_MONTH_DAY = 31;
-    private static final String DEFAULT_VACATION_YEAR = "1960";
     private String salary;
     private String workedHours;
     private String countMonth;
@@ -33,12 +32,13 @@ public class ViewModel {
         vacationMonth = "";
         vacationYear = "";
         result = "";
-        status = Status.WAITING;
+        status = Status.COUNT_WAITING;
         isCalculateButtonEnabled = false;
     }
 
     public final class Status {
-        public static final String WAITING = "Please provide salary and count period information";
+        public static final String COUNT_WAITING = "Please provide salary and count period";
+        public static final String VACATION_WAITING = "Please provide vacation period";
         public static final String READY_CALCULATE = "Press 'Calculate' button";
         public static final String BAD_COUNT_FORMAT = "Wrong format of count input";
         public static final String BAD_VACATION_FORMAT = "Wrong format of vacation input";
@@ -50,11 +50,17 @@ public class ViewModel {
         private Status() { }
     }
 
+    public void checkCountFields() {
+        isCountInputCorrect();
+    }
+
+    public void checkVacationFields() {
+        isVacationInputCorrect();
+    }
+
     public void calculate() {
-        if (!isCountInputNumeric()) {
-            return;
-        }
-        if (!isCountDateCurrent()) {
+        checkCountFields();
+        if (!isCalculateButtonEnabled) {
             return;
         }
         CalculateSalary countPeriod = new CalculateSalary()
@@ -65,16 +71,14 @@ public class ViewModel {
                                              , 1))
                 .setLengthOfVacation(0);
         if (isOneVacationFieldNotDefault()) {
-            if (!isVacationInputNumeric()) {
-                return;
-            }
-            if (!isVacationDateCurrent()) {
+            checkVacationFields();
+            if (!isCalculateButtonEnabled) {
                 return;
             }
             countPeriod.setLengthOfVacation(Integer.parseInt(vacationLength))
-                    .setCountingMonth(LocalDate.of(Integer.parseInt(vacationYear)
-                            , Integer.parseInt(vacationMonth)
-                            , Integer.parseInt(startVacationDay)));
+                       .setCountingMonth(LocalDate.of(Integer.parseInt(vacationYear)
+                                       , Integer.parseInt(vacationMonth)
+                                       , Integer.parseInt(startVacationDay)));
         }
         result = getMoneyFormatInCashValue(countPeriod);
         status = Status.CASH;
@@ -186,7 +190,7 @@ public class ViewModel {
         return status;
     }
 
-    private boolean isCountInputNumeric() {
+    private boolean isCountInputCorrect() {
         try {
             if (!salary.isEmpty()) {
                 Double.parseDouble(salary);
@@ -205,12 +209,12 @@ public class ViewModel {
             isCalculateButtonEnabled = false;
             return false;
         }
-
         isCalculateButtonEnabled = isCountInputAvailable();
         if (isCalculateButtonEnabled) {
             status = Status.READY_CALCULATE;
+            isCalculateButtonEnabled = isCountDateCurrent();
         } else {
-            status = Status.WAITING;
+            status = Status.COUNT_WAITING;
         }
         return isCalculateButtonEnabled;
     }
@@ -272,7 +276,7 @@ public class ViewModel {
                 && !countYear.isEmpty();
     }
 
-    private boolean isVacationInputNumeric() {
+    private boolean isVacationInputCorrect() {
         try {
             if (!vacationLength.isEmpty()) {
                 Integer.parseInt(vacationLength);
@@ -294,8 +298,10 @@ public class ViewModel {
         isCalculateButtonEnabled = isVacationInputAvailable();
         if (isCalculateButtonEnabled) {
             status = Status.READY_CALCULATE;
+            isCalculateButtonEnabled = isVacationDateCurrent();
         } else {
-            status = Status.WAITING;
+            result = "";
+            status = Status.VACATION_WAITING;
         }
         return isCalculateButtonEnabled;
     }

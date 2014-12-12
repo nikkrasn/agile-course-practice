@@ -34,7 +34,7 @@ public class ViewModelTests {
 
     @Test
     public void checkStatusInBegin() {
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(Status.COUNT_WAITING, viewModel.getStatus());
     }
 
     @Test
@@ -60,17 +60,32 @@ public class ViewModelTests {
     @Test
     public void checkStatusWhenInputEmpty() {
         viewModel.calculate();
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(Status.COUNT_WAITING, viewModel.getStatus());
     }
 
     @Test
-    public void checkStatusWhenOneOfFieldEmpty() {
+    public void checkStatusWhenOneOfCountFieldEmpty() {
         viewModel.setSalary("10000");
         viewModel.setWorkedHours("150");
         viewModel.setCountMonth("5");
         viewModel.setCountYear("");
         viewModel.calculate();
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        assertEquals(Status.COUNT_WAITING, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+        assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+    public void checkStatusWhenOneOfVacationFieldEmpty() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("150");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2010");
+        viewModel.setVacationLength("10");
+        viewModel.setStartVacationDay("15");
+        viewModel.setVacationMonth("3");
+        viewModel.calculate();
+        assertEquals(Status.VACATION_WAITING, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
     }
@@ -256,5 +271,64 @@ public class ViewModelTests {
         assertEquals("6808.7", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test (expected = ArithmeticException.class)
+    public void checkResultWithNegativeWorkedHours() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("-144");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.calculate();
+    }
+
+    @Test (expected = ArithmeticException.class)
+    public void checkResultWithNegativeVacationLength() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("144");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.setVacationLength("-14");
+        viewModel.setStartVacationDay("27");
+        viewModel.setVacationMonth("10");
+        viewModel.setVacationYear("2014");
+        viewModel.calculate();
+    }
+
+    @Test (expected = ArithmeticException.class)
+    public void checkResultWithNegativeSalary() {
+        viewModel.setSalary("-10000");
+        viewModel.setWorkedHours("144");
+        viewModel.setCountMonth("10");
+        viewModel.setCountYear("2014");
+        viewModel.calculate();
+    }
+
+    @Test
+    public void checkStatusAndButtonWhenIncorrectDate() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("144");
+        viewModel.setCountMonth("35");
+        viewModel.setCountYear("2014");
+        viewModel.calculate();
+        assertEquals("", viewModel.getResult());
+        assertEquals(Status.BAD_MONTH_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
+    }
+
+    @Test
+    public void checkStatusAndButtonWhenIncorrectVacationDate() {
+        viewModel.setSalary("10000");
+        viewModel.setWorkedHours("144");
+        viewModel.setCountMonth("5");
+        viewModel.setCountYear("2014");
+        viewModel.setVacationLength("14");
+        viewModel.setStartVacationDay("27");
+        viewModel.setVacationMonth("10");
+        viewModel.setVacationYear("2500");
+        viewModel.calculate();
+        assertEquals("", viewModel.getResult());
+        assertEquals(Status.BAD_YEAR_FORMAT, viewModel.getStatus());
+        assertFalse(viewModel.getCalculateButtonEnable());
     }
 }

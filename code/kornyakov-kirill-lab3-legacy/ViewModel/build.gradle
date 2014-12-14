@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':kornyakov-kirill-Model')
+    compile project(':kornyakov-kirill-Model-lab3-legacy')
 }
 
 sourceSets {

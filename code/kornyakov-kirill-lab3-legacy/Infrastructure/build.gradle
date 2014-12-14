@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':kornyakov-kirill-ViewModel')
-    testCompile project(':kornyakov-kirill-ViewModel').sourceSets.test.output
+    compile project(':kornyakov-kirill-ViewModel-lab3-legacy')
+    testCompile project(':kornyakov-kirill-ViewModel-lab3-legacy').sourceSets.test.output
 }
 
 sourceSets {

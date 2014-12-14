@@ -1,7 +1,7 @@
-package ru.unn.agile.ComplexNumber.view;
+package ru.unn.agile.ComplexNumber.view_lab3_legacy;
 
-import ru.unn.agile.ComplexNumber.infrastructure.TxtLogger;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
+import ru.unn.agile.ComplexNumber.infrastructure_lab3_legacy.TxtLogger;
+import ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy.ViewModel;
 
 import javax.swing.*;
 import java.awt.event.*;

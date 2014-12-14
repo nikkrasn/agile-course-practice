@@ -1,6 +1,6 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy;
 
-import ru.unn.agile.ComplexNumber.model.ComplexNumber;
+import ru.unn.agile.ComplexNumber.model_lab3_legacy.ComplexNumber;
 
 import java.util.List;
 

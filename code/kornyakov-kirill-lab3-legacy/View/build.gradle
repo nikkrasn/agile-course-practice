@@ -1,6 +1,6 @@
 dependencies {
-    compile project(':kornyakov-kirill-ViewModel')
-    compile project(':kornyakov-kirill-Infrastructure')
+    compile project(':kornyakov-kirill-ViewModel-lab3-legacy')
+    compile project(':kornyakov-kirill-Infrastructure-lab3-legacy')
 }
 
 sourceSets {

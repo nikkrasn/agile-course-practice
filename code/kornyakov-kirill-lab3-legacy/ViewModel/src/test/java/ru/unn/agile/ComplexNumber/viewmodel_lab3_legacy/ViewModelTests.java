@@ -1,16 +1,14 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.LogMessages;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Operation;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel.Status;
 
 import java.util.List;
 
 import static org.junit.Assert.*;
-import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
+import static ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy.RegexMatcher.matchesPattern;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -36,21 +34,21 @@ public class ViewModelTests {
         assertEquals("", viewModel.getIm1());
         assertEquals("", viewModel.getRe2());
         assertEquals("", viewModel.getIm2());
-        assertEquals(Operation.ADD, viewModel.getOperation());
+        Assert.assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
         assertEquals("", viewModel.getResult());
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingInTheBeginning() {
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
 
     @Test
     public void isStatusWaitingWhenCalculateWithEmptyFields() {
         viewModel.calculate();
 
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
 
     @Test
@@ -59,7 +57,7 @@ public class ViewModelTests {
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.READY, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
 
     private void fillInputFields() {
@@ -74,7 +72,7 @@ public class ViewModelTests {
         viewModel.setRe1("a");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
@@ -84,7 +82,7 @@ public class ViewModelTests {
         viewModel.setRe1("1.0");
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.WAITING, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.WAITING, viewModel.getStatus());
     }
 
     @Test
@@ -116,13 +114,13 @@ public class ViewModelTests {
 
     @Test
     public void canGetOperationName() {
-        String addName = Operation.ADD.toString();
+        String addName = ViewModel.Operation.ADD.toString();
         assertEquals("Add", addName);
     }
 
     @Test
     public void canGetNumberOfOperations() {
-        int nOperations = Operation.values().length;
+        int nOperations = ViewModel.Operation.values().length;
         assertEquals(2, nOperations);
     }
 
@@ -130,16 +128,16 @@ public class ViewModelTests {
     public void canGetListOfOperations() {
         ViewModel.Operation[] operations = ViewModel.Operation.values();
         ViewModel.Operation[] currentOperations = new ViewModel.Operation[]{
-                Operation.ADD,
-                Operation.MULTIPLY};
+                ViewModel.Operation.ADD,
+                ViewModel.Operation.MULTIPLY};
 
         assertArrayEquals(currentOperations, operations);
     }
 
     @Test
     public void canCompareOperationsByName() {
-        assertEquals(Operation.ADD, Operation.ADD);
-        assertNotEquals(Operation.ADD, Operation.MULTIPLY);
+        Assert.assertEquals(ViewModel.Operation.ADD, ViewModel.Operation.ADD);
+        Assert.assertNotEquals(ViewModel.Operation.ADD, ViewModel.Operation.MULTIPLY);
     }
 
     @Test
@@ -153,19 +151,19 @@ public class ViewModelTests {
 
     @Test
     public void canSetAddOperation() {
-        viewModel.setOperation(Operation.ADD);
-        assertEquals(Operation.ADD, viewModel.getOperation());
+        viewModel.setOperation(ViewModel.Operation.ADD);
+        Assert.assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
     }
 
     @Test
     public void canSetMulOperation() {
-        viewModel.setOperation(Operation.MULTIPLY);
-        assertEquals(Operation.MULTIPLY, viewModel.getOperation());
+        viewModel.setOperation(ViewModel.Operation.MULTIPLY);
+        Assert.assertEquals(ViewModel.Operation.MULTIPLY, viewModel.getOperation());
     }
 
     @Test
     public void isDefaultOperationAdd() {
-        assertEquals(Operation.ADD, viewModel.getOperation());
+        Assert.assertEquals(ViewModel.Operation.ADD, viewModel.getOperation());
     }
 
     @Test
@@ -174,7 +172,7 @@ public class ViewModelTests {
         viewModel.setIm1("2");
         viewModel.setRe2("-10");
         viewModel.setIm2("-20");
-        viewModel.setOperation(Operation.ADD);
+        viewModel.setOperation(ViewModel.Operation.ADD);
 
         viewModel.calculate();
 
@@ -187,7 +185,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
@@ -196,7 +194,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.BAD_FORMAT, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.BAD_FORMAT, viewModel.getStatus());
     }
 
     @Test
@@ -205,7 +203,7 @@ public class ViewModelTests {
 
         viewModel.processKeyInTextField(KeyboardKeys.ANY);
 
-        assertEquals(Status.READY, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.READY, viewModel.getStatus());
     }
 
     @Test
@@ -214,7 +212,7 @@ public class ViewModelTests {
 
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
-        assertEquals(Status.SUCCESS, viewModel.getStatus());
+        Assert.assertEquals(ViewModel.Status.SUCCESS, viewModel.getStatus());
     }
 
     @Test
@@ -223,7 +221,7 @@ public class ViewModelTests {
         viewModel.setIm1("0");
         viewModel.setRe2("2");
         viewModel.setIm2("0");
-        viewModel.setOperation(Operation.MULTIPLY);
+        viewModel.setOperation(ViewModel.Operation.MULTIPLY);
 
         viewModel.calculate();
 
@@ -236,7 +234,7 @@ public class ViewModelTests {
         viewModel.setIm1("2.3");
         viewModel.setRe2("-10.4");
         viewModel.setIm2("-20.5");
-        viewModel.setOperation(Operation.ADD);
+        viewModel.setOperation(ViewModel.Operation.ADD);
 
         viewModel.calculate();
 
@@ -283,7 +281,8 @@ public class ViewModelTests {
         viewModel.calculate();
         String message = viewModel.getLog().get(0);
 
-        assertThat(message, matchesPattern(".*" + LogMessages.CALCULATE_WAS_PRESSED + ".*"));
+        assertThat(message,
+            matchesPattern(".*" + ViewModel.LogMessages.CALCULATE_WAS_PRESSED + ".*"));
     }
 
     @Test
@@ -317,7 +316,7 @@ public class ViewModelTests {
 
     @Test
     public void isOperationMentionedInTheLog() {
-        viewModel.setOperation(Operation.ADD);
+        viewModel.setOperation(ViewModel.Operation.ADD);
 
         viewModel.calculate();
 
@@ -327,7 +326,7 @@ public class ViewModelTests {
 
     @Test
     public void isMulOperationMentionedInTheLog() {
-        viewModel.setOperation(Operation.MULTIPLY);
+        viewModel.setOperation(ViewModel.Operation.MULTIPLY);
 
         viewModel.calculate();
 
@@ -348,16 +347,17 @@ public class ViewModelTests {
 
     @Test
     public void canSeeOperationChangeInLog() {
-        viewModel.setOperation(Operation.MULTIPLY);
+        viewModel.setOperation(ViewModel.Operation.MULTIPLY);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
+        assertThat(message,
+            matchesPattern(".*" + ViewModel.LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
     }
 
     @Test
     public void isOperationNotLoggedWhenNotChanged() {
-        viewModel.setOperation(Operation.MULTIPLY);
-        viewModel.setOperation(Operation.MULTIPLY);
+        viewModel.setOperation(ViewModel.Operation.MULTIPLY);
+        viewModel.setOperation(ViewModel.Operation.MULTIPLY);
 
         assertEquals(1, viewModel.getLog().size());
     }
@@ -369,7 +369,7 @@ public class ViewModelTests {
         viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
     }
 
     @Test
@@ -378,7 +378,7 @@ public class ViewModelTests {
         viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED
                 + "Input arguments are: \\["
                 + viewModel.getRe1() + "; "
                 + viewModel.getIm1() + "; "
@@ -393,7 +393,7 @@ public class ViewModelTests {
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
     }
 
     @Test
@@ -401,7 +401,7 @@ public class ViewModelTests {
         viewModel.processKeyInTextField(KeyboardKeys.ENTER);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
         assertEquals(1, viewModel.getLog().size());
     }
 
@@ -414,7 +414,7 @@ public class ViewModelTests {
         viewModel.focusLost();
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + LogMessages.EDITING_FINISHED + ".*"));
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
         assertEquals(1, viewModel.getLog().size());
     }
 

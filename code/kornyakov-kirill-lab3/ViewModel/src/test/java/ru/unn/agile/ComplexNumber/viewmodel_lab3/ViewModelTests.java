@@ -1,9 +1,9 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel_lab3;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
+import ru.unn.agile.ComplexNumber.model_lab3.ComplexNumber.Operation;
 
 import java.util.List;
 

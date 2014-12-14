@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.model;
+package ru.unn.agile.ComplexNumber.model_lab3;
 
 public final class Formatter {
 

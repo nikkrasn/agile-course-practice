@@ -24,13 +24,23 @@ project(":code/kornyakov-kirill-lab2/View").name = "kornyakov-kirill-lab2-View"
 
 // Kornyakov Kirill, lab3-legacy
 include "code/kornyakov-kirill-lab3-legacy/Model"
-project(":code/kornyakov-kirill-lab3-legacy/Model").name = "kornyakov-kirill-Model-lab3-legacy"
+project(":code/kornyakov-kirill-lab3-legacy/Model").name = "kornyakov-kirill-lab3-Model-legacy"
 include "code/kornyakov-kirill-lab3-legacy/ViewModel"
-project(":code/kornyakov-kirill-lab3-legacy/ViewModel").name = "kornyakov-kirill-ViewModel-lab3-legacy"
+project(":code/kornyakov-kirill-lab3-legacy/ViewModel").name = "kornyakov-kirill-lab3-ViewModel-legacy"
 include "code/kornyakov-kirill-lab3-legacy/View"
-project(":code/kornyakov-kirill-lab3-legacy/View").name = "kornyakov-kirill-View-lab3-legacy"
+project(":code/kornyakov-kirill-lab3-legacy/View").name = "kornyakov-kirill-lab3-View-legacy"
 include "code/kornyakov-kirill-lab3-legacy/Infrastructure"
-project(":code/kornyakov-kirill-lab3-legacy/Infrastructure").name = "kornyakov-kirill-Infrastructure-lab3-legacy"
+project(":code/kornyakov-kirill-lab3-legacy/Infrastructure").name = "kornyakov-kirill-lab3-Infrastructure-legacy"
+
+// Kornyakov Kirill, lab3
+include "code/kornyakov-kirill-lab3/Model"
+project(":code/kornyakov-kirill-lab3/Model").name = "kornyakov-kirill-lab3-Model"
+include "code/kornyakov-kirill-lab3/ViewModel"
+project(":code/kornyakov-kirill-lab3/ViewModel").name = "kornyakov-kirill-lab3-ViewModel"
+include "code/kornyakov-kirill-lab3/View"
+project(":code/kornyakov-kirill-lab3/View").name = "kornyakov-kirill-lab3-View"
+include "code/kornyakov-kirill-lab3/Infrastructure"
+project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-lab3-Infrastructure"
 
 // Kornyakov Kirill, lab3
 //include "code/kornyakov-kirill-lab3/Model"

@@ -1,6 +1,6 @@
-package ru.unn.agile.ComplexNumber.infrastructure;
+package ru.unn.agile.ComplexNumber.infrastructure_lab3_legacy;
 
-import ru.unn.agile.ComplexNumber.viewmodel.ILogger;
+import ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy.ILogger;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

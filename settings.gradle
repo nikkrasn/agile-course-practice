@@ -32,6 +32,16 @@ project(":code/kornyakov-kirill-lab2/View").name = "kornyakov-kirill-lab2-View"
 //include "code/kornyakov-kirill-lab3/Infrastructure"
 //project(":code/kornyakov-kirill-lab3/Infrastructure").name = "kornyakov-kirill-Infrastructure"
 
+// Kornyakov Kirill // Comment lab2 and uncomment this when lab3 will start
+include "code/kornyakov-kirill-lab3-legacy/Model"
+project(":code/kornyakov-kirill-lab3-legacy/Model").name = "kornyakov-kirill-Model-lab3-legacy"
+include "code/kornyakov-kirill-lab3-legacy/ViewModel"
+project(":code/kornyakov-kirill-lab3-legacy/ViewModel").name = "kornyakov-kirill-ViewModel-lab3-legacy"
+include "code/kornyakov-kirill-lab3-legacy/View"
+project(":code/kornyakov-kirill-lab3-legacy/View").name = "kornyakov-kirill-View-lab3-legacy"
+include "code/kornyakov-kirill-lab3-legacy/Infrastructure"
+project(":code/kornyakov-kirill-lab3-legacy/Infrastructure").name = "kornyakov-kirill-Infrastructure-lab3-legacy"
+
 // Abramov Dmitry
 include "code/abramov-dmitry/Model"
 project(":code/abramov-dmitry/Model").name = "abramov-dmitry-Model"

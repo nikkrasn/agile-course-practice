@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.infrastructure;
+package ru.unn.agile.ComplexNumber.infrastructure_lab3_legacy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.unn.agile.ComplexNumber.viewmodel.RegexMatcher.matchesPattern;
+import static ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy.RegexMatcher.matchesPattern;
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLoggerTests.log";

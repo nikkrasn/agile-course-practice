@@ -1,7 +1,7 @@
-package ru.unn.agile.ComplexNumber.infrastructure;
+package ru.unn.agile.ComplexNumber.infrastructure_lab3_legacy;
 
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModel;
-import ru.unn.agile.ComplexNumber.viewmodel.ViewModelTests;
+import ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy.ViewModel;
+import ru.unn.agile.ComplexNumber.viewmodel_lab3_legacy.ViewModelTests;
 
 public class ViewModelWithTxtLoggerTests extends ViewModelTests {
     @Override

@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.model;
+package ru.unn.agile.ComplexNumber.model_lab3_legacy;
 
 public class ComplexNumber {
     private final double re;

@@ -236,6 +236,10 @@ project(":code/vilchinskii-aleksandr/View").name = "vilchinskii-aleksandr-View"
 // Zolotov Andrey
 include "code/Zolotov-Andrey/Model"
 project(":code/Zolotov-Andrey/Model").name = "Zolotov-Andrey-Model"
+include "code/Zolotov-Andrey/ViewModel"
+project(":code/Zolotov-Andrey/ViewModel").name = "Zolotov-Andrey-ViewModel"
+include "code/Zolotov-Andrey/View"
+project(":code/Zolotov-Andrey/View").name = "Zolotov-Andrey-View"
 
 // Zotov Alexey
 include "code/Zotov-Alexey/Model"

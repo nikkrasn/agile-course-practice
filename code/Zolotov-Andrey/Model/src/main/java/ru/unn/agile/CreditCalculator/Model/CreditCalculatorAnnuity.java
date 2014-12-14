@@ -1,4 +1,4 @@
-package ru.unn.agile.CreditCalculator.core;
+package ru.unn.agile.CreditCalculator.Model;
 
 import java.util.*;
 

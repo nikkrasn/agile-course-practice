@@ -281,7 +281,8 @@ public class ViewModelTests {
         viewModel.calculate();
         String message = viewModel.getLog().get(0);
 
-        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.CALCULATE_WAS_PRESSED + ".*"));
+        assertThat(message,
+            matchesPattern(".*" + ViewModel.LogMessages.CALCULATE_WAS_PRESSED + ".*"));
     }
 
     @Test
@@ -349,7 +350,8 @@ public class ViewModelTests {
         viewModel.setOperation(ViewModel.Operation.MULTIPLY);
 
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
+        assertThat(message,
+            matchesPattern(".*" + ViewModel.LogMessages.OPERATION_WAS_CHANGED + "Mul.*"));
     }
 
     @Test

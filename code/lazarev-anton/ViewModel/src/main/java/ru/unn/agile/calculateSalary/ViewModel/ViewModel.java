@@ -59,8 +59,7 @@ public class ViewModel {
     }
 
     public void calculate() {
-        checkCountFields();
-        if (!isCalculateButtonEnabled) {
+        if (!isCountInputCorrect()) {
             return;
         }
         CalculateSalary countPeriod = new CalculateSalary()
@@ -71,8 +70,7 @@ public class ViewModel {
                                              , 1))
                 .setLengthOfVacation(0);
         if (isOneVacationFieldNotDefault()) {
-            checkVacationFields();
-            if (!isCalculateButtonEnabled) {
+            if (!isVacationInputCorrect()) {
                 return;
             }
             countPeriod.setLengthOfVacation(Integer.parseInt(vacationLength))

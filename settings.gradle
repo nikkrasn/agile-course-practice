@@ -169,6 +169,8 @@ include "code/ryabenko-sergey/ViewModel"
 project(":code/ryabenko-sergey/ViewModel").name = "ryabenko-sergey-ViewModel"
 include "code/ryabenko-sergey/View"
 project(":code/ryabenko-sergey/View").name = "ryabenko-sergey-View"
+include "code/ryabenko-sergey/Infrastructure"
+project(":code/ryabenko-sergey/Infrastructure").name = "ryabenko-sergey-Infrastructure"
 
 
 // Ryabusheva Anna

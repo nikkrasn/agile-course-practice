@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MatrixTest {
-    private final double delta = 0.001;
+    private static final double DELTA = 0.001;
 
     @Test (expected = IllegalArgumentException.class)
     public void canCheckIncorrectlyInputtedMatrix() {
@@ -65,7 +65,7 @@ public class MatrixTest {
     public void canGetMatrixElement() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{0.5, -2, 8.7}, {0, 8, 1},
                 {76.32, -0.55, 0}});
-        assertEquals(-0.55, mat.getValueAt(2, 1), delta);
+        assertEquals(-0.55, mat.getValueAt(2, 1), DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -95,6 +95,4 @@ public class MatrixTest {
                &&  mat.getValueAt(2, 3) == 1.4 && mat.getValueAt(3, 2) == 3.31
         );
     }
-
 }
-

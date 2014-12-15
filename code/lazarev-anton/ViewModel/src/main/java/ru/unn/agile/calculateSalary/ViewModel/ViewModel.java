@@ -202,7 +202,7 @@ public class ViewModel {
             if (!countYear.isEmpty()) {
                 Integer.parseInt(countYear);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             status = Status.BAD_COUNT_FORMAT;
             isCalculateButtonEnabled = false;
             return false;
@@ -288,7 +288,7 @@ public class ViewModel {
             if (!vacationYear.isEmpty()) {
                 Integer.parseInt(vacationYear);
             }
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             status = Status.BAD_VACATION_FORMAT;
             isCalculateButtonEnabled = false;
             return false;

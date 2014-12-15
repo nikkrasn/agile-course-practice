@@ -47,6 +47,7 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("15");
         viewModel.setVacationMonth("3");
         viewModel.setVacationYear("2008");
+
         assertEquals("10000", viewModel.getSalary());
         assertEquals("145", viewModel.getWorkedHours());
         assertEquals("5", viewModel.getCountMonth());
@@ -60,6 +61,7 @@ public class ViewModelTests {
     @Test
     public void checkStatusWhenInputEmpty() {
         viewModel.calculate();
+
         assertEquals(Status.COUNT_WAITING, viewModel.getStatus());
     }
 
@@ -69,7 +71,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("150");
         viewModel.setCountMonth("5");
         viewModel.setCountYear("");
+
         viewModel.calculate();
+
         assertEquals(Status.COUNT_WAITING, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -84,7 +88,9 @@ public class ViewModelTests {
         viewModel.setVacationLength("10");
         viewModel.setStartVacationDay("15");
         viewModel.setVacationMonth("3");
+
         viewModel.calculate();
+
         assertEquals(Status.VACATION_WAITING, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -96,7 +102,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("a");
         viewModel.setCountMonth("5");
         viewModel.setCountYear("2000");
+
         viewModel.calculate();
+
         assertEquals(Status.BAD_COUNT_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -108,7 +116,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("200");
         viewModel.setCountMonth("50");
         viewModel.setCountYear("2000");
+
         viewModel.calculate();
+
         assertEquals(Status.BAD_MONTH_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -120,7 +130,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("200");
         viewModel.setCountMonth("5");
         viewModel.setCountYear("19191");
+
         viewModel.calculate();
+
         assertEquals(Status.BAD_YEAR_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -136,7 +148,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("15");
         viewModel.setVacationMonth("3");
         viewModel.setVacationYear("2614");
+
         viewModel.calculate();
+
         assertEquals(Status.BAD_YEAR_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -152,7 +166,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("98");
         viewModel.setVacationMonth("3");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
+
         assertEquals(Status.BAD_DAY_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -168,7 +184,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("28");
         viewModel.setVacationMonth("25");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
+
         assertEquals(Status.BAD_MONTH_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
         assertEquals("", viewModel.getResult());
@@ -184,7 +202,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("15");
         viewModel.setVacationMonth("3");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
+
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
     }
@@ -199,7 +219,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("15");
         viewModel.setVacationMonth("3");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
+
         assertEquals("", viewModel.getResult());
         assertEquals(Status.BAD_VACATION_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
@@ -211,7 +233,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("184");
         viewModel.setCountMonth("10");
         viewModel.setCountYear("2014");
+
         viewModel.calculate();
+
         assertEquals("8700.0", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
@@ -223,7 +247,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("200");
         viewModel.setCountMonth("10");
         viewModel.setCountYear("2014");
+
         viewModel.calculate();
+
         assertEquals("10213.04", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
@@ -235,7 +261,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("154");
         viewModel.setCountMonth("10");
         viewModel.setCountYear("2014");
+
         viewModel.calculate();
+
         assertEquals("7281.52", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
@@ -251,7 +279,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("6");
         viewModel.setVacationMonth("10");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
+
         assertEquals("4917.39", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
@@ -267,7 +297,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("27");
         viewModel.setVacationMonth("10");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
+
         assertEquals("6808.7", viewModel.getResult());
         assertEquals(Status.CASH, viewModel.getStatus());
         assertTrue(viewModel.getCalculateButtonEnable());
@@ -279,6 +311,7 @@ public class ViewModelTests {
         viewModel.setWorkedHours("-144");
         viewModel.setCountMonth("10");
         viewModel.setCountYear("2014");
+
         viewModel.calculate();
     }
 
@@ -292,6 +325,7 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("27");
         viewModel.setVacationMonth("10");
         viewModel.setVacationYear("2014");
+
         viewModel.calculate();
     }
 
@@ -300,6 +334,7 @@ public class ViewModelTests {
         viewModel.setSalary("-10000");
         viewModel.setWorkedHours("144");
         viewModel.setCountMonth("10");
+
         viewModel.setCountYear("2014");
         viewModel.calculate();
     }
@@ -310,7 +345,9 @@ public class ViewModelTests {
         viewModel.setWorkedHours("144");
         viewModel.setCountMonth("35");
         viewModel.setCountYear("2014");
+
         viewModel.calculate();
+
         assertEquals("", viewModel.getResult());
         assertEquals(Status.BAD_MONTH_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());
@@ -326,7 +363,9 @@ public class ViewModelTests {
         viewModel.setStartVacationDay("27");
         viewModel.setVacationMonth("10");
         viewModel.setVacationYear("2500");
+
         viewModel.calculate();
+
         assertEquals("", viewModel.getResult());
         assertEquals(Status.BAD_YEAR_FORMAT, viewModel.getStatus());
         assertFalse(viewModel.getCalculateButtonEnable());

@@ -20,6 +20,8 @@ public class Dichotomy {
     private Button btnInputArray;
     @FXML
     private Button btnSearch;
+    @FXML
+    private Button btnNewArray;
 
     @FXML
     void initialize() {
@@ -35,6 +37,12 @@ public class Dichotomy {
             @Override
             public void handle(final ActionEvent event) {
                 viewModel.findElement();
+            }
+        });
+        btnNewArray.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(final ActionEvent event) {
+                viewModel.enterNewArray();
             }
         });
     }

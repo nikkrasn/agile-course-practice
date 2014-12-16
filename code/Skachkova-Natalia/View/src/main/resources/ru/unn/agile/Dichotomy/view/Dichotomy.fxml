@@ -15,14 +15,14 @@
             <HBox prefHeight="44.0" prefWidth="403.0">
                <children>
                   <Label text="Enter array with spacing" />
-                  <TextField fx:id="txtInputArray" prefHeight="25.0" prefWidth="185.0" />
-                  <Button fx:id="btnInputArray" mnemonicParsing="false" text="Apply" />
+                  <TextField fx:id="txtInputArray" prefHeight="25.0" prefWidth="185.0" disable="${viewModel.inputArrayDisabled}"/>
+                  <Button fx:id="btnInputArray" mnemonicParsing="false" text="Apply" disable="${viewModel.applyDisabled}"/>
                </children>
             </HBox>
             <HBox prefHeight="44.0" prefWidth="403.0">
                <children>
                   <Label text="Enter element" />
-                  <TextField fx:id="txtInputElement"/>
+                  <TextField fx:id="txtInputElement" disable="${viewModel.inputElementDisabled}"/>
                </children>
             </HBox>
             <HBox prefHeight="37.0" prefWidth="403.0">
@@ -33,7 +33,8 @@
             </HBox>
             <HBox prefHeight="54.0" prefWidth="403.0">
                <children>
-                  <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Search" />
+                  <Button fx:id="btnSearch" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Search" disable="${viewModel.searchDisabled}"/>
+                  <Button fx:id="btnNewArray" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="New array"/>
                </children>
             </HBox>
             <HBox prefHeight="33.0" prefWidth="403.0">

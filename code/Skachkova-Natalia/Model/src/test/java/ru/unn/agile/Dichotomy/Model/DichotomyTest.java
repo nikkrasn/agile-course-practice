@@ -48,14 +48,15 @@ public class DichotomyTest {
         assertEquals(-1, result);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void cantGetOutOfArrayElement() {
         Dichotomy search = new Dichotomy();
         int[] array = new int[10];
         for (int i = 0; i < 10; i++) {
             array[i] = 10 - i;
         }
-        search.dichotomySearch(array, 1);
+        boolean result = search.isArrayOrdered(array);
+        assertEquals(false, result);
     }
 
     private int[] createTestArray() {

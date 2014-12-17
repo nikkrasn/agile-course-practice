@@ -11,7 +11,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.unn.agile.ComplexNumber.viewmodel_lab3.RegexMatcher.matchesPattern;
+import static ru.unn.agile.ComplexNumber.infrastructure_lab3.RegexMatcher.matchesPattern;
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLogger_Tests-lab3.log";

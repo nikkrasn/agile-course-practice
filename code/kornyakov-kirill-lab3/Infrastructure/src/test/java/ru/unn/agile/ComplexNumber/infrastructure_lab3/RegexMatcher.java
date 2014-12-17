@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.viewmodel_lab3;
+package ru.unn.agile.ComplexNumber.infrastructure_lab3;
 
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;

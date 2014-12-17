@@ -5,8 +5,8 @@ public class Line3D {
     private final Point3D vector;
 
     public Line3D(final Point3D inputPoint, final Point3D inputVector) {
-        this.point = inputPoint;
-        this.vector = inputVector;
+        point = inputPoint;
+        vector = inputVector;
     }
 
     public Point3D getPoint() {

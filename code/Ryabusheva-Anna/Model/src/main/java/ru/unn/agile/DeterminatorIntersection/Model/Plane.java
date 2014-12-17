@@ -7,10 +7,10 @@ public class Plane {
     private final double coefD;
 
     public Plane(final double a, final double b, final double c, final double d) {
-        this.coefA = a;
-        this.coefB = b;
-        this.coefC = c;
-        this.coefD = d;
+        coefA = a;
+        coefB = b;
+        coefC = c;
+        coefD = d;
     }
 
     public boolean isCorrect() {

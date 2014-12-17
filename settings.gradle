@@ -188,6 +188,8 @@ include "code/Ryabusheva-Anna/ViewModel"
 project(":code/Ryabusheva-Anna/ViewModel").name = "Ryabusheva-Anna-ViewModel"
 include "code/Ryabusheva-Anna/View"
 project(":code/Ryabusheva-Anna/View").name = "Ryabusheva-Anna-View"
+include "code/Ryabusheva-Anna/Infrastructure"
+project(":code/Ryabusheva-Anna/Infrastructure").name = "Ryabusheva-Anna-Infrastructure"
 
 // Samokhvalov Maxim
 include "code/samokhvalov-maxim/Model"

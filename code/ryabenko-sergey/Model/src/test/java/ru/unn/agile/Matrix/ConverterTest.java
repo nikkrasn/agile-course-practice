@@ -71,5 +71,4 @@ public class ConverterTest {
                 {76.32, 0, 8}});
         assertEquals(mat, "{ (0.5,  -2.0,  1.0),  (0.0,  8.0,  1.0),  (76.32,  0.0,  8.0) }");
     }
-
 }

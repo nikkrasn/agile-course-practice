@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Matrix.ViewModel.SystemMessages;
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class ViewModelTest {
@@ -328,5 +327,4 @@ public class ViewModelTest {
 
         assertEquals(1, viewModel.getLog().size());
     }
-
 }

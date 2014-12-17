@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 public class MatrixDeterminantTest {
     private static final double DELTA = 0.001;
 
-
     @Test (expected = IllegalArgumentException.class)
     public void canCheckMatrixIsSquareForConstructor() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{-3.55, 4, 1}, {1, 0, 0}});
@@ -109,6 +108,4 @@ public class MatrixDeterminantTest {
         SquareMatrix mat = new SquareMatrix(0);
         SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
     }
-
-
 }

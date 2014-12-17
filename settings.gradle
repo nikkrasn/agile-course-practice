@@ -172,7 +172,6 @@ project(":code/ryabenko-sergey/View").name = "ryabenko-sergey-View"
 include "code/ryabenko-sergey/Infrastructure"
 project(":code/ryabenko-sergey/Infrastructure").name = "ryabenko-sergey-Infrastructure"
 
-
 // Ryabusheva Anna
 include "code/Ryabusheva-Anna/Model"
 project(":code/Ryabusheva-Anna/Model").name = "Ryabusheva-Anna-Model"

@@ -105,6 +105,7 @@ public class ViewModel {
         } else {
             dichotomyResult.set(ResultStatus.NOT_CONTAIN.toString());
         }
+        dichotomyStatus.set(InputStatus.SUCCESS.toString());
     }
 
     public void enterNewArray() {
@@ -113,6 +114,7 @@ public class ViewModel {
         inputElementDisabled.setValue(true);
         stringElement.set("");
         isArrayEntered = false;
+        dichotomyResult.set("");
     }
 
     public StringProperty dichotomyResultProperty() {

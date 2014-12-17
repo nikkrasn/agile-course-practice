@@ -7,8 +7,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ru.unn.agile.ComplexNumber.model_lab3.ComplexNumber.Operation;
-import ru.unn.agile.ComplexNumber.viewmodel_lab3.MockLogger;
 import ru.unn.agile.ComplexNumber.viewmodel_lab3.ViewModel;
+import ru.unn.agile.ComplexNumber.infrastructure_lab3.TxtLogger;
 
 public class Calculator {
     @FXML
@@ -28,7 +28,7 @@ public class Calculator {
 
     @FXML
     void initialize() {
-        viewModel.setLogger(new MockLogger());
+        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
 
         final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
             @Override

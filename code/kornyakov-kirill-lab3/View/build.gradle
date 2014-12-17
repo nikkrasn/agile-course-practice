@@ -1,3 +1,4 @@
 dependencies {
     compile project(':kornyakov-kirill-lab3-ViewModel')
+    compile project(':kornyakov-kirill-lab3-Infrastructure')
 }

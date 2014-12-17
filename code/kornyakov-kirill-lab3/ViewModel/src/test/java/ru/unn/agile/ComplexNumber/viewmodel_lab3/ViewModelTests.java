@@ -19,7 +19,7 @@ public class ViewModelTests {
     @Before
     public void setUp() {
         if (viewModel == null) {
-            viewModel = new ViewModel(new MockLogger());
+            viewModel = new ViewModel(new FakeLogger());
         }
     }
 

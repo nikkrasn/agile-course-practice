@@ -44,15 +44,15 @@ public class TxtLoggerTests {
 
     @Test
     public void canWriteSeveralLogMessage() {
-        String[] messages = {"Test message 1", "Test message 2"};
+        String firstMessage = "Test message 1";
+        String secondMessage = "Test message 2";
 
-        txtLogger.log(messages[0]);
-        txtLogger.log(messages[1]);
+        txtLogger.log(firstMessage);
+        txtLogger.log(secondMessage);
 
         List<String> actualMessages = txtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
-        }
+        assertThat(actualMessages.get(0), matchesPattern(".*" + firstMessage + "$"));
+        assertThat(actualMessages.get(1), matchesPattern(".*" + secondMessage + "$"));
     }
 
     @Test

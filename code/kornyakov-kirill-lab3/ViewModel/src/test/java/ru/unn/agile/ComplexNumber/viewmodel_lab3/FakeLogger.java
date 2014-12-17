@@ -1,9 +1,9 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel_lab3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MockLogger implements ILogger {
+public class FakeLogger implements ILogger {
     private final ArrayList<String> log = new ArrayList<>();
 
     @Override

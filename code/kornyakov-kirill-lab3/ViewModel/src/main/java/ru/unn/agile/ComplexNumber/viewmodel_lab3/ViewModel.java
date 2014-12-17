@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel_lab3;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
@@ -6,8 +6,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import ru.unn.agile.ComplexNumber.model.ComplexNumber;
-import ru.unn.agile.ComplexNumber.model.ComplexNumber.Operation;
+import ru.unn.agile.ComplexNumber.model_lab3.ComplexNumber;
+import ru.unn.agile.ComplexNumber.model_lab3.ComplexNumber.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -188,8 +188,8 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (re1.get().isEmpty() || im1.get().isEmpty() ||
-            re2.get().isEmpty() || im2.get().isEmpty() ) {
+        if (re1.get().isEmpty() || im1.get().isEmpty()
+         || re2.get().isEmpty() || im2.get().isEmpty()) {
             inputStatus = Status.WAITING;
         }
         try {

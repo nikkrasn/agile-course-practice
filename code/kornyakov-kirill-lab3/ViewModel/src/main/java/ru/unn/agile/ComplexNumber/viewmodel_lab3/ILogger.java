@@ -1,4 +1,4 @@
-package ru.unn.agile.ComplexNumber.viewmodel;
+package ru.unn.agile.ComplexNumber.viewmodel_lab3;
 
 import java.util.List;
 

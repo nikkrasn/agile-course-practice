@@ -3,8 +3,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import ru.unn.agile.ComplexNumber.viewmodel.*?>
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ComplexNumber.view.Calculator">
+<?import ru.unn.agile.ComplexNumber.viewmodel_lab3.*?>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ComplexNumber.view_lab3.Calculator">
     <fx:define>
         <ViewModel fx:id="viewModel" />
     </fx:define>

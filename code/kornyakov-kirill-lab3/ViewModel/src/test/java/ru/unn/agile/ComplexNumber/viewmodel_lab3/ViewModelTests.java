@@ -12,9 +12,14 @@ import static org.junit.Assert.*;
 public class ViewModelTests {
     private ViewModel viewModel;
 
+    public void setExternalViewModel(ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel(new MockLogger());
+        if (viewModel == null)
+            viewModel = new ViewModel(new MockLogger());
     }
 
     @After

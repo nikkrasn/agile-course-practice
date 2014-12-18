@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ConverterTest {
-    private static final double DELTA = 0.001;
+    private static final double DELTA = 1e-10;
     private double[][] data;
 
     @Test (expected = IllegalArgumentException.class)

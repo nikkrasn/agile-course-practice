@@ -16,16 +16,7 @@ public final class SquareMatrixClass {
     private JTextField textResult;
     private JList<String> listLogger;
 
-    public static void main(final String[] args) {
-        JFrame frame = new JFrame("SquareMatrix");
-        TxtLogger logger = new TxtLogger("./SquareMatrix.log");
-        frame.setContentPane(new SquareMatrixClass(new ViewModel(logger)).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private SquareMatrixClass(final ViewModel viewModel) {
+    public SquareMatrixClass(final ViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
         buttonCalculate.addActionListener(new ActionListener() {
@@ -72,7 +63,10 @@ public final class SquareMatrixClass {
                 backBind();
             }
         });
+    }
 
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 
     private void bind() {

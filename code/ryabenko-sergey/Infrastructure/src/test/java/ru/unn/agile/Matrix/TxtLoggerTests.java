@@ -2,12 +2,10 @@ package ru.unn.agile.Matrix;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.List;
-import static junit.framework.TestCase.assertNotNull;
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLoggerTests.log";
@@ -50,9 +48,8 @@ public class TxtLoggerTests {
         txtLogger.createLog(messages[1]);
 
         List<String> actualMessages = txtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertTrue(actualMessages.get(i).matches(".*" + messages[i] + "$"));
-        }
+        assertTrue(actualMessages.get(0).matches(".*" + messages[0] + "$"));
+        assertTrue(actualMessages.get(1).matches(".*" + messages[1] + "$"));
     }
 
     @Test

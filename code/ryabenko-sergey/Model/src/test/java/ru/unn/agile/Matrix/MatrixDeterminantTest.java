@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MatrixDeterminantTest {
-    private static final double DELTA = 0.001;
+    private static final double DELTA = 1e-10;
 
     @Test (expected = IllegalArgumentException.class)
     public void canCheckMatrixIsSquareForConstructor() {

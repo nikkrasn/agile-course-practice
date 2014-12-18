@@ -6,8 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MatrixDeterminantTest {
-    private final double delta = 0.001;
-
+    private static final double DELTA = 1e-10;
 
     @Test (expected = IllegalArgumentException.class)
     public void canCheckMatrixIsSquareForConstructor() {
@@ -19,7 +18,7 @@ public class MatrixDeterminantTest {
     public void canFindDeterminantForConstructor() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{1.2, -1}, {-0.25, 2.4}});
         MatrixDeterminant determinant = new MatrixDeterminant(mat);
-        assertEquals(1.2 * 2.4 + 1 * -0.25, determinant.getSum(), delta);
+        assertEquals(1.2 * 2.4 + 1 * -0.25, determinant.getSum(), DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -45,14 +44,14 @@ public class MatrixDeterminantTest {
     public void canFindDeterminantForFirstOrderMatrix() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{-3.55}});
         double det = MatrixDeterminant.calculation(mat);
-        assertEquals(-3.55, det, delta);
+        assertEquals(-3.55, det, DELTA);
     }
 
     @Test
     public void canFindDeterminantForSecondOrderMatrix() {
         SquareMatrix mat = new SquareMatrix(new double[][]{{1.2, -1}, {-0.25, 2.4}});
         double det = MatrixDeterminant.calculation(mat);
-        assertEquals(1.2 * 2.4 + 1 * -0.25, det, delta);
+        assertEquals(1.2 * 2.4 + 1 * -0.25, det, DELTA);
     }
 
     @Test
@@ -60,7 +59,7 @@ public class MatrixDeterminantTest {
         SquareMatrix mat = new SquareMatrix(new double[][]{{1, 2, 3, 4}, {1, -2, 3, -4},
                 {1.1, 1.2, 1.3, 1.4}, {2.21, 3.31, 4.41, 1.01}});
         double det = MatrixDeterminant.calculation(mat);
-        assertEquals(-36, det, delta);
+        assertEquals(-36, det, DELTA);
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -109,6 +108,4 @@ public class MatrixDeterminantTest {
         SquareMatrix mat = new SquareMatrix(0);
         SquareMatrix subMat = MatrixDeterminant.createSubMatrix(mat, 0, 0);
     }
-
-
 }

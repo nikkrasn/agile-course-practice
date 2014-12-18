@@ -2,10 +2,10 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ru.unn.agile.Matrix.SquareMatrixClass">
   <grid id="27dc6" binding="mainPanel" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="523" height="253"/>
+      <xy x="20" y="20" width="523" height="316"/>
     </constraints>
     <properties>
-      <preferredSize width="610" height="250"/>
+      <preferredSize width="610" height="390"/>
     </properties>
     <border type="none">
       <title-color color="-16777216"/>
@@ -116,14 +116,33 @@
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
           <gridbag weightx="10.0" weighty="0.0" ipadx="190"/>
         </constraints>
-        <properties/>
+        <properties>
+          <focusable value="true"/>
+        </properties>
         <border type="none"/>
         <children>
           <component id="ab5a4" class="javax.swing.JTextArea" binding="textArray">
             <constraints/>
             <properties>
+              <focusable value="true"/>
               <font name="Arial" size="16" style="0"/>
             </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <scrollpane id="104d5">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <preferredSize width="256" height="140"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="c61a7" class="javax.swing.JList" binding="listLogger">
+            <constraints/>
+            <properties/>
           </component>
         </children>
       </scrollpane>

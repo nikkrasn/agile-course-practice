@@ -2,6 +2,7 @@ package ru.unn.agile.Matrix;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public final class SquareMatrixClass {
 
@@ -13,19 +14,11 @@ public final class SquareMatrixClass {
     private JTextArea textArray;
     private JLabel labelResult;
     private JTextField textResult;
+    private JList<String> listLogger;
 
-    public static void main(final String[] args) {
-        JFrame frame = new JFrame("SquareMatrix");
-        frame.setContentPane(new SquareMatrixClass(new ViewModel()).mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    private SquareMatrixClass(final ViewModel viewModel) {
+    public SquareMatrixClass(final ViewModel viewModel) {
         this.viewModel = viewModel;
         backBind();
-
         buttonCalculate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent actionEvent) {
@@ -36,14 +29,18 @@ public final class SquareMatrixClass {
         });
 
         textArray.addKeyListener(new KeyListener() {
+            @Override
             public void keyTyped(final KeyEvent e) {
                 bind();
                 backBind();
             }
+
+            @Override
             public void keyPressed(final KeyEvent e) {
                 bind();
                 backBind();
             }
+
             @Override
             public void keyReleased(final KeyEvent e) {
                 bind();
@@ -53,17 +50,23 @@ public final class SquareMatrixClass {
         });
 
         textArray.addFocusListener(new FocusListener() {
+            @Override
             public void focusGained(final FocusEvent e) {
                 bind();
                 backBind();
             }
+
             @Override
             public void focusLost(final FocusEvent e) {
                 bind();
+                viewModel.focusLost();
                 backBind();
             }
         });
+    }
 
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 
     private void bind() {
@@ -74,5 +77,8 @@ public final class SquareMatrixClass {
         buttonCalculate.setEnabled(viewModel.isCalculateButtonEnabled());
         textResult.setText(viewModel.getResult());
         textStatus.setText(viewModel.getStatus());
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        listLogger.setListData(items);
     }
 }

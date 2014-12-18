@@ -56,5 +56,4 @@ public final class MatrixDeterminant {
         }
         return -1;
     }
-
 }

@@ -24,4 +24,24 @@ public final class Converter {
         return  data;
     }
 
+    public static String arrayToString(final double[][] array) {
+        String data = "{";
+        for (int i = 0; i < array.length; i++) {
+            data += " (";
+            for (int j = 0; j < array[i].length; j++) {
+                if (j == array[i].length - 1) {
+                    data += String.valueOf(array[i][j]);
+                    continue;
+                }
+                data += String.valueOf(array[i][j]) + ",  ";
+            }
+            if (i == array.length - 1) {
+                data += ")";
+                continue;
+            }
+            data += "), ";
+        }
+        data += " }";
+        return data;
+    }
 }

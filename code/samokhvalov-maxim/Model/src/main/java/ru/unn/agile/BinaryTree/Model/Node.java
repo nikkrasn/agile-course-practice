@@ -1,4 +1,4 @@
-package ru.unn.agile.BinaryTree.model;
+package ru.unn.agile.BinaryTree.Model;
 
 public class Node {
 

@@ -43,7 +43,7 @@ public class CalculateSalary {
 
     private double calcCashWithoutNDS() {
         if (isIncorrectInput()) {
-            return 0;
+            throw new ArithmeticException("Values must be not negatively");
         }
         if (isEmployeeWorkedMoreThanNormHoursInMonth()) {
             return calcCashWithOvertime();

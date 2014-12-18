@@ -8,25 +8,25 @@ import static org.junit.Assert.*;
 public class CalculateSalaryTests {
     private final double delta = 1e-10;
 
-    @Test
+    @Test (expected = ArithmeticException.class)
     public void canCalculateCashWithNegativeSalary() {
         CalculateSalary calculator = new CalculateSalary().setSalary(-10000);
         assertEquals(0, calculator.calculate(), delta);
     }
 
-    @Test
+    @Test (expected = ArithmeticException.class)
     public void inputNegativeLengthOfVacation() {
         CalculateSalary calculator = new CalculateSalary().setLengthOfVacation(-14);
         assertEquals(0, calculator.calculate(), delta);
     }
 
-    @Test
+    @Test (expected = ArithmeticException.class)
     public void inputNegativeWorkedHours() {
         CalculateSalary calculator = new CalculateSalary().setWorkedHourInMonth(-180);
         assertEquals(0, calculator.calculate(), delta);
     }
 
-    @Test
+    @Test (expected = ArithmeticException.class)
     public void inputOnlyNegativeWorkedHours() {
         CalculateSalary calculator = new CalculateSalary()
                 .setSalary(10000)

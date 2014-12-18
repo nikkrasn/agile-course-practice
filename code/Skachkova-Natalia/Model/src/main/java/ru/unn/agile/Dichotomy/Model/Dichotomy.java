@@ -12,7 +12,6 @@ public class Dichotomy {
     }
 
     public int dichotomySearch(final int[] array, final int element) {
-//        isArrayOrdered(array);
         int length = array.length;
         int[] tempArray = new int[length];
         for (int i = 0; i < length; i++) {

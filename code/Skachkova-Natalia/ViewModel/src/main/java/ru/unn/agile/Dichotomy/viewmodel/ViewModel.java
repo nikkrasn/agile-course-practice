@@ -23,47 +23,12 @@ public class ViewModel {
     private boolean isArrayEntered = false;
 
     public ViewModel() {
-        stringArray.set("");
-        stringElement.set("");
-        dichotomyResult.set("");
+        setInitialCondition();
         dichotomyStatus.set(InputStatus.WAITING.toString());
-        inputArrayDisabled.set(false);
         applyDisabled.set(true);
-        inputElementDisabled.set(true);
         searchDisabled.set(true);
-
-        BooleanBinding couldApply = new BooleanBinding() {
-            {
-                super.bind(stringArray);
-            }
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == InputStatus.APPLY;
-            }
-        };
-        applyDisabled.bind(couldApply.not());
-
-        BooleanBinding couldSearch = new BooleanBinding() {
-            {
-                super.bind(stringElement);
-            }
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == InputStatus.READY;
-            }
-        };
-        searchDisabled.bind(couldSearch.not());
-
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(stringArray);
-            add(stringElement);
-        } };
-
-        for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
+        bindingInit();
+        listenerInit();
     }
 
     public StringProperty stringArrayProperty() {
@@ -109,12 +74,8 @@ public class ViewModel {
     }
 
     public void enterNewArray() {
-        inputArrayDisabled.set(false);
-        stringArray.set("");
-        inputElementDisabled.setValue(true);
-        stringElement.set("");
+        setInitialCondition();
         isArrayEntered = false;
-        dichotomyResult.set("");
     }
 
     public StringProperty dichotomyResultProperty() {
@@ -197,6 +158,51 @@ public class ViewModel {
             inputStatus = InputStatus.BAD_FORMAT_ELEMENT;
         }
         return inputStatus;
+    }
+
+    private void bindingInit() {
+        BooleanBinding couldApply = new BooleanBinding() {
+            {
+                super.bind(stringArray);
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == InputStatus.APPLY;
+            }
+        };
+        applyDisabled.bind(couldApply.not());
+
+        BooleanBinding couldSearch = new BooleanBinding() {
+            {
+                super.bind(stringElement);
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == InputStatus.READY;
+            }
+        };
+        searchDisabled.bind(couldSearch.not());
+    }
+
+    private void listenerInit() {
+        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+            add(stringArray);
+            add(stringElement);
+        } };
+
+        for (StringProperty field : fields) {
+            final ValueChangeListener listener = new ValueChangeListener();
+            field.addListener(listener);
+            valueChangedListeners.add(listener);
+        }
+    }
+
+    private void setInitialCondition() {
+        stringArray.set("");
+        stringElement.set("");
+        dichotomyResult.set("");
+        inputArrayDisabled.set(false);
+        inputElementDisabled.set(true);
     }
 
     private String[] splitString() {

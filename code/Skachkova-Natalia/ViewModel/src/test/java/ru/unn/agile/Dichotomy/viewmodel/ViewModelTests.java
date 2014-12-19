@@ -95,7 +95,6 @@ public class ViewModelTests {
         assertEquals("", viewModel.dichotomyResultProperty().get());
     }
 
-
     @Test
     public void resultIsContainWhenArrayContainElement() {
         viewModel.stringArrayProperty().set("1 2 3");

@@ -2,6 +2,12 @@ package ru.unn.agile.Dichotomy.Model;
 
 public class Dichotomy {
 
+    private void returnExceptionIfArrayUnsorted(final int[] array) {
+        if (!isArrayOrdered(array)) {
+            throw new IllegalArgumentException("Array is unsorted");
+        }
+    }
+
     public boolean isArrayOrdered(final int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             if (array[i] > array[i + 1]) {
@@ -12,6 +18,7 @@ public class Dichotomy {
     }
 
     public int dichotomySearch(final int[] array, final int element) {
+        returnExceptionIfArrayUnsorted(array);
         int length = array.length;
         int[] tempArray = new int[length];
         for (int i = 0; i < length; i++) {

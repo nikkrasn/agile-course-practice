@@ -24,7 +24,7 @@ public class DichotomyTest {
     @Test
     public void canFindElementFromLeftHalf() {
         Dichotomy search = new Dichotomy();
-        int[] array = new int[5];
+        int[] array;
         array = createTestArray();
         int result = search.dichotomySearch(array, 3);
         assertEquals(3, result);
@@ -33,7 +33,7 @@ public class DichotomyTest {
     @Test
     public void canFindElementFromRightHalf() {
         Dichotomy search = new Dichotomy();
-        int[] array = new int[10];
+        int[] array;
         array = createTestArray();
         int result = search.dichotomySearch(array, 8);
         assertEquals(8, result);
@@ -42,19 +42,25 @@ public class DichotomyTest {
     @Test
     public void canFindMissingElement() {
         Dichotomy search = new Dichotomy();
-        int[] array = new int[10];
+        int[] array;
         array = createTestArray();
         int result = search.dichotomySearch(array, 12);
         assertEquals(-1, result);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void canReturnException() {
+        Dichotomy search = new Dichotomy();
+        int[] array;
+        array = createUnsortedTestArray();
+        search.dichotomySearch(array, 1);
+    }
+
     @Test
     public void cantGetOutOfArrayElement() {
         Dichotomy search = new Dichotomy();
-        int[] array = new int[10];
-        for (int i = 0; i < 10; i++) {
-            array[i] = 10 - i;
-        }
+        int[] array;
+        array = createUnsortedTestArray();
         boolean result = search.isArrayOrdered(array);
         assertEquals(false, result);
     }
@@ -63,6 +69,14 @@ public class DichotomyTest {
         int[] array = new int[10];
         for (int i = 0; i < 10; i++) {
             array[i] = i + 1;
+        }
+        return array;
+    }
+
+    private int[] createUnsortedTestArray() {
+        int[] array = new int[10];
+        for (int i = 0; i < 10; i++) {
+            array[i] = 10 - i;
         }
         return array;
     }

@@ -123,6 +123,7 @@ public class ViewModelTests {
 
         assertEquals("", viewModel.resultProperty().get());
     }
+
     @Test
     public void correctStatusAfterDeterminationWithNotEnoughCorrectData() {
         viewModel.planeBProperty().set("2");

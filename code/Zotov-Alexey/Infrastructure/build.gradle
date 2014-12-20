@@ -1,6 +1,6 @@
 dependencies {
     compile project(':Zotov-Alexey-ViewModel')
-    compile project(':Zotov-Alexey-Infrastructure')
+    testCompile project(':Zotov-Alexey-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

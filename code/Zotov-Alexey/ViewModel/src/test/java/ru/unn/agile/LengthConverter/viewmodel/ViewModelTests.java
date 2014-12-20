@@ -94,15 +94,8 @@ public class ViewModelTests {
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
-    /*@Test
-    public void isConvertButtonDisabledWithTooLargeInput() {
-        viewModel.setInputValue("10e308");
-        viewModel.processKeyInTextField(ANY);
-        assertEquals(false, viewModel.isConvertButtonEnabled());
-    }*/
-
     @Test
-    public void isCalculateButtonDisabledWithEmptyInput() {
+    public void isConvertButtonDisabledWithEmptyInput() {
         viewModel.setInputValue("");
         viewModel.processKeyInTextField(ANY);
         assertEquals(false, viewModel.isConvertButtonEnabled());
@@ -306,7 +299,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void isCalculateNotCalledWhenButtonIsDisabled() {
+    public void isConvertNotCalledWhenButtonIsDisabled() {
         viewModel.processKeyInTextField(ENTER);
         assertEquals(0, viewModel.getLog().size());
     }

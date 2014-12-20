@@ -72,7 +72,7 @@ public class ViewModel {
     }
 
     public void convert() {
-        logger.log(calculateLogMessage());
+        logger.log(convertLogMessage());
         if (!parseInput()) {
             return;
         }
@@ -88,7 +88,7 @@ public class ViewModel {
         }
     }
 
-    private String calculateLogMessage() {
+    private String convertLogMessage() {
         String message =
                 LogMessages.CONVERT_WAS_PRESSED + "Input Value = "
                         + inputValue + "; InputMeasure = " + inputMeasure.toString()

@@ -29,7 +29,6 @@ public class TxtLogger implements ILogger {
 
     @Override
     public List<String> getLog() {
-        //BufferedReader reader;
         ArrayList<String> log = new ArrayList<String>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(filename));

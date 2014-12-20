@@ -27,16 +27,23 @@ public class TxtLogger implements ILogger {
         return sdf.format(cal.getTime());
     }
 
-    public TxtLogger(final String filename) {
-        this.filename = filename;
-
-        BufferedWriter logWriter = null;
+    @Override
+    public List<String> getLog() {
+        //BufferedReader reader;
+        ArrayList<String> log = new ArrayList<String>();
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line = reader.readLine();
+
+            while (line != null) {
+                log.add(line);
+                line = reader.readLine();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
-        writer = logWriter;
+
+        return log;
     }
 
     @Override
@@ -50,23 +57,16 @@ public class TxtLogger implements ILogger {
         }
     }
 
-    @Override
-    public List<String> getLog() {
-        BufferedReader reader;
-        ArrayList<String> log = new ArrayList<String>();
+    public TxtLogger(final String filename) {
+        this.filename = filename;
+
+        BufferedWriter logWriter = null;
         try {
-            reader = new BufferedReader(new FileReader(filename));
-            String line = reader.readLine();
-
-            while (line != null) {
-                log.add(line);
-                line = reader.readLine();
-            }
+            logWriter = new BufferedWriter(new FileWriter(filename));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-
-        return log;
+        writer = logWriter;
     }
 
 }

@@ -7,17 +7,13 @@ import org.hamcrest.Matcher;
 public class RegexMatcher extends BaseMatcher {
     private final String regex;
 
-    public RegexMatcher(final String regex) {
-        this.regex = regex;
-    }
-
-    public boolean matches(final Object o) {
-        return ((String) o).matches(regex);
-    }
-
     public void describeTo(final Description description) {
         description.appendText("matches regex = ");
         description.appendText(regex);
+    }
+
+    public RegexMatcher(final String regex) {
+        this.regex = regex;
     }
 
     public static Matcher<? super String> matchesPattern(final String regex) {
@@ -26,5 +22,9 @@ public class RegexMatcher extends BaseMatcher {
         @SuppressWarnings (value = "unchecked")
         Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;
         return castedMatcher;
+    }
+
+    public boolean matches(final Object o) {
+        return ((String) o).matches(regex);
     }
 }

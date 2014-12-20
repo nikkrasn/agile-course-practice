@@ -28,6 +28,14 @@ public class TxtLoggerTests {
     }
 
     @Test
+    public void canWriteLogMessage() {
+        String testMessage = "Test message";
+        txtLogger.log(testMessage);
+        String message = txtLogger.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + testMessage + "$"));
+    }
+
+    @Test
     public void canCreateLogFileOnDisk() {
         try {
             new BufferedReader(new FileReader(FILENAME));
@@ -37,13 +45,11 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void canWriteLogMessage() {
+    public void doesLogContainDateAndTime() {
         String testMessage = "Test message";
-
         txtLogger.log(testMessage);
-
         String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + testMessage + "$"));
+        assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
     }
 
     @Test
@@ -57,15 +63,5 @@ public class TxtLoggerTests {
         for (int i = 0; i < actualMessages.size(); i++) {
             assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
         }
-    }
-
-    @Test
-    public void doesLogContainDateAndTime() {
-        String testMessage = "Test message";
-
-        txtLogger.log(testMessage);
-
-        String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
     }
 }

@@ -13,7 +13,7 @@ public class ViewModel {
     private String result;
     private boolean isConvertButtonEnabled;
     private boolean isInputChanged;
-    private ILogger logger;
+    private final ILogger logger;
     public static final int ENTER = 10;
 
     public ViewModel(final ILogger logger) {

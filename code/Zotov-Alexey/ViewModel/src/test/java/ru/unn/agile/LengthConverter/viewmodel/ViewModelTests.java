@@ -4,11 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.LengthConverter.Model.LengthConverter.*;
-
-import javax.swing.text.View;
-
 import static ru.unn.agile.LengthConverter.viewmodel.RegexMatcher.matchesPattern;
-
 import java.util.List;
 
 import static org.junit.Assert.*;

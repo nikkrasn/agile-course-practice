@@ -26,16 +26,22 @@ public class ViewModel {
     private final StringProperty linePointY = new SimpleStringProperty("");
     private final StringProperty linePointZ = new SimpleStringProperty("");
 
+    private final StringProperty logs = new SimpleStringProperty("");
     private final StringProperty result = new SimpleStringProperty("");
     private final StringProperty status = new SimpleStringProperty(Status.WAITING.toString());
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private ILogger logger;
+    private final List<ValueCachingChangeListener> valueChangedListeners = new ArrayList<>();
 
     private final BooleanProperty determinateDisabled = new SimpleBooleanProperty();
 
     public ViewModel() {
-        bindDeterminateDisable();
-        createFieldsValuesChangingListeners();
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        init();
+        setLogger(logger);
     }
 
     public void determinate() {
@@ -53,6 +59,59 @@ public class ViewModel {
             result.set("No intersection determinate");
         }
         status.set(Status.SUCCESS.toString());
+        StringBuilder message = new StringBuilder(LoggerMessages.DETERMINATE_WAS_PRESSED);
+        message.append("Arguments")
+                .append(": PlaneA = ").append(planeA.get())
+                .append("; PlaneB = ").append(planeB.get())
+                .append("; PlaneC = ").append(planeC.get())
+                .append("; PlaneD = ").append(planeD.get())
+                .append("; LinePointX = ").append(linePointX.get())
+                .append("; LinePointY = ").append(linePointY.get())
+                .append("; LinePointZ = ").append(linePointZ.get())
+                .append("; LineVectorX = ").append(lineVectorX.get())
+                .append("; LineVectorY = ").append(lineVectorY.get())
+                .append("; LineVectorZ = ").append(lineVectorZ.get());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueCachingChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LoggerMessages.EDITING_FINISHED);
+                message.append("Input arguments are: [")
+                        .append(planeA.get()).append("; ")
+                        .append(planeB.get()).append("; ")
+                        .append(planeC.get()).append("; ")
+                        .append(planeD.get()).append("; ")
+                        .append(linePointX.get()).append("; ")
+                        .append(linePointY.get()).append("; ")
+                        .append(linePointZ.get()).append("; ")
+                        .append(lineVectorX.get()).append("; ")
+                        .append(lineVectorY.get()).append("; ")
+                        .append(lineVectorZ.get()).append("]");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
+    }
+
+    public final List<String> getLog() {
+        return logger.getLog();
     }
 
     public StringProperty planeAProperty() {
@@ -103,6 +162,14 @@ public class ViewModel {
         return determinateDisabled.get();
     }
 
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
+
     public StringProperty resultProperty() {
         return result;
     }
@@ -117,6 +184,11 @@ public class ViewModel {
 
     public final String getStatus() {
         return status.get();
+    }
+
+    private void init() {
+        bindDeterminateDisable();
+        createFieldsValuesChangingListeners();
     }
 
     private void bindDeterminateDisable() {
@@ -151,7 +223,7 @@ public class ViewModel {
             }
         };
         for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
+            final ValueCachingChangeListener listener = new ValueCachingChangeListener();
             field.addListener(listener);
             valueChangedListeners.add(listener);
         }
@@ -255,11 +327,35 @@ public class ViewModel {
         return Double.parseDouble(linePointX.get());
     }
 
-    private class ValueChangeListener implements ChangeListener<String> {
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
+    private class ValueCachingChangeListener implements ChangeListener<String> {
+        private String prevValue = new String();
+        private String curValue = new String();
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
             status.set(getInputStatus().toString());
+            curValue = newValue;
+        }
+
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+
+        public void cache() {
+            prevValue = curValue;
         }
     }
 }
@@ -279,4 +375,11 @@ enum Status {
     public String toString() {
         return name;
     }
+}
+
+final class LoggerMessages {
+    public static final String DETERMINATE_WAS_PRESSED = "Calculate. ";
+    public static final String EDITING_FINISHED = "Updated input. ";
+
+    private LoggerMessages() { }
 }

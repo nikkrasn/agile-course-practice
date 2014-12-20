@@ -6,9 +6,9 @@ public class Point3D {
     private final double z;
 
     public Point3D(final double inputX, final double inputY, final double inputZ) {
-        this.x = inputX;
-        this.y = inputY;
-        this.z = inputZ;
+        x = inputX;
+        y = inputY;
+        z = inputZ;
     }
 
     public boolean isNullPoint() {

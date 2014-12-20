@@ -11,20 +11,20 @@ import static ru.unn.agile.DeterminatorIntersection.infrastructure.RegexMatcher.
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLogger_Tests-lab3.log";
-    private TxtLogger txtLogger;
+    private TxtLogger logger;
 
     @Before
     public void setUp() {
-        txtLogger = new TxtLogger(FILENAME);
+        logger = new TxtLogger(FILENAME);
     }
 
     @Test
     public void canCreateLoggerWithFileName() {
-        assertNotNull(txtLogger);
+        assertNotNull(logger);
     }
 
     @Test
-    public void canCreateLogFileOnDisk() {
+    public void canCreateLogFile() {
         try {
             new BufferedReader(new FileReader(FILENAME));
         } catch (FileNotFoundException e) {
@@ -36,9 +36,9 @@ public class TxtLoggerTests {
     public void canWriteLogMessage() {
         String testMessage = "Test message";
 
-        txtLogger.log(testMessage);
+        logger.log(testMessage);
 
-        String message = txtLogger.getLog().get(0);
+        String message = logger.getLog().get(0);
         assertThat(message, matchesPattern(".*" + testMessage + "$"));
     }
 
@@ -47,10 +47,10 @@ public class TxtLoggerTests {
         String firstMessage = "Test message 1";
         String secondMessage = "Test message 2";
 
-        txtLogger.log(firstMessage);
-        txtLogger.log(secondMessage);
+        logger.log(firstMessage);
+        logger.log(secondMessage);
+        List<String> actualMessages = logger.getLog();
 
-        List<String> actualMessages = txtLogger.getLog();
         assertThat(actualMessages.get(0), matchesPattern(".*" + firstMessage + "$"));
         assertThat(actualMessages.get(1), matchesPattern(".*" + secondMessage + "$"));
     }
@@ -59,9 +59,9 @@ public class TxtLoggerTests {
     public void doesLogContainDateAndTime() {
         String testMessage = "Test message";
 
-        txtLogger.log(testMessage);
+        logger.log(testMessage);
 
-        String message = txtLogger.getLog().get(0);
+        String message = logger.getLog().get(0);
         assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
     }
 }

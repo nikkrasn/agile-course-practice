@@ -14,41 +14,41 @@ import java.util.Locale;
 
 public class TxtLogger implements ILogger {
     private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-    private final BufferedWriter writer;
+    private final BufferedWriter writerLogs;
     private final String filename;
 
     public TxtLogger(final String filename) {
         this.filename = filename;
-
         BufferedWriter logWriter = null;
         try {
             logWriter = new BufferedWriter(new FileWriter(filename));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        writerLogs = logWriter;
     }
 
+    @Override
     public void log(final String message) {
         try {
-            writer.write(now() + " > " + message);
-            writer.newLine();
-            writer.flush();
+            writerLogs.write(now() + " > " + message);
+            writerLogs.newLine();
+            writerLogs.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    @Override
     public List<String> getLog() {
-        BufferedReader reader;
+        BufferedReader logReader;
         ArrayList<String> log = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(filename));
-            String line = reader.readLine();
-
+            logReader = new BufferedReader(new FileReader(filename));
+            String line = logReader.readLine();
             while (line != null) {
                 log.add(line);
-                line = reader.readLine();
+                line = logReader.readLine();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -125,6 +125,7 @@
                     </children>
                 </HBox>
             </children>
+            <TextArea fx:id="areaLog" text="${viewModel.logs}" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
         </VBox>
     </children>
 </AnchorPane>

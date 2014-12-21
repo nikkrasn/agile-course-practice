@@ -31,7 +31,7 @@ public class PlainTextLoggerTests {
         try {
             new FileReader(logFilename);
         } catch (FileNotFoundException e) {
-            fail(String.format("Log file '%s' was not found", logFilename));
+            fail("Log file " + logFilename + " was not found");
         }
     }
 

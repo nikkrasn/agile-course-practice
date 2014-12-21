@@ -1,12 +1,19 @@
 package ru.unn.agile.Stack.ViewModel;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import ru.unn.agile.Stack.Model.Stack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewModel {
+    private ILogger logger;
+
     private final ObjectProperty<ObservableList<String>> stackTable = new SimpleObjectProperty<>();
     private final StringProperty top = new SimpleStringProperty();
     private final StringProperty textToPush = new SimpleStringProperty();
@@ -54,6 +61,22 @@ public class ViewModel {
                 updateProperties();
             }
         });
+        textToPush.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue,
+                                final String newValue) {
+                log("Text-To-Push changed to: " + newValue);
+            }
+        });
+        top.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue,
+                                final String newValue) {
+                log("Top changed to :" + newValue);
+            }
+        });
 
         updateProperties();
         textToPush.set("Push me!");
@@ -61,13 +84,32 @@ public class ViewModel {
 
     public void push() {
         stack.push(textToPush.get());
+        log("Pushed: " + textToPush.get());
     }
 
     public void pop() {
         if (isPopButtonDisabled()) {
             return;
         }
-        stack.pop();
+        String popped = stack.pop();
+        log("Popped: " + popped);
+    }
+
+    public void setLogger(final ILogger newLogger) {
+        logger = newLogger;
+    }
+
+    public List<LogMessage> getLog() {
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return new ArrayList<>();
+    }
+
+    private void log(final String message) {
+        if (logger != null) {
+            logger.log(message);
+        }
     }
 
     private void updateProperties() {

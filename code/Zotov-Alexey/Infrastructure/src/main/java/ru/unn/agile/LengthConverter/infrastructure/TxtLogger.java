@@ -1,9 +1,5 @@
 package ru.unn.agile.LengthConverter.infrastructure;
 
-/**
- * Created by Алексей on 19.12.2014.
- */
-
 import ru.unn.agile.LengthConverter.viewmodel.ILogger;
 
 import java.io.BufferedReader;

@@ -3,7 +3,9 @@ package ru.unn.agile.Stack;
 import ru.unn.agile.Stack.ViewModel.ILogger;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PlainTextLogger implements ILogger {
@@ -12,19 +14,20 @@ public class PlainTextLogger implements ILogger {
 
     public PlainTextLogger(final String logFilename) {
         filename = logFilename;
-        BufferedWriter writer = null;
+
+        BufferedWriter bufferedWriter = null;
         try {
-            writer = new BufferedWriter(new FileWriter(filename));
+            bufferedWriter = new BufferedWriter(new FileWriter(filename));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.writer = writer;
+        writer = bufferedWriter;
     }
 
     @Override
-    public void log(final String string) {
+    public void log(final String message) {
         try {
-            writer.write(string);
+            writer.write(new LogMessage(new Date(), message).toString());
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,3 +58,4 @@ public class PlainTextLogger implements ILogger {
         return log;
     }
 }
+

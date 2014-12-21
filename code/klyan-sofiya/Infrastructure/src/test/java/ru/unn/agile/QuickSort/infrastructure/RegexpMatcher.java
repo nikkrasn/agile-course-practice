@@ -12,7 +12,7 @@ public class RegexpMatcher extends BaseMatcher {
     }
 
     public void describeTo(final Description descr) {
-        descr.appendText("matches regex = ");
+        descr.appendText("have match with regex = ");
         descr.appendText(regexp);
     }
 
@@ -23,8 +23,9 @@ public class RegexpMatcher extends BaseMatcher {
         return castedMatcher;
     }
 
-    public boolean matches(final Object o) {
-        return ((String) o).matches(regexp);
+    public boolean matches(final Object obj) {
+        String convObj = (String) obj;
+        return convObj.matches(regexp);
     }
 
 }

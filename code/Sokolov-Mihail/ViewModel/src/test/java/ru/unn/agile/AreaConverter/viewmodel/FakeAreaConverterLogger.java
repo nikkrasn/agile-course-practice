@@ -3,7 +3,7 @@ package ru.unn.agile.AreaConverter.viewmodel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeLogger implements ILogger {
+public class FakeAreaConverterLogger implements ILogger {
     private ArrayList<String> log = new ArrayList<String>();
 
     @Override

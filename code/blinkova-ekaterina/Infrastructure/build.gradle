@@ -1,6 +1,6 @@
 dependencies {
     compile project(':blinkova-ekaterina-ViewModel')
-    compile project (':blinkova-ekaterina-Infrastructure')
+    testCompile project(':blinkova-ekaterina-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

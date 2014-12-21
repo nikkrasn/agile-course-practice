@@ -1,6 +1,9 @@
 package ru.unn.agile.TemperatureConverter.viewmodel;
 
 import ru.unn.agile.TemperatureConverter.Model.TemperatureConverter;
+import ru.unn.agile.TemperatureConverter.Model.Converter;
+import ru.unn.agile.TemperatureConverter.Model.Converter.Scale;
+import java.util.List;
 
 public class ViewModel {
     private String inputValue;
@@ -8,38 +11,33 @@ public class ViewModel {
     private String status;
     private Scale scale;
     private boolean isConvertButtonEnable;
+    private boolean isInputDataChanged;
+    private final ILogger logger;
 
-    public ViewModel() {
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = logger;
         inputValue = "";
         result = "";
         status = Status.WAITING;
         scale = Scale.FAHRENHEIT;
         isConvertButtonEnable = false;
+        isInputDataChanged = true;
     }
 
     public void convert() {
+        logger.log(createConvertLogMessage());
+
         if (!parseInput()) {
             return;
         }
 
-        TemperatureConverter converter = new TemperatureConverter();
-        double temperature;
-
-        double input = Double.parseDouble(inputValue);
-
-        switch (scale) {
-            case FAHRENHEIT:
-                temperature = converter.celsiusToFahrenheit(input);
-                break;
-            case KELVIN:
-                temperature = converter.celsiusToKelvin(input);
-                break;
-            case NEWTON:
-                temperature = converter.celsiusToNewton(input);
-                break;
-            default:
-                throw new IllegalArgumentException("You can use only Fahrenheit, Kelvin or Newton");
-        }
+        Converter converter = new Converter();
+        TemperatureConverter convertToScale = converter.createConverter(scale);
+        double temperature = convertToScale.convert(Double.parseDouble(inputValue));
 
         result = Double.toString(temperature);
         status = Status.SUCCESS;
@@ -76,7 +74,10 @@ public class ViewModel {
     }
 
     public void setInputValue(final String inputValue) {
-        this.inputValue = inputValue;
+        if (this.inputValue != inputValue) {
+            this.inputValue = inputValue;
+            isInputDataChanged = true;
+        }
     }
 
     public void setResult(final String result) {
@@ -87,12 +88,49 @@ public class ViewModel {
         return scale;
     }
 
+    public List<String> getLog() {
+        return logger.getLog();
+    }
+
+    public void focusLost() {
+        logInputData();
+    }
+
     public boolean isConvertButtonEnabled() {
         return isConvertButtonEnable;
     }
 
     public void setScale(final Scale scale) {
-        this.scale = scale;
+        if (this.scale != scale) {
+            logger.log(LogMessage.SCALE_CHANGED + scale.toString());
+            this.scale = scale;
+        }
+    }
+
+    private String editingFinishedLogMessage() {
+        String message = LogMessage.EDITING_FINISHED
+                + "Input Value: ("
+                + inputValue + ")";
+
+        return message;
+    }
+
+    private void logInputData() {
+        if (!isInputDataChanged) {
+            return;
+        }
+
+        logger.log(editingFinishedLogMessage());
+        isInputDataChanged = false;
+    }
+
+    private String createConvertLogMessage() {
+        String message =
+                LogMessage.CONVERT_PRESSED
+                        + " InputValue: " + inputValue + "."
+                        + " Scale: " + scale.toString() + ".";
+
+        return message;
     }
 
     public final class Status {
@@ -104,18 +142,11 @@ public class ViewModel {
        private Status() { }
     }
 
-    public enum Scale {
-        KELVIN("Kelvin"),
-        FAHRENHEIT("Fahrenheit"),
-        NEWTON("Newton");
-        private final String name;
+    public final class LogMessage {
+        public static final String CONVERT_PRESSED = "Convert. ";
+        public static final String SCALE_CHANGED = "Scale was changed to ";
+        public static final String EDITING_FINISHED = "Updated input. ";
 
-        private Scale(final String name) {
-            this.name = name;
-        }
-
-        public String toString() {
-            return name;
-        }
+        private LogMessage() { }
     }
 }

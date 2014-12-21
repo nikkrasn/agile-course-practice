@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':karsakov-alexander-ViewModel')
+    testCompile project(':karsakov-alexander-ViewModel').sourceSets.test.output
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
+}

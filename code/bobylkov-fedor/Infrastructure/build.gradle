@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':bobylkov-fedor-ViewModel')
+    testCompile project(':bobylkov-fedor-ViewModel').sourceSets.test.output
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
+}

@@ -11,31 +11,31 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
+    private ViewModel testModel;
 
     public void setExternalViewModel(final ViewModel viewModel) {
-        this.viewModel = viewModel;
+        this.testModel = viewModel;
     }
 
     @Before
     public void setUp() {
-        if (viewModel == null) {
-            viewModel = new ViewModel(new FakeLogger());
+        if (testModel == null) {
+            testModel = new ViewModel(new FakeLogger());
         }
     }
 
     @After
     public void tearDown() {
-        viewModel = null;
+        testModel = null;
     }
 
     @Test
     public void canSetDefaultValues() {
-        assertEquals("", viewModel.inputNumberProperty().get());
-        assertEquals(Notation.BINARY, viewModel.inputNotationProperty().get());
-        assertEquals(Notation.DECIMAL, viewModel.outputNotationProperty().get());
-        assertEquals("", viewModel.outputNumberProperty().get());
-        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals("", testModel.inputNumberProperty().get());
+        assertEquals(Notation.BINARY, testModel.inputNotationProperty().get());
+        assertEquals(Notation.DECIMAL, testModel.outputNotationProperty().get());
+        assertEquals("", testModel.outputNumberProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), testModel.statusProperty().get());
     }
 
     @Test
@@ -48,131 +48,138 @@ public class ViewModelTests {
 
     @Test
     public void statusIsWaitingWhenConvertWithEmptyFields() {
-        viewModel.convert();
+        testModel.convert();
 
-        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), testModel.statusProperty().get());
     }
 
     private void setInputData() {
-        viewModel.inputNumberProperty().set("1");
-        viewModel.inputNotationProperty().set(Notation.BINARY);
-        viewModel.outputNotationProperty().set(Notation.DECIMAL);
+        testModel.inputNumberProperty().set("1");
+        testModel.inputNotationProperty().set(Notation.BINARY);
+        testModel.outputNotationProperty().set(Notation.DECIMAL);
     }
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setInputData();
 
-        assertEquals(InputStatus.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.READY.toString(), testModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
-        viewModel.inputNumberProperty().set("f");
+        testModel.inputNumberProperty().set("f");
 
-        assertEquals(InputStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.BAD_FORMAT.toString(), testModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.inputNotationProperty().set(Notation.OCTAL);
-        viewModel.outputNotationProperty().set(Notation.BINARY);
+        testModel.inputNotationProperty().set(Notation.OCTAL);
+        testModel.outputNotationProperty().set(Notation.BINARY);
 
-        assertEquals(InputStatus.WAITING.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.WAITING.toString(), testModel.statusProperty().get());
     }
 
     @Test
     public void convertButtonIsDisabledInitially() {
-        assertTrue(viewModel.convertDisabledProperty().get());
+        assertTrue(testModel.convertDisabledProperty().get());
     }
 
     @Test
     public void convertButtonIsDisabledWhenFormatIsBad() {
         setInputData();
-        viewModel.inputNumberProperty().set("12y");
+        testModel.inputNumberProperty().set("12y");
 
-        assertTrue(viewModel.convertDisabledProperty().get());
+        assertTrue(testModel.convertDisabledProperty().get());
     }
 
     @Test
     public void convertButtonIsDisabledWithIncompleteInput() {
-        viewModel.inputNotationProperty().set(Notation.HEXADECIMAL);
-        viewModel.outputNotationProperty().set(Notation.OCTAL);
+        testModel.inputNotationProperty().set(Notation.HEXADECIMAL);
+        testModel.outputNotationProperty().set(Notation.OCTAL);
 
-        assertTrue(viewModel.convertDisabledProperty().get());
+        assertTrue(testModel.convertDisabledProperty().get());
     }
 
     @Test
     public void convertButtonIsEnabledWithCorrectInput() {
         setInputData();
 
-        assertFalse(viewModel.convertDisabledProperty().get());
+        assertFalse(testModel.convertDisabledProperty().get());
     }
 
     @Test
     public void canSetInputNotation() {
-        viewModel.inputNotationProperty().set(Notation.OCTAL);
-        assertEquals(Notation.OCTAL, viewModel.inputNotationProperty().get());
+        testModel.inputNotationProperty().set(Notation.OCTAL);
+        assertEquals(Notation.OCTAL, testModel.inputNotationProperty().get());
     }
 
     @Test
     public void canSetOutputNotation() {
-        viewModel.outputNotationProperty().set(Notation.DECIMAL);
-        assertEquals(Notation.DECIMAL, viewModel.outputNotationProperty().get());
+        testModel.outputNotationProperty().set(Notation.DECIMAL);
+        assertEquals(Notation.DECIMAL, testModel.outputNotationProperty().get());
     }
 
     @Test
     public void binaryIsDefaultInputNotation() {
-        assertEquals(Notation.BINARY, viewModel.inputNotationProperty().get());
+        assertEquals(Notation.BINARY, testModel.inputNotationProperty().get());
     }
 
     @Test
     public void decimalIsDefaultOutputNotation() {
-        assertEquals(Notation.DECIMAL, viewModel.outputNotationProperty().get());
+        assertEquals(Notation.DECIMAL, testModel.outputNotationProperty().get());
     }
 
     @Test
     public void covertHasCorrectResult() {
-        viewModel.inputNumberProperty().set("1.1");
-        viewModel.inputNotationProperty().set(Notation.BINARY);
-        viewModel.outputNotationProperty().set(Notation.DECIMAL);
+        testModel.inputNumberProperty().set("1.1");
+        testModel.inputNotationProperty().set(Notation.BINARY);
+        testModel.outputNotationProperty().set(Notation.DECIMAL);
 
-        viewModel.convert();
+        testModel.convert();
 
-        assertEquals("1.5", viewModel.outputNumberProperty().get());
+        assertEquals("1.5", testModel.outputNumberProperty().get());
     }
 
     @Test
     public void canSetSuccessMessage() {
         setInputData();
 
-        viewModel.convert();
+        testModel.convert();
 
-        assertEquals(InputStatus.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.SUCCESS.toString(), testModel.statusProperty().get());
     }
 
     @Test
     public void canSetBadFormatMessage() {
-        viewModel.inputNumberProperty().set("smthng");
+        testModel.inputNumberProperty().set("smthng");
 
-        assertEquals(InputStatus.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.BAD_FORMAT.toString(), testModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setInputData();
 
-        assertEquals(InputStatus.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(InputStatus.READY.toString(), testModel.statusProperty().get());
+    }
+
+    @Test
+    public void startLogIsEmpty() {
+        List<String> log = testModel.getLog();
+
+        assertTrue(log.isEmpty());
     }
 
     @Test
     public void convertToHexadecimalHasCorrectResult() {
-        viewModel.inputNumberProperty().set("10.7");
-        viewModel.inputNotationProperty().set(Notation.OCTAL);
-        viewModel.outputNotationProperty().set(Notation.HEXADECIMAL);
+        testModel.inputNumberProperty().set("10.7");
+        testModel.inputNotationProperty().set(Notation.OCTAL);
+        testModel.outputNotationProperty().set(Notation.HEXADECIMAL);
 
-        viewModel.convert();
-        assertEquals("8.e", viewModel.outputNumberProperty().get());
+        testModel.convert();
+        assertEquals("8.e", testModel.outputNumberProperty().get());
     }
 
     @Test
@@ -188,42 +195,35 @@ public class ViewModelTests {
     }
 
     @Test
-    public void logIsEmptyInTheBeginning() {
-        List<String> log = viewModel.getLog();
-
-        assertTrue(log.isEmpty());
-    }
-
-    @Test
     public void logContainsProperMessage() {
         setInputData();
-        viewModel.convert();
-        String message = viewModel.getLog().get(0);
+        testModel.convert();
+        String message = testModel.getLog().get(0);
 
         assertTrue(message.matches(".*" + LogMessages.CONVERT_WAS_PRESSED + ".*"));
     }
 
     @Test
     public void logContainsInputNotation() {
-        viewModel.inputNumberProperty().set("1");
+        testModel.inputNumberProperty().set("1");
 
-        viewModel.convert();
+        testModel.convert();
 
-        String message = viewModel.getLog().get(0);
-        assertTrue(message.matches(".*" + viewModel.inputNumberProperty().get() + ".*"));
+        String message = testModel.getLog().get(0);
+        assertTrue(message.matches(".*" + testModel.inputNumberProperty().get() + ".*"));
     }
 
     @Test
     public void argumentsInfoFormattedProperly() {
         setInputData();
 
-        viewModel.convert();
+        testModel.convert();
 
-        String message = viewModel.getLog().get(0);
+        String message = testModel.getLog().get(0);
         assertTrue(message.matches(".*Arguments"
-                + ": Input Number = " + viewModel.inputNumberProperty().get()
-                + "; Input Notation = " + viewModel.inputNotationProperty().get().toString()
-                + "; Output Notation = " + viewModel.outputNotationProperty().get().toString()
+                + ": Input Number = " + testModel.inputNumberProperty().get()
+                + "; Input Notation = " + testModel.inputNotationProperty().get().toString()
+                + "; Output Notation = " + testModel.outputNotationProperty().get().toString()
                 + "."));
     }
 
@@ -231,11 +231,11 @@ public class ViewModelTests {
     public void canPutSeveralLogMessages() {
         setInputData();
 
-        viewModel.convert();
-        viewModel.convert();
-        viewModel.convert();
+        testModel.convert();
+        testModel.convert();
+        testModel.convert();
 
-        assertEquals(3, viewModel.getLog().size());
+        assertEquals(3, testModel.getLog().size());
     }
 
     @Test
@@ -243,9 +243,9 @@ public class ViewModelTests {
         setInputData();
         String position = "Input";
 
-        viewModel.onNotationChanged(Notation.BINARY, Notation.HEXADECIMAL, position);
+        testModel.onNotationChanged(Notation.BINARY, Notation.HEXADECIMAL, position);
 
-        String message = viewModel.getLog().get(0);
+        String message = testModel.getLog().get(0);
         assertTrue(message.matches(".*" + LogMessages.NOTATION_WAS_CHANGED + position + ": "
                 + "HEXADECIMAL.*"));
     }
@@ -255,9 +255,9 @@ public class ViewModelTests {
         setInputData();
         String position = "Output";
 
-        viewModel.onNotationChanged(Notation.OCTAL, Notation.DECIMAL, position);
+        testModel.onNotationChanged(Notation.OCTAL, Notation.DECIMAL, position);
 
-        String message = viewModel.getLog().get(0);
+        String message = testModel.getLog().get(0);
         assertTrue(message.matches(".*" + LogMessages.NOTATION_WAS_CHANGED + position + ": "
                 + "DECIMAL.*"));
     }
@@ -266,41 +266,41 @@ public class ViewModelTests {
     public void notationIsNotLoggedIfNotChanged() {
         String position = "Input";
 
-        viewModel.onNotationChanged(Notation.BINARY, Notation.HEXADECIMAL, position);
-        viewModel.onNotationChanged(Notation.HEXADECIMAL, Notation.HEXADECIMAL, position);
+        testModel.onNotationChanged(Notation.BINARY, Notation.HEXADECIMAL, position);
+        testModel.onNotationChanged(Notation.HEXADECIMAL, Notation.HEXADECIMAL, position);
 
-        assertEquals(1, viewModel.getLog().size());
+        assertEquals(1, testModel.getLog().size());
     }
 
     @Test
     public void convertIsNotCalledWhenButtonIsDisabled() {
-        viewModel.convert();
+        testModel.convert();
 
-        assertTrue(viewModel.getLog().isEmpty());
+        assertTrue(testModel.getLog().isEmpty());
     }
 
     @Test
     public void argumentsAreCorrectlyLogged() {
         setInputData();
 
-        viewModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
+        testModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
 
-        String message = viewModel.getLog().get(0);
+        String message = testModel.getLog().get(0);
         System.out.print(message);
         assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
                 + "Input arguments are: \\["
-                + viewModel.inputNumberProperty().get() + "; "
-                + viewModel.inputNotationProperty().get().toString() + "; "
-                + viewModel.outputNotationProperty().get().toString()  + "\\]"));
+                + testModel.inputNumberProperty().get() + "; "
+                + testModel.inputNotationProperty().get().toString() + "; "
+                + testModel.outputNotationProperty().get().toString()  + "\\]"));
     }
 
     @Test
     public void doNotLogSameParametersTwice() {
-        viewModel.inputNumberProperty().set("85");
-        viewModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
-        viewModel.inputNumberProperty().set("85");
-        viewModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
+        testModel.inputNumberProperty().set("85");
+        testModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
+        testModel.inputNumberProperty().set("85");
+        testModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
 
-        assertEquals(1, viewModel.getLog().size());
+        assertEquals(1, testModel.getLog().size());
     }
 }

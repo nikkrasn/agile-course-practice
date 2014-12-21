@@ -72,6 +72,7 @@ public class ViewModel {
     }
 
     public void focusLost() {
+        parseInput();
         logInputValueChanged();
     }
 

@@ -131,6 +131,13 @@ public class ViewModel {
         return status.get();
     }
 
+    public StringProperty logsProperty() {
+        return logs;
+    }
+    public final String getLogs() {
+        return logs.get();
+    }
+
     private String createOutputFromArray(final double[] values) {
         String output = "";
         if (values.length > 0) {

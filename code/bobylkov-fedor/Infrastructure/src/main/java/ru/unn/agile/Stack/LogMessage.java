@@ -3,18 +3,20 @@ package ru.unn.agile.Stack;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class LogMessage {
     private Date dateTime;
-    private String message;
-    private final SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private final String message;
+    private final SimpleDateFormat dateTimeFormat =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
-    public LogMessage(Date d, String s) {
+    public LogMessage(final Date d, final String s) {
         dateTime = d;
         message = s;
     }
 
-    public LogMessage(String logMessage) {
+    public LogMessage(final String logMessage) {
         String[] split = logMessage.split(" >> ");
 
         try {

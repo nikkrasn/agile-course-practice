@@ -163,10 +163,9 @@ public class ViewModelTests {
         testViewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
 
         String message = testViewModel.getLog().get(0);
-        String match =  LogMessages.INPUT_EDITING_FINISHED
-                + "Input Array: 2.0 -5 7.87 -234.5 10.0";
-        assertTrue(message.matches(".*" + LogMessages.INPUT_EDITING_FINISHED
-                + "Input Array: 2.0 -5.0 7.87 -234.5 10.0"));
+        String properMatch =  LogMessages.INPUT_EDITING_FINISHED
+                + "Input Array: 2.0 -5.0 7.87 -234.5 10.0";
+        assertTrue(message.matches(".*" + properMatch));
     }
 
     @Test
@@ -185,6 +184,7 @@ public class ViewModelTests {
 
         assertEquals(1, testViewModel.getLog().size());
     }
+
     private void setCorrectInputData() {
         testViewModel.unsortedArrayProperty().set("2.0 -5.0 7.87 -234.5 10.0");
     }

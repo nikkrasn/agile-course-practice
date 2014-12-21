@@ -74,7 +74,7 @@ public class ViewModel {
             public void changed(final ObservableValue<? extends String> observable,
                                 final String oldValue,
                                 final String newValue) {
-                log("Top changed to :" + newValue);
+                log("Top changed to: " + newValue);
             }
         });
 
@@ -91,8 +91,7 @@ public class ViewModel {
         if (isPopButtonDisabled()) {
             return;
         }
-        String popped = stack.pop();
-        log("Popped: " + popped);
+        log("Popped: " + stack.pop());
     }
 
     public void setLogger(final ILogger newLogger) {

@@ -6,11 +6,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
+    private final ViewModel viewModel = new ViewModel();
+
+    public void setLogger(final ILogger logger) {
+        viewModel.setLogger(logger);
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
         viewModel.setLogger(new FakeLogger());
     }
 
@@ -118,5 +121,31 @@ public class ViewModelTests {
     public void doesLogContainTextToPushChangedMessage() {
         viewModel.setTextToPush("new value");
         assertEquals("Text-To-Push changed to: new value", viewModel.getLog().get(0).getMessage());
+    }
+
+    @Test
+    public void doesLogContainPushedMessage() {
+        viewModel.push();
+        assertEquals("Pushed: Push me!", viewModel.getLog().get(1).getMessage());
+    }
+
+    @Test
+    public void doesLogContainTopChangedMessageAfterPush() {
+        viewModel.push();
+        assertEquals("Top changed to: Push me!", viewModel.getLog().get(0).getMessage());
+    }
+
+    @Test
+    public void doesLogContainPoppedMessage() {
+        viewModel.push();
+        viewModel.pop();
+        assertEquals("Popped: Push me!", viewModel.getLog().get(3).getMessage());
+    }
+
+    @Test
+    public void doesLogContainTopChangedMessageAfterPop() {
+        viewModel.push();
+        viewModel.pop();
+        assertEquals("Top changed to: ", viewModel.getLog().get(2).getMessage());
     }
 }

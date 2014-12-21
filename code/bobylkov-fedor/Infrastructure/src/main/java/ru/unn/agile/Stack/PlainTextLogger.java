@@ -1,6 +1,7 @@
 package ru.unn.agile.Stack;
 
 import ru.unn.agile.Stack.ViewModel.ILogger;
+import ru.unn.agile.Stack.ViewModel.LogMessage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class PlainTextLogger implements ILogger {
     public void log(final String message) {
         try {
             writer.write(new LogMessage(new Date(), message).toString());
+            writer.newLine();
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,8 +36,8 @@ public class PlainTextLogger implements ILogger {
     }
 
     @Override
-    public List<String> getLog() {
-        List<String> log = new ArrayList<>();
+    public List<LogMessage> getLog() {
+        List<LogMessage> log = new ArrayList<>();
 
         BufferedReader reader;
         try {
@@ -48,7 +50,7 @@ public class PlainTextLogger implements ILogger {
         String line;
         try {
             while ((line = reader.readLine()) != null) {
-                log.add(line);
+                log.add(new LogMessage(line));
             }
         } catch (IOException e) {
             e.printStackTrace();

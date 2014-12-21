@@ -1,6 +1,9 @@
 package ru.unn.agile.ConverterWeight.viewmodel;
 
 import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
+
+import java.util.List;
+
 import static ru.unn.agile.ConverterWeight.Model.ConverterWeight.converter;
 
 public class ViewModel {
@@ -10,14 +13,34 @@ public class ViewModel {
     private UnitWeight valueUnit;
     private UnitWeight resultUnit;
     private boolean convertButton;
+    private boolean isInputChanged;
+    private ILogger logger;
 
-    public ViewModel() {
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger is don't null");
+        }
+
         value = "";
         result = "";
         status = Status.WAITING;
         valueUnit = UnitWeight.GRAMM;
         resultUnit = UnitWeight.GRAMM;
         convertButton = false;
+        this.logger = logger;
+    }
+
+    public void editingParams() {
+        if (isInputChanged) {
+            logger.log(Messages.EDITING_FINISHED + "Input argument are: " + value);
+            isInputChanged = false;
+        }
+
+
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
     }
 
     public String getValue() {
@@ -25,7 +48,10 @@ public class ViewModel {
     }
 
     public void setValue(final String value) {
-        this.value = value;
+        if (this.value != value) {
+            this.value = value;
+            isInputChanged = true;
+        }
     }
 
     public String getResult() {
@@ -53,14 +79,21 @@ public class ViewModel {
     }
 
     public void setValueUnit(final UnitWeight valueUnit) {
-        this.valueUnit = valueUnit;
+        if (this.valueUnit != valueUnit) {
+            logger.log(Messages.VALUE_UNIT_WEIGHT_WAS_CHANGED + valueUnit.toString());
+            this.valueUnit = valueUnit;
+        }
     }
 
     public void setResultUnit(final UnitWeight resultUnit) {
-        this.resultUnit = resultUnit;
+        if (this.resultUnit != resultUnit) {
+            logger.log(Messages.RESULT_UNIT_WEIGHT_WAS_CHANGED + resultUnit.toString());
+            this.resultUnit = resultUnit;
+        }
     }
 
     public void convert() {
+        logger.log(convertLogMessage());
         prepareForConvert();
 
         if (status == Status.READY && convertButton) {
@@ -73,6 +106,13 @@ public class ViewModel {
                 status = Status.LARGE;
             }
         }
+    }
+
+    private String convertLogMessage() {
+        String message = Messages.PRESSED_TO_CONVERT + "Value = " + value + "."
+                        + " Value unit: " + valueUnit.toString()
+                        + " convert to: "+ resultUnit.toString() + ".";
+       return message;
     }
 
     public boolean isRightValue() {
@@ -106,5 +146,17 @@ public class ViewModel {
         public static final String LARGE = "A large number in result";
 
         private Status() { }
+    }
+
+    public final class Messages {
+        public static final String PRESSED_TO_CONVERT = "Converting. ";
+        public static final String VALUE_UNIT_WEIGHT_WAS_CHANGED =
+                                                "Value unit weight was changed to ";
+        public static final String RESULT_UNIT_WEIGHT_WAS_CHANGED =
+                                                "Value unit weight was changed to ";
+        public static final String EDITING_FINISHED = "Updated input. ";
+        public static final String CONVERTING_FINISHED = "Converting performed ";
+
+        private Messages() { }
     }
 }

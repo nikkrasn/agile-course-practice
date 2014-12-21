@@ -5,15 +5,18 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel.Status;
 import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
+import java.util.List;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static ru.unn.agile.ConverterWeight.viewmodel.RegexMatcher.matchesPattern;
 
 public class ViewModelTests {
     private ViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeLogger logger = new FakeLogger();
+        viewModel = new ViewModel(logger);
     }
 
     @After
@@ -356,5 +359,194 @@ public class ViewModelTests {
         viewModel.setResultUnit(UnitWeight.GRAMM);
         viewModel.convert();
         assertEquals(Status.LARGE,  viewModel.getStatus());
+    }
+
+    @Test
+    public void canCreateViewModelWithLogger() {
+        FakeLogger logger = new FakeLogger();
+        ViewModel viewModelLogged = new ViewModel(logger);
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test
+    public void createViewModelWithNullReturnException() {
+        try {
+            new ViewModel(null);
+            fail("is not exception");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Logger is don't null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("Invalid exception type");
+        }
+    }
+
+    @Test
+    public void isEmptyLogInTheBeginning() {
+        List<String> log = viewModel.getLog();
+        assertEquals(0, log.size());
+    }
+
+    @Test
+    public void isConvertWritesLog() {
+        viewModel.convert();
+
+        List<String> log = viewModel.getLog();
+        assertNotEquals(0, log.size());
+    }
+
+    @Test
+    public void isPressingButtonWritesInLog() {
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message,
+                matchesPattern(".*" + ViewModel.Messages.PRESSED_TO_CONVERT + ".*"));
+    }
+
+    @Test
+    public void isWritesInputValueInLog() {
+        viewModel.setValue("1");
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + viewModel.getValue() + ".*"));
+    }
+
+    @Test
+    public void isWritesValueUnitGrammInLog() {
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*GRAMM.*"));
+    }
+
+    @Test
+    public void isWritesValueUnitKilogramInLog() {
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*KILOGRAM.*"));
+    }
+
+    @Test
+    public void isWritesValueUnitCentnerInLog() {
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*CENTNER.*"));
+    }
+
+    @Test
+    public void isWritesValueUnitTonInLog() {
+        viewModel.setValueUnit(UnitWeight.TON);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*TON.*"));
+    }
+
+    @Test
+    public void isWritesResultUnitGrammInLog() {
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*GRAMM.*"));
+    }
+
+    @Test
+    public void isWritesResultUnitKilogramInLog() {
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*KILOGRAM.*"));
+    }
+
+    @Test
+    public void isWritesResultUnitCentnerInLog() {
+        viewModel.setValueUnit(UnitWeight.CENTNER);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*CENTNER.*"));
+    }
+
+    @Test
+    public void isWritesResultUnitTonInLog() {
+        viewModel.setValueUnit(UnitWeight.TON);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*TON.*"));
+    }
+
+    @Test
+    public void isWritesInfoAboutArgumentsInLog() {
+        viewModel.setValue("1");
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(ViewModel.Messages.PRESSED_TO_CONVERT
+                + "Value = " + viewModel.getValue() + "."
+                + " Value unit: " + viewModel.getValueUnit()
+                + " convert to: "+ viewModel.getValueUnit() + "."));
+    }
+
+    @Test
+    public void canWtitesSeveralMessagesInLog() {
+        viewModel.setValue("1");
+        viewModel.convert();
+        viewModel.convert();
+        assertEquals(2, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isNotWritesInLogWhenNotChangedValueUnit() {
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        viewModel.setValueUnit(UnitWeight.GRAMM);
+        assertEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isWritesInLogWhenChangedValueUnit() {
+        viewModel.setValueUnit(UnitWeight.KILOGRAMM);
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isNotWritesInLogWhenNotChangedResultUnit() {
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        viewModel.setResultUnit(UnitWeight.GRAMM);
+        assertEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isWritesInLogWhenNotChangedResultUnit() {
+        viewModel.setResultUnit(UnitWeight.KILOGRAMM);
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isWritesEditingParamsInLog() {
+        viewModel.setValue("1");
+        viewModel.editingParams();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + ViewModel.Messages.EDITING_FINISHED + ".*"));
+    }
+
+    @Test
+    public void isNotWritesInLogWhenInputParametersTwice() {
+        viewModel.setValue("1");
+        viewModel.setValue("1");
+        viewModel.editingParams();
+        viewModel.editingParams();
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + ViewModel.Messages.EDITING_FINISHED + ".*"));
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void areArgumentsCorrectlyLoggedOnEditingFinish() {
+        viewModel.setValue("1");
+        viewModel.editingParams();
+
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + ViewModel.Messages.EDITING_FINISHED
+                                                + "Input argument are: "
+                                                + viewModel.getValue()));
     }
 }

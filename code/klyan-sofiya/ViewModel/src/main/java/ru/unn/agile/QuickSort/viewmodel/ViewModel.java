@@ -33,8 +33,7 @@ public class ViewModel {
         initialize();
     }
 
-    private void initialize ()
-    {
+    private void initialize() {
         unsortedValues.set("");
         sortedValues.set("");
         status.set(Status.WAITING.toString());
@@ -80,13 +79,13 @@ public class ViewModel {
         return logger.getLog();
     }
 
-    private void appendInputMessage (final String initMsg) {
+    private void appendInputMessage(final String initMsg) {
         StringBuilder message = new StringBuilder(initMsg);
         message.append("Input Array: ");
         for (double value: unsortedArray) {
             message.append(value + " ");
         }
-        message.deleteCharAt(message.length()-1);
+        message.deleteCharAt(message.length() - 1);
         logger.log(message.toString());
         updateLogs();
     }

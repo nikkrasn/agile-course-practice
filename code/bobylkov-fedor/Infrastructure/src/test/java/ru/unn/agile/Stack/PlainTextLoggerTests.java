@@ -28,7 +28,7 @@ public class PlainTextLoggerTests {
         try {
             new FileReader(logFilename);
         } catch (FileNotFoundException e) {
-            fail(String.format("Log file '{0}' was not found", logFilename));
+            fail(String.format("Log file '%s' was not found", logFilename));
         }
     }
 
@@ -36,6 +36,10 @@ public class PlainTextLoggerTests {
     public void canLogMessage() {
         logger.log("message");
 
-        assertEquals("message", logger.getLog().get(0));
+        assertLogMessageEquals("message", logger.getLog().get(0));
+    }
+
+    private void assertLogMessageEquals(final String expected, final String actual) {
+        assertTrue(new LogMessage(actual).getMessage().equals(expected));
     }
 }

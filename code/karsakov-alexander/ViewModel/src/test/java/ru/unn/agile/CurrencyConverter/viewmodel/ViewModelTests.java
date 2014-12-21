@@ -144,6 +144,13 @@ public class ViewModelTests {
         new ViewModel(null);
     }
 
+    @Test
+    public void logIsEmptyAfterConstruction() {
+        String log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
     private void setInputData() {
         viewModel.inputValueProperty().set("10");
     }

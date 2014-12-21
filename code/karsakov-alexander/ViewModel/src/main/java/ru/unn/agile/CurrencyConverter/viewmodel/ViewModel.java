@@ -33,6 +33,8 @@ public class ViewModel {
     private final StringProperty status =
             new SimpleStringProperty(ViewModelStatus.WAITING.toString());
 
+    private final StringProperty log = new SimpleStringProperty("");
+
     private ILogger logger;
 
     private void init() {
@@ -132,6 +134,14 @@ public class ViewModel {
 
     public final String getStatus() {
         return status.get();
+    }
+
+    public StringProperty logProperty() {
+        return log;
+    }
+
+    public final String getLog() {
+        return log.get();
     }
 
     public void setLogger(ILogger logger) {

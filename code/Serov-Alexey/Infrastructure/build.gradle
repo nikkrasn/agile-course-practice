@@ -1,6 +1,6 @@
 dependencies {
     compile project(':serov-alexey-ViewModel')
-    compile project(':Serov-Alexey-Infrastructure')
+    testCompile project(':serov-alexey-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

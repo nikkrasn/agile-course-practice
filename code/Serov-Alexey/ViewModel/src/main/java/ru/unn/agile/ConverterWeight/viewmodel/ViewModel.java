@@ -1,9 +1,7 @@
 package ru.unn.agile.ConverterWeight.viewmodel;
 
 import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
-
 import java.util.List;
-
 import static ru.unn.agile.ConverterWeight.Model.ConverterWeight.converter;
 
 public class ViewModel {
@@ -14,7 +12,7 @@ public class ViewModel {
     private UnitWeight resultUnit;
     private boolean convertButton;
     private boolean isInputChanged;
-    private ILogger logger;
+    private final ILogger logger;
 
     public ViewModel(final ILogger logger) {
         if (logger == null) {
@@ -35,9 +33,7 @@ public class ViewModel {
             logger.log(Messages.EDITING_FINISHED + "Input argument are: " + value);
             isInputChanged = false;
         }
-
-
-    }
+   }
 
     public List<String> getLog() {
         return logger.getLog();
@@ -108,13 +104,6 @@ public class ViewModel {
         }
     }
 
-    private String convertLogMessage() {
-        String message = Messages.PRESSED_TO_CONVERT + "Value = " + value + "."
-                        + " Value unit: " + valueUnit.toString()
-                        + " convert to: "+ resultUnit.toString() + ".";
-       return message;
-    }
-
     public boolean isRightValue() {
         try {
             if (value.isEmpty()) {
@@ -138,6 +127,13 @@ public class ViewModel {
         }
     }
 
+    private String convertLogMessage() {
+        String message = Messages.PRESSED_TO_CONVERT + "Value = " + value + "."
+                + " Value unit: " + valueUnit.toString()
+                + " convert to: " + resultUnit.toString() + ".";
+        return message;
+    }
+
     public final class Status {
         public static final String WAITING = "Please, input value";
         public static final String BAD_FORMAT = "Bad format";
@@ -153,9 +149,8 @@ public class ViewModel {
         public static final String VALUE_UNIT_WEIGHT_WAS_CHANGED =
                                                 "Value unit weight was changed to ";
         public static final String RESULT_UNIT_WEIGHT_WAS_CHANGED =
-                                                "Value unit weight was changed to ";
+                                                "Result unit weight was changed to ";
         public static final String EDITING_FINISHED = "Updated input. ";
-        public static final String CONVERTING_FINISHED = "Converting performed ";
 
         private Messages() { }
     }

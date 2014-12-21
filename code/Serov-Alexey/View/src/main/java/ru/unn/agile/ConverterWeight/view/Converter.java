@@ -1,12 +1,11 @@
 package ru.unn.agile.ConverterWeight.view;
 
+import ru.unn.agile.ConverterWeight.Infrastructure.LoggerTxt;
 import ru.unn.agile.ConverterWeight.viewmodel.ViewModel;
 import ru.unn.agile.ConverterWeight.Model.ConverterWeight.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.util.List;
 
 public final class Converter {
     private ViewModel viewModel;
@@ -17,10 +16,12 @@ public final class Converter {
     private JTextField txtStatusWindow;
     private JComboBox<UnitWeight> cbSourceUnit;
     private JComboBox<UnitWeight> cbEndUnit;
+    private JList<String> listLog;
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("ConverterWeight");
-        frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
+        LoggerTxt logger = new LoggerTxt("./Converter.log");
+        frame.setContentPane(new Converter(new ViewModel(logger)).mainJPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.pack();
@@ -67,6 +68,15 @@ public final class Converter {
             }
         };
 
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(final FocusEvent e) {
+                bind();
+                viewModel.editingParams();
+                backBind();
+            }
+        };
+
+        txtValues.addFocusListener(focusLostListener);
         txtValues.addKeyListener(keyListener);
     }
 
@@ -80,7 +90,10 @@ public final class Converter {
         btnConvert.setEnabled(viewModel.isConvertButton());
         txtResult.setText(viewModel.getResult());
         txtStatusWindow.setText(viewModel.getStatus());
-    }
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        listLog.setListData(items);
+       }
 
     private void loadListOfUnitWeight() {
         UnitWeight[] unitWeights = UnitWeight.values();

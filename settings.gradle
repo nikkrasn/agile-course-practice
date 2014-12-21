@@ -213,6 +213,9 @@ include "code/Serov-Alexey/View"
 project(":code/Serov-Alexey/View").name = "serov-alexey-View"
 include "code/Serov-Alexey/ViewModel"
 project(":code/Serov-Alexey/ViewModel").name = "serov-alexey-ViewModel"
+include "code/Serov-Alexey/Infrastructure"
+project(":code/Serov-Alexey/Infrastructure").name = "Serov-Alexey-Infrastructure"
+
 
 // Sharov Egor
 include "code/Sharov-Egor/Model"

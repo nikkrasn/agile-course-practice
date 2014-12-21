@@ -13,6 +13,10 @@ import static ru.unn.agile.ConverterWeight.viewmodel.RegexMatcher.matchesPattern
 public class ViewModelTests {
     private ViewModel viewModel;
 
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
         FakeLogger logger = new FakeLogger();
@@ -479,10 +483,9 @@ public class ViewModelTests {
         viewModel.setValue("1");
         viewModel.convert();
         String message = viewModel.getLog().get(0);
-        assertThat(message, matchesPattern(ViewModel.Messages.PRESSED_TO_CONVERT
-                + "Value = " + viewModel.getValue() + "."
-                + " Value unit: " + viewModel.getValueUnit()
-                + " convert to: "+ viewModel.getValueUnit() + "."));
+        assertThat(message, matchesPattern(".*Value = " + viewModel.getValue() + "."
+                                            + " Value unit: " + viewModel.getValueUnit()
+                                            + " convert to: " + viewModel.getValueUnit() + "."));
     }
 
     @Test

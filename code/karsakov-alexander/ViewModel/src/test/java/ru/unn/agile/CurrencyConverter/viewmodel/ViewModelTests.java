@@ -8,6 +8,7 @@ import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -153,22 +154,45 @@ public class ViewModelTests {
 
     @Test
     public void logContainsEventMessageWhenCorrectInputValue() {
-        String expectedMessage = "Event: New input value: 10";
-
         setInputData();
         String logMessages = viewModel.getLog();
 
-        assertNotEquals(logMessages.indexOf(expectedMessage), -1);
+        assertNotEquals(logMessages.indexOf("Event: New input value: 10"), -1);
     }
 
     @Test
     public void logContainsErrorMessageWhenIncorrectInputValue() {
-        String expectedMessage = "Error: Incorrect input value: incorrect";
-
         viewModel.inputValueProperty().set("incorrect");
         String logMessages = viewModel.getLog();
 
-        assertNotEquals(logMessages.indexOf(expectedMessage), -1);
+        assertNotEquals(logMessages.indexOf("Error: Incorrect input value"), -1);
+    }
+
+    @Test
+    public void logContainsEventMessageAfterConvertOperation() {
+        setInputData();
+        viewModel.convert();
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf("Converting is done. Result: "), -1);
+    }
+
+    @Test
+    public void logContainsEventMessageWhenConversionModeIsChanged() {
+        viewModel.onCurrencyConvertModeChanged(currencyList.get(CurrencyIndexes.RUB.getIndex()),
+                                               currencyList.get(CurrencyIndexes.EUR.getIndex()));
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf("Currency conversion mode is changed."), -1);
+    }
+
+    @Test
+    public void logNotContainEventMessageWhenCurrencyNotChanged() {
+        viewModel.onCurrencyConvertModeChanged(currencyList.get(CurrencyIndexes.RUB.getIndex()),
+                                               currencyList.get(CurrencyIndexes.RUB.getIndex()));
+        String logMessages = viewModel.getLog();
+
+        assertEquals(logMessages.indexOf("Currency conversion mode is changed."), -1);
     }
 
     private void setInputData() {

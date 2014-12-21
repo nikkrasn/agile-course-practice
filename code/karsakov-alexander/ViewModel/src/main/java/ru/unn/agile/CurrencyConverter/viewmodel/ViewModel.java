@@ -171,6 +171,17 @@ public class ViewModel {
         result.set(String.format("%.5f", convertedMoney.getAmount()));
         resultCurrency.set(toCurrency.get().getCharCode());
         status.set(ViewModelStatus.SUCCESS.toString());
+        logger.logEvent("Converting is done. Result: " + getResult());
+        updateLog();
+    }
+
+    public void onCurrencyConvertModeChanged(final Currency oldValue, final Currency newValue) {
+        if (oldValue == newValue)
+            return;
+        String logMessage = "Currency conversion mode is changed. Current conversion mode is: " +
+                fromCurrency.get().getCharCode() + " -> " + toCurrency.get().getCharCode();
+        logger.logEvent(logMessage);
+        updateLog();
     }
 
     private void updateLog() {

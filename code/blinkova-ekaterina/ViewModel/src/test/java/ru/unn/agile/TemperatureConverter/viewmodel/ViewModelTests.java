@@ -14,23 +14,23 @@ import static ru.unn.agile.TemperatureConverter.viewmodel.RegexMatcher.matchesPa
 public class ViewModelTests {
     private ViewModel viewModel;
 
-    public void setViewModel(final ViewModel viewModel) {
-        this.viewModel = viewModel;
+    public void setViewModel(final ViewModel thisViewModel) {
+        viewModel = thisViewModel;
     }
 
     @Before
     public void setUp() {
-        FakeLogger logger = new FakeLogger();
-        viewModel = new ViewModel(logger);
+        FakeLogger fakeLogger = new FakeLogger();
+        viewModel = new ViewModel(fakeLogger);
     }
 
     @After
-    public void tearDown() {
+    public void takeDown() {
         viewModel = null;
     }
 
     @Test
-    public void canSetDefaultValues() {
+    public void canSetAllDefaultValues() {
         assertEquals("", viewModel.getInputValue());
         assertEquals("", viewModel.getResult());
         assertEquals(Status.WAITING, viewModel.getStatus());

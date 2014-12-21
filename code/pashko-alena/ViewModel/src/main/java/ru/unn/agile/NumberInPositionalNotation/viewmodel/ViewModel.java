@@ -27,8 +27,25 @@ public class ViewModel {
     private final StringProperty outputNumber = new SimpleStringProperty();
 
     private final List<NumberInPosNotationListener> valueChangedListeners = new ArrayList<>();
+    private ILogger logger;
+    private final StringProperty logs = new SimpleStringProperty();
 
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
     public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    private void init() {
         inputNumber.set("");
         inputNotation.set(Notation.BINARY);
         outputNotation.set(Notation.DECIMAL);
@@ -58,7 +75,6 @@ public class ViewModel {
             valueChangedListeners.add(listener);
         }
     }
-
     public void convert() {
         if (convertDisabled.get()) {
             return;
@@ -70,6 +86,58 @@ public class ViewModel {
 
         outputNumber.set(output.getValue());
         status.set(InputStatus.SUCCESS.toString());
+
+        StringBuilder message = new StringBuilder(LogMessages.CONVERT_WAS_PRESSED);
+        message.append("Arguments")
+                .append(": Input Number = ").append(inputNumber.get())
+                .append("; Input Notation = ").append(inputNotation.get().toString())
+                .append("; Output Notation = ").append(outputNotation.get().toString()).append(".");
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onNotationChanged(final Notation oldValue, final Notation newValue,
+                                  final String position) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.NOTATION_WAS_CHANGED);
+        message.append(position);
+        message.append(": ");
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
+    public void changedArguments(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (NumberInPosNotationListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Input arguments are: [")
+                        .append(inputNumber.get()).append("; ")
+                        .append(inputNotation.get().toString()).append("; ")
+                        .append(outputNotation.get().toString()).append("]");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
     }
 
     public StringProperty inputNumberProperty() {
@@ -108,6 +176,17 @@ public class ViewModel {
         return outputNumber.get();
     }
 
+    public final List<String> getLog() {
+        return logger.getLog();
+    }
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
     public final ObservableList<Notation> getNotations() {
         inputNotationStr.set(inputNotation.toString());
         return notations.get();
@@ -135,10 +214,23 @@ public class ViewModel {
 
 
     private class NumberInPosNotationListener implements ChangeListener<String> {
+        private String prevValue = new String();
+        private String curValue = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
             status.set(getInputStatus().toString());
+            curValue = newValue;
+        }
+
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+        public void cache() {
+            prevValue = curValue;
         }
     }
 }
@@ -158,4 +250,11 @@ enum InputStatus {
     public String toString() {
         return name;
     }
+}
+final class LogMessages {
+    public static final String CONVERT_WAS_PRESSED = "Convert. ";
+    public static final String NOTATION_WAS_CHANGED = "Notation was changed to ";
+    public static final String EDITING_FINISHED = "Updated input. ";
+
+    private LogMessages() { }
 }

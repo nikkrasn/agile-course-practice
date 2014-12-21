@@ -167,6 +167,8 @@ include "code/pashko-alena/View"
 project(":code/pashko-alena/View").name = "pashko-alena-View"
 include "code/pashko-alena/ViewModel"
 project(":code/pashko-alena/ViewModel").name = "pashko-alena-ViewModel"
+include "code/pashko-alena/Infrastructure"
+project(":code/pashko-alena/Infrastructure").name = "pashko-alena-Infrastructure"
 
 // Pogorelsky Iliya
 include "code/pogorelsky-iliya/Model"

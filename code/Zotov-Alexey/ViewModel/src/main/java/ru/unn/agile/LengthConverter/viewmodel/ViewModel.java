@@ -81,10 +81,10 @@ public class ViewModel {
         try {
             output = LengthConverter.convertFromTo(inputMeasure, outputMeasure, input);
             result = String.valueOf(output);
-            logger.log("result is too huge");
+            logger.log("Result: " + result + ";");
         } catch (IllegalArgumentException e) {
             result = "result is too huge";
-            logger.log("result is too huge");
+            logger.log("Result is too huge;");
         }
     }
 

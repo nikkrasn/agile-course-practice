@@ -3,9 +3,12 @@ package ru.unn.agile.Stack;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Stack.ViewModel.ILogger;
+import ru.unn.agile.Stack.ViewModel.LogMessage;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -34,12 +37,28 @@ public class PlainTextLoggerTests {
 
     @Test
     public void canLogMessage() {
-        logger.log("message");
-
-        assertLogMessageEquals("message", logger.getLog().get(0));
+        String message = "message";
+        logger.log(message);
+        assertEquals(message, logger.getLog().get(0).getMessage());
     }
 
-    private void assertLogMessageEquals(final String expected, final String actual) {
-        assertTrue(new LogMessage(actual).getMessage().equals(expected));
+    @Test
+    public void canLogManyMessages() {
+        String[] messages = {"message1", "message2"};
+
+        logger.log(messages[0]);
+        logger.log(messages[1]);
+
+        List<LogMessage> logMessages = logger.getLog();
+        for (int i = 0; i < logMessages.size(); i++) {
+            assertEquals(messages[i], logMessages.get(i).getMessage());
+        }
+    }
+
+    @Test
+    public void checkLogMessageHasDateTime() {
+        String message = "message";
+        logger.log(message);
+        assertTrue(new Date().after(logger.getLog().get(0).getDateTime()));
     }
 }

@@ -33,8 +33,9 @@ public class ViewModel {
     private final StringProperty status =
             new SimpleStringProperty(ViewModelStatus.WAITING.toString());
 
-    // FXML needs default c-tor for binding
-    public ViewModel() {
+    private ILogger logger;
+
+    private void init() {
         ICurrencyProvider provider = new FixedCurrencyProvider();
         ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
         fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
@@ -62,6 +63,15 @@ public class ViewModel {
             }
         };
         inputValue.addListener(inputValueListener);
+    }
+
+    public ViewModel() {
+        init();
+    }
+
+    public ViewModel(ILogger logger) {
+        init();
+        setLogger(logger);
     }
 
     public StringProperty inputValueProperty() {
@@ -122,6 +132,13 @@ public class ViewModel {
 
     public final String getStatus() {
         return status.get();
+    }
+
+    public void setLogger(ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger can't be null");
+        }
+        this.logger = logger;
     }
 
     public void convert() {

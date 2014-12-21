@@ -139,6 +139,11 @@ public class ViewModelTests {
         assertEquals(ViewModelStatus.READY.toString(), viewModel.getStatus());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void constructorThrowsExceptionWithNullLogger() {
+        new ViewModel(null);
+    }
+
     private void setInputData() {
         viewModel.inputValueProperty().set("10");
     }

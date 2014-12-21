@@ -3,7 +3,7 @@ package ru.unn.agile.CurrencyConverter.viewmodel;
 import java.util.ArrayList;
 
 public interface ILogger {
-    void logMessage(String msg);
+    void logEvent(String msg);
     void logError(String msg);
 
     String getLastLogMessage();

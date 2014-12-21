@@ -47,19 +47,6 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void canWriteSeveralLogMessage() {
-        String[] messages = {"1-st message", "2-nd message"};
-
-        testTxtLogger.log(messages[0]);
-        testTxtLogger.log(messages[1]);
-
-        List<String> actualMessages = testTxtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
-        }
-    }
-
-    @Test
     public void doesLogContainDateAndTime() {
         String testMessage = "1-st message";
 
@@ -67,5 +54,18 @@ public class TxtLoggerTests {
 
         String message = testTxtLogger.getLog().get(0);
         assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
+    }
+
+    @Test
+    public void canWriteSeveralLogMessage() {
+        String[] messages = {"1-st message", "2-nd message"};
+
+        testTxtLogger.log(messages[0]);
+        testTxtLogger.log(messages[1]);
+
+        List<String> logMessages = testTxtLogger.getLog();
+        for (int i = 0; i < logMessages.size(); i++) {
+            assertThat(logMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+        }
     }
 }

@@ -31,19 +31,19 @@ public class LoggerTxt implements ILogger {
     @Override
     public List<String> getLog() {
         BufferedReader logReader;
-        ArrayList<String> log = new ArrayList<String>();
+        ArrayList<String> logMessages = new ArrayList<String>();
         try {
             logReader = new BufferedReader(new FileReader(file));
             String line = logReader.readLine();
 
             while (line != null) {
-                log.add(line);
+                logMessages.add(line);
                 line = logReader.readLine();
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return log;
+        return logMessages;
     }
 
     @Override

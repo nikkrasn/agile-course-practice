@@ -37,4 +37,3 @@ class Newton extends TemperatureConverter {
             return CTON * input;
         }
     }
-

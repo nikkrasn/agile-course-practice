@@ -16,10 +16,10 @@ public class RegexpMatcher extends BaseMatcher {
         descr.appendText(regexp);
     }
 
-    public static Matcher<? super String> matchesPattern(final String regexp) {
+    public static Matcher<? super String> havePatternMatch(final String regexp) {
         RegexpMatcher matcher = new RegexpMatcher(regexp);
         @SuppressWarnings (value = "unchecked")
-        Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;
+        Matcher<? super String> castedMatcher = (Matcher<? super String>) matcher;
         return castedMatcher;
     }
 

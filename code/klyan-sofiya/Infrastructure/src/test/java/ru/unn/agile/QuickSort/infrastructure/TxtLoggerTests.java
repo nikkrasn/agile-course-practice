@@ -11,7 +11,7 @@ import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.unn.agile.QuickSort.infrastructure.RegexpMatcher.matchesPattern;
+import static ru.unn.agile.QuickSort.infrastructure.RegexpMatcher.havePatternMatch;
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLogger_Tests-lab3.log";
@@ -46,7 +46,7 @@ public class TxtLoggerTests {
         txtLogger.log(testMessage);
 
         String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + testMessage + "$"));
+        assertThat(message, havePatternMatch(".*" + testMessage + "$"));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class TxtLoggerTests {
 
         List<String> actualMessages = txtLogger.getLog();
         for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+            assertThat(actualMessages.get(i), havePatternMatch(".*" + messages[i] + "$"));
         }
     }
 
@@ -69,6 +69,6 @@ public class TxtLoggerTests {
         txtLogger.log(testMessage);
 
         String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
+        assertThat(message, havePatternMatch("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2} > .*"));
     }
 }

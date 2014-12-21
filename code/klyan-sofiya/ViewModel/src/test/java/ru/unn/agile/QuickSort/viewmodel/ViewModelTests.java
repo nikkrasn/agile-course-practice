@@ -145,32 +145,6 @@ public class ViewModelTests {
         assertTrue(message.matches(".*" + "2.0 -5.0 7.87 -234.5 10.0" + ".*"));
     }
 
-
-    /*
-    @Test
-    public void argumentsInfoIssProperlyFormatted() {
-        setCorrectInputData();
-
-        testViewModel.sort();
-
-        String message = testViewModel.getLog().get(0);
-        assertTrue(message.matches(".*Arguments"
-                + ": Re1 = " + testViewModel.re1Property().get()
-                + "; Im1 = " + testViewModel.im1Property().get()
-                + "; Re2 = " + testViewModel.re2Property().get()
-                + "; Im2 = " + testViewModel.im2Property().get() + ".*"));
-    }
-
-    @Test
-    public void operationTypeIsMentionedInTheLog() {
-        setCorrectInputData();
-
-        testViewModel.sort();
-
-        String message = testViewModel.getLog().get(0);
-        assertTrue(message.matches(".*Add.*"));
-    }
-*/
     @Test
     public void canAddSeveralLogMessages() {
         setCorrectInputData();

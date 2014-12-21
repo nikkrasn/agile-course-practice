@@ -4,17 +4,26 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.LengthConverter.Model.LengthConverter.*;
+import static ru.unn.agile.LengthConverter.viewmodel.RegexMatcher.matchesPattern;
+import java.util.List;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
 
     private ViewModel viewModel;
     public static final int ANY = 7777;
+    public static final int ENTER = 10;
+
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeLogger logger = new FakeLogger();
+        viewModel = new ViewModel(logger);
     }
 
     @After
@@ -85,15 +94,8 @@ public class ViewModelTests {
         assertEquals(false, viewModel.isConvertButtonEnabled());
     }
 
-    /*@Test
-    public void isConvertButtonDisabledWithTooLargeInput() {
-        viewModel.setInputValue("10e308");
-        viewModel.processKeyInTextField(ANY);
-        assertEquals(false, viewModel.isConvertButtonEnabled());
-    }*/
-
     @Test
-    public void isCalculateButtonDisabledWithEmptyInput() {
+    public void isConvertButtonDisabledWithEmptyInput() {
         viewModel.setInputValue("");
         viewModel.processKeyInTextField(ANY);
         assertEquals(false, viewModel.isConvertButtonEnabled());
@@ -183,4 +185,145 @@ public class ViewModelTests {
         viewModel.convert();
         assertEquals("1000.0", viewModel.getResult());
     }
+
+    @Test
+    public void canCreateViewModelWithLogger() {
+        FakeLogger logger = new FakeLogger();
+        ViewModel viewModelLogged = new ViewModel(logger);
+        assertNotNull(viewModelLogged);
+    }
+
+    @Test
+    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+        try {
+            new ViewModel(null);
+            fail("Exception wasnt thrown");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Logger parameter can't be null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("Invalid exception type");
+        }
+    }
+
+    @Test
+    public void isLogEmptyInTheBeginning() {
+        List<String> log = viewModel.getLog();
+        assertEquals(0, log.size());
+    }
+
+    @Test
+    public void isConvertPuttingSomething() {
+        viewModel.convert();
+        List<String> log = viewModel.getLog();
+        assertNotEquals(0, log.size());
+    }
+
+    @Test
+    public void isLogContainsProperMessage() {
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message,
+                matchesPattern(".*" + ViewModel.LogMessages.CONVERT_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void isLogContainsInputValue() {
+        viewModel.setInputValue("8521");
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + viewModel.getInputValue() + ".*"));
+    }
+
+    @Test
+    public void isProperlyFormattingInfoAboutInputValue() {
+        viewModel.setInputValue("8521");
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*Input Value = " + viewModel.getInputValue() + ".*"));
+    }
+
+    @Test
+    public void isInputMeasureMentionedInTheLog() {
+        viewModel.setInputMeasure(Measure.KILOMETER);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*Kilometer.*"));
+    }
+
+    @Test
+    public void isOutputMeasureMentionedInTheLog() {
+        viewModel.setOutputMeasure(Measure.MILE);
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*Mile.*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        viewModel.setInputValue("8521");
+        viewModel.convert();
+        viewModel.convert();
+        viewModel.convert();
+        assertEquals(6, viewModel.getLog().size());
+    }
+
+    @Test
+    public void canSeeInputMeasureChangeInLog() {
+        viewModel.setInputMeasure(Measure.INCH);
+        String message = viewModel.getLog().get(0);
+        assertThat(message,
+                matchesPattern(".*" + ViewModel.LogMessages.INPUT_MEASURE_WAS_CHANGED + "Inch.*"));
+    }
+
+    @Test
+    public void isOperationNotLoggedWhenNotChanged() {
+        viewModel.setInputMeasure(Measure.INCH);
+        viewModel.setInputMeasure(Measure.INCH);
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void isEditingFinishLogged() {
+        viewModel.setInputValue("8521");
+        viewModel.focusLost();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
+    }
+
+    @Test
+    public void isLogInputsCalledOnEnter() {
+        viewModel.setInputValue("8521");
+        viewModel.processKeyInTextField(ENTER);
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
+    }
+
+    @Test
+    public void isConvertNotCalledWhenButtonIsDisabled() {
+        viewModel.processKeyInTextField(ENTER);
+        assertEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwice() {
+        viewModel.setInputValue("8521");
+        viewModel.setInputValue("8521");
+        viewModel.focusLost();
+        viewModel.focusLost();
+        String message = viewModel.getLog().get(0);
+        assertThat(message, matchesPattern(".*" + ViewModel.LogMessages.EDITING_FINISHED + ".*"));
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.setInputValue("8521");
+        viewModel.setInputValue("8521");
+        viewModel.setInputValue("8521");
+        viewModel.focusLost();
+        viewModel.focusLost();
+        viewModel.focusLost();
+        assertEquals(1, viewModel.getLog().size());
+    }
+
 }

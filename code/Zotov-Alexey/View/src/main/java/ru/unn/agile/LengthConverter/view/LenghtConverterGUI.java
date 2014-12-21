@@ -1,9 +1,11 @@
 package ru.unn.agile.LengthConverter.view;
 
 import ru.unn.agile.LengthConverter.Model.LengthConverter.Measure;
+import ru.unn.agile.LengthConverter.infrastructure.TxtLogger;
 import ru.unn.agile.LengthConverter.viewmodel.ViewModel;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.List;
 
 public final class LenghtConverterGUI {
 
@@ -14,10 +16,12 @@ public final class LenghtConverterGUI {
     private JTextField txtInput;
     private JTextField txtResult;
     private ViewModel viewModel;
+    private JList<String> lstLog;
 
     public static void main(final String[] args) {
+        TxtLogger logger = new TxtLogger("./Calculator.log");
         JFrame frame = new JFrame("");
-        frame.setContentPane(new LenghtConverterGUI(new ViewModel()).mainPanel);
+        frame.setContentPane(new LenghtConverterGUI(new ViewModel(logger)).mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -68,6 +72,7 @@ public final class LenghtConverterGUI {
         FocusAdapter focusLostListener = new FocusAdapter() {
             public void focusLost(final FocusEvent e) {
                 bind();
+                viewModel.focusLost();
                 backBind();
             }
         };
@@ -77,6 +82,9 @@ public final class LenghtConverterGUI {
     private void backBind() {
         btnConvert.setEnabled(viewModel.isConvertButtonEnabled());
         txtResult.setText(viewModel.getResult());
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        lstLog.setListData(items);
     }
 
     private void loadListOfMeasures() {

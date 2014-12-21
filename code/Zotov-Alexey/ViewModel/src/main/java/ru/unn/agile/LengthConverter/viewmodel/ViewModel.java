@@ -3,15 +3,24 @@ package ru.unn.agile.LengthConverter.viewmodel;
 import ru.unn.agile.LengthConverter.Model.LengthConverter;
 import ru.unn.agile.LengthConverter.Model.LengthConverter.Measure;
 
+import java.util.List;
+
+
 public class ViewModel {
     private String inputValue;
     private Measure inputMeasure;
     private Measure outputMeasure;
     private String result;
     private boolean isConvertButtonEnabled;
+    private boolean isInputChanged;
+    private final ILogger logger;
     public static final int ENTER = 10;
 
-    public ViewModel() {
+    public ViewModel(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
         inputValue = "";
         inputMeasure = Measure.METER;
         outputMeasure = Measure.METER;
@@ -26,11 +35,44 @@ public class ViewModel {
         }
     }
 
+    private void logInputParams() {
+        if (!isInputChanged) {
+            return;
+        }
+        logger.log(editingFinishedLogMessage());
+        isInputChanged = false;
+    }
+
+    private String editingFinishedLogMessage() {
+        String message = LogMessages.EDITING_FINISHED
+                + "Input value is: "
+                + inputValue + "; ";
+        return message;
+    }
+
+    public final class LogMessages {
+        public static final String CONVERT_WAS_PRESSED = "Convert. ";
+        public static final String INPUT_MEASURE_WAS_CHANGED = "Input Measure was changed to ";
+        public static final String OUTPUT_MEASURE_WAS_CHANGED = "Output Measure was changed to ";
+        public static final String EDITING_FINISHED = "Updated input. ";
+
+        private LogMessages() { }
+    }
+
+    public void focusLost() {
+        logInputParams();
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
+    }
+
     public boolean isConvertButtonEnabled() {
         return isConvertButtonEnabled;
     }
 
     public void convert() {
+        logger.log(convertLogMessage());
         if (!parseInput()) {
             return;
         }
@@ -39,9 +81,20 @@ public class ViewModel {
         try {
             output = LengthConverter.convertFromTo(inputMeasure, outputMeasure, input);
             result = String.valueOf(output);
+            logger.log("Result: " + result + ";");
         } catch (IllegalArgumentException e) {
             result = "result is too huge";
+            logger.log("Result is too huge;");
         }
+    }
+
+    private String convertLogMessage() {
+        String message =
+                LogMessages.CONVERT_WAS_PRESSED + "Input Value = "
+                        + inputValue + "; InputMeasure = " + inputMeasure.toString()
+                        + "; Output Measure = " + outputMeasure.toString() + ";";
+
+        return message;
     }
 
     public Measure getInputMeasure() {
@@ -53,11 +106,17 @@ public class ViewModel {
     }
 
     public void setInputMeasure(final Measure inputMeasure) {
-        this.inputMeasure = inputMeasure;
+        if (this.inputMeasure != inputMeasure) {
+            logger.log(LogMessages.INPUT_MEASURE_WAS_CHANGED + inputMeasure.toString());
+            this.inputMeasure = inputMeasure;
+        }
     }
 
     public void setOutputMeasure(final Measure outputMeasure) {
-        this.outputMeasure = outputMeasure;
+        if (this.outputMeasure != outputMeasure) {
+            logger.log(LogMessages.OUTPUT_MEASURE_WAS_CHANGED + outputMeasure.toString());
+            this.outputMeasure = outputMeasure;
+        }
     }
 
     public String getResult() {
@@ -73,9 +132,11 @@ public class ViewModel {
             return;
         }
         this.inputValue = inputValue;
+        isInputChanged = true;
     }
 
     private void enterPressed() {
+        logInputParams();
         if (isConvertButtonEnabled()) {
             convert();
         }

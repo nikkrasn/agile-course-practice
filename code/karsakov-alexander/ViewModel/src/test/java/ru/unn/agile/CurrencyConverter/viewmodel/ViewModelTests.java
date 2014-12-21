@@ -16,7 +16,7 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new MockLogger());
         currencyList = viewModel.fromCurrencyListProperty().get();
     }
 
@@ -149,6 +149,26 @@ public class ViewModelTests {
         String log = viewModel.getLog();
 
         assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsEventMessageWhenCorrectInputValue() {
+        String expectedMessage = "Event: New input value: 10";
+
+        setInputData();
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf(expectedMessage), -1);
+    }
+
+    @Test
+    public void logContainsErrorMessageWhenIncorrectInputValue() {
+        String expectedMessage = "Error: Incorrect input value: incorrect";
+
+        viewModel.inputValueProperty().set("incorrect");
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf(expectedMessage), -1);
     }
 
     private void setInputData() {

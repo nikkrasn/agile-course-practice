@@ -61,7 +61,14 @@ public class ViewModel {
             @Override
             public void changed(final ObservableValue<? extends String> observable,
                                 final String oldValue, final String newValue) {
-                status.set(getInputStatus().toString());
+                ViewModelStatus currentStatus = getInputStatus();
+                status.set(currentStatus.toString());
+                if (currentStatus != ViewModelStatus.BAD_FORMAT) {
+                    logger.logEvent("New input value: " + inputValue.get());
+                } else {
+                    logger.logError("Incorrect input value: " + inputValue.get());
+                }
+                updateLog();
             }
         };
         inputValue.addListener(inputValueListener);
@@ -164,6 +171,15 @@ public class ViewModel {
         result.set(String.format("%.5f", convertedMoney.getAmount()));
         resultCurrency.set(toCurrency.get().getCharCode());
         status.set(ViewModelStatus.SUCCESS.toString());
+    }
+
+    private void updateLog() {
+        ArrayList<String> logs = logger.getFullLog();
+        String updatedLog = new String();
+        for (String log : logs) {
+            updatedLog += log + "\n";
+        }
+        log.set(updatedLog);
     }
 
     private ViewModelStatus getInputStatus() {

@@ -3,23 +3,21 @@ package ru.unn.agile.AreaConverter.Infrastructure;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.fail;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
-
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.unn.agile.AreaConverter.viewmodel.RegexMatcher.matchesPattern;
+import static ru.unn.agile.AreaConverter.viewmodel.ACRegexMatcher.matchesPattern;
 
 public class TxtLoggerTests {
     private static final String FILENAME = "./TxtLoggerTests.log";
-    private TxtLogger txtLoggerForAreaConverter;
+    private TxtLoggerAreaConverter txtLoggerForAreaConverter;
 
     @Before
     public void setUp() {
-        txtLoggerForAreaConverter = new TxtLogger(FILENAME);
+        txtLoggerForAreaConverter = new TxtLoggerAreaConverter(FILENAME);
     }
 
     @Test

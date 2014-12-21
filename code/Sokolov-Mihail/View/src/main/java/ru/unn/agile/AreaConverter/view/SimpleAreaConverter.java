@@ -1,6 +1,6 @@
 package ru.unn.agile.AreaConverter.view;
 
-import ru.unn.agile.AreaConverter.Infrastructure.TxtLogger;
+import ru.unn.agile.AreaConverter.Infrastructure.TxtLoggerAreaConverter;
 import ru.unn.agile.AreaConverter.Model.AreaConverter.Measures;
 import ru.unn.agile.AreaConverter.viewmodel.ViewModel;
 import javax.swing.*;
@@ -19,7 +19,7 @@ public final class SimpleAreaConverter {
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Simple area converter");
-        TxtLogger logger = new TxtLogger("./Calculator.log");
+        TxtLoggerAreaConverter logger = new TxtLoggerAreaConverter("./Calculator.log");
         frame.setContentPane(new SimpleAreaConverter(new ViewModel(logger)).mainPanelA);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

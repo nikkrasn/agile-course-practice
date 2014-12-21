@@ -30,9 +30,19 @@ public class CurrencyConverter {
 
     @FXML
     void initialize() {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH);
-        String logFilename = timeFormat.format(new Date()) + ".log";
+        String logFilename = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH)
+                                                  .format(new Date()) + ".log";
         viewModel.setLogger(new PlainTextLogger(logFilename));
+
+
+        valueTextField.textProperty().bindBidirectional(viewModel.inputValueProperty());
+        valueTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(final ObservableValue<? extends Boolean> observable,
+                                final Boolean oldValue, final Boolean newValue) {
+                viewModel.onInputValueFocusChanged(oldValue, newValue);
+            }
+        });
 
         ChangeListener<Currency> currencyModeListener = new ChangeListener<Currency>() {
             @Override
@@ -43,7 +53,6 @@ public class CurrencyConverter {
             }
         };
 
-        valueTextField.textProperty().bindBidirectional(viewModel.inputValueProperty());
         fromCurrencyComboBox.valueProperty().bindBidirectional(viewModel.fromCurrencyProperty());
         fromCurrencyComboBox.valueProperty().addListener(currencyModeListener);
         toCurrencyComboBox.valueProperty().bindBidirectional(viewModel.toCurrencyProperty());

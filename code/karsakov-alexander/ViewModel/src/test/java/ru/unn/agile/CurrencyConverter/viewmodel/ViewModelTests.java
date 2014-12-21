@@ -163,6 +163,7 @@ public class ViewModelTests {
     @Test
     public void logContainsErrorMessageWhenIncorrectInputValue() {
         viewModel.inputValueProperty().set("incorrect");
+        viewModel.onInputValueFocusChanged(true, false);
         String logMessages = viewModel.getLog();
 
         assertNotEquals(logMessages.indexOf("Error: Incorrect input value"), -1);
@@ -174,7 +175,7 @@ public class ViewModelTests {
         viewModel.convert();
         String logMessages = viewModel.getLog();
 
-        assertNotEquals(logMessages.indexOf("Converting is done. Result: "), -1);
+        assertNotEquals(logMessages.indexOf("Converting is done. "), -1);
     }
 
     @Test
@@ -207,5 +208,6 @@ public class ViewModelTests {
 
     private void setInputData() {
         viewModel.inputValueProperty().set("10");
+        viewModel.onInputValueFocusChanged(true, false);
     }
 }

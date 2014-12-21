@@ -63,12 +63,6 @@ public class ViewModel {
                                 final String oldValue, final String newValue) {
                 ViewModelStatus currentStatus = getInputStatus();
                 status.set(currentStatus.toString());
-                if (currentStatus != ViewModelStatus.BAD_FORMAT) {
-                    logger.logEvent("New input value: " + inputValue.get());
-                } else {
-                    logger.logError("Incorrect input value: " + inputValue.get());
-                }
-                updateLog();
             }
         };
         inputValue.addListener(inputValueListener);
@@ -171,7 +165,13 @@ public class ViewModel {
         result.set(String.format("%.5f", convertedMoney.getAmount()));
         resultCurrency.set(toCurrency.get().getCharCode());
         status.set(ViewModelStatus.SUCCESS.toString());
-        logger.logEvent("Converting is done. Result: " + getResult());
+        StringBuilder logMessage = new StringBuilder("Converting is done. Input: ");
+        logMessage.append(inputValue.get()).append(". Convert mode: ")
+                  .append(fromCurrency.get().getCharCode())
+                  .append(" -> ")
+                  .append(toCurrency.get().getCharCode())
+                  .append(". Result: ").append(getResult());
+        logger.logEvent(logMessage.toString());
         updateLog();
     }
 
@@ -181,6 +181,18 @@ public class ViewModel {
         String logMessage = "Currency conversion mode is changed. Current conversion mode is: " +
                 fromCurrency.get().getCharCode() + " -> " + toCurrency.get().getCharCode();
         logger.logEvent(logMessage);
+        updateLog();
+    }
+
+    public void onInputValueFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+        if (getInputStatus() != ViewModelStatus.BAD_FORMAT) {
+            logger.logEvent("New input value: " + inputValue.get());
+        } else {
+            logger.logError("Incorrect input value: " + inputValue.get());
+        }
         updateLog();
     }
 

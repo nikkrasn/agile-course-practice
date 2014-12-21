@@ -127,6 +127,9 @@ include "code/klyan-sofiya/View"
 project(":code/klyan-sofiya/View").name = "klyan-sofiya-View"
 include "code/klyan-sofiya/ViewModel"
 project(":code/klyan-sofiya/ViewModel").name = "klyan-sofiya-ViewModel"
+include "code/klyan-sofiya/Infrastructure"
+project(":code/klyan-sofiya/Infrastructure").name = "klyan-sofiya-Infrastructure"
+
 
 // Krasnoyarov Nikita
 include "code/krasnoyarov-nikita/Model"

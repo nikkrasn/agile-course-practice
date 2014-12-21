@@ -4,10 +4,10 @@ import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 
-public class RegexMatcher extends BaseMatcher {
+public class RegexpMatcher extends BaseMatcher {
     private final String regex;
 
-    public RegexMatcher(final String regex) {
+    public RegexpMatcher(final String regex) {
         this.regex = regex;
     }
 
@@ -21,7 +21,7 @@ public class RegexMatcher extends BaseMatcher {
     }
 
     public static Matcher<? super String> matchesPattern(final String regex) {
-        RegexMatcher matcher = new RegexMatcher(regex);
+        RegexpMatcher matcher = new RegexpMatcher(regex);
         //NOTE: this ugly cast is needed to workaround 'unchecked' Java warning
         @SuppressWarnings (value = "unchecked")
         Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;

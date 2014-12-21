@@ -17,7 +17,8 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        FakeAreaConverterLogger logger = new FakeAreaConverterLogger();
+        viewModel = new ViewModel(logger);
     }
 
     @After
@@ -104,6 +105,37 @@ public class ViewModelTests {
         fillFieldsNullInput();
         viewModel.processKeyInTextField();
         assertEquals("", viewModel.getResult());
+    }
+
+    @Test
+    public void isResultRightWithGoodFieldsAfterFocusLost() {
+        fillFieldsGood();
+        viewModel.focusLost();
+        assertEquals("", viewModel.getResult());
+    }
+    @Test
+    public void isResultRightWithFieldsInputIsTooMuchAfterFocusLost() {
+        fillFieldsInputIsTooMuch();
+        viewModel.focusLost();
+        assertEquals("Input is too much", viewModel.getResult());
+    }
+    @Test
+    public void isResultRightWithFieldsNullInputAfterFocusLost() {
+        fillFieldsNullInput();
+        viewModel.focusLost();
+        assertEquals("", viewModel.getResult());
+    }
+    @Test
+    public void isResultRightWithFieldsResultIsTooMuchAfterFocusLost() {
+        fillFieldsResultIsTooMuch();
+        viewModel.focusLost();
+        assertEquals("", viewModel.getResult());
+    }
+    @Test
+    public void isResultRightWithFieldsWrongInputAfterFocusLost() {
+        fillFieldsWrongInput();
+        viewModel.focusLost();
+        assertEquals("Wrong input", viewModel.getResult());
     }
 
     @Test

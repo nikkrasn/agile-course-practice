@@ -235,6 +235,8 @@ include "code/Sokolov-Mihail/ViewModel"
 project(":code/Sokolov-Mihail/ViewModel").name = "Sokolov-Mihail-ViewModel"
 include "code/Sokolov-Mihail/View"
 project(":code/Sokolov-Mihail/View").name = "Sokolov-Mihail-View"
+include "code/Sokolov-Mihail/Infrastructure"
+project(":code/Sokolov-Mihail/Infrastructure").name = "Sokolov-Mihail-Infrastructure"
 
 // Syainova Diana
 include "code/Syainova-Diana/Model"

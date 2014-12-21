@@ -276,8 +276,5 @@ include "code/Zotov-Alexey/View"
 project(":code/Zotov-Alexey/View").name = "Zotov-Alexey-View"
 include "code/Zotov-Alexey/ViewModel"
 project(":code/Zotov-Alexey/ViewModel").name = "Zotov-Alexey-ViewModel"
-<<<<<<< HEAD
 include "code/Zotov-Alexey/Infrastructure"
 project(":code/Zotov-Alexey/Infrastructure").name = "Zotov-Alexey-Infrastructure"
-=======
->>>>>>> --

@@ -75,6 +75,8 @@ include "code/blinkova-ekaterina/View"
 project(":code/blinkova-ekaterina/View").name = "blinkova-ekaterina-View"
 include "code/blinkova-ekaterina/ViewModel"
 project(":code/blinkova-ekaterina/ViewModel").name = "blinkova-ekaterina-ViewModel"
+include "code/blinkova-ekaterina/Infrastructure"
+project(":code/blinkova-ekaterina/Infrastructure").name = "blinkova-ekaterina-Infrastructure"
 
 // Bobylkov Fedor
 include "code/bobylkov-fedor/Model"

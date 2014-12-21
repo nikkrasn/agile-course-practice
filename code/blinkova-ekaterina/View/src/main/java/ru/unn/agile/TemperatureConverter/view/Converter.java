@@ -1,13 +1,11 @@
 package ru.unn.agile.TemperatureConverter.view;
 
+import ru.unn.agile.TemperatureConverter.Model.Converter.Scale;
+import ru.unn.agile.TemperatureConverter.infrastructure.TxtLogger;
 import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel;
-import ru.unn.agile.TemperatureConverter.viewmodel.ViewModel.Scale;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.util.List;
 
 public final class Converter {
     private JPanel mainJPanel;
@@ -16,11 +14,13 @@ public final class Converter {
     private JButton btnConvert;
     private JTextField txtStatus;
     private JComboBox<Scale> cbScale;
+    private JList<String> logList;
     private ViewModel viewModel;
 
     public static void main(final String[] args) {
         JFrame frame = new JFrame("Converter");
-        frame.setContentPane(new Converter(new ViewModel()).mainJPanel);
+        TxtLogger logger = new TxtLogger("./Converter.log");
+        frame.setContentPane(new Converter(new ViewModel(logger)).mainJPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -59,10 +59,19 @@ public final class Converter {
             }
         };
         txtValue.addKeyListener(keyListener);
+
+        FocusAdapter focusLostListener = new FocusAdapter() {
+            public void focusLost(final FocusEvent e) {
+                bind();
+                viewModel.focusLost();
+                backBind();
+            }
+        };
+        txtValue.addFocusListener(focusLostListener);
     }
 
     private void loadListOfScales() {
-        Scale[] scales = ViewModel.Scale.values();
+        Scale[] scales = Scale.values();
         cbScale.setModel(new JComboBox<>(scales).getModel());
     }
 
@@ -76,5 +85,8 @@ public final class Converter {
         btnConvert.setEnabled(viewModel.isConvertButtonEnabled());
         txtResult.setText(viewModel.getResult());
         txtStatus.setText(viewModel.getStatus());
+        List<String> log = viewModel.getLog();
+        String[] items = log.toArray(new String[log.size()]);
+        logList.setListData(items);
     }
 }

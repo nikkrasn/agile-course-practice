@@ -195,6 +195,16 @@ public class ViewModelTests {
         assertEquals(logMessages.indexOf("Currency conversion mode is changed."), -1);
     }
 
+    @Test
+    public void canPutSeveralLogMessages() {
+        setInputData();
+        viewModel.convert();
+        viewModel.convert();
+        viewModel.convert();
+
+        assertTrue(viewModel.getLog().split("\n").length > 3);
+    }
+
     private void setInputData() {
         viewModel.inputValueProperty().set("10");
     }

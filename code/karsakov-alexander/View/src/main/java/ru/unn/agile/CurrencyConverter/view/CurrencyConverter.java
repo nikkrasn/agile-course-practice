@@ -8,9 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import ru.unn.agile.CurrencyConverter.Logger.PlainTextLogger;
 import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.viewmodel.ViewModel;
-import ru.unn.agile.CurrencyConverter.viewmodel.
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CurrencyConverter {
     @FXML
@@ -26,7 +30,9 @@ public class CurrencyConverter {
 
     @FXML
     void initialize() {
-        //viewModel.setLogger(new MockLogger());
+        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH);
+        String logFilename = timeFormat.format(new Date()) + ".log";
+        viewModel.setLogger(new PlainTextLogger(logFilename));
 
         ChangeListener<Currency> currencyModeListener = new ChangeListener<Currency>() {
             @Override

@@ -13,8 +13,9 @@ import static ru.unn.agile.ConverterWeight.viewmodel.RegexMatcher.matchesPattern
 public class ViewModelTests {
     private ViewModel viewModel;
 
-    public void setViewModel(final ViewModel viewModel) {
-        this.viewModel = viewModel;
+    @After
+    public void tearDown() {
+        viewModel = null;
     }
 
     @Before
@@ -23,9 +24,8 @@ public class ViewModelTests {
         viewModel = new ViewModel(logger);
     }
 
-    @After
-    public void tearDown() {
-        viewModel = null;
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 
     @Test

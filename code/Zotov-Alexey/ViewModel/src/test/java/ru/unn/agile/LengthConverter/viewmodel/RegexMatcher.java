@@ -12,15 +12,15 @@ public class RegexMatcher extends BaseMatcher {
         description.appendText(regex);
     }
 
-    public RegexMatcher(final String regex) {
-        this.regex = regex;
+    public static Matcher<? super String> matchesPattern(final String regex) {
+        RegexMatcher matcher = new RegexMatcher(regex);
+        @SuppressWarnings (value = "unchecked")
+        Matcher<? super String> castedM = (Matcher<? super String>)   matcher;
+        return castedM;
     }
 
-    public static Matcher<? super String> matchesPattern(final String regex) {
-        @SuppressWarnings (value = "unchecked")
-        RegexMatcher matcher = new RegexMatcher(regex);
-        Matcher<? super String> casted = (Matcher<? super String>)   matcher;
-        return casted;
+    public RegexMatcher(final String regex) {
+        this.regex = regex;
     }
 
     public boolean matches(final Object o) {

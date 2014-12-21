@@ -2,6 +2,7 @@ package ru.unn.agile.AreaConverter.viewmodel;
 
 import ru.unn.agile.AreaConverter.Model.AreaConverter;
 import ru.unn.agile.AreaConverter.Model.AreaConverter.Measures;
+import java.util.List;
 
 public class ViewModel {
     private String input;
@@ -10,14 +11,24 @@ public class ViewModel {
     private String result;
     private boolean isCalculateButtonEnabled;
     private double dinput;
+    private final ILogger logger;
 
-    public ViewModel() {
+    public ViewModel(final ILogger loggerA) {
+        if (loggerA == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+
+        this.logger = loggerA;
         input = "";
         measureFrom = Measures.SquareMeter;
         measureTo = Measures.SquareMeter;
         result = "";
 
         isCalculateButtonEnabled = false;
+    }
+
+    public List<String> getLog() {
+        return logger.getLog();
     }
 
     public void processKeyInTextField() {
@@ -37,7 +48,10 @@ public class ViewModel {
     }
 
     public void setMeasureOfAreaFrom(final Measures measure) {
-        this.measureFrom = measure;
+        if (measure != this.measureFrom) {
+            logger.log(LogMessages.CHANGED_MEASURE_FROM + measure.toString());
+            this.measureFrom = measure;
+        }
     }
 
     public Measures getMeasureOfAreaTo() {
@@ -45,7 +59,10 @@ public class ViewModel {
     }
 
     public void setMeasureOfAreaTo(final Measures measure) {
-        this.measureTo = measure;
+        if (measure != this.measureTo) {
+            logger.log(LogMessages.CHANGED_MEASURE_TO + measure.toString());
+            this.measureTo = measure;
+        }
     }
 
     public String getResult() {
@@ -56,17 +73,48 @@ public class ViewModel {
         return isCalculateButtonEnabled;
     }
 
+    public void focusLost() {
+        logInputValueChanged();
+    }
+
     public void convert() {
         if (!parseInput()) {
+            logger.log("Error");
             return;
         }
 
         try {
             double dresult = AreaConverter.fromTo(dinput, measureFrom, measureTo);
             result = Double.toString(dresult);
+            logSuccessConvertation();
+            //logger.log( + result);
         } catch (IllegalArgumentException e) {
+            logger.log(LogMessages.RESULT_IS_TOO_MUCH);
             result = "Result is too much";
         }
+    }
+
+    private void logInputValueChanged() {
+        logger.log(LogMessages.INPUT_CHANGED_TO + input);
+
+        if (Double.isInfinite(dinput)) {
+            logger.log(LogMessages.INPUT_IS_TOO_MUCH);
+            return;
+        }
+
+        if (isCalculateButtonEnabled) {
+            logger.log(LogMessages.INPUT_IS_CORRECT);
+        } else {
+            logger.log(LogMessages.INPUT_IS_INCORRECT);
+        }
+    }
+
+    private void logSuccessConvertation() {
+        String message = LogMessages.SUCCESS_CONVERTATION
+                + "from " + input + " " + measureFrom.toString()
+                + " to " + result + " " + measureTo.toString();
+
+        logger.log(message);
     }
 
     private boolean parseInput() {
@@ -74,6 +122,7 @@ public class ViewModel {
             if (!input.isEmpty()) {
                 dinput = Double.parseDouble(input);
                 if (Double.isInfinite(dinput)) {
+                    //logger.log(LogMessages.INPUT_IS_TOO_MUCH);
                     throw new IllegalArgumentException("Input is too much");
                 }
             }
@@ -90,5 +139,18 @@ public class ViewModel {
         }
 
         return isCalculateButtonEnabled;
+    }
+
+    public final class LogMessages {
+        public static final String RESULT_IS_TOO_MUCH = "Failed convertation. Result is too much ";
+        public static final String INPUT_IS_TOO_MUCH = "Input is too much ";
+        public static final String CHANGED_MEASURE_TO = "Changed measureTo to -> ";
+        public static final String CHANGED_MEASURE_FROM = "Changed measureFrom to -> ";
+        public static final String INPUT_CHANGED_TO = "Input changed to -> ";
+        public static final String INPUT_IS_CORRECT = "Input is correct +";
+        public static final String INPUT_IS_INCORRECT = "Input is incorrect -";
+        public static final String SUCCESS_CONVERTATION = "Success convertation ";
+
+        private LogMessages() { }
     }
 }

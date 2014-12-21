@@ -2,6 +2,7 @@ apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
 
 dependencies {
 	compile project(':klyan-sofiya-ViewModel')
+	compile project(':klyan-sofiya-Infrastructure')
 }
 
 sourceSets {

@@ -71,11 +71,9 @@ public final class SimpleAreaConverter {
             public void focusLost(final FocusEvent e) {
                 bindAreaConverter();
                 viewModelA.focusLost();
-                //Calculator.this.viewModel.focusLost();
                 backBindAreaConverter();
             }
         };
-        //txtZ1Re.addFocusListener(focusLostListener);
         tbValueA.addFocusListener(focusLostListener);
     }
 

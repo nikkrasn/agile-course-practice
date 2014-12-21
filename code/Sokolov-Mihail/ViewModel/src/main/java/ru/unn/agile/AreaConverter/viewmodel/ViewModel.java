@@ -17,13 +17,11 @@ public class ViewModel {
         if (loggerA == null) {
             throw new IllegalArgumentException("Logger parameter can't be null");
         }
-
         this.logger = loggerA;
         input = "";
         measureFrom = Measures.SquareMeter;
         measureTo = Measures.SquareMeter;
         result = "";
-
         isCalculateButtonEnabled = false;
     }
 
@@ -79,7 +77,7 @@ public class ViewModel {
 
     public void convert() {
         if (!parseInput()) {
-            logger.log("Error");
+            logger.log(LogMessages.ERROR);
             return;
         }
 
@@ -87,7 +85,6 @@ public class ViewModel {
             double dresult = AreaConverter.fromTo(dinput, measureFrom, measureTo);
             result = Double.toString(dresult);
             logSuccessConvertation();
-            //logger.log( + result);
         } catch (IllegalArgumentException e) {
             logger.log(LogMessages.RESULT_IS_TOO_MUCH);
             result = "Result is too much";
@@ -96,12 +93,10 @@ public class ViewModel {
 
     private void logInputValueChanged() {
         logger.log(LogMessages.INPUT_CHANGED_TO + input);
-
         if (Double.isInfinite(dinput)) {
             logger.log(LogMessages.INPUT_IS_TOO_MUCH);
             return;
         }
-
         if (isCalculateButtonEnabled) {
             logger.log(LogMessages.INPUT_IS_CORRECT);
         } else {
@@ -113,7 +108,6 @@ public class ViewModel {
         String message = LogMessages.SUCCESS_CONVERTATION
                 + "from " + input + " " + measureFrom.toString()
                 + " to " + result + " " + measureTo.toString();
-
         logger.log(message);
     }
 
@@ -122,7 +116,6 @@ public class ViewModel {
             if (!input.isEmpty()) {
                 dinput = Double.parseDouble(input);
                 if (Double.isInfinite(dinput)) {
-                    //logger.log(LogMessages.INPUT_IS_TOO_MUCH);
                     throw new IllegalArgumentException("Input is too much");
                 }
             }
@@ -150,6 +143,7 @@ public class ViewModel {
         public static final String INPUT_IS_CORRECT = "Input is correct +";
         public static final String INPUT_IS_INCORRECT = "Input is incorrect -";
         public static final String SUCCESS_CONVERTATION = "Success convertation ";
+        public static final String ERROR = "Error";
 
         private LogMessages() { }
     }

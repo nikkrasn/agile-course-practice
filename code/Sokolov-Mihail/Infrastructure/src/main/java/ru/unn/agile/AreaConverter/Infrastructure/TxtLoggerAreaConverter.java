@@ -16,12 +16,6 @@ public class TxtLoggerAreaConverter implements ILogger {
     private final BufferedWriter writer;
     private final String filename;
 
-    private static String now() {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
-        return sdf.format(cal.getTime());
-    }
-
     public TxtLoggerAreaConverter(final String filename) {
         this.filename = filename;
 
@@ -62,4 +56,9 @@ public class TxtLoggerAreaConverter implements ILogger {
         return logAreaConverter;
     }
 
+    private static String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
+        return sdf.format(cal.getTime());
+    }
 }

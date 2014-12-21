@@ -128,7 +128,7 @@ public class ViewModelTests {
     @Test
     public void logContainsProperMessageAfterCalculation() {
         setCorrectInputData();
-       
+
         testViewModel.sort();
         String message = testViewModel.getLog().get(0);
 

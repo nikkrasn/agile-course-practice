@@ -11,6 +11,7 @@ public class ViewModelTests {
     @Before
     public void setUp() {
         viewModel = new ViewModel();
+        viewModel.setLogger(new FakeLogger());
     }
 
     @Test
@@ -106,5 +107,16 @@ public class ViewModelTests {
         viewModel.pop();
         viewModel.pop();
         assertTrue(viewModel.isPopButtonDisabled());
+    }
+
+    @Test
+    public void isLogEmptyInitially() {
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void doesLogContainTextToPushChangedMessage() {
+        viewModel.setTextToPush("new value");
+        assertEquals("Text-To-Push changed to: new value", viewModel.getLog().get(0).getMessage());
     }
 }

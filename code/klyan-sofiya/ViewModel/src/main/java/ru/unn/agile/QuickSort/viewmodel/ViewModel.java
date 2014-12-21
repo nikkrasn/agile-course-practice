@@ -178,12 +178,12 @@ public class ViewModel {
         private String curVal = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            if (oldValue.equals(newValue)) {
+                            final String oldVal, final String newVal) {
+            if (oldVal.equals(newVal)) {
                 return;
             }
             status.set(getInputStatus().toString());
-            curVal = newValue;
+            curVal = newVal;
         }
         public boolean isChanged() {
             return !prevVal.equals(curVal);

@@ -21,15 +21,17 @@ public class Sorter {
     @FXML
     private Button btnSort;
 
+    private static final String LOGGER_FILENAME = "./TxtLogger-lab3.log";
+
     @FXML
     void initialize() {
-        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
+        viewModel.setLogger(new TxtLogger(LOGGER_FILENAME));
 
         final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
-                                final Boolean oldValue, final Boolean newValue) {
-                viewModel.onFocusChanged(oldValue, newValue);
+                                final Boolean oldVal, final Boolean newVal) {
+                viewModel.onFocusChanged(oldVal, newVal);
             }
         };
         inputField.textProperty().bindBidirectional(viewModel.unsortedArrayProperty());

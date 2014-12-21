@@ -20,4 +20,15 @@ public enum CurrencyIndexes {
     public final int getNumCode() {
         return numCode;
     }
+
+    public static final CurrencyIndexes getCurrencyIndexByNumCode(final int numCode) {
+        CurrencyIndexes foundIndex = null;
+        for (CurrencyIndexes index : CurrencyIndexes.values()) {
+            if (index.getNumCode() == numCode) {
+                foundIndex = index;
+                break;
+            }
+        }
+        return foundIndex;
+    }
 }

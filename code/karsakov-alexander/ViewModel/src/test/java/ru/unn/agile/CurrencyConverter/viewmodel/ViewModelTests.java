@@ -15,6 +15,10 @@ public class ViewModelTests {
     private ObservableList<Currency> currencyList;
     private final double delta = 0.0001;
 
+    public void setExternalViewModel(ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
         viewModel = new ViewModel(new MockLogger());

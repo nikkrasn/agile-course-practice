@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class TxtLoggerAreaConverter implements ILogger {
     private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-    private final BufferedWriter writer;
+    private final BufferedWriter areaConverterWriter;
     private final String filename;
 
     public TxtLoggerAreaConverter(final String filename) {
@@ -25,15 +25,15 @@ public class TxtLoggerAreaConverter implements ILogger {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        areaConverterWriter = logWriter;
     }
 
     @Override
     public void log(final String s) {
         try {
-            writer.write(now() + " > " + s);
-            writer.newLine();
-            writer.flush();
+            areaConverterWriter.write(now() + " > " + s);
+            areaConverterWriter.newLine();
+            areaConverterWriter.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

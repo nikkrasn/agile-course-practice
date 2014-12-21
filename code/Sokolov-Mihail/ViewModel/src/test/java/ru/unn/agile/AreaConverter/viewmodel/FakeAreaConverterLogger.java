@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FakeAreaConverterLogger implements ILogger {
-    private ArrayList<String> log = new ArrayList<String>();
+    private ArrayList<String> areaConverterLog = new ArrayList<String>();
 
     @Override
     public void log(final String s) {
-        log.add(s);
+        areaConverterLog.add(s);
     }
 
     @Override
     public List<String> getLog() {
-        return log;
+        return areaConverterLog;
     }
 }

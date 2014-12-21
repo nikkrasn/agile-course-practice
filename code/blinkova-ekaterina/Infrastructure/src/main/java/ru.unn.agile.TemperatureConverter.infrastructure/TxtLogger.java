@@ -60,8 +60,6 @@ public class TxtLogger implements ILogger {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         return log;
     }
-
 }

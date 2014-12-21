@@ -11,11 +11,11 @@ public class RegexMatcher extends BaseMatcher {
         this.regMatch = regex;
     }
 
-    public static Matcher<? super String> matchesPattern(final String regex) {
-        RegexMatcher matcher = new RegexMatcher(regex);
+    public static Matcher<? super String> matchesPattern(final String reg) {
+        RegexMatcher match = new RegexMatcher(reg);
         @SuppressWarnings (value = "unchecked")
-        Matcher<? super String> castedMatcher = (Matcher<? super String>)   matcher;
-        return castedMatcher;
+        Matcher<? super String> outMatcher = (Matcher<? super String>)   match;
+        return outMatcher;
     }
 
     public void describeTo(final Description description) {

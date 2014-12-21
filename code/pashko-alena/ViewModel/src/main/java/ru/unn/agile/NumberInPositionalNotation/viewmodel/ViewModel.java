@@ -214,8 +214,13 @@ public class ViewModel {
 
 
     private class NumberInPosNotationListener implements ChangeListener<String> {
-        private String prevValue = new String();
-        private String curValue = new String();
+        private String previousValue = new String();
+        private String currentValue = new String();
+
+        public boolean isChanged() {
+            return !previousValue.equals(currentValue);
+        }
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
@@ -223,14 +228,11 @@ public class ViewModel {
                 return;
             }
             status.set(getInputStatus().toString());
-            curValue = newValue;
+            currentValue = newValue;
         }
 
-        public boolean isChanged() {
-            return !prevValue.equals(curValue);
-        }
         public void cache() {
-            prevValue = curValue;
+            previousValue = currentValue;
         }
     }
 }

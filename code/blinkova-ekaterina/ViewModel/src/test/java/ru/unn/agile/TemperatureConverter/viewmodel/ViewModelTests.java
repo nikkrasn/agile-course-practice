@@ -221,11 +221,9 @@ public class ViewModelTests {
         viewModel.setInputValue("1");
         viewModel.setScale(Scale.FAHRENHEIT);
         viewModel.convert();
-
         String message = viewModel.getLog().get(0);
         assertThat(message, matchesPattern(".*" + viewModel.getInputValue()
-                + ".*" + viewModel.getScale() + ".*"
-        ));
+                + ".*" + viewModel.getScale() + ".*"));
     }
 
     @Test

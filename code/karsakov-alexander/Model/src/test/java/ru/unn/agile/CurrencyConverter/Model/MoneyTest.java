@@ -16,6 +16,8 @@ public class MoneyTest {
     private Money tenBucks;
     private final double delta = 0.0001;
 
+    
+
     @Before
     public void init() {
         ICurrencyProvider provider = new FixedCurrencyProvider();

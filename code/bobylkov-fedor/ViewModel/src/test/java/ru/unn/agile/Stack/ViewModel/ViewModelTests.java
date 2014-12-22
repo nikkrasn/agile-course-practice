@@ -120,32 +120,52 @@ public class ViewModelTests {
     @Test
     public void doesLogContainTextToPushChangedMessage() {
         viewModel.setTextToPush("new value");
-        assertEquals("Text-To-Push changed to: new value", viewModel.getLog().get(0).getMessage());
+        assertEquals("Text-To-Push changed to: new value", getLogMessageByIndex(0).getMessage());
     }
 
     @Test
-    public void doesLogContainPushedMessage() {
+    public void doesLogContainMessagesAfterPush() {
         viewModel.push();
-        assertEquals("Pushed: Push me!", viewModel.getLog().get(1).getMessage());
+        assertEquals("Pushed: Push me!", getLogMessageByIndex(0).getMessage());
+        assertEquals("Top changed to: Push me!", getLogMessageByIndex(1).getMessage());
+        assertEquals("Stack size changed to: 1", getLogMessageByIndex(2).getMessage());
     }
 
     @Test
-    public void doesLogContainTopChangedMessageAfterPush() {
-        viewModel.push();
-        assertEquals("Top changed to: Push me!", viewModel.getLog().get(0).getMessage());
-    }
-
-    @Test
-    public void doesLogContainPoppedMessage() {
+    public void doesLogContainMessagesAfterPop() {
         viewModel.push();
         viewModel.pop();
-        assertEquals("Popped: Push me!", viewModel.getLog().get(3).getMessage());
+
+        assertEquals("Popped: Push me!", getLogMessageByIndex(3).getMessage());
+        assertEquals("Top changed to: ", getLogMessageByIndex(4).getMessage());
+        assertEquals("Stack size changed to: 0", getLogMessageByIndex(5).getMessage());
     }
 
     @Test
-    public void doesLogContainTopChangedMessageAfterPop() {
+    public void doesLogContainMessagesAfterManyPushes() {
+        doesLogContainMessagesAfterPush();
         viewModel.push();
+        assertEquals("Pushed: Push me!", getLogMessageByIndex(3).getMessage());
+        assertEquals("Stack size changed to: 2", getLogMessageByIndex(4).getMessage());
+    }
+
+    @Test
+    public void doesLogContainMessagesAfterManyPops() {
+        viewModel.push();
+        viewModel.push();
+
         viewModel.pop();
-        assertEquals("Top changed to: ", viewModel.getLog().get(2).getMessage());
+        viewModel.pop();
+
+        assertEquals("Popped: Push me!", getLogMessageByIndex(5).getMessage());
+        assertEquals("Stack size changed to: 1", getLogMessageByIndex(6).getMessage());
+
+        assertEquals("Popped: Push me!", getLogMessageByIndex(7).getMessage());
+        assertEquals("Top changed to: ", getLogMessageByIndex(8).getMessage());
+        assertEquals("Stack size changed to: 0", getLogMessageByIndex(9).getMessage());
+    }
+
+    private LogMessage getLogMessageByIndex(final Integer index) {
+        return viewModel.getLog().get(index);
     }
 }

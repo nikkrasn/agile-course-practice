@@ -1,6 +1,5 @@
-package ru.unn.agile.Stack;
+package ru.unn.agile.Stack.Infrastructure;
 
-import javafx.collections.ListChangeListener;
 import ru.unn.agile.Stack.ViewModel.ILogger;
 import ru.unn.agile.Stack.ViewModel.LogMessage;
 

@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Callback;
-import ru.unn.agile.Stack.PlainTextLogger;
+import ru.unn.agile.Stack.Infrastructure.PlainTextLogger;
 import ru.unn.agile.Stack.ViewModel.ViewModel;
 
 public class Stack {

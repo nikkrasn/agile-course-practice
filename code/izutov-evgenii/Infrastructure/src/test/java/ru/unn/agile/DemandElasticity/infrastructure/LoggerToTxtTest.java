@@ -9,9 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
 
 import static ru.unn.agile.DemandElasticity.infrastructure.RegularExpressionMatcher.matchesPattern;
 
@@ -45,12 +44,8 @@ public class LoggerToTxtTest {
     }
 
     @Test
-    public void canCreateFileForLoggingOnDisk() {
-        try {
-            new BufferedReader(new FileReader(FILE_NAME));
-        } catch (FileNotFoundException e) {
-            fail("File " + FILE_NAME + " wasn't found!");
-        }
+    public void canCreateFileForLoggingOnDisk() throws FileNotFoundException {
+        new BufferedReader(new FileReader(FILE_NAME));
     }
 
     @Test
@@ -69,11 +64,11 @@ public class LoggerToTxtTest {
 
         loggerToTxt.logMessage(messages[0]);
         loggerToTxt.logMessage(messages[1]);
-
         List<String> writtenMessages = loggerToTxt.getFullLog();
-        for (int i = 0; i < writtenMessages.size(); i++) {
-            assertThat(writtenMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
-        }
+
+        assertEquals(2, writtenMessages.size());
+        assertThat(writtenMessages.get(0), matchesPattern(".*" + messages[0] + "$"));
+        assertThat(writtenMessages.get(1), matchesPattern(".*" + messages[1] + "$"));
     }
 
     @Test

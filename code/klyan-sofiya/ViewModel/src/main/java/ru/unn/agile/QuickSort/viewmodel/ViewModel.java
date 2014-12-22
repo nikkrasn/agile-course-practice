@@ -184,7 +184,7 @@ public class ViewModel {
             status.set(getInputStatus().toString());
             curVal = newVal;
         }
-        
+
         public boolean isChanged() {
             return !prevVal.equals(curVal);
         }

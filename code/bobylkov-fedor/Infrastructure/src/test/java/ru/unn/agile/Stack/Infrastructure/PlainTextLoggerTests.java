@@ -27,12 +27,8 @@ public class PlainTextLoggerTests {
     }
 
     @Test
-    public void checkLogFileIsCreated() {
-        try {
-            new FileReader(logFilename);
-        } catch (FileNotFoundException e) {
-            fail("Log file " + logFilename + " was not found");
-        }
+    public void checkLogFileIsCreated() throws FileNotFoundException {
+        new FileReader(logFilename);
     }
 
     @Test
@@ -49,10 +45,10 @@ public class PlainTextLoggerTests {
         logger.log(messages[0]);
         logger.log(messages[1]);
 
+
         List<LogMessage> logMessages = logger.getLog();
-        for (int i = 0; i < logMessages.size(); i++) {
-            assertEquals(messages[i], logMessages.get(i).getMessage());
-        }
+        assertEquals(messages[0], logMessages.get(0).getMessage());
+        assertEquals(messages[1], logMessages.get(1).getMessage());
     }
 
     @Test

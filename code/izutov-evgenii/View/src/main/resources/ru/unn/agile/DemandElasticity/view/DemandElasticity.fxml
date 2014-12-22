@@ -111,6 +111,7 @@
                   <Label fx:id="lbStatus" minWidth="-Infinity" text="${viewModel.calcStatus}" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
+            <TextArea fx:id="areaLog" text="${viewModel.logMessages}" editable="false" prefHeight="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
-import static ru.unn.agile.DemandElasticity.infrastructure.RegexMatcher.matchesPattern;
+import static ru.unn.agile.DemandElasticity.infrastructure.RegularExpressionMatcher.matchesPattern;
 
 public class LoggerToTxtTest {
     private static final String FILE_NAME = "./LoggerToTxt_Tests.log";
@@ -70,9 +70,9 @@ public class LoggerToTxtTest {
         loggerToTxt.logMessage(messages[0]);
         loggerToTxt.logMessage(messages[1]);
 
-        List<String> actualMessages = loggerToTxt.getFullLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+        List<String> writtenMessages = loggerToTxt.getFullLog();
+        for (int i = 0; i < writtenMessages.size(); i++) {
+            assertThat(writtenMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
         }
     }
 

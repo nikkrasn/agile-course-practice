@@ -25,7 +25,7 @@ public class ViewModel {
             new SimpleObjectProperty<>(DemandElasticityType.ByPrice);
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
-    private final StringProperty logMessages = new SimpleStringProperty();
+    private final StringProperty logMessages = new SimpleStringProperty("");
 
     private final StringProperty calcResult = new SimpleStringProperty("");
     private final StringProperty calcDescription = new SimpleStringProperty("");
@@ -158,11 +158,11 @@ public class ViewModel {
         return calcStatus.get();
     }
 
-    public StringProperty logsProperty() {
+    public StringProperty logMessagesProperty() {
         return logMessages;
     }
 
-    public final String getLogs() {
+    public final String getLogMessages() {
         return logMessages.get();
     }
 
@@ -203,7 +203,7 @@ public class ViewModel {
         }
     }
 
-    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+    public void onInputFieldChanged(final Boolean oldValue, final Boolean newValue) {
         if (!oldValue && newValue) {
             return;
         }

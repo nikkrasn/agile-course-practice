@@ -21,8 +21,25 @@ public class ViewModel {
     private final BooleanProperty inputElementDisabled = new SimpleBooleanProperty();
     private final BooleanProperty searchDisabled = new SimpleBooleanProperty();
     private boolean isArrayEntered = false;
+    private ILogger logger;
+
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
 
     public ViewModel() {
+        initialize();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        initialize();
+    }
+
+    private void initialize() {
         setInitialCondition();
         dichotomyStatus.set(InputStatus.WAITING.toString());
         applyDisabled.set(true);
@@ -76,6 +93,10 @@ public class ViewModel {
     public void enterNewArray() {
         setInitialCondition();
         isArrayEntered = false;
+    }
+
+    public final List<String> getLog() {
+        return logger.getLog();
     }
 
     public StringProperty dichotomyResultProperty() {

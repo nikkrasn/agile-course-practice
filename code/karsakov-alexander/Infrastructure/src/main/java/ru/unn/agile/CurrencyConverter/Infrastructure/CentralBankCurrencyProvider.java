@@ -80,7 +80,6 @@ public class CentralBankCurrencyProvider implements ICurrencyProvider {
             }
         }
 
-        // RUB currency doesn't contains in XML, let's add it by hand
         actualCurrency.add(CurrencyIndexes.RUB.getIndex(),
                 Currency.builder().numCode(1).charCode("RUB").name("Российский рубль")
                         .nominal(1).value(1).build());

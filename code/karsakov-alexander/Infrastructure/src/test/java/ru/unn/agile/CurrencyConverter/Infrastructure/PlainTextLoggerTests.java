@@ -35,12 +35,8 @@ public class PlainTextLoggerTests {
     }
 
     @Test
-    public void loggerCreateLogFileOnDisk() {
-        try {
-            new FileReader(TEST_LOG_FILENAME);
-        } catch (FileNotFoundException e) {
-            fail("File " + TEST_LOG_FILENAME + " wasn't found!");
-        }
+    public void loggerCreateLogFileOnDisk() throws FileNotFoundException {
+        new FileReader(TEST_LOG_FILENAME);
     }
 
     @Test

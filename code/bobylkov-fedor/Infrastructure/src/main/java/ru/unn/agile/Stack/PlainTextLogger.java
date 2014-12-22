@@ -1,5 +1,6 @@
 package ru.unn.agile.Stack;
 
+import javafx.collections.ListChangeListener;
 import ru.unn.agile.Stack.ViewModel.ILogger;
 import ru.unn.agile.Stack.ViewModel.LogMessage;
 
@@ -9,8 +10,8 @@ import java.util.Date;
 import java.util.List;
 
 public class PlainTextLogger implements ILogger {
-    private final String filename;
     private final BufferedWriter writer;
+    private final String filename;
 
     public PlainTextLogger(final String logFilename) {
         filename = logFilename;
@@ -39,7 +40,7 @@ public class PlainTextLogger implements ILogger {
     public List<LogMessage> getLog() {
         List<LogMessage> log = new ArrayList<>();
 
-        BufferedReader reader;
+        BufferedReader reader = null;
         try {
             reader = new BufferedReader(new FileReader(filename));
         } catch (FileNotFoundException e) {

@@ -58,6 +58,8 @@ public class ViewModel {
 
     public void parseString() {
         if (!isArrayEntered) {
+            StringBuilder message = new StringBuilder(MessagesInLog.APPLY_WAS_PRESSED);
+            message.append(stringArray.get());
             Dichotomy searching = new Dichotomy();
             String[] stringElements = splitString();
             int stringElementsLength = stringElements.length;
@@ -74,25 +76,56 @@ public class ViewModel {
                 dichotomyStatus.set(InputStatus.UNSORTED.toString());
                 inputElementDisabled.setValue(true);
             }
+            logger.log(message.toString());
             elementsArray = elements;
         }
     }
 
     public void findElement() {
+        StringBuilder message = new StringBuilder(MessagesInLog.SEARCH_WAS_PRESSED);
+        message.append(stringElement.get())
+                .append(MessagesInLog.IN_ARRAY)
+                .append(stringArray.get());
         Dichotomy searching = new Dichotomy();
         int element = Integer.parseInt(stringElement.get());
         int result = searching.dichotomySearch(elementsArray, element);
         if (result == element) {
             dichotomyResult.set(ResultStatus.CONTAIN.toString());
+            message.append(ResultStatus.CONTAIN.toString());
         } else {
             dichotomyResult.set(ResultStatus.NOT_CONTAIN.toString());
+            message.append(ResultStatus.NOT_CONTAIN.toString());
+
         }
         dichotomyStatus.set(InputStatus.SUCCESS.toString());
+        logger.log(message.toString());
     }
 
     public void enterNewArray() {
+        StringBuilder message = new StringBuilder(MessagesInLog.NEW_ARRAY_WAS_PRESSED);
         setInitialCondition();
         isArrayEntered = false;
+        logger.log(message.toString());
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                String txt = (listener == valueChangedListeners.get(0))
+                        ? MessagesInLog.ARRAY_EDITING_FINISHED
+                        : MessagesInLog.ELEMENT_EDITING_FINISHED;
+                StringBuilder message = new StringBuilder(txt);
+                message.append(stringArray.get());
+                logger.log(message.toString());
+//                updateLogs();
+                listener.cache();
+                break;
+            }
+        }
     }
 
     public final List<String> getLog() {
@@ -232,10 +265,22 @@ public class ViewModel {
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
+        private String previousValue = new String();
+        private String currentValue = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
             dichotomyStatus.set(getInputStatus().toString());
+            currentValue = newValue;
+        }
+        public boolean isChanged() {
+            return !previousValue.equals(currentValue);
+        }
+        public void cache() {
+            previousValue = currentValue;
         }
     }
 }
@@ -270,4 +315,15 @@ enum ResultStatus {
     public String toString() {
         return name;
     }
+}
+
+final class MessagesInLog {
+    public static final String APPLY_WAS_PRESSED = "Applied array: ";
+    public static final String SEARCH_WAS_PRESSED = "Searching element ";
+    public static final String NEW_ARRAY_WAS_PRESSED = "Pressed button New array";
+    public static final String ARRAY_EDITING_FINISHED = "Updated input of array. ";
+    public static final String ELEMENT_EDITING_FINISHED = "Updated input of element. ";
+    public static final String IN_ARRAY = " in array ";
+
+    private MessagesInLog() { }
 }

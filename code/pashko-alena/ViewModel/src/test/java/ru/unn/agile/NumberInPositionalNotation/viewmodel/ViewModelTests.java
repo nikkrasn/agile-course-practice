@@ -182,16 +182,9 @@ public class ViewModelTests {
         assertEquals("8.e", testModel.outputNumberProperty().get());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void canThrowNullLoggerException() {
-        try {
             new ViewModel(null);
-            fail("Exception wasn't thrown");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("Logger parameter can't be null", ex.getMessage());
-        } catch (Exception ex) {
-            fail("Invalid exception type");
-        }
     }
 
     @Test
@@ -286,7 +279,7 @@ public class ViewModelTests {
         testModel.changedArguments(Boolean.TRUE, Boolean.FALSE);
 
         String message = testModel.getLog().get(0);
-        System.out.print(message);
+
         assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
                 + "Input arguments are: \\["
                 + testModel.inputNumberProperty().get() + "; "

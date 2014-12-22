@@ -24,7 +24,6 @@ public class ViewModel {
     private final StringProperty status = new SimpleStringProperty("");
     private final StringProperty logs = new SimpleStringProperty();
 
-    //private List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final ObjectProperty<VectorOperation> operationList = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
@@ -42,9 +41,16 @@ public class ViewModel {
         this.logger = logger;
     }
 
+    public ViewModel() {
+        init();
+    }
+
     public ViewModel(final ILogger logger) {
         setLogger(logger);
+        init();
+    }
 
+    private void init() {
         status.setValue(StatusOperation.WAITING.toString());
 
         operationList.set(VectorOperation.NORM);
@@ -52,8 +58,8 @@ public class ViewModel {
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(vector1CoordinateX, vector1CoordinateY, vector1CoordinateZ,
-                            vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ,
-                            operationList);
+                        vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ,
+                        operationList);
             }
             @Override
             protected boolean computeValue() {
@@ -189,30 +195,34 @@ public class ViewModel {
         if (oldValue.equals(newValue)) {
             return;
         }
-        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
-        message.append(newValue.toString());
-        logger.log(message.toString());
+        StringBuilder log = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        log.append(newValue.toString());
+        logger.log(log.toString());
         updateLogs();
     }
 
     private class ValueCachingChangeListener implements ChangeListener<String> {
-        private String prevValue = new String();
         private String curValue = new String();
+        private String prevValue = new String();
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
             if (oldValue.equals(newValue)) {
                 return;
             }
-            status.set(getInputStatus().toString());
             curValue = newValue;
+            status.set(getInputStatus().toString());
         }
-        public boolean isChanged() {
-            return !prevValue.equals(curValue);
-        }
+
         public void cache() {
             prevValue = curValue;
         }
+
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+
     }
 
     public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
@@ -252,6 +262,14 @@ public class ViewModel {
                             final String oldValue, final String newValue) {
             status.set(getInputStatus().toString());
         }
+    }
+
+    public StringProperty logsProperty() {
+       return logs;
+   }
+
+    public final String getLogs() {
+       return logs.get();
     }
 
     private StatusOperation getInputStatus() {
@@ -319,18 +337,19 @@ enum StatusOperation {
     SUCCESS("Success");
 
     private final String name;
-    private StatusOperation(final String name) {
-        this.name = name;
-    }
     public String toString() {
         return name;
+    }
+
+    private StatusOperation(final String name) {
+        this.name = name;
     }
 }
 
 final class LogMessages {
+    public static final String EDITING_FINISHED = "Updated input. ";
     public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
     public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
-    public static final String EDITING_FINISHED = "Updated input. ";
 
     private LogMessages() { }
 }

@@ -38,7 +38,7 @@ public class Calculator {
     void initialize() {
         viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
 
-        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+        final ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {
@@ -47,18 +47,18 @@ public class Calculator {
         };
 
         vec1X.textProperty().bindBidirectional(viewModel.getVector1CoordinateX());
-        vec1X.focusedProperty().addListener(focusChangeListener);
+        vec1X.focusedProperty().addListener(focusListener);
         vec1Y.textProperty().bindBidirectional(viewModel.getVector1CoordinateY());
-        vec1Y.focusedProperty().addListener(focusChangeListener);
+        vec1Y.focusedProperty().addListener(focusListener);
         vec1Z.textProperty().bindBidirectional(viewModel.getVector1CoordinateZ());
-        vec1Z.focusedProperty().addListener(focusChangeListener);
+        vec1Z.focusedProperty().addListener(focusListener);
 
         vec2X.textProperty().bindBidirectional(viewModel.getVector2CoordinateX());
-        vec2X.focusedProperty().addListener(focusChangeListener);
+        vec2X.focusedProperty().addListener(focusListener);
         vec2Y.textProperty().bindBidirectional(viewModel.getVector2CoordinateY());
-        vec2Y.focusedProperty().addListener(focusChangeListener);
+        vec2Y.focusedProperty().addListener(focusListener);
         vec2Z.textProperty().bindBidirectional(viewModel.getVector2CoordinateZ());
-        vec2Z.focusedProperty().addListener(focusChangeListener);
+        vec2Z.focusedProperty().addListener(focusListener);
 
         status.textProperty().bindBidirectional(viewModel.statusProperty());
 

@@ -60,10 +60,10 @@ public class Vector3D {
     }
 
     public String toString() {
-        return (String.format("(%.3f, %.3f, %.3f)",
+        return String.format("(%.3f, %.3f, %.3f)",
                 getCoordinateX(),
                 getCoordinateY(),
-                getCoordinateZ()));
+                getCoordinateZ());
     }
 
 }

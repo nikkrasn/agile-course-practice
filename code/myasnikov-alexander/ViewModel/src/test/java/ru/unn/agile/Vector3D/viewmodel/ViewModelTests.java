@@ -1,20 +1,16 @@
 package ru.unn.agile.Vector3D.viewmodel;
 
+import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import java.nio.file.OpenOption;
 import java.util.List;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
 
-    public void setExternalViewModel(final ViewModel viewModel) {
-        this.viewModel = viewModel;
-    }
+    private ViewModel viewModel;
 
     @Before
     public void setUp() {
@@ -24,8 +20,12 @@ public class ViewModelTests {
     }
 
     @After
-    public void tearDown() {
+    public void setDown() {
         viewModel = null;
+    }
+
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void ConstructorViewModelException() {
+    public void constructorViewModelException() {
         try {
             new ViewModel(null);
             fail("Exception wasn't thrown");

@@ -8,18 +8,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
+import static ru.unn.agile.Vector3D.infrastructure.RegexMatcher.matchesPattern;
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.unn.agile.Vector3D.infrastructure.RegexMatcher.matchesPattern;
-
 
 public class TxtLoggerTests {
-    private static final String FILENAME = "./TxtLogger_Tests_lab3.log";
+    private static final String FILENAMELOG = "./TxtLogger_Tests_lab3.log";
     private TxtLogger txtLogger;
 
     @Before
     public void setUp() {
-        txtLogger = new TxtLogger(FILENAME);
+        txtLogger = new TxtLogger(FILENAMELOG);
     }
 
     @Test
@@ -28,11 +27,11 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void canCreateLogFileOnDisk() {
+    public void canCreateLogFile() {
         try {
-            new BufferedReader(new FileReader(FILENAME));
+            new BufferedReader(new FileReader(FILENAMELOG));
         } catch (FileNotFoundException e) {
-            fail("File " + FILENAME + " wasn't found!");
+            fail("File " + FILENAMELOG + " wasn't found!");
         }
     }
 
@@ -43,19 +42,19 @@ public class TxtLoggerTests {
         txtLogger.log(testMessage);
 
         String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern(".*" + testMessage + "$"));
+        assertThat(message, matchesPattern("(.*)" + testMessage + "$"));
     }
 
     @Test
     public void canWriteSeveralLogMessage() {
-        String[] messages = {"Test message 1", "Test message 2"};
+        String[] messageList = {"Test message 1", "Test message 2"};
 
-        txtLogger.log(messages[0]);
-        txtLogger.log(messages[1]);
+        txtLogger.log(messageList[0]);
+        txtLogger.log(messageList[1]);
 
         List<String> actualMessages = txtLogger.getLog();
         for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+            assertThat(actualMessages.get(i), matchesPattern("(.*)" + messageList[i] + "$"));
         }
     }
 

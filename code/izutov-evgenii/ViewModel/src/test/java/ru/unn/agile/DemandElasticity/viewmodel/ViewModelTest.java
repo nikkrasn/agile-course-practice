@@ -7,6 +7,8 @@ import ru.unn.agile.DemandElasticity.Model.DemandType;
 import ru.unn.agile.DemandElasticity.Model.GoodType;
 import ru.unn.agile.DemandElasticity.Model.GoodsPairType;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ViewModelTest {
@@ -14,7 +16,9 @@ public class ViewModelTest {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (viewModel == null) {
+            viewModel = new ViewModel(new FakeLogger());
+        }
     }
 
     @After
@@ -221,6 +225,156 @@ public class ViewModelTest {
         assertEquals(Double.toString(expectedValue), viewModel.calcResultProperty().get());
         assertEquals(GoodsPairType.Complementary.toString(),
                      viewModel.calcDescriptionProperty().get());
+    }
+
+    @Test
+    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+        try {
+            new ViewModel(null);
+            fail("Exception wasn't thrown");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Logger can not be null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("Invalid exception type");
+        }
+    }
+
+    @Test
+    public void logIsEmptyInTheBeginning() {
+        List<String> log = viewModel.getFullLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterCalculation() {
+        setCorrectInputData();
+        viewModel.calculate();
+        String message = viewModel.getFullLog().get(0);
+
+        assertTrue(message.matches(".*" + LoggerMessages.CALCULATE_WAS_COMPLETED + ".*"));
+    }
+
+    @Test
+    public void logContainsInputArgumentsAfterCalculation() {
+        setCorrectInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*" + viewModel.firstRangeStartProperty().get()
+                + ".*" + viewModel.firstRangeFinishProperty().get()
+                + ".*" + viewModel.secondRangeStartProperty().get()
+                + ".*" + viewModel.secondRangeFinishProperty().get() + ".*"));
+    }
+
+    @Test
+    public void argumentsInfoIsProperlyFormatted() {
+        setCorrectInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*Arguments"
+                + ": FirstRangeStart = " + viewModel.firstRangeStartProperty().get()
+                + "; FirstRangeFinish = " + viewModel.firstRangeFinishProperty().get()
+                + "; SecondRangeStart = " + viewModel.secondRangeStartProperty().get()
+                + "; SecondRangeFinish = " + viewModel.secondRangeFinishProperty().get() + ".*"));
+    }
+
+    @Test
+    public void demandElasticityTypeIsMentionedInTheLog() {
+        setCorrectInputData();
+        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByCrossPrice);
+
+        viewModel.calculate();
+
+        String message = viewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*"
+                + viewModel.demandElasticityTypeProperty().get().toString()
+                + ".*"));
+    }
+
+    @Test
+    public void demandElasticityInfoIsProperlyFormatted() {
+        setCorrectInputData();
+        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
+
+        viewModel.calculate();
+
+        String message = viewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*Demand elasticity type: "
+                + viewModel.demandElasticityTypeProperty().get().toString()
+                + ".*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        setCorrectInputData();
+
+        viewModel.calculate();
+        viewModel.calculate();
+        viewModel.calculate();
+        viewModel.calculate();
+
+        assertEquals(4, viewModel.getFullLog().size());
+    }
+
+    @Test
+    public void canSeeDemandElasticityTypeChangeInLog() {
+        setCorrectInputData();
+
+        viewModel.onDemandElasticityTypeChanged(DemandElasticityType.ByIncome,
+                                                DemandElasticityType.ByPrice);
+
+        String message = viewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*"
+                + LoggerMessages.DEMAND_ELASTICITY_TYPE_WAS_CHANGED
+                + DemandElasticityType.ByPrice.toString()
+                + ".*"));
+    }
+
+    @Test
+    public void operationIsNotLoggedIfNotChanged() {
+        viewModel.onDemandElasticityTypeChanged(DemandElasticityType.ByCrossPrice,
+                                                DemandElasticityType.ByPrice);
+
+        viewModel.onDemandElasticityTypeChanged(DemandElasticityType.ByPrice,
+                                                DemandElasticityType.ByPrice);
+
+        assertEquals(1, viewModel.getFullLog().size());
+    }
+
+    @Test
+    public void argumentsAreCorrectlyLogged() {
+        setCorrectInputData();
+
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = viewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*" + LoggerMessages.INPUT_WAS_UPDATED
+                + "\\["
+                + viewModel.firstRangeStartProperty().get() + "; "
+                + viewModel.firstRangeFinishProperty().get() + "; "
+                + viewModel.secondRangeStartProperty().get() + "; "
+                + viewModel.secondRangeFinishProperty().get() + "\\]"));
+    }
+
+    @Test
+    public void calculateIsNotCalledWhenButtonIsDisabled() {
+        viewModel.calculate();
+
+        assertTrue(viewModel.getFullLog().isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.firstRangeFinishProperty().set("39");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.firstRangeFinishProperty().set("39");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, viewModel.getFullLog().size());
     }
 
     private void setCorrectInputData() {

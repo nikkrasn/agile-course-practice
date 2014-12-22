@@ -6,12 +6,21 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.nio.file.OpenOption;
+import java.util.List;
+
 public class ViewModelTests {
     private ViewModel viewModel;
 
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (viewModel == null) {
+            viewModel = new ViewModel(new FakeLogger());
+        }
     }
 
     @After
@@ -113,8 +122,92 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(String.format("(%.3f, %.3f, %.3f)", 0.0, 0.0, 1.0),
+        assertEquals(String.format("(%.3f, %.3f, %.3f)", 0.0, 3.0, 0.0),
                 viewModel.getResult());
+    }
+
+    @Test
+    public void ConstructorViewModelException() {
+        try {
+            new ViewModel(null);
+            fail("Exception wasn't thrown");
+        } catch (IllegalArgumentException ex) {
+            assertEquals("Logger parameter can't be null", ex.getMessage());
+        } catch (Exception ex) {
+            fail("Invalid exception type");
+        }
+    }
+
+    @Test
+    public void isEmptyLogBeforeCalculation() {
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void isProperLogMessageAfterCalculation() {
+        setInputTwoVectors();
+        viewModel.operationProperty().set(VectorOperation.CROSSPRODUCT);
+
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches("(.*)" + LogMessages.CALCULATE_WAS_PRESSED + "(.*)"));
+    }
+
+    @Test
+    public void isProperInputArgumentsInLogAfterCalculation() {
+        setInputOneVectors();
+        viewModel.operationProperty().set(VectorOperation.NORMALAZE);
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches("(.*)" + viewModel.getVector1CoordinateX().get()
+                                 + "(.*)" + viewModel.getVector1CoordinateX().get()
+                                 + "(.*)" + viewModel.getVector1CoordinateZ().get() + "(.*)"));
+    }
+
+
+    @Test
+    public void isProperOperatorInLogAfterCalculation() {
+        setInputTwoVectors();
+        viewModel.operationProperty().set(VectorOperation.CROSSPRODUCT);
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches("(.*)" + VectorOperation.CROSSPRODUCT.toString() + "(.*)"));
+    }
+
+    @Test
+    public void isProperOperatorInLogAfterOperationChange() {
+        setInputOneVectors();
+
+        viewModel.onOperationChanged(VectorOperation.NORM, VectorOperation.NORMALAZE);
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches("(.*)" + LogMessages.OPERATION_WAS_CHANGED
+                + VectorOperation.NORMALAZE.toString() +  "(.*)"));
+    }
+
+    @Test
+    public void isCorrectArgumentsInLog() {
+        setInputTwoVectors();
+        viewModel.operationProperty().set(VectorOperation.CROSSPRODUCT);
+
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
+                + "Input arguments are: \\["
+                + viewModel.getVector1CoordinateX().get() + "; "
+                + viewModel.getVector1CoordinateY().get() + "; "
+                + viewModel.getVector1CoordinateZ().get() + "; "
+                + viewModel.getVector2CoordinateX().get() + "; "
+                + viewModel.getVector2CoordinateY().get() + "; "
+                + viewModel.getVector2CoordinateZ().get() + "\\]"));
     }
 
     private void setInputOneVectors() {

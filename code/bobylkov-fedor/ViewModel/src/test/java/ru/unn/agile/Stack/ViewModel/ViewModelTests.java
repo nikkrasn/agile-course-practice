@@ -143,8 +143,13 @@ public class ViewModelTests {
 
     @Test
     public void doesLogContainMessagesAfterManyPushes() {
-        doesLogContainMessagesAfterPush();
         viewModel.push();
+        viewModel.push();
+
+        assertEquals("Pushed: Push me!", getLogMessageByIndex(0).getMessage());
+        assertEquals("Top changed to: Push me!", getLogMessageByIndex(1).getMessage());
+        assertEquals("Stack size changed to: 1", getLogMessageByIndex(2).getMessage());
+
         assertEquals("Pushed: Push me!", getLogMessageByIndex(3).getMessage());
         assertEquals("Stack size changed to: 2", getLogMessageByIndex(4).getMessage());
     }

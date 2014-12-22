@@ -59,4 +59,11 @@ public class Vector3D {
         return z;
     }
 
+    public String toString() {
+        return (String.format("(%.3f, %.3f, %.3f)",
+                getCoordinateX(),
+                getCoordinateY(),
+                getCoordinateZ()));
+    }
+
 }

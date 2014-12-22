@@ -36,15 +36,10 @@ public class ViewModel {
     private final StringProperty log = new SimpleStringProperty("");
 
     private ILogger logger;
+    private ICurrencyProvider provider;
 
     private void init() {
-        ICurrencyProvider provider = new FixedCurrencyProvider();
-        ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
-        fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
-        toCurrencyList.set(FXCollections.observableArrayList(actualRates));
-        fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));
-        toCurrency.set(actualRates.get(CurrencyIndexes.USD.getIndex()));
-
+        setCurrencyProvider(new FixedCurrencyProvider());
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(inputValue);
@@ -68,13 +63,26 @@ public class ViewModel {
         inputValue.addListener(inputValueListener);
     }
 
+    private void updateCurrencyList() {
+        ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
+        fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
+        toCurrencyList.set(FXCollections.observableArrayList(actualRates));
+        fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));
+        toCurrency.set(actualRates.get(CurrencyIndexes.USD.getIndex()));
+    }
+
     public ViewModel() {
         init();
     }
 
     public ViewModel(ILogger logger) {
-        init();
         setLogger(logger);
+        init();
+    }
+
+    public void setCurrencyProvider(ICurrencyProvider provider) {
+        this.provider = provider;
+        updateCurrencyList();
     }
 
     public StringProperty inputValueProperty() {

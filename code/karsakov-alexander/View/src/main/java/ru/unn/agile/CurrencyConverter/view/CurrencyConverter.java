@@ -8,7 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import ru.unn.agile.CurrencyConverter.Logger.PlainTextLogger;
+import ru.unn.agile.CurrencyConverter.Infrastructure.CentralBankCurrencyProvider;
+import ru.unn.agile.CurrencyConverter.Infrastructure.PlainTextLogger;
 import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.viewmodel.ViewModel;
 
@@ -33,7 +34,7 @@ public class CurrencyConverter {
         String logFilename = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.ENGLISH)
                                                   .format(new Date()) + ".log";
         viewModel.setLogger(new PlainTextLogger(logFilename));
-
+        viewModel.setCurrencyProvider(new CentralBankCurrencyProvider());
 
         valueTextField.textProperty().bindBidirectional(viewModel.inputValueProperty());
         valueTextField.focusedProperty().addListener(new ChangeListener<Boolean>() {

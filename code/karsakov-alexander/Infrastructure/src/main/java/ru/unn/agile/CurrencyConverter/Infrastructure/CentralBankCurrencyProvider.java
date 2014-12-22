@@ -2,8 +2,11 @@ package ru.unn.agile.CurrencyConverter.Infrastructure;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.net.URL;
+import java.util.Locale;
 
 import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
@@ -52,8 +55,15 @@ public class CentralBankCurrencyProvider implements ICurrencyProvider {
                                 eElement.getElementsByTagName("Nominal").item(0).getTextContent());
                         String name =
                                 eElement.getElementsByTagName("Name").item(0).getTextContent();
-                        double value = Double.parseDouble(
-                                eElement.getElementsByTagName("Nominal").item(0).getTextContent());
+
+                        NumberFormat format = NumberFormat.getInstance(new Locale("ru"));
+                        double value = 1;
+                        try {
+                            value = format.parse(eElement.getElementsByTagName("Value")
+                                                         .item(0).getTextContent()).doubleValue();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
                         actualCurrency.add(index.getIndex(),
                                 Currency.builder().numCode(numCode).charCode(charCode)

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
+import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotEquals;

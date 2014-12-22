@@ -67,6 +67,8 @@ public class ViewModel {
             @Override
             public void onChanged(final Change<? extends String> c) {
                 updateProperties();
+                c.next();
+                log("Stack size changed to: " + c.getList().size());
             }
         });
         textToPush.addListener(new ChangeListener<String>() {
@@ -91,15 +93,16 @@ public class ViewModel {
     }
 
     public void push() {
-        stack.push(textToPush.get());
         log("Pushed: " + textToPush.get());
+        stack.push(textToPush.get());
     }
 
     public void pop() {
         if (isPopButtonDisabled()) {
             return;
         }
-        log("Popped: " + stack.pop());
+        log("Popped: " + stack.top());
+        stack.pop();
     }
 
     public void setLogger(final ILogger newLogger) {

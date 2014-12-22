@@ -1,4 +1,4 @@
-package ru.unn.agile.Stack;
+package ru.unn.agile.Stack.Infrastructure;
 
 import ru.unn.agile.Stack.ViewModel.ViewModelTests;
 

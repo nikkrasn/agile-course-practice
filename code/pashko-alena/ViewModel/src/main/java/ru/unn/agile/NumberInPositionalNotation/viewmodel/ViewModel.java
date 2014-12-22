@@ -93,7 +93,7 @@ public class ViewModel {
                 .append("; Input Notation = ").append(inputNotation.get().toString())
                 .append("; Output Notation = ").append(outputNotation.get().toString()).append(".");
         logger.log(message.toString());
-        updateLogs();
+        logsUpdate();
     }
 
     public void onNotationChanged(final Notation oldValue, final Notation newValue,
@@ -106,14 +106,14 @@ public class ViewModel {
         message.append(": ");
         message.append(newValue.toString());
         logger.log(message.toString());
-        updateLogs();
+        logsUpdate();
     }
 
 
-    private void updateLogs() {
-        List<String> fullLog = logger.getLog();
+    private void logsUpdate() {
+        List<String> allLog = logger.getLog();
         String record = new String();
-        for (String log : fullLog) {
+        for (String log : allLog) {
             record += log + "\n";
         }
         logs.set(record);
@@ -132,7 +132,7 @@ public class ViewModel {
                         .append(inputNotation.get().toString()).append("; ")
                         .append(outputNotation.get().toString()).append("]");
                 logger.log(message.toString());
-                updateLogs();
+                logsUpdate();
 
                 listener.cache();
                 break;

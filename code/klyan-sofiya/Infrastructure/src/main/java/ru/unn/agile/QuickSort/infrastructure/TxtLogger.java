@@ -13,34 +13,34 @@ import java.util.List;
 import java.util.Locale;
 
 public class TxtLogger implements ILogger {
-    private static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-    private final BufferedWriter writer;
-    private final String filename;
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private final BufferedWriter bufWriter;
+    private final String fileName;
 
     private static String now() {
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW, Locale.ENGLISH);
-        return sdf.format(cal.getTime());
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+        return sdf.format(calendar.getTime());
     }
 
-    public TxtLogger(final String filename) {
-        this.filename = filename;
+    public TxtLogger(final String fileName) {
+        this.fileName = fileName;
 
         BufferedWriter logWriter = null;
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
+            logWriter = new BufferedWriter(new FileWriter(fileName));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        bufWriter = logWriter;
     }
 
     @Override
     public void log(final String s) {
         try {
-            writer.write(now() + " > " + s);
-            writer.newLine();
-            writer.flush();
+            bufWriter.write(now() + " > " + s);
+            bufWriter.newLine();
+            bufWriter.flush();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -51,7 +51,7 @@ public class TxtLogger implements ILogger {
         BufferedReader bufReader;
         ArrayList<String> log = new ArrayList<String>();
         try {
-            bufReader = new BufferedReader(new FileReader(filename));
+            bufReader = new BufferedReader(new FileReader(fileName));
             String line = bufReader.readLine();
 
             while (line != null) {

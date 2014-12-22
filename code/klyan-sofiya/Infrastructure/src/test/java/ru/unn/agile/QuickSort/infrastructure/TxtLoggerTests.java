@@ -2,7 +2,6 @@ package ru.unn.agile.QuickSort.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -28,15 +27,9 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void ableToCreateLogFileOnDisk() {
-        BufferedReader reader = null;
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(FILENAME);
-            reader = new BufferedReader(fileReader);
-        } catch (FileNotFoundException e) {
-            fail("Log file " + FILENAME + " wasn't found!");
-        }
+    public void ableToCreateLogFileOnDisk() throws FileNotFoundException {
+        FileReader fileReader = new FileReader(FILENAME);
+        BufferedReader reader = new BufferedReader(fileReader);
     }
 
     @Test
@@ -57,9 +50,8 @@ public class TxtLoggerTests {
         txtLogger.log(messages[1]);
 
         List<String> actualMessages = txtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), havePatternMatch(".*" + messages[i] + "$"));
-        }
+        assertThat(actualMessages.get(0), havePatternMatch(".*" + messages[0] + "$"));
+        assertThat(actualMessages.get(1), havePatternMatch(".*" + messages[1] + "$"));
     }
 
     @Test

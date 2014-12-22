@@ -1,7 +1,7 @@
 apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
 
 javafx {
-    mainClass 'ru.unn.agile.ComplexNumber.viewmodel.ViewModel'
+    mainClass 'ViewModel'
 }
 
 dependencies {

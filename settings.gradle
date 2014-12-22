@@ -103,6 +103,8 @@ include "code/bysheva-tatyana/ViewModel"
 project(":code/bysheva-tatyana/ViewModel").name = "bysheva-tatyana-ViewModel"
 include "code/bysheva-tatyana/View"
 project(":code/bysheva-tatyana/View").name = "bysheva-tatyana-View"
+include "code/bysheva-tatyana/Infrastructure"
+project(":code/bysheva-tatyana/Infrastructure").name = "bysheva-tatyana-Infrastructure"
 
 // Izutov Evgenii
 include "code/izutov-evgenii/Model"

@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
-public class FixedCurrencyProviderTest {
+public class FixedCurrencyProviderTests {
     private ICurrencyProvider provider;
 
     private static boolean checkCurrencyRatesContainsAllCurrencyInCurrencyIndex(
@@ -29,10 +29,14 @@ public class FixedCurrencyProviderTest {
         return true;
     }
 
-    private static boolean checkCurrencyRatesContatinsUniqueValues(
+    private static boolean checkCurrencyRatesContainsUniqueValues(
             final ArrayList<Currency> currencyRates) {
         HashSet<Currency> uniqueCurrencies = new HashSet<Currency>(currencyRates);
         return uniqueCurrencies.size() == currencyRates.size();
+    }
+
+    public void setExternalProvider(ICurrencyProvider provider) {
+        this.provider = provider;
     }
 
     @Before
@@ -65,6 +69,6 @@ public class FixedCurrencyProviderTest {
     public void fixedCurrencyProviderReturnsUniqueCurrency() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        assertTrue(checkCurrencyRatesContatinsUniqueValues(currencyRates));
+        assertTrue(checkCurrencyRatesContainsUniqueValues(currencyRates));
     }
 }

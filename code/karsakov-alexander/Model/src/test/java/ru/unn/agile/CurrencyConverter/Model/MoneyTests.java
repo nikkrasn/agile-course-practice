@@ -10,17 +10,22 @@ import java.util.ArrayList;
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.*;
 import static org.junit.Assert.*;
 
-public class MoneyTest {
+public class MoneyTests {
     private Currency usd;
     private Currency eur;
     private Money tenBucks;
     private final double delta = 0.0001;
+    private ICurrencyProvider provider = null;
 
-    
+    public void setExternalCurrencyProvider(ICurrencyProvider provider) {
+        this.provider = provider;
+    }
 
     @Before
     public void init() {
-        ICurrencyProvider provider = new FixedCurrencyProvider();
+        if (provider == null) {
+            provider = new FixedCurrencyProvider();
+        }
         ArrayList<Currency> currencies = provider.getActualCurrencyRates();
         usd = currencies.get(USD.getIndex());
         eur = currencies.get(EUR.getIndex());

@@ -184,7 +184,7 @@ public class ViewModel {
     }
 
     public void onCurrencyConvertModeChanged(final Currency oldValue, final Currency newValue) {
-        if (oldValue == newValue) {
+        if (oldValue.equals(newValue)) {
             return;
         }
         String logMessage = "Currency conversion mode is changed. Current conversion mode is: "
@@ -197,10 +197,10 @@ public class ViewModel {
         if (!oldValue && newValue) {
             return;
         }
-        if (getInputStatus() != ViewModelStatus.BAD_FORMAT) {
-            logger.logEvent("New input value: " + inputValue.get());
-        } else {
+        if (getInputStatus() == ViewModelStatus.BAD_FORMAT) {
             logger.logError("Incorrect input value: " + inputValue.get());
+        } else {
+            logger.logEvent("New input value: " + inputValue.get());
         }
         updateLog();
     }

@@ -11,10 +11,10 @@ import java.util.Locale;
 public class PlainTextLogger implements ILogger {
     private static final String TIMESTAMP_FORMAT = "yyyy.MM.dd HH:mm:ss";
     private String lastLoggedMessage = null;
-    private String filename = null;
-    private BufferedWriter logFileWriter = null;
+    private final String filename;
+    private BufferedWriter logFileWriter;
 
-    public PlainTextLogger(String filename) {
+    public PlainTextLogger(final String filename) {
         if (filename == null) {
             throw new IllegalArgumentException("filename argument can't be null");
         }
@@ -28,7 +28,7 @@ public class PlainTextLogger implements ILogger {
     }
 
     @Override
-    public void logEvent(String message) {
+    public void logEvent(final String message) {
         try {
             lastLoggedMessage = timestamp() + " Event: " + message;
             logFileWriter.write(lastLoggedMessage);
@@ -41,7 +41,7 @@ public class PlainTextLogger implements ILogger {
     }
 
     @Override
-    public void logError(String message) {
+    public void logError(final String message) {
         try {
             lastLoggedMessage = timestamp() + " Error: " + message;
             logFileWriter.write(lastLoggedMessage);
@@ -70,8 +70,7 @@ public class PlainTextLogger implements ILogger {
                 fullLog.add(line);
                 line = reader.readLine();
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             return null;
         }
@@ -79,8 +78,8 @@ public class PlainTextLogger implements ILogger {
     }
 
     private static String timestamp() {
-        String timestamp = "[" +
-                (new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH).format(new Date())) + "]";
+        String timestamp = "["
+               + (new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.ENGLISH).format(new Date())) + "]";
         return timestamp;
     }
 }

@@ -20,10 +20,18 @@ import ru.unn.agile.CurrencyConverter.Provider.ICurrencyProvider;
 
 public class CentralBankCurrencyProvider implements ICurrencyProvider {
     private static final String CENTRAL_BANK_URL = "http://www.cbr.ru/scripts/XML_daily.asp";
+    private ArrayList<Currency> actualCurrency = null;
 
     @Override
     public final ArrayList<Currency> getActualCurrencyRates() {
-        ArrayList<Currency> actualCurrency = new ArrayList<Currency>();
+        if (actualCurrency == null) {
+            updateCurrencyRates();
+        }
+        return actualCurrency;
+    }
+
+    public void updateCurrencyRates() {
+        actualCurrency = new ArrayList<Currency>();
 
         Document doc;
         try {
@@ -33,50 +41,48 @@ public class CentralBankCurrencyProvider implements ICurrencyProvider {
             doc = db.parse(is);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
-            return actualCurrency;
+            return;
         }
 
         NodeList nList = doc.getElementsByTagName("Valute");
 
-            for (int i = 0; i < nList.getLength(); i++) {
-                Node nNode = nList.item(i);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+        for (int i = 0; i < nList.getLength(); i++) {
+            Node nNode = nList.item(i);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
-                    Element eElement = (Element) nNode;
+                Element eElement = (Element) nNode;
 
-                    int numCode = Integer.parseInt(
-                            eElement.getElementsByTagName("NumCode").item(0).getTextContent());
+                int numCode = Integer.parseInt(
+                        eElement.getElementsByTagName("NumCode").item(0).getTextContent());
 
-                    CurrencyIndexes index = CurrencyIndexes.getCurrencyIndexByNumCode(numCode);
-                    if (index != null) {
-                        String charCode =
-                                eElement.getElementsByTagName("CharCode").item(0).getTextContent();
-                        int nominal = Integer.parseInt(
-                                eElement.getElementsByTagName("Nominal").item(0).getTextContent());
-                        String name =
-                                eElement.getElementsByTagName("Name").item(0).getTextContent();
+                CurrencyIndexes index = CurrencyIndexes.getCurrencyIndexByNumCode(numCode);
+                if (index != null) {
+                    String charCode =
+                            eElement.getElementsByTagName("CharCode").item(0).getTextContent();
+                    int nominal = Integer.parseInt(
+                            eElement.getElementsByTagName("Nominal").item(0).getTextContent());
+                    String name =
+                            eElement.getElementsByTagName("Name").item(0).getTextContent();
 
-                        NumberFormat format = NumberFormat.getInstance(new Locale("ru"));
-                        double value = 1;
-                        try {
-                            value = format.parse(eElement.getElementsByTagName("Value")
-                                                         .item(0).getTextContent()).doubleValue();
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                        actualCurrency.add(index.getIndex(),
-                                Currency.builder().numCode(numCode).charCode(charCode)
-                                        .name(name).nominal(nominal).value(value).build());
+                    NumberFormat format = NumberFormat.getInstance(new Locale("ru"));
+                    double value = 1;
+                    try {
+                        value = format.parse(eElement.getElementsByTagName("Value")
+                                .item(0).getTextContent()).doubleValue();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
+
+                    actualCurrency.add(index.getIndex(),
+                            Currency.builder().numCode(numCode).charCode(charCode)
+                                    .name(name).nominal(nominal).value(value).build());
                 }
             }
+        }
 
         // RUB currency doesn't contains in XML, let's add it by hand
         actualCurrency.add(CurrencyIndexes.RUB.getIndex(),
-                           Currency.builder().numCode(1).charCode("RUB").name("Российский рубль")
-                           .nominal(1).value(1).build());
-
-        return actualCurrency;
+                Currency.builder().numCode(1).charCode("RUB").name("Российский рубль")
+                        .nominal(1).value(1).build());
     }
 }

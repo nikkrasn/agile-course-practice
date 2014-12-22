@@ -8,11 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class PlainTextLoggerTests {
     private static final String TEST_LOG_FILENAME = "./Plain_text_tests.log";
@@ -24,7 +20,7 @@ public class PlainTextLoggerTests {
     }
 
     @After
-    public void CleanUp() {
+    public void cleanUp() {
         logger = null;
     }
 

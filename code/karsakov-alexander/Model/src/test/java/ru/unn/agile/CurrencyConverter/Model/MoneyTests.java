@@ -17,7 +17,7 @@ public class MoneyTests {
     private final double delta = 0.0001;
     private ICurrencyProvider provider = null;
 
-    public void setExternalCurrencyProvider(ICurrencyProvider provider) {
+    public void setExternalCurrencyProvider(final ICurrencyProvider provider) {
         this.provider = provider;
     }
 

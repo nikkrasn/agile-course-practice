@@ -1,6 +1,8 @@
 dependencies {
     compile project(':karsakov-alexander-ViewModel')
     testCompile project(':karsakov-alexander-ViewModel').sourceSets.test.output
+    compile project(':karsakov-alexander-Model')
+    testCompile project(':karsakov-alexander-Model').sourceSets.test.output
 }
 
 sourceSets {

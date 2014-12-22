@@ -35,7 +35,7 @@ public class FixedCurrencyProviderTests {
         return uniqueCurrencies.size() == currencyRates.size();
     }
 
-    public void setExternalProvider(ICurrencyProvider provider) {
+    public void setExternalProvider(final ICurrencyProvider provider) {
         this.provider = provider;
     }
 
@@ -45,28 +45,28 @@ public class FixedCurrencyProviderTests {
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsNotEmptyList() {
+    public void returnsNotEmptyList() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(currencyRates.size() > 0);
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsAtLeastThreeCurrency() {
+    public void returnsAtLeastThreeCurrency() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(currencyRates.size() >= 3);
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsAllCurrencyInCurrencyIndex() {
+    public void returnsAllCurrencyInCurrencyIndex() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(checkCurrencyRatesContainsAllCurrencyInCurrencyIndex(currencyRates));
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsUniqueCurrency() {
+    public void returnsUniqueCurrency() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(checkCurrencyRatesContainsUniqueValues(currencyRates));

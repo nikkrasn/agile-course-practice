@@ -4,19 +4,18 @@ import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.CurrencyConverter.Model.Currency;
-import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
-import ru.unn.agile.CurrencyConverter.Provider.FixedCurrencyProvider;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotEquals;
+
+import ru.unn.agile.CurrencyConverter.Model.Currency;
+import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
 
 public class ViewModelTests {
     private ViewModel viewModel;
     private ObservableList<Currency> currencyList;
     private final double delta = 0.0001;
 
-    public void setExternalViewModel(ViewModel viewModel) {
+    public void setExternalViewModel(final ViewModel viewModel) {
         this.viewModel = viewModel;
     }
 

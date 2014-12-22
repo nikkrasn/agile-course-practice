@@ -75,12 +75,12 @@ public class ViewModel {
         init();
     }
 
-    public ViewModel(ILogger logger) {
+    public ViewModel(final ILogger logger) {
         setLogger(logger);
         init();
     }
 
-    public void setCurrencyProvider(ICurrencyProvider provider) {
+    public void setCurrencyProvider(final ICurrencyProvider provider) {
         this.provider = provider;
         updateCurrencyList();
     }
@@ -153,7 +153,7 @@ public class ViewModel {
         return log.get();
     }
 
-    public void setLogger(ILogger logger) {
+    public void setLogger(final ILogger logger) {
         if (logger == null) {
             throw new IllegalArgumentException("Logger can't be null");
         }
@@ -184,10 +184,11 @@ public class ViewModel {
     }
 
     public void onCurrencyConvertModeChanged(final Currency oldValue, final Currency newValue) {
-        if (oldValue == newValue)
+        if (oldValue == newValue) {
             return;
-        String logMessage = "Currency conversion mode is changed. Current conversion mode is: " +
-                fromCurrency.get().getCharCode() + " -> " + toCurrency.get().getCharCode();
+        }
+        String logMessage = "Currency conversion mode is changed. Current conversion mode is: "
+                + fromCurrency.get().getCharCode() + " -> " + toCurrency.get().getCharCode();
         logger.logEvent(logMessage);
         updateLog();
     }

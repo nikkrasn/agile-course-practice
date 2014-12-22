@@ -2,7 +2,7 @@ package ru.unn.agile.CurrencyConverter.viewmodel;
 
 import java.util.ArrayList;
 
-public class MockLogger implements ILogger{
+public class MockLogger implements ILogger {
     private final ArrayList<String> log = new ArrayList<>();
     private String lastMessage = null;
 

@@ -45,7 +45,6 @@ public class PlainTextLoggerTests {
         logger.log(messages[0]);
         logger.log(messages[1]);
 
-
         List<LogMessage> logMessages = logger.getLog();
         assertEquals(messages[0], logMessages.get(0).getMessage());
         assertEquals(messages[1], logMessages.get(1).getMessage());

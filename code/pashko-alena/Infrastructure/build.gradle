@@ -1,8 +1,6 @@
-apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
-
 dependencies {
     compile project(':pashko-alena-ViewModel')
-    compile project(':pashko-alena-Infrastructure')
+    testCompile project(':pashko-alena-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

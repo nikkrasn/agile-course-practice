@@ -3,100 +3,182 @@ package ru.unn.agile.QuickSort.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
+    private ViewModel testViewModel;
+
+    public void setExternalViewModel(final ViewModel testViewModel) {
+        this.testViewModel = testViewModel;
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (testViewModel == null) {
+            testViewModel = new ViewModel(new FakeLogger());
+        }
     }
 
     @After
     public void tearDown() {
-        viewModel = null;
+        testViewModel = null;
     }
 
+
     @Test
-    public void canSetDefaultValues() {
-        assertEquals("", viewModel.sortedArrayProperty().get());
-        assertEquals("", viewModel.unsortedArrayProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+    public void ableToSetDefaultValues() {
+        assertEquals("", testViewModel.sortedArrayProperty().get());
+        assertEquals("", testViewModel.unsortedArrayProperty().get());
+        assertEquals(Status.WAITING.toString(), testViewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenSortWithEmptyInput() {
-        viewModel.sort();
-        assertEquals(Status.WAITING.toString(), viewModel.statusProperty().get());
+        testViewModel.sort();
+        assertEquals(Status.WAITING.toString(), testViewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenInputIsFilled() {
         setCorrectInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.READY.toString(), testViewModel.statusProperty().get());
     }
 
     @Test
     public void canReportBadFormat() {
-        viewModel.unsortedArrayProperty().set("a");
+        testViewModel.unsortedArrayProperty().set("a");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), testViewModel.statusProperty().get());
     }
 
     @Test
     public void sortButtonIsDisabledInitially() {
-        assertTrue(viewModel.sortingDisabledProperty().get());
+        assertTrue(testViewModel.sortingDisabledProperty().get());
     }
 
     @Test
     public void sortButtonIsDisabledWhenFormatIsBad() {
-        viewModel.unsortedArrayProperty().set("trash");
+        testViewModel.unsortedArrayProperty().set("trash");
 
-        assertTrue(viewModel.sortingDisabledProperty().get());
+        assertTrue(testViewModel.sortingDisabledProperty().get());
     }
 
     @Test
     public void sortButtonIsEnabledWithCorrectInput() {
         setCorrectInputData();
 
-        assertFalse(viewModel.sortingDisabledProperty().get());
+        assertFalse(testViewModel.sortingDisabledProperty().get());
     }
 
     @Test
     public void sortingHasCorrectResult() {
         setCorrectInputData();
-        viewModel.sort();
+        testViewModel.sort();
 
-        assertEquals("-234.5 -5.0 2.0 7.87 10.0", viewModel.sortedArrayProperty().get());
+        assertEquals("-234.5 -5.0 2.0 7.87 10.0", testViewModel.sortedArrayProperty().get());
     }
 
     @Test
     public void canSetSuccessMessage() {
         setCorrectInputData();
 
-        viewModel.sort();
+        testViewModel.sort();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.SUCCESS.toString(), testViewModel.statusProperty().get());
     }
 
     @Test
     public void canSetBadFormatMessage() {
-        viewModel.unsortedArrayProperty().set("bad data");
+        testViewModel.unsortedArrayProperty().set("bad data");
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), testViewModel.statusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setCorrectInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.statusProperty().get());
+        assertEquals(Status.READY.toString(), testViewModel.statusProperty().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void throwsExceptionWhenViewModelCreatedWithNullLogger() {
+        new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyWhenStarted() {
+        List<String> log = testViewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterCalculation() {
+        setCorrectInputData();
+
+        testViewModel.sort();
+        String message = testViewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.SORT_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void logContainsInputArgumentsAfterCalculation() {
+        setCorrectInputData();
+
+        testViewModel.sort();
+
+        String message = testViewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + "2.0 -5.0 7.87 -234.5 10.0" + ".*"));
+    }
+
+    @Test
+    public void canAddSeveralLogMessages() {
+        setCorrectInputData();
+
+        testViewModel.sort();
+        testViewModel.sort();
+        testViewModel.sort();
+
+        assertEquals(3, testViewModel.getLog().size());
+    }
+
+    @Test
+    public void inputIsCorrectlyLogged() {
+        setCorrectInputData();
+
+        testViewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = testViewModel.getLog().get(0);
+        String properMatch =  LogMessages.INPUT_EDITING_FINISHED
+                + "Input Array: 2.0 -5.0 7.87 -234.5 10.0";
+        assertTrue(message.matches(".*" + properMatch));
+    }
+
+    @Test
+    public void sortIsNotCalledWhenButtonIsDisabled() {
+        testViewModel.sort();
+
+        assertTrue(testViewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwice() {
+        setCorrectInputData();
+        testViewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        setCorrectInputData();
+        testViewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, testViewModel.getLog().size());
     }
 
     private void setCorrectInputData() {
-        viewModel.unsortedArrayProperty().set("2 -5 7.87 -234.5 10");
+        testViewModel.unsortedArrayProperty().set("2.0 -5.0 7.87 -234.5 10.0");
     }
 }

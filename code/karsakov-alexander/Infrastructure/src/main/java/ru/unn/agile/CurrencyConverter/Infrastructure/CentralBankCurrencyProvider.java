@@ -33,7 +33,27 @@ public class CentralBankCurrencyProvider implements ICurrencyProvider {
     public void updateCurrencyRates() {
         actualCurrency = new ArrayList<Currency>();
 
-        Document doc;
+        Document doc = getXMLDocumentWithActualCurrencyRates();
+        if (doc == null) {
+            return;
+        }
+
+        NodeList nList = doc.getElementsByTagName("Valute");
+        for (int i = 0; i < nList.getLength(); i++) {
+            Node nNode = nList.item(i);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eElement = (Element) nNode;
+                addNodeElementToCurrencyList(eElement, actualCurrency);
+            }
+        }
+
+        actualCurrency.add(CurrencyIndexes.RUB.getIndex(),
+                Currency.builder().numCode(1).charCode("RUB").name("Российский рубль")
+                        .nominal(1).value(1).build());
+    }
+
+    private static Document getXMLDocumentWithActualCurrencyRates() {
+        Document doc = null;
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             URL cbr = new URL(CENTRAL_BANK_URL);
@@ -41,47 +61,36 @@ public class CentralBankCurrencyProvider implements ICurrencyProvider {
             doc = db.parse(is);
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
-            return;
         }
+        return doc;
+    }
 
-        NodeList nList = doc.getElementsByTagName("Valute");
+    private static void addNodeElementToCurrencyList(final Element element,
+                                                     final ArrayList<Currency> currencyList) {
+        int numCode = Integer.parseInt(
+                element.getElementsByTagName("NumCode").item(0).getTextContent());
 
-        for (int i = 0; i < nList.getLength(); i++) {
-            Node nNode = nList.item(i);
-            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+        CurrencyIndexes index = CurrencyIndexes.getCurrencyIndexByNumCode(numCode);
+        if (index != null) {
+            String charCode =
+                    element.getElementsByTagName("CharCode").item(0).getTextContent();
+            int nominal = Integer.parseInt(
+                    element.getElementsByTagName("Nominal").item(0).getTextContent());
+            String name =
+                    element.getElementsByTagName("Name").item(0).getTextContent();
 
-                Element eElement = (Element) nNode;
-
-                int numCode = Integer.parseInt(
-                        eElement.getElementsByTagName("NumCode").item(0).getTextContent());
-
-                CurrencyIndexes index = CurrencyIndexes.getCurrencyIndexByNumCode(numCode);
-                if (index != null) {
-                    String charCode =
-                            eElement.getElementsByTagName("CharCode").item(0).getTextContent();
-                    int nominal = Integer.parseInt(
-                            eElement.getElementsByTagName("Nominal").item(0).getTextContent());
-                    String name =
-                            eElement.getElementsByTagName("Name").item(0).getTextContent();
-
-                    NumberFormat format = NumberFormat.getInstance(new Locale("ru"));
-                    double value = 1;
-                    try {
-                        value = format.parse(eElement.getElementsByTagName("Value")
-                                .item(0).getTextContent()).doubleValue();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    actualCurrency.add(index.getIndex(),
-                            Currency.builder().numCode(numCode).charCode(charCode)
-                                    .name(name).nominal(nominal).value(value).build());
-                }
+            NumberFormat format = NumberFormat.getInstance(new Locale("ru"));
+            double value = 1;
+            try {
+                value = format.parse(element.getElementsByTagName("Value")
+                        .item(0).getTextContent()).doubleValue();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        }
 
-        actualCurrency.add(CurrencyIndexes.RUB.getIndex(),
-                Currency.builder().numCode(1).charCode("RUB").name("Российский рубль")
-                        .nominal(1).value(1).build());
+            currencyList.add(index.getIndex(),
+                             Currency.builder().numCode(numCode).charCode(charCode)
+                                               .name(name).nominal(nominal).value(value).build());
+        }
     }
 }

@@ -19,6 +19,14 @@ public class ViewModel {
     private final StringProperty textToPush = new SimpleStringProperty();
     private final BooleanProperty isEmpty = new SimpleBooleanProperty();
     private final Stack<String> stack = new Stack<>();
+    private final StringProperty logs = new SimpleStringProperty();
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+    public final String getLogs() {
+        return logs.get();
+    }
 
     public StringProperty topProperty() {
         return top;
@@ -106,9 +114,23 @@ public class ViewModel {
     }
 
     private void log(final String message) {
-        if (logger != null) {
-            logger.log(message);
+        if (logger == null) {
+            return;
         }
+        logger.log(message);
+        updateLogs();
+    }
+
+    private void updateLogs() {
+        if (logger == null) {
+            return;
+        }
+        List<LogMessage> fullLog = logger.getLog();
+        String updatedLog = "";
+        for (LogMessage message : fullLog) {
+            updatedLog += message.toString() + "\n";
+        }
+        logs.set(updatedLog);
     }
 
     private void updateProperties() {

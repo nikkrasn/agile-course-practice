@@ -19,13 +19,14 @@
     <RowConstraints maxHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="60.0" prefHeight="60.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="150.0" prefHeight="300.0" vgrow="ALWAYS" />
+      <RowConstraints minHeight="150.0" prefHeight="300.0" vgrow="ALWAYS" />
   </rowConstraints>
    <children>
-      <TableView fx:id="stackTable" GridPane.columnSpan="2" GridPane.rowIndex="3" editable="true" visible="true">
+      <TableView fx:id="stackTable" editable="true" visible="true" GridPane.columnSpan="2" GridPane.rowIndex="3">
           <columns>
-              <TableColumn fx:id="valueColumn" editable="true" maxWidth="-1.0" minWidth="400" prefWidth="-1.0" sortable="false" text="Value" visible="true" resizable="true"/>
+              <TableColumn fx:id="valueColumn" editable="true" maxWidth="-1.0" minWidth="400" prefWidth="-1.0" resizable="true" sortable="false" text="Value" visible="true" />
           </columns>
-          <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+          <columnResizePolicy><TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY" /></columnResizePolicy>
       </TableView>
       <AnchorPane maxHeight="60.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
          <children>
@@ -58,6 +59,11 @@
                   <Insets right="5.0" />
                </padding>
             </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+         <children>
+            <TextArea text="${viewModel.logs}" editable="false" layoutX="51.0" layoutY="36.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

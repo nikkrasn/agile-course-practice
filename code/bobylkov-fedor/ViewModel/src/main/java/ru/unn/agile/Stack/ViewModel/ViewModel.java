@@ -1,17 +1,32 @@
 package ru.unn.agile.Stack.ViewModel;
 
 import javafx.beans.property.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import ru.unn.agile.Stack.Model.Stack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewModel {
+    private ILogger logger;
+
     private final ObjectProperty<ObservableList<String>> stackTable = new SimpleObjectProperty<>();
     private final StringProperty top = new SimpleStringProperty();
     private final StringProperty textToPush = new SimpleStringProperty();
     private final BooleanProperty isEmpty = new SimpleBooleanProperty();
     private final Stack<String> stack = new Stack<>();
+    private final StringProperty logs = new SimpleStringProperty();
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+    public final String getLogs() {
+        return logs.get();
+    }
 
     public StringProperty topProperty() {
         return top;
@@ -52,6 +67,24 @@ public class ViewModel {
             @Override
             public void onChanged(final Change<? extends String> c) {
                 updateProperties();
+                c.next();
+                log("Stack size changed to: " + c.getList().size());
+            }
+        });
+        textToPush.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue,
+                                final String newValue) {
+                log("Text-To-Push changed to: " + newValue);
+            }
+        });
+        top.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue,
+                                final String newValue) {
+                log("Top changed to: " + newValue);
             }
         });
 
@@ -60,6 +93,7 @@ public class ViewModel {
     }
 
     public void push() {
+        log("Pushed: " + textToPush.get());
         stack.push(textToPush.get());
     }
 
@@ -67,7 +101,39 @@ public class ViewModel {
         if (isPopButtonDisabled()) {
             return;
         }
+        log("Popped: " + stack.top());
         stack.pop();
+    }
+
+    public void setLogger(final ILogger newLogger) {
+        logger = newLogger;
+    }
+
+    public List<LogMessage> getLog() {
+        if (logger != null) {
+            return logger.getLog();
+        }
+        return new ArrayList<>();
+    }
+
+    private void log(final String message) {
+        if (logger == null) {
+            return;
+        }
+        logger.log(message);
+        updateLogs();
+    }
+
+    private void updateLogs() {
+        if (logger == null) {
+            return;
+        }
+        List<LogMessage> fullLog = logger.getLog();
+        String updatedLog = "";
+        for (LogMessage message : fullLog) {
+            updatedLog += message.toString() + "\n";
+        }
+        logs.set(updatedLog);
     }
 
     private void updateProperties() {

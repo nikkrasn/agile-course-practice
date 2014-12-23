@@ -2,20 +2,16 @@ package ru.unn.agile.Metrics.Infrastructure;
 
 import ru.unn.agile.Metrics.viewmodel.ILogger;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TextLogger implements ILogger {
-    private final List<String> log;
-    private final BufferedWriter fileWriter;
+    private final BufferedWriter bufferedFileWriter;
     private final String filename;
 
     public TextLogger(final String logFilename) {
         filename = logFilename;
-        log = new ArrayList<>();
 
         BufferedWriter writer = null;
         try {
@@ -23,36 +19,41 @@ public class TextLogger implements ILogger {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        fileWriter = writer;
+        bufferedFileWriter = writer;
     }
 
     @Override
     public void log(final String s) {
         try {
-            fileWriter.write(s);
-            fileWriter.newLine();
-            fileWriter.flush();
-            log.add(s);
+            bufferedFileWriter.write(s);
+            bufferedFileWriter.newLine();
+            bufferedFileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public String getLastMessage() {
-        return getMessage(log.size() - 1);
-    }
+    public List<String> getLog() {
+        List<String> log = new ArrayList<>();
 
-    @Override
-    public String getMessage(final Integer index) {
-        if (index < 0 || index >= log.size()) {
-            return "";
+        BufferedReader bufferedFileReader;
+        try {
+            bufferedFileReader = new BufferedReader(new FileReader(filename));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return log;
         }
-        return log.get(index);
-    }
 
-    @Override
-    public List<String> getFullLog() {
-        return null;
+        String line;
+        try {
+            while ((line = bufferedFileReader.readLine()) != null) {
+                log.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return log;
     }
 }

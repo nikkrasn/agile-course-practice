@@ -76,6 +76,19 @@ public class ViewModel {
             public void changed(final ObservableValue<? extends Color> observableValue,
                                 final Color oldValue, final Color newValue) {
                 status.set(getInputAppStatus().toString());
+                logger.addToLog(LogEvents.SRC_COLOR_WAS_CHANGED
+                        + "from " + oldValue.toString()
+                        + " to " + newValue.toString());
+            }
+        });
+
+        dstColor.addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(final ObservableValue<? extends Color> observableValue,
+                                final Color oldValue, final Color newValue) {
+                logger.addToLog(LogEvents.DST_COLOR_WAS_CHANGED
+                        + "from " + oldValue.toString()
+                        + " to " + newValue.toString());
             }
         });
     }
@@ -119,6 +132,7 @@ public class ViewModel {
         setThirdChannelDstColorString(thirdChannel.toString());
 
         status.set(AppStatus.SUCCESS.toString());
+        logger.addToLog(LogEvents.CONVERT_WAS_PRESSED);
     }
 
     public void setLogger(final ILogger logger) {
@@ -320,5 +334,15 @@ enum AppStatus {
 
     public String toString() {
         return name;
+    }
+}
+
+final class LogEvents {
+    public static final String CONVERT_WAS_PRESSED = "Convert. ";
+    public static final String SRC_COLOR_WAS_CHANGED = "Source color was changed ";
+    public static final String DST_COLOR_WAS_CHANGED = "Destination color was changed ";
+    public static final String EDITING_FINISHED = "Updated input. ";
+
+    private LogEvents() {
     }
 }

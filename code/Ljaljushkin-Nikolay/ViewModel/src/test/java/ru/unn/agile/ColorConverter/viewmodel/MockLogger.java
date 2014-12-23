@@ -1,7 +1,6 @@
 package ru.unn.agile.ColorConverter.viewmodel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MockLogger implements ILogger {
@@ -18,7 +17,7 @@ public class MockLogger implements ILogger {
     }
 
     @Override
-    public void addToLog(final String s) {
-        String s1 = log.get(0);
+    public void addToLog(final String message) {
+        log.add(message);
     }
 }

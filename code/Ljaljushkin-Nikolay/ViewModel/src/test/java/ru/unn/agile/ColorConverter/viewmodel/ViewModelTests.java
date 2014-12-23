@@ -229,7 +229,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCreateViewModelWithNullLogger() { //TODO: mamage all cases with null logger
+    public void canCreateViewModelWithNullLogger() { //manage all cases with null logger
         ViewModel viewModelWithNullLogger = new ViewModel(null);
         List<String> log = viewModelWithNullLogger.getLog();
         assertTrue(log.isEmpty());
@@ -239,6 +239,28 @@ public class ViewModelTests {
     public void isLogEmptyAfterCreatingViewModelWithMockLogger() {
         List<String> log = viewModel.getLog();
         assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterConversion() {
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogEvents.CONVERT_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterChangingSrcColor() {
+        viewModel.setSrcColor(Color.HSV);
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogEvents.SRC_COLOR_WAS_CHANGED + "from RGB to HSV.*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterChangingDstColor() {
+        viewModel.setDstColor(Color.HSV);
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogEvents.DST_COLOR_WAS_CHANGED + "from LAB to HSV.*"));
     }
 
     private void fillInputFieldsCorrectly() {

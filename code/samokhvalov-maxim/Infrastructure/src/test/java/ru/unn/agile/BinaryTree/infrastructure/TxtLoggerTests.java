@@ -28,12 +28,8 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void canCreateLogFile() {
-        try {
-            new BufferedReader(new FileReader(FILENAME));
-        } catch (FileNotFoundException e) {
-            fail("File " + FILENAME + " not found!");
-        }
+    public void canCreateLogFile() throws FileNotFoundException {
+        new BufferedReader(new FileReader(FILENAME));
     }
 
     @Test
@@ -55,9 +51,9 @@ public class TxtLoggerTests {
         txtLogger.log(messages[2]);
 
         List<String> actualMessages = txtLogger.getLog();
-        for (int j = 0; j < actualMessages.size(); j++) {
-            assertThat(actualMessages.get(j), matchesPattern(".*" + messages[j] + "$"));
-        }
+        assertThat(actualMessages.get(0), matchesPattern(".*" + messages[0] + "$"));
+        assertThat(actualMessages.get(1), matchesPattern(".*" + messages[1] + "$"));
+        assertThat(actualMessages.get(2), matchesPattern(".*" + messages[2] + "$"));
     }
 
     @Test

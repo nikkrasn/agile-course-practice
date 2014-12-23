@@ -2,15 +2,12 @@ package ru.unn.agile.BinaryTree.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.List;
-
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.fail;
 import static ru.unn.agile.BinaryTree.infrastructure.RegexMatches.matchesPattern;
 
 public class TxtLoggerTests {

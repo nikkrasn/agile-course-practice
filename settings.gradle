@@ -190,6 +190,8 @@ include "code/pogorelsky-iliya/ViewModel"
 project(":code/pogorelsky-iliya/ViewModel").name = "pogorelsky-iliya-ViewModel"
 include "code/pogorelsky-iliya/View"
 project(":code/pogorelsky-iliya/View").name = "pogorelsky-iliya-View"
+include "code/pogorelsky-iliya/Infrastructure"
+project(":code/pogorelsky-iliya/Infrastructure").name = "pogorelsky-iliya-Infrastructure"
 
 // Ryabenko Sergey
 include "code/ryabenko-sergey/Model"

@@ -6,23 +6,29 @@
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.CalculateSquare.viewmodel.*?>
 
-<AnchorPane prefHeight="439.0" prefWidth="318.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.CalculateSquare.view.Calculator">
+<AnchorPane prefHeight="759.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.CalculateSquare.view.Calculator">
     <fx:define>
         <ViewModel fx:id="viewModel"/>
     </fx:define>
+
     <children>
-      <Label layoutX="43.0" layoutY="21.0" prefHeight="21.0" prefWidth="235.0" text="Choose figure" />
-      <ComboBox layoutX="43.0" layoutY="51.0" prefHeight="31.0" prefWidth="235.0" fx:id="cbOperation" items="${viewModel.operations}"/>
-
-      <Label layoutX="43.0" layoutY="139.0" prefHeight="21.0" prefWidth="235.0" text="${viewModel.lblParam1Text}" />
-      <TextField layoutX="43.0" layoutY="160.0" prefHeight="31.0" prefWidth="235.0" fx:id="txtParam1"/>
-      <Label layoutX="43.0" layoutY="210.0" prefHeight="21.0" prefWidth="235.0" text="${viewModel.lblParam2Text}" />
-      <TextField layoutX="43.0" layoutY="231.0" prefHeight="31.0" prefWidth="235.0" fx:id="txtParam2"/>
-
-      <Button layoutX="128.0" layoutY="293.0" mnemonicParsing="false" defaultButton="true" fx:id="btnCalc" disable="${viewModel.calculationDisabled}" text="Calculate"/>
-      <Label layoutX="43.0" layoutY="365.0" text="Result:" textFill="#f50b0b" />
-      <Label layoutX="93.0" layoutY="365.0" prefHeight="21.0" prefWidth="176.0" text="${viewModel.result}" />
-      <Label layoutX="43.0" layoutY="397.0" text="Status:"/>
-      <Label layoutX="93.0" layoutY="397.0" prefHeight="21.0" prefWidth="176.0" text="${viewModel.status}" />
+        <Label layoutX="198.0" layoutY="28.0" prefHeight="21.0" prefWidth="245.0" text="Choose figure" />
+        <ComboBox layoutX="198.0" layoutY="58.0" prefHeight="31.0" prefWidth="245.0" fx:id="cbOperation" items="${viewModel.operations}"/>
+   
+        <Label layoutX="198.0" layoutY="146.0" prefHeight="21.0" prefWidth="245.0" text="${viewModel.lblParam1Text}" />
+        <TextField layoutX="198.0" layoutY="167.0" prefHeight="31.0" prefWidth="245.0" fx:id="txtParam1"/>
+        <Label layoutX="198.0" layoutY="217.0" prefHeight="21.0" prefWidth="245.0" text="${viewModel.lblParam2Text}" />
+        <TextField layoutX="198.0" layoutY="238.0" prefHeight="31.0" prefWidth="245.0" fx:id="txtParam2"/>
+   
+        <Button defaultButton="true" layoutX="283.0" layoutY="300.0" mnemonicParsing="false" text="Calculate" fx:id="btnCalc" disable="${viewModel.calculationDisabled}"/>
+        <Label layoutX="198.0" layoutY="372.0" text="Result:" textFill="#f50b0b" />
+        <Label layoutX="248.0" layoutY="372.0" prefHeight="21.0" prefWidth="186.0" fx:id="lblResult" text="${viewModel.resultSquare}"/>
+        <Label layoutX="198.0" layoutY="404.0" text="Status:" />
+        <Label layoutX="248.0" layoutY="404.0" prefHeight="21.0" prefWidth="186.0" text="${viewModel.statusMessage}"/>
+   
+        <TextArea editable="false" layoutX="19.0" layoutY="435.0" prefHeight="324.0" prefWidth="602.0" text="${viewModel.logs}" VBox.vgrow="ALWAYS" />
    </children>
+
+
+
 </AnchorPane>

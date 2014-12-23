@@ -11,6 +11,7 @@ import ru.unn.agile.CalculateSquare.Model.Cylinder;
 import ru.unn.agile.CalculateSquare.Model.SphereSector;
 import ru.unn.agile.CalculateSquare.Model.SphereSegment;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ViewModel {
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
     private final StringProperty resultSquare = new SimpleStringProperty();
     private final StringProperty statusMessage = new SimpleStringProperty();
+    private final StringProperty logs = new SimpleStringProperty();
     private final StringProperty operation = new SimpleStringProperty();
     private final ObjectProperty<ObservableList<String>> operations =
             new SimpleObjectProperty<>(FXCollections.
@@ -29,8 +31,26 @@ public class ViewModel {
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final List<ComboBoxElementChangeListener> comboBoxElementChangeListener =
             new ArrayList<>();
+    private List<ValCachChangeListener> valueCachingChangedListeners;
+    private ILog logger;
+
+    public void setLog(final ILog logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
 
     public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILog logger) {
+        setLog(logger);
+        init();
+    }
+
+    private void init() {
         txtParam1.set("");
         txtParam2.set("");
         lblParam1Text.set("r");
@@ -66,6 +86,12 @@ public class ViewModel {
             add(txtParam1);
             add(txtParam2);
         } };
+        valueCachingChangedListeners = new ArrayList<>();
+        for (StringProperty val : fieldsText) {
+            final ValCachChangeListener listenerCashing = new ValCachChangeListener();
+            val.addListener(listenerCashing);
+            valueCachingChangedListeners.add(listenerCashing);
+        }
 
         for (StringProperty field : fieldsText) {
             final ValueChangeListener listener = new ValueChangeListener();
@@ -109,6 +135,79 @@ public class ViewModel {
             resultSquare.set(Double.toString(sphereSegment.calculateSquare()));
         }
         statusMessage.set(MessageStatus.SUCCESS.toString());
+
+        StringBuilder message = new StringBuilder(LogInfo.PRESSED_CALCULATE);
+        message.append("Arguments")
+                .append(": r = ").append(txtParam1.get())
+                .append("; h = ").append(txtParam2.get())
+                .append(" Operation: ").append(operation.get().toString()).append(".");
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+
+    public void onOperationChanged(final String oldValue, final String newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogInfo.CHANGED_OPERATION);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValCachChangeListener listener : valueCachingChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogInfo.FINIS_EDITD);
+                message.append("Input arguments are: [")
+                        .append(txtParam1.get()).append("; ")
+                        .append(txtParam2.get()).append("] ");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
+    }
+
+    private class ValCachChangeListener implements ChangeListener<String> {
+        private String previousValue = new String();
+        private String currentValue = new String();
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
+            statusMessage.set(getInputStatus().toString());
+            currentValue = newValue;
+        }
+        public boolean isChanged() {
+            return !previousValue.equals(currentValue);
+        }
+        public void cache() {
+            previousValue = currentValue;
+        }
+    }
+
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
+    public final List<String> getLog() {
+        return logger.getLog();
     }
 
     public StringProperty lblParam1TextProperty() {
@@ -151,7 +250,7 @@ public class ViewModel {
     public StringProperty resultSquareProperty() {
         return resultSquare;
     }
-    public final String getSquareResult() {
+    public final String getResultSquare() {
             return resultSquare.get();
             }
     public StringProperty statusMessageProperty() {
@@ -160,6 +259,12 @@ public class ViewModel {
     public final String getStatusMessage() {
             return statusMessage.get();
         }
+    public StringProperty logsProperty() {
+        return logs;
+    }
+    public final String getLogs() {
+        return logs.get();
+    }
 
     private MessageStatus getInputStatus() {
         MessageStatus inputStatus = MessageStatus.READY;
@@ -198,23 +303,9 @@ public class ViewModel {
             }
             txtParam1.set("");
             txtParam2.set("");
+            resultSquare.set("");
         }
     }
 };
-
-enum MessageStatus {
-    WAITING("Please provide input data"),
-    READY("Press 'Calculate' or Enter"),
-    BAD_FORMAT("Bad format"),
-    SUCCESS("Success");
-
-    private final String name;
-    private MessageStatus(final String name) {
-        this.name = name;
-    }
-    public String toString() {
-        return name;
-    }
-}
 
 

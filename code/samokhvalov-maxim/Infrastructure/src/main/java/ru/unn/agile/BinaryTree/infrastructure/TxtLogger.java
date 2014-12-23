@@ -42,21 +42,21 @@ public class TxtLogger implements ILogger {
 
     @Override
     public List<String> getLog() {
-        BufferedReader reader;
-        ArrayList<String> log = new ArrayList<String>();
+        BufferedReader bufReader;
+        ArrayList<String> logs = new ArrayList<String>();
         try {
-            reader = new BufferedReader(new FileReader(filename));
-            String line = reader.readLine();
+            bufReader = new BufferedReader(new FileReader(filename));
+            String line = bufReader.readLine();
 
             while (line != null) {
-                log.add(line);
-                line = reader.readLine();
+                logs.add(line);
+                line = bufReader.readLine();
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
 
-        return log;
+        return logs;
     }
 
     private static String now() {

@@ -47,11 +47,10 @@ public class TxtLoggerTests {
 
         txtLog.log(messages[0]);
         txtLog.log(messages[1]);
-
+        
         List<String> nowMessages = txtLog.getLog();
-        for (int i = 0; i < nowMessages.size(); i++) {
-            assertThat(nowMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
-        }
+        assertThat(nowMessages.get(0), matchesPattern(".*" + messages[0] + "$"));
+        assertThat(nowMessages.get(1), matchesPattern(".*" + messages[1] + "$"));
     }
 
     @Test

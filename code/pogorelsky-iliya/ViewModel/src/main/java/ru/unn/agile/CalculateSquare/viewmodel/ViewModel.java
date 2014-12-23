@@ -178,22 +178,22 @@ public class ViewModel {
     }
 
     private class ValCachChangeListener implements ChangeListener<String> {
-        private String previousValue = new String();
-        private String currentValue = new String();
+        private String lastVal = new String();
+        private String nowVal = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            if (oldValue.equals(newValue)) {
+                            final String oldVal, final String newVal) {
+            if (oldVal.equals(newVal)) {
                 return;
             }
             statusMessage.set(getInputStatus().toString());
-            currentValue = newValue;
+            nowVal = newVal;
         }
         public boolean isChanged() {
-            return !previousValue.equals(currentValue);
+            return !lastVal.equals(nowVal);
         }
         public void cache() {
-            previousValue = currentValue;
+            lastVal = nowVal;
         }
     }
 

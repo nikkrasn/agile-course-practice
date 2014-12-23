@@ -1,7 +1,6 @@
 package ru.unn.agile.Metrics.Infrastructure;
 
 import ru.unn.agile.Metrics.viewmodel.ILogger;
-
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

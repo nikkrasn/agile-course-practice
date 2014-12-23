@@ -9,11 +9,11 @@ import ru.unn.agile.Metrics.Model.Metrics;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
+    private ViewModel viewModel = new ViewModel();
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel.setLogger(new FakeLogger());
     }
 
     @After

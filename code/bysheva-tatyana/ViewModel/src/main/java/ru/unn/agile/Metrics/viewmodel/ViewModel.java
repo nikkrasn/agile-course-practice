@@ -92,6 +92,10 @@ public class ViewModel {
         vectorsDimension.set("1");
     }
 
+    public void setLogger(final ILogger newLogger) {
+        logger = newLogger;
+    }
+
     public void calculate() {
         if (getCalculationDisabled()) {
             return;

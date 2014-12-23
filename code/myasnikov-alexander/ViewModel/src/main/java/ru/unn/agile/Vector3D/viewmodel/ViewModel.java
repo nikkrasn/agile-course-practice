@@ -36,21 +36,21 @@ public class ViewModel {
 
     public void setLogger(final ILogger logger) {
         if (logger == null) {
-            throw new IllegalArgumentException("Logger parameter can't be null");
+            throw new IllegalArgumentException("Logger - parameter can't be null");
         }
         this.logger = logger;
     }
 
     public ViewModel() {
-        init();
+        initialization();
     }
 
     public ViewModel(final ILogger logger) {
         setLogger(logger);
-        init();
+        initialization();
     }
 
-    private void init() {
+    private void initialization() {
         status.setValue(StatusOperation.WAITING.toString());
 
         operationList.set(VectorOperation.NORM);

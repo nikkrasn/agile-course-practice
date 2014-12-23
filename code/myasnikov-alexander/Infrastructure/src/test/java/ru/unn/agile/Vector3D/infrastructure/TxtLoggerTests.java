@@ -2,7 +2,6 @@ package ru.unn.agile.Vector3D.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.fail;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

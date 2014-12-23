@@ -10,9 +10,15 @@ import static org.junit.Assert.*;
 public class ViewModelTest {
     private ViewModel viewModel;
 
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (viewModel == null) {
+            viewModel = new ViewModel(new TestLogger());
+        }
     }
 
     @After
@@ -180,6 +186,131 @@ public class ViewModelTest {
         viewModel.compute();
 
         assertEquals("0.00 0.71 0.71", viewModel.valuesProperty().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void cannotCreateViewModelWithNullLogger() {
+        new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyAfterConstruction() {
+        String records = viewModel.getRecords();
+
+        assertTrue(records.isEmpty());
+    }
+
+    @Test
+    public void recordIsLoggedAfterComputation() {
+        setTestData();
+        viewModel.compute();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.COMPUTE_PRESSED + ".*"));
+    }
+
+    @Test
+    public void correctRecordIsLoggedAfterComputation() {
+        setTestData();
+
+        viewModel.compute();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + viewModel.aXProperty().get()
+                + ".*" + viewModel.aYProperty().get()
+                + ".*" + viewModel.bXProperty().get()
+                + ".*" + viewModel.bYProperty().get()
+                + ".*" + viewModel.cXProperty().get()
+                + ".*" + viewModel.cYProperty().get()
+                + ".*"));
+    }
+
+    @Test
+    public void inputRecordFormatIsCorrect() {
+        setTestData();
+
+        viewModel.compute();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*Points: "
+                + "Ax = " + viewModel.aXProperty().get()
+                + ", Ay = " + viewModel.aYProperty().get()
+                + ", Bx = " + viewModel.bXProperty().get()
+                + ", By = " + viewModel.bYProperty().get()
+                + ", Cx = " + viewModel.cXProperty().get()
+                + ", Cy = " + viewModel.cYProperty().get()
+                + ".*"));
+    }
+
+    @Test
+    public void operationInfoIsRecorded() {
+        setTestData();
+
+        viewModel.compute();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*Perimeter.*"));
+    }
+
+    @Test
+    public void canRecordSeveralTimes() {
+        setTestData();
+
+        viewModel.compute();
+        viewModel.compute();
+
+        assertEquals(2, viewModel.getLog().size());
+    }
+
+    @Test
+    public void recordIsLoggedAfterOperationChanged() {
+        setTestData();
+
+        viewModel.onOperationChanged(Operation.PERIMETER, Operation.SPACE);
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.OPERATION_CHANGED + " Space.*"));
+    }
+
+    @Test
+    public void recordIsNotLoggedIfOperationWasNotChanged() {
+        viewModel.onOperationChanged(Operation.PERIMETER, Operation.PERIMETER);
+
+        assertEquals(0, viewModel.getLog().size());
+    }
+
+    @Test
+    public void argumentsAreCorrectlyLogged() {
+        setTestData();
+
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.INPUT_FINISHED
+                + "Input points: \\("
+                + viewModel.aXProperty().get() + ", "
+                + viewModel.aYProperty().get() + "\\), "
+                + "\\(" + viewModel.bXProperty().get() + ", "
+                + viewModel.bYProperty().get() + "\\), "
+                + "\\(" + viewModel.cXProperty().get() + ", "
+                + viewModel.cYProperty().get() + "\\)."));
+    }
+
+    @Test
+    public void recordWouldNotBeAddedIfComputeButtonDisabled() {
+        viewModel.compute();
+
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void doNotRecordSameParametersTwice() {
+        viewModel.aXProperty().set("12");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.aXProperty().set("12");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, viewModel.getLog().size());
     }
 
     private void setTestData() {

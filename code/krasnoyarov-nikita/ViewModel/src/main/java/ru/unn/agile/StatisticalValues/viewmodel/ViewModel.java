@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import ru.unn.agile.StatisticalValues.model.StatisticalValues;
@@ -15,7 +16,7 @@ import java.util.List;
 public class ViewModel {
     private final StringProperty vectorsDimension = new SimpleStringProperty();
 
-    private final ObservableList<Pair<Double, Double>> vectProbVal =
+    private final ObservableList<Pair<String, String>> vectProbVal =
             FXCollections.observableArrayList();
     private final ObjectProperty<ObservableList<StatisticalValues.Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(StatisticalValues.Operation.values()));
@@ -24,8 +25,6 @@ public class ViewModel {
 
     private final StringProperty result = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
-
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
     public SimpleListProperty vectProbValProperty = new SimpleListProperty(this,"vectorsValues", vectProbVal);
 
@@ -52,17 +51,13 @@ public class ViewModel {
         };
         calculationDisabled.bind(couldCalculate.not());
 
-        // Add listeners to the input text fields
-        final List<Property> fields = new ArrayList<Property>() { {
-            add(vectDimensionProperty());
-            add(vectProbValProperty);
-        } };
+        final StringChangeListener stringChangeListener
+                = new StringChangeListener();
+        vectDimensionProperty().addListener(stringChangeListener);
 
-        for (Property field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
-            valueChangedListeners.add(listener);
-        }
+        final ListPropertyChangeListener listChangeListener
+                = new ListPropertyChangeListener();
+        vectProbValProperty.addListener(listChangeListener);
     }
 
     public void calculate() {
@@ -74,8 +69,8 @@ public class ViewModel {
         List<Double> probabil = new ArrayList<Double>();
 
         for (int i = 0; i < vectProbVal.size(); i++) {
-            probabil.add(vectProbVal.get(i).getKey());
-            val.add(vectProbVal.get(i).getValue());
+            probabil.add(Double.parseDouble(vectProbVal.get(i).getKey()));
+            val.add(Double.parseDouble(vectProbVal.get(i).getValue()));
         }
 
         StatisticalValues calculator = new StatisticalValues(probabil, val);
@@ -131,8 +126,8 @@ public class ViewModel {
             }
             if (!vectProbVal.isEmpty()) {
                 for (int i = 0; i < vectProbVal.size(); i++) {
-                    vectProbVal.get(i).getKey();
-                    vectProbVal.get(i).getValue();
+                    Double.parseDouble(vectProbVal.get(i).getKey());
+                    Double.parseDouble(vectProbVal.get(i).getValue());
                 }
             }
         } catch (NumberFormatException nfe) {
@@ -142,10 +137,17 @@ public class ViewModel {
         return inputStatus;
     }
 
-    private class ValueChangeListener implements ChangeListener<Object> {
+    private class StringChangeListener implements ChangeListener<String> {
         @Override
-        public void changed(final ObservableValue<? extends Object> observable,
-                            final Object oldValue, final Object newValue) {
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            status.set(getInputStatus().toString());
+        }
+    }
+
+    private class ListPropertyChangeListener implements ListChangeListener<Pair<String, String>> {
+        @Override
+        public void onChanged(ListChangeListener.Change<? extends Pair<String, String>> change) {
             status.set(getInputStatus().toString());
         }
     }

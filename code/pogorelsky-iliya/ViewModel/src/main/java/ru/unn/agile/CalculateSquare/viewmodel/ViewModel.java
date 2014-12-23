@@ -150,9 +150,9 @@ public class ViewModel {
         if (oldValue.equals(newValue)) {
             return;
         }
-        StringBuilder message = new StringBuilder(LogInfo.CHANGED_OPERATION);
+        StringBuilder mes = new StringBuilder(LogInfo.CHANGED_OPERATION);
         message.append(newValue.toString());
-        logger.log(message.toString());
+        logger.log(mes.toString());
         updateLogs();
     }
 

@@ -6,16 +6,16 @@ import org.junit.Test;
 import ru.unn.agile.ColorConverter.model.ColorSpaces.ColorSpace3D;
 import ru.unn.agile.ColorConverter.model.TestUtilities.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new MockLogger());
     }
 
     @After
@@ -226,6 +226,19 @@ public class ViewModelTests {
         viewModel.convert();
         ColorSpace3D dstColor = viewModel.getDstColorValue();
         assertTrue(dstColor.equals(KnownColors.DARK_RED_HSV));
+    }
+
+    @Test
+    public void canCreateViewModelWithNullLogger() { //TODO: mamage all cases with null logger
+        ViewModel viewModelWithNullLogger = new ViewModel(null);
+        List<String> log = viewModelWithNullLogger.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void isLogEmptyAfterCreatingViewModelWithMockLogger() {
+        List<String> log = viewModel.getLog();
+        assertTrue(log.isEmpty());
     }
 
     private void fillInputFieldsCorrectly() {

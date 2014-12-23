@@ -32,10 +32,18 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
 
     private final StringProperty status = new SimpleStringProperty();
+    private ILogger logger;
     private final List<StringChangeListener> valueChangedListeners = new ArrayList<>();
     private final BooleanProperty conversionDisabled = new SimpleBooleanProperty();
 
-    public ViewModel() {
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        setDefaultFieldValues();
+        addListeners();
+        bindConversionDisabledProperty();
+    }
+
+    private void setDefaultFieldValues() {
         firstChannelSrcColorString.set("");
         secondChannelSrcColorString.set("");
         thirdChannelSrcColorString.set("");
@@ -47,24 +55,9 @@ public class ViewModel {
         status.set(AppStatus.WAITING.toString());
         srcColor.set(Color.RGB);
         dstColor.set(Color.LAB);
+    }
 
-        BooleanBinding couldCalculate = new BooleanBinding() {
-            {
-                super.bind(
-                        firstChannelSrcColorString,
-                        secondChannelSrcColorString,
-                        thirdChannelSrcColorString,
-                        status
-                );
-            }
-
-            @Override
-            protected boolean computeValue() {
-                return getInputAppStatus() == AppStatus.READY;
-            }
-        };
-        conversionDisabled.bind(couldCalculate.not());
-
+    private void addListeners() {
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
             {
                 add(firstChannelSrcColorString);
@@ -87,6 +80,25 @@ public class ViewModel {
         });
     }
 
+    private void bindConversionDisabledProperty() {
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(
+                        firstChannelSrcColorString,
+                        secondChannelSrcColorString,
+                        thirdChannelSrcColorString,
+                        status
+                );
+            }
+
+            @Override
+            protected boolean computeValue() {
+                return getInputAppStatus() == AppStatus.READY;
+            }
+        };
+        conversionDisabled.bind(couldCalculate.not());
+    }
+
     public void convert() {
         if (getConversionDisabled()) {
             return;
@@ -107,6 +119,10 @@ public class ViewModel {
         setThirdChannelDstColorString(thirdChannel.toString());
 
         status.set(AppStatus.SUCCESS.toString());
+    }
+
+    public void setLogger(final ILogger logger) {
+        this.logger = logger;
     }
 
     public void setFirstChannelSrcColorString(final String value) {
@@ -271,6 +287,13 @@ public class ViewModel {
         return getFirstChannelSrcColorString().isEmpty()
                 || getSecondChannelSrcColorString().isEmpty()
                 || getThirdChannelSrcColorString().isEmpty();
+    }
+
+    public List<String> getLog() {
+        if (logger == null) {
+            return new ArrayList<>();
+        }
+        return logger.getLog();
     }
 
     private class StringChangeListener implements ChangeListener<String> {

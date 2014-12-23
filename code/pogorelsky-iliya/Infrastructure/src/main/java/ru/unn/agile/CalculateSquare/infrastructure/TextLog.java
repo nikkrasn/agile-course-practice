@@ -48,18 +48,18 @@ public class TextLog implements ILog {
 
     @Override
     public List<String> getLog() {
-        BufferedReader bufReader;
+        BufferedReader bufferReader;
         ArrayList<String> log = new ArrayList<String>();
         try {
-            bufReader = new BufferedReader(new FileReader(fname));
-            String line = bufReader.readLine();
+            bufferReader = new BufferedReader(new FileReader(fname));
+            String line = bufferReader.readLine();
 
             while (line != null) {
                 log.add(line);
-                line = bufReader.readLine();
+                line = bufferReader.readLine();
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
 
         return log;

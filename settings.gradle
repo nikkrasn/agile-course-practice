@@ -168,6 +168,8 @@ include "code/ovsuhno-andrey/View"
 project(":code/ovsuhno-andrey/View").name = "ovsuhno-andrey-View"
 include "code/ovsuhno-andrey/ViewModel"
 project(":code/ovsuhno-andrey/ViewModel").name = "ovsuhno-andrey-ViewModel"
+include "code/ovsuhno-andrey/Infrastructure"
+project(":code/ovsuhno-andrey/Infrastructure").name = "ovsuhno-andrey-Infrastructure"
 
 // Pashko Alena
 include "code/pashko-alena/Model"

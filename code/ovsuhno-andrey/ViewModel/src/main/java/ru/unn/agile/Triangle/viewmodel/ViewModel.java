@@ -32,9 +32,29 @@ public class ViewModel {
     private final StringProperty dataStatus =
             new SimpleStringProperty(CurrentStatus.WAITING.toString());
 
+    private final StringProperty records = new SimpleStringProperty("");
+
     private final List<VariableListener> variableListeners = new ArrayList<>();
 
+    private LoggerInterface recordLog;
+
     public ViewModel() {
+        initialization();
+    }
+
+    public ViewModel(final LoggerInterface recordLog) {
+        initialization();
+        setLog(recordLog);
+    }
+
+    public void setLog(final LoggerInterface recordLog) {
+        if (recordLog == null) {
+            throw new IllegalArgumentException("Logger must not be null");
+        }
+        this.recordLog = recordLog;
+    }
+
+    private void initialization() {
         BooleanBinding couldCompute = new BooleanBinding() {
             {
                 super.bind(aX, aY, bX, bY, cX, cY);
@@ -76,6 +96,56 @@ public class ViewModel {
 
         values.set(StringFormatter.arrayFormat(doubleValues));
         dataStatus.set(CurrentStatus.SUCCESS.toString());
+
+        StringBuilder record = new StringBuilder(LogMessages.COMPUTE_PRESSED);
+        record.append("Points: ")
+                .append("Ax = ").append(aX.get())
+                .append(", Ay = ").append(aY.get())
+                .append(", Bx = ").append(bX.get())
+                .append(", By = ").append(bY.get())
+                .append(", Cx = ").append(cX.get())
+                .append(", Cy = ").append(cY.get())
+                .append(", Operation: ").append(operation.get().toString()).append(".");
+        recordLog.logRecord(record.toString());
+        updateRecords();
+    }
+
+    public void onOperationChanged(final Operation old, final Operation recent) {
+        if (old.equals(recent)) {
+            return;
+        }
+        StringBuilder record = new StringBuilder(LogMessages.OPERATION_CHANGED);
+        record.append(" ").append(recent.toString());
+        recordLog.logRecord(record.toString());
+        updateRecords();
+    }
+
+    public void onFocusChanged(final Boolean old, final Boolean recent) {
+        if (!old && recent) {
+            return;
+        }
+
+        for (VariableListener listener : variableListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.INPUT_FINISHED);
+                message.append("Input points: ")
+                        .append("(").append(aX.get()).append(", ")
+                        .append(aY.get()).append("), ")
+                        .append("(").append(bX.get()).append(", ")
+                        .append(bY.get()).append("), ")
+                        .append("(").append(cX.get()).append(", ")
+                        .append(cY.get()).append(").");
+                recordLog.logRecord(message.toString());
+                updateRecords();
+
+                listener.save();
+                break;
+            }
+        }
+    }
+
+    public final List<String> getLog() {
+        return recordLog.getLogRecords();
     }
 
     public StringProperty aXProperty() {
@@ -138,6 +208,14 @@ public class ViewModel {
         return dataStatus.get();
     }
 
+    public StringProperty recordsProperty() {
+        return records;
+    }
+
+    public final String getRecords() {
+        return records.get();
+    }
+
     private CurrentStatus getDataStatus() {
         CurrentStatus inputStatus = CurrentStatus.READY;
         if (aX.get().isEmpty() || aY.get().isEmpty()
@@ -171,11 +249,32 @@ public class ViewModel {
         return inputStatus;
     }
 
+    private void updateRecords() {
+        List<String> recordsLog = recordLog.getLogRecords();
+        String record = new String();
+        for (String message : recordsLog) {
+            record += message + "\n";
+        }
+        records.set(record);
+    }
+
     private class VariableListener implements ChangeListener<String> {
+        private String previousValue = new String();
+        private String currentValue = new String();
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
             dataStatus.set(getDataStatus().toString());
+            currentValue = newValue;
+        }
+
+        public boolean isChanged() {
+            return !previousValue.equals(currentValue);
+        }
+
+        public void save() {
+            previousValue = currentValue;
         }
     }
 }
@@ -194,3 +293,12 @@ enum CurrentStatus {
         return name;
     }
 }
+
+final class LogMessages {
+    public static final String COMPUTE_PRESSED = "<Computation> ";
+    public static final String OPERATION_CHANGED = "<Operation chosen> ";
+    public static final String INPUT_FINISHED = "<Input updated> ";
+
+    private LogMessages() { }
+}
+

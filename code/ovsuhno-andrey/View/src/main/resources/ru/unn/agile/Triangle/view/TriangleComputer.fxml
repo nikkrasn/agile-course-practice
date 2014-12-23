@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.Triangle.viewmodel.*?>
 
-<AnchorPane prefHeight="459.0" prefWidth="325.0" style="-fx-background-color: ghostwhite;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Triangle.view.TriangleComputer">
+<AnchorPane prefHeight="359.0" prefWidth="825.0" style="-fx-background-color: ghostwhite;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Triangle.view.TriangleComputer">
     <fx:define>
         <ViewModel fx:id="viewModel" />
     </fx:define>
@@ -117,7 +117,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <VBox layoutX="14.0" layoutY="251.0" prefHeight="186.0" prefWidth="299.0" style="-fx-background-color: dimgrey;">
+      <VBox layoutX="14.0" layoutY="251.0" prefHeight="86.0" prefWidth="299.0" style="-fx-background-color: dimgrey;">
          <children>
             <Label alignment="TOP_LEFT" text="Status" textFill="WHITE">
                <font>
@@ -134,7 +134,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="txtResult" text="${viewModel.values}" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea fx:id="txtResult" text="${viewModel.values}" prefHeight="20.0" prefWidth="200.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="325.0" layoutY="34.0" prefHeight="313.0" prefWidth="480.0" style="-fx-background-color: dimgrey;">
+        <children>
+            <Label alignment="TOP_LEFT" text="Log records" textFill="WHITE">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Label>
+            <TextArea fx:id="txtRecords" text="${viewModel.records}" prefHeight="293.0" prefWidth="480.0" />
          </children>
       </VBox>
    </children>

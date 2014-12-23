@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class TextLog implements ILog {
     private static final String FORMAT_DATE_NOW = "yyyy-MM-dd HH:mm:ss";
-    private final BufferedWriter bufWriter;
+    private final BufferedWriter bufferWriter;
     private final String fname;
 
     private static String now() {
@@ -26,21 +26,21 @@ public class TextLog implements ILog {
     public TextLog(final String filename) {
         this.fname = filename;
 
-        BufferedWriter logWriter = null;
+        BufferedWriter loggerWriter = null;
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
-        } catch (Exception e) {
-            e.printStackTrace();
+            loggerWriter = new BufferedWriter(new FileWriter(filename));
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-        bufWriter = logWriter;
+        bufferWriter = loggerWriter;
     }
 
     @Override
     public void log(final String s) {
         try {
-            bufWriter.write(now() + " > " + s);
-            bufWriter.newLine();
-            bufWriter.flush();
+            bufferWriter.write(now() + " > " + s);
+            bufferWriter.newLine();
+            bufferWriter.flush();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

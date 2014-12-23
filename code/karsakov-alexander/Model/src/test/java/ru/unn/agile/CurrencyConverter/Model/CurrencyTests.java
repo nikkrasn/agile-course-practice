@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.EUR;
 import static ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes.USD;
 
-public class CurrencyTest {
+public class CurrencyTests {
     private ArrayList<Currency> validCurrencies;
 
     @Before

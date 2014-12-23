@@ -119,6 +119,8 @@ include "code/karsakov-alexander/ViewModel"
 project(":code/karsakov-alexander/ViewModel").name = "karsakov-alexander-ViewModel"
 include "code/karsakov-alexander/View"
 project(":code/karsakov-alexander/View").name = "karsakov-alexander-View"
+include "code/karsakov-alexander/Infrastructure"
+project(":code/karsakov-alexander/Infrastructure").name = "karsakov-alexander-Infrastructure"
 
 // Klyan Sofiya
 include "code/klyan-sofiya/Model"

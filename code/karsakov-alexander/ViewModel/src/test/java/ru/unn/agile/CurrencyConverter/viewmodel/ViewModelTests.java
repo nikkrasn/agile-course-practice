@@ -4,19 +4,24 @@ import javafx.collections.ObservableList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
+
 import ru.unn.agile.CurrencyConverter.Model.Currency;
 import ru.unn.agile.CurrencyConverter.Model.CurrencyIndexes;
-
-import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
     private ObservableList<Currency> currencyList;
     private final double delta = 0.0001;
 
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new MockLogger());
         currencyList = viewModel.fromCurrencyListProperty().get();
     }
 
@@ -139,7 +144,74 @@ public class ViewModelTests {
         assertEquals(ViewModelStatus.READY.toString(), viewModel.getStatus());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void constructorThrowsExceptionWithNullLogger() {
+        new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyAfterConstruction() {
+        String log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsEventMessageWhenCorrectInputValue() {
+        setInputData();
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf("Event: New input value: 10"), -1);
+    }
+
+    @Test
+    public void logContainsErrorMessageWhenIncorrectInputValue() {
+        viewModel.inputValueProperty().set("incorrect");
+        viewModel.onInputValueFocusChanged(true, false);
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf("Error: Incorrect input value"), -1);
+    }
+
+    @Test
+    public void logContainsEventMessageAfterConvertOperation() {
+        setInputData();
+        viewModel.convert();
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf("Converting is done. "), -1);
+    }
+
+    @Test
+    public void logContainsEventMessageWhenConversionModeIsChanged() {
+        viewModel.onCurrencyConvertModeChanged(currencyList.get(CurrencyIndexes.RUB.getIndex()),
+                                               currencyList.get(CurrencyIndexes.EUR.getIndex()));
+        String logMessages = viewModel.getLog();
+
+        assertNotEquals(logMessages.indexOf("Currency conversion mode is changed."), -1);
+    }
+
+    @Test
+    public void logNotContainEventMessageWhenCurrencyNotChanged() {
+        viewModel.onCurrencyConvertModeChanged(currencyList.get(CurrencyIndexes.RUB.getIndex()),
+                                               currencyList.get(CurrencyIndexes.RUB.getIndex()));
+        String logMessages = viewModel.getLog();
+
+        assertEquals(logMessages.indexOf("Currency conversion mode is changed."), -1);
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        setInputData();
+        viewModel.convert();
+        viewModel.convert();
+        viewModel.convert();
+
+        assertTrue(viewModel.getLog().split("\n").length > 3);
+    }
+
     private void setInputData() {
         viewModel.inputValueProperty().set("10");
+        viewModel.onInputValueFocusChanged(true, false);
     }
 }

@@ -33,15 +33,13 @@ public class ViewModel {
     private final StringProperty status =
             new SimpleStringProperty(ViewModelStatus.WAITING.toString());
 
-    // FXML needs default c-tor for binding
-    public ViewModel() {
-        ICurrencyProvider provider = new FixedCurrencyProvider();
-        ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
-        fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
-        toCurrencyList.set(FXCollections.observableArrayList(actualRates));
-        fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));
-        toCurrency.set(actualRates.get(CurrencyIndexes.USD.getIndex()));
+    private final StringProperty log = new SimpleStringProperty("");
 
+    private ILogger logger;
+    private ICurrencyProvider provider;
+
+    private void init() {
+        setCurrencyProvider(new FixedCurrencyProvider());
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(inputValue);
@@ -58,10 +56,33 @@ public class ViewModel {
             @Override
             public void changed(final ObservableValue<? extends String> observable,
                                 final String oldValue, final String newValue) {
-                status.set(getInputStatus().toString());
+                ViewModelStatus currentStatus = getInputStatus();
+                status.set(currentStatus.toString());
             }
         };
         inputValue.addListener(inputValueListener);
+    }
+
+    private void updateCurrencyList() {
+        ArrayList<Currency> actualRates = provider.getActualCurrencyRates();
+        fromCurrencyList.set(FXCollections.observableArrayList(actualRates));
+        toCurrencyList.set(FXCollections.observableArrayList(actualRates));
+        fromCurrency.set(actualRates.get(CurrencyIndexes.RUB.getIndex()));
+        toCurrency.set(actualRates.get(CurrencyIndexes.USD.getIndex()));
+    }
+
+    public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    public void setCurrencyProvider(final ICurrencyProvider provider) {
+        this.provider = provider;
+        updateCurrencyList();
     }
 
     public StringProperty inputValueProperty() {
@@ -124,6 +145,21 @@ public class ViewModel {
         return status.get();
     }
 
+    public StringProperty logProperty() {
+        return log;
+    }
+
+    public final String getLog() {
+        return log.get();
+    }
+
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger can't be null");
+        }
+        this.logger = logger;
+    }
+
     public void convert() {
         if (getConvertButtonDisabled()) {
             return;
@@ -137,6 +173,45 @@ public class ViewModel {
         result.set(String.format("%.5f", convertedMoney.getAmount()));
         resultCurrency.set(toCurrency.get().getCharCode());
         status.set(ViewModelStatus.SUCCESS.toString());
+        StringBuilder logMessage = new StringBuilder("Converting is done. Input: ");
+        logMessage.append(inputValue.get()).append(". Convert mode: ")
+                  .append(fromCurrency.get().getCharCode())
+                  .append(" -> ")
+                  .append(toCurrency.get().getCharCode())
+                  .append(". Result: ").append(getResult());
+        logger.logEvent(logMessage.toString());
+        updateLog();
+    }
+
+    public void onCurrencyConvertModeChanged(final Currency oldValue, final Currency newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        String logMessage = "Currency conversion mode is changed. Current conversion mode is: "
+                + fromCurrency.get().getCharCode() + " -> " + toCurrency.get().getCharCode();
+        logger.logEvent(logMessage);
+        updateLog();
+    }
+
+    public void onInputValueFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+        if (getInputStatus() == ViewModelStatus.BAD_FORMAT) {
+            logger.logError("Incorrect input value: " + inputValue.get());
+        } else {
+            logger.logEvent("New input value: " + inputValue.get());
+        }
+        updateLog();
+    }
+
+    private void updateLog() {
+        ArrayList<String> logs = logger.getFullLog();
+        String updatedLog = new String();
+        for (String log : logs) {
+            updatedLog += log + "\n";
+        }
+        log.set(updatedLog);
     }
 
     private ViewModelStatus getInputStatus() {

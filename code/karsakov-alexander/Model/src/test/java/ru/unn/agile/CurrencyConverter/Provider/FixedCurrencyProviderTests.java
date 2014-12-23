@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
-public class FixedCurrencyProviderTest {
+public class FixedCurrencyProviderTests {
     private ICurrencyProvider provider;
 
     private static boolean checkCurrencyRatesContainsAllCurrencyInCurrencyIndex(
@@ -29,10 +29,14 @@ public class FixedCurrencyProviderTest {
         return true;
     }
 
-    private static boolean checkCurrencyRatesContatinsUniqueValues(
+    private static boolean checkCurrencyRatesContainsUniqueValues(
             final ArrayList<Currency> currencyRates) {
         HashSet<Currency> uniqueCurrencies = new HashSet<Currency>(currencyRates);
         return uniqueCurrencies.size() == currencyRates.size();
+    }
+
+    public void setExternalProvider(final ICurrencyProvider provider) {
+        this.provider = provider;
     }
 
     @Before
@@ -41,30 +45,30 @@ public class FixedCurrencyProviderTest {
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsNotEmptyList() {
+    public void returnsNotEmptyList() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(currencyRates.size() > 0);
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsAtLeastThreeCurrency() {
+    public void returnsAtLeastThreeCurrency() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(currencyRates.size() >= 3);
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsAllCurrencyInCurrencyIndex() {
+    public void returnsAllCurrencyInCurrencyIndex() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
         assertTrue(checkCurrencyRatesContainsAllCurrencyInCurrencyIndex(currencyRates));
     }
 
     @Test
-    public void fixedCurrencyProviderReturnsUniqueCurrency() {
+    public void returnsUniqueCurrency() {
         ArrayList<Currency> currencyRates = provider.getActualCurrencyRates();
 
-        assertTrue(checkCurrencyRatesContatinsUniqueValues(currencyRates));
+        assertTrue(checkCurrencyRatesContainsUniqueValues(currencyRates));
     }
 }

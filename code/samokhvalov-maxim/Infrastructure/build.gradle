@@ -1,8 +1,6 @@
-apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
-
 dependencies {
     compile project(':samokhvalov-maxim-ViewModel')
-    compile project(':samokhvalov-maxim-Infrastructure')
+    testCompile project(':samokhvalov-maxim-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

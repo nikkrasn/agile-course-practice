@@ -3,17 +3,21 @@ package ru.unn.agile.BinaryTree.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
 
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (viewModel == null) {
+            viewModel = new ViewModel(new FictitiousLogger());
+        }
     }
 
     @After
@@ -222,9 +226,159 @@ public class ViewModelTests {
         assertEquals(State.NODE_NOT_FOUND.toString(), viewModel.statusProperty().get());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void viewModelConstructorGiveExceptionIfLoggerNull() {
+            new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyWhenStarted() {
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsMessageAfterInsert() {
+        insertNode();
+
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.INSERT_WAS_EXECUTED + ".*"));
+    }
+
+    @Test
+    public void logContainsMessageAfterFind() {
+        insertNodes();
+        findNode();
+
+        String message = viewModel.getLog().get(3);
+
+        assertTrue(message.matches(".*" + LogMessages.FIND_WAS_EXECUTED + ".*"));
+    }
+
+    @Test
+    public void logContainsMessageAfterDelete() {
+        insertNodes();
+        deleteNode();
+
+        String message = viewModel.getLog().get(3);
+
+        assertTrue(message.matches(".*" + LogMessages.DELETE_WAS_EXECUTED + ".*"));
+    }
+
+    @Test
+    public void logContainsMessageAfterGetRoot() {
+        insertNodes();
+        viewModel.operationProperty().set(Operation.GET_ROOT);
+        viewModel.execute();
+
+        String message = viewModel.getLog().get(3);
+
+        assertTrue(message.matches(".*" + LogMessages.GET_ROOT_WAS_EXECUTED + ".*"));
+    }
+
+    @Test
+    public void logContainsArgumentsAfterInsert() {
+        insertNode();
+
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + viewModel.keyProperty().get()
+                + ".*" + viewModel.valueProperty().get() + ".*"));
+    }
+
+    @Test
+    public void logContainsArgumentsAfterFind() {
+        insertNodes();
+        findNode();
+
+        String message = viewModel.getLog().get(3);
+
+        assertTrue(message.matches(".*" + viewModel.valueProperty().get() + ".*"));
+    }
+
+    @Test
+    public void logContainsArgumentsAfterDelete() {
+        insertNodes();
+        deleteNode();
+
+        String message = viewModel.getLog().get(3);
+
+        assertTrue(message.matches(".*" + viewModel.keyProperty().get() + ".*"));
+    }
+
+    @Test
+    public void operationChangeInLog() {
+        setInputData();
+
+        viewModel.onOperationChanged(Operation.INSERT, Operation.FIND);
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogMessages.OPERATION_WAS_CHANGED + "Find.*"));
+    }
+
+    @Test
+    public void writeSeveralLogMessages() {
+        setInputData();
+
+        viewModel.execute();
+        viewModel.execute();
+        viewModel.execute();
+
+        assertEquals(3, viewModel.getLog().size());
+    }
+
+    @Test
+    public void operationIsNotWrittenIfNotChanged() {
+        viewModel.onOperationChanged(Operation.INSERT, Operation.DELETE);
+
+        viewModel.onOperationChanged(Operation.DELETE, Operation.DELETE);
+
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void argumentsAreCorrectlyWritten() {
+        setInputData();
+
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogMessages.EDITING_FINISHED
+                + "Key: "
+                + viewModel.keyProperty().get() + "; Value: "
+                + viewModel.valueProperty().get() + ";"));
+    }
+
+    @Test
+    public void executeIsNotCalledWhenButtonIsDisabled() {
+        viewModel.execute();
+
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void sameParametersDoNotWrittenTwice() {
+        viewModel.keyProperty().set("1");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.keyProperty().set("1");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, viewModel.getLog().size());
+    }
+
     private void setInputData() {
         viewModel.keyProperty().set("1");
         viewModel.valueProperty().set("2");
+    }
+
+    private void insertNode() {
+        viewModel.operationProperty().set(Operation.INSERT);
+        viewModel.keyProperty().set("5");
+        viewModel.valueProperty().set("Five");
+        viewModel.execute();
     }
 
     private void insertNodes() {
@@ -237,6 +391,18 @@ public class ViewModelTests {
         viewModel.execute();
         viewModel.keyProperty().set("9");
         viewModel.valueProperty().set("Nine");
+        viewModel.execute();
+    }
+
+    private void findNode() {
+        viewModel.operationProperty().set(Operation.FIND);
+        viewModel.valueProperty().set("Two");
+        viewModel.execute();
+    }
+
+    private void deleteNode() {
+        viewModel.operationProperty().set(Operation.DELETE);
+        viewModel.keyProperty().set("2");
         viewModel.execute();
     }
 }

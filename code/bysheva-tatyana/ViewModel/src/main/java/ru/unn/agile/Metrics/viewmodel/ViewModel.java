@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
+    private ILogger logger;
+
     private final ListProperty<Operation> operations =
             new SimpleListProperty<>(FXCollections.observableArrayList(Operation.values()));
     private final ObjectProperty<Operation> currentOperation = new SimpleObjectProperty<>();
@@ -105,6 +107,12 @@ public class ViewModel {
 
         metricResult.set(getCurrentOperation().apply(vector1, vector2).toString());
         currentStatus.set(CurrentStatus.SUCCESS.toString());
+    }
+
+    public List<String> getLog() {
+        return logger == null
+                ? new ArrayList<>()
+                : logger.getLog();
     }
 
     private Boolean isVectorsValuesEmpty() {

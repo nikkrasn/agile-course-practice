@@ -245,22 +245,47 @@ public class ViewModelTests {
     public void logContainsProperMessageAfterConversion() {
         fillInputFieldsCorrectly();
         viewModel.convert();
-        String message = viewModel.getLog().get(0);
+        String message = getLogMessageByNumber(0);
         assertTrue(message.matches(".*" + LogEvents.CONVERT_WAS_PRESSED + ".*"));
     }
 
     @Test
     public void logContainsProperMessageAfterChangingSrcColor() {
         viewModel.setSrcColor(Color.HSV);
-        String message = viewModel.getLog().get(0);
+        String message = getLogMessageByNumber(0);
         assertTrue(message.matches(".*" + LogEvents.SRC_COLOR_WAS_CHANGED + "from RGB to HSV.*"));
     }
 
     @Test
     public void logContainsProperMessageAfterChangingDstColor() {
         viewModel.setDstColor(Color.HSV);
-        String message = viewModel.getLog().get(0);
+        String message = getLogMessageByNumber(0);
         assertTrue(message.matches(".*" + LogEvents.DST_COLOR_WAS_CHANGED + "from LAB to HSV.*"));
+    }
+
+    @Test
+    public void logContainsColorChannelsAfterConversion() {
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*Src.*" + viewModel.getSrcColor().toString()
+                + ".*Dst.*" + viewModel.getDstColor().toString() + ".*"));
+    }
+
+    @Test
+    public void logContainsColorValuesAfterConversion() {
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*"
+                + viewModel.getFirstChannelSrcColorString() + ".*"
+                + viewModel.getSecondChannelSrcColorString() + ".*"
+                + viewModel.getThirdChannelSrcColorString() + ".*"
+                + viewModel.getFirstChannelDstColorString() + ".*"
+                + viewModel.getSecondChannelDstColorString() + ".*"
+                + viewModel.getThirdChannelDstColorString() + ".*"));
     }
 
     private void fillInputFieldsCorrectly() {
@@ -329,5 +354,9 @@ public class ViewModelTests {
         viewModel.setFirstChannelSrcColorString("28.0847");
         viewModel.setSecondChannelSrcColorString("51.0104");
         viewModel.setThirdChannelSrcColorString("41.2945");
+    }
+
+    private String getLogMessageByNumber(final Integer number) {
+        return viewModel.getLog().get(number);
     }
 }

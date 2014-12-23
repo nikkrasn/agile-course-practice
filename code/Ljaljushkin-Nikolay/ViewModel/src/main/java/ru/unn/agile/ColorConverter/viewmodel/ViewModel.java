@@ -132,7 +132,17 @@ public class ViewModel {
         setThirdChannelDstColorString(thirdChannel.toString());
 
         status.set(AppStatus.SUCCESS.toString());
-        logger.addToLog(LogEvents.CONVERT_WAS_PRESSED);
+
+        StringBuilder message = new StringBuilder(LogEvents.CONVERT_WAS_PRESSED);
+        message.append(" Src(" + getSrcColor().toString() + "): ")
+                .append(getFirstChannelSrcColorString() + ", ")
+                .append(getSecondChannelSrcColorString() + ", ")
+                .append(getThirdChannelSrcColorString() + ".")
+                .append(" Dst(" + getDstColor().toString() + "): ")
+                .append(getFirstChannelDstColorString() + ", ")
+                .append(getSecondChannelDstColorString() + ", ")
+                .append(getThirdChannelDstColorString() + ".");
+        logger.addToLog(message.toString());
     }
 
     public void setLogger(final ILogger logger) {

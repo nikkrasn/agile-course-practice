@@ -45,6 +45,99 @@ public class StatisticalValues {
         return expectedValue;
     }
 
+    public double calculateVariance() {
+        double variance = 0;
+        Iterator valuesIterator = values.iterator();
+
+        checkProbabilities();
+
+        double expectedValue = calculateExpectedValue();
+        double squaredExpectedValue = 0;
+        List<Double> squaredVals = new ArrayList<>();
+
+        while (valuesIterator.hasNext()) {
+            squaredVals.add(Math.pow((double) valuesIterator.next(), 2));
+        }
+
+        StatisticalValues statisticalCalculator = new StatisticalValues(squaredVals, probabilities);
+        squaredExpectedValue = statisticalCalculator.calculateExpectedValue();
+
+        variance = squaredExpectedValue - Math.pow(expectedValue, 2);
+
+        return variance;
+    }
+
+    public double calculateInitialMoment(final int k) {
+        double moment = 0;
+        Iterator valuesIterator = values.iterator();
+        List<Double> momentVals = new ArrayList<>();
+
+        checkProbabilities();
+
+        while (valuesIterator.hasNext()) {
+            momentVals.add(Math.pow((double) valuesIterator.next(), k));
+        }
+
+        StatisticalValues statisticalCalculator = new StatisticalValues(momentVals, probabilities);
+
+        moment = statisticalCalculator.calculateExpectedValue();
+
+        return moment;
+    }
+
+    public enum Operation {
+        EXPECTED_VALUE("Expected value"){
+            public Double apply(final StatisticalValues values) {
+                return values.calculateExpectedValue();
+            }
+        },
+        VARIANCE("Variance"){
+            public Double apply(final StatisticalValues values) {
+                return values.calculateVariance();
+            }
+        },
+        INITIAL_MOMENT("Initial moment"){
+            public Double apply(final StatisticalValues values) {
+                return values.calculateInitialMoment(2);
+            }
+        };
+
+        private final String name;
+
+        Operation(final String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
+
+        public abstract Double apply(final StatisticalValues values);
+    }
+
+    private boolean isSumProbabilitiesValueEqualsOne(final double sum) {
+        return Math.abs(1.0 - sum) < EPSILON;
+    }
+
+    private boolean isNegativeProbabilityValue(final double probability) {
+        return probability < 0;
+    }
+
+    private void checkSumProbabilitiesValue() {
+        Iterator probabilitiesIterator = probabilities.iterator();
+        double sum = 0;
+
+        while (probabilitiesIterator.hasNext()) {
+            sum += (double) probabilitiesIterator.next();
+        }
+
+        if (!isSumProbabilitiesValueEqualsOne(sum)) {
+            throw new IllegalArgumentException("Sum of probabilities doesn't equal to 1");
+        }
+    }
+
+
     private void checkProbabilities() {
         checkDifferentSizeOfLists();
         checkProbabilitiesValueMoreThanOne();
@@ -89,65 +182,6 @@ public class StatisticalValues {
             }
         }
     }
-
-    private boolean isNegativeProbabilityValue(final double probability) {
-        return probability < 0;
-    }
-
-    private void checkSumProbabilitiesValue() {
-        Iterator probabilitiesIterator = probabilities.iterator();
-        double sum = 0;
-
-        while (probabilitiesIterator.hasNext()) {
-            sum += (double) probabilitiesIterator.next();
-        }
-
-        if (!isSumProbabilitiesValueEqualsOne(sum)) {
-            throw new IllegalArgumentException("Sum of probabilities doesn't equal to 1");
-        }
-    }
-
-    private boolean isSumProbabilitiesValueEqualsOne(final double sum) {
-        return Math.abs(1.0 - sum) < EPSILON;
-    }
-
-    public double calculateVariance() {
-        double variance = 0;
-        Iterator valuesIterator = values.iterator();
-
-        checkProbabilities();
-
-        double expectedValue = calculateExpectedValue();
-        double squaredExpectedValue = 0;
-        List<Double> squaredVals = new ArrayList<>();
-
-        while (valuesIterator.hasNext()) {
-            squaredVals.add(Math.pow((double) valuesIterator.next(), 2));
-        }
-
-        StatisticalValues statisticalCalculator = new StatisticalValues(squaredVals, probabilities);
-        squaredExpectedValue = statisticalCalculator.calculateExpectedValue();
-
-        variance = squaredExpectedValue - Math.pow(expectedValue, 2);
-
-        return variance;
-    }
-
-    public double calculateInitialMoment(final int k) {
-        double moment = 0;
-        Iterator valuesIterator = values.iterator();
-        List<Double> momentVals = new ArrayList<>();
-
-        checkProbabilities();
-
-        while (valuesIterator.hasNext()) {
-            momentVals.add(Math.pow((double) valuesIterator.next(), k));
-        }
-
-        StatisticalValues statisticalCalculator = new StatisticalValues(momentVals, probabilities);
-
-        moment = statisticalCalculator.calculateExpectedValue();
-
-        return moment;
-    }
 }
+
+

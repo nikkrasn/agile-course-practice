@@ -77,6 +77,21 @@ public class ViewModelTests {
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
+    @Test
+    public void checkCalculationWithIncompleteInput() {
+        viewModel.vectDimensionProperty().set("1");
+        viewModel.vectProbValProperty.add(new Pair<>("0.5", ""));
+
+        assertTrue(viewModel.calculationDisabledProperty().get());
+    }
+
+    @Test
+    public void checkCalculationWithCorrectInput() {
+        setInput();
+
+        assertFalse(viewModel.calculationDisabledProperty().get());
+    }
+
     public void setInput() {
         viewModel.vectDimensionProperty().set("2");
 

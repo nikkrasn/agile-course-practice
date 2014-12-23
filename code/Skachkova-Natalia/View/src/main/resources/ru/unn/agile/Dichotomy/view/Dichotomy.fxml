@@ -43,7 +43,7 @@
                   <Label text="${viewModel.dichotomyResult}" />
                </children>
             </HBox>
-            <TextArea text="${viewModel.logs}" editable="false" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+            <TextArea text="${viewModel.dichotomyLogs}" editable="false" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

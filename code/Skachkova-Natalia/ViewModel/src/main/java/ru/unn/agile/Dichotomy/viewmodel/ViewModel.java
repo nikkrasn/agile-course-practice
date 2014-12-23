@@ -14,7 +14,7 @@ public class ViewModel {
     private final StringProperty stringElement = new SimpleStringProperty();
     private final StringProperty dichotomyResult = new SimpleStringProperty();
     private final StringProperty dichotomyStatus = new SimpleStringProperty();
-    private final StringProperty logs = new SimpleStringProperty();
+    private final StringProperty dichotomyLogs = new SimpleStringProperty();
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final BooleanProperty inputArrayDisabled = new SimpleBooleanProperty();
     private final BooleanProperty applyDisabled = new SimpleBooleanProperty();
@@ -112,8 +112,8 @@ public class ViewModel {
         updateLogs();
     }
 
-    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
-        if (!oldValue && newValue) {
+    public void onFocusChanged(final Boolean oldValues, final Boolean newValues) {
+        if (!oldValues && newValues) {
             return;
         }
 
@@ -139,12 +139,12 @@ public class ViewModel {
         return logger.getLog();
     }
 
-    public StringProperty logsProperty() {
-        return logs;
+    public StringProperty dichotomyLogsProperty() {
+        return dichotomyLogs;
     }
 
-    public final String getLogs() {
-        return logs.get();
+    public final String getDichotomyLogs() {
+        return dichotomyLogs.get();
     }
 
     public StringProperty dichotomyResultProperty() {
@@ -285,26 +285,26 @@ public class ViewModel {
         for (String log : fullLog) {
             record += log + "\n";
         }
-        logs.set(record);
+        dichotomyLogs.set(record);
     }
 
     private class ValueChangeListener implements ChangeListener<String> {
-        private String previousValue = new String();
-        private String currentValue = new String();
+        private String previousValues = new String();
+        private String currentValues = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            if (oldValue.equals(newValue)) {
+                            final String oldValues, final String newValues) {
+            if (oldValues.equals(newValues)) {
                 return;
             }
             dichotomyStatus.set(getInputStatus().toString());
-            currentValue = newValue;
+            currentValues = newValues;
         }
         public boolean isChanged() {
-            return !previousValue.equals(currentValue);
+            return !previousValues.equals(currentValues);
         }
         public void cache() {
-            previousValue = currentValue;
+            previousValues = currentValues;
         }
     }
 }

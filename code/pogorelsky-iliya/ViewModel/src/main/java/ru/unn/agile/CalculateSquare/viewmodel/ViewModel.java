@@ -151,7 +151,7 @@ public class ViewModel {
             return;
         }
         StringBuilder mes = new StringBuilder(LogInfo.CHANGED_OPERATION);
-        message.append(newValue.toString());
+        mes.append(newValue.toString());
         logger.log(mes.toString());
         updateLogs();
     }

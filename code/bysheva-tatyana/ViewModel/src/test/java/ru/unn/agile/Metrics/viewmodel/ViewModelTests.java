@@ -213,6 +213,11 @@ public class ViewModelTests {
         assertEquals("1.0", viewModel.getMetricResult());
     }
 
+    @Test
+    public void isLogEmptyInitially() {
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
     private void setInputData() {
         viewModel.vectorsDimensionProperty().set("3");
 

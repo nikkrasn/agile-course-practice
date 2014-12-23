@@ -3,7 +3,7 @@ package ru.unn.agile.BinaryTree.viewmodel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeLogger implements ILogger {
+public class FictitiousLogger implements ILogger {
     private final ArrayList<String> log = new ArrayList<>();
 
     @Override

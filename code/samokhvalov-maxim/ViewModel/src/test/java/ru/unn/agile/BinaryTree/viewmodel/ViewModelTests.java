@@ -3,9 +3,7 @@ package ru.unn.agile.BinaryTree.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.List;
-
 import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
@@ -19,7 +17,7 @@ public class ViewModelTests {
     @Before
     public void setUp() {
         if (viewModel == null) {
-            viewModel = new ViewModel(new FakeLogger());
+            viewModel = new ViewModel(new FictitiousLogger());
         }
     }
 
@@ -230,12 +228,12 @@ public class ViewModelTests {
     }
 
     @Test
-    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+    public void viewModelConstructorGiveExceptionIfLoggerNull() {
         try {
             new ViewModel(null);
             fail("Exception wasn't thrown");
         } catch (IllegalArgumentException ex) {
-            assertEquals("Logger parameter can't be null", ex.getMessage());
+            assertEquals("Error! Logger is null", ex.getMessage());
         } catch (Exception ex) {
             fail("Invalid exception type");
         }

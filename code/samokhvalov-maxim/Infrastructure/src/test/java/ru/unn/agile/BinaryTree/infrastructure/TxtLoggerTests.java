@@ -32,13 +32,13 @@ public class TxtLoggerTests {
         try {
             new BufferedReader(new FileReader(FILENAME));
         } catch (FileNotFoundException e) {
-            fail("File " + FILENAME + " wasn't found!");
+            fail("File " + FILENAME + " not found!");
         }
     }
 
     @Test
-    public void canWriteLogMessage() {
-        String testMessage = "Test message";
+    public void canWriteMessageInLog() {
+        String testMessage = "Testing message";
 
         txtLogger.log(testMessage);
 
@@ -48,24 +48,25 @@ public class TxtLoggerTests {
 
     @Test
     public void canWriteMoreLogMessage() {
-        String[] messages = {"Test message 1", "Test message 2"};
+        String[] messages = {"Testing Message One", "Testing Message Two", "Testing Message Three"};
 
         txtLogger.log(messages[0]);
         txtLogger.log(messages[1]);
+        txtLogger.log(messages[2]);
 
         List<String> actualMessages = txtLogger.getLog();
-        for (int i = 0; i < actualMessages.size(); i++) {
-            assertThat(actualMessages.get(i), matchesPattern(".*" + messages[i] + "$"));
+        for (int j = 0; j < actualMessages.size(); j++) {
+            assertThat(actualMessages.get(j), matchesPattern(".*" + messages[j] + "$"));
         }
     }
 
     @Test
     public void doesLogContainDateAndTime() {
-        String testMessage = "Test message";
+        String testMessage = "Testing message";
 
         txtLogger.log(testMessage);
 
         String message = txtLogger.getLog().get(0);
-        assertThat(message, matchesPattern("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2} > .*"));
+        assertThat(message, matchesPattern("^\\d{2}-\\d{2}-\\d{4} \\d{2}:\\d{2}:\\d{2} : .*"));
     }
 }

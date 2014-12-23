@@ -27,7 +27,8 @@ public class BinaryTree {
     @FXML
     void initialize() {
         viewModel.setLogger(new TxtLogger("./TxtLogger.log"));
-        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+
+        final ChangeListener<Boolean> focusChangedListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {
@@ -36,10 +37,10 @@ public class BinaryTree {
         };
 
         txtKey.textProperty().bindBidirectional(viewModel.keyProperty());
-        txtKey.focusedProperty().addListener(focusChangeListener);
+        txtKey.focusedProperty().addListener(focusChangedListener);
 
         txtValue.textProperty().bindBidirectional(viewModel.valueProperty());
-        txtValue.focusedProperty().addListener(focusChangeListener);
+        txtValue.focusedProperty().addListener(focusChangedListener);
 
         cbOperation.valueProperty().bindBidirectional(viewModel.operationProperty());
         cbOperation.valueProperty().addListener(new ChangeListener<Operation>() {

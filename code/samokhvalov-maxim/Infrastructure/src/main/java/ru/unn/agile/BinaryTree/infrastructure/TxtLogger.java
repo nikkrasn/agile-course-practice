@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class TxtLogger implements ILogger {
     private static final String DATE_FORMAT_NOW = "dd-MM-yyyy HH:mm:ss";
-    private final BufferedWriter writer;
+    private final BufferedWriter bufWriter;
     private final String filename;
 
     public TxtLogger(final String filename) {
@@ -26,15 +26,15 @@ public class TxtLogger implements ILogger {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        bufWriter = logWriter;
     }
 
     @Override
     public void log(final String text) {
         try {
-            writer.write(now() + " > " + text);
-            writer.newLine();
-            writer.flush();
+            bufWriter.write(now() + " : " + text);
+            bufWriter.newLine();
+            bufWriter.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

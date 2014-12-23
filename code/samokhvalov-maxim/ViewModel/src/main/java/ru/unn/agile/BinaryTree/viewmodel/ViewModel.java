@@ -34,7 +34,7 @@ public class ViewModel {
 
     public void setLogger(final ILogger logger) {
         if (logger == null) {
-            throw new IllegalArgumentException("Logger parameter can't be null");
+            throw new IllegalArgumentException("Error! Logger is null");
         }
         this.logger = logger;
     }
@@ -157,6 +157,14 @@ public class ViewModel {
         return logger.getLog();
     }
 
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
+
     public StringProperty keyProperty() {
         return key;
     }
@@ -223,14 +231,6 @@ public class ViewModel {
 
     public final String getStatus() {
         return status.get();
-    }
-
-    public StringProperty logsProperty() {
-        return logs;
-    }
-
-    public final String getLogs() {
-        return logs.get();
     }
 
     private void init() {

@@ -27,4 +27,10 @@ public class TextLoggerTests {
     public void canOpenLogFile() throws FileNotFoundException {
         new FileReader(logFilename);
     }
+
+    @Test
+    public void canLogSomething() {
+        logger.log("test");
+        assertEquals("test", logger.getLastMessage());
+    }
 }

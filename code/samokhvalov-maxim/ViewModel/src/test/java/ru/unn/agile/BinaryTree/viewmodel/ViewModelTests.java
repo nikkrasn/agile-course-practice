@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import java.util.List;
 import static org.junit.Assert.*;
-import static org.junit.Assert.fail;
 
 public class ViewModelTests {
     private ViewModel viewModel;
@@ -227,16 +226,9 @@ public class ViewModelTests {
         assertEquals(State.NODE_NOT_FOUND.toString(), viewModel.statusProperty().get());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void viewModelConstructorGiveExceptionIfLoggerNull() {
-        try {
             new ViewModel(null);
-            fail("Exception wasn't thrown");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("Error! Logger is null", ex.getMessage());
-        } catch (Exception ex) {
-            fail("Invalid exception type");
-        }
     }
 
     @Test

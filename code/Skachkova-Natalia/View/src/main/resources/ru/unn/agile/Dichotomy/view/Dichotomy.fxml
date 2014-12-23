@@ -10,7 +10,7 @@
         <ViewModel fx:id="viewModel" />
     </fx:define>
     <children>
-      <VBox prefHeight="159.0" prefWidth="403.0">
+      <VBox prefHeight="259.0" prefWidth="403.0">
          <children>
             <HBox prefHeight="44.0" prefWidth="403.0">
                <children>
@@ -39,10 +39,11 @@
             </HBox>
             <HBox prefHeight="33.0" prefWidth="403.0">
                <children>
-                  <Label text="Result: " />
+                  <Label text="Result:" />
                   <Label text="${viewModel.dichotomyResult}" />
                </children>
             </HBox>
+            <TextArea text="${viewModel.dichotomyLogs}" editable="false" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </children>

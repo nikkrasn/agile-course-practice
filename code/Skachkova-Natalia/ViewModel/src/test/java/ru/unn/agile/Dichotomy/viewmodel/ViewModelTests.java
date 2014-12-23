@@ -3,14 +3,21 @@ package ru.unn.agile.Dichotomy.viewmodel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
 
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new FakeLogger());
     }
 
     @After
@@ -76,10 +83,7 @@ public class ViewModelTests {
 
     @Test
     public void statusIsSuccessWhenPressSearch() {
-        viewModel.stringArrayProperty().set("1 2 3");
-        viewModel.parseString();
-        viewModel.stringElementProperty().set("1");
-        viewModel.findElement();
+        setCorrectArrayAndFindElement();
         assertEquals(InputStatus.SUCCESS.toString(), viewModel.dichotomyStatusProperty().get());
     }
 
@@ -96,10 +100,7 @@ public class ViewModelTests {
 
     @Test
     public void resultIsContainWhenArrayContainElement() {
-        viewModel.stringArrayProperty().set("1 2 3");
-        viewModel.parseString();
-        viewModel.stringElementProperty().set("1");
-        viewModel.findElement();
+        setCorrectArrayAndFindElement();
         assertEquals(ResultStatus.CONTAIN.toString(), viewModel.dichotomyResultProperty().get());
     }
 
@@ -180,5 +181,105 @@ public class ViewModelTests {
         viewModel.parseString();
         viewModel.stringElementProperty().set("1");
         assertFalse(viewModel.searchDisabledProperty().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void viewModelConstructorWithNullLog() {
+        new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyInitially() {
+        List<String> log = viewModel.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterApply() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.parseString();
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + MessagesInLog.APPLY_WAS_PRESSED
+                + viewModel.stringArrayProperty().get() + ".*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterSearch() {
+        setCorrectArrayAndFindElement();
+        String message = viewModel.getLog().get(1);
+        assertTrue(message.matches(".*" + MessagesInLog.SEARCH_WAS_PRESSED
+                + viewModel.stringElementProperty().get() + MessagesInLog.IN_ARRAY
+                + viewModel.stringArrayProperty().get() + ".*"));
+    }
+
+    @Test
+     public void logContainsProperMessageAfterSearchWhenArrayContainElement() {
+        setCorrectArrayAndFindElement();
+        String message = viewModel.getLog().get(1);
+        assertTrue(message.matches(".*" + ResultStatus.CONTAIN + ".*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterSearchWhenArrayNotContainElement() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.parseString();
+        viewModel.stringElementProperty().set("0");
+        viewModel.findElement();
+        String message = viewModel.getLog().get(1);
+        assertTrue(message.matches(".*" + ResultStatus.NOT_CONTAIN + ".*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterNewArray() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.parseString();
+        viewModel.stringElementProperty().set("0");
+        viewModel.findElement();
+        viewModel.enterNewArray();
+        String message = viewModel.getLog().get(2);
+        assertTrue(message.matches(".*" + MessagesInLog.NEW_ARRAY_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.parseString();
+        viewModel.stringElementProperty().set("0");
+        viewModel.findElement();
+        viewModel.findElement();
+        viewModel.findElement();
+        assertEquals(4, viewModel.getLog().size());
+    }
+
+    @Test
+    public void applyIsNotLoggedIfArrayIsEntered() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.parseString();
+        viewModel.parseString();
+        viewModel.parseString();
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void arrayAreCorrectlyLogged() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + MessagesInLog.ARRAY_EDITING_FINISHED + ".*"));
+    }
+
+    @Test
+    public void elementAreCorrectlyLogged() {
+        viewModel.stringElementProperty().set("1");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + MessagesInLog.ELEMENT_EDITING_FINISHED + ".*"));
+    }
+
+    private void setCorrectArrayAndFindElement() {
+        viewModel.stringArrayProperty().set("1 2 3");
+        viewModel.parseString();
+        viewModel.stringElementProperty().set("1");
+        viewModel.findElement();
     }
 }

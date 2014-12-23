@@ -247,6 +247,8 @@ include "code/Skachkova-Natalia/ViewModel"
 project(":code/Skachkova-Natalia/ViewModel").name = "Skachkova-Natalia-ViewModel"
 include "code/Skachkova-Natalia/View"
 project(":code/Skachkova-Natalia/View").name = "Skachkova-Natalia-View"
+include "code/Skachkova-Natalia/Infrastructure"
+project(":code/Skachkova-Natalia/Infrastructure").name = "Skachkova-Natalia-Infrastructure"
 
 // Sokolov Mihail
 include "code/Sokolov-Mihail/Model"

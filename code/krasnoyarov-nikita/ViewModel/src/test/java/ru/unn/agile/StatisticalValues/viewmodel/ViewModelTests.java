@@ -29,7 +29,6 @@ public class ViewModelTests {
     public void canSetDefaultValues() {
         final ObservableList<Pair<String, String>> vectProbVal =
                 FXCollections.observableArrayList();
-        assertEquals("", viewModel.vectDimensionProperty().get());
 
         assertTrue(viewModel.vectProbValProperty.equals(vectProbVal));
         assertEquals(StatisticalValues.Operation.EXPECTED_VALUE, viewModel.operationProperty().get());
@@ -53,15 +52,13 @@ public class ViewModelTests {
 
     @Test
     public void checkBadFormat() {
-        viewModel.vectDimensionProperty().set("adasda");
+        viewModel.vectProbValProperty.add(new Pair<>("0.5", "ssa"));
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatusProperty().get());
     }
 
     @Test
     public void checkWaitForAllParamsEntered() {
-        viewModel.vectDimensionProperty().set("3");
-
         assertEquals(Status.WAITING.toString(), viewModel.getStatusProperty().get());
     }
 
@@ -72,14 +69,13 @@ public class ViewModelTests {
 
     @Test
     public void checkCalculationDisabledWithWrongParams() {
-        viewModel.vectDimensionProperty().set("sdaddas");
+        viewModel.vectProbValProperty.add(new Pair<>("0.5", "asadada"));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void checkCalculationWithIncompleteInput() {
-        viewModel.vectDimensionProperty().set("1");
         viewModel.vectProbValProperty.add(new Pair<>("0.5", ""));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
@@ -100,7 +96,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void checkCanCalculateAndSetSuccesStatus() {
+    public void checkCanCalculateAndSetSuccessStatus() {
         setInput();
 
         viewModel.calculate();
@@ -108,9 +104,36 @@ public class ViewModelTests {
         assertEquals(Status.SUCCESS.toString(), viewModel.getStatusProperty().get());
     }
 
-    public void setInput() {
-        viewModel.vectDimensionProperty().set("2");
+    @Test
+    public void checkExpectedValueCalculateCorrectResult() {
+        setInput();
 
+        viewModel.calculate();
+
+        assertEquals("1.0", viewModel.getResultProperty().get());
+    }
+
+    @Test
+    public void checkVarianceCalculateCorrectResult() {
+        setInput();
+
+        viewModel.operationProperty().set(StatisticalValues.Operation.VARIANCE);
+        viewModel.calculate();
+
+        assertEquals("0.0", viewModel.getResultProperty().get());
+    }
+
+    @Test
+    public void checkInitialMomentCalculateCorrectResult() {
+        setInput();
+
+        viewModel.operationProperty().set(StatisticalValues.Operation.INITIAL_MOMENT);
+        viewModel.calculate();
+
+        assertEquals("1.0", viewModel.getResultProperty().get());
+    }
+
+    public void setInput() {
         viewModel.vectProbValProperty.add(new Pair<>("0.5", "1.0"));
         viewModel.vectProbValProperty.add(new Pair<>("0.5", "1.0"));
     }

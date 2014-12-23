@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
-    private final StringProperty vectorsDimension = new SimpleStringProperty();
 
     private final ObservableList<Pair<String, String>> vectProbVal =
             FXCollections.observableArrayList();
@@ -28,14 +27,8 @@ public class ViewModel {
 
     public SimpleListProperty vectProbValProperty = new SimpleListProperty(this,"vectorsValues", vectProbVal);
 
-    public StringProperty vectDimensionProperty() {
-        return vectorsDimension;
-    }
-
     // FXML needs default c-tor for binding
     public ViewModel() {
-        vectorsDimension.set("");
-
         operation.set(StatisticalValues.Operation.EXPECTED_VALUE);
         result.set("");
         status.set(Status.WAITING.toString());
@@ -50,10 +43,6 @@ public class ViewModel {
             }
         };
         calculationDisabled.bind(couldCalculate.not());
-
-        final StringChangeListener stringChangeListener
-                = new StringChangeListener();
-        vectDimensionProperty().addListener(stringChangeListener);
 
         final ListPropertyChangeListener listChangeListener
                 = new ListPropertyChangeListener();
@@ -117,13 +106,10 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (vectProbVal.isEmpty() || vectorsDimension.get().isEmpty()) {
+        if (vectProbVal.isEmpty()) {
             inputStatus = Status.WAITING;
         }
         try {
-            if (!vectorsDimension.get().isEmpty()) {
-                Integer.parseInt(vectorsDimension.get());
-            }
             if (!vectProbVal.isEmpty()) {
                 for (int i = 0; i < vectProbVal.size(); i++) {
                     Double.parseDouble(vectProbVal.get(i).getKey());
@@ -135,14 +121,6 @@ public class ViewModel {
         }
 
         return inputStatus;
-    }
-
-    private class StringChangeListener implements ChangeListener<String> {
-        @Override
-        public void changed(final ObservableValue<? extends String> observable,
-                            final String oldValue, final String newValue) {
-            status.set(getInputStatus().toString());
-        }
     }
 
     private class ListPropertyChangeListener implements ListChangeListener<Pair<String, String>> {

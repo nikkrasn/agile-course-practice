@@ -126,16 +126,9 @@ public class ViewModelTests {
                 viewModel.getResult());
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void constructorViewModelException() {
-        try {
-            new ViewModel(null);
-            fail("Exception wasn't thrown");
-        } catch (IllegalArgumentException ex) {
-            assertEquals("Logger parameter can't be null", ex.getMessage());
-        } catch (Exception ex) {
-            fail("Invalid exception type");
-        }
+        new ViewModel(null);
     }
 
     @Test

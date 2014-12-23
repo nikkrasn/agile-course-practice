@@ -27,12 +27,9 @@ public class TxtLoggerTests {
     }
 
     @Test
-    public void canCreateLogFile() {
-        try {
-            new BufferedReader(new FileReader(FILENAMELOG));
-        } catch (FileNotFoundException e) {
-            fail("File " + FILENAMELOG + " wasn't found!");
-        }
+    public void canCreateLogFile() throws FileNotFoundException {
+        FileReader fileReader = new FileReader(FILENAMELOG);
+        BufferedReader reader = new BufferedReader(fileReader);
     }
 
     @Test

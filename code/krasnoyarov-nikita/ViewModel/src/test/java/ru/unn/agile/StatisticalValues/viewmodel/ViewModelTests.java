@@ -92,6 +92,22 @@ public class ViewModelTests {
         assertFalse(viewModel.calculationDisabledProperty().get());
     }
 
+    @Test
+    public void checkCanSetVarianceOperation() {
+        viewModel.operationProperty().set(StatisticalValues.Operation.VARIANCE);
+
+        assertEquals(StatisticalValues.Operation.VARIANCE, viewModel.operationProperty().get());
+    }
+
+    @Test
+    public void checkCanCalculateAndSetSuccesStatus() {
+        setInput();
+
+        viewModel.calculate();
+
+        assertEquals(Status.SUCCESS.toString(), viewModel.getStatusProperty().get());
+    }
+
     public void setInput() {
         viewModel.vectDimensionProperty().set("2");
 

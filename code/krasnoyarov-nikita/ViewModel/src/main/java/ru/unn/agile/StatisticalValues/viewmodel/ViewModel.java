@@ -69,8 +69,8 @@ public class ViewModel {
         List<Double> probabil = new ArrayList<Double>();
 
         for (int i = 0; i < vectProbVal.size(); i++) {
-            probabil.add(Double.parseDouble(vectProbVal.get(i).getKey()));
-            val.add(Double.parseDouble(vectProbVal.get(i).getValue()));
+            probabil.add(Double.parseDouble(vectProbVal.get(i).getValue()));
+            val.add(Double.parseDouble(vectProbVal.get(i).getKey()));
         }
 
         StatisticalValues calculator = new StatisticalValues(probabil, val);

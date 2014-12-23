@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import ru.unn.agile.Dichotomy.viewmodel.ViewModel;
+import ru.unn.agile.Dichotomy.infrastructure.TxtLogger;
 
 public class Dichotomy {
     @FXML
@@ -25,7 +26,9 @@ public class Dichotomy {
 
     @FXML
     void initialize() {
-        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3-dichotomy.log"));
+
+        final ChangeListener<Boolean> focusChangedListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {
@@ -34,9 +37,9 @@ public class Dichotomy {
         };
 
         txtInputArray.textProperty().bindBidirectional(viewModel.stringArrayProperty());
-        txtInputArray.focusedProperty().addListener(focusChangeListener);
+        txtInputArray.focusedProperty().addListener(focusChangedListener);
         txtInputElement.textProperty().bindBidirectional(viewModel.stringElementProperty());
-        txtInputElement.focusedProperty().addListener(focusChangeListener);
+        txtInputElement.focusedProperty().addListener(focusChangedListener);
         btnInputArray.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(final ActionEvent event) {

@@ -12,9 +12,9 @@ public class ViewModel {
 
     private final StringProperty stringArray = new SimpleStringProperty();
     private final StringProperty stringElement = new SimpleStringProperty();
-    private int[] elementsArray;
     private final StringProperty dichotomyResult = new SimpleStringProperty();
     private final StringProperty dichotomyStatus = new SimpleStringProperty();
+    private final StringProperty logs = new SimpleStringProperty();
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final BooleanProperty inputArrayDisabled = new SimpleBooleanProperty();
     private final BooleanProperty applyDisabled = new SimpleBooleanProperty();
@@ -22,6 +22,7 @@ public class ViewModel {
     private final BooleanProperty searchDisabled = new SimpleBooleanProperty();
     private boolean isArrayEntered = false;
     private ILogger logger;
+    private int[] elementsArray;
 
     public void setLogger(final ILogger logger) {
         if (logger == null) {
@@ -77,6 +78,7 @@ public class ViewModel {
                 inputElementDisabled.setValue(true);
             }
             logger.log(message.toString());
+            updateLogs();
             elementsArray = elements;
         }
     }
@@ -99,6 +101,7 @@ public class ViewModel {
         }
         dichotomyStatus.set(InputStatus.SUCCESS.toString());
         logger.log(message.toString());
+        updateLogs();
     }
 
     public void enterNewArray() {
@@ -106,6 +109,7 @@ public class ViewModel {
         setInitialCondition();
         isArrayEntered = false;
         logger.log(message.toString());
+        updateLogs();
     }
 
     public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
@@ -115,13 +119,16 @@ public class ViewModel {
 
         for (ValueChangeListener listener : valueChangedListeners) {
             if (listener.isChanged()) {
-                String txt = (listener == valueChangedListeners.get(0))
-                        ? MessagesInLog.ARRAY_EDITING_FINISHED
-                        : MessagesInLog.ELEMENT_EDITING_FINISHED;
-                StringBuilder message = new StringBuilder(txt);
-                message.append(stringArray.get());
+                StringBuilder message = new StringBuilder();
+                if (listener == valueChangedListeners.get(0)) {
+                    message.append(MessagesInLog.ARRAY_EDITING_FINISHED)
+                            .append(stringArray.get());
+                } else {
+                    message.append(MessagesInLog.ELEMENT_EDITING_FINISHED)
+                            .append(stringElement.get());
+                }
                 logger.log(message.toString());
-//                updateLogs();
+                updateLogs();
                 listener.cache();
                 break;
             }
@@ -130,6 +137,14 @@ public class ViewModel {
 
     public final List<String> getLog() {
         return logger.getLog();
+    }
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final String getLogs() {
+        return logs.get();
     }
 
     public StringProperty dichotomyResultProperty() {
@@ -264,6 +279,15 @@ public class ViewModel {
         return inputString.split(" ");
     }
 
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
+
     private class ValueChangeListener implements ChangeListener<String> {
         private String previousValue = new String();
         private String currentValue = new String();
@@ -305,8 +329,8 @@ enum InputStatus {
 }
 
 enum ResultStatus {
-    CONTAIN("Array contain an element"),
-    NOT_CONTAIN("Array don't contain an element");
+    CONTAIN(" Array contain an element"),
+    NOT_CONTAIN(" Array don't contain an element");
 
     private final String name;
     private ResultStatus(final String name) {
@@ -321,8 +345,8 @@ final class MessagesInLog {
     public static final String APPLY_WAS_PRESSED = "Applied array: ";
     public static final String SEARCH_WAS_PRESSED = "Searching element ";
     public static final String NEW_ARRAY_WAS_PRESSED = "Pressed button New array";
-    public static final String ARRAY_EDITING_FINISHED = "Updated input of array. ";
-    public static final String ELEMENT_EDITING_FINISHED = "Updated input of element. ";
+    public static final String ARRAY_EDITING_FINISHED = "Updated input of array: ";
+    public static final String ELEMENT_EDITING_FINISHED = "Updated input of element: ";
     public static final String IN_ARRAY = " in array ";
 
     private MessagesInLog() { }

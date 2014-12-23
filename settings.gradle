@@ -214,6 +214,8 @@ include "code/samokhvalov-maxim/ViewModel"
 project(":code/samokhvalov-maxim/ViewModel").name = "samokhvalov-maxim-ViewModel"
 include "code/samokhvalov-maxim/View"
 project(":code/samokhvalov-maxim/View").name = "samokhvalov-maxim-View"
+include "code/samokhvalov-maxim/Infrastructure"
+project(":code/samokhvalov-maxim/Infrastructure").name = "samokhvalov-maxim-Infrastructure"
 
 // Serov Alexey
 include "code/Serov-Alexey/Model"

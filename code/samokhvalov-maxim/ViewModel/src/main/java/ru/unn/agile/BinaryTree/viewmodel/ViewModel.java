@@ -25,27 +25,47 @@ public class ViewModel {
     private final StringProperty resultKey = new SimpleStringProperty();
     private final StringProperty resultValue = new SimpleStringProperty();
     private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty logs = new SimpleStringProperty();
 
     private final BinaryTree tree = new BinaryTree();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
+    private ILogger logger;
+    private List<ValueChangeListener> valueChangedListeners;
+
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger parameter can't be null");
+        }
+        this.logger = logger;
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
     private class ValueChangeListener implements ChangeListener<String> {
+        private String previousValue = new String();
+        private String currentValue = new String();
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
             status.set(getState().toString());
+            currentValue = newValue;
+        }
+        public boolean isChanged() {
+            return !previousValue.equals(currentValue);
+        }
+        public void cache() {
+            previousValue = currentValue;
         }
     }
 
     public ViewModel() {
-        key.set("");
-        value.set("");
-        operation.set(Operation.INSERT);
-        resultKey.set("—");
-        resultValue.set("—");
-        status.set(State.WAITING.toString());
-        bindDeterminate();
-        createFieldsValueChangingListeners();
+        init();
     }
 
     public void execute() {
@@ -56,11 +76,16 @@ public class ViewModel {
         String tempKey = "—";
         String tempValue = "—";
         String statusResult = State.SUCCESS.toString();
+        StringBuilder message = new StringBuilder();
 
         switch(operation.get()) {
             case INSERT:
                 Node node = new Node(Integer.parseInt(key.get()), value.get());
                 tree.insert(node);
+                message = new StringBuilder(LogMessages.INSERT_WAS_EXECUTED);
+                message.append("Key = ").append(key.get())
+                        .append("; Value = ").append(value.get())
+                        .append(";");
                 break;
             case FIND:
                 ArrayList<Node> nodes = tree.findByValue(value.get());
@@ -70,11 +95,19 @@ public class ViewModel {
                     tempKey = Integer.toString(getFirstNodeKey(nodes));
                     tempValue = getFirstNodeValue(nodes).toString();
                 }
+                message = new StringBuilder(LogMessages.FIND_WAS_EXECUTED);
+                message.append("Value = ").append(value.get())
+                        .append(";");
                 break;
             case DELETE:
                 tree.delete(Integer.parseInt(key.get()));
+                message = new StringBuilder(LogMessages.DELETE_WAS_EXECUTED);
+                message.append("Key = ").append(key.get())
+                        .append(";");
+                break;
             case GET_ROOT:
                 Node result = tree.getRoot();
+                message = new StringBuilder(LogMessages.GET_ROOT_WAS_EXECUTED);
                 tempKey = Integer.toString(result.getKey());
                 tempValue = result.getValue().toString();
                 break;
@@ -82,9 +115,46 @@ public class ViewModel {
                 break;
         }
 
+        logger.log(message.toString());
+        updateLogs();
+
         resultKey.set(tempKey);
         resultValue.set(tempValue);
         status.set(statusResult);
+    }
+
+    public void onOperationChanged(final Operation oldValue, final Operation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder message = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        message.append(newValue.toString());
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Key: ")
+                        .append(key.get()).append("; Value: ")
+                        .append(value.get()).append(";");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
+    }
+
+    public final List<String> getLog() {
+        return logger.getLog();
     }
 
     public StringProperty keyProperty() {
@@ -153,6 +223,25 @@ public class ViewModel {
 
     public final String getStatus() {
         return status.get();
+    }
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public final String getLogs() {
+        return logs.get();
+    }
+
+    private void init() {
+        key.set("");
+        value.set("");
+        operation.set(Operation.INSERT);
+        resultKey.set("—");
+        resultValue.set("—");
+        status.set(State.WAITING.toString());
+        bindDeterminate();
+        createFieldsValueChangingListeners();
     }
 
     private State getState() {
@@ -231,7 +320,7 @@ public class ViewModel {
             add(key);
             add(value);
         } };
-
+        valueChangedListeners = new ArrayList<>();
         for (StringProperty field : stringFields) {
             final ValueChangeListener listener = new ValueChangeListener();
             field.addListener(listener);
@@ -250,6 +339,15 @@ public class ViewModel {
     private Node getFirstNode(final ArrayList<Node> nodes) {
         return nodes.get(0);
     }
+
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
 }
 
 enum State {
@@ -266,4 +364,15 @@ enum State {
     public String toString() {
         return name;
     }
+}
+
+final class LogMessages {
+    public static final String INSERT_WAS_EXECUTED = "Insert. ";
+    public static final String FIND_WAS_EXECUTED = "Find. ";
+    public static final String DELETE_WAS_EXECUTED = "Delete. ";
+    public static final String GET_ROOT_WAS_EXECUTED = "Get root. ";
+    public static final String OPERATION_WAS_CHANGED = "Operation was changed. Current is ";
+    public static final String EDITING_FINISHED = "Updated data. ";
+
+    private LogMessages() { }
 }

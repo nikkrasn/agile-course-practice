@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface ILogger {
     void log(final String s);
-
-    List<String> getLog();
+    String getLastMessage();
+    String getMessage(final Integer index);
+    List<String> getFullLog();
 }

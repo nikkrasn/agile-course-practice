@@ -6,6 +6,7 @@ import ru.unn.agile.Metrics.viewmodel.ILogger;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +32,16 @@ public class TextLoggerTests {
     @Test
     public void canLogSomething() {
         logger.log("test");
-        assertEquals("test", logger.getLastMessage());
+        assertEquals("test", getLastMessage());
+    }
+
+    private String getLastMessage() {
+        List<String> log = logger.getLog();
+        return log.get(log.size() - 1);
+    }
+
+    private String getMessage(final Integer index) {
+        List<String> log = logger.getLog();
+        return log.get(index);
     }
 }

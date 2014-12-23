@@ -36,7 +36,7 @@ public class TriangleComputer {
     void initialize() {
         viewModel.setLog(new RecordsLogger("./TxtLogger-lab3.log"));
 
-        final ChangeListener<Boolean> focusChangeListener = new ChangeListener<Boolean>() {
+        final ChangeListener<Boolean> inputValuesListener = new ChangeListener<Boolean>() {
             @Override
             public void changed(final ObservableValue<? extends Boolean> observable,
                                 final Boolean oldValue, final Boolean newValue) {
@@ -44,7 +44,7 @@ public class TriangleComputer {
             }
         };
 
-        final ChangeListener<Operation> operationChangeListener = new ChangeListener<Operation>() {
+        final ChangeListener<Operation> operationChooseListener = new ChangeListener<Operation>() {
             @Override
             public void changed(final ObservableValue<? extends Operation> observable,
                                 final Operation oldValue, final Operation newValue) {
@@ -53,25 +53,25 @@ public class TriangleComputer {
         };
 
         txtAX.textProperty().bindBidirectional(viewModel.aXProperty());
-        txtAX.focusedProperty().addListener(focusChangeListener);
+        txtAX.focusedProperty().addListener(inputValuesListener);
 
         txtAY.textProperty().bindBidirectional(viewModel.aYProperty());
-        txtAY.focusedProperty().addListener(focusChangeListener);
+        txtAY.focusedProperty().addListener(inputValuesListener);
 
         txtBX.textProperty().bindBidirectional(viewModel.bXProperty());
-        txtBX.focusedProperty().addListener(focusChangeListener);
+        txtBX.focusedProperty().addListener(inputValuesListener);
 
         txtBY.textProperty().bindBidirectional(viewModel.bYProperty());
-        txtBY.focusedProperty().addListener(focusChangeListener);
+        txtBY.focusedProperty().addListener(inputValuesListener);
 
         txtCX.textProperty().bindBidirectional(viewModel.cXProperty());
-        txtCX.focusedProperty().addListener(focusChangeListener);
+        txtCX.focusedProperty().addListener(inputValuesListener);
 
         txtCY.textProperty().bindBidirectional(viewModel.cYProperty());
-        txtCY.focusedProperty().addListener(focusChangeListener);
+        txtCY.focusedProperty().addListener(inputValuesListener);
 
         cbComputation.valueProperty().bindBidirectional(viewModel.operationProperty());
-        cbComputation.valueProperty().addListener(operationChangeListener);
+        cbComputation.valueProperty().addListener(operationChooseListener);
 
 
         btnCompute.setOnAction(new EventHandler<ActionEvent>() {

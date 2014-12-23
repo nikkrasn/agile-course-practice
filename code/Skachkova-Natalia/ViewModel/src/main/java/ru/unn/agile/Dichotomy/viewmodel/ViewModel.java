@@ -329,8 +329,8 @@ enum InputStatus {
 }
 
 enum ResultStatus {
-    CONTAIN(" Array contain an element"),
-    NOT_CONTAIN(" Array don't contain an element");
+    CONTAIN("Array contain an element"),
+    NOT_CONTAIN("Array don't contain an element");
 
     private final String name;
     private ResultStatus(final String name) {

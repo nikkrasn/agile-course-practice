@@ -7,226 +7,386 @@ import ru.unn.agile.DemandElasticity.Model.DemandType;
 import ru.unn.agile.DemandElasticity.Model.GoodType;
 import ru.unn.agile.DemandElasticity.Model.GoodsPairType;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ViewModelTest {
-    private ViewModel viewModel;
+    private ViewModel testedViewModel;
+
+    public void setTestedViewModel(final ViewModel viewModel) {
+        this.testedViewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (testedViewModel == null) {
+            testedViewModel = new ViewModel(new FakeLogger());
+        }
     }
 
     @After
     public void tearDown() {
-        viewModel = null;
+        testedViewModel = null;
     }
 
     @Test
     public void canSetDefaultValues() {
         assertEquals(DemandElasticityType.ByPrice.getFirstRangeName(),
-                viewModel.firstRangeProperty().get());
+                testedViewModel.firstRangeProperty().get());
         assertEquals(DemandElasticityType.ByPrice.getSecondRangeName(),
-                viewModel.secondRangeProperty().get());
-        assertEquals("", viewModel.firstRangeStartProperty().get());
-        assertEquals("", viewModel.firstRangeFinishProperty().get());
-        assertEquals("", viewModel.secondRangeStartProperty().get());
-        assertEquals("", viewModel.secondRangeFinishProperty().get());
-        assertEquals(DemandElasticityType.ByPrice, viewModel.demandElasticityTypeProperty().get());
-        assertEquals("", viewModel.calcResultProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.calcStatusProperty().get());
+                testedViewModel.secondRangeProperty().get());
+        assertEquals("", testedViewModel.firstRangeStartProperty().get());
+        assertEquals("", testedViewModel.firstRangeFinishProperty().get());
+        assertEquals("", testedViewModel.secondRangeStartProperty().get());
+        assertEquals("", testedViewModel.secondRangeFinishProperty().get());
+        assertEquals(DemandElasticityType.ByPrice,
+                testedViewModel.demandElasticityTypeProperty().get());
+        assertEquals("", testedViewModel.calcResultProperty().get());
+        assertEquals(Status.WAITING.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void statusIsWaitingWhenCalculateWithEmptyFields() {
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(Status.WAITING.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.WAITING.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenFieldsAreFill() {
         setCorrectInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.READY.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void canReportNotNumber() {
-        viewModel.firstRangeStartProperty().set("t");
+        testedViewModel.firstRangeStartProperty().set("t");
 
-        assertEquals(Status.NOT_NUMBER.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.NOT_NUMBER.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void statusIsWaitingIfNotEnoughCorrectData() {
-        viewModel.firstRangeStartProperty().set("13");
+        testedViewModel.firstRangeStartProperty().set("13");
 
-        assertEquals(Status.WAITING.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.WAITING.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void canReportNotPositive() {
-        viewModel.secondRangeStartProperty().set("-5");
+        testedViewModel.secondRangeStartProperty().set("-5");
 
-        assertEquals(Status.NOT_POSITIVE.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.NOT_POSITIVE.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledInitially() {
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(testedViewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledWhenFormatIsBad() {
         setCorrectInputData();
-        viewModel.secondRangeFinishProperty().set("h");
+        testedViewModel.secondRangeFinishProperty().set("h");
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(testedViewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsDisabledWithIncompleteInput() {
-        viewModel.secondRangeFinishProperty().set("121");
+        testedViewModel.secondRangeFinishProperty().set("121");
 
-        assertTrue(viewModel.calculationDisabledProperty().get());
+        assertTrue(testedViewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void calculateButtonIsEnabledWithCorrectInput() {
         setCorrectInputData();
 
-        assertFalse(viewModel.calculationDisabledProperty().get());
+        assertFalse(testedViewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void canSetByPriceDemandElasticityType() {
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
 
-        assertEquals(DemandElasticityType.ByPrice, viewModel.demandElasticityTypeProperty().get());
+        assertEquals(DemandElasticityType.ByPrice,
+                testedViewModel.demandElasticityTypeProperty().get());
     }
 
     @Test
     public void rangeNamesChangedOnSetByIncomeDemandElasticityType() {
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
 
         assertEquals(DemandElasticityType.ByIncome.getFirstRangeName(),
-                viewModel.firstRangeProperty().get());
+                testedViewModel.firstRangeProperty().get());
         assertEquals(DemandElasticityType.ByIncome.getSecondRangeName(),
-                viewModel.secondRangeProperty().get());
+                testedViewModel.secondRangeProperty().get());
     }
 
     @Test
     public void byPriceIsDefaultDemandElasticityType() {
-        assertEquals(DemandElasticityType.ByPrice, viewModel.demandElasticityTypeProperty().get());
+        assertEquals(DemandElasticityType.ByPrice,
+                testedViewModel.demandElasticityTypeProperty().get());
     }
 
     @Test
     public void canSetSuccessMessage() {
         setCorrectInputData();
 
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.SUCCESS.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void canSetNotNumberMessage() {
-        viewModel.firstRangeFinishProperty().set("ue");
+        testedViewModel.firstRangeFinishProperty().set("ue");
 
-        assertEquals(Status.NOT_NUMBER.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.NOT_NUMBER.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void canSetNotPositiveMessage() {
-        viewModel.secondRangeFinishProperty().set("-92");
+        testedViewModel.secondRangeFinishProperty().set("-92");
 
-        assertEquals(Status.NOT_POSITIVE.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.NOT_POSITIVE.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void statusIsWrongArgumentsOnWrongDataCalculation() {
-        viewModel.firstRangeStartProperty().set("0");
-        viewModel.firstRangeFinishProperty().set("0");
-        viewModel.secondRangeStartProperty().set("13");
-        viewModel.secondRangeFinishProperty().set("11");
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
+        testedViewModel.firstRangeStartProperty().set("0");
+        testedViewModel.firstRangeFinishProperty().set("0");
+        testedViewModel.secondRangeStartProperty().set("13");
+        testedViewModel.secondRangeFinishProperty().set("11");
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
 
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(Status.WRONG_ARGUMENTS.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.WRONG_ARGUMENTS.toString(),
+                testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void descriptionIsUndefinedOnEqualDataCalculation() {
-        viewModel.firstRangeStartProperty().set("12");
-        viewModel.firstRangeFinishProperty().set("12");
-        viewModel.secondRangeStartProperty().set("100");
-        viewModel.secondRangeFinishProperty().set("100");
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
+        testedViewModel.firstRangeStartProperty().set("12");
+        testedViewModel.firstRangeFinishProperty().set("12");
+        testedViewModel.secondRangeStartProperty().set("100");
+        testedViewModel.secondRangeFinishProperty().set("100");
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
 
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(DemandType.Undefined.toString(), viewModel.calcDescriptionProperty().get());
+        assertEquals(DemandType.Undefined.toString(),
+                testedViewModel.calcDescriptionProperty().get());
     }
 
     @Test
     public void statusIsReadyWhenSetProperData() {
         setCorrectInputData();
 
-        assertEquals(Status.READY.toString(), viewModel.calcStatusProperty().get());
+        assertEquals(Status.READY.toString(), testedViewModel.calcStatusProperty().get());
     }
 
     @Test
     public void demandElasticityCalculatingByPriceHasCorrectResult() {
-        viewModel.firstRangeStartProperty().set("507");
-        viewModel.firstRangeFinishProperty().set("132");
-        viewModel.secondRangeStartProperty().set("1");
-        viewModel.secondRangeFinishProperty().set("4");
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
+        testedViewModel.firstRangeStartProperty().set("507");
+        testedViewModel.firstRangeFinishProperty().set("132");
+        testedViewModel.secondRangeStartProperty().set("1");
+        testedViewModel.secondRangeFinishProperty().set("4");
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByPrice);
         double expectedValue = ((132d - 507d) / (507d + 132d)) / ((4d - 1d) / (1d + 4d));
 
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(Double.toString(expectedValue), viewModel.calcResultProperty().get());
-        assertEquals(DemandType.Inelastic.toString(), viewModel.calcDescriptionProperty().get());
+        assertEquals(Double.toString(expectedValue),
+                testedViewModel.calcResultProperty().get());
+        assertEquals(DemandType.Inelastic.toString(),
+                testedViewModel.calcDescriptionProperty().get());
     }
 
     @Test
     public void demandElasticityCalculatingByIncomeHasCorrectResult() {
-        viewModel.firstRangeStartProperty().set("210");
-        viewModel.firstRangeFinishProperty().set("37");
-        viewModel.secondRangeStartProperty().set("7");
-        viewModel.secondRangeFinishProperty().set("8");
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
+        testedViewModel.firstRangeStartProperty().set("210");
+        testedViewModel.firstRangeFinishProperty().set("37");
+        testedViewModel.secondRangeStartProperty().set("7");
+        testedViewModel.secondRangeFinishProperty().set("8");
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
         double expectedValue = ((37d - 210d) / (210d + 37d)) / ((8d - 7d) / (7d + 8d));
 
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(Double.toString(expectedValue), viewModel.calcResultProperty().get());
-        assertEquals(GoodType.Inferior.toString(), viewModel.calcDescriptionProperty().get());
+        assertEquals(Double.toString(expectedValue), testedViewModel.calcResultProperty().get());
+        assertEquals(GoodType.Inferior.toString(), testedViewModel.calcDescriptionProperty().get());
     }
 
     @Test
     public void demandElasticityCalculatingByCrossPriceHasCorrectResult() {
-        viewModel.firstRangeStartProperty().set("400");
-        viewModel.firstRangeFinishProperty().set("200");
-        viewModel.secondRangeStartProperty().set("4");
-        viewModel.secondRangeFinishProperty().set("5");
-        viewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByCrossPrice);
+        testedViewModel.firstRangeStartProperty().set("400");
+        testedViewModel.firstRangeFinishProperty().set("200");
+        testedViewModel.secondRangeStartProperty().set("4");
+        testedViewModel.secondRangeFinishProperty().set("5");
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByCrossPrice);
         double expectedValue = ((200d - 400d) / (400d + 200d)) / ((5d - 4d) / (5d + 4d));
 
-        viewModel.calculate();
+        testedViewModel.calculate();
 
-        assertEquals(Double.toString(expectedValue), viewModel.calcResultProperty().get());
+        assertEquals(Double.toString(expectedValue), testedViewModel.calcResultProperty().get());
         assertEquals(GoodsPairType.Complementary.toString(),
-                     viewModel.calcDescriptionProperty().get());
+                     testedViewModel.calcDescriptionProperty().get());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void viewModelConstructorThrowsExceptionWithNullLogger() {
+        new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyInTheBeginning() {
+        List<String> log = testedViewModel.getFullLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterCalculation() {
+        setCorrectInputData();
+        testedViewModel.calculate();
+        String message = testedViewModel.getFullLog().get(0);
+
+        assertTrue(message.matches(".*" + LoggerMessages.CALCULATE_WAS_COMPLETED + ".*"));
+    }
+
+    @Test
+    public void logContainsInputArgumentsAfterCalculation() {
+        setCorrectInputData();
+
+        testedViewModel.calculate();
+
+        String message = testedViewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*" + testedViewModel.firstRangeStartProperty().get()
+                + ".*" + testedViewModel.firstRangeFinishProperty().get()
+                + ".*" + testedViewModel.secondRangeStartProperty().get()
+                + ".*" + testedViewModel.secondRangeFinishProperty().get()
+                + ".*"));
+    }
+
+    @Test
+    public void argumentsInfoIsProperlyFormatted() {
+        setCorrectInputData();
+
+        testedViewModel.calculate();
+
+        String message = testedViewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*Arguments"
+                + ": FirstRangeStart = " + testedViewModel.firstRangeStartProperty().get()
+                + "; FirstRangeFinish = " + testedViewModel.firstRangeFinishProperty().get()
+                + "; SecondRangeStart = " + testedViewModel.secondRangeStartProperty().get()
+                + "; SecondRangeFinish = " + testedViewModel.secondRangeFinishProperty().get()
+                + ".*"));
+    }
+
+    @Test
+    public void demandElasticityTypeIsMentionedInTheLog() {
+        setCorrectInputData();
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByCrossPrice);
+
+        testedViewModel.calculate();
+
+        String message = testedViewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*"
+                + testedViewModel.demandElasticityTypeProperty().get().toString()
+                + ".*"));
+    }
+
+    @Test
+    public void demandElasticityInfoIsProperlyFormatted() {
+        setCorrectInputData();
+        testedViewModel.demandElasticityTypeProperty().set(DemandElasticityType.ByIncome);
+
+        testedViewModel.calculate();
+
+        String message = testedViewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*Demand elasticity type: "
+                + testedViewModel.demandElasticityTypeProperty().get().toString()
+                + ".*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        setCorrectInputData();
+
+        testedViewModel.calculate();
+        testedViewModel.calculate();
+        testedViewModel.calculate();
+        testedViewModel.calculate();
+
+        assertEquals(4, testedViewModel.getFullLog().size());
+    }
+
+    @Test
+    public void canSeeDemandElasticityTypeChangeInLog() {
+        setCorrectInputData();
+
+        testedViewModel.onDemandElasticityTypeChanged(DemandElasticityType.ByIncome,
+                DemandElasticityType.ByPrice);
+
+        String message = testedViewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*"
+                + LoggerMessages.DEMAND_ELASTICITY_TYPE_WAS_CHANGED
+                + DemandElasticityType.ByPrice.toString()
+                + ".*"));
+    }
+
+    @Test
+    public void operationIsNotLoggedIfNotChanged() {
+        testedViewModel.onDemandElasticityTypeChanged(DemandElasticityType.ByCrossPrice,
+                DemandElasticityType.ByPrice);
+
+        testedViewModel.onDemandElasticityTypeChanged(DemandElasticityType.ByPrice,
+                DemandElasticityType.ByPrice);
+
+        assertEquals(1, testedViewModel.getFullLog().size());
+    }
+
+    @Test
+    public void argumentsAreCorrectlyLogged() {
+        setCorrectInputData();
+
+        testedViewModel.onInputFieldChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = testedViewModel.getFullLog().get(0);
+        assertTrue(message.matches(".*" + LoggerMessages.INPUT_WAS_UPDATED
+                + "\\["
+                + testedViewModel.firstRangeStartProperty().get() + "; "
+                + testedViewModel.firstRangeFinishProperty().get() + "; "
+                + testedViewModel.secondRangeStartProperty().get() + "; "
+                + testedViewModel.secondRangeFinishProperty().get() + "\\]"));
+    }
+
+    @Test
+    public void calculateIsNotCalledWhenButtonIsDisabled() {
+        testedViewModel.calculate();
+
+        assertTrue(testedViewModel.getFullLog().isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        testedViewModel.firstRangeFinishProperty().set("39");
+        testedViewModel.onInputFieldChanged(Boolean.TRUE, Boolean.FALSE);
+        testedViewModel.firstRangeFinishProperty().set("39");
+        testedViewModel.onInputFieldChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, testedViewModel.getFullLog().size());
     }
 
     private void setCorrectInputData() {
-        viewModel.firstRangeStartProperty().set("14");
-        viewModel.firstRangeFinishProperty().set("17");
-        viewModel.secondRangeStartProperty().set("357");
-        viewModel.secondRangeFinishProperty().set("124");
+        testedViewModel.firstRangeStartProperty().set("14");
+        testedViewModel.firstRangeFinishProperty().set("17");
+        testedViewModel.secondRangeStartProperty().set("357");
+        testedViewModel.secondRangeFinishProperty().set("124");
     }
 }

@@ -111,6 +111,8 @@ include "code/izutov-evgenii/ViewModel"
 project(":code/izutov-evgenii/ViewModel").name = "izutov-evgenii-ViewModel"
 include "code/izutov-evgenii/View"
 project(":code/izutov-evgenii/View").name = "izutov-evgenii-View"
+include "code/izutov-evgenii/Infrastructure"
+project(":code/izutov-evgenii/Infrastructure").name = "izutov-evgenii-Infrastructure"
 
 // Karsakov Alexander
 include "code/karsakov-alexander/Model"

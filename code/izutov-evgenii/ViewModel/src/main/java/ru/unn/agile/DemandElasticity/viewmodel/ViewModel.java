@@ -25,6 +25,8 @@ public class ViewModel {
             new SimpleObjectProperty<>(DemandElasticityType.ByPrice);
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
+    private final StringProperty logMessages = new SimpleStringProperty("");
+
     private final StringProperty calcResult = new SimpleStringProperty("");
     private final StringProperty calcDescription = new SimpleStringProperty("");
     private final StringProperty calcStatus = new SimpleStringProperty(Status.WAITING.toString());
@@ -38,32 +40,22 @@ public class ViewModel {
 
     private final ComboBoxChangeListener comboBoxChangedListener = new ComboBoxChangeListener();
 
+    private ILogger logger;
+
     public ViewModel() {
-        BooleanBinding couldCalculate = new BooleanBinding() {
-            {
-                super.bind(firstRangeStart, firstRangeFinish, secondRangeStart, secondRangeFinish);
-            }
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
-            }
-        };
-        calculationDisabled.bind(couldCalculate.not());
+        initViewModel();
+    }
 
-        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
-            add(firstRangeStart);
-            add(firstRangeFinish);
-            add(secondRangeStart);
-            add(secondRangeFinish);
-        } };
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        initViewModel();
+    }
 
-        for (StringProperty field : fields) {
-            final TextFieldChangeListener listener = new TextFieldChangeListener();
-            field.addListener(listener);
-            textFieldChangedListeners.add(listener);
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger can not be null");
         }
-
-        demandElasticityType.addListener(comboBoxChangedListener);
+        this.logger = logger;
     }
 
     public void calculate() {
@@ -92,6 +84,17 @@ public class ViewModel {
             calcResult.set(Double.toString(answer.getValue()));
             calcDescription.set(answer.getDescription());
             calcStatus.set(Status.SUCCESS.toString());
+
+            StringBuilder logMessage = new StringBuilder(LoggerMessages.CALCULATE_WAS_COMPLETED);
+            logMessage.append("Arguments")
+                    .append(": FirstRangeStart = ").append(firstRangeStart.get())
+                    .append("; FirstRangeFinish = ").append(firstRangeFinish.get())
+                    .append("; SecondRangeStart = ").append(secondRangeStart.get())
+                    .append("; SecondRangeFinish = ").append(secondRangeFinish.get())
+                    .append(" Demand elasticity type: ")
+                    .append(demandElasticityType.get().toString()).append(".");
+            logger.logMessage(logMessage.toString());
+            updateLogMessages();
         }
     }
 
@@ -155,6 +158,14 @@ public class ViewModel {
         return calcStatus.get();
     }
 
+    public StringProperty logMessagesProperty() {
+        return logMessages;
+    }
+
+    public final String getLogMessages() {
+        return logMessages.get();
+    }
+
     public StringProperty firstRangeProperty() {
         return firstRange;
     }
@@ -169,6 +180,77 @@ public class ViewModel {
 
     public final String getSecondRange() {
         return secondRange.get();
+    }
+
+    public final List<String> getFullLog() {
+        return logger.getFullLog();
+    }
+
+    public void onDemandElasticityTypeChanged(final DemandElasticityType oldType,
+                                              final DemandElasticityType newType) {
+        if (oldType.equals(newType)) {
+            return;
+        }
+
+        if (comboBoxChangedListener.isChanged()) {
+            StringBuilder logMessage = new StringBuilder(
+                    LoggerMessages.DEMAND_ELASTICITY_TYPE_WAS_CHANGED);
+            logMessage.append(newType.toString());
+            logger.logMessage(logMessage.toString());
+            updateLogMessages();
+
+            comboBoxChangedListener.cache();
+        }
+    }
+
+    public void onInputFieldChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (TextFieldChangeListener listener : textFieldChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder logMessage = new StringBuilder(LoggerMessages.INPUT_WAS_UPDATED);
+                logMessage.append("[")
+                        .append(firstRangeStart.get()).append("; ")
+                        .append(firstRangeFinish.get()).append("; ")
+                        .append(secondRangeStart.get()).append("; ")
+                        .append(secondRangeFinish.get()).append("]");
+                logger.logMessage(logMessage.toString());
+                updateLogMessages();
+
+                listener.cache();
+                break;
+            }
+        }
+    }
+
+    private void initViewModel() {
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(firstRangeStart, firstRangeFinish, secondRangeStart, secondRangeFinish);
+            }
+            @Override
+            protected boolean computeValue() {
+                return getInputStatus() == Status.READY;
+            }
+        };
+        calculationDisabled.bind(couldCalculate.not());
+
+        final List<StringProperty> fields = new ArrayList<StringProperty>() { {
+            add(firstRangeStart);
+            add(firstRangeFinish);
+            add(secondRangeStart);
+            add(secondRangeFinish);
+        } };
+
+        for (StringProperty field : fields) {
+            final TextFieldChangeListener listener = new TextFieldChangeListener();
+            field.addListener(listener);
+            textFieldChangedListeners.add(listener);
+        }
+
+        demandElasticityType.addListener(comboBoxChangedListener);
     }
 
     private Status getInputStatus() {
@@ -192,6 +274,18 @@ public class ViewModel {
         return inputStatus;
     }
 
+    private void updateLogMessages() {
+        List<String> allLogMessages = logger.getFullLog();
+
+        StringBuilder messages = new StringBuilder();
+        for (String message : allLogMessages) {
+            messages.append(message)
+                    .append("\n");
+        }
+
+        logMessages.set(messages.toString());
+    }
+
     private static void checkStringNumber(final String number) {
         if (!number.isEmpty()) {
             double value = Double.parseDouble(number);
@@ -203,20 +297,54 @@ public class ViewModel {
     }
 
     private class TextFieldChangeListener implements ChangeListener<String> {
+        private String prevFieldValue = new String();
+        private String curFieldValue = new String();
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
+
             calcStatus.set(getInputStatus().toString());
+
+            curFieldValue = newValue;
+        }
+
+        public boolean isChanged() {
+            return !prevFieldValue.equals(curFieldValue);
+        }
+
+        public void cache() {
+            prevFieldValue = curFieldValue;
         }
     }
 
     private class ComboBoxChangeListener implements ChangeListener<DemandElasticityType> {
+        private DemandElasticityType prevFieldValue = DemandElasticityType.ByPrice;
+        private DemandElasticityType curFieldValue = DemandElasticityType.ByIncome;
+
         @Override
         public void changed(final ObservableValue<? extends DemandElasticityType> observable,
                             final DemandElasticityType oldValue,
                             final DemandElasticityType newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
+
             firstRange.set(newValue.getFirstRangeName());
             secondRange.set(newValue.getSecondRangeName());
+
+            curFieldValue = newValue;
+        }
+
+        public boolean isChanged() {
+            return !prevFieldValue.equals(curFieldValue);
+        }
+
+        public void cache() {
+            prevFieldValue = curFieldValue;
         }
     }
 }

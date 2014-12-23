@@ -157,8 +157,8 @@ public class ViewModel {
     }
 
 
-    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
-        if (!oldValue && newValue) {
+    public void onFocusChanged(final Boolean oldVal, final Boolean newVal) {
+        if (!oldVal && newVal) {
             return;
         }
 

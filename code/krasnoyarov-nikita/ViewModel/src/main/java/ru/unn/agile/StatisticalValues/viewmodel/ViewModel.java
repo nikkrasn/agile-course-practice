@@ -15,7 +15,7 @@ import java.util.List;
 public class ViewModel {
     private final StringProperty vectorsDimension = new SimpleStringProperty();
 
-    private final ObservableList<Pair<Double, Double>> vectValProb =
+    private final ObservableList<Pair<Double, Double>> vectProbVal =
             FXCollections.observableArrayList();
     private final ObjectProperty<ObservableList<StatisticalValues.Operation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(StatisticalValues.Operation.values()));
@@ -27,7 +27,7 @@ public class ViewModel {
 
     private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
 
-    public SimpleListProperty vectValProbProperty = new SimpleListProperty(this,"vectorsValues", vectValProb);
+    public SimpleListProperty vectProbValProperty = new SimpleListProperty(this,"vectorsValues", vectProbVal);
 
     public StringProperty vectDimensionProperty() {
         return vectorsDimension;
@@ -43,7 +43,7 @@ public class ViewModel {
 
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
-                super.bind(vectValProb);
+                super.bind(vectProbVal);
             }
             @Override
             protected boolean computeValue() {
@@ -55,7 +55,7 @@ public class ViewModel {
         // Add listeners to the input text fields
         final List<Property> fields = new ArrayList<Property>() { {
             add(vectDimensionProperty());
-            add(vectValProbProperty);
+            add(vectProbValProperty);
         } };
 
         for (Property field : fields) {
@@ -73,9 +73,9 @@ public class ViewModel {
         List<Double> val = new ArrayList<Double>();
         List<Double> probabil = new ArrayList<Double>();
 
-        for (int i = 0; i < vectValProb.size(); i++) {
-            val.add(vectValProb.get(i).getKey());
-            probabil.add(vectValProb.get(i).getValue());
+        for (int i = 0; i < vectProbVal.size(); i++) {
+            probabil.add(vectProbVal.get(i).getKey());
+            val.add(vectProbVal.get(i).getValue());
         }
 
         StatisticalValues calculator = new StatisticalValues(probabil, val);
@@ -122,17 +122,17 @@ public class ViewModel {
 
     private Status getInputStatus() {
         Status inputStatus = Status.READY;
-        if (vectValProb.isEmpty() || vectorsDimension.get().isEmpty()) {
+        if (vectProbVal.isEmpty() || vectorsDimension.get().isEmpty()) {
             inputStatus = Status.WAITING;
         }
         try {
             if (!vectorsDimension.get().isEmpty()) {
                 Integer.parseInt(vectorsDimension.get());
             }
-            if (!vectValProb.isEmpty()) {
-                for (int i = 0; i < vectValProb.size(); i++) {
-                    vectValProb.get(i).getKey();
-                    vectValProb.get(i).getValue();
+            if (!vectProbVal.isEmpty()) {
+                for (int i = 0; i < vectProbVal.size(); i++) {
+                    vectProbVal.get(i).getKey();
+                    vectProbVal.get(i).getValue();
                 }
             }
         } catch (NumberFormatException nfe) {

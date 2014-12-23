@@ -27,11 +27,11 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        final ObservableList<Pair<Double, Double>> vectValProb =
+        final ObservableList<Pair<Double, Double>> vectProbVal =
                 FXCollections.observableArrayList();
         assertEquals("", viewModel.vectDimensionProperty().get());
 
-        assertTrue(viewModel.vectValProbProperty.equals(vectValProb));
+        assertTrue(viewModel.vectProbValProperty.equals(vectProbVal));
         assertEquals(StatisticalValues.Operation.EXPECTED_VALUE, viewModel.operationProperty().get());
         assertEquals("", viewModel.getResultProperty().get());
         assertEquals(Status.WAITING.toString(), viewModel.getStatusProperty().get());
@@ -51,10 +51,17 @@ public class ViewModelTests {
         assertEquals(Status.READY.toString(), viewModel.getStatusProperty().get());
     }
 
+    @Test
+    public void chechBadFormat() {
+        viewModel.vectDimensionProperty().set("adasda");
+
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatusProperty().get());
+    }
+
     public void setInput() {
         viewModel.vectDimensionProperty().set("2");
 
-        viewModel.vectValProbProperty.add(new Pair<>(0.5, 1));
-        viewModel.vectValProbProperty.add(new Pair<>(0.5, 1));
+        viewModel.vectProbValProperty.add(new Pair<>(0.5, 1));
+        viewModel.vectProbValProperty.add(new Pair<>(0.5, 1));
     }
 }

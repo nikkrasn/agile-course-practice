@@ -237,7 +237,33 @@ public class ViewModelTests {
 
     @Test
     public void hasLogCalculationMessage() {
+        viewModel.calculate();
+        assertEquals("Calculate L1 Metric for vectors:\n[0.0f]\n[0.0f]\nResult: 0.0",
+                viewModel.getLogMessageText(0));
+    }
 
+    @Test
+    public void hasLogVectorsChangeMessage() {
+        viewModel.getVectorsValues().set(0, new Components("1.0f", "0.0f"));
+        assertEquals("Vectors changed to: \n[1.0f]\n[0.0f]", viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogVectorsChangeMessageAfterDimensionChange() {
+        viewModel.vectorsDimensionProperty().set("2");
+        assertEquals("Vectors changed to: \n[0.0f,0.0f]\n[0.0f,0.0f]",
+                viewModel.getLogMessageText(1));
+    }
+
+    @Test
+    public void isCalculateMessageCorrectAfterParametersChange() {
+        setInputData();
+        viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_LINF);
+
+        viewModel.calculate();
+        assertEquals("Calculate LINF Metric for vectors:\n[1.0f,2.0f,3.0f]\n[0.0f,1.0f,2.0f]\n" +
+                        "Result: 1.0",
+                viewModel.getLogMessageText(6));
     }
 
     private void setInputData() {

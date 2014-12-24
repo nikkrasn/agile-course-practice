@@ -4,14 +4,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        if (viewModel == null) {
+            viewModel = new ViewModel(new FictiousLog());
+        }
     }
 
     @After
@@ -140,7 +147,6 @@ public class ViewModelTests {
     }
 
 
-
     @Test
     public void canSetSuccessMessage() {
         setInputData();
@@ -168,4 +174,107 @@ public class ViewModelTests {
         viewModel.txtParam1Property().set("1");
         viewModel.txtParam2Property().set("2");
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void viewModelConstructorThrowsExceptionIfLoggerNull() {
+        new ViewModel(null);
+    }
+
+    @Test
+    public void logIsEmptyAtTheStart() {
+        List<String> log = viewModel.getLog();
+
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsTrueMessageAfterCalculation() {
+        setInputData();
+        viewModel.calculate();
+        String message = viewModel.getLog().get(0);
+
+        assertTrue(message.matches(".*" + LogInfo.PRESSED_CALCULATE + ".*"));
+    }
+
+    @Test
+    public void logContainsInputParamenersAfterCalculation() {
+        setInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + viewModel.txtParam1Property().get()
+                + ".*" + viewModel.txtParam2Property().get() + ".*"));
+    }
+
+    @Test
+    public void argumentsInfoDoneFormatted() {
+        setInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*Arguments"
+                + ": r = " + viewModel.txtParam1Property().get()
+                + "; h = " + viewModel.txtParam2Property().get() + ".*"));
+    }
+
+    @Test
+    public void operationTypeIsDisplayedInTheLog() {
+        setInputData();
+
+        viewModel.calculate();
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*Cone.*"));
+    }
+
+    @Test
+    public void canDisplayFewLogMessages() {
+        setInputData();
+
+        viewModel.calculate();
+        viewModel.calculate();
+        viewModel.calculate();
+
+        assertEquals(3, viewModel.getLog().size());
+    }
+
+    @Test
+    public void canDisplayOperationChangeInLog() {
+        setInputData();
+
+        viewModel.onOperationChanged("Cone", "Cube");
+
+        String message = viewModel.getLog().get(0);
+        assertTrue(message.matches(".*" + LogInfo.CHANGED_OPERATION + "Cube.*"));
+    }
+
+    @Test
+    public void operationIsNotDispalayAtLogIfNotChanged() {
+        viewModel.onOperationChanged("Cone", "Cube");
+
+        viewModel.onOperationChanged("Cube", "Cube");
+
+        assertEquals(1, viewModel.getLog().size());
+    }
+
+    @Test
+    public void calculateIsNotCalledIfButtonIsDisabled() {
+        viewModel.calculate();
+
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void doNotDisplayAtLogEqualParamTwiceWithPartialInput() {
+        viewModel.txtParam1Property().set("1");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.txtParam1Property().set("1");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        assertEquals(1, viewModel.getLog().size());
+    }
 }
+
+

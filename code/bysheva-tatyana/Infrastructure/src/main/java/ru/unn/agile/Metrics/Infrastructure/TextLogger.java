@@ -7,11 +7,9 @@ import java.util.List;
 
 public class TextLogger extends ILogger {
     private final BufferedWriter bufferedFileWriter;
-    private final String filename;
+    private final List<String> log = new ArrayList<>();
 
-    public TextLogger(final String logFilename) {
-        filename = logFilename;
-
+    public TextLogger(final String filename) {
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(filename));
@@ -24,35 +22,18 @@ public class TextLogger extends ILogger {
     @Override
     public void log(final String s) {
         try {
-            bufferedFileWriter.write(addDateTimeToMessage(s));
+            String message = addDateTimeToMessage(s);
+            bufferedFileWriter.write(message);
             bufferedFileWriter.newLine();
             bufferedFileWriter.flush();
+            log.add(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public List<String> getLog() {
-        List<String> log = new ArrayList<>();
-
-        BufferedReader bufferedFileReader;
-        try {
-            bufferedFileReader = new BufferedReader(new FileReader(filename));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return log;
-        }
-
-        String line;
-        try {
-            while ((line = bufferedFileReader.readLine()) != null) {
-                log.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public final List<String> getLog() {
         return log;
     }
 }

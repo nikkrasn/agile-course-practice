@@ -6,10 +6,15 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Metrics.Model.Metrics;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
     private ViewModel viewModel = new ViewModel();
+    private final SimpleDateFormat dateTimeFormat =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
     @Before
     public void setUp() {
@@ -216,6 +221,23 @@ public class ViewModelTests {
     @Test
     public void isLogEmptyInitially() {
         assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void hasLogDimensionChangeMessage() {
+        viewModel.vectorsDimensionProperty().set("2");
+        assertEquals("Vectors Dimension changed to: 2", viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogMetricChangeMessage() {
+        viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_L2);
+        assertEquals("Metric changed to: L2", viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogCalculationMessage() {
+
     }
 
     private void setInputData() {

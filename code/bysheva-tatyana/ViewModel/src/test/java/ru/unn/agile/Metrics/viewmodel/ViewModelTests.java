@@ -6,15 +6,14 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.unn.agile.Metrics.Model.Metrics;
 
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
     private ViewModel viewModel = new ViewModel();
-    private final SimpleDateFormat dateTimeFormat =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+
+    public void setLogger(final ILogger logger) {
+        viewModel.setLogger(logger);
+    }
 
     @Before
     public void setUp() {
@@ -261,8 +260,8 @@ public class ViewModelTests {
         viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_LINF);
 
         viewModel.calculate();
-        assertEquals("Calculate LINF Metric for vectors:\n[1.0f,2.0f,3.0f]\n[0.0f,1.0f,2.0f]\n" +
-                        "Result: 1.0",
+        assertEquals("Calculate LINF Metric for vectors:\n[1.0f,2.0f,3.0f]\n[0.0f,1.0f,2.0f]\n"
+                        + "Result: 1.0",
                 viewModel.getLogMessageText(6));
     }
 

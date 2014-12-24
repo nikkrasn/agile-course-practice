@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ViewModel {
 
-    private final ObjectProperty<ObservableList<Pairs>> pairProbVal =
+    private final ObjectProperty<ObservableList<Pairs>> probabilityValuePair =
             new SimpleObjectProperty<>(FXCollections.observableArrayList());
 
     private final StringProperty vectDimension = new SimpleStringProperty();
@@ -65,16 +65,16 @@ public class ViewModel {
         return result;
     }
 
-    public ObservableList<Pairs> getVectorsProbValues() {
-        return pairProbVal.get();
+    public ObservableList<Pairs> getProbabilityValuePair() {
+        return probabilityValuePair.get();
     }
 
-    private Boolean isVectorsValuesEmpty() {
-        return getVectorsProbValues().isEmpty();
+    private Boolean isProbabilityValuePairEmpty() {
+        return getProbabilityValuePair().isEmpty();
     }
 
     public final ObjectProperty<ObservableList<Pairs>> vectProbValueProperty() {
-        return pairProbVal;
+        return probabilityValuePair;
     }
 
     public StringProperty vectDimensionProperty() {
@@ -101,7 +101,7 @@ public class ViewModel {
             }
         });
 
-        getVectorsProbValues().addListener(new ListChangeListener<Pairs>() {
+        getProbabilityValuePair().addListener(new ListChangeListener<Pairs>() {
             @Override
             public void onChanged(final Change<? extends Pairs> c) {
                 changeStatus();
@@ -119,9 +119,9 @@ public class ViewModel {
         List<Double> values = new ArrayList<Double>();
         List<Double> probabilities = new ArrayList<Double>();
 
-        for (Pairs vectorsValue : pairProbVal.get()) {
-            probabilities.add(Double.parseDouble(vectorsValue.getFirstComponent()));
-            values.add(Double.parseDouble(vectorsValue.getSecondComponent()));
+        for (Pairs vectorsValue : probabilityValuePair.get()) {
+            probabilities.add(Double.parseDouble(vectorsValue.getProbability()));
+            values.add(Double.parseDouble(vectorsValue.getValue()));
         }
 
         StatisticalValues calculator = new StatisticalValues(values, probabilities);
@@ -137,7 +137,7 @@ public class ViewModel {
 
     private StringProperty changeStatus() {
         operationStatus.set(Status.READY.toString());
-        if (isVectorsValuesEmpty() || isVectorsDimensionEmpty()) {
+        if (isProbabilityValuePairEmpty() || isVectorsDimensionEmpty()) {
             operationStatus.set(Status.WAITING.toString());
         }
         try {
@@ -148,10 +148,10 @@ public class ViewModel {
                 }
                 resizeVectors(size);
             }
-            if (!isVectorsValuesEmpty()) {
-                for (Pairs vectorsValue : pairProbVal.get()) {
-                    Double.parseDouble(vectorsValue.getFirstComponent());
-                    Double.parseDouble(vectorsValue.getSecondComponent());
+            if (!isProbabilityValuePairEmpty()) {
+                for (Pairs vectorsValue : probabilityValuePair.get()) {
+                    Double.parseDouble(vectorsValue.getProbability());
+                    Double.parseDouble(vectorsValue.getValue());
                 }
             }
         } catch (NumberFormatException nfe) {
@@ -166,11 +166,11 @@ public class ViewModel {
         if (dimension <= 0) {
             return;
         }
-        if (dimension < pairProbVal.get().size()) {
-            getVectorsProbValues().remove(dimension, pairProbVal.get().size());
+        if (dimension < probabilityValuePair.get().size()) {
+            getProbabilityValuePair().remove(dimension, probabilityValuePair.get().size());
         }
-        while (dimension > pairProbVal.get().size()) {
-            getVectorsProbValues().add(new Pairs("0.0", "0.0"));
+        while (dimension > probabilityValuePair.get().size()) {
+            getProbabilityValuePair().add(new Pairs("0.0", "0.0"));
         }
     }
 }

@@ -26,12 +26,12 @@
                      <columns>
                         <TableColumn fx:id="probabilities" maxWidth="195.0" minWidth="67.0" prefWidth="129.0" sortable="false" text="Probabilities">
                              <cellValueFactory>
-                                <PropertyValueFactory property="firstComponent" />
+                                <PropertyValueFactory property="probability" />
                              </cellValueFactory>
                          </TableColumn>
                         <TableColumn fx:id="values" maxWidth="195.0" minWidth="62.0" prefWidth="130.0" sortable="false" text="Values">
                              <cellValueFactory>
-                                 <PropertyValueFactory property="secondComponent" />
+                                 <PropertyValueFactory property="value" />
                              </cellValueFactory>
                         </TableColumn>
                      </columns>

@@ -138,6 +138,10 @@ project(":code/klyan-sofiya/Infrastructure").name = "klyan-sofiya-Infrastructure
 // Krasnoyarov Nikita
 include "code/krasnoyarov-nikita/Model"
 project(":code/krasnoyarov-nikita/Model").name = "krasnoyarov-nikita-Model"
+include "code/krasnoyarov-nikita/View"
+project(":code/krasnoyarov-nikita/View").name = "krasnoyarov-nikita-View"
+include "code/krasnoyarov-nikita/ViewModel"
+project(":code/krasnoyarov-nikita/ViewModel").name = "krasnoyarov-nikita-ViewModel"
 
 // Lazarev Anton
 include "code/lazarev-anton/Model"

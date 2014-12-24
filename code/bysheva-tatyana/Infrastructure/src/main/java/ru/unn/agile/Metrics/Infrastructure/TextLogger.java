@@ -2,17 +2,12 @@ package ru.unn.agile.Metrics.Infrastructure;
 
 import ru.unn.agile.Metrics.viewmodel.ILogger;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class TextLogger implements ILogger {
+public class TextLogger extends ILogger {
     private final BufferedWriter bufferedFileWriter;
     private final String filename;
-    private final SimpleDateFormat dateTimeFormat =
-            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
 
     public TextLogger(final String logFilename) {
         filename = logFilename;
@@ -29,7 +24,7 @@ public class TextLogger implements ILogger {
     @Override
     public void log(final String s) {
         try {
-            bufferedFileWriter.write(dateTimeFormat.format(new Date()) + " : " + s);
+            bufferedFileWriter.write(addDateTimeToMessage(s));
             bufferedFileWriter.newLine();
             bufferedFileWriter.flush();
         } catch (IOException e) {

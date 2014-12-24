@@ -8,11 +8,15 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ViewModel {
     private ILogger logger;
+
+    private final StringProperty logs = new SimpleStringProperty();
 
     private final ListProperty<Operation> operations =
             new SimpleListProperty<>(FXCollections.observableArrayList(Operation.values()));
@@ -25,6 +29,13 @@ public class ViewModel {
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
     private final StringProperty metricResult = new SimpleStringProperty();
     private final StringProperty currentStatus = new SimpleStringProperty();
+
+    public StringProperty logsProperty() {
+        return logs;
+    }
+    public String getLogs() {
+        return logs.get();
+    }
 
     public BooleanProperty calculationDisabledProperty() {
         return calculationDisabled;
@@ -79,6 +90,16 @@ public class ViewModel {
             public void changed(final ObservableValue<? extends String> observable,
                                 final String oldValue, final String newValue) {
                 updateStatus();
+                log("Vectors Dimension changed to: " + newValue);
+            }
+        });
+
+        currentOperation.addListener(new ChangeListener<Operation>() {
+            @Override
+            public void changed(final ObservableValue<? extends Operation> observable,
+                                final Operation oldValue,
+                                final Operation newValue) {
+                log("Metric changed to: " + newValue);
             }
         });
 
@@ -119,6 +140,18 @@ public class ViewModel {
                 : logger.getLog();
     }
 
+    public Date getLogMessageDateTime(final Integer index) throws ParseException {
+        return logger.getMessageDateTime(index);
+    }
+
+    public String getLogMessageText(final Integer index) {
+        return logger.getMessageText(index);
+    }
+
+    public String getFullLogMessage(final Integer index) {
+        return logger.getFullMessage(index);
+    }
+
     private Boolean isVectorsValuesEmpty() {
         return getVectorsValues().isEmpty();
     }
@@ -154,6 +187,26 @@ public class ViewModel {
             Float.parseFloat(vectorsValue.getComponent1());
             Float.parseFloat(vectorsValue.getComponent2());
         }
+    }
+
+    private void log(final String s) {
+        if (logger == null) {
+            return;
+        }
+        logger.log(s);
+        updateLogs();
+    }
+
+    private void updateLogs() {
+        if (logger == null) {
+            return;
+        }
+        List<String> fullLog = logger.getLog();
+        String updatedLog = "";
+        for (String message : fullLog) {
+            updatedLog += message + "\n";
+        }
+        logs.set(updatedLog);
     }
 
     private void fetchVectorsDimension(final Integer newSize) {

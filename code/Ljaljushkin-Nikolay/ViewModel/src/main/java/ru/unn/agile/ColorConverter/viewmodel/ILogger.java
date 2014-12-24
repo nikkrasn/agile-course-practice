@@ -6,6 +6,6 @@ public interface ILogger {
 
     List<String> getLog();
 
-    void addToLog(final String s);
+    void addToLog(final String message);
 }
 

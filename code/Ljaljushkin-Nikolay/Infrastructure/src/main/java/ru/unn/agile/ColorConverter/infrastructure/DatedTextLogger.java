@@ -2,35 +2,55 @@ package ru.unn.agile.ColorConverter.infrastructure;
 
 import ru.unn.agile.ColorConverter.viewmodel.ILogger;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatedTextLogger implements ILogger {
+    private final BufferedWriter fileWriter;
+    private final String logFilename;
 
-    private final BufferedWriter writer;
-    private final String filename;
+    public DatedTextLogger(final String filename) {
+        logFilename = filename;
 
-    public DatedTextLogger(String filename) {
-        this.filename = filename;
-
-        BufferedWriter logWriter = null;
+        BufferedWriter logFileWriter = null;
         try {
-            logWriter = new BufferedWriter(new FileWriter(filename));
+            logFileWriter = new BufferedWriter(new FileWriter(logFilename));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        writer = logWriter;
+        fileWriter = logFileWriter;
     }
 
     @Override
     public List<String> getLog() {
-        return null;
+
+        BufferedReader fileReader;
+        ArrayList<String> log = new ArrayList<>();
+
+        try {
+            fileReader = new BufferedReader(new FileReader(logFilename));
+            String line = fileReader.readLine();
+
+            while (line != null) {
+                log.add(line);
+                line = fileReader.readLine();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return log;
     }
 
     @Override
-    public void addToLog(String s) {
-
+    public void addToLog(final String message) {
+        try {
+            fileWriter.write(message);
+            fileWriter.newLine();
+            fileWriter.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

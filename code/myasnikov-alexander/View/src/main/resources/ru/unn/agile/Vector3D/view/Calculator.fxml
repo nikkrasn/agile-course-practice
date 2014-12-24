@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.media.*?>
 <?import javafx.scene.*?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.Vector3D.viewmodel.*?>
 
-<AnchorPane prefHeight="221.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Vector3D.view.Calculator">
+<AnchorPane prefHeight="294.0" prefWidth="225.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.Vector3D.view.Calculator">
     <fx:define>
         <ViewModel fx:id="viewModel" />
     </fx:define>
@@ -49,7 +50,7 @@
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <ComboBox fx:id="operation" items="${viewModel.operations}" prefHeight="25.0" prefWidth="200.0" />
+                  <ComboBox fx:id="operation" items="${viewModel.operations}" minHeight="25.0" prefHeight="25.0" prefWidth="200.0" />
                </children>
             </HBox>
             <HBox prefHeight="25.0">
@@ -57,7 +58,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <Button fx:id="solve" disable="${viewModel.calculationDisabled}" mnemonicParsing="false" prefWidth="200.0" text="Solve" />
+                  <Button fx:id="solve" disable="${viewModel.calculationDisabled}" minHeight="25.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Solve" />
                </children>
             </HBox>
             <HBox>
@@ -81,6 +82,14 @@
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" />
                </VBox.margin>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" />
+               </VBox.margin>
+               <children>
+                  <TextArea fx:id="log" text="${viewModel.logs}" />
+               </children>
             </HBox>
          </children>
       </VBox>

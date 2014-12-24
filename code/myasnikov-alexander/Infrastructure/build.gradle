@@ -1,8 +1,6 @@
-apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
-
 dependencies {
     compile project(':myasnikov-alexander-ViewModel')
-    compile project(':myasnikov-alexander-Infrastructure')
+    testCompile project(':myasnikov-alexander-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

@@ -22,15 +22,35 @@ public class ViewModel {
 
     private final StringProperty result = new SimpleStringProperty("");
     private final StringProperty status = new SimpleStringProperty("");
+    private final StringProperty logs = new SimpleStringProperty();
 
-    private final List<ValueChangeListener> valueChangedListeners = new ArrayList<>();
     private final ObjectProperty<VectorOperation> operationList = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
     private final ObjectProperty<ObservableList<VectorOperation>> operations =
             new SimpleObjectProperty<>(FXCollections.observableArrayList(VectorOperation.values()));
 
+    private ILogger logger;
+
+    private List<ValueCachingChangeListener> valueChangedListeners;
+
+    public void setLogger(final ILogger logger) {
+        if (logger == null) {
+            throw new IllegalArgumentException("Logger - parameter can't be null");
+        }
+        this.logger = logger;
+    }
+
     public ViewModel() {
+        initialization();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        initialization();
+    }
+
+    private void initialization() {
         status.setValue(StatusOperation.WAITING.toString());
 
         operationList.set(VectorOperation.NORM);
@@ -38,8 +58,8 @@ public class ViewModel {
         BooleanBinding couldCalculate = new BooleanBinding() {
             {
                 super.bind(vector1CoordinateX, vector1CoordinateY, vector1CoordinateZ,
-                            vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ,
-                            operationList);
+                        vector2CoordinateX, vector2CoordinateY, vector2CoordinateZ,
+                        operationList);
             }
             @Override
             protected boolean computeValue() {
@@ -58,9 +78,10 @@ public class ViewModel {
             add(vector2CoordinateZ);
         } };
 
-        for (StringProperty field : fields) {
-            final ValueChangeListener listener = new ValueChangeListener();
-            field.addListener(listener);
+        valueChangedListeners = new ArrayList<>();
+        for (StringProperty val : fields) {
+            final ValueCachingChangeListener listener = new ValueCachingChangeListener();
+            val.addListener(listener);
             valueChangedListeners.add(listener);
         }
     }
@@ -105,6 +126,10 @@ public class ViewModel {
         return status.get();
     }
 
+    public final List<String> getLog() {
+        return logger.getLog();
+    }
+
     public ObjectProperty<ObservableList<VectorOperation>> operationsProperty() {
      return operations;
     }
@@ -125,17 +150,14 @@ public class ViewModel {
                 Double.parseDouble(vector1CoordinateX.get()),
                 Double.parseDouble(vector1CoordinateY.get()),
                 Double.parseDouble(vector1CoordinateZ.get()));
-        Vector3D v2;
+        Vector3D v2 = new Vector3D(0, 0, 0);
         switch (operationList.get()) {
             case NORM:
                 result.set(String.format("%.3f", v1.getNorm()));
                 break;
             case NORMALAZE:
                 v1.normalize();
-                result.set(String.format("(%.3f, %.3f, %.3f)",
-                        v1.getCoordinateX(),
-                        v1.getCoordinateY(),
-                        v1.getCoordinateZ()));
+                result.set(v1.toString());
                 break;
             case DOTPRODUCT:
                 v2 = new Vector3D(
@@ -151,15 +173,80 @@ public class ViewModel {
                         Double.parseDouble(vector2CoordinateY.get()),
                         Double.parseDouble(vector2CoordinateZ.get()));
                 Vector3D v3 = Vector3D.crossProduct(v1, v2);
-                result.set(String.format("(%.3f, %.3f, %.3f)",
-                        v1.getCoordinateX(),
-                        v1.getCoordinateY(),
-                        v1.getCoordinateZ()));
+                result.set(v3.toString());
                 break;
             default:
                 break;
         }
         status.set(StatusOperation.SUCCESS.toString());
+
+        StringBuilder message = new StringBuilder(LogMessages.CALCULATE_WAS_PRESSED);
+        message.append("Input :")
+                .append("Vector1 = ").append(v1.toString())
+                .append(", Vector2 = ").append(v2.toString())
+                .append(", Operation = ").append(operationList.get().toString());
+        message.append(". Output :")
+                .append("Result = ").append(getResult()).append(".");
+        logger.log(message.toString());
+        updateLogs();
+    }
+
+    public void onOperationChanged(final VectorOperation oldValue, final VectorOperation newValue) {
+        if (oldValue.equals(newValue)) {
+            return;
+        }
+        StringBuilder log = new StringBuilder(LogMessages.OPERATION_WAS_CHANGED);
+        log.append(newValue.toString());
+        logger.log(log.toString());
+        updateLogs();
+    }
+
+    private class ValueCachingChangeListener implements ChangeListener<String> {
+        private String curValue = new String();
+        private String prevValue = new String();
+
+        @Override
+        public void changed(final ObservableValue<? extends String> observable,
+                            final String oldValue, final String newValue) {
+            if (oldValue.equals(newValue)) {
+                return;
+            }
+            curValue = newValue;
+            status.set(getInputStatus().toString());
+        }
+
+        public void cache() {
+            prevValue = curValue;
+        }
+
+        public boolean isChanged() {
+            return !prevValue.equals(curValue);
+        }
+
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (ValueCachingChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogMessages.EDITING_FINISHED);
+                message.append("Input arguments are: [")
+                        .append(vector1CoordinateX.get()).append("; ")
+                        .append(vector1CoordinateY.get()).append("; ")
+                        .append(vector1CoordinateZ.get()).append("; ")
+                        .append(vector2CoordinateX.get()).append("; ")
+                        .append(vector2CoordinateY.get()).append("; ")
+                        .append(vector2CoordinateZ.get()).append("]");
+                logger.log(message.toString());
+                updateLogs();
+
+                listener.cache();
+                break;
+            }
+        }
     }
 
     public BooleanProperty calculationDisabledProperty() {
@@ -175,6 +262,14 @@ public class ViewModel {
                             final String oldValue, final String newValue) {
             status.set(getInputStatus().toString());
         }
+    }
+
+    public StringProperty logsProperty() {
+       return logs;
+   }
+
+    public final String getLogs() {
+       return logs.get();
     }
 
     private StatusOperation getInputStatus() {
@@ -224,6 +319,15 @@ public class ViewModel {
 
         return inputStatus;
     }
+
+    private void updateLogs() {
+        List<String> fullLog = logger.getLog();
+        String record = new String();
+        for (String log : fullLog) {
+            record += log + "\n";
+        }
+        logs.set(record);
+    }
 }
 
 enum StatusOperation {
@@ -233,10 +337,19 @@ enum StatusOperation {
     SUCCESS("Success");
 
     private final String name;
-    private StatusOperation(final String name) {
-        this.name = name;
-    }
     public String toString() {
         return name;
     }
+
+    private StatusOperation(final String name) {
+        this.name = name;
+    }
+}
+
+final class LogMessages {
+    public static final String EDITING_FINISHED = "Updated input. ";
+    public static final String CALCULATE_WAS_PRESSED = "Calculate. ";
+    public static final String OPERATION_WAS_CHANGED = "Operation was changed to ";
+
+    private LogMessages() { }
 }

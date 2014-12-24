@@ -1,5 +1,7 @@
 package ru.unn.agile.Vector3D.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import ru.unn.agile.Vector3D.viewmodel.*;
+import ru.unn.agile.Vector3D.infrastructure.*;
 
 public class Calculator {
     @FXML
@@ -33,17 +36,41 @@ public class Calculator {
 
     @FXML
     void initialize() {
+        viewModel.setLogger(new TxtLogger("./TxtLogger-lab3.log"));
+
+        final ChangeListener<Boolean> focusListener = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(final ObservableValue<? extends Boolean> observable,
+                                final Boolean oldValue, final Boolean newValue) {
+                viewModel.onFocusChanged(oldValue, newValue);
+            }
+        };
+
         vec1X.textProperty().bindBidirectional(viewModel.getVector1CoordinateX());
+        vec1X.focusedProperty().addListener(focusListener);
         vec1Y.textProperty().bindBidirectional(viewModel.getVector1CoordinateY());
+        vec1Y.focusedProperty().addListener(focusListener);
         vec1Z.textProperty().bindBidirectional(viewModel.getVector1CoordinateZ());
+        vec1Z.focusedProperty().addListener(focusListener);
 
         vec2X.textProperty().bindBidirectional(viewModel.getVector2CoordinateX());
+        vec2X.focusedProperty().addListener(focusListener);
         vec2Y.textProperty().bindBidirectional(viewModel.getVector2CoordinateY());
+        vec2Y.focusedProperty().addListener(focusListener);
         vec2Z.textProperty().bindBidirectional(viewModel.getVector2CoordinateZ());
+        vec2Z.focusedProperty().addListener(focusListener);
 
         status.textProperty().bindBidirectional(viewModel.statusProperty());
 
         operation.valueProperty().bindBidirectional(viewModel.operationProperty());
+        operation.valueProperty().addListener(new ChangeListener<VectorOperation>() {
+            @Override
+            public void changed(final ObservableValue<? extends VectorOperation> observable,
+                                final VectorOperation oldValue,
+                                final VectorOperation newValue) {
+                viewModel.onOperationChanged(oldValue, newValue);
+            }
+        });
 
         solve.setOnAction(new EventHandler<ActionEvent>() {
             @Override

@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import ru.unn.agile.StatisticalValues.model.Operation;
-import ru.unn.agile.StatisticalValues.viewmodel.Vectors;
+import ru.unn.agile.StatisticalValues.viewmodel.Pairs;
 import ru.unn.agile.StatisticalValues.viewmodel.ViewModel;
 
 public class StatisticalCalculator {
@@ -16,15 +16,15 @@ public class StatisticalCalculator {
     @FXML
     private TextField vectorsDimension;
     @FXML
-    private TableView<Vectors> tableView;
+    private TableView<Pairs> tableView;
     @FXML
     private ComboBox<Operation> operationBox;
     @FXML
     private Button calculateOperation;
     @FXML
-    private TableColumn<Vectors, String> probabilities;
+    private TableColumn<Pairs, String> probabilities;
     @FXML
-    private TableColumn<Vectors, String> values;
+    private TableColumn<Pairs, String> values;
 
     @FXML
     void initialize() {
@@ -48,10 +48,10 @@ public class StatisticalCalculator {
 
     private void setColumns() {
         probabilities.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Vectors, String>>() {
+                new EventHandler<TableColumn.CellEditEvent<Pairs, String>>() {
                     @Override
                     public void handle(final TableColumn.
-                            CellEditEvent<Vectors, String> editedCell) {
+                            CellEditEvent<Pairs, String> editedCell) {
                         updateCells(getEditedRowIndex(editedCell),
                                 getEditedVectors(editedCell).
                                         setFirstComponent(editedCell.getNewValue()));
@@ -59,10 +59,10 @@ public class StatisticalCalculator {
                 }
         );
         values.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Vectors, String>>() {
+                new EventHandler<TableColumn.CellEditEvent<Pairs, String>>() {
                     @Override
                     public void handle(final TableColumn.
-                            CellEditEvent<Vectors, String> editedCell) {
+                            CellEditEvent<Pairs, String> editedCell) {
                         updateCells(getEditedRowIndex(editedCell),
                                 getEditedVectors(editedCell).
                                         setSecondComponent(editedCell.getNewValue()));
@@ -71,25 +71,25 @@ public class StatisticalCalculator {
         );
     }
 
-    private void updateCells(final Integer index, final Vectors newValue) {
-        ObservableList<Vectors> newTable = tableView.getItems();
+    private void updateCells(final Integer index, final Pairs newValue) {
+        ObservableList<Pairs> newTable = tableView.getItems();
         newTable.set(index, newValue);
 
         tableView.setItems(newTable);
     }
 
     private Integer getEditedRowIndex(final TableColumn.
-            CellEditEvent<Vectors, String> editedCell) {
+            CellEditEvent<Pairs, String> editedCell) {
         return editedCell.getTablePosition().getRow();
     }
 
-    private ObservableList<Vectors> getTableViewItems(final TableColumn.
-            CellEditEvent<Vectors, String> editedCell) {
+    private ObservableList<Pairs> getTableViewItems(final TableColumn.
+            CellEditEvent<Pairs, String> editedCell) {
         return editedCell.getTableView().getItems();
     }
 
-    private Vectors getEditedVectors(final TableColumn.
-            CellEditEvent<Vectors, String> editedCell) {
+    private Pairs getEditedVectors(final TableColumn.
+            CellEditEvent<Pairs, String> editedCell) {
         Integer editedRowIndex = getEditedRowIndex(editedCell);
         return getTableViewItems(editedCell).get(editedRowIndex);
     }

@@ -24,10 +24,10 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        Vectors first = viewModel.getVectorsProbValues().get(0);
+        Pairs first = viewModel.getVectorsProbValues().get(0);
 
         assertEquals("1", viewModel.getVectDimension());
-        assertTrue(first.equals(new Vectors("0.0", "0.0")));
+        assertTrue(first.equals(new Pairs("0.0", "0.0")));
         assertEquals(Operation.EXPECTED_VALUE, viewModel.operationProperty().get());
         assertEquals("", viewModel.getResultProperty().get());
         assertEquals(Status.READY.toString(), viewModel.getOperationStatusProperty().get());
@@ -50,7 +50,7 @@ public class ViewModelTests {
 
     @Test
     public void checkBadFormat() {
-        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", "ssa"));
+        viewModel.getVectorsProbValues().set(0, new Pairs("0.5", "ssa"));
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getOperationStatusProperty().get());
     }
@@ -58,7 +58,7 @@ public class ViewModelTests {
     @Test
     public void checkBadFormatNotAllParamsEntered() {
         setInput();
-        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", ""));
+        viewModel.getVectorsProbValues().set(0, new Pairs("0.5", ""));
 
         assertEquals(Status.BAD_FORMAT.toString(), viewModel.getOperationStatusProperty().get());
     }
@@ -70,14 +70,14 @@ public class ViewModelTests {
 
     @Test
     public void checkCalculationDisabledWithWrongParams() {
-        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", "asadada"));
+        viewModel.getVectorsProbValues().set(0, new Pairs("0.5", "asadada"));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void checkCalculationWithIncompleteInput() {
-        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", ""));
+        viewModel.getVectorsProbValues().set(0, new Pairs("0.5", ""));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -137,7 +137,7 @@ public class ViewModelTests {
     public void setInput() {
         viewModel.vectDimensionProperty().set("2");
 
-        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", "1.0"));
-        viewModel.getVectorsProbValues().set(1, new Vectors("0.5", "1.0"));
+        viewModel.getVectorsProbValues().set(0, new Pairs("0.5", "1.0"));
+        viewModel.getVectorsProbValues().set(1, new Pairs("0.5", "1.0"));
     }
 }

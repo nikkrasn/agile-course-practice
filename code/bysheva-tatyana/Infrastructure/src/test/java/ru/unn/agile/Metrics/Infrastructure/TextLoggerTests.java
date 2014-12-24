@@ -9,7 +9,6 @@ import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
@@ -38,21 +37,21 @@ public class TextLoggerTests {
     @Test
     public void canLogSomething() {
         logger.log("test");
-        assertEquals("test", getMessageText(0));
+        assertEquals("test", logger.getMessageText(0));
     }
 
     @Test
     public void canLogSeveralMessages() {
         logger.log("message1");
         logger.log("message2");
-        assertEquals("message1", getMessageText(0));
-        assertEquals("message2", getMessageText(1));
+        assertEquals("message1", logger.getMessageText(0));
+        assertEquals("message2", logger.getMessageText(1));
     }
 
     @Test
     public void checkLogContainsDateAndTime() throws ParseException {
         logger.log("test");
-        assertTrue(new Date().after(getMessageDateTime(0)));
+        assertTrue(new Date().after(logger.getMessageDateTime(0)));
     }
 
     @Test
@@ -61,19 +60,6 @@ public class TextLoggerTests {
         Thread.sleep(1000);
         logger.log("message2");
 
-        assertTrue(getMessageDateTime(1).after(getMessageDateTime(0)));
-    }
-
-    private Date getMessageDateTime(final Integer index) throws ParseException {
-        return dateTimeFormat.parse(getFullMessage(index).split(" : ")[0]);
-    }
-
-    private String getMessageText(final Integer index) {
-        return getFullMessage(index).split(" : ")[1];
-    }
-
-    private String getFullMessage(final Integer index) {
-        List<String> log = logger.getLog();
-        return log.get(index);
+        assertTrue(logger.getMessageDateTime(1).after(logger.getMessageDateTime(0)));
     }
 }

@@ -89,8 +89,8 @@ public class ViewModel {
             @Override
             public void changed(final ObservableValue<? extends String> observable,
                                 final String oldValue, final String newValue) {
-                updateStatus();
                 log("Vectors Dimension changed to: " + newValue);
+                updateStatus();
             }
         });
 
@@ -107,6 +107,7 @@ public class ViewModel {
             @Override
             public void onChanged(final Change<? extends Components> c) {
                 updateStatus();
+                log("Vectors changed to: " + vectorsValuesToString());
             }
         });
 
@@ -132,6 +133,9 @@ public class ViewModel {
 
         metricResult.set(getCurrentOperation().apply(vector1, vector2).toString());
         currentStatus.set(CurrentStatus.SUCCESS.toString());
+
+        log("Calculate " + getCurrentOperation() + " Metric for vectors:"
+                + vectorsValuesToString() + "\nResult: " + getMetricResult());
     }
 
     public List<String> getLog() {
@@ -150,6 +154,23 @@ public class ViewModel {
 
     public String getFullLogMessage(final Integer index) {
         return logger.getFullMessage(index);
+    }
+
+    private String vectorsValuesToString() {
+        List<Components> vectors = getVectorsValues();
+        String vector1 = "[";
+        String vector2 = "[";
+        for (Components components : vectors) {
+            vector1 += components.getComponent1() + ",";
+            vector2 += components.getComponent2() + ",";
+        }
+        vector1 = replaceLastChar(vector1, "]");
+        vector2 = replaceLastChar(vector2, "]");
+        return "\n" + vector1 + "\n" + vector2;
+    }
+
+    private String replaceLastChar(final String string, final String newChar) {
+        return string.substring(0, string.length() - 1) + newChar;
     }
 
     private Boolean isVectorsValuesEmpty() {
@@ -213,11 +234,17 @@ public class ViewModel {
         if (newSize <= 0) {
             return;
         }
-        if (newSize < vectorsValues.get().size()) {
-            getVectorsValues().remove(newSize, vectorsValues.get().size());
+        if (newSize < getVectorsValues().size()) {
+            getVectorsValues().remove(newSize, getVectorsValues().size());
         }
-        while (newSize > vectorsValues.get().size()) {
-            getVectorsValues().add(new Components("0.0f", "0.0f"));
+
+        Integer increaseSize = newSize - getVectorsValues().size();
+        if (increaseSize > 0) {
+            List<Components> addedVectorsValues = new ArrayList<>();
+            for (Integer i = 0; i < increaseSize; i++) {
+                addedVectorsValues.add(new Components("0.0f", "0.0f"));
+            }
+            getVectorsValues().addAll(addedVectorsValues);
         }
     }
 }

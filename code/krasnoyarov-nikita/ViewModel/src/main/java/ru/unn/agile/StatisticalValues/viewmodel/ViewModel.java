@@ -128,8 +128,7 @@ public class ViewModel {
 
         try {
             result.set(operation.get().apply(calculator).toString());
-        }
-        catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException ex) {
             operationStatus.set(Status.BAD_FORMAT.toString());
             return;
         }

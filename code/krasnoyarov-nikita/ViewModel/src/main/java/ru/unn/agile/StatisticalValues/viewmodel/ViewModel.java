@@ -116,15 +116,15 @@ public class ViewModel {
             return;
         }
 
-        List<Double> val = new ArrayList<Double>();
-        List<Double> probabil = new ArrayList<Double>();
+        List<Double> values = new ArrayList<Double>();
+        List<Double> probabilities = new ArrayList<Double>();
 
         for (Vectors vectorsValue : vectProbVal.get()) {
-            probabil.add(Double.parseDouble(vectorsValue.getFirstComponent()));
-            val.add(Double.parseDouble(vectorsValue.getSecondComponent()));
+            probabilities.add(Double.parseDouble(vectorsValue.getFirstComponent()));
+            values.add(Double.parseDouble(vectorsValue.getSecondComponent()));
         }
 
-        StatisticalValues calculator = new StatisticalValues(val, probabil);
+        StatisticalValues calculator = new StatisticalValues(values, probabilities);
 
         try {
             result.set(operation.get().apply(calculator).toString());

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ViewModel {
 
-    private final ObjectProperty<ObservableList<Pairs>> probabilityValuePair =
+    private final ObjectProperty<ObservableList<ProbabilityValuePair>> probabilityValueList =
             new SimpleObjectProperty<>(FXCollections.observableArrayList());
 
     private final StringProperty vectDimension = new SimpleStringProperty();
@@ -65,16 +65,16 @@ public class ViewModel {
         return result;
     }
 
-    public ObservableList<Pairs> getProbabilityValuePair() {
-        return probabilityValuePair.get();
+    public ObservableList<ProbabilityValuePair> getProbabilityValuePair() {
+        return probabilityValueList.get();
     }
 
     private Boolean isProbabilityValuePairEmpty() {
         return getProbabilityValuePair().isEmpty();
     }
 
-    public final ObjectProperty<ObservableList<Pairs>> vectProbValueProperty() {
-        return probabilityValuePair;
+    public final ObjectProperty<ObservableList<ProbabilityValuePair>> vectProbValueProperty() {
+        return probabilityValueList;
     }
 
     public StringProperty vectDimensionProperty() {
@@ -101,9 +101,9 @@ public class ViewModel {
             }
         });
 
-        getProbabilityValuePair().addListener(new ListChangeListener<Pairs>() {
+        getProbabilityValuePair().addListener(new ListChangeListener<ProbabilityValuePair>() {
             @Override
-            public void onChanged(final Change<? extends Pairs> c) {
+            public void onChanged(final Change<? extends ProbabilityValuePair> c) {
                 changeStatus();
             }
         });
@@ -119,7 +119,7 @@ public class ViewModel {
         List<Double> values = new ArrayList<Double>();
         List<Double> probabilities = new ArrayList<Double>();
 
-        for (Pairs vectorsValue : probabilityValuePair.get()) {
+        for (ProbabilityValuePair vectorsValue : probabilityValueList.get()) {
             probabilities.add(Double.parseDouble(vectorsValue.getProbability()));
             values.add(Double.parseDouble(vectorsValue.getValue()));
         }
@@ -149,7 +149,7 @@ public class ViewModel {
                 resizeVectors(size);
             }
             if (!isProbabilityValuePairEmpty()) {
-                for (Pairs vectorsValue : probabilityValuePair.get()) {
+                for (ProbabilityValuePair vectorsValue : probabilityValueList.get()) {
                     Double.parseDouble(vectorsValue.getProbability());
                     Double.parseDouble(vectorsValue.getValue());
                 }
@@ -166,11 +166,11 @@ public class ViewModel {
         if (dimension <= 0) {
             return;
         }
-        if (dimension < probabilityValuePair.get().size()) {
-            getProbabilityValuePair().remove(dimension, probabilityValuePair.get().size());
+        if (dimension < probabilityValueList.get().size()) {
+            getProbabilityValuePair().remove(dimension, probabilityValueList.get().size());
         }
-        while (dimension > probabilityValuePair.get().size()) {
-            getProbabilityValuePair().add(new Pairs("0.0", "0.0"));
+        while (dimension > probabilityValueList.get().size()) {
+            getProbabilityValuePair().add(new ProbabilityValuePair("0.0", "0.0"));
         }
     }
 }

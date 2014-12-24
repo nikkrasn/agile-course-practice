@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 import ru.unn.agile.StatisticalValues.model.Operation;
-import ru.unn.agile.StatisticalValues.viewmodel.Pairs;
+import ru.unn.agile.StatisticalValues.viewmodel.ProbabilityValuePair;
 import ru.unn.agile.StatisticalValues.viewmodel.ViewModel;
 
 public class StatisticalCalculator {
@@ -16,15 +16,15 @@ public class StatisticalCalculator {
     @FXML
     private TextField vectorsDimension;
     @FXML
-    private TableView<Pairs> tableView;
+    private TableView<ProbabilityValuePair> tableView;
     @FXML
     private ComboBox<Operation> operationBox;
     @FXML
     private Button calculateOperation;
     @FXML
-    private TableColumn<Pairs, String> probabilities;
+    private TableColumn<ProbabilityValuePair, String> probabilities;
     @FXML
-    private TableColumn<Pairs, String> values;
+    private TableColumn<ProbabilityValuePair, String> values;
 
     @FXML
     void initialize() {
@@ -48,48 +48,48 @@ public class StatisticalCalculator {
 
     private void setColumns() {
         probabilities.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Pairs, String>>() {
+                new EventHandler<TableColumn.CellEditEvent<ProbabilityValuePair, String>>() {
                     @Override
                     public void handle(final TableColumn.
-                            CellEditEvent<Pairs, String> editedCell) {
+                            CellEditEvent<ProbabilityValuePair, String> editedCell) {
                         updateCells(getEditedRowIndex(editedCell),
                                 getEditedVectors(editedCell).
-                                        setFirstComponent(editedCell.getNewValue()));
+                                        setProbability(editedCell.getNewValue()));
                     }
                 }
         );
         values.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Pairs, String>>() {
+                new EventHandler<TableColumn.CellEditEvent<ProbabilityValuePair, String>>() {
                     @Override
                     public void handle(final TableColumn.
-                            CellEditEvent<Pairs, String> editedCell) {
+                            CellEditEvent<ProbabilityValuePair, String> editedCell) {
                         updateCells(getEditedRowIndex(editedCell),
                                 getEditedVectors(editedCell).
-                                        setSecondComponent(editedCell.getNewValue()));
+                                        setValue(editedCell.getNewValue()));
                     }
                 }
         );
     }
 
-    private void updateCells(final Integer index, final Pairs newValue) {
-        ObservableList<Pairs> newTable = tableView.getItems();
+    private void updateCells(final Integer index, final ProbabilityValuePair newValue) {
+        ObservableList<ProbabilityValuePair> newTable = tableView.getItems();
         newTable.set(index, newValue);
 
         tableView.setItems(newTable);
     }
 
     private Integer getEditedRowIndex(final TableColumn.
-            CellEditEvent<Pairs, String> editedCell) {
+            CellEditEvent<ProbabilityValuePair, String> editedCell) {
         return editedCell.getTablePosition().getRow();
     }
 
-    private ObservableList<Pairs> getTableViewItems(final TableColumn.
-            CellEditEvent<Pairs, String> editedCell) {
+    private ObservableList<ProbabilityValuePair> getTableViewItems(final TableColumn.
+            CellEditEvent<ProbabilityValuePair, String> editedCell) {
         return editedCell.getTableView().getItems();
     }
 
-    private Pairs getEditedVectors(final TableColumn.
-            CellEditEvent<Pairs, String> editedCell) {
+    private ProbabilityValuePair getEditedVectors(final TableColumn.
+            CellEditEvent<ProbabilityValuePair, String> editedCell) {
         Integer editedRowIndex = getEditedRowIndex(editedCell);
         return getTableViewItems(editedCell).get(editedRowIndex);
     }

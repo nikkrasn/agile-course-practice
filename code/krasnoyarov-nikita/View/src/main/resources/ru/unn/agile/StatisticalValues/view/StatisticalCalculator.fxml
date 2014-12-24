@@ -1,54 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.geometry.*?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.StatisticalValues.viewmodel.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticalValues.view.StatisticalCalculator">
-    <children>
-        <VBox alignment="TOP_CENTER" layoutX="6.0" prefHeight="145.0" prefWidth="550.0" spacing="10.0">
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-            </padding>
-            <children>
-                <HBox>
-                    <children>
-                        <Label minWidth="-Infinity" text="Probabilities">
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                        </Label>
-                        <TextField fx:id="txtZ1Re" prefHeight="25.0" prefWidth="277.0" />
-                        <Separator prefWidth="200.0" visible="false" />
-                        <Label minWidth="-Infinity" text="Values" />
-                        <TextField fx:id="txtZ1Im" prefHeight="25.0" prefWidth="322.0" />
-                    </children>
-                </HBox>
-                <HBox>
-                    <children>
-                        <Separator prefWidth="200.0" visible="false" />
-                    </children>
-                </HBox>
-                <HBox>
-                    <children>
-                        <ComboBox fx:id="cbOperation" prefWidth="204.0" />
-                        <Separator prefWidth="200.0" visible="false" />
-                        <Button fx:id="btnCalc" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Calculate" HBox.hgrow="ALWAYS" />
-                    </children>
-                </HBox>
-                <HBox>
-                    <children>
-                        <Label text="Result: " />
-                        <Label fx:id="lbResult" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                        <Separator prefWidth="200.0" visible="false" />
-                        <Label text="Status: " />
-                        <Label fx:id="lbStatus" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                    </children>
-                </HBox>
-            </children>
-        </VBox>
-    </children>
+<AnchorPane prefHeight="336.0" prefWidth="261.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticalValues.view.StatisticalCalculator">
+   <children>
+       <fx:define>
+           <ViewModel fx:id="viewModel" />
+       </fx:define>
+      <GridPane layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="17.0" prefWidth="218.0" text="Select operation:" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </Label>
+            <AnchorPane prefHeight="60.0" prefWidth="200.0" GridPane.columnSpan="2">
+               <children>
+                  <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="-14.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columns>
+                        <TableColumn fx:id="probabilities" maxWidth="195.0" minWidth="67.0" prefWidth="129.0" sortable="false" text="Probabilities">
+                             <cellValueFactory>
+                                <PropertyValueFactory property="firstComponent" />
+                             </cellValueFactory>
+                         </TableColumn>
+                        <TableColumn fx:id="values" maxWidth="195.0" minWidth="62.0" prefWidth="130.0" sortable="false" text="Values">
+                             <cellValueFactory>
+                                 <PropertyValueFactory property="secondComponent" />
+                             </cellValueFactory>
+                        </TableColumn>
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <ComboBox fx:id="operationBox" items="${viewModel.operations}" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label prefHeight="17.0" prefWidth="130.0" text="Dimension" GridPane.rowIndex="3" />
+            <TextField fx:id="vectorsDimension" alignment="CENTER" prefHeight="52.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <AnchorPane prefHeight="31.0" prefWidth="275.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+               <children>
+                  <Button fx:id="calculateOperation" disable="${viewModel.calculationDisabled}" mnemonicParsing="false" prefHeight="31.0" prefWidth="259.0" text="Calculate" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <children>
+                  <Label prefHeight="33.0" prefWidth="131.0" text="Result:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="0.0" />
+                  <Label fx:id="resultStatus" layoutX="246.0" layoutY="6.0" prefHeight="17.0" prefWidth="0.0" text="${viewModel.result}" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
+               <children>
+                  <Label fx:id="operationStatus" text="${viewModel.operationStatus}" />
+               </children>
+            </AnchorPane>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" prefWidth="200.0" />
+            <ColumnConstraints hgrow="ALWAYS" prefWidth="200.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="296.0" minHeight="166.0" prefHeight="194.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="174.0" minHeight="39.0" prefHeight="39.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
+         </rowConstraints>
+      </GridPane>
+   </children>
 </AnchorPane>

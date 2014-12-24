@@ -1,82 +1,43 @@
 package ru.unn.agile.StatisticalValues.viewmodel;
 
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import ru.unn.agile.StatisticalValues.model.StatisticalValues;
+import ru.unn.agile.StatisticalValues.model.Operation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewModel {
 
-    private final ObservableList<Pair<String, String>> vectProbVal =
-            FXCollections.observableArrayList();
-    private final ObjectProperty<ObservableList<StatisticalValues.Operation>> operations =
-            new SimpleObjectProperty<>(FXCollections.observableArrayList(StatisticalValues.Operation.values()));
-    private final ObjectProperty<StatisticalValues.Operation> operation = new SimpleObjectProperty<>();
+    private final ObjectProperty<ObservableList<Vectors>> vectProbVal =
+            new SimpleObjectProperty<>(FXCollections.observableArrayList());
+
+    private final StringProperty vectDimension = new SimpleStringProperty();
+
+    private final ObjectProperty<ObservableList<Operation>> operations =
+    new SimpleObjectProperty<>(FXCollections.observableArrayList(Operation.values()));
+
+    private final ObjectProperty<Operation> operation = new SimpleObjectProperty<>();
     private final BooleanProperty calculationDisabled = new SimpleBooleanProperty();
 
     private final StringProperty result = new SimpleStringProperty();
-    private final StringProperty status = new SimpleStringProperty();
+    private final StringProperty operationStatus = new SimpleStringProperty();
 
-    public SimpleListProperty vectProbValProperty = new SimpleListProperty(this,"vectorsValues", vectProbVal);
 
-    // FXML needs default c-tor for binding
-    public ViewModel() {
-        operation.set(StatisticalValues.Operation.EXPECTED_VALUE);
-        result.set("");
-        status.set(Status.WAITING.toString());
-
-        BooleanBinding couldCalculate = new BooleanBinding() {
-            {
-                super.bind(vectProbVal);
-            }
-            @Override
-            protected boolean computeValue() {
-                return getInputStatus() == Status.READY;
-            }
-        };
-        calculationDisabled.bind(couldCalculate.not());
-
-        final ListPropertyChangeListener listChangeListener
-                = new ListPropertyChangeListener();
-        vectProbValProperty.addListener(listChangeListener);
-    }
-
-    public void calculate() {
-        if (calculationDisabled.get()) {
-            return;
-        }
-
-        List<Double> val = new ArrayList<Double>();
-        List<Double> probabil = new ArrayList<Double>();
-
-        for (int i = 0; i < vectProbVal.size(); i++) {
-            probabil.add(Double.parseDouble(vectProbVal.get(i).getValue()));
-            val.add(Double.parseDouble(vectProbVal.get(i).getKey()));
-        }
-
-        StatisticalValues calculator = new StatisticalValues(probabil, val);
-
-        result.set(operation.get().apply(calculator).toString());
-        status.set(Status.SUCCESS.toString());
-    }
-
-    public ObjectProperty<ObservableList<StatisticalValues.Operation>> getOperationsProperty() {
+    public ObjectProperty<ObservableList<Operation>> getOperationsProperty() {
         return operations;
     }
 
-    public final ObservableList<StatisticalValues.Operation> getOperations() {
+    public final ObservableList<Operation> getOperations() {
         return operations.get();
     }
 
-    public ObjectProperty<StatisticalValues.Operation> operationProperty() {
+    public ObjectProperty<Operation> operationProperty() {
         return operation;
     }
 
@@ -88,52 +49,141 @@ public class ViewModel {
         return calculationDisabled.get();
     }
 
-    public String getResult() {
+    public final String getResult() {
         return result.get();
     }
 
-    public StringProperty getStatusProperty() {
-        return status;
+    public StringProperty getOperationStatusProperty() {
+        return operationStatus;
     }
 
-    public final String getStatus() {
-        return status.get();
+    public final String getOperationStatus() {
+        return operationStatus.get();
     }
 
     public StringProperty getResultProperty() {
         return result;
     }
 
-    private Status getInputStatus() {
-        Status inputStatus = Status.READY;
-        if (vectProbVal.isEmpty()) {
-            inputStatus = Status.WAITING;
+    public ObservableList<Vectors> getVectorsProbValues() {
+        return vectProbVal.get();
+    }
+
+    private Boolean isVectorsValuesEmpty() {
+        return getVectorsProbValues().isEmpty();
+    }
+
+    public final ObjectProperty<ObservableList<Vectors>> vectProbValueProperty() {
+        return vectProbVal;
+    }
+
+    public StringProperty vectDimensionProperty() {
+        return vectDimension;
+    }
+    public String getVectDimension() {
+        return vectDimension.get();
+    }
+
+    private Boolean isVectorsDimensionEmpty() {
+        return getVectDimension().equals("");
+    }
+
+    public ViewModel() {
+        operation.set(Operation.EXPECTED_VALUE);
+        result.set("");
+        operationStatus.set(Status.READY.toString());
+
+        vectDimension.addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> observable,
+                                final String oldValue, final String newValue) {
+                changeStatus();
+            }
+        });
+
+        getVectorsProbValues().addListener(new ListChangeListener<Vectors>() {
+            @Override
+            public void onChanged(final Change<? extends Vectors> c) {
+                changeStatus();
+            }
+        });
+
+        vectDimension.set("1");
+    }
+
+    public void calculate() {
+        if (getCalculationDisabled()) {
+            return;
+        }
+
+        List<Double> val = new ArrayList<Double>();
+        List<Double> probabil = new ArrayList<Double>();
+
+        for (Vectors vectorsValue : vectProbVal.get()) {
+            probabil.add(Double.parseDouble(vectorsValue.getFirstComponent()));
+            val.add(Double.parseDouble(vectorsValue.getSecondComponent()));
+        }
+
+        StatisticalValues calculator = new StatisticalValues(val, probabil);
+
+        System.out.print("trying to calc \n");
+        try {
+            result.set(operation.get().apply(calculator).toString());
+            System.out.print("Result = " + operation.get().apply(calculator).toString() + " \n");
+        }
+        catch (IllegalArgumentException ex) {
+            operationStatus.set(Status.BAD_FORMAT.toString());
+            System.out.print("Status = " + Status.BAD_FORMAT.toString() + " \n");
+            return;
+        }
+        System.out.print("end calc \n");
+        operationStatus.set(Status.SUCCESS.toString());
+        System.out.print("Status = " + Status.SUCCESS.toString() + " \n");
+    }
+
+    private StringProperty changeStatus() {
+        operationStatus.set(Status.READY.toString());
+        if (isVectorsValuesEmpty() || isVectorsDimensionEmpty()) {
+            operationStatus.set(Status.WAITING.toString());
         }
         try {
-            if (!vectProbVal.isEmpty()) {
-                for (int i = 0; i < vectProbVal.size(); i++) {
-                    Double.parseDouble(vectProbVal.get(i).getKey());
-                    Double.parseDouble(vectProbVal.get(i).getValue());
+            if (!isVectorsDimensionEmpty()) {
+                Integer size = Integer.parseInt(vectDimension.get());
+                if (size <= 0) {
+                   getOperationStatusProperty().set(Status.BAD_FORMAT.toString());
+                }
+                resizeVectors(size);
+            }
+            if (!isVectorsValuesEmpty()) {
+                for (Vectors vectorsValue : vectProbVal.get()) {
+                    Double.parseDouble(vectorsValue.getFirstComponent());
+                    Double.parseDouble(vectorsValue.getSecondComponent());
                 }
             }
         } catch (NumberFormatException nfe) {
-            inputStatus = Status.BAD_FORMAT;
+            operationStatus.set(Status.BAD_FORMAT.toString());
         }
+        calculationDisabled.set(!getOperationStatus().equals(Status.READY.toString()));
 
-        return inputStatus;
+        return operationStatus;
     }
 
-    private class ListPropertyChangeListener implements ListChangeListener<Pair<String, String>> {
-        @Override
-        public void onChanged(ListChangeListener.Change<? extends Pair<String, String>> change) {
-            status.set(getInputStatus().toString());
+    private void resizeVectors(final Integer dimension) {
+        if (dimension <= 0) {
+            return;
+        }
+        if (dimension < vectProbVal.get().size()) {
+            getVectorsProbValues().remove(dimension, vectProbVal.get().size());
+        }
+        while (dimension > vectProbVal.get().size()) {
+            getVectorsProbValues().add(new Vectors("0.0", "0.0"));
         }
     }
 }
 
 enum Status {
     WAITING("Waiting for input data"),
-    READY("Press 'Calculate' or Enter"),
+    READY("Press 'Calculate'"),
     BAD_FORMAT("Bad format of values or probabilities"),
     SUCCESS("Success");
 

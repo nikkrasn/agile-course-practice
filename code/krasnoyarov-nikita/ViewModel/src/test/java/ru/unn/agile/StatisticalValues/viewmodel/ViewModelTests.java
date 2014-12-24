@@ -1,12 +1,9 @@
 package ru.unn.agile.StatisticalValues.viewmodel;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.util.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.StatisticalValues.model.StatisticalValues;
+import ru.unn.agile.StatisticalValues.model.Operation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -27,56 +24,60 @@ public class ViewModelTests {
 
     @Test
     public void canSetDefaultValues() {
-        final ObservableList<Pair<String, String>> vectProbVal =
-                FXCollections.observableArrayList();
+        Vectors first = viewModel.getVectorsProbValues().get(0);
 
-        assertTrue(viewModel.vectProbValProperty.equals(vectProbVal));
-        assertEquals(StatisticalValues.Operation.EXPECTED_VALUE, viewModel.operationProperty().get());
+        assertEquals("1", viewModel.getVectDimension());
+        assertTrue(first.equals(new Vectors("0.0", "0.0")));
+        assertEquals(Operation.EXPECTED_VALUE, viewModel.operationProperty().get());
         assertEquals("", viewModel.getResultProperty().get());
-        assertEquals(Status.WAITING.toString(), viewModel.getStatusProperty().get());
+        assertEquals(Status.READY.toString(), viewModel.getOperationStatusProperty().get());
     }
 
     @Test
     public void checkStatusWaitingWhenCalculateWithEmptyFields() {
+        viewModel.vectDimensionProperty().set("");
         viewModel.calculate();
 
-        assertEquals(Status.WAITING.toString(), viewModel.getStatusProperty().get());
+        assertEquals(Status.WAITING.toString(), viewModel.getOperationStatusProperty().get());
     }
 
     @Test
     public void checkStatusReadyWhenFieldsAreFill() {
         setInput();
 
-        assertEquals(Status.READY.toString(), viewModel.getStatusProperty().get());
+        assertEquals(Status.READY.toString(), viewModel.getOperationStatusProperty().get());
     }
 
     @Test
     public void checkBadFormat() {
-        viewModel.vectProbValProperty.add(new Pair<>("0.5", "ssa"));
+        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", "ssa"));
 
-        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getStatusProperty().get());
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getOperationStatusProperty().get());
     }
 
     @Test
-    public void checkWaitForAllParamsEntered() {
-        assertEquals(Status.WAITING.toString(), viewModel.getStatusProperty().get());
+    public void checkBadFormatNotAllParamsEntered() {
+        setInput();
+        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", ""));
+
+        assertEquals(Status.BAD_FORMAT.toString(), viewModel.getOperationStatusProperty().get());
     }
 
     @Test
-    public void checkCalculationDisabled() {
-        assertTrue(viewModel.calculationDisabledProperty().get());
+    public void checkCalculationEnabledForFirstTime() {
+        assertFalse(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void checkCalculationDisabledWithWrongParams() {
-        viewModel.vectProbValProperty.add(new Pair<>("0.5", "asadada"));
+        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", "asadada"));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
 
     @Test
     public void checkCalculationWithIncompleteInput() {
-        viewModel.vectProbValProperty.add(new Pair<>("0.5", ""));
+        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", ""));
 
         assertTrue(viewModel.calculationDisabledProperty().get());
     }
@@ -90,9 +91,9 @@ public class ViewModelTests {
 
     @Test
     public void checkCanSetVarianceOperation() {
-        viewModel.operationProperty().set(StatisticalValues.Operation.VARIANCE);
+        viewModel.operationProperty().set(Operation.VARIANCE);
 
-        assertEquals(StatisticalValues.Operation.VARIANCE, viewModel.operationProperty().get());
+        assertEquals(Operation.VARIANCE, viewModel.operationProperty().get());
     }
 
     @Test
@@ -101,7 +102,7 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals(Status.SUCCESS.toString(), viewModel.getStatusProperty().get());
+        assertEquals(Status.SUCCESS.toString(), viewModel.getOperationStatusProperty().get());
     }
 
     @Test
@@ -117,7 +118,7 @@ public class ViewModelTests {
     public void checkVarianceCalculateCorrectResult() {
         setInput();
 
-        viewModel.operationProperty().set(StatisticalValues.Operation.VARIANCE);
+        viewModel.operationProperty().set(Operation.VARIANCE);
         viewModel.calculate();
 
         assertEquals("0.0", viewModel.getResultProperty().get());
@@ -127,14 +128,16 @@ public class ViewModelTests {
     public void checkInitialMomentCalculateCorrectResult() {
         setInput();
 
-        viewModel.operationProperty().set(StatisticalValues.Operation.INITIAL_MOMENT);
+        viewModel.operationProperty().set(Operation.INITIAL_MOMENT);
         viewModel.calculate();
 
         assertEquals("1.0", viewModel.getResultProperty().get());
     }
 
     public void setInput() {
-        viewModel.vectProbValProperty.add(new Pair<>("0.5", "1.0"));
-        viewModel.vectProbValProperty.add(new Pair<>("0.5", "1.0"));
+        viewModel.vectDimensionProperty().set("2");
+
+        viewModel.getVectorsProbValues().set(0, new Vectors("0.5", "1.0"));
+        viewModel.getVectorsProbValues().set(1, new Vectors("0.5", "1.0"));
     }
 }

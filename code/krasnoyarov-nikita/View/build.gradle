@@ -1,12 +1,10 @@
-apply plugin: 'java'
-
-sourceCompatibility = 1.5
-version = '1.0'
-
-repositories {
-    mavenCentral()
-}
+apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile project(':krasnoyarov-nikita-ViewModel')
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
 }

@@ -85,37 +85,6 @@ public class StatisticalValues {
         return moment;
     }
 
-    public enum Operation {
-        EXPECTED_VALUE("Expected value"){
-            public Double apply(final StatisticalValues values) {
-                return values.calculateExpectedValue();
-            }
-        },
-        VARIANCE("Variance"){
-            public Double apply(final StatisticalValues values) {
-                return values.calculateVariance();
-            }
-        },
-        INITIAL_MOMENT("Initial moment"){
-            public Double apply(final StatisticalValues values) {
-                return values.calculateInitialMoment(2);
-            }
-        };
-
-        private final String name;
-
-        Operation(final String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-        public abstract Double apply(final StatisticalValues values);
-    }
-
     private boolean isSumProbabilitiesValueEqualsOne(final double sum) {
         return Math.abs(1.0 - sum) < EPSILON;
     }
@@ -133,7 +102,7 @@ public class StatisticalValues {
         }
 
         if (!isSumProbabilitiesValueEqualsOne(sum)) {
-            throw new IllegalArgumentException("Sum of probabilities doesn't equal to 1");
+            throw new IllegalArgumentException("Sum of probabilities doesn't equal 1");
         }
     }
 
@@ -183,5 +152,4 @@ public class StatisticalValues {
         }
     }
 }
-
 

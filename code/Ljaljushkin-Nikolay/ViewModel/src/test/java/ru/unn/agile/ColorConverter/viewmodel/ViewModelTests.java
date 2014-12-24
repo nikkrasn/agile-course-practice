@@ -288,6 +288,60 @@ public class ViewModelTests {
                 + viewModel.getThirdChannelDstColorString() + ".*"));
     }
 
+    @Test
+    public void canPutSeveralLogMessages() {
+        fillInputFieldsCorrectly();
+
+        viewModel.convert();
+        viewModel.setDstColor(Color.HSV);
+        viewModel.setSrcColor(Color.HSV);
+        viewModel.convert();
+
+        assertEquals(4, getLogSize());
+    }
+
+    @Test
+    public void srcColorIsNotLoggedIfNotChanged() {
+        viewModel.setSrcColor(Color.RGB);
+        viewModel.setSrcColor(Color.HSV);
+        assertEquals(1, getLogSize());
+    }
+
+    @Test
+    public void dstColorIsNotLoggedIfNotChanged() {
+        viewModel.setDstColor(Color.LAB);
+        viewModel.setDstColor(Color.HSV);
+        assertEquals(1, getLogSize());
+    }
+
+    @Test
+    public void areValuesOfSourceColorCorrectlyLoggedOn() {
+        fillInputFieldsCorrectly();
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*" + LogEvents.EDITING_SRC_COLOR_FINISHED + "\\[ "
+                + viewModel.getFirstChannelSrcColorString() + " , "
+                + viewModel.getSecondChannelSrcColorString() + " , "
+                + viewModel.getThirdChannelSrcColorString() + " \\]"));
+    }
+
+    @Test
+    public void isConversionNotRunWhenConversionButtonIsDisabled() {
+        viewModel.convert();
+        List<String> log = viewModel.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.setFirstChannelSrcColorString("255");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.setFirstChannelSrcColorString("255");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        assertEquals(1, getLogSize());
+    }
+
     private void fillInputFieldsCorrectly() {
         viewModel.setFirstChannelSrcColorString("0");
         viewModel.setSecondChannelSrcColorString("0");
@@ -357,6 +411,13 @@ public class ViewModelTests {
     }
 
     private String getLogMessageByNumber(final Integer number) {
+        if (getLogSize() == 0) {
+            return "";
+        }
         return viewModel.getLog().get(number);
+    }
+
+    private int getLogSize() {
+        return viewModel.getLog().size();
     }
 }

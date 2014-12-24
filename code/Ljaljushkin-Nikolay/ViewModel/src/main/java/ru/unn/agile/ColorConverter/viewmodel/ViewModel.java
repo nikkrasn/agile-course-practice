@@ -145,6 +145,25 @@ public class ViewModel {
         logger.addToLog(message.toString());
     }
 
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (StringChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogEvents.EDITING_SRC_COLOR_FINISHED);
+                message.append("[ " + getFirstChannelSrcColorString() + " , ")
+                        .append(getSecondChannelSrcColorString() + " , ")
+                        .append(getThirdChannelSrcColorString() + " ]");
+                logger.addToLog(message.toString());
+
+                listener.rememberPrevString();
+                break;
+            }
+        }
+    }
+
     public void setLogger(final ILogger logger) {
         this.logger = logger;
     }
@@ -321,10 +340,22 @@ public class ViewModel {
     }
 
     private class StringChangeListener implements ChangeListener<String> {
+        private String prevString = new String();
+        private String curString = new String();
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldString, final String newString) {
             status.set(getInputAppStatus().toString());
+            curString = newString;
+        }
+
+        public boolean isChanged() {
+            return !prevString.equals(curString);
+        }
+
+        public void rememberPrevString() {
+            prevString = curString;
         }
     }
 }
@@ -351,7 +382,7 @@ final class LogEvents {
     public static final String CONVERT_WAS_PRESSED = "Convert. ";
     public static final String SRC_COLOR_WAS_CHANGED = "Source color was changed ";
     public static final String DST_COLOR_WAS_CHANGED = "Destination color was changed ";
-    public static final String EDITING_FINISHED = "Updated input. ";
+    public static final String EDITING_SRC_COLOR_FINISHED = "Updated values of source color: ";
 
     private LogEvents() {
     }

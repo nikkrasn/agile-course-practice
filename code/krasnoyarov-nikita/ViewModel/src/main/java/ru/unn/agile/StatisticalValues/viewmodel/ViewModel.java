@@ -126,19 +126,14 @@ public class ViewModel {
 
         StatisticalValues calculator = new StatisticalValues(val, probabil);
 
-        System.out.print("trying to calc \n");
         try {
             result.set(operation.get().apply(calculator).toString());
-            System.out.print("Result = " + operation.get().apply(calculator).toString() + " \n");
         }
         catch (IllegalArgumentException ex) {
             operationStatus.set(Status.BAD_FORMAT.toString());
-            System.out.print("Status = " + Status.BAD_FORMAT.toString() + " \n");
             return;
         }
-        System.out.print("end calc \n");
         operationStatus.set(Status.SUCCESS.toString());
-        System.out.print("Status = " + Status.SUCCESS.toString() + " \n");
     }
 
     private StringProperty changeStatus() {

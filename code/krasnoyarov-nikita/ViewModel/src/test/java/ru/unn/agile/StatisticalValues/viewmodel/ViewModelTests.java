@@ -14,8 +14,7 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
-        viewModel.setLog(new FakeLogger());
+        setLog(new FakeLogger());
     }
 
     @After
@@ -214,5 +213,10 @@ public class ViewModelTests {
 
         viewModel.getProbabilityValuePair().set(0, new ProbabilityValuePair("0.5", "1.0"));
         viewModel.getProbabilityValuePair().set(1, new ProbabilityValuePair("0.5", "1.0"));
+    }
+
+    public void setLog(final ILogger logger) {
+        viewModel = new ViewModel();
+        viewModel.setLog(logger);
     }
 }

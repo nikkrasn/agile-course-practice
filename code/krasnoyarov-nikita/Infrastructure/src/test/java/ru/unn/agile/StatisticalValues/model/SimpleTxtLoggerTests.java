@@ -50,13 +50,13 @@ public class SimpleTxtLoggerTests {
     }
 
     @Test
-    public void canLogMessageDate() throws ParseException{
+    public void canLogMessageDate() throws ParseException {
         logger.log("testdatemessage");
         assertTrue(new Date().after(logger.getLoggedMessageDate(0)));
     }
 
     @Test
-    public void checkMessageDateNotEquals() throws ParseException, InterruptedException{
+    public void checkMessageDateNotEquals() throws ParseException, InterruptedException {
         logger.log("testdatemessage1");
         Thread.sleep(1000);
         logger.log("testdatemessage2");

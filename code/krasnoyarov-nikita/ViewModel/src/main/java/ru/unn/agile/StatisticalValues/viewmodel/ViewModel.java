@@ -95,7 +95,7 @@ public class ViewModel {
     }
 
     public List<String> getLog() {
-        if(logger == null) {
+        if (logger == null) {
             return new ArrayList<>();
         }
         return logger.getLog();
@@ -172,12 +172,8 @@ public class ViewModel {
         }
         operationStatus.set(Status.SUCCESS.toString());
 
-        addLogMessage("Calculated operation: " + getCurrentOperation() + " for probabilities and values:"
+        addLogMessage("Calculated operation: " + getCurrentOperation() + " for:"
                 + probabilityValuesToString() + "\nCalculated result: " + getResult());
-    }
-
-    public String getLastLoggedMessage() {
-        return logger.getLastLoggedMessage();
     }
 
     public String getLoggedMessage(final Integer index) {
@@ -193,8 +189,8 @@ public class ViewModel {
     }
 
 
-    private void addLogMessage(String logMessage) {
-        if(logger == null) {
+    private void addLogMessage(final String logMessage) {
+        if (logger == null) {
             return;
         }
         logger.log(logMessage);
@@ -213,7 +209,8 @@ public class ViewModel {
                 probabilities.substring(0, probabilities.length() - 2) + "]";
         values =
                 values.substring(0, values.length() - 2) + "]";
-        return "\n" + probabilities + "\n" + values;
+        return "\n" + "Probabilities\n" + probabilities
+                + "\n" + "Values\n" + values;
     }
 
     private void updateLogs() {

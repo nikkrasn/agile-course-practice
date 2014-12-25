@@ -150,8 +150,8 @@ public class ViewModelTests {
     public void checkLogMessageThenProbabilityAndValuesChanged() {
         viewModel.getProbabilityValuePair().set(0, new ProbabilityValuePair("1.0", "1.0"));
 
-        assertEquals("Probability and values changed to: \n" +
-                "[1.0]\n[1.0]", viewModel.getLoggedMessageText(0));
+        assertEquals("Probability and values changed to: \n"
+                + "Probabilities\n[1.0]\nValues\n[1.0]", viewModel.getLoggedMessageText(0));
     }
 
     @Test
@@ -180,8 +180,8 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("Calculated operation: Expected value for probabilities " +
-                "and values:\n[0.5, 0.5]\n[1.0, 1.0]\nCalculated result: 1.0",
+        assertEquals("Calculated operation: Expected value for:"
+                + "\nProbabilities\n[0.5, 0.5]\nValues\n[1.0, 1.0]\nCalculated result: 1.0",
                 viewModel.getLoggedMessageText(4));
     }
 
@@ -192,8 +192,8 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("Calculated operation: Variance for probabilities " +
-                        "and values:\n[0.5, 0.5]\n[1.0, 1.0]\nCalculated result: 0.0",
+        assertEquals("Calculated operation: Variance for:"
+                + "\nProbabilities\n[0.5, 0.5]\nValues\n[1.0, 1.0]\nCalculated result: 0.0",
                 viewModel.getLoggedMessageText(5));
     }
 
@@ -204,8 +204,8 @@ public class ViewModelTests {
 
         viewModel.calculate();
 
-        assertEquals("Calculated operation: Initial moment for probabilities " +
-                        "and values:\n[0.5, 0.5]\n[1.0, 1.0]\nCalculated result: 1.0",
+        assertEquals("Calculated operation: Initial moment for:"
+                + "\nProbabilities\n[0.5, 0.5]\nValues\n[1.0, 1.0]\nCalculated result: 1.0",
                 viewModel.getLoggedMessageText(5));
     }
 

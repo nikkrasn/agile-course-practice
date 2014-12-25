@@ -158,6 +158,8 @@ include "code/Ljaljushkin-Nikolay/ViewModel"
 project(":code/Ljaljushkin-Nikolay/ViewModel").name = "ljaljushkin-nikolay-ViewModel"
 include "code/Ljaljushkin-Nikolay/View"
 project(":code/Ljaljushkin-Nikolay/View").name = "ljaljushkin-nikolay-View"
+include "code/Ljaljushkin-Nikolay/Infrastructure"
+project(":code/Ljaljushkin-Nikolay/Infrastructure").name = "ljaljushkin-nikolay-Infrastructure"
 
 // Myasnikov Alexander
 include "code/myasnikov-alexander/Model"

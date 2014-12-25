@@ -6,16 +6,20 @@ import org.junit.Test;
 import ru.unn.agile.ColorConverter.model.ColorSpaces.ColorSpace3D;
 import ru.unn.agile.ColorConverter.model.TestUtilities.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class ViewModelTests {
     private ViewModel viewModel;
 
+    public void setExternalViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel = new ViewModel(new MockLogger());
     }
 
     @After
@@ -228,6 +232,152 @@ public class ViewModelTests {
         assertTrue(dstColor.equals(KnownColors.DARK_RED_HSV));
     }
 
+    @Test
+    public void canCreateViewModelWithNullLogger() {
+        ViewModel viewModelWithNullLogger = new ViewModel(null);
+        List<String> log = viewModelWithNullLogger.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void isLogEmptyAfterCreatingViewModelWithMockLogger() {
+        List<String> log = viewModel.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void logContainsProperMessageAfterConversion() {
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*" + LogEvents.CONVERT_WAS_PRESSED + ".*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterChangingSrcColor() {
+        viewModel.setSrcColor(Color.HSV);
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*" + LogEvents.SRC_COLOR_WAS_CHANGED + "from RGB to HSV.*"));
+    }
+
+    @Test
+    public void logContainsProperMessageAfterChangingDstColor() {
+        viewModel.setDstColor(Color.HSV);
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*" + LogEvents.DST_COLOR_WAS_CHANGED + "from LAB to HSV.*"));
+    }
+
+    @Test
+    public void logContainsColorChannelsAfterConversion() {
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*Src.*" + viewModel.getSrcColor().toString()
+                + ".*Dst.*" + viewModel.getDstColor().toString() + ".*"));
+    }
+
+    @Test
+    public void logContainsColorValuesAfterConversion() {
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*"
+                + viewModel.getFirstChannelSrcColorString() + ".*"
+                + viewModel.getSecondChannelSrcColorString() + ".*"
+                + viewModel.getThirdChannelSrcColorString() + ".*"
+                + viewModel.getFirstChannelDstColorString() + ".*"
+                + viewModel.getSecondChannelDstColorString() + ".*"
+                + viewModel.getThirdChannelDstColorString() + ".*"));
+    }
+
+    @Test
+    public void canPutSeveralLogMessages() {
+        fillInputFieldsCorrectly();
+
+        viewModel.convert();
+        viewModel.setDstColor(Color.HSV);
+        viewModel.setSrcColor(Color.HSV);
+        viewModel.convert();
+
+        assertEquals(4, getLogSize());
+    }
+
+    @Test
+    public void srcColorIsNotLoggedIfNotChanged() {
+        viewModel.setSrcColor(Color.RGB);
+        viewModel.setSrcColor(Color.HSV);
+        assertEquals(1, getLogSize());
+    }
+
+    @Test
+    public void dstColorIsNotLoggedIfNotChanged() {
+        viewModel.setDstColor(Color.LAB);
+        viewModel.setDstColor(Color.HSV);
+        assertEquals(1, getLogSize());
+    }
+
+    @Test
+    public void areValuesOfSourceColorCorrectlyLoggedOn() {
+        fillInputFieldsCorrectly();
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+
+        String message = getLogMessageByNumber(0);
+        assertTrue(message.matches(".*" + LogEvents.EDITING_SRC_COLOR_FINISHED + "\\[ "
+                + viewModel.getFirstChannelSrcColorString() + " , "
+                + viewModel.getSecondChannelSrcColorString() + " , "
+                + viewModel.getThirdChannelSrcColorString() + " \\]"));
+    }
+
+    @Test
+    public void isConversionNotRunWhenConversionButtonIsDisabled() {
+        viewModel.convert();
+        List<String> log = viewModel.getLog();
+        assertTrue(log.isEmpty());
+    }
+
+    @Test
+    public void doNotLogSameParametersTwiceWithPartialInput() {
+        viewModel.setFirstChannelSrcColorString("255");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        viewModel.setFirstChannelSrcColorString("255");
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        assertEquals(1, getLogSize());
+    }
+
+    @Test
+    public void canConvertWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeSrcColorWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.setSrcColor(Color.HSV);
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeDstColorWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.setDstColor(Color.HSV);
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeSrcColorValuesWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        assertEquals(0, getLogSize());
+    }
+
     private void fillInputFieldsCorrectly() {
         viewModel.setFirstChannelSrcColorString("0");
         viewModel.setSecondChannelSrcColorString("0");
@@ -294,5 +444,16 @@ public class ViewModelTests {
         viewModel.setFirstChannelSrcColorString("28.0847");
         viewModel.setSecondChannelSrcColorString("51.0104");
         viewModel.setThirdChannelSrcColorString("41.2945");
+    }
+
+    private String getLogMessageByNumber(final Integer number) {
+        if (getLogSize() == 0) {
+            return "";
+        }
+        return viewModel.getLog().get(number);
+    }
+
+    private int getLogSize() {
+        return viewModel.getLog().size();
     }
 }

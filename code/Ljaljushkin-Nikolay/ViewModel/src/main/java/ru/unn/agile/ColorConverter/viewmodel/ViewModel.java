@@ -32,10 +32,27 @@ public class ViewModel {
             new SimpleObjectProperty<>(FXCollections.observableArrayList(Color.values()));
 
     private final StringProperty status = new SimpleStringProperty();
+    private ILogger logger;
+    private final StringProperty logs = new SimpleStringProperty();
     private final List<StringChangeListener> valueChangedListeners = new ArrayList<>();
     private final BooleanProperty conversionDisabled = new SimpleBooleanProperty();
 
     public ViewModel() {
+        init();
+    }
+
+    public ViewModel(final ILogger logger) {
+        setLogger(logger);
+        init();
+    }
+
+    private void init() {
+        setDefaultFieldValues();
+        addListeners();
+        bindConversionDisabledProperty();
+    }
+
+    private void setDefaultFieldValues() {
         firstChannelSrcColorString.set("");
         secondChannelSrcColorString.set("");
         thirdChannelSrcColorString.set("");
@@ -47,24 +64,9 @@ public class ViewModel {
         status.set(AppStatus.WAITING.toString());
         srcColor.set(Color.RGB);
         dstColor.set(Color.LAB);
+    }
 
-        BooleanBinding couldCalculate = new BooleanBinding() {
-            {
-                super.bind(
-                        firstChannelSrcColorString,
-                        secondChannelSrcColorString,
-                        thirdChannelSrcColorString,
-                        status
-                );
-            }
-
-            @Override
-            protected boolean computeValue() {
-                return getInputAppStatus() == AppStatus.READY;
-            }
-        };
-        conversionDisabled.bind(couldCalculate.not());
-
+    private void addListeners() {
         final List<StringProperty> fields = new ArrayList<StringProperty>() {
             {
                 add(firstChannelSrcColorString);
@@ -83,8 +85,64 @@ public class ViewModel {
             public void changed(final ObservableValue<? extends Color> observableValue,
                                 final Color oldValue, final Color newValue) {
                 status.set(getInputAppStatus().toString());
+                addToLogSafely(LogEvents.SRC_COLOR_WAS_CHANGED
+                        + "from " + oldValue.toString()
+                        + " to " + newValue.toString());
+                updateLogsProperty();
             }
         });
+
+        dstColor.addListener(new ChangeListener<Color>() {
+            @Override
+            public void changed(final ObservableValue<? extends Color> observableValue,
+                                final Color oldValue, final Color newValue) {
+                addToLogSafely(LogEvents.DST_COLOR_WAS_CHANGED
+                        + "from " + oldValue.toString()
+                        + " to " + newValue.toString());
+                updateLogsProperty();
+            }
+        });
+    }
+
+    private void bindConversionDisabledProperty() {
+        BooleanBinding couldCalculate = new BooleanBinding() {
+            {
+                super.bind(
+                        firstChannelSrcColorString,
+                        secondChannelSrcColorString,
+                        thirdChannelSrcColorString,
+                        status
+                );
+            }
+
+            @Override
+            protected boolean computeValue() {
+                return getInputAppStatus() == AppStatus.READY;
+            }
+        };
+        conversionDisabled.bind(couldCalculate.not());
+    }
+
+    private void updateLogsProperty() {
+        List<String> logMessages = getLogSafely();
+        String record = new String();
+        for (String message : logMessages) {
+            record += message + "\n";
+        }
+        logs.set(record);
+    }
+
+    private void addToLogSafely(final String message) {
+        if (logger != null) {
+            logger.addToLog(message);
+        }
+    }
+
+    private List<String> getLogSafely() {
+        if (logger == null) {
+            return new ArrayList<>();
+        }
+        return logger.getLog();
     }
 
     public void convert() {
@@ -107,6 +165,41 @@ public class ViewModel {
         setThirdChannelDstColorString(thirdChannel.toString());
 
         status.set(AppStatus.SUCCESS.toString());
+
+        StringBuilder message = new StringBuilder(LogEvents.CONVERT_WAS_PRESSED);
+        message.append(" Src(" + getSrcColor().toString() + "): ")
+                .append(getFirstChannelSrcColorString() + ", ")
+                .append(getSecondChannelSrcColorString() + ", ")
+                .append(getThirdChannelSrcColorString() + ".")
+                .append(" Dst(" + getDstColor().toString() + "): ")
+                .append(getFirstChannelDstColorString() + ", ")
+                .append(getSecondChannelDstColorString() + ", ")
+                .append(getThirdChannelDstColorString() + ".");
+        addToLogSafely(message.toString());
+        updateLogsProperty();
+    }
+
+    public void onFocusChanged(final Boolean oldValue, final Boolean newValue) {
+        if (!oldValue && newValue) {
+            return;
+        }
+
+        for (StringChangeListener listener : valueChangedListeners) {
+            if (listener.isChanged()) {
+                StringBuilder message = new StringBuilder(LogEvents.EDITING_SRC_COLOR_FINISHED);
+                message.append("[ " + getFirstChannelSrcColorString() + " , ")
+                        .append(getSecondChannelSrcColorString() + " , ")
+                        .append(getThirdChannelSrcColorString() + " ]");
+                addToLogSafely(message.toString());
+                updateLogsProperty();
+                listener.rememberPrevString();
+                break;
+            }
+        }
+    }
+
+    public void setLogger(final ILogger logger) {
+        this.logger = logger;
     }
 
     public void setFirstChannelSrcColorString(final String value) {
@@ -197,6 +290,14 @@ public class ViewModel {
         return status;
     }
 
+    public StringProperty logsProperty() {
+        return logs;
+    }
+
+    public String getLogs() {
+        return logs.get();
+    }
+
     public Color getSrcColor() {
         return srcColor.get();
     }
@@ -273,11 +374,30 @@ public class ViewModel {
                 || getThirdChannelSrcColorString().isEmpty();
     }
 
+    public List<String> getLog() {
+        if (logger == null) {
+            return new ArrayList<>();
+        }
+        return logger.getLog();
+    }
+
     private class StringChangeListener implements ChangeListener<String> {
+        private String prevString = new String();
+        private String curString = new String();
+
         @Override
         public void changed(final ObservableValue<? extends String> observable,
                             final String oldString, final String newString) {
             status.set(getInputAppStatus().toString());
+            curString = newString;
+        }
+
+        public boolean isChanged() {
+            return !prevString.equals(curString);
+        }
+
+        public void rememberPrevString() {
+            prevString = curString;
         }
     }
 }
@@ -297,5 +417,15 @@ enum AppStatus {
 
     public String toString() {
         return name;
+    }
+}
+
+final class LogEvents {
+    public static final String CONVERT_WAS_PRESSED = "Convert. ";
+    public static final String SRC_COLOR_WAS_CHANGED = "Source color was changed ";
+    public static final String DST_COLOR_WAS_CHANGED = "Destination color was changed ";
+    public static final String EDITING_SRC_COLOR_FINISHED = "Updated values of source color: ";
+
+    private LogEvents() {
     }
 }

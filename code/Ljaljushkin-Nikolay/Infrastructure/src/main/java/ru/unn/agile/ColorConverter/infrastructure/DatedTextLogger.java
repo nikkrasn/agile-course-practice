@@ -64,7 +64,7 @@ public class DatedTextLogger implements ILogger {
         return dateString;
     }
 
-    public String getLastLogMessage() {
+    public String getFirstLogMessage() {
         return getLog().get(0);
     }
 }

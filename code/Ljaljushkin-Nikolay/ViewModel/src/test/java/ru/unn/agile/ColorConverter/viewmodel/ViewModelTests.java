@@ -233,7 +233,7 @@ public class ViewModelTests {
     }
 
     @Test
-    public void canCreateViewModelWithNullLogger() { //manage all cases with null logger
+    public void canCreateViewModelWithNullLogger() {
         ViewModel viewModelWithNullLogger = new ViewModel(null);
         List<String> log = viewModelWithNullLogger.getLog();
         assertTrue(log.isEmpty());

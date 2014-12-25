@@ -37,13 +37,19 @@ public class SimpleTxtLoggerTests {
     @Test
     public void canLogSomeMessage() {
         logger.log("testmessage");
-        assertEquals("testmessage", logger.getLastLoggedMessage());
+        assertEquals("testmessage", logger.getLoggedMessageText(0));
     }
 
     @Test
     public void canLogMoreThanOneMessage() {
         logger.log("testmessage1");
         logger.log("testmessage2");
-        assertEquals("testmessage2", logger.getLastLoggedMessage());
+        assertEquals("testmessage2", logger.getLoggedMessageText(1));
+    }
+
+    @Test
+    public void canLogMessageDate() {
+        logger.log("testdatemessage");
+        assertNotEquals("", logger.getLoggedMessageDate(0));
     }
 }

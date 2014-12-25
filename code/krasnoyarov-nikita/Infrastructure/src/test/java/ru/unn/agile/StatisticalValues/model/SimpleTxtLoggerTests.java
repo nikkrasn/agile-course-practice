@@ -33,4 +33,17 @@ public class SimpleTxtLoggerTests {
     public void checkLogNotNull() throws FileNotFoundException {
         assertNotNull(logger.getLog());
     }
+
+    @Test
+    public void canLogSomeMessage() {
+        logger.log("testmessage");
+        assertEquals("testmessage", logger.getLastLoggedMessage());
+    }
+
+    @Test
+    public void canLogMoreThanOneMessage() {
+        logger.log("testmessage1");
+        logger.log("testmessage2");
+        assertEquals("testmessage2", logger.getLastLoggedMessage());
+    }
 }

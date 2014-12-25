@@ -26,7 +26,27 @@ public class SimpleTxtLogger implements ILogger{
 
     @Override
     public void log(final String s) {
+        try {
+            fileWriter.write(s);
+            fileWriter.newLine();
+            fileWriter.flush();
+            log.add(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public String getLastLoggedMessage() {
+        return getLoggedMessage(log.size() - 1);
+    }
+
+    @Override
+    public String getLoggedMessage(final Integer index) {
+        if (index < 0 || index >= log.size()) {
+            return "";
+        }
+        return log.get(index);
     }
 
     @Override

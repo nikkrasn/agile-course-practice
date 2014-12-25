@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':krasnoyarov-nikita-ViewModel')
+    testCompile project(':krasnoyarov-nikita-ViewModel').sourceSets.test.output
+}
+
+sourceSets {
+    main.java.srcDir 'src/main/java'
+    test.java.srcDir 'src/test/java'
+}

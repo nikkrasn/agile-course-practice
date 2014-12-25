@@ -144,6 +144,8 @@ include "code/krasnoyarov-nikita/View"
 project(":code/krasnoyarov-nikita/View").name = "krasnoyarov-nikita-View"
 include "code/krasnoyarov-nikita/ViewModel"
 project(":code/krasnoyarov-nikita/ViewModel").name = "krasnoyarov-nikita-ViewModel"
+include "code/krasnoyarov-nikita/Infrastructure"
+project(":code/krasnoyarov-nikita/Infrastructure").name = "krasnoyarov-nikita-Infrastructure"
 
 // Lazarev Anton
 include "code/lazarev-anton/Model"

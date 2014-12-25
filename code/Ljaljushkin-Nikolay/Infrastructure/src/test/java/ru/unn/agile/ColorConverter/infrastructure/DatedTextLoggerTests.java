@@ -5,9 +5,11 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.List;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DatedTextLoggerTests {
     private static final String LOG_FILENAME = "./DateTextLogger_Tests.log";
@@ -32,6 +34,31 @@ public class DatedTextLoggerTests {
     public void canWriteCorrectLogMessage() {
         String message = "Log message";
         datedTextLogger.addToLog(message);
-        assertNotEquals(message.indexOf(datedTextLogger.getLog().get(0)), -1);
+        String actualLogMessage = datedTextLogger.getLog().get(0);
+        assertTrue(actualLogMessage.matches(".*" + message + ".*"));
+    }
+
+    @Test
+    public void canWriteSeveralLogMessages() {
+        String[] messagesToLog = {"first message", "second message"};
+        datedTextLogger.addToLog(messagesToLog[0]);
+        datedTextLogger.addToLog(messagesToLog[1]);
+
+        List<String> actualLogMessages = datedTextLogger.getLog();
+
+        assertTrue(actualLogMessages.get(0).matches(".*" + messagesToLog[0] + ".*"));
+        assertTrue(actualLogMessages.get(1).matches(".*" + messagesToLog[1] + ".*"));
+        assertEquals(actualLogMessages.size(), messagesToLog.length);
+    }
+
+    @Test
+    public void doesLogContainDate() {
+        datedTextLogger.addToLog("message without date and time");
+
+        String actualLogMessage = datedTextLogger.getLog().get(0);
+
+        String dateRegex = new String("\\d{4}\\.\\d{2}\\.\\d{2}");
+        String timeRegex = new String("\\d{2}:\\d{2}:\\d{2}");
+        assertTrue(actualLogMessage.matches("^\\[" + dateRegex + " " + timeRegex + "\\].*"));
     }
 }

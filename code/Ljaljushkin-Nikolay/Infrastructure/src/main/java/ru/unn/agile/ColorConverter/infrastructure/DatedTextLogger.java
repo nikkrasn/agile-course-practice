@@ -3,12 +3,16 @@ package ru.unn.agile.ColorConverter.infrastructure;
 import ru.unn.agile.ColorConverter.viewmodel.ILogger;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class DatedTextLogger implements ILogger {
     private final BufferedWriter fileWriter;
     private final String logFilename;
+    private static final String DATE_FORMAT = "yyyy.MM.dd HH:mm:ss";
 
     public DatedTextLogger(final String filename) {
         logFilename = filename;
@@ -46,11 +50,17 @@ public class DatedTextLogger implements ILogger {
     @Override
     public void addToLog(final String message) {
         try {
-            fileWriter.write(message);
+            fileWriter.write(dateNow() + message);
             fileWriter.newLine();
             fileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static String dateNow() {
+        String dateString = "["
+                + (new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(new Date())) + "] ";
+        return dateString;
     }
 }

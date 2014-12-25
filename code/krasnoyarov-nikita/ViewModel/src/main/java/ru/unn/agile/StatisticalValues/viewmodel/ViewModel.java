@@ -223,10 +223,8 @@ public class ViewModel {
             probabilities += pairsValue.getProbability() + ", ";
             values +=  pairsValue.getValue() + ", ";
         }
-        probabilities =
-                probabilities.substring(0, probabilities.length() - 2);
-        values =
-                values.substring(0, values.length() - 2);
+        probabilities = probabilities.substring(0, probabilities.length() - 2);
+        values = values.substring(0, values.length() - 2);
         return "\n" + "Probabilities\n" + "[" + probabilities + "]"
                 + "\n" + "Values\n" + "[" + values + "]";
     }

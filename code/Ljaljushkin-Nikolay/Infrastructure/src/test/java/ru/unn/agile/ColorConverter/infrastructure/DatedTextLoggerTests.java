@@ -34,7 +34,7 @@ public class DatedTextLoggerTests {
     public void canWriteCorrectLogMessage() {
         String message = "Log message";
         datedTextLogger.addToLog(message);
-        String actualLogMessage = datedTextLogger.getLog().get(0);
+        String actualLogMessage = datedTextLogger.getLastLogMessage();
         assertTrue(actualLogMessage.matches(".*" + message + ".*"));
     }
 
@@ -55,7 +55,7 @@ public class DatedTextLoggerTests {
     public void doesLogContainDate() {
         datedTextLogger.addToLog("message without date and time");
 
-        String actualLogMessage = datedTextLogger.getLog().get(0);
+        String actualLogMessage = datedTextLogger.getLastLogMessage();
 
         String dateRegex = new String("\\d{4}\\.\\d{2}\\.\\d{2}");
         String timeRegex = new String("\\d{2}:\\d{2}:\\d{2}");

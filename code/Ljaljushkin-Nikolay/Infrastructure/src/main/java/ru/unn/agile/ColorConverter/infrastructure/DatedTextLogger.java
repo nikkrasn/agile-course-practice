@@ -58,9 +58,13 @@ public class DatedTextLogger implements ILogger {
         }
     }
 
-    private static String dateNow() {
+    private String dateNow() {
         String dateString = "["
                 + (new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH).format(new Date())) + "] ";
         return dateString;
+    }
+
+    public String getLastLogMessage() {
+        return getLog().get(0);
     }
 }

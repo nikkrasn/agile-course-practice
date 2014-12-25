@@ -53,13 +53,4 @@ public class TextLoggerTests {
         logger.log("test");
         assertTrue(new Date().after(logger.getMessageDateTime(0)));
     }
-
-    @Test
-    public void checkSecondMessageHasLaterTime() throws ParseException, InterruptedException {
-        logger.log("message1");
-        Thread.sleep(1000);
-        logger.log("message2");
-
-        assertTrue(logger.getMessageDateTime(1).after(logger.getMessageDateTime(0)));
-    }
 }

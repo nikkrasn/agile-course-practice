@@ -29,7 +29,7 @@ public class StatisticalCalculator {
 
     @FXML
     void initialize() {
-        viewModel.setLog(new SimpleTxtLogger("SimpleTxtLoggerView.log"));
+        viewModel.setLogger(new SimpleTxtLogger("SimpleTxtLoggerView.log"));
         probabilities.setCellFactory(TextFieldTableCell.forTableColumn());
         values.setCellFactory(TextFieldTableCell.forTableColumn());
         setColumns();

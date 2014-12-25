@@ -14,7 +14,7 @@ public class ViewModelTests {
 
     @Before
     public void setUp() {
-        setUpViewModelAndLogger(new FakeLogger());
+        viewModel = new ViewModel(new FakeLogger());
     }
 
     @After
@@ -208,6 +208,59 @@ public class ViewModelTests {
                 viewModel.getLoggedMessageText(5));
     }
 
+    @Test
+    public void canChangeOperationWithNullLogger() {
+        viewModel.setLogger(null);
+        viewModel.operationProperty().set(Operation.VARIANCE);
+
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeProbabilityAndValuesWithNullLogger() {
+        viewModel.setLogger(null);
+        setInput();
+
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canCalculateExpectedValueWithNullLogger() {
+        viewModel.setLogger(null);
+        setInput();
+        viewModel.operationProperty().set(Operation.EXPECTED_VALUE);
+
+        viewModel.calculate();
+
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canCalculateVarianceWithNullLogger() {
+        viewModel.setLogger(null);
+        setInput();
+        viewModel.operationProperty().set(Operation.VARIANCE);
+
+        viewModel.calculate();
+
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canCalculateInitialMomentWithNullLogger() {
+        viewModel.setLogger(null);
+        setInput();
+        viewModel.operationProperty().set(Operation.INITIAL_MOMENT);
+
+        viewModel.calculate();
+
+        assertEquals(0, getLogSize());
+    }
+
+    public void setViewModel(final ViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
     public void setInput() {
         viewModel.vectDimensionProperty().set("2");
 
@@ -215,8 +268,7 @@ public class ViewModelTests {
         viewModel.getProbabilityValuePair().set(1, new ProbabilityValuePair("0.5", "1.0"));
     }
 
-    public void setUpViewModelAndLogger(final SimpleLogger logger) {
-        viewModel = new ViewModel();
-        viewModel.setLog(logger);
+    public int getLogSize() {
+        return viewModel.getLog().size();
     }
 }

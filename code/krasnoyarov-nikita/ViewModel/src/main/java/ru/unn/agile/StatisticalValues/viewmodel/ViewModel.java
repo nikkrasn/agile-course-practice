@@ -101,7 +101,7 @@ public class ViewModel {
         return logger.getLog();
     }
 
-    public void setLog(final SimpleLogger logger) {
+    public void setLogger(final SimpleLogger logger) {
         this.logger = logger;
     }
 
@@ -112,11 +112,16 @@ public class ViewModel {
         return vectDimension.get();
     }
 
-    private Boolean isVectorsDimensionEmpty() {
-        return getVectDimension().equals("");
+    public ViewModel() {
+        init();
     }
 
-    public ViewModel() {
+    public ViewModel(final SimpleLogger logger) {
+        init();
+        setLogger(logger);
+    }
+
+    private void init() {
         operation.set(Operation.EXPECTED_VALUE);
         result.set("");
         operationStatus.set(Status.READY.toString());
@@ -204,6 +209,10 @@ public class ViewModel {
         }
         logger.log(logMessage);
         updateLogs();
+    }
+
+    private Boolean isVectorsDimensionEmpty() {
+        return getVectDimension().equals("");
     }
 
     private String probabilityValuesToString() {

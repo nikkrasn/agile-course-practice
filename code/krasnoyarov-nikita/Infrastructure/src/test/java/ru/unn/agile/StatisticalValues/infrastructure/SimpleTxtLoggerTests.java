@@ -2,7 +2,6 @@ package ru.unn.agile.StatisticalValues.infrastructure;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.StatisticalValues.infrastructure.SimpleTxtLogger;
 import ru.unn.agile.StatisticalValues.viewmodel.ILogger;
 
 import java.io.FileNotFoundException;

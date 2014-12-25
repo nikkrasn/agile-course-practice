@@ -85,7 +85,7 @@ public class ViewModel {
             public void changed(final ObservableValue<? extends Color> observableValue,
                                 final Color oldValue, final Color newValue) {
                 status.set(getInputAppStatus().toString());
-                logger.addToLog(LogEvents.SRC_COLOR_WAS_CHANGED
+                addToLogSafely(LogEvents.SRC_COLOR_WAS_CHANGED
                         + "from " + oldValue.toString()
                         + " to " + newValue.toString());
                 updateLogsProperty();
@@ -96,7 +96,7 @@ public class ViewModel {
             @Override
             public void changed(final ObservableValue<? extends Color> observableValue,
                                 final Color oldValue, final Color newValue) {
-                logger.addToLog(LogEvents.DST_COLOR_WAS_CHANGED
+                addToLogSafely(LogEvents.DST_COLOR_WAS_CHANGED
                         + "from " + oldValue.toString()
                         + " to " + newValue.toString());
                 updateLogsProperty();
@@ -124,12 +124,25 @@ public class ViewModel {
     }
 
     private void updateLogsProperty() {
-        List<String> logMessages = logger.getLog();
+        List<String> logMessages = getLogSafely();
         String record = new String();
         for (String message : logMessages) {
             record += message + "\n";
         }
         logs.set(record);
+    }
+
+    private void addToLogSafely(final String message) {
+        if (logger != null) {
+            logger.addToLog(message);
+        }
+    }
+
+    private List<String> getLogSafely() {
+        if (logger == null) {
+            return new ArrayList<>();
+        }
+        return logger.getLog();
     }
 
     public void convert() {
@@ -162,7 +175,7 @@ public class ViewModel {
                 .append(getFirstChannelDstColorString() + ", ")
                 .append(getSecondChannelDstColorString() + ", ")
                 .append(getThirdChannelDstColorString() + ".");
-        logger.addToLog(message.toString());
+        addToLogSafely(message.toString());
         updateLogsProperty();
     }
 
@@ -177,7 +190,7 @@ public class ViewModel {
                 message.append("[ " + getFirstChannelSrcColorString() + " , ")
                         .append(getSecondChannelSrcColorString() + " , ")
                         .append(getThirdChannelSrcColorString() + " ]");
-                logger.addToLog(message.toString());
+                addToLogSafely(message.toString());
                 updateLogsProperty();
                 listener.rememberPrevString();
                 break;

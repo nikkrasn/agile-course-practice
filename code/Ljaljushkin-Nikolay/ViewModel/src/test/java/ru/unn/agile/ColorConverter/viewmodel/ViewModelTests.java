@@ -346,6 +346,38 @@ public class ViewModelTests {
         assertEquals(1, getLogSize());
     }
 
+    @Test
+    public void canConvertWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.convert();
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeSrcColorWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.setSrcColor(Color.HSV);
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeDstColorWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.setDstColor(Color.HSV);
+        assertEquals(0, getLogSize());
+    }
+
+    @Test
+    public void canChangeSrcColorValuesWithNullLogger() {
+        viewModel.setLogger(null);
+        fillInputFieldsCorrectly();
+        viewModel.onFocusChanged(Boolean.TRUE, Boolean.FALSE);
+        assertEquals(0, getLogSize());
+    }
+
     private void fillInputFieldsCorrectly() {
         viewModel.setFirstChannelSrcColorString("0");
         viewModel.setSecondChannelSrcColorString("0");

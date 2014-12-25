@@ -15,6 +15,7 @@ public class ViewModelTests {
     @Before
     public void setUp() {
         viewModel = new ViewModel();
+        viewModel.setLog(new FakeLogger());
     }
 
     @After
@@ -132,6 +133,80 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("1.0", viewModel.getResultProperty().get());
+    }
+
+    @Test
+    public void checkLoggerEmptyInitially() {
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void checkLogMessageThenDimensionChanged() {
+        viewModel.vectDimensionProperty().set("3");
+        assertEquals("Dimension changed to: 3", viewModel.getLoggedMessageText(0));
+    }
+
+    @Test
+    public void checkLogMessageThenProbabilityAndValuesChanged() {
+        viewModel.getProbabilityValuePair().set(0, new ProbabilityValuePair("1.0", "1.0"));
+
+        assertEquals("Probability and values changed to: \n" +
+                "[1.0]\n[1.0]", viewModel.getLoggedMessageText(0));
+    }
+
+    @Test
+    public void canLogExpectedValueOperationChange() {
+        viewModel.operationProperty().set(Operation.VARIANCE);
+        viewModel.operationProperty().set(Operation.EXPECTED_VALUE);
+        assertEquals("Operation changed to: Expected value", viewModel.getLoggedMessageText(1));
+    }
+
+    @Test
+    public void canLogVarianceOperationChange() {
+        viewModel.operationProperty().set(Operation.VARIANCE);
+        assertEquals("Operation changed to: Variance", viewModel.getLoggedMessageText(0));
+    }
+
+    @Test
+    public void canLogInitialMomentOperationChange() {
+        viewModel.operationProperty().set(Operation.INITIAL_MOMENT);
+        assertEquals("Operation changed to: Initial moment", viewModel.getLoggedMessageText(0));
+    }
+
+    @Test
+    public void canLogExpectedValueOperationResult() {
+        setInput();
+        viewModel.operationProperty().set(Operation.EXPECTED_VALUE);
+
+        viewModel.calculate();
+
+        assertEquals("Calculated operation: Expected value for probabilities " +
+                "and values:\n[0.5, 0.5]\n[1.0, 1.0]\nCalculated result: 1.0",
+                viewModel.getLoggedMessageText(4));
+    }
+
+    @Test
+    public void canLogVarianceOperationResult() {
+        setInput();
+        viewModel.operationProperty().set(Operation.VARIANCE);
+
+        viewModel.calculate();
+
+        assertEquals("Calculated operation: Variance for probabilities " +
+                        "and values:\n[0.5, 0.5]\n[1.0, 1.0]\nCalculated result: 0.0",
+                viewModel.getLoggedMessageText(5));
+    }
+
+    @Test
+    public void canLogInitialMomentOperationResult() {
+        setInput();
+        viewModel.operationProperty().set(Operation.INITIAL_MOMENT);
+
+        viewModel.calculate();
+
+        assertEquals("Calculated operation: Initial moment for probabilities " +
+                        "and values:\n[0.5, 0.5]\n[1.0, 1.0]\nCalculated result: 1.0",
+                viewModel.getLoggedMessageText(5));
     }
 
     public void setInput() {

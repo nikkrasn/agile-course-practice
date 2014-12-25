@@ -1,10 +1,11 @@
-package ru.unn.agile.StatisticalValues.Infrastructure;
+package ru.unn.agile.StatisticalValues.infrastructure;
 
 import ru.unn.agile.StatisticalValues.viewmodel.ILogger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,12 +35,14 @@ public class SimpleTxtLogger implements ILogger {
         return dateTimeFormat.format(new Date()) + LOG_SEPARATOR + logMessage;
     }
 
+    @Override
     public String getLoggedMessageText(final Integer index) {
         return getLoggedMessage(index).split(LOG_SEPARATOR)[1];
     }
 
-    public String getLoggedMessageDate(final Integer index) {
-        return getLoggedMessage(index).split(LOG_SEPARATOR)[0];
+    @Override
+    public Date getLoggedMessageDate(final Integer index) throws ParseException {
+        return dateTimeFormat.parse(getLoggedMessage(index).split(LOG_SEPARATOR)[0]);
     }
 
     @Override

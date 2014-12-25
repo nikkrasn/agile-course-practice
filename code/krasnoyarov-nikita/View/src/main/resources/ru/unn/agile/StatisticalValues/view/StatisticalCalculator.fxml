@@ -8,7 +8,7 @@
 <?import ru.unn.agile.StatisticalValues.viewmodel.*?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 
-<AnchorPane prefHeight="336.0" prefWidth="261.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticalValues.view.StatisticalCalculator">
+<AnchorPane prefHeight="407.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.StatisticalValues.view.StatisticalCalculator">
    <children>
        <fx:define>
            <ViewModel fx:id="viewModel" />
@@ -22,14 +22,14 @@
             </Label>
             <AnchorPane prefHeight="60.0" prefWidth="200.0" GridPane.columnSpan="2">
                <children>
-                  <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="-14.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableView" editable="true" layoutX="26.0" layoutY="-14.0" prefHeight="166.0" prefWidth="345.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>
-                        <TableColumn fx:id="probabilities" maxWidth="195.0" minWidth="67.0" prefWidth="129.0" sortable="false" text="Probabilities">
+                        <TableColumn fx:id="probabilities" maxWidth="195.0" minWidth="67.0" prefWidth="171.0" sortable="false" text="Probabilities">
                              <cellValueFactory>
                                 <PropertyValueFactory property="probability" />
                              </cellValueFactory>
                          </TableColumn>
-                        <TableColumn fx:id="values" maxWidth="195.0" minWidth="62.0" prefWidth="130.0" sortable="false" text="Values">
+                        <TableColumn fx:id="values" maxWidth="215.0" minWidth="62.0" prefWidth="173.0" sortable="false" text="Values">
                              <cellValueFactory>
                                  <PropertyValueFactory property="value" />
                              </cellValueFactory>
@@ -43,7 +43,7 @@
             <TextField fx:id="vectorsDimension" alignment="CENTER" prefHeight="52.0" prefWidth="131.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <AnchorPane prefHeight="31.0" prefWidth="275.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <children>
-                  <Button fx:id="calculateOperation" disable="${viewModel.calculationDisabled}" mnemonicParsing="false" prefHeight="31.0" prefWidth="259.0" text="Calculate" />
+                  <Button fx:id="calculateOperation" disable="${viewModel.calculationDisabled}" mnemonicParsing="false" prefHeight="35.0" prefWidth="345.0" text="Calculate" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
@@ -57,6 +57,11 @@
                   <Label fx:id="operationStatus" text="${viewModel.operationStatus}" />
                </children>
             </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+               <children>
+                  <TextArea text="${viewModel.logs}" editable="false" prefHeight="63.0" prefWidth="345.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" prefWidth="200.0" />
@@ -65,9 +70,10 @@
          <rowConstraints>
             <RowConstraints maxHeight="296.0" minHeight="166.0" prefHeight="194.0" vgrow="ALWAYS" />
             <RowConstraints maxHeight="174.0" minHeight="39.0" prefHeight="39.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="120.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="120.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="120.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="120.0" vgrow="NEVER" />
             <RowConstraints maxHeight="147.0" minHeight="10.0" prefHeight="147.0" vgrow="NEVER" />
          </rowConstraints>
       </GridPane>

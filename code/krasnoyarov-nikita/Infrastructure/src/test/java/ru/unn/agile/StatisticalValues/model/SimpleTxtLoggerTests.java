@@ -2,11 +2,13 @@ package ru.unn.agile.StatisticalValues.model;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.unn.agile.StatisticalValues.Infrastructure.SimpleTxtLogger;
+import ru.unn.agile.StatisticalValues.infrastructure.SimpleTxtLogger;
 import ru.unn.agile.StatisticalValues.viewmodel.ILogger;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.ParseException;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -48,8 +50,16 @@ public class SimpleTxtLoggerTests {
     }
 
     @Test
-    public void canLogMessageDate() {
+    public void canLogMessageDate() throws ParseException{
         logger.log("testdatemessage");
-        assertNotEquals("", logger.getLoggedMessageDate(0));
+        assertTrue(new Date().after(logger.getLoggedMessageDate(0)));
+    }
+
+    @Test
+    public void checkMessageDateNotEquals() throws ParseException, InterruptedException{
+        logger.log("testdatemessage1");
+        Thread.sleep(1000);
+        logger.log("testdatemessage2");
+        assertTrue(logger.getLoggedMessageDate(1).after(logger.getLoggedMessageDate(0)));
     }
 }

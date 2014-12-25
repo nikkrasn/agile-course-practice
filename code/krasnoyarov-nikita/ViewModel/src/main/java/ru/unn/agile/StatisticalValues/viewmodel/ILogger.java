@@ -1,5 +1,7 @@
 package ru.unn.agile.StatisticalValues.viewmodel;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 public interface ILogger {
@@ -8,7 +10,7 @@ public interface ILogger {
     public String getLastLoggedMessage();
     public String getLoggedMessage(final Integer index);
     public String getLoggedMessageText(final Integer index);
-    public String getLoggedMessageDate(final Integer index);
+    public Date getLoggedMessageDate(final Integer index) throws ParseException;
 
     List<String> getLog();
 }

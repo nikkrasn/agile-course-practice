@@ -9,6 +9,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import ru.unn.agile.StatisticalValues.model.Operation;
 import ru.unn.agile.StatisticalValues.viewmodel.ProbabilityValuePair;
 import ru.unn.agile.StatisticalValues.viewmodel.ViewModel;
+import ru.unn.agile.StatisticalValues.infrastructure.SimpleTxtLogger;
 
 public class StatisticalCalculator {
     @FXML
@@ -28,6 +29,7 @@ public class StatisticalCalculator {
 
     @FXML
     void initialize() {
+        viewModel.setLog(new SimpleTxtLogger("SimpleTxtLoggerView.log"));
         probabilities.setCellFactory(TextFieldTableCell.forTableColumn());
         values.setCellFactory(TextFieldTableCell.forTableColumn());
         setColumns();

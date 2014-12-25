@@ -1,6 +1,6 @@
 package ru.unn.agile.StatisticalValues.infrastructure;
 
-import ru.unn.agile.StatisticalValues.viewmodel.ILogger;
+import ru.unn.agile.StatisticalValues.viewmodel.SimpleLogger;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleTxtLogger extends ILogger {
+public class SimpleTxtLogger extends SimpleLogger {
     private final BufferedWriter fileWriter;
     private final List<String> log = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class SimpleTxtLogger extends ILogger {
 
     @Override
     public void log(final String logMessage) {
-        String mergedLogMessage = mergeDataWithMessage(logMessage);
+        String mergedLogMessage = mergeDateWithMessage(logMessage);
 
         try {
             fileWriter.write(mergedLogMessage);

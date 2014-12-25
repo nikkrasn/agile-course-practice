@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ViewModel {
 
-    private ILogger logger;
+    private SimpleLogger logger;
 
     private final StringProperty logs = new SimpleStringProperty();
 
@@ -101,7 +101,7 @@ public class ViewModel {
         return logger.getLog();
     }
 
-    public void setLog(final ILogger logger) {
+    public void setLog(final SimpleLogger logger) {
         this.logger = logger;
     }
 
@@ -177,14 +177,23 @@ public class ViewModel {
     }
 
     public String getLoggedMessage(final Integer index) {
+        if (logger == null) {
+            return "";
+        }
         return logger.getLoggedMessage(index);
     }
 
     public String getLoggedMessageText(final Integer index) {
+        if (logger == null) {
+            return "";
+        }
         return logger.getLoggedMessageText(index);
     }
 
     public Date getLoggedMessageDate(final Integer index) throws ParseException {
+        if (logger == null) {
+            return new Date();
+        }
         return logger.getLoggedMessageDate(index);
     }
 
@@ -199,18 +208,18 @@ public class ViewModel {
 
     private String probabilityValuesToString() {
         List<ProbabilityValuePair> probabilityValuePair = getProbabilityValuePair();
-        String probabilities = "[";
-        String values = "[";
+        String probabilities = "";
+        String values = "";
         for (ProbabilityValuePair pairsValue : probabilityValuePair) {
             probabilities += pairsValue.getProbability() + ", ";
             values +=  pairsValue.getValue() + ", ";
         }
         probabilities =
-                probabilities.substring(0, probabilities.length() - 2) + "]";
+                probabilities.substring(0, probabilities.length() - 2);
         values =
-                values.substring(0, values.length() - 2) + "]";
-        return "\n" + "Probabilities\n" + probabilities
-                + "\n" + "Values\n" + values;
+                values.substring(0, values.length() - 2);
+        return "\n" + "Probabilities\n" + "[" + probabilities + "]"
+                + "\n" + "Values\n" + "[" + values + "]";
     }
 
     private void updateLogs() {

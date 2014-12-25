@@ -5,6 +5,6 @@ import ru.unn.agile.StatisticalValues.viewmodel.ViewModelTests;
 public class ViewModelWithSimpleTxtLoggerTests extends ViewModelTests {
     @Override
     public void setUp() {
-        super.setLog(new SimpleTxtLogger("ViewModelSimpleTxtLoggerTests.log"));
+        super.setUpViewModelAndLogger(new SimpleTxtLogger("ViewModelSimpleTxtLoggerTests.log"));
     }
 }

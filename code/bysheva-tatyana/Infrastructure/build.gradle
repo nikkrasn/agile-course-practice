@@ -1,8 +1,6 @@
-apply from:   rootDir.getAbsolutePath() + '/code/config/scripts/javafx.plugin'
-
 dependencies {
     compile project(':bysheva-tatyana-ViewModel')
-    compile project(':bysheva-tatyana-Infrastructure')
+    testCompile project(':bysheva-tatyana-ViewModel').sourceSets.test.output
 }
 
 sourceSets {

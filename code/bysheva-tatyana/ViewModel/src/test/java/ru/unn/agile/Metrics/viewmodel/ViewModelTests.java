@@ -9,11 +9,15 @@ import ru.unn.agile.Metrics.Model.Metrics;
 import static org.junit.Assert.assertEquals;
 
 public class ViewModelTests {
-    private ViewModel viewModel;
+    private ViewModel viewModel = new ViewModel();
+
+    public void setLogger(final ILogger logger) {
+        viewModel.setLogger(logger);
+    }
 
     @Before
     public void setUp() {
-        viewModel = new ViewModel();
+        viewModel.setLogger(new FakeLogger());
     }
 
     @After
@@ -211,6 +215,54 @@ public class ViewModelTests {
         viewModel.calculate();
 
         assertEquals("1.0", viewModel.getMetricResult());
+    }
+
+    @Test
+    public void isLogEmptyInitially() {
+        assertTrue(viewModel.getLog().isEmpty());
+    }
+
+    @Test
+    public void hasLogDimensionChangeMessage() {
+        viewModel.vectorsDimensionProperty().set("2");
+        assertEquals("Vectors Dimension changed to: 2", viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogMetricChangeMessage() {
+        viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_L2);
+        assertEquals("Metric changed to: L2", viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogCalculationMessage() {
+        viewModel.calculate();
+        assertEquals("Calculate L1 Metric for vectors:\n[0.0f]\n[0.0f]\nResult: 0.0",
+                viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogVectorsChangeMessage() {
+        viewModel.getVectorsValues().set(0, new Components("1.0f", "0.0f"));
+        assertEquals("Vectors changed to: \n[1.0f]\n[0.0f]", viewModel.getLogMessageText(0));
+    }
+
+    @Test
+    public void hasLogVectorsChangeMessageAfterDimensionChange() {
+        viewModel.vectorsDimensionProperty().set("2");
+        assertEquals("Vectors changed to: \n[0.0f,0.0f]\n[0.0f,0.0f]",
+                viewModel.getLogMessageText(1));
+    }
+
+    @Test
+    public void isCalculateMessageCorrectAfterParametersChange() {
+        setInputData();
+        viewModel.currentOperationProperty().set(Metrics.Operation.METRIC_LINF);
+
+        viewModel.calculate();
+        assertEquals("Calculate LINF Metric for vectors:\n[1.0f,2.0f,3.0f]\n[0.0f,1.0f,2.0f]\n"
+                        + "Result: 1.0",
+                viewModel.getLogMessageText(6));
     }
 
     private void setInputData() {

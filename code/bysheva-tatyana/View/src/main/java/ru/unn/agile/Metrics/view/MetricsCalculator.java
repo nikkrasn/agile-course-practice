@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.TextFieldTableCell;
+import ru.unn.agile.Metrics.Infrastructure.TextLogger;
 import ru.unn.agile.Metrics.Model.Metrics.Operation;
 import ru.unn.agile.Metrics.viewmodel.Components;
 import ru.unn.agile.Metrics.viewmodel.ViewModel;
@@ -32,6 +33,8 @@ public class MetricsCalculator {
 
     @FXML
     void initialize() {
+        viewModel.setLogger(new TextLogger("TextLogger-View.log"));
+
         vector1.setCellFactory(TextFieldTableCell.forTableColumn());
         vector2.setCellFactory(TextFieldTableCell.forTableColumn());
         setColumnsOnEditCommit();

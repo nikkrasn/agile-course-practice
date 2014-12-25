@@ -1,10 +1,13 @@
 package ru.unn.agile.ColorConverter.view;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import ru.unn.agile.ColorConverter.infrastructure.DatedTextLogger;
 import ru.unn.agile.ColorConverter.viewmodel.ViewModel;
 import ru.unn.agile.ColorConverter.viewmodel.Color;
 
@@ -36,6 +39,7 @@ public class ColorConverter {
 
     @FXML
     void initialize() {
+        viewModel.setLogger(new DatedTextLogger("./ViewDatedTextLogger.log"));
 
         txtFirstChannelSrcColor.textProperty().bindBidirectional(
                 viewModel.firstChannelSrcColorStringProperty());
@@ -62,5 +66,17 @@ public class ColorConverter {
         });
 
         lbStatus.textProperty().bindBidirectional(viewModel.statusProperty());
+
+        final ChangeListener<Boolean> onFocusChangeListener = new ChangeListener<Boolean>() {
+            @Override
+            public void changed(final ObservableValue<? extends Boolean> observable,
+                                final Boolean oldValue, final Boolean newValue) {
+                viewModel.onFocusChanged(oldValue, newValue);
+            }
+        };
+
+        txtFirstChannelSrcColor.focusedProperty().addListener(onFocusChangeListener);
+        txtSecondChannelSrcColor.focusedProperty().addListener(onFocusChangeListener);
+        txtThirdChannelSrcColor.focusedProperty().addListener(onFocusChangeListener);
     }
 }

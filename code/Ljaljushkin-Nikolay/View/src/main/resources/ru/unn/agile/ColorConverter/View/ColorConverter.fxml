@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import ru.unn.agile.ColorConverter.viewmodel.*?>
 
-<AnchorPane prefHeight="206.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ColorConverter.view.ColorConverter">
+<AnchorPane prefHeight="329.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.unn.agile.ColorConverter.view.ColorConverter">
    <fx:define>
        <ViewModel fx:id="viewModel" />
    </fx:define>
@@ -64,5 +62,6 @@
             </HBox>
          </children>
       </VBox>
+      <TextArea fx:id="areaLog" editable="false" text="${viewModel.logs}" layoutX="-1.0" layoutY="211.0" prefHeight="200.0" prefWidth="370.0" />
    </children>
 </AnchorPane>
